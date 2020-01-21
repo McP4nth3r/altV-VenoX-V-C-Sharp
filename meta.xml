@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<meta>
+  <info name="VenoX - V" author="Solid_Snake" type="gamemode"/>
+  
+  <!-- Gamemode library -->
+  <IScript src="Core/Lib/netcoreapp2.0/VenoXV.dll" />
+
+</meta>
