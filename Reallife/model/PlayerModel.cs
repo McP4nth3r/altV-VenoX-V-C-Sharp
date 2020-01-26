@@ -11,7 +11,7 @@ namespace VenoXV.Reallife.model
         public string realName { get; set; }
         public int adminRank { get; set; }
         public Position position { get; set; }
-        public Rotation rotation { get; set; }
+        public int rotation { get; set; }
         public int money { get; set; }
         public int bank { get; set; }
         public string SocialState { get; set; }

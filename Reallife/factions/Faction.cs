@@ -66,7 +66,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage( "!{0,200,255}[INFO] : !{255,255,255}" + text);
+                       target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [INFO] : " + RageAPI.GetHexColorcode(255,255,255) + text);
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (Allround.isStateFaction(target))
                     {
-                       target.SendChatMessage( "!{150,0,0}" + text);
+                       target.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + text);
                     }
                 }
             }

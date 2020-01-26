@@ -740,11 +740,11 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
                 {
-                    player.SendChatMessage( "!{0,200,0}Zivizeit Abgelaufen. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Zivizeit Abgelaufen. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                 }
                 else
                 {
-                    player.SendChatMessage( "!{175,0,0}Zivizeit läuft noch. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) +"Zivizeit läuft noch. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                 }
             }
             catch { }
@@ -783,12 +783,12 @@ namespace VenoXV.Reallife.factions
                             target.SetData(EntityData.PLAYER_FACTION, player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             target.SetData(EntityData.PLAYER_RANK, 0);
                             anzeigen.Usefull.VnX.OnFactionChange(target);
-                           target.SendChatMessage( "!{0,150,0}Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
-                            player.SendChatMessage( "!{0,150,0}Du hast den Spieler " + target.Name + " in deine Fraktion aufgenommen!");
+                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du hast den Spieler " + target.Name + " in deine Fraktion aufgenommen!");
                         }
                         else
                         {
-                            player.SendChatMessage( "!{175,0,0}Der Spieler " + target.Name + " hat noch eine Zivizeit am laufen. [" + target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Der Spieler " + target.Name + " hat noch eine Zivizeit am laufen. [" + target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                         }
                     }
                     else
@@ -825,8 +825,8 @@ namespace VenoXV.Reallife.factions
                             target.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
                             anzeigen.Usefull.VnX.OnFactionChange(target);
                             player.SetData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
-                            target.SendChatMessage( "!{175,0,0}Du wurdest soeben aus deiner Fraktion geworfen!");
-                            player.SendChatMessage( "!{0,175,0}Du hast den Spieler " + target.Name + " aus deiner Fraktion entfernt!");
+                            target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast den Spieler " + target.Name + " aus deiner Fraktion entfernt!");
                         }
                         else
                         {
@@ -884,14 +884,14 @@ namespace VenoXV.Reallife.factions
                     }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_RANK) < number)
                     {
-                        target.SendChatMessage( "!{0,175,0}Glückwunsch, du wurdest soeben von " +player.Name + " zum " + rankString + " befördert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Glückwunsch, du wurdest soeben von " +player.Name + " zum " + rankString + " befördert!");
 
                     }
                     else
                     {
-                        target.SendChatMessage( "!{175,0,0}Du wurdest soeben von " +player.Name + " zum " + rankString + " degradiert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben von " +player.Name + " zum " + rankString + " degradiert!");
                     }
-                    player.SendChatMessage( "!{0,175,0}Du hast " + target.Name + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast " + target.Name + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
                     target.SetData(EntityData.PLAYER_RANK, number);
 
                 }

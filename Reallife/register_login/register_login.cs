@@ -12,6 +12,7 @@ using VenoXV.Reallife.Vehicles;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
+using VenoXV.Reallife.character;
 
 namespace VenoXV.Reallife.register_login
 {
@@ -20,8 +21,7 @@ namespace VenoXV.Reallife.register_login
 
         public static string GetCurrentChangelogs()
         {
-                return
-               "" +
+                return "" + 
                "10.12.2019 <br>---------------------------------<br>"
                + " - Version 1.1.1 ist nun Online.<br>"
                + " - EVENT MODE wurde entfernt.<br>"
@@ -492,13 +492,13 @@ namespace VenoXV.Reallife.register_login
                         player.SendChatMessage( "~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
                         player.SendChatMessage( "~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
                     }
-                    player.SendChatMessage( "!{0,150,200}_____________________________________");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "_____________________________________");
                     player.SendChatMessage( "Willkommen auf VenoX - Reallife.");
                     player.SendChatMessage( "Teamspeak 3 : ts3.VenoX-Reallife.com");
                     player.SendChatMessage( "Forum : www.VenoX-Reallife.com");
                     player.SendChatMessage( "Controlpanel : cp.venox-reallife.com");
                     player.SendChatMessage( "Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
-                    player.SendChatMessage( "!{0,150,200}_____________________________________");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "_____________________________________");
 
                     premium.viplevels.VIPLEVELS.SendVIPNotify(player);
                     //ToDo : Fix & find another Way! player.Name = player.vnxGetElementData(EntityData.PLAYER_NAME);
@@ -597,32 +597,81 @@ namespace VenoXV.Reallife.register_login
 
        
 
-        //[AltV.Net.ClientEvent("loginAccount")]
-        public void LoginAccountEvent(IPlayer player, string password)
+        [ClientEvent("loginAccount")]
+        public void LoginAccountEvent(IPlayer player, string username, string password)
         {
             try
             {
-                bool login = Database.LoginAccount(player.SocialClubId.ToString(), password);
+                //Core.Debug.OutputDebugString(username + " | " + password);
+                bool login = Database.LoginAccountByName(username, password);
                 if (login == true)
                 {
-                    player.Emit("clearLoginWindow", 1);
+                    player.Emit("DestroyLoginWindow");
                     player.Emit("preload_gm_list");
                     Preload.GetAllPlayersInAllGamemodes(player);
+
+                    bool hasDataName = Database.FindAccountByName(username);
+
+                    if (hasDataName)
+                    {
+                        bool hasCharakter = Database.FindCharacterByUID(Database.GetAccountUIDByName(username));
+                        if (hasCharakter)
+                        {
+                            int player_uid = Database.GetAccountUIDByName(username);
+                            if (player_uid < 0)
+                            {
+                                return;
+                            }
+                            PlayerModel character = Database.LoadCharacterInformationById(player_uid);
+                            SkinModel skinModel = Database.GetCharacterSkin(player_uid);
+                            if (character != null && character.realName != null)
+                            {
+                                player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
+                                player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                                Login.LoadCharacterData(player, character);
+                                Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
+                                anzeigen.Usefull.VnX.UpdateHUD(player);
+                                Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
+                                Customization.ApplyPlayerClothes(player);
+                                Customization.ApplyPlayerTattoos(player);
+
+                                foreach (var Tankstellen in Globals.Constants.AUTO_ZAPF_LIST_BLIPS)
+                                {
+                                    player.Emit("ShowTankstellenBlips", Tankstellen);
+                                }
+                            }
+                            else
+                            {
+                                admin.Admin.sendAdminNotification(player.Name + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
+                            }
+                        }
+                        else
+                        {
+                            player.Emit("LoadReallifeGamemodeRemote");
+                            // //ToDo : Fix & find another Way! player.Name = Database.GetAccountSpielerName(player.SocialClubId.ToString());
+                            //player.Transparency = 255;
+                            string Geschlecht = Database.GetAccountGeschlecht(player.SocialClubId.ToString());
+                            int Geschlecht_ = 0;
+                            if (Geschlecht == "Männlich")
+                            {
+                                Geschlecht_ = 0;
+                            }
+                            else
+                            {
+                                Geschlecht_ = 1;
+                            }
+                            Login.ChangeCharacterSexEvent(player, Geschlecht_);
+                            player.Emit("showCharacterCreationMenu");
+                            player.SetData(globals.EntityData.PLAYER_CURRENT_GAMEMODE, globals.EntityData.GAMEMODE_REALLIFE);
+                        }
+                        return;
+                    }
+
                     return;
                 }
                 else
                 {
-                    if (Database.LoginAccountBySerial(player.HardwareIdHash.ToString(), password) == true)
-                    {
-                        player.Emit("clearLoginWindow", 1);
-                        player.Emit("preload_gm_list");
-                        Preload.GetAllPlayersInAllGamemodes(player);
-                        return;
-                    }
-                    else
-                    {
-                        player.Emit("showLoginError");
-                    }
+                    player.Emit("showLoginError");
                 }
             }
             catch { }
@@ -637,7 +686,7 @@ namespace VenoXV.Reallife.register_login
             {
                 if (!Database.FindAccount(player.SocialClubId.ToString()) || !Database.FindAccountBySerial(player.HardwareIdHash.ToString()))
                 {
-                    //Alt.Log("shit : " + nickname + email + password + passwordwdh + geschlecht);
+                    //Console.WriteLine("shit : " + nickname + email + password + passwordwdh + geschlecht);
                     if (nickname.Length < 1 || email.Length < 1 || password.Length < 1 || passwordwdh.Length < 1 || geschlecht == null)
                     {
                         return;
@@ -679,8 +728,8 @@ namespace VenoXV.Reallife.register_login
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION RegisterAccountEvent] " + ex.Message);
-                Alt.Log("[EXCEPTION RegisterAccountEvent] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION RegisterAccountEvent] " + ex.Message);
+                Console.WriteLine("[EXCEPTION RegisterAccountEvent] " + ex.StackTrace);
             }
         }
 
@@ -702,8 +751,8 @@ namespace VenoXV.Reallife.register_login
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION ChangeCharacterSexEvent] " + ex.Message);
-                Alt.Log("[EXCEPTION ChangeCharacterSexEvent] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION ChangeCharacterSexEvent] " + ex.Message);
+                Console.WriteLine("[EXCEPTION ChangeCharacterSexEvent] " + ex.StackTrace);
             }
         }
 
@@ -755,8 +804,8 @@ namespace VenoXV.Reallife.register_login
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION CreateCharacterEvent] " + ex.Message);
-                Alt.Log("[EXCEPTION CreateCharacterEvent] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION CreateCharacterEvent] " + ex.Message);
+                Console.WriteLine("[EXCEPTION CreateCharacterEvent] " + ex.StackTrace);
             }
         }
 
@@ -772,8 +821,8 @@ namespace VenoXV.Reallife.register_login
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.Message);
-                Alt.Log("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.StackTrace);
             }
         }
 
@@ -787,8 +836,8 @@ namespace VenoXV.Reallife.register_login
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION Send_To_Server_Where_Player_From] " + ex.Message);
-                Alt.Log("[EXCEPTION Send_To_Server_Where_Player_From] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION Send_To_Server_Where_Player_From] " + ex.Message);
+                Console.WriteLine("[EXCEPTION Send_To_Server_Where_Player_From] " + ex.StackTrace);
             }
         }
     }

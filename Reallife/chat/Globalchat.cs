@@ -36,11 +36,11 @@ namespace VenoXV.Reallife.chat
                             {
                                 if (pl_adminlvl > 0)
                                 {
-                                    onlinespieler.SendChatMessage("!{0, 200, 255}[GLOBAL]" + Clantag +player.Name + " : " + text);
+                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255)+ "[GLOBAL]" + Clantag +player.Name + " : " + text);
                                 }
                                 else
                                 {
-                                    onlinespieler.SendChatMessage("!{0, 200, 255}[GLOBAL]!{255,255,255}" +player.Name + " : " + text);
+                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255,255,255) +player.Name + " : " + text);
                                 }
                             }
                             //}
@@ -74,7 +74,7 @@ namespace VenoXV.Reallife.chat
                     Global_Admin_Status = "Ausgeschaltet";
                     foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage("!{125, 0, 0}[VnX]" +player.Name + " hat den Globalchat augeschaltet!");
+                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" +player.Name + " hat den Globalchat augeschaltet!");
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace VenoXV.Reallife.chat
                     Global_Admin_Status = "Angeschaltet";
                     foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage("!{0, 125, 0}[VnX]" +player.Name + " hat den Globalchat angeschaltet!");
+                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" +player.Name + " hat den Globalchat angeschaltet!");
                     }
                 }
             }

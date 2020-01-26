@@ -20,6 +20,7 @@ namespace VenoXV.Reallife
         {
             public override void OnStart()
             {
+                VenoXV.Globals.Globals.OnResourceStart();
                 Console.WriteLine("Started");
             }
 
@@ -32,7 +33,7 @@ namespace VenoXV.Reallife
     public class Preload : IScript
     {
 
-        //[AltV.Net.ClientEvent("Load_selected_gm_server")]
+        [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(IPlayer player, int value)
         {
             if(value == 0)
@@ -81,12 +82,15 @@ namespace VenoXV.Reallife
         {
             try
             {
-                player.SendChatMessage("Hello " + player.Name);
-                ShowLogin(player);
+                Login.InitializePlayerData(player);
+                player.Emit("showLoginWindow", "Willkommen auf VenoX", Login.GetCurrentChangelogs());
+                //ShowLogin(player);
+                Core.Debug.OutputDebugString("[CONNECTED] : " + player.Name + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_NONE); // None Gamemode
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }
+
 
 
         public static void ShowLogin(IPlayer player)
@@ -94,13 +98,13 @@ namespace VenoXV.Reallife
             try
             {
                 //----------------------------------------------------------------------------------------------------------------------//
-
                 player.Model = Alt.Hash("Strperf01SMM");
                 //ToDo : Alpha einstellen.
                 Login.InitializePlayerData(player);
 
                 if (Database.FindCharacterBan(player.SocialClubId.ToString()))
                 {
+                    Core.Debug.OutputDebugString("Found Character Ban");
                     Accountbans ban = Database.GetAccountbans(player.SocialClubId.ToString());
                     if (ban.banzeit > DateTime.Now && ban.Bantype == "Timeban")
                     {
@@ -131,7 +135,7 @@ namespace VenoXV.Reallife
                 else if (Database.FindCharacterBanBySerial(player.HardwareIdHash.ToString()))
                 {
                     //----------------------------------------------------------------------------------------------------------------------//
-
+                    Core.Debug.OutputDebugString("Found Character Ban by serial");
                     player.Model = Alt.Hash("Strperf01SMM");
                     Login.InitializePlayerData(player);
 
@@ -169,6 +173,7 @@ namespace VenoXV.Reallife
 
                 if (hasDataSerial)
                 {
+                    Core.Debug.OutputDebugString("charakter has data serial");
                     bool hasCharakter = Database.FindCharacterByUID(Database.GetAccountUIDBySerial(player.HardwareIdHash.ToString()));
                     if (hasCharakter)
                     {
@@ -232,7 +237,7 @@ namespace VenoXV.Reallife
                 //----------------------------------------------------------------------------------------------------------------------//
                 else if (hasData)
                 {
-
+                    Core.Debug.OutputDebugString("charakter has data socialname");
                     //Falls der Spieler keine Serial in der DB hat weil er vor dem 28.09.2019 - 17:19 sich registriert hat , dann sollte er jetzt eine SERIAL Gesetzt bekommen!.
                     Database.SetPlayerSerial(player.SocialClubId.ToString(), player.HardwareIdHash.ToString());
                     bool hasCharakter = Database.FindCharacterByUID((int)Database.GetAccountUID(player.SocialClubId.ToString()));
@@ -296,6 +301,7 @@ namespace VenoXV.Reallife
                 }
                 else
                 {
+                    Core.Debug.OutputDebugString("register event started");
                     player.Emit("LoadReallifeGamemodeRemote");
                     logfile.WriteLogs("connect", "[Connect][Register]Social Club Name : " + player.SocialClubId.ToString() + " connected.");
                     //ToDo : ZwischenLösung Finden! player.Transparency = 0;

@@ -95,8 +95,8 @@ namespace VenoXV.Reallife.jobs.Bus
 
                     if (CurrentBosStation == INITIALIZE_MAX_BUSSTATIONS) // WENN DER SPIELER MAXIMALE RUNDEN ERREICHT
                     {
-                        player.SendChatMessage("!{255,0,0}Du hast eine Runde Erfolgreich absolviert :)");
-                        player.SendChatMessage("!{255,0,0}Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Du hast eine Runde Erfolgreich absolviert :)");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
                         Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + BUSJOB_ROUND_BONUS);
                         player.SetData(BUSJOB_LEVEL, 0);
                     }

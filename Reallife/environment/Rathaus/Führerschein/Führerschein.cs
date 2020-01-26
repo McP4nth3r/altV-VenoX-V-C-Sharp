@@ -83,9 +83,9 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.Dimension = dim;
 
 
-                player.SendChatMessage( "!{200,200,0}Um die praktische Prüfung abzuschließen, musst die die vorgegebene Strecke abfahren.");
-                player.SendChatMessage( "!{200,200,0}Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
-                player.SendChatMessage( "!{200,200,0}Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Um die praktische Prüfung abzuschließen, musst die die vorgegebene Strecke abfahren.");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
 
                 player.Emit("destroyRathausWindow");
 
@@ -211,7 +211,7 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                     dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                     player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = 0;
-                    player.SendChatMessage("!{255,0,0}Fahrprüfung Abgebrochen!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     player.Emit("Destroy_Rathaus_License_Ped");
                     player.SetData("PRUEFUNGS_NAME", false);

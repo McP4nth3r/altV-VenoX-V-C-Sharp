@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using VenoXV.Reallife.Environment.Rathaus;
 using AltV.Net.Data;
+using VenoXV.Reallife.Core;
 
 namespace VenoXV.Reallife.Globals
 {
@@ -563,25 +564,25 @@ namespace VenoXV.Reallife.Globals
         public const int MESSAGE_RADIO = 12;
 
         // Chat Rgbas
-        public const string Rgba_CHAT_CLOSE = "!{#E6E6E6}";
-        public const string Rgba_CHAT_NEAR = "!{#C8C8C8}";
-        public const string Rgba_CHAT_MEDIUM = "!{#AAAAAA}";
-        public const string Rgba_CHAT_FAR = "!{#8C8C8C}";
-        public const string Rgba_CHAT_LIMIT = "!{#6E6E6E}";
-        public const string Rgba_CHAT_ME = "!{#C2A2DA}";
-        public const string Rgba_CHAT_DO = "!{#0F9622}";
-        public const string Rgba_CHAT_FACTION = "!{#27F7C8}";
-        public const string Rgba_CHAT_PHONE = "!{#27F7C8}";
-        public const string Rgba_ADMIN_INFO = "!{#00FCFF}";
-        public const string Rgba_ADMIN_CLANTAG = "!{#00C8FF}[VnX]~w~";
-        public const string Rgba_ADMIN_NEWS = "!{#F93131}";
-        public const string Rgba_ADMIN_MP = "!{#F93131}";
-        public const string Rgba_SUCCESS = "!{#33B517}";
-        public const string Rgba_ERROR = "!{200,0,0}";
-        public const string Rgba_INFO = "!{#FDFE8B}";
-        public const string Rgba_HELP = "!{#FFFFFF}";
-        public const string Rgba_SU_POSITIVE = "!{#E3E47D}";
-        public const string Rgba_NEWS = "!{#805CC9}";
+        public const string Rgba_CHAT_CLOSE = "{E6E6E6}";
+        public const string Rgba_CHAT_NEAR = "{C8C8C8}";
+        public const string Rgba_CHAT_MEDIUM = "{AAAAAA}";
+        public const string Rgba_CHAT_FAR = "{8C8C8C}";
+        public const string Rgba_CHAT_LIMIT = "{6E6E6E}";
+        public const string Rgba_CHAT_ME = "{C2A2DA}";
+        public const string Rgba_CHAT_DO = "{0F9622}";
+        public const string Rgba_CHAT_FACTION = "{27F7C8}";
+        public const string Rgba_CHAT_PHONE = "{27F7C8}";
+        public const string Rgba_ADMIN_INFO = "{00FCFF}";
+        public const string Rgba_ADMIN_CLANTAG = "{00C8FF}[VnX]{FFFFFF}";
+        public const string Rgba_ADMIN_NEWS = "{F93131}";
+        public const string Rgba_ADMIN_MP = "{F93131}";
+        public const string Rgba_SUCCESS = "{33B517}";
+        public const string Rgba_ERROR = "{E10000}";
+        public const string Rgba_INFO = "{FDFE8B}";
+        public const string Rgba_HELP = "{FFFFFF}";
+        public const string Rgba_SU_POSITIVE = "{E3E47D}";
+        public const string Rgba_NEWS = "{805CC9}";
 
         // Gargabe collector's routes
         public const int NORTH_ROUTE = 0;

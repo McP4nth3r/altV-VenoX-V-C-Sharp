@@ -141,7 +141,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                 ShopIColShapes[CURRENT_ID].SetData(SHOP_ROB_POSSIBLE, false);
                                 ShopIColShapes[CURRENT_ID].SetData(SHOP_ROB_STARTED, true);
                                 ShopIColShapes[CURRENT_ID].SetData(SHOP_ROB_TIMEREMAINING, DateTime.Now.AddMinutes(SHOP_ROB_TIME));
-                                factions.Faction.CreateCustomStateFactionMessage("!{200,0,0}Der 24/7 Shop[" + CURRENT_ID + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
+                                factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200,0,0) + "Der 24/7 Shop[" + CURRENT_ID + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
                                 anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
                             }
                         }
@@ -178,8 +178,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                     col.SetData(SHOP_ROB_POSSIBLE, false);
                                     col.SetData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
                                     player.SetData(PLAYER_ROB_STARTED, false);
-                                    factions.Faction.CreateCustomStateFactionMessage("!{200,0,0}Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
-                                    player.SendChatMessage( "!{175,0,0}Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
+                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200,0,0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + SHOP_ROB_MONEY);
                                 }
                                 else
@@ -194,8 +194,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                     col.SetData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
 
                                     player.SetData(PLAYER_ROB_STARTED, false);
-                                    player.SendChatMessage( "!{200,0,0}Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
-                                    factions.Faction.CreateCustomStateFactionMessage("!{0,200,0}Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,200,0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                                 }
                             }
                         }
@@ -216,8 +216,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                     col.SetData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
 
                                     player.SetData(PLAYER_ROB_STARTED, false);
-                                    player.SendChatMessage( "!{200,0,0}Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
-                                    factions.Faction.CreateCustomStateFactionMessage("!{0,200,0}Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,200,0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                                 }
                             }
                         }
@@ -244,7 +244,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                             col.SetData(SHOP_ROB_STARTED, false);
                             col.SetData(SHOP_ROB_POSSIBLE, false);
                             col.SetData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
-                            factions.Faction.CreateCustomStateFactionMessage("!{0,200,0}Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist Disconnected.");
+                            factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,200,0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist Disconnected.");
                         }
                     }
                 }

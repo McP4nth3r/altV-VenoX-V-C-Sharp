@@ -46,7 +46,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     IColShape TankstellenCol = Alt.CreateColShapeSphere(Tankstellen, 2);
                     TankstellenCol.SetData("TANKSTELLEN_COL", true);
-                    /*Alt.Log("Tankstelle [" + counter + "] wurde erstellt! Pos : " + Tankstellen);
+                    /*Console.WriteLine("Tankstelle [" + counter + "] wurde erstellt! Pos : " + Tankstellen);
                     counter++;*/
                 }
             }
@@ -185,9 +185,9 @@ namespace VenoXV.Reallife.Vehicles
                         if (Preis > 0)
                         {
                             // Sell cAr
-                           target.SendChatMessage( "!{0,150,200}" +player.Name + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
-                           target.SendChatMessage( "!{0,150,200}Nutze /buycar ID um das Fahrzeug zu kaufen!");
-                            player.SendChatMessage( "!{0,150,200}Du hast " + target.Name + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
+                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) +player.Name + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
+                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Du hast " + target.Name + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
                             Core.VnX.vnxSetSharedData(target, FahrzeugID.ToString(), Preis);
                         }
                     }
@@ -216,8 +216,8 @@ namespace VenoXV.Reallife.Vehicles
                                 {
                                     Vehicle.SetData(EntityData.VEHICLE_OWNER,player.Name);
                                     Vehicle.SetSyncedMetaData(EntityData.VEHICLE_OWNER,player.Name);
-                                    player.SendChatMessage( "!{0,200,0}Du hast das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
-                                   target.SendChatMessage( "!{0,200,0}Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.Name + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                   target.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.Name + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
                                     Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_MONEY, target.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + player.vnxGetElementData(FahrzeugID.ToString()));
                                     player.SetData(FahrzeugID.ToString(), null);
@@ -273,7 +273,7 @@ namespace VenoXV.Reallife.Vehicles
             {
                 anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
                 Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 6);
-                player.SendChatMessage( "Du hast einen Tankstellen !{0,200,255}Snack !{255,255,255}gekauft.");
+                player.SendChatMessage( "Du hast einen Tankstellen " + RageAPI.GetHexColorcode(0,200,255) + " Snack " + RageAPI.GetHexColorcode(255,255,255) + "gekauft.");
                 ItemModel Snack = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_TANKSTELLENSNACK);
                 if (Snack == null) // Kanister
                 {
@@ -332,7 +332,7 @@ namespace VenoXV.Reallife.Vehicles
                     Kanister.id = Database.AddNewItem(Kanister);
                     Main.itemList.Add(Kanister);
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 450);
-                    player.SendChatMessage( "Du hast einen !{0,200,255}Benzinkannister !{255,255,255}erworben.");
+                    player.SendChatMessage( "Du hast einen " + RageAPI.GetHexColorcode(0,200,255) + " Benzinkannister " + RageAPI.GetHexColorcode(255,255,255) + "erworben.");
                 }
                 else
                 {
@@ -340,7 +340,7 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast die Maximale anzahl an Kannister schon erreicht!");
                         Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 450);
-                        player.SendChatMessage( "Du hast einen !{0,200,255}Benzinkannister !{255,255,255}erworben.");
+                        player.SendChatMessage( "Du hast einen " + RageAPI.GetHexColorcode(0,200,255) + " Benzinkannister " + RageAPI.GetHexColorcode(255,255,255) + "erworben.");
                         return;
                     }
                     Kanister.amount = Kanister.amount + 1;
@@ -480,8 +480,8 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     int moneyLeft = player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - vehModel.price;
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOKAUFEN);
-                    player.SendChatMessage( "!{0,200,255}[VenoX Motorsports] : !{255,255,255}Fahrzeug erfolgreich gekauft! Dein Fahrzeug findest du auf unseren Parkplatz.");
-                    player.SendChatMessage( "!{0,200,255}[VenoX Motorsports] : !{255,255,255}Vergiss nicht dein Fahrzeug umzuparken! nutze /car um dein Fahrzeug zu verwalten.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255,255,255) + "Fahrzeug erfolgreich gekauft! Dein Fahrzeug findest du auf unseren Parkplatz.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255,255,255) + "Vergiss nicht dein Fahrzeug umzuparken! nutze /car um dein Fahrzeug zu verwalten.");
                     player.SetData(EntityData.PLAYER_BANK, moneyLeft);
                 }
             }
@@ -581,8 +581,8 @@ namespace VenoXV.Reallife.Vehicles
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION CreateIngameIVehicle] " + ex.Message);
-                Alt.Log("[EXCEPTION CreateIngameIVehicle] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION CreateIngameIVehicle] " + ex.Message);
+                Console.WriteLine("[EXCEPTION CreateIngameIVehicle] " + ex.StackTrace);
                 Console.WriteLine(vehModel.firstRgba + " | " + vehModel.secondRgba);
             }
         }
@@ -755,8 +755,8 @@ namespace VenoXV.Reallife.Vehicles
             }
             catch(Exception ex)
             {
-                Alt.Log("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.Message);
-                Alt.Log("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.Message);
+                Console.WriteLine("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.StackTrace);
             }
         }
         
@@ -769,7 +769,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     player.SetData("FAHRZEUG_AM_TESTEN", false);
                     player.Dimension = 0;
-                    player.SendChatMessage("!{225,0,0}[VenoX Motorsport Shop]!{255,255,255}Dein Altes Test - Fahrzeug wurde abgegeben!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(225,0,0) + "[VenoX Motorsport Shop]" + RageAPI.GetHexColorcode(255,255,255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
 
                     Vehicle.Remove();
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
@@ -826,7 +826,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     if (Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_GAS) <= 0)
                     {
-                        player.SendChatMessage( "!{175, 0, 0}Das Fahrzeug hat nicht mehr genug Benzin - du kannst an einer Tankstelle einen Reservekannister erwerben!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Das Fahrzeug hat nicht mehr genug Benzin - du kannst an einer Tankstelle einen Reservekannister erwerben!");
                         return;
                     }
                     if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)

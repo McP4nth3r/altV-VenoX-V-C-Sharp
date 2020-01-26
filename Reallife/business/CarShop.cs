@@ -218,7 +218,7 @@ namespace VenoXV.Reallife.business
                         {
                             player.SetData("FAHRZEUG_AM_TESTEN", false);
                             veh.Remove();
-                            player.SendChatMessage("!{225,0,0}[VenoX Motorsport Shop] :  !{255,255,255}Dein Altes Test - Fahrzeug wurde abgegeben!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(225,0,0) + "[VenoX Motorsport Shop] :  " + RageAPI.GetHexColorcode(255,255,255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
                             Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.Position = new Position(-51.54087f, -1076.941f, 26.94754f);
                             player.Dimension = 0;

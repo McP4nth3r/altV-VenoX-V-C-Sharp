@@ -29,10 +29,10 @@ namespace VenoXV.Reallife.advertise
                         int FINAL_AD_COSTS = text.Length * AD_COSTS;
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
                         {
-                            Reallife.Core.RageAPI.SendChatMessageToAll("!{0,200,255}__________________________________________");
-                            Reallife.Core.RageAPI.SendChatMessageToAll("!{0,200,255}[Werbung] : !{255,255,255}" + text);
-                            Reallife.Core.RageAPI.SendChatMessageToAll("!{0,200,255}Von : !{255,255,255}" +player.Name + " | !{0,200,255}Handy : !{255,255,255}V.2.0.0 INCOMING");
-                            Reallife.Core.RageAPI.SendChatMessageToAll("!{0,200,255}__________________________________________");
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " [Werbung] : " + RageAPI.GetHexColorcode(255,255,255) + text);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " Von : " + RageAPI.GetHexColorcode(255,255,255) +player.Name + " | " + RageAPI.GetHexColorcode(0,200,255) + " Handy : " + RageAPI.GetHexColorcode(255,255,255) + "V.2.0.0 INCOMING");
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
                             Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
@@ -40,7 +40,7 @@ namespace VenoXV.Reallife.advertise
                         }
                         else { dxLibary.VnX.DrawNotification(player, "info", "Du hast nicht genug Geld!"); }
                     }
-                    else { player.SendChatMessage("!{175,0,0}Nächste AD Möglich : " + WERBUNG_COOLDOWN); }
+                    else { player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Nächste AD Möglich : " + WERBUNG_COOLDOWN); }
                 }
                 else { dxLibary.VnX.DrawNotification(player, "error", "Das AD-System wurde von einem Moderator deaktiviert!"); }
             }

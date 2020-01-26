@@ -141,7 +141,7 @@ namespace VenoXV.Reallife.weapons
                                 //ToDo what if it´s nil ? if (veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") == false) { veh.SetSyncedMetaData("VEHICLE_HEALTH_SERVER", 1000); /* Fix if no Value! }
                                 float vehdamage = Damage * 2;
                                 target.Emit("set_bodyhealth", veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the Target Lower.
-                                Environment.Death.Log_Damage_veh(player, target, currentWeapon.ToString(), veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - vehdamage + "");
+                                Environment.Death.Log_Damage_veh(player, target, currentWeapon.ToString(), veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - vehdamage + );
                                 veh.SetSyncedMetaData("VEHICLE_HEALTH_SERVER", veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - vehdamage);
                                 // NAPI.Chat.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
                             }

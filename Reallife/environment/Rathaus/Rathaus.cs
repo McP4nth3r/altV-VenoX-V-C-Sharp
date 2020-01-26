@@ -209,11 +209,11 @@ namespace VenoXV.Reallife.Environment.Rathaus
                     }
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 21250);
                     player.SetData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 1);
-                    player.SendChatMessage( "!{0,175,0}------------WAFFENSCHEIN INFORMATION------------");
-                    player.SendChatMessage( "!{0,150,0}Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
-                    player.SendChatMessage( "!{0,150,0}Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
-                    player.SendChatMessage( "!{0,150,0}Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
-                    player.SendChatMessage( "!{0,175,0}------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +" Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +" Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +"Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"------------WAFFENSCHEIN INFORMATION------------");
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
                 }
                 else
@@ -244,7 +244,7 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                         player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
                         player.Dimension = 0;
-                        player.SendChatMessage("!{255,0,0}Du bist zu schnell gefahren! Km/h : " + speed);
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Du bist zu schnell gefahren! Km/h : " + speed);
                         player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                         player.Emit("Destroy_Rathaus_License_Ped");
                         if (player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")

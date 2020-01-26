@@ -385,7 +385,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 }
                 else
                 {
-                    Alt.Log("HUD : " + player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
+                    Console.WriteLine("HUD : " + player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                 {
@@ -433,10 +433,10 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendChatMessage( "!{150,0,150}" +player.Name + " : " + text);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Name + " : " + text);
                     }
                 }
-                //player.SendChatMessage( "!{150,0,150}" +player.Name + " : " + text);
+                //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Name + " : " + text);
                 vnx_stored_files.logfile.WriteLogs("chat", "[ME][" +player.Name + "] : " + text);
             }
             catch { }
@@ -502,7 +502,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 PlayerModel character = new PlayerModel();
 
                 character.position = player.Position;
-                character.rotation = player.Rotation;
+                character.rotation = (int)player.Rotation.Yaw;
                 character.health = player.Health;
                 character.armor = player.Armor;
                 character.id = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
@@ -576,7 +576,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) == 0)
                     {
-                        player.SendChatMessage( "!{200,0,0}Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(player);
                         Database.RemoveOldPrison(player.Name);
                     }
@@ -625,8 +625,8 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION SaveIVehicleDatas] " + ex.Message);
-                Alt.Log("[EXCEPTION SaveIVehicleDatas] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION SaveIVehicleDatas] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SaveIVehicleDatas] " + ex.StackTrace);
             }
         }
 

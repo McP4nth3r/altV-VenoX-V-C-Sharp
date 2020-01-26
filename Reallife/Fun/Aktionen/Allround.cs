@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VenoXV.Reallife.Core;
 
 namespace VenoXV.Reallife.Fun
 {
@@ -18,7 +19,7 @@ namespace VenoXV.Reallife.Fun
             {
                 if (AktionAmLaufen_Server)
                 {
-                    player.SendChatMessage( "!{175,0,0}Es Läuft bereits eine Aktion!");
+                    player.SendChatMessage( RageAPI.GetHexColorcode(175,0,0) + "Es Läuft bereits eine Aktion!");
                     return true;
                 }
                 return false;
@@ -50,7 +51,7 @@ namespace VenoXV.Reallife.Fun
             {
                 if (AktionsTimer > DateTime.Now)
                 {
-                    player.SendChatMessage( "!{125,0,0}Es lief bereits eine Aktion vor kurzem! Nächste Aktion möglich : " + AktionsTimer);
+                    player.SendChatMessage( RageAPI.GetHexColorcode(125,0,0) + "Es lief bereits eine Aktion vor kurzem! Nächste Aktion möglich : " + AktionsTimer);
                     return false;
                 }
                 return true;

@@ -268,7 +268,7 @@ namespace VenoXV.Reallife.business
                     }
 
                     player.SetData(EntityData.PLAYER_MONEY, money - price);
-                    player.SendChatMessage("Transaktion in höhe von !{0,200,255} " + price + " $ !{255,255,255}abgeschlossen!");
+                    player.SendChatMessage("Transaktion in höhe von " + RageAPI.GetHexColorcode(0,200,255) + "  " + price + " $ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                 }
             }
             catch { }
@@ -351,7 +351,7 @@ namespace VenoXV.Reallife.business
                     clothesModel.id = Database.AddClothes(clothesModel);
                     Main.clothesList.Add(clothesModel);
 
-                    player.SendChatMessage( "Transaktion in Höhe von !{0,200,200} " + price + "$ !{255,255,255}abgeschlossen!");
+                    player.SendChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                     dxLibary.VnX.DrawNotification(player, "info", "Transaktion in Höhe von " + price + "$ abgeschlossen!");
                     vnx_stored_files.logfile.WriteLogs("clothes",player.Name + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }

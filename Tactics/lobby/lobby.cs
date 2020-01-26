@@ -92,33 +92,33 @@ namespace VenoXV.Tactics.Lobby
                 player.RemoveAllWeapons();
                 if (RandomRound == 0)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 999);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
                     player.SendChatMessage("[Tactics] : Only Revolver Modus!");
                 }
                 else if (RandomRound == 1)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
                     player.SendChatMessage( "[Tactics] : Only SMG Modus!");
                 }                
                 else if (RandomRound == 3)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
                     player.SendChatMessage( "[Tactics] : Only Shotgun Modus!");
                 }                
                 else if (RandomRound == 4)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 999);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 200);
                     player.SendChatMessage( "[Tactics] : Only Sniper Modus!");
                 }
                 else
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 999);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 999);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
+                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 200);
                 }
             }
             catch { }
@@ -134,23 +134,24 @@ namespace VenoXV.Tactics.Lobby
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Position Spawnpunkt = TACTICS_TEAM_BFAC[randomzahl];
-                    player.Spawn(Spawnpunkt);
-                    GivePlayerTacticWeapons(player);
+                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash("u_m_y_abner");
+                    player.Dimension = 0;
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
-                    player.Model = Alt.Hash("Famca01GMY");
-                    player.Health = 100;
+                    GivePlayerTacticWeapons(player);
+                    player.Health = 200;
                     player.Armor = 100;
                 }
                 else if (Fac == EntityData.COPS_NAME)
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Position Spawnpunkt = TACTICS_TEAM_COPS[randomzahl];
-                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash("Swat01SMY");
+                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash("s_f_y_cop_01");
+                    player.Dimension = 0;
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
                     GivePlayerTacticWeapons(player);
-                    player.Health = 100;
+                    player.Health = 200;
                     player.Armor = 100;
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
@@ -223,7 +224,7 @@ namespace VenoXV.Tactics.Lobby
                     if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
                     {
                         AntiCheat_Allround.SetTimeOutHealth(players, 3000);
-                        players.SendChatMessage("!{200,200,200}[VenoX - Tactics] : Eine neue Runde startet.");
+                        players.SendChatMessage(RageAPI.GetHexColorcode(200,200,200) +"[VenoX - Tactics] : Eine neue Runde startet.");
                         players.Emit("LoadTacticUI");
                         PutPlayerInTeam(players);
                         SyncTime();
@@ -244,7 +245,7 @@ namespace VenoXV.Tactics.Lobby
                 {
                     if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.SendChatMessage( "!{200,0,0}" +player.Name + " ist Disconnected!");
+                        players.SendChatMessage( RageAPI.GetHexColorcode(200,0,0) +player.Name + " ist Disconnected!");
                     }
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
@@ -288,15 +289,16 @@ namespace VenoXV.Tactics.Lobby
                 {
                     if (MEMBER_COUNT_MAX_BFAC == 0 || MEMBER_COUNT_MAX_COPS == 0)
                     {
+                        player.Spawn(player.Position);
                         StartNewTacticRound();
                     }
                     else
                     {
                         // To Do : Cam event erstellen.
                         player.Spawn(new Position(player.Position.X, player.Position.Y, player.Position.Z + 70));
-                        Reallife. dxLibary.VnX.SetElementFrozen(player, true);
+                        Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllWeapons();
-                        player.SendChatMessage("!{0,200,0}Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
                 }
                 else

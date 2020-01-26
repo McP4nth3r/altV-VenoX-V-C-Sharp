@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VenoXV.Reallife.Core;
 
 namespace VenoXV.Zombie.World
 {
@@ -23,7 +24,7 @@ namespace VenoXV.Zombie.World
         {
             try
             {
-                player.SendChatMessage( "Willkommen im VenoX ~r~Zombie ~w~Modus");
+                player.SendChatMessage( "Willkommen im VenoX ~r~Zombie + " + RageAPI.GetHexColorcode(255,255,255) + "Modus");
                 player.SendChatMessage( "Kämpfe um dein Überleben!");
             }
             catch { }

@@ -57,8 +57,8 @@ namespace VenoXV.Reallife.Environment
                                 {
                                     Database.SetFactionStats(Constants.FACTION_POLICE, fkasse.money + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 400, fkasse.weed, fkasse.koks, fkasse.mats);
                                     player.SetData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 6);
-                                    killer.SendChatMessage("!{#007d00}Du hast " +player.Name + " verhaftet für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten! " + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
-                                    player.SendChatMessage("!{#000096}Officer " + killer.Name + " hat dich eingesperrt für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten!.");
+                                    killer.SendChatMessage("{007d00}Du hast " +player.Name + " verhaftet für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten! " + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
+                                    player.SendChatMessage("{000096}Officer " + killer.Name + " hat dich eingesperrt für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten!.");
                                     Core.VnX.vnxSetSharedData(killer, Core.VnX.PLAYER_BANKMONEY, killer.vnxGetElementData<int>(EntityData.PLAYER_BANK) + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75);
                                     logfile.WriteLogs("kill", "[WANTED] Officer " + killer.Name + " hat " +player.Name + " getötet!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_WANTEDS, 0);
@@ -76,17 +76,17 @@ namespace VenoXV.Reallife.Environment
                         }
                         else if (killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 6)
                         {
-                            killer.SendChatMessage("!{#ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
+                            killer.SendChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
                         }
                         else if (killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 3)
                         {
                             Core.VnX.vnxSetSharedData(killer, EntityData.PLAYER_WANTEDS, 6);
-                            killer.SendChatMessage("!{#ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
+                            killer.SendChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
                         }
                         else
                         {
                             Core.VnX.vnxSetSharedData(killer, EntityData.PLAYER_WANTEDS, killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
-                            killer.SendChatMessage("!{#ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
+                            killer.SendChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
                         }
 
                         killer.SendChatMessage("Du hast " +player.Name + " getötet!");

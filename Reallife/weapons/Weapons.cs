@@ -9,12 +9,12 @@ using System;
 using VenoXV.Anti_Cheat;
 using VenoXV.Reallife.Core;
 using AltV.Net;
+using AltV.Net.Data;
 
 namespace VenoXV.Reallife.weapons
 {
     public class Weapons : IScript
     {
-
         public static void GivePlayerWeaponItems(IPlayer player)
         {
             try
@@ -33,8 +33,8 @@ namespace VenoXV.Reallife.weapons
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION GivePlayerWeaponItems] " + ex.Message);
-                Alt.Log("[EXCEPTION GivePlayerWeaponItems] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION GivePlayerWeaponItems] " + ex.Message);
+                Console.WriteLine("[EXCEPTION GivePlayerWeaponItems] " + ex.StackTrace);
             }
         }
 
@@ -57,8 +57,8 @@ namespace VenoXV.Reallife.weapons
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.Message);
-                Alt.Log("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.Message);
+                Console.WriteLine("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.StackTrace);
                 return null;
             }
         }
@@ -66,7 +66,7 @@ namespace VenoXV.Reallife.weapons
 
 
 
-        /*[ServerEvent(Event.PlayerWeaponSwitch)]
+        /*[ScriptEvent(ScriptEventType.PlayerWeap)]
         public void OnPlayerWeaponSwitch(IPlayer player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel WeaponModel)
         {
             try
@@ -399,8 +399,8 @@ namespace VenoXV.Reallife.weapons
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnPlayerWeaponSwitch] " + ex.Message);
-                Alt.Log("[EXCEPTION OnPlayerWeaponSwitch] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnPlayerWeaponSwitch] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnPlayerWeaponSwitch] " + ex.StackTrace);
             }
         }
 
@@ -733,12 +733,12 @@ namespace VenoXV.Reallife.weapons
                             }
                             else
                             {
-                                Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0} " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             }
                         }
                         if (weapon != "unbewaffnet" || AltV.Net.Enums.WeaponModel != AltV.Net.Enums.WeaponModel.Fist || AltV.Net.Enums.WeaponModel != 0
                         {
-                            Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0} " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             Anti_Cheat_Weapons.anticheat_permanent_ban(player, "0x047_" + AltV.Net.Enums.WeaponModel);
                             return;
                         }
@@ -747,8 +747,8 @@ namespace VenoXV.Reallife.weapons
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnWeaponFire] " + ex.Message);
-                Alt.Log("[EXCEPTION OnWeaponFire] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnWeaponFire] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnWeaponFire] " + ex.StackTrace);
             }
         }*/
     }

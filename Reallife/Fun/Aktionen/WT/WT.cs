@@ -166,7 +166,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 WTTimer.Interval = 20 * 60000;
                 WTTimer.Enabled = true;
 
-                Reallife.Core.RageAPI.SendChatMessageToAll("!{175,0,0}[Illegal]: Ein Waffentruck wurde beladen!");
+                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "[Illegal]: Ein Waffentruck wurde beladen!");
             }
             catch
             {
@@ -181,7 +181,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{175,175,175}Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,175,175)+"Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
                     WT_TRUCK.Remove();
                 }
             }
@@ -231,8 +231,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION FinishWT] " + ex.Message);
-                Alt.Log("[EXCEPTION FinishWT] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION FinishWT] " + ex.Message);
+                Console.WriteLine("[EXCEPTION FinishWT] " + ex.StackTrace);
             }
         }
 

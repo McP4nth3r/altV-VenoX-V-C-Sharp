@@ -205,12 +205,12 @@ namespace VenoXV.Reallife.Globals
                     }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 30)
                     {
-                        player.SendChatMessage("!{ 200,0,0}Du bekommst hunger... Besorg dir was zu Essen!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode( 200,0,0) + "Du bekommst hunger... Besorg dir was zu Essen!");
                         dxLibary.VnX.DrawNotification(player, "warning", "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 10)
                     {
-                        player.SendChatMessage("!{ 200,0,0}Du bekommst hunger... Besorg dir was zu Essen!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode( 200,0,0) + "Du bekommst hunger... Besorg dir was zu Essen!");
                         dxLibary.VnX.DrawNotification(player, "warning", "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) <= 20)
@@ -233,7 +233,7 @@ namespace VenoXV.Reallife.Globals
                             player.Position = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
                             Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_KAUTION, 0);
-                            player.SendChatMessage( "!{#007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                            player.SendChatMessage( "{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
                     }
                     anzeigen.Usefull.VnX.SavePlayerDatas(player);
@@ -241,8 +241,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.Message);
-                Alt.Log("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.StackTrace);
             }
         }
 
@@ -261,8 +261,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
-                Alt.Log("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
             }
         }        
         
@@ -282,8 +282,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
-                Alt.Log("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
             }
         }
 
@@ -293,11 +293,11 @@ namespace VenoXV.Reallife.Globals
             {
                 if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 55)
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0}Server neustart in 5 Minuten!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Server neustart in 5 Minuten!");
                 }
                 if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59)
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0}Server neustart in einer Minute!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Server neustart in einer Minute!");
                 }
                 foreach (IPlayer player in Alt.GetAllPlayers())
                 {
@@ -317,12 +317,12 @@ namespace VenoXV.Reallife.Globals
                 }
                 Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
                 anzeigen.Usefull.VnX.SaveIVehicleDatas();
-                Alt.Log(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
+                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
             catch(Exception ex)
             {
-                Alt.Log("[EXCEPTION Global_OnMinuteSpent] " + ex.Message);
-                Alt.Log("[EXCEPTION Global_OnMinuteSpent] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION Global_OnMinuteSpent] " + ex.Message);
+                Console.WriteLine("[EXCEPTION Global_OnMinuteSpent] " + ex.StackTrace);
             }
         }
 
@@ -368,7 +368,7 @@ namespace VenoXV.Reallife.Globals
                 int bank = player.vnxGetElementData<int>(EntityData.PLAYER_BANK);
                 int playerRank = player.vnxGetElementData<int>(EntityData.PLAYER_RANK);
                 int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
-                player.SendChatMessage("!{0,150,200}⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
                 PlayerModel VipL = Database.GetPlayerVIP((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
@@ -387,7 +387,7 @@ namespace VenoXV.Reallife.Globals
                         }
                     }
                 }
-                player.SendChatMessage("!{0,200,255}Gehalt : !{255,255,255}" + total + " $");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Gehalt : " + RageAPI.GetHexColorcode(255,255,255) +  + total + " $");
 
 
                 int gwboni = 0;
@@ -401,13 +401,13 @@ namespace VenoXV.Reallife.Globals
 
                 total += gwboni;
 
-                player.SendChatMessage("!{0,200,255}GW-Boni : !{255,255,255}" + gwboni + " $");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " GW-Boni : " + RageAPI.GetHexColorcode(255,255,255) +  + gwboni + " $");
 
                 int bankInterest = (int)Math.Round(bank * 0.001);
                 total += bankInterest;
                 if (bankInterest > 0)
                 {
-                    player.SendChatMessage("!{0,200,255}Bankzinsen : !{255,255,255}" + bankInterest + " $");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Bankzinsen : " + RageAPI.GetHexColorcode(255,255,255) +  + bankInterest + " $");
                 }
 
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
@@ -446,8 +446,8 @@ namespace VenoXV.Reallife.Globals
                         int IVehicleId = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
                         string VehicleModel = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_MODEL);
                         string IVehiclePlate = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_PLATE) == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_PLATE);
-                        player.SendChatMessage( "!{0,200,255}VIP Fahrzeugsteuer Abzug : !{255,255,255}" + IVehicleTaxes_ + "$");
-                        player.SendChatMessage("!{0,200,255}Fahrzeugsteuer : !{255,255,255}" + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " VIP Fahrzeugsteuer Abzug : " + RageAPI.GetHexColorcode(255,255,255) +  + IVehicleTaxes_ + "$");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Fahrzeugsteuer : " + RageAPI.GetHexColorcode(255,255,255) + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
                         total -= IVehicleTaxes;
                         total += IVehicleTaxes_;
                     }
@@ -460,12 +460,12 @@ namespace VenoXV.Reallife.Globals
                         if (house.owner ==player.Name)
                         {
                             int houseTaxes = (int)Math.Round((int)house.price * Constants.TAXES_HOUSE);
-                            player.SendChatMessage("!{0,200,255}Immobiliensteuer :  !{255,255,255}" + house.name + ": -" + houseTaxes + "$");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Immobiliensteuer :  " + RageAPI.GetHexColorcode(255,255,255) + house.name + ": -" + houseTaxes + "$");
                             total -= houseTaxes;
                         }
                         if(house.id == player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE))
                         {
-                            player.SendChatMessage("!{0,200,255}Miete " + house.name + " : !{255,255,255}" + house.rental + "$");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Miete " + house.name + " : " + RageAPI.GetHexColorcode(255,255,255) +  + house.rental + "$");
                             Database.TransferMoneyToPlayer(house.owner, house.rental);
                             total -= house.rental;
                         }
@@ -508,11 +508,11 @@ namespace VenoXV.Reallife.Globals
                 {
                     total += 100;
                 }
-                player.SendChatMessage( "!{0,200,255}VIP Bonus : !{255,255,255}" + VIPBONI + "$");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " VIP Bonus : " + RageAPI.GetHexColorcode(255,255,255) +  + VIPBONI + "$");
                 // EVENT !!
                 //total = total * 4;  // 4FACHER PAYDAY.
-                player.SendChatMessage(Constants.Rgba_HELP + "!{0,150,200}⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                player.SendChatMessage(Constants.Rgba_HELP + "!{0,200,255}Einnahmen insgesamt : !{255,255,255}" + total + " $");
+                player.SendChatMessage(Constants.Rgba_HELP +RageAPI.GetHexColorcode(0,150,200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+                player.SendChatMessage(Constants.Rgba_HELP +RageAPI.GetHexColorcode(0,200,255) + " Einnahmen insgesamt : " + RageAPI.GetHexColorcode(255,255,255) +  + total + " $");
 
                 if (total < 0)
                 {
@@ -525,8 +525,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION GeneratePlayerPayday] " + ex.Message);
-                Alt.Log("[EXCEPTION GeneratePlayerPayday] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION GeneratePlayerPayday] " + ex.Message);
+                Console.WriteLine("[EXCEPTION GeneratePlayerPayday] " + ex.StackTrace);
             }
         }
 
@@ -825,6 +825,7 @@ namespace VenoXV.Reallife.Globals
                 }*/
 
                 minuteTimer = new Timer(OnMinuteSpent, null, 60000, 60000); // Payday Generation und alles was nach einer Minute passiert!
+                minuteTimer = new Timer(VenoXV.Globals.Globals.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
                 ScoreboardTimer = new Timer(anzeigen.Scorebard.Scoreboard.Fill_Playerlist, null, 7000, 7000); // Scoreboard Updater.
 
 
@@ -845,7 +846,7 @@ namespace VenoXV.Reallife.Globals
                 gangwar.Allround.OnResourceStart();
                 weapons.Combat.OnResourceStart();
 
-                Alt.Log("VenoX V." + CURRENT_VERSION + " Loaded!");
+                Console.WriteLine("VenoX V." + CURRENT_VERSION + " Loaded!");
                 // 0,105,145 <----- Dunkler Rgba Code Blau !
                 // 0,150,200 <----- Dunkler Rgba Code Mittelmäßig Helles Blau!
                 // 0,200,255 <----- Dunkler Rgba Code Extrem Helles Blau!
@@ -925,8 +926,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION Global_OnPlayerDisconnected] " + ex.Message);
-                Alt.Log("[EXCEPTION Global_OnPlayerDisconnected] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION Global_OnPlayerDisconnected] " + ex.Message);
+                Console.WriteLine("[EXCEPTION Global_OnPlayerDisconnected] " + ex.StackTrace);
             }
         }
 
@@ -1115,7 +1116,7 @@ namespace VenoXV.Reallife.Globals
                                 else
                                 {
                                     Core.VnX.IVehiclevnxSetSharedData(Vehicle, "gas", Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_PLAYER") + 15);
-                                    player.SendChatMessage( "!{0,200,0}Fahrzeug aufgefüllt!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Fahrzeug aufgefüllt!");
                                     item.amount -= 1;
                                     if (item.amount <= 0)
                                     {
@@ -1508,7 +1509,7 @@ namespace VenoXV.Reallife.Globals
                         inventory = GetPlayerInventory(player);
                         player.Emit("showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
 
-                        player.SendChatMessage( "Du hast folgendes aus deinem Inventar geschmissen : !{0,200,255} " + businessItem.deIScription);
+                        player.SendChatMessage( "Du hast folgendes aus deinem Inventar geschmissen : " + RageAPI.GetHexColorcode(0,200,255) + "  " + businessItem.deIScription);
                         inventory = GetPlayerInventory(player);
                         player.Emit("showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
                         break;
@@ -1635,8 +1636,8 @@ namespace VenoXV.Reallife.Globals
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION GivePlayerItem] " + ex.Message);
-                Alt.Log("[EXCEPTION GivePlayerItem] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION GivePlayerItem] " + ex.Message);
+                Console.WriteLine("[EXCEPTION GivePlayerItem] " + ex.StackTrace);
             }
         }
 

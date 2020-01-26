@@ -122,7 +122,7 @@ namespace VenoXV.Reallife.chat
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_TALK, player.Dimension > 0 ? 7.5f : 10.0f);
-                    Alt.Log("[ID:" + player.Id + "]" +player.Name + "say" + message);
+                    Console.WriteLine("[ID:" + player.Id + "]" +player.Name + "say" + message);
                     logfile.WriteLogs("chat", "[ " +player.Name + " ] sagt : " + message);
                 }
             }

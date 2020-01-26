@@ -30,11 +30,11 @@ namespace VenoXV.Reallife.factions
                 player.SetData(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
                 {
-                    player.SendChatMessage( "------------!{0,200,255}EVENT INFORMATION!{255,255,255}------------");
-                    player.SendChatMessage( "Bis zum 23.09 - 10:00 Uhr gibt es !{0,150,200}DREIFACHEN !{255,255,255}PAYDAY.");
-                    player.SendChatMessage( "Abgesehen davon gibt es !{0,150,200}125.000$ !{255,255,255} + FREE VIP UPGRADE bei unserem Quest System.");
-                    player.SendChatMessage( "Du willst neue Freunde finden? Dann trete heute noch einer !{0,150,200}Fraktion !{255,255,255}bei!");
-                    player.SendChatMessage( "------------!{0,200,255}EVENT INFORMATION!{255,255,255}------------");
+                    player.SendChatMessage( "------------" + RageAPI.GetHexColorcode(0,200,255) + " EVENT INFORMATION" + RageAPI.GetHexColorcode(255,255,255) + "------------");
+                    player.SendChatMessage( "Bis zum 23.09 - 10:00 Uhr gibt es " + RageAPI.GetHexColorcode(0,150,200) + "DREIFACHEN " + RageAPI.GetHexColorcode(255,255,255) + "PAYDAY.");
+                    player.SendChatMessage( "Abgesehen davon gibt es " + RageAPI.GetHexColorcode(0,150,200) + "125.000$ " + RageAPI.GetHexColorcode(255,255,255) + " + FREE VIP UPGRADE bei unserem Quest System.");
+                    player.SendChatMessage( "Du willst neue Freunde finden? Dann trete heute noch einer " + RageAPI.GetHexColorcode(0,150,200) + "Fraktion " + RageAPI.GetHexColorcode(255,255,255) + "bei!");
+                    player.SendChatMessage( "------------" + RageAPI.GetHexColorcode(0,200,255) + " EVENT INFORMATION" + RageAPI.GetHexColorcode(255,255,255) + "------------");
                     Core.VnX.vnxSetSharedData(player, "EVENTINFOGOTVNX", 1);
                     Core.VnX.SetDelayedINTSharedData(player, "EVENTINFOGOTVNX", 0, 2000);
                 }*/
@@ -56,8 +56,8 @@ namespace VenoXV.Reallife.factions
                     DateTime ErstelltAm = Database.GetCharakterPrisonErstelltAm(player.Name);
                     if (PrisonTime > 0)
                     {
-                        player.SendChatMessage( "!{175,0,0}Du bist noch " + PrisonTime + " Minuten im Prison!");
-                        player.SendChatMessage( "!{175,0,0}Grund : " + Grund);
+                        player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du bist noch " + PrisonTime + " Minuten im Prison!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Grund : " + Grund);
                         player.SetData(EntityData.PLAYER_PRISON_TIME, PrisonTime);
                         player.SetData(EntityData.PLAYER_PRISON_GRUND, Grund);
                         player.SetData(EntityData.PLAYER_PRISON_VONADMIN, AdminVon);

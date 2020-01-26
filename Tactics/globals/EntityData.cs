@@ -14,6 +14,7 @@ namespace VenoXV.Tactics.globals
         public static string PLAYER_SPAWNED_TACTICS = "PLAYER_SPAWNED_TACTICS";
         public static string PLAYER_CURRENT_TEAM = "PLAYER_CURRENT_TEAM";
         public static string PLAYER_DAMAGE_DONE = "PLAYER_DAMAGE_DONE";
+        public static string PLAYER_LAST_DAMAGED_BY = "PLAYER_LAST_DAMAGED_BY";
         public static string PLAYER_KILLED_PLAYERS = "PLAYER_KILLED_PLAYERS";
         public static string PLAYER_IS_DEAD = "PLAYER_IS_DEAD";
         public static string PLAYER_LEFT_ROUND = "PLAYER_LEFT_ROUND";

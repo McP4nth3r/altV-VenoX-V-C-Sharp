@@ -43,7 +43,7 @@ namespace VenoXV.Anti_Cheat
                     {
                         logfile.WriteAntiCheatLogs("weapon", "[ANTI-CHEAT][" + Banhash + "] : " +player.Name + " |Position Now : " + player.Position + " | Currentweapon : " + player.CurrentWeapon);
                         Database.AddPlayerPermaBan(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash);
-                        Reallife.Core.RageAPI.SendChatMessageToAll("!{255,0,0}" +player.Name + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
+                        Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0)+ player.Name + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
                         player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
                     }
                 }

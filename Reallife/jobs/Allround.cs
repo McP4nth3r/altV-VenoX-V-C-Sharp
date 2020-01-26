@@ -37,7 +37,7 @@ namespace VenoXV.Reallife.jobs
                             player.SetData(EntityData.PLAYER_IS_IN_JOB, false);
                             dxLibary.VnX.DestroyRadarElement(player, "Blip");
                             dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
-                            player.SendChatMessage("!{0,200,0}Job beendet!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Job beendet!");
                             if (JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) ==player.Name)
                             {
                                 AltV.Net.Alt.RemoveColShape(JobAbgabeMarker);
@@ -101,17 +101,17 @@ namespace VenoXV.Reallife.jobs
                                 if (stage == 1)
                                 {
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 85);
-                                    player.SendChatMessage( "Du hast !{0,200,255}85 $ !{255,255,255}Bekommen.");
+                                    player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 85 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 else if (stage == 2)
                                 {
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 265);
-                                    player.SendChatMessage( "Du hast !{0,200,255}265 $ !{255,255,255}Bekommen.");
+                                    player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 265 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 else if (stage == 3)
                                 {
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 425);
-                                    player.SendChatMessage( "Du hast !{0,200,255}425 $ !{255,255,255}Bekommen.");
+                                    player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 425 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 return;
                             }
@@ -126,8 +126,8 @@ namespace VenoXV.Reallife.jobs
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
-                                    player.SendChatMessage( "!{0,200,0}Danke! Die Passagiere sind sicher gelandet! Du erhältst 2 Punkte.");
-                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst !{0,200,255}350 !{255,255,255}$!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 2 Punkte.");
+                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 350 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 2);
                                    // //ToDo :  Fix player.WarpOutOfIVehicle();
                                     return;
@@ -138,8 +138,8 @@ namespace VenoXV.Reallife.jobs
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 450);
-                                    player.SendChatMessage( "!{0,200,0}Danke! Die Passagiere sind sicher gelandet! Du erhältst 4 Punkte.");
-                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst !{0,200,255}450 !{255,255,255}$!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 4 Punkte.");
+                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 450 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 4);
                                    // //ToDo :  Fix player.WarpOutOfIVehicle();
                                     return;
@@ -150,8 +150,8 @@ namespace VenoXV.Reallife.jobs
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 575);
-                                    player.SendChatMessage( "!{0,200,0}Danke! Die Passagiere sind sicher gelandet! Du erhältst 6 Punkte.");
-                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst !{0,200,255}575 !{255,255,255}$!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 6 Punkte.");
+                                    player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 575 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 6);
                                    // //ToDo :  Fix player.WarpOutOfIVehicle();
                                     return;

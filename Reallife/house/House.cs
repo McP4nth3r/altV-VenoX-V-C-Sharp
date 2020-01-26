@@ -93,14 +93,14 @@ namespace VenoXV.Reallife.house
                 switch (house.status)
                 {
                     case Constants.HOUSE_STATE_NONE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : ~w~" + house.owner;
+                        label = "~b~" + house.name + "\n" + "~b~[ID] : + "+RageAPI.GetHexColorcode(255,255,255) + house.id + "\n" + "~b~Besitzer : " + RageAPI.GetHexColorcode(255,255,255)+ house.owner;
                         break;
                     case Constants.HOUSE_STATE_RENTABLE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.rental +" $";
+                        label = "~b~" + house.name + "\n" + "~b~[ID] : + "+RageAPI.GetHexColorcode(255,255,255)+ house.id + "\n" + "~b~Besitzer :" +RageAPI.GetHexColorcode(255,255,255) + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : + "+RageAPI.GetHexColorcode(255,255,255)+ house.rental +" $";
                         //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
                         break;
                     case Constants.HOUSE_STATE_BUYABLE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : ~w~" + house.price + " $";
+                        label = "~b~" + house.name + "\n" + "~b~[ID] : + "+RageAPI.GetHexColorcode(255,255,255) + house.id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : " + RageAPI.GetHexColorcode(255,255,255) + house.price + " $";
                         break;
                 }
                 return label;
@@ -126,7 +126,7 @@ namespace VenoXV.Reallife.house
                         //house.houseLabel.Text = GetHouseLabelText(house);
                         // Update the house
                         Database.UpdateHouse(house);
-                        player.SendChatMessage( "!{0,125,0}Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
+                        player.SendChatMessage( RageAPI.GetHexColorcode(0,125,0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
                     }
                     else
                     {
@@ -182,15 +182,15 @@ namespace VenoXV.Reallife.house
                         //house.houseLabel.Text = GetHouseLabelText(house);
 
                         Database.UpdateHouse(house);
-                        player.SendChatMessage( "!{0,200,0}Du hast dein Haus für " + moneyget + " verkauft!");
+                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Haus für " + moneyget + " verkauft!");
                         Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + moneyget);
                         return;
                     }
                     else
                     {
                         int moneyget = house.price / 2;
-                        player.SendChatMessage( "!{0,200,0}Möchtest du dein Haus verkaufen für " + moneyget + " $ ?");
-                        player.SendChatMessage( "!{0,200,0}Bestätige dies mit /sellhouse.");
+                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Möchtest du dein Haus verkaufen für " + moneyget + " $ ?");
+                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Bestätige dies mit /sellhouse.");
                         player.SetData("SELL_HOUSE_REQUESTED", true);
                     }
                 }
@@ -426,12 +426,12 @@ namespace VenoXV.Reallife.house
             if(player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
             {
                 player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
-                //player.SendChatMessage("!{0,200,0}DEBUG RENT");
+                //player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "DEBUG RENT");
             }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) != 0)
             {
                 player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
-                player.SendChatMessage("!{0,200,0}Du hast dich Erfolgreich ausgemietet!");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dich Erfolgreich ausgemietet!");
             //Database.KickTenantsOut(house.id);
             }
         }

@@ -75,9 +75,9 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.Dimension = dim;
 
 
-                player.SendChatMessage( "!{200,200,0}Um die praktische Prüfung abzuschließen, musst die die vorgegebene Strecke abfahren.");
-                player.SendChatMessage( "!{200,200,0}Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
-                player.SendChatMessage( "!{200,200,0}Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Um die praktische Prüfung abzuschließen, musst die die vorgegebene Strecke abfahren.");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
+                player.SendChatMessage(RageAPI.GetHexColorcode(200,200,0) +"Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
 
                 player.Emit("destroyRathausWindow");
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, PruefungsAuto, -1);
@@ -148,8 +148,8 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION TriggerToNextPruefungsMarker] " + ex.Message);
-                Alt.Log("[EXCEPTION TriggerToNextPruefungsMarker] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION TriggerToNextPruefungsMarker] " + ex.Message);
+                Console.WriteLine("[EXCEPTION TriggerToNextPruefungsMarker] " + ex.StackTrace);
             }
         }
 
@@ -198,7 +198,7 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                     player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = 0;
-                    player.SendChatMessage("!{255,0,0}Fahrprüfung Abgebrochen!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     player.SetData("PLAYER_DRIVINGSCHOOL", false);
                     player.Emit("Destroy_Rathaus_License_Ped");

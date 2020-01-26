@@ -48,8 +48,8 @@ namespace VenoXV.Reallife.factions
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION FWeapons_CMD] " + ex.Message);
-                Alt.Log("[EXCEPTION FWeapons_CMD] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION FWeapons_CMD] " + ex.Message);
+                Console.WriteLine("[EXCEPTION FWeapons_CMD] " + ex.StackTrace);
             }
         }
         

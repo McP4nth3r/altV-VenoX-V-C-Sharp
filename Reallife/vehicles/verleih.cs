@@ -180,7 +180,7 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         Core.VnX.vnxSetSharedData(player, HAVE_PLAYER_RENTED_VEHICLE, 0);
                         Vehicle.Remove();
-                        player.SendChatMessage( "!{0, 200, 255}[VenoX Rental] : !{255, 255, 255}Dein Mietverhältnis wurde beendet!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255)+"[VenoX Rental] : " + RageAPI.GetHexColorcode(255, 255, 255)+"Dein Mietverhältnis wurde beendet!");
                     }
                 }
             }

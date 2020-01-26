@@ -108,11 +108,11 @@ namespace VenoXV.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{100,150,0}Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0) + "Die " + Faction.GetPlayerFactionName(winnerId) +" haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
                 else
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{100,150,0}Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0)+ "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
             }
             catch { }
@@ -227,7 +227,7 @@ namespace VenoXV.Reallife.gangwar.v2
                                     if (TKCounter > 0)
                                     {
                                         TKCounter = 0;
-                                        factions.Faction.CreateCustomBadFactionMessage("!{0,255,0}" + entry._player.Name + " hat den TK beesetzt!", AttackerId);
+                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,255,0) + entry._player.Name + " hat den TK beesetzt!", AttackerId);
                                     }
                                     break;
                                 }
@@ -238,17 +238,17 @@ namespace VenoXV.Reallife.gangwar.v2
                             ++TKCounter;
                             if (TKCounter == 1)
                             {
-                                Faction.CreateCustomBadFactionMessage("!{175,0,0} Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
+                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175,0,0) +  "Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
                                 PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
                             }
                             if (TKCounter == 2)
                             {
-                                factions.Faction.CreateCustomBadFactionMessage("!{175,0,0} Ihr habt noch 10 Sekunden!", AttackerId);
+                                factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175,0,0) +  "Ihr habt noch 10 Sekunden!", AttackerId);
                                 PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
                             }
                             if (TKCounter == 3)
                             {
-                                factions.Faction.CreateCustomBadFactionMessage("!{175,0,0} Ihr habt noch 5 Sekunden!", AttackerId);
+                                factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175,0,0) + "Ihr habt noch 5 Sekunden!", AttackerId);
                                 PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
                             }
                             if (TKCounter == 4)
@@ -272,14 +272,14 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public void informDefender()
         {
-            Faction.CreateCustomBadFactionMessage("!{0,180,0}Eurer Ganggebiet " + this.GangwarArea.Name + " wird von " + Faction.GetPlayerFactionName(this.AttackerId) + " angegriffen !", this.DefenderId);
-            Faction.CreateCustomBadFactionMessage("!{0,180,0}Benutzt /defend um am Gangwar teilzunehmen!", this.DefenderId);
+            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,180,0)+"Eurer Ganggebiet " + this.GangwarArea.Name + " wird von " + Faction.GetPlayerFactionName(this.AttackerId) + " angegriffen !", this.DefenderId);
+            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,180,0) + "Benutzt /defend um am Gangwar teilzunehmen!", this.DefenderId);
         }
 
         public void informAttacker()
         {
-            Faction.CreateCustomBadFactionMessage("!{0,225,0}Eure Gang greift das Ganggebiet " + this.GangwarArea.Name + " an!", this.AttackerId);
-            Faction.CreateCustomBadFactionMessage("!{0,225,0}Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
+            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,225,0) + "Eure Gang greift das Ganggebiet " + this.GangwarArea.Name + " an!", this.AttackerId);
+            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,225,0) + "Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
         }
 
         public void AddPlayer(IPlayer player)
@@ -405,7 +405,7 @@ namespace VenoXV.Reallife.gangwar.v2
 
                     int playerMoney = playerEntry._player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
-                    playerEntry._player.SendChatMessage("!{255,0,0} Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
+                    playerEntry._player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
 
                     Core.VnX.vnxSetSharedData(playerEntry._player, EntityData.PLAYER_MONEY, playerMoney + earnings);
 

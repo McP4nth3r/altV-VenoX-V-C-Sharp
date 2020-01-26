@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace VenoXV.Reallife.Core
 {
@@ -24,10 +25,10 @@ namespace VenoXV.Reallife.Core
         {
             try
             {
-                Alt.Log("[LOADED vnxGetElementData] : 1");
+                //Console.WriteLine("[LOADED vnxGetElementData] : 1");
                 if (element.GetData(key, out T value))
                 {
-                    Alt.Log("[LOADED vnxGetElementData] KEY : " + key + " | " + value);
+                    //Console.WriteLine("[LOADED vnxGetElementData] KEY : " + key + " | " + value);
                     return value;
                 }
                 return default;
@@ -39,10 +40,10 @@ namespace VenoXV.Reallife.Core
         {
             try
             {
-                Alt.Log("[LOADED vnxGetSharedData] : 2");
+                //Console.WriteLine("[LOADED vnxGetSharedData] : 2");
                 if (element.GetSyncedMetaData(key, out T value))
                 {
-                    Alt.Log("[LOADED vnxGetSharedData] KEY : " + key + " | " + value);
+                    //Console.WriteLine("[LOADED vnxGetSharedData] KEY : " + key + " | " + value);
                     return value;
                 }
                 return default;
@@ -50,6 +51,11 @@ namespace VenoXV.Reallife.Core
             catch{ return default; }
         }      
         
+        public static string GetHexColorcode(int r, int g, int b)
+        {
+            Color myColor = Color.FromArgb(r, g, b);
+            return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
+        }
 
 
         public static IPlayer GetPlayerFromName(string name)

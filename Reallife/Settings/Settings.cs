@@ -187,7 +187,7 @@ namespace VenoXV.Reallife.Settings
                 }
                 else
                 {
-                    Alt.Log("ID : " + state);
+                    Console.WriteLine("ID : " + state);
                 }
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
                 anzeigen.Usefull.VnX.UpdateHUD(player);
@@ -240,17 +240,17 @@ namespace VenoXV.Reallife.Settings
                 if (spawn == "Noobspawn")
                 {
                     player.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.SendChatMessage( "!{0,200,255}[Settings] : !{255,255,255}Spawnpoint gesetzt auf Noobspawn!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Noobspawn!");
                 }
                 else if (spawn == "Rathaus")
                 {
                     player.SetData(EntityData.PLAYER_SPAWNPOINT, "Rathaus");
-                    player.SendChatMessage( "!{0,200,255}[Settings] : !{255,255,255}Spawnpoint gesetzt auf Rathaus!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Rathaus!");
                 }                
                 else if (spawn == "Wuerfelpark")
                 {
                     player.SetData(EntityData.PLAYER_SPAWNPOINT, "Wuerfelpark");
-                    player.SendChatMessage( "!{0,200,255}[Settings] : !{255,255,255}Spawnpoint gesetzt auf Würfelpark!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Würfelpark!");
                 }
                 else if (spawn == "Basis")
                 {
@@ -258,7 +258,7 @@ namespace VenoXV.Reallife.Settings
                     if (playerFaction > 0)
                     {
                         player.SetData(EntityData.PLAYER_SPAWNPOINT, "Basis");
-                        player.SendChatMessage( "!{0,200,255}[Settings] : !{255,255,255}Spawnpoint gesetzt auf Basis!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Basis!");
                     }
                     else
                     {
@@ -272,7 +272,7 @@ namespace VenoXV.Reallife.Settings
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.Name == house.owner)
                         {
                             player.SetData(EntityData.PLAYER_SPAWNPOINT, "House");
-                            player.SendChatMessage( "!{0,200,255}[Settings] : !{255,255,255}Spawnpoint gesetzt auf Haus!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Haus!");
                         }
                     }
                 }

@@ -274,8 +274,10 @@ namespace VenoXV.Reallife.jobs
 
         static List<JobPickModel> jobList = new List<JobPickModel>()
         {
-            new JobPickModel(Constants.JOB_CITY_TRANSPORT, new Position(-1037.697f, -1397.189f, 5.553192f), ""),
-            new JobPickModel(Constants.JOB_AIRPORT, new Position(-1047.312f, -2744.564f, 21.3594f), ""),
+
+            /*
+            new JobPickModel(Constants.JOB_CITY_TRANSPORT, new Position(-1037.697f, -1397.189f, 5.553192f), "dedasd"),
+            new JobPickModel(Constants.JOB_AIRPORT, new Position(-1047.312f, -2744.564f, 21.3594f), "ded"),*/
         };
 
 

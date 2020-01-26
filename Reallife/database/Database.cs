@@ -1,17 +1,15 @@
 ﻿using AltV.Net.Elements.Entities;
 using AltV.Net;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.factions;
 using VenoXV.Reallife.gangwar.v2;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.house;
 using VenoXV.Reallife.model;
-using VenoXV.Reallife.Vehicles;
 using AltV.Net.Data;
 using VenoXV.Reallife.Core;
+using MySql.Data.MySqlClient;
 
 namespace VenoXV.Reallife.database
 {
@@ -32,11 +30,11 @@ namespace VenoXV.Reallife.database
                 <setting name="password" value="G#l7wz27"/>
                 <setting name="database" value="venox_ingame"/> 
             */
-            //string host = "127.0.0.1";
-            string host = "5.180.66.146";
-            string user = "VenoXV";
-            string pass = "A~ej4t514Lln2$6j%n472gBp";
-            string db = "VenoXV";
+            string host = "127.0.0.1";
+            //string host = "5.180.66.146";
+            string user = "VenoXV_Security";
+            string pass = "0Ux1k^x8k30vDx2*1g0dOt9@";
+            string db = "VenoXV_Security";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
 
             // Business loading
@@ -75,7 +73,7 @@ namespace VenoXV.Reallife.database
 
             // Tattoos loading
             Main.tattooList = LoadAllTattoos();
-            Alt.Log("Database Connection = OK.");
+            Console.WriteLine("Database Connection = OK.");
         }
 
 
@@ -229,8 +227,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetFactionWeaponlager] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetFactionWeaponlager] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.StackTrace);
                 }
             }
         }
@@ -254,8 +252,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetFactionStats] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetFactionStats] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.StackTrace);
                 }
             }
         }
@@ -309,6 +307,30 @@ namespace VenoXV.Reallife.database
                 return login;
             }
             catch { return false; }
+        }       
+        public static bool LoginAccountByName(string name, string password)
+        {
+            try
+            {
+                bool login = false;
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName AND Passwort = SHA2(@Passwort, '256') LIMIT 1";
+                    command.Parameters.AddWithValue("@SpielerName", name);
+                    command.Parameters.AddWithValue("@Passwort", password);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        login = reader.HasRows;
+                    }
+                }
+
+                return login;
+            }
+            catch(Exception ex) { Core.Debug.CatchExceptions("LoginAccountByName", ex); return false; }
         }
 
         public static void ChangeUserPasswort(string Spielername, string password)
@@ -391,8 +413,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetPlayerWhereFromList] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetPlayerWhereFromList] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.StackTrace);
                 }
             }
         }
@@ -525,8 +547,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION CreateCharacter] " + ex.Message);
-                    Alt.Log("[EXCEPTION CreateCharacter] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.StackTrace);
                 }
             }
 
@@ -628,8 +650,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateCharacterHair] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateCharacterHair] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateCharacterHair] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateCharacterHair] " + ex.StackTrace);
                 }
             }
         }
@@ -665,7 +687,7 @@ namespace VenoXV.Reallife.database
                             character.faction = reader.GetInt32("faction");
                             character.zivizeit = reader.GetDateTime("zivizeit");
                             character.position = new Position(posX, posY, posZ);
-                            character.rotation = new Rotation(0.0f, 0.0f, rot);
+                            character.rotation = (int)rot;
                             character.money = reader.GetInt32("money");
                             character.bank = reader.GetInt32("bank");
                             character.SocialState = reader.GetString("SocialState");
@@ -803,8 +825,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SaveCharacterInformation] " + ex.Message);
-                    Alt.Log("[EXCEPTION SaveCharacterInformation] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SaveCharacterInformation] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SaveCharacterInformation] " + ex.StackTrace);
                 }
             }
         }
@@ -822,14 +844,14 @@ namespace VenoXV.Reallife.database
                     command.CommandText = "UPDATE accounts SET banzeit = @banzeit ,banreason = @banreason, status = @status WHERE socialName = @socialName";
                     command.Parameters.AddWithValue("@banzeit", DateTime.Now);
                     command.Parameters.AddWithValue("@status", "1");
-                    command.Parameters.AddWithValue("@banreason", "");
+                    command.Parameters.AddWithValue("@banreason", " ");
                     command.Parameters.AddWithValue("@socialName", socialName);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateLastBantime] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateLastBantime] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateLastBantime] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateLastBantime] " + ex.StackTrace);
                 }
             }
         }
@@ -848,6 +870,29 @@ namespace VenoXV.Reallife.database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
                     command.Parameters.AddWithValue("@SpielerSocial", name);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        found = reader.HasRows;
+                    }
+                }
+
+                return found;
+            }
+            catch { return false; }
+        }
+        public static bool FindAccountByName(string name)
+        {
+            try
+            {
+                bool found = false;
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                    command.Parameters.AddWithValue("@SpielerName", name);
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1203,6 +1248,30 @@ namespace VenoXV.Reallife.database
                 return -1;
             }
             catch { return -1; }
+        }       
+        public static int GetAccountUIDByName(string name)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                    command.Parameters.AddWithValue("@SpielerName", name);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            return reader.GetInt32("UID");
+                        }
+                    }
+                }
+                return -1;
+            }
+            catch { return -1; }
         }
 
         public static int GetCharakterUID(string SpielerName)
@@ -1358,8 +1427,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION GetPlayerVIP] " + ex.Message);
-                    Alt.Log("[EXCEPTION GetPlayerVIP] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.StackTrace);
                 }
             }
             return spieler;
@@ -1382,8 +1451,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetVIPStats] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetVIPStats] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.StackTrace);
                 }
             }
         }
@@ -1404,8 +1473,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetPlayerSerial] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetPlayerSerial] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.StackTrace);
                 }
             }
         }
@@ -1427,8 +1496,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.Message);
-                    Alt.Log("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.StackTrace);
                 }
             }
         }
@@ -1510,8 +1579,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveOldBan] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveOldBan] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveOldBan] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveOldBan] " + ex.StackTrace);
                 }
             }
         }
@@ -1532,8 +1601,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveOldBanBySerial] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveOldBanBySerial] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveOldBanBySerial] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveOldBanBySerial] " + ex.StackTrace);
                 }
             }
         }
@@ -1554,8 +1623,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveOldPrison] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveOldPrison] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.StackTrace);
                 }
             }
         }
@@ -1652,8 +1721,8 @@ namespace VenoXV.Reallife.database
                     }
                     catch (Exception ex)
                     {
-                        Alt.Log("[EXCEPTION AddNewIVehicle] " + ex.Message);
-                        Alt.Log("[EXCEPTION AddNewIVehicle] " + ex.StackTrace);
+                        Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.Message);
+                        Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.StackTrace);
                     }
                 }
 
@@ -1686,8 +1755,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddNewAdminTicket] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddNewAdminTicket] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.StackTrace);
                 }
             }
 
@@ -1718,8 +1787,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateIVehicleRgba] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateIVehicleRgba] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleRgba] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleRgba] " + ex.StackTrace);
                 }
             }
         }
@@ -1744,8 +1813,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateIVehiclePosition] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateIVehiclePosition] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateIVehiclePosition] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateIVehiclePosition] " + ex.StackTrace);
                 }
             }
         }
@@ -1767,8 +1836,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateIVehicleSingleValue] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateIVehicleSingleValue] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleValue] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleValue] " + ex.StackTrace);
                 }
             }
         }
@@ -1790,8 +1859,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateIVehicleSingleString] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateIVehicleSingleString] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.StackTrace);
                 }
             }
         }
@@ -1834,8 +1903,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SaveIVehicle] " + ex.Message);
-                    Alt.Log("[EXCEPTION SaveIVehicle] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.StackTrace);
                 }
             }
         }
@@ -1884,8 +1953,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION SaveAllIVehicles] " + ex.Message);
-                    Alt.Log("[EXCEPTION SaveAllIVehicles] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.StackTrace);
                 }
             }
         }
@@ -1906,8 +1975,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveIVehicle] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveIVehicle] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.StackTrace);
                 }
             }
         }
@@ -1968,8 +2037,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddTunning] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddTunning] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddTunning] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddTunning] " + ex.StackTrace);
                 }
             }
 
@@ -1993,8 +2062,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveTunning] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveTunning] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.StackTrace);
                 }
             }
         }
@@ -2016,8 +2085,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION TransferMoneyToPlayer] " + ex.Message);
-                    Alt.Log("[EXCEPTION TransferMoneyToPlayer] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.StackTrace);
                 }
             }
         }
@@ -2091,8 +2160,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddNewItem] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddNewItem] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddNewItem] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddNewItem] " + ex.StackTrace);
                 }
             }
 
@@ -2124,8 +2193,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateItem] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateItem] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateItem] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateItem] " + ex.StackTrace);
                 }
             }
         }
@@ -2146,8 +2215,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveItem] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveItem] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveItem] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveItem] " + ex.StackTrace);
                 }
             }
         }        
@@ -2169,8 +2238,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
                 }
             }
         }
@@ -2191,8 +2260,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RemoveAllItems] " + ex.Message);
-                    Alt.Log("[EXCEPTION RemoveAllItems] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RemoveAllItems] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RemoveAllItems] " + ex.StackTrace);
                 }
             }
         }
@@ -2268,8 +2337,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateBusiness] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateBusiness] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.StackTrace);
                 }
             }
         }
@@ -2309,8 +2378,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateAllBusiness] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateAllBusiness] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.StackTrace);
                 }
             }
         }
@@ -2339,8 +2408,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddNewBusiness] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
                 }
             }
 
@@ -2363,8 +2432,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddNewBusiness] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
                 }
             }
         }
@@ -2437,8 +2506,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddHouse] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddHouse] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddHouse] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddHouse] " + ex.StackTrace);
                 }
             }
 
@@ -2474,8 +2543,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateHouse] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateHouse] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.StackTrace);
                 }
             }
         }
@@ -2496,8 +2565,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION DeleteHouse] " + ex.Message);
-                    Alt.Log("[EXCEPTION DeleteHouse] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.StackTrace);
                 }
             }
         }
@@ -2518,8 +2587,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION KickTenantsOut] " + ex.Message);
-                    Alt.Log("[EXCEPTION KickTenantsOut] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.StackTrace);
                 }
             }
         }
@@ -2621,8 +2690,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION RenamePoliceControl] " + ex.Message);
-                    Alt.Log("[EXCEPTION RenamePoliceControl] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION RenamePoliceControl] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION RenamePoliceControl] " + ex.StackTrace);
                 }
             }
         }
@@ -2643,8 +2712,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION DeletePoliceControl] " + ex.Message);
-                    Alt.Log("[EXCEPTION DeletePoliceControl] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION DeletePoliceControl] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION DeletePoliceControl] " + ex.StackTrace);
                 }
             }
         }
@@ -2710,8 +2779,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddClothes] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddClothes] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddClothes] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddClothes] " + ex.StackTrace);
                 }
             }
 
@@ -2735,8 +2804,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateClothes] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateClothes] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.StackTrace);
                 }
             }
         }
@@ -2798,8 +2867,8 @@ namespace VenoXV.Reallife.database
                     }
                     catch (Exception ex)
                     {
-                        Alt.Log("[EXCEPTION AddTattoo] " + ex.Message);
-                        Alt.Log("[EXCEPTION AddTattoo] " + ex.StackTrace);
+                        Console.WriteLine("[EXCEPTION AddTattoo] " + ex.Message);
+                        Console.WriteLine("[EXCEPTION AddTattoo] " + ex.StackTrace);
                     }
                 }
 
@@ -2831,8 +2900,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddAdminLog] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddAdminLog] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.StackTrace);
                 }
             }
         }
@@ -2854,8 +2923,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddLicensedWeapon] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddLicensedWeapon] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.StackTrace);
                 }
             }
         }
@@ -2883,8 +2952,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddPlayerToPrison] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddPlayerToPrison] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.StackTrace);
                 }
             }
         }
@@ -2914,8 +2983,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
                 }
             }
         }
@@ -2943,8 +3012,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
-                    Alt.Log("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
                 }
             }
         }
@@ -2966,8 +3035,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdatePlayerTimeBan] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdatePlayerTimeBan] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.StackTrace);
                 }
             }
         }
@@ -2990,8 +3059,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdatePlayerPrisonTime] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdatePlayerPrisonTime] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.StackTrace);
                 }
             }
         }
@@ -3012,8 +3081,8 @@ namespace VenoXV.Reallife.database
                 }
                 catch (Exception ex)
                 {
-                    Alt.Log("[EXCEPTION UpdateGW] " + ex.Message);
-                    Alt.Log("[EXCEPTION UpdateGW] " + ex.StackTrace);
+                    Console.WriteLine("[EXCEPTION UpdateGW] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION UpdateGW] " + ex.StackTrace);
                 }
             }
         }

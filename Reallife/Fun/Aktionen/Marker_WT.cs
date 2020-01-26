@@ -87,8 +87,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION CreateFactionWTEnter] " + ex.Message);
-                Alt.Log("[EXCEPTION CreateFactionWTEnter] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION CreateFactionWTEnter] " + ex.Message);
+                Console.WriteLine("[EXCEPTION CreateFactionWTEnter] " + ex.StackTrace);
             }
         }
 
@@ -102,7 +102,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0}Der Waffentruck wurde zerstört!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Der Waffentruck wurde zerstört!");
                     AltV.Net.Alt.RemoveColShape(LSPD_COL);
                     //LSPD_MARKER.Remove();
                     AltV.Net.Alt.RemoveColShape(MAFIA_COL);
@@ -122,8 +122,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION OnIVehicleDeath] " + ex.Message);
-                Alt.Log("[EXCEPTION OnIVehicleDeath] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION OnIVehicleDeath] " + ex.Message);
+                Console.WriteLine("[EXCEPTION OnIVehicleDeath] " + ex.StackTrace);
             }
         }
 
@@ -144,8 +144,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                             {
                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > 0)
                                 {
-                                    factions.Faction.CreateFactionMessage((int)shape.vnxGetElementData<int>("WT_COL_FACTION"), " hat den " + CURRENT_WEAPONTRUCK + " Erfolgreich in eurer Base abgegeben!", "!{0,150,200}", player);
-                                    Reallife.Core.RageAPI.SendChatMessageToAll("!{175,0,0}Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
+                                    factions.Faction.CreateFactionMessage((int)shape.vnxGetElementData<int>("WT_COL_FACTION"), " hat den " + CURRENT_WEAPONTRUCK + " Erfolgreich in eurer Base abgegeben!",RageAPI.GetHexColorcode(0,150,200)+"", player);
+                                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
                                     if (CURRENT_WEAPONTRUCK == "Staatswaffentruck")
                                     {
                                         SWT.FinishSWT(player, Vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
@@ -171,8 +171,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION CreateFactionWTEnter] " + ex.Message);
-                Alt.Log("[EXCEPTION CreateFactionWTEnter] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION CreateFactionWTEnter] " + ex.Message);
+                Console.WriteLine("[EXCEPTION CreateFactionWTEnter] " + ex.StackTrace);
             }
         }
     }

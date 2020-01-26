@@ -15,10 +15,10 @@ namespace VenoXV.Tactics.environment
         {
             try
             {
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_IS_DEAD) == false)
+                if (player.vnxGetElementData<bool>(EntityData.PLAYER_IS_DEAD) == false || player.vnxGetElementData<string>(EntityData.PLAYER_IS_DEAD) == "")
                 {
                     AntiCheat_Allround.SetTimeOutHealth(player, 1000);
-                    Tactics.globals.Functions.SendTacticRoundMessage("!{0,200,0}" + killer.Name + " hat " +player.Name + " getötet!");
+                    Tactics.globals.Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0,200,0) + killer.Name + " hat " +player.Name + " getötet!");
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, false);
                     player.SetData(EntityData.PLAYER_IS_DEAD, true);
 
@@ -59,7 +59,7 @@ namespace VenoXV.Tactics.environment
                     }
                 }
             }
-            catch { }
+            catch(Exception ex) { Reallife.Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
         }
     }
 }

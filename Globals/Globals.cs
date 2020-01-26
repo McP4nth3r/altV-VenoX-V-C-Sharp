@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,7 @@ namespace VenoXV.Globals
 {
     public class Globals : IScript
     {
-            
-        
-
-        //[ServerEvent(Event.ResourceStart)]
-        public void OnResourceStart()
+        public static void OnResourceStart()
         {
             try
             {
@@ -43,13 +40,13 @@ namespace VenoXV.Globals
             catch { }
         }
 
-        //[ServerEvent(Event.PlayerDeath)]
-        public void OnPlayerDeath(IPlayer player, IPlayer killer, uint reason)
+        [ScriptEvent(ScriptEventType.PlayerDead)]
+        public static void OnPlayerDeath(IPlayer player, IPlayer killer, uint reason)
         {
             if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
             {
-                if (killer == null || Functions.IstargetInSameLobby(player, killer))
-                {
+                if (Functions.IstargetInSameLobby(player, killer) || killer == null)
+                {   if(killer == null) { killer = Reallife.Core.RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
                     VenoXV.Tactics.environment.Death.OnPlayerDeath(player, killer);
                 }
                 return;
@@ -64,7 +61,7 @@ namespace VenoXV.Globals
         }
 
         //[ServerEvent(Event.Update)]
-        public static void OnUpdate()
+        public static void OnUpdate(object unused)
         {
             try
             {
@@ -76,7 +73,7 @@ namespace VenoXV.Globals
             {
 
             }
-        }
+        }        
 
         //[ServerEvent(Event.PlayerDisconnected)]
         public void OnPlayerDisconnected(IPlayer player, string type, string reason)
@@ -87,6 +84,19 @@ namespace VenoXV.Globals
                 Tactics.globals.Globals.OnPlayerDisconnect(player, type, reason);
             }
             catch { }
+        }
+
+        [ScriptEvent(ScriptEventType.WeaponDamage)]
+        public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, UInt16 damage, Position offset, AltV.Net.Data.BodyPart bodypart)
+        {
+            //Reallife.Core.Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.Name + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
+            AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
+            //Reallife.Core.Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
+            Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.Name);
+            if (target != null && source != null)
+            {
+                Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
+            }
         }
 
     }

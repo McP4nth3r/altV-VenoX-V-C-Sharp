@@ -16,7 +16,7 @@ namespace VenoXV.Tactics.chat
             {
                 if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
                 {
-                    players.SendChatMessage("!{0,200,255}[Tactics]!{255,255,255} " + player.Name + " : " + message);
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Tactics]" + RageAPI.GetHexColorcode(255,255,255) + " " + player.Name + " : " + message);
                 }
             }
         }

@@ -145,8 +145,8 @@ namespace VenoXV.Reallife.factions
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION Fstatefunc] " + ex.Message);
-                Alt.Log("[EXCEPTION Fstatefunc] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION Fstatefunc] " + ex.Message);
+                Console.WriteLine("[EXCEPTION Fstatefunc] " + ex.StackTrace);
             }
         }
 
@@ -219,7 +219,7 @@ namespace VenoXV.Reallife.factions
                         {
                             if (weed > WEED.amount)
                             {
-                                player.SendChatMessage("!{200,0,0}Du hast nicht genug Weed!");
+                                player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Weed!");
                                 return;
                             }
                             else
@@ -239,7 +239,7 @@ namespace VenoXV.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage("!{200,0,0}Du hast nicht genug Weed!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Weed!");
                             return;
                         }
                     }
@@ -250,7 +250,7 @@ namespace VenoXV.Reallife.factions
                         {
                             if (koks > KOKS.amount)
                             {
-                                player.SendChatMessage("!{200,0,0}Du hast nicht genug Kokain!");
+                                player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Kokain!");
                                 return;
                             }
                             else
@@ -270,7 +270,7 @@ namespace VenoXV.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage("!{200,0,0}Du hast nicht genug Kokain!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Kokain!");
                             return;
                         }
                     }
@@ -280,7 +280,7 @@ namespace VenoXV.Reallife.factions
                         {
                             if (mats > MATS.amount)
                             {
-                                player.SendChatMessage("!{200,0,0}Du hast nicht genug Mats!");
+                                player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Mats!");
                                 return;
                             }
                             else
@@ -299,7 +299,7 @@ namespace VenoXV.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage("!{200,0,0}Du hast nicht genug Mats!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Mats!");
                             return;
                         }
                     }
@@ -307,7 +307,7 @@ namespace VenoXV.Reallife.factions
                     {
                         if (money > player.vnxGetElementData<int>(EntityData.PLAYER_MONEY))
                         {
-                            player.SendChatMessage("!{200,0,0}Du hast nicht genug Geld!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du hast nicht genug Geld!");
                             return;
                         }
                         else
@@ -316,7 +316,7 @@ namespace VenoXV.Reallife.factions
                             Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - money);
                         }
                     }
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.Name + " hat !{0,200,255}" + money + " !{255,255,255}$, !{0,200,255}" + weed + " !{255,255,255}G Weed, !{0,200,255}" + koks + " !{255,255,255}G Kokain, !{0,200,255}" + mats + "!{255,255,255} Stk. Mats ins Depot gelegt!");
+                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.Name + " hat " + RageAPI.GetHexColorcode(0,200,255) + " " + money + " " + RageAPI.GetHexColorcode(255,255,255) + "$, " + RageAPI.GetHexColorcode(0,200,255) + " " + weed + " " + RageAPI.GetHexColorcode(255,255,255) + "G Weed, " + RageAPI.GetHexColorcode(0,200,255) + " " + koks + " " + RageAPI.GetHexColorcode(255,255,255) + "G Kokain, " + RageAPI.GetHexColorcode(0,200,255) + " " + mats + RageAPI.GetHexColorcode(255,255,255) + " Stk. Mats ins Depot gelegt!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats ins Depot gelegt!");
                     player.Emit("destroyFkassenWindow");
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
@@ -333,22 +333,22 @@ namespace VenoXV.Reallife.factions
                     int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                     if (fkasse.weed < weed)
                     {
-                        player.SendChatMessage("!{200,0,0}Nicht genug Weed in der Kasse!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Nicht genug Weed in der Kasse!");
                         return;
                     }
                     if (fkasse.koks < koks)
                     {
-                        player.SendChatMessage("!{200,0,0}Nicht genug Kokain in der Kasse!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Nicht genug Kokain in der Kasse!");
                         return;
                     }
                     if (fkasse.mats < mats)
                     {
-                        player.SendChatMessage("!{200,0,0}Nicht genug Mats in der Kasse!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Nicht genug Mats in der Kasse!");
                         return;
                     }
                     if (fkasse.money < money)
                     {
-                        player.SendChatMessage("!{200,0,0}Nicht genug Geld in der Kasse!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Nicht genug Geld in der Kasse!");
                         return;
                     }
                     int finalwertmoney = fkasse.money - money;
@@ -358,7 +358,7 @@ namespace VenoXV.Reallife.factions
                     player.Emit("destroyFkassenWindow");
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + money);
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.Name + " hat !{0,200,255}" + money + " !{255,255,255}$, !{0,200,255}" + weed + " !{255,255,255}G Weed, !{0,200,255}" + koks + " !{255,255,255}G Kokain, !{0,200,255}" + mats + "!{255,255,255} Stk. Mats aus dem Depot genommen!");
+                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.Name + " hat " + RageAPI.GetHexColorcode(0,200,255) + " " + money + " " + RageAPI.GetHexColorcode(255,255,255) + "$, " + RageAPI.GetHexColorcode(0,200,255) + " " + weed + " " + RageAPI.GetHexColorcode(255,255,255) + "G Weed, " + RageAPI.GetHexColorcode(0,200,255) + " " + koks + " " + RageAPI.GetHexColorcode(255,255,255) + "G Kokain, " + RageAPI.GetHexColorcode(0,200,255) + " " + mats + RageAPI.GetHexColorcode(255,255,255) + " Stk. Mats aus dem Depot genommen!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats aus dem Depot genommen!");
 
                     //Dem Spieler die  Items geben die er verdient hat nahui

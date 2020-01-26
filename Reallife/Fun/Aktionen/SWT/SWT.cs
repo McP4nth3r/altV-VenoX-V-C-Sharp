@@ -150,7 +150,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 SWTTimer.Interval = 20 * 60000;
                 SWTTimer.Enabled = true;
 
-                Reallife.Core.RageAPI.SendChatMessageToAll("!{0,175,0}[Staat] : Ein Staatswaffentruck wurde beladen!");
+                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,175,0) +"[Staat] : Ein Staatswaffentruck wurde beladen!");
             }
             catch
             {
@@ -165,7 +165,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    Reallife.Core.RageAPI.SendChatMessageToAll("!{200,0,0}Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
 
                     SWT_TRUCK.Remove();
                 }
@@ -233,8 +233,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION FinishSWT] " + ex.Message);
-                Alt.Log("[EXCEPTION FinishSWT] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION FinishSWT] " + ex.Message);
+                Console.WriteLine("[EXCEPTION FinishSWT] " + ex.StackTrace);
             }
         }
 

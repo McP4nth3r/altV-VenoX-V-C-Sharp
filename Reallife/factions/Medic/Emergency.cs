@@ -37,7 +37,7 @@ namespace VenoXV.Reallife.factions
                                             //spielerimauto.WarpOutOfIVehicle();
                                             spielerimauto.Emit("toggleHandcuffed", false);
                                             Core.VnX.vnxSetSharedData(spielerimauto, EntityData.PLAYER_KILLED, 0);
-                                            player.SendChatMessage( "!{0,200,0}Du hast " + spielerimauto.Name + " wiederbelebt! Du bekommst " + 350 + " $.");
+                                            player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast " + spielerimauto.Name + " wiederbelebt! Du bekommst " + 350 + " $.");
                                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
                                             Spawn.spawnplayer_on_spawnpoint(spielerimauto);
                                         }
@@ -75,7 +75,7 @@ namespace VenoXV.Reallife.factions
                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
                         medics.Emit("ShowMedicBlips",player.Name, player.Position);
-                        medics.SendChatMessage("!{0,150,200}" + player.Name + " ist gestorben! Zeit bis zum Respawn : " + time);
+                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + player.Name + " ist gestorben! Zeit bis zum Respawn : " + time);
                     }
                 }
             }
@@ -91,7 +91,7 @@ namespace VenoXV.Reallife.factions
                 if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                 {
                     medics.Emit("Destroy_MedicBlips",player.Name);
-                    medics.SendChatMessage("!{150,0,0}Ihr seid zu langsam gewesen! Der Spieler " +player.Name + " ist Respawned!");
+                    medics.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.Name + " ist Respawned!");
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace VenoXV.Reallife.factions
                                 {
                                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                                     {
-                                        medics.SendChatMessage("!{0,125,0}"+player.Name + " hat "+target.Name + " aufgesammelt!");
+                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.Name + " hat "+target.Name + " aufgesammelt!");
                                         medics.Emit("Destroy_MedicBlips", target.Name);
                                     }
                                 }

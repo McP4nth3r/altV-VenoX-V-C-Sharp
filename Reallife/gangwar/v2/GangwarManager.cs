@@ -125,7 +125,7 @@ namespace VenoXV.Reallife.gangwar.v2
             catch { }
         }
 
-        public void printInfo(string text) => Alt.Log("[GANGWAR] " + text);
+        public void printInfo(string text) => Console.WriteLine("[GANGWAR] " + text);
 
         public void CreateGangwarArea(GangwarArea area)
         {

@@ -18,15 +18,15 @@ namespace VenoXV.Reallife.factions
             string Rgbacode = string.Empty;
             if(FID == Constants.FACTION_POLICE)
             {
-                Rgbacode = "!{100, 100, 255}";
+                Rgbacode =RageAPI.GetHexColorcode(100, 100, 255);
             }
             else if (FID == Constants.FACTION_COSANOSTRA)
             {
-                Rgbacode = "!{80, 80, 80}";
+                Rgbacode =RageAPI.GetHexColorcode(80, 80, 80);
             }
             else if(FID == Constants.FACTION_YAKUZA)
             {
-                Rgbacode = "!{100, 0, 0}";
+                Rgbacode =RageAPI.GetHexColorcode(100, 0, 0);
             }
             else if (FID == Constants.FACTION_TERRORCLOSED)
             {
@@ -34,39 +34,39 @@ namespace VenoXV.Reallife.factions
             }
             else if (FID == Constants.FACTION_NEWS)
             {
-                Rgbacode = "!{125, 50, 200}";
+                Rgbacode =RageAPI.GetHexColorcode(125, 50, 200);
             }
             else if (FID == Constants.FACTION_FBI)
             {
-                Rgbacode = "!{50, 50, 255}";
+                Rgbacode =RageAPI.GetHexColorcode(50, 50, 255);
             }
             else if (FID == Constants.FACTION_MS13)
             {
-                Rgbacode = "!{225, 225, 0}";
+                Rgbacode =RageAPI.GetHexColorcode(225, 225, 0);
             }
             else if (FID == Constants.FACTION_USARMY)
             {
-                Rgbacode = "!{0, 125, 0}";
+                Rgbacode =RageAPI.GetHexColorcode(0, 125, 0);
             }
             else if (FID == Constants.FACTION_SAMCRO)
             {
-                Rgbacode = "!{100, 50, 100}";
+                Rgbacode =RageAPI.GetHexColorcode(100, 50, 100);
             }
             else if (FID == Constants.FACTION_EMERGENCY)
             {
-                Rgbacode = "!{255, 51, 51}";
+                Rgbacode =RageAPI.GetHexColorcode(255, 51, 51);
             }
             else if (FID == Constants.FACTION_MECHANIK)
             {
-                Rgbacode = "!{255, 100, 0}";
+                Rgbacode =RageAPI.GetHexColorcode(255, 100, 0);
             }
             else if (FID == Constants.FACTION_BALLAS)
             {
-                Rgbacode = "!{138,43,226}";
+                Rgbacode =RageAPI.GetHexColorcode(138,43,226);
             }
             else if (FID == Constants.FACTION_GROVE)
             {
-                Rgbacode = "!{85, 107, 47}";
+                Rgbacode =RageAPI.GetHexColorcode(85, 107, 47);
             }
             return Rgbacode;
         }
@@ -82,8 +82,8 @@ namespace VenoXV.Reallife.factions
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION SendFactionChatMessage] " + ex.Message);
-                Alt.Log("[EXCEPTION SendFactionChatMessage] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION SendFactionChatMessage] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SendFactionChatMessage] " + ex.StackTrace);
             }
         }
 
@@ -109,7 +109,7 @@ namespace VenoXV.Reallife.factions
             {
                 if (Allround.isStateFaction(player) || player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                 {
-                    Faction.CreateStateMessage(text, "!{ 140, 10, 10}", player);
+                    Faction.CreateStateMessage(text,RageAPI.GetHexColorcode( 140, 10, 10), player);
                     vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] : " + text);
                 }
                 else
@@ -119,8 +119,8 @@ namespace VenoXV.Reallife.factions
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION SendStateChatMessage] " + ex.Message);
-                Alt.Log("[EXCEPTION SendStateChatMessage] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION SendStateChatMessage] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SendStateChatMessage] " + ex.StackTrace);
             }
         }
 
@@ -135,7 +135,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= 2)
                     {
-                        Faction.CreateBadMessage(text, "!{ 107, 107, 107}", player);
+                        Faction.CreateBadMessage(text,RageAPI.GetHexColorcode( 107, 107, 107), player);
                         vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] : " + text);
                     }
                     else
@@ -150,8 +150,8 @@ namespace VenoXV.Reallife.factions
             }
             catch (Exception ex)
             {
-                Alt.Log("[EXCEPTION SendBadChatMessage] " + ex.Message);
-                Alt.Log("[EXCEPTION SendBadChatMessage] " + ex.StackTrace);
+                Console.WriteLine("[EXCEPTION SendBadChatMessage] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SendBadChatMessage] " + ex.StackTrace);
             }
         }
 
