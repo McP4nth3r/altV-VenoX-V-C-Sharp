@@ -18,10 +18,16 @@ namespace VenoXV.Reallife.Environment.ammunation
     {
         public static void OnResourceStart()
         {
-            /*Blip AmmunationBlip = NAPI.Blip.CreateBlip(new Position(21.11444f, -1106.664f, 29.79703f));
-            AmmunationBlip.Name = "Ammunation";
-            AmmunationBlip.Sprite = 110;
-            AmmunationBlip.Rgba = 4;*/
+            BlipModel blip = new BlipModel();
+            Position pos = new Position(21.11444f, -1106.664f, 29.79703f);
+            blip.Name = "Ammunation";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 110;
+            blip.Color = 4;
+            blip.ShortRange = false;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
         //[AltV.Net.ClientEvent("Buy_Item_Ammo_S")]
