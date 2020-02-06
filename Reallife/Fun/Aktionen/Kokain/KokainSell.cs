@@ -17,12 +17,16 @@ namespace VenoXV.Reallife.Fun.Aktionen.Kokain
         public static IColShape KokainSell_Col = Alt.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
         public static void OnResourceStart()
         {
-            /*
-            Blip KokaintruckBlip = NAPI.Blip.CreateBlip(new Position(140.425, -239.0754, 51.52684));
-            KokaintruckBlip.Name = "Dealer";
-            KokaintruckBlip.ShortRange = true;
-            KokaintruckBlip.Sprite = 51;
-            KokaintruckBlip.Rgba = 27;*/
+            BlipModel blip = new BlipModel();
+            Position pos = new Position(140.425f, -239.0754f, 51.52684f);
+            blip.Name = "Dealer";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 51;
+            blip.Color = 27;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
         public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)

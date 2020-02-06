@@ -24,17 +24,27 @@ namespace VenoXV.Reallife.Fun
 
         public static void OnResourceStart()
         {
-           /* Blip KokaintruckBlip = NAPI.Blip.CreateBlip(new Position(-1265.874, -3432.416, 13.5));
-            KokaintruckBlip.Name = "Kokaintruck [Illegal]";
-            KokaintruckBlip.ShortRange = true;
-            KokaintruckBlip.Sprite = 318;
-            KokaintruckBlip.Rgba = 27;
+            BlipModel blip = new BlipModel();
+            Position pos = new Position(-1265.874f, -3432.416f, 13.5f);
+            blip.Name = "Kokaintruck [Illegal]";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 318;
+            blip.Color = 27;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
 
-            Blip WWTBlip = NAPI.Blip.CreateBlip(new Position(2854.921, 1501.922, 24.77632));
-            WWTBlip.Name = "Waffentruck [Illegal]";
-            WWTBlip.ShortRange = true;
-            WWTBlip.Sprite = 318;
-            WWTBlip.Rgba = 1;*/
+            BlipModel blip2 = new BlipModel();
+            Position pos2 = new Position(2854.921f, 1501.922f, 24.77632f);
+            blip2.Name = "Waffentruck [Illegal]";
+            blip2.posX = pos2.X;
+            blip2.posY = pos2.Y;
+            blip2.posZ = pos2.Z;
+            blip2.Sprite = 318;
+            blip2.Color = 1;
+            blip2.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip2);
         }
 
 
@@ -187,8 +197,8 @@ namespace VenoXV.Reallife.Fun
                         Kokaintruckveh.EngineOn = true;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_MODEL, "Kokaintruck");
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
-                        Core.VnX.IVehiclevnxSetSharedData(Kokaintruckveh, "kms", 0);
-                        Core.VnX.IVehiclevnxSetSharedData(Kokaintruckveh, "gas", 100);
+                        Core.VnX.VehiclevnxSetSharedData(Kokaintruckveh, "kms", 0);
+                        Core.VnX.VehiclevnxSetSharedData(Kokaintruckveh, "gas", 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_NOT_SAVED, true);
                         foreach (IPlayer target in Alt.GetAllPlayers())
