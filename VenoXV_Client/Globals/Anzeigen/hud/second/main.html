@@ -1,0 +1,484 @@
+<head>
+<link href="style.css" rel="stylesheet">
+<script src="index.js"></script>
+<script type="text/javascript">
+		let taginfo = null;
+        function uhr() {
+            var jetzt = new Date();
+            var tag = jetzt.getDate();
+            var monat = jetzt.getMonth() + 1;
+            if(monat <= 9)
+                monat = '0' + monat;
+            var jahr = jetzt.getYear();
+            if (jahr < 999)
+                jahr += 1900;
+            var stunden = jetzt.getHours();
+            var minuten = jetzt.getMinutes();
+			var seconds = jetzt.getSeconds();
+			if(seconds >= 0 && seconds < 10)
+			{
+				seconds = "0" + jetzt.getSeconds();
+			}
+			if(minuten >= 0 && minuten < 10)
+			{
+				minuten = "0" + jetzt.getMinutes();
+			}
+
+            var tag = tag + '/' + monat + '/' + jahr;    
+			
+            var zeit = stunden + ':' + minuten +':' + seconds + ' Uhr';    
+            
+            document.getElementById('uhr').innerHTML = zeit;
+            document.getElementById('tag').innerHTML = tag;
+			setTimeout(uhr, 500);
+        }
+
+</script>
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<script src="../../../statics/lib/jquery-3.1.1.min.js"></script>
+<script src="../../../statics/lib/bootstrap.min.js"></script>
+<script src="../../../statics/lib/i18next.min.js"></script>
+<script src="../../../statics/lib/jquery-i18next.min.js"></script>
+<script src="../../../statics/lib/i18nextXHRBackend.min.js"></script>
+</head>
+    
+<body onload="uhr();">
+	<img id="blood_in_vnx" src="files/images/bloodscreen.png">
+	<div id="Main" class="all d-none">
+		<center>
+			<div class="main_hud"></div>
+			<div class="main_hud_hunger_bg"></div>
+			<div id="main_hud_hunger_1"></div>
+			<div id="main_hud_hunger_2"></div>
+			<div id="main_hud_hunger_text">100 %</div>
+			<div class="main_hud_header"></div>
+			<div class="clock" id="uhr"></div>
+			<div class="date" id="tag"></div>
+			<div class="HUD_Player_Name" id="HUD_Player_Name"></div>
+			<div class="HUD_Faction_Name" id="HUD_Faction_Name"></div>
+			<div class="HUD_Faction_Rank" id="HUD_Faction_Rank"></div>
+			<div class="HUD_Money" id="HUD_Money"></div>
+			
+			<div id="HUD_FACTION_0"class="d-none">
+				<img class="Faction_Image" src="files/images/protected.png">
+			</div>			
+			
+			<div id="HUD_FACTION_1"class="d-none">
+				<img class="Faction_Image" src="files/images/police.png">
+			</div>
+			
+			<div id="HUD_FACTION_2"class="d-none">
+				<img class="Faction_Image" src="files/images/mafia.png">
+			</div>
+			
+			<div id="HUD_FACTION_3"class="d-none">
+				<img class="Faction_Image" src="files/images/triaden.png">
+			</div>
+			
+			<div id="HUD_FACTION_5"class="d-none">
+				<img class="Faction_Image"src="files/images/reporter.png">
+			</div>
+			
+			<div id="HUD_FACTION_6" class="d-none">
+				<img class="Faction_Image" src="files/images/fbi.png">
+			</div>
+			
+			<div id="HUD_FACTION_7"class="d-none">
+				<img class="Faction_Image" src="files/images/aztecas.png">
+			</div>
+			
+			<div id="HUD_FACTION_8"class="d-none">
+				<img class="Faction_Image" src="files/images/army.png">
+			</div>
+			
+			<div id="HUD_FACTION_9"class="d-none">
+				<img class="Faction_Image" src="files/images/biker.png">
+			</div>
+			
+			<div id="HUD_FACTION_10"class="d-none">
+				<img class="Faction_Image" src="files/images/medic.png">
+			</div>
+			
+			<div id="HUD_FACTION_11"class="d-none">
+				<img class="Faction_Image" src="files/images/oamt.png">
+			</div>
+			
+			<div id="HUD_FACTION_12"class="d-none">
+				<img class="Faction_Image" src="files/images/ballas.png">
+			</div>
+			
+			<div id="HUD_FACTION_13"class="d-none">
+				<img class="Faction_Image" src="files/images/grove.png">
+			</div>
+			<div id="Muted">
+				<img class="Muted_Image" src="files/images/muted.png"></div>
+			<div id="NMuted" class="d-none">
+				<img class="NMuted_Image" src="files/images/nmuted.png"></div>
+			
+			<div id="stars_load" class="d-none">
+				<div id="star_1" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_inactive.png" id="star_2_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_3_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_4_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_5_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_6_inactiv">					
+				</div>
+				<div id="star_2" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_active.png" id="star_2_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_3_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_4_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_5_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_6_inactiv">					
+				</div>
+				<div id="star_3" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_active.png" id="star_2_inactiv">
+					<img src="files/images/wanted_active.png" id="star_3_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_4_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_5_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_6_inactiv">					
+				</div>
+				<div id="star_4" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_active.png" id="star_2_inactiv">
+					<img src="files/images/wanted_active.png" id="star_3_inactiv">
+					<img src="files/images/wanted_active.png" id="star_4_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_5_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_6_inactiv">					
+				</div>
+				<div id="star_5" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_active.png" id="star_2_inactiv">
+					<img src="files/images/wanted_active.png" id="star_3_inactiv">
+					<img src="files/images/wanted_active.png" id="star_4_inactiv">
+					<img src="files/images/wanted_active.png" id="star_5_inactiv">
+					<img src="files/images/wanted_inactive.png" id="star_6_inactiv">					
+				</div>
+				<div id="star_6" class="d-none">
+					<img src="files/images/wanted_active.png" id="star_1_active">
+					<img src="files/images/wanted_active.png" id="star_2_inactiv">
+					<img src="files/images/wanted_active.png" id="star_3_inactiv">
+					<img src="files/images/wanted_active.png" id="star_4_inactiv">
+					<img src="files/images/wanted_active.png" id="star_5_inactiv">
+					<img src="files/images/wanted_active.png" id="star_6_inactiv">					
+				</div>
+			</div>
+			
+			<div id="quest_showed" class="d-none">
+				<div class="QuestMain"></div>
+				<div class="QuestMain_header">Venox Quest</div>
+				<div class="QuestMain_container" id="QuestMain_container"></div>
+				<div class="QuestMain_container_win" id="QuestMain_container_win"></div>
+				<img id="QuestMain_0" src="files/images/gta_iv_girl.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_1" src="files/images/gta_sa_cop.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_2" src="files/images/gta_sa_girl.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_3" src="files/images/gta_sa_cop.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_4" src="files/images/gta_v_franklin_baseball.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_5" src="files/images/gta_iv_weapon.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_6" src="files/images/gta_sa_hippie.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_7" src="files/images/gta_v_ryder_cj.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_8" src="files/images/gta_iv_weapon.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_9" src="files/images/gta_v_ryder_cj.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_9" src="files/images/gta_3_baseball.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_10" src="files/images/gta_sa_cop.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_11" src="files/images/gta_iv_girl.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_12" src="files/images/gta_iv_nico.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_13" src="files/images/gta_iv_weapon.png" class="d-none QuestMain_Image"></img>
+				<img id="QuestMain_14" src="files/images/gta_v_ryder_cj.png" class="d-none QuestMain_Image"></img>
+			</div>
+			<audio id="hit" src="files/sounds/hit.wav" class="d-none" controls="controls"></audio>
+			
+		</center>
+	</div>
+	<script>
+	let bloodscreen = $("#blood_in_vnx");
+	let bloodscreenTimeout;
+
+	function showBloodscreen() {
+		if (bloodscreenTimeout) {
+			clearTimeout(bloodscreenTimeout);
+			let dom = bloodscreen.get()[0];
+			dom.style.animation = "none";
+			dom.offsetHeight;
+			dom.style.animation = "fadeout_blood 2.5s";
+		} else {
+			bloodscreen.css({
+				"display": "block",
+				"animation": "fadeout_blood 2.5s"
+			});
+		}
+		bloodscreenTimeout = setTimeout(function () {
+			bloodscreen.css("display", "none");
+			bloodscreenTimeout = null;
+		}, 2500);
+	}
+	</script>
+</body>
+
+
+<body id="VehicleSeat" unselectable="on">
+	<div class="all d-none" id="VehicleSeat_State">
+    <div class="car">
+        <div id="seat1" class="seat seat0"></div>
+        <div id="seat1" class="seat seat1"></div>
+        <div id="seat1" class="seat seat2"></div>
+        <div id="seatclose" class="back"><span>Nicht einsteigen</span></div>
+    </div>
+
+    <div class="bus">
+        <div id="seat1" class="seat seat0"></div>
+        <div id="seat1" class="seat seat1"></div>
+        <div id="seat1" class="seat seat2"></div>
+        <div id="seat1" class="seat seat3"></div>
+        <div id="seat1" class="seat seat4"></div>
+        <div id="seat1" class="seat seat5"></div>
+        <div id="seat1" class="seat seat6"></div>
+        <div id="seat1" class="seat seat7"></div>
+        <div id="seat1" class="seat seat8"></div>
+        <div id="seat1" class="seat seat9"></div>
+        <div id="seat1" class="seat seat10"></div>
+        <div id="seatclose" class="back"><span>Nicht einsteigen</span></div>
+    </div>
+	
+	<div class="ov">
+        <div id="seat1" class="seat seat0"></div>
+        <div id="seat1" class="seat seat1"></div>
+        <div id="seat1" class="seat seat2"></div>
+        <div id="seat1" class="seat seat3"></div>
+        <div id="seat1" class="seat seat4"></div>
+        <div id="seatclose" class="back"><span>Nicht einsteigen</span></div>
+    </div>
+    <script type="text/javascript">
+
+        function showSeatSelection(availableSeats, remoteId) {
+            $(".car").hide();
+            $(".bus").hide();
+			$(".ov").hide();
+            $(".back").click(function () {
+			mp.trigger("closeSeatCef");
+            });
+
+            if (availableSeats > 8) {
+                $(".bus").show();
+            }
+            else if(availableSeats > 3){
+                $(".ov").show();
+            } else {
+			    $(".car").show();
+			}
+
+            for (let i = 0; i < 11; i++) {
+                if (availableSeats > i) {
+                    $(`.seat${i}`).show();
+                    $(`.seat${i}`).click(function () {
+						mp.trigger("takeSeat", i, remoteId);
+                    });
+                }
+                else {
+                    $(`.seat${i}`).hide();
+                }
+            }
+        }
+    </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<style rel="stylesheet" type="text/css">
+	#VehicleSeat {
+            background-color: transparent;
+        }
+
+        .back {
+            display: flex;
+            height: 40px;
+            width: 150px;
+            position: absolute;
+            font-weight: bolder;
+            color: black;
+            align-items: center;
+            text-align: center;
+        }
+
+            .back span {
+                width: 150px;
+                text-align: center;
+            }
+
+        .car .back {
+            top: 30px;
+            left: 100px;
+        }
+
+
+        .bus .back {
+            top: 40px;
+            left: 115px;
+        }
+		
+		.ov .back {
+            top: 40px;
+            left: 115px;
+        }
+
+        .car {
+            height: 730px;
+            width: 350px;
+            background-image: url(img/car.png);
+            display: block;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -365px;
+            margin-left: -175px;
+            opacity: 0.70;
+        }
+
+        .bus {
+            height: 800px;
+            width: 380px;
+            background-image: url(img/bus.png);
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -400px;
+            margin-left: -190px;
+            opacity: 0.70;
+        }
+		
+		.ov {
+            height: 800px;
+            width: 380px;
+            background-image: url(img/ov.png);
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-top: -400px;
+            margin-left: -190px;
+            opacity: 0.70;
+        }
+
+        .seat {
+            height: 70px;
+            width: 70px;
+        }
+
+        .car .seat.seat0 {
+            position: relative;
+            top: 290px;
+            left: 210px;
+        }
+
+        .car .seat.seat1 {
+            position: relative;
+            top: 340px;
+            left: 60px;
+        }
+
+        .car .seat.seat2 {
+            position: relative;
+            top: 270px;
+            left: 210px;
+        }
+		
+		.ov .seat.seat0 {
+            position: relative;
+            top: 160px;
+            left: 225px;
+        }
+
+        .ov .seat.seat1 {
+            position: relative;
+            top: 180px;
+            left: 80px;
+        }
+
+        .ov .seat.seat2 {
+            position: relative;
+            top: 110px;
+            left: 225px;
+        }
+
+        .ov .seat.seat3 {
+            position: relative;
+            top: 130px;
+            left: 80px;
+        }
+
+        .ov .seat.seat4 {
+            position: relative;
+            top: 60px;
+            left: 225px;
+        }
+
+        .bus .seat.seat0 {
+            position: relative;
+            top: 160px;
+            left: 225px;
+        }
+
+        .bus .seat.seat1 {
+            position: relative;
+            top: 180px;
+            left: 80px;
+        }
+
+        .bus .seat.seat2 {
+            position: relative;
+            top: 110px;
+            left: 225px;
+        }
+
+        .bus .seat.seat3 {
+            position: relative;
+            top: 130px;
+            left: 80px;
+        }
+
+        .bus .seat.seat4 {
+            position: relative;
+            top: 60px;
+            left: 225px;
+        }
+
+        .bus .seat.seat5 {
+            position: relative;
+            top: 80px;
+            left: 80px;
+        }
+
+        .bus .seat.seat6 {
+            position: relative;
+            top: 10px;
+            left: 225px;
+        }
+
+        .bus .seat.seat7 {
+            position: relative;
+            top: 30px;
+            left: 80px;
+        }
+
+        .bus .seat.seat8 {
+            position: relative;
+            top: -40px;
+            left: 225px;
+        }
+
+        .bus .seat.seat9 {
+            position: relative;
+            top: -20px;
+            left: 80px;
+        }
+
+        .bus .seat.seat10 {
+            position: relative;
+            top: -90px;
+            left: 225px;
+        }
+	</style>
+	</div>
+</body>

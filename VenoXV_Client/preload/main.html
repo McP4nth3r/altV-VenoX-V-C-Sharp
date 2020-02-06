@@ -1,0 +1,61 @@
+<head>
+	<link href="style.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		function playAudio(v) {
+			if (v == 1) {
+				document.getElementById('hoversoundtrack').currentTime = 0;
+				document.getElementById('hoversoundtrack').play();
+			}
+			else {
+				document.getElementById('clicksoundtrack').currentTime = 0;
+				document.getElementById('clicksoundtrack').play();
+			}
+		}
+	</script>
+</head>
+
+<body onload="playAudio">
+	<audio id="hoversoundtrack" src="files/sounds/hover.mp3" class="d-none" controls="controls"></audio>
+	<audio id="clicksoundtrack" src="files/sounds/mouseclick.wav" class="d-none" controls="controls"></audio>
+	<div id="Main" class="all d-nne" onclick="playAudio(2)">
+		<div class="background"></div>
+		<div class="rec_0" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(1);">
+			<div class="rec_0_text">Zombie
+				<div class="rec_0_userinfo" id="rec_0_userinfo">30 / 100 Online.</div>
+			</div>
+		</div>
+		<div class="rec_1" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(0);">
+			<div class="rec_1_text">Reallife
+				<div class="rec_1_userinfo" id="rec_1_userinfo">70 / 500 Online.</div>
+			</div>
+		</div>
+		<div class="rec_2" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(2);">
+			<div class="rec_2_text">Tactics
+				<div class="rec_2_userinfo" id="rec_2_userinfo">90 / 400 Online.</div>
+			</div>
+		</div>
+		<div class="rec_3" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(3);">
+			<div class="rec_3_text">Gesperrt
+				<div class="rec_3_userinfo" id="rec_3_userinfo">0 / 0 Online.</div>
+			</div>
+		</div>
+		<div class="rec_4" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
+			<div class="rec_4_text">Gesperrt
+				<div class="rec_4_userinfo" id="rec_4_userinfo">0 / 0 Online.</div>
+			</div>
+		</div>
+		<div class="rec_5" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
+			<div class="rec_5_text">Gesperrt
+				<div class="rec_5_userinfo" id="rec_5_userinfo">0 / 0 Online.</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		function TriggerSelectedGM(number) {
+			if ("alt" in window) {
+				alt.emit("load_selected_gm", number);
+			}
+		}
+	</script>
+</body>

@@ -1,0 +1,316 @@
+
+@font-face { font-family: 'drugs';
+             src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }		 
+@font-face { font-family: 'quest_header';
+             src: url('./files/font/quest_header.ttf') format('truetype'); }
+
+
+
+.all {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+}
+
+
+.backa {
+    position: absolute;
+    background: rgba(0, 40, 80,1);
+    top: 0vw;
+    height: 100%;
+    left: 0vw;
+    width: 100%;
+}
+
+
+#blood_in_vnx{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0%;
+    left: 0%;
+    display: none;
+    transform: translateZ(0);
+}
+
+@keyframes fadeout_blood {
+    0%{
+        opacity:1;
+    }
+
+   100%{
+        opacity:0;
+        display: none;
+    }
+}
+
+
+.main_hud{
+    position: absolute;
+    border-top: 0.20vw solid rgb(0, 150, 200);
+    background: rgba(0, 0, 0,0.80);
+    top: 1vw;
+    height: 9vw;
+    right: 1%;
+    width: 17vw;
+}
+
+.main_hud_hunger_bg{
+    position: absolute;
+    background: rgba(0, 60, 80,0.80);
+	border:  0.13vw solid rgb(0,80, 120);
+    top: 6.5vw;
+    height: 1.5vw;
+    right: 2%;
+    width: 11vw;
+}
+
+#main_hud_hunger_1{
+    position: absolute;
+    background: rgba(0, 150, 200,0.8);
+    height: 0.60vw;
+	top: 6.69vw;
+	transform: matrix(+50%);
+    left: 87.15%;
+	width: 10.70vw;
+}
+
+#main_hud_hunger_2{
+    position: absolute;
+    background: rgba(0, 105, 145,0.8);
+    top: 7.29vw;
+    height: 0.55vw;
+	transform: matrix(-50%); 
+    left: 87.15%;
+	width: 10.70vw;
+}
+
+
+#main_hud_hunger_text{
+    position: absolute;
+	font-size: 1vw;
+    top: 6.68vw;
+    height: 0.75vw;
+    right: 2%;
+    width: 11vw;
+	color:white;
+}
+.main_hud_header{
+    position: absolute;
+    background: rgba(0, 0, 0,0.40);
+    top: 1.28vw;
+    height: 1vw;
+    right: 1%;
+    width: 17vw;
+}
+
+.clock {
+    position: absolute;
+    font-size: 0.83vw;
+    color: white;
+    top: 1.3vw;
+    right: 1.5%;
+    font-family: drugs;
+    font-weight: bold;
+}
+
+
+.date {
+    position: absolute;
+    font-size: 0.83vw;
+    color: white;
+    top: 1.3vw;
+    right: 13%;
+    font-family: drugs;
+    font-weight: bold;
+}
+
+.HUD_Player_Name{
+    position: absolute;
+    font-size: 1.05vw;
+    color: white;
+    border-bottom: 0.10vw solid rgb(0, 150, 200);
+    top: 2.8vw;
+    right: 7.5%;
+    font-family: drugs;
+    text-align: center;
+    transform: translate(50%);
+    font-weight: bold;
+}
+
+.HUD_Faction_Name{
+    position: absolute;
+    font-size: 0.90vw;
+    color: rgba(200,200,200,1);
+    top: 4.2vw;
+    right: 7.5%;
+    font-family: drugs;
+    text-align: center;
+    transform: translate(50%);
+    font-weight: bold;
+}
+
+.HUD_Faction_Rank{
+    position: absolute;
+    font-size: 0.80vw;
+    color: rgba(200,200,200,1);
+    top: 5.2vw;
+    right: 7.5%;
+    font-family: drugs;
+    text-align: center;
+    transform: translate(50%);
+    font-weight: bold;
+}
+
+.HUD_Money{
+    position: absolute;
+    font-size: 1.7vw;
+    color: rgba(0,125,0,1);
+    top: 7.75vw;
+    right: 7.5%;
+    font: text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    text-align: center;
+    transform: translate(50%);
+    font-weight: bold;
+}
+
+
+.Faction_Image {
+    position: absolute;
+    right: 15.6%;
+    top: 2.5vw;
+    width: 4vw;
+    height: 4vw;
+    transform: translate(50%);
+}
+
+.Muted_Image {
+    position: absolute;
+    right: 14%;
+    top: 6.7vw;
+    width: 3vw;
+    height: 2.5vw;
+}
+
+.NMuted_Image {
+    position: absolute;
+    right: 14%;
+    top: 6.5vw;
+    width: 3vw;
+    height: 2.5vw;
+}
+
+
+
+#star_1_active {
+    position: absolute;
+    right: 16%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+
+#star_2_inactiv {
+    position: absolute;
+    right: 13%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+#star_3_inactiv {
+    position: absolute;
+    right: 10%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+#star_4_inactiv {
+    position: absolute;
+    right: 7%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+#star_5_inactiv {
+    position: absolute;
+    right: 4%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+#star_6_inactiv {
+    position: absolute;
+    right: 1%;
+    top: 10vw;
+    width: 2vw;
+    height: 2vw;
+}
+
+
+.QuestMain{
+	position: absolute;
+    right: 1%;
+	top: 15vw;
+	background: rgba(0,75,100,0.80);
+	height: 9vw;
+	width: 20vw;
+}
+
+.QuestMain_header{
+	position: absolute;
+    right: 1%;
+	color: white;
+	top: 15vw;
+	font-family: quest_header;
+	padding: 0.02vw;
+	font-size: 1.2vw;
+	height: 1.3vw;
+	background: rgb(254,254,254); /* Old browsers */
+	background: -moz-linear-gradient(left,  rgba(254,254,254,0.40) 0%, rgba(0,150,200,1) 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  rgba(254,254,254,0) 0%,rgba(0,150,200,1) 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  rgba(254,254,254,0) 0%,rgba(0,150,200,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#0096ff',GradientType=1 ); /* IE6-9 */
+	width: 16.5vw;
+	text-align: center-right;
+}
+
+.QuestMain_container{
+	position: absolute;
+    right: 0.80%;
+	color: rgba(225,225,225,1);
+	top: 17vw;
+	font-family: robot;
+	padding: 0.01vw 0.05vw;
+	font-size: 0.9vw;
+	text-align: center;
+	width: 16.5vw;
+}
+
+
+.QuestMain_container_win{
+	position: absolute;
+    right: 1%;
+	color: rgba(225,225,225,1);
+	top: 21vw;
+	font-family: robot;
+	padding: 0.01vw 0.05vw;
+	font-size: 0.90vw;
+	text-align: center;
+	width: 16.5vw;
+}
+.QuestMain_image{
+	position: absolute;
+    right: 17%; 
+	top: 14vw;
+	height: 10vw;
+	width: 7vw;
+}
+
+
+
+.d-none{
+    display:none;
+}
