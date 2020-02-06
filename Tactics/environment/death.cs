@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
@@ -45,18 +46,20 @@ namespace VenoXV.Tactics.environment
                     }
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
-                    foreach (IPlayer players in Alt.GetAllPlayers())
-                    {
-                        if (players.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM))
-                        {
+                    //foreach (IPlayer players in Alt.GetAllPlayers())
+                    //{
+                      //  if (players.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM))
+                       // {
+                            player.Spawn(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
+                            RageAPI.SetPlayerVisible(player, false);
                             //NAPI.Player.SpawnPlayer(player, new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
-                            Reallife. dxLibary.VnX.SetElementFrozen(player, true);
+                            Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                             //ToDo : ZwischenLösung Finden! player.Transparency = 0;
                             player.RemoveAllWeapons();
                             //player.Emit("Tactics:SpectatePlayer", players);
                             return;
-                        }
-                    }
+                        //}
+                    //}
                 }
             }
             catch(Exception ex) { Reallife.Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
