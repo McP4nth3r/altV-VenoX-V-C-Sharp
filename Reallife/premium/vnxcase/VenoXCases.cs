@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.premium.vnxcase
 {
@@ -12,10 +13,16 @@ namespace VenoXV.Reallife.premium.vnxcase
         IColShape col = Alt.CreateColShapeSphere(new Position(-311.2075f, -278.3156f, 31.5f), 3f);
         public static void OnResourceStart()
         {
-            /*Blip AmmunationBlip = NAPI.Blip.CreateBlip(new Position(-311.2075f, -278.3156f, 31.5f));
-            AmmunationBlip.Name = "VIP Area";
-            AmmunationBlip.Sprite = 304;
-            AmmunationBlip.Rgba = 46;*/
+            BlipModel blip = new BlipModel();
+            Position pos = new Position(-311.2075f, -278.3156f, 31.5f);
+            blip.Name = "VIP Area";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 304;
+            blip.Color = 46;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
         /*[Command("gotovipshop")]
