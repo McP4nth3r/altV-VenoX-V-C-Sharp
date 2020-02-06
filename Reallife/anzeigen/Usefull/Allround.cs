@@ -672,8 +672,8 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_JOB, Job);
                 
                 // KM & Gas load and Safe.
-                Core.VnX.IVehiclevnxSetSharedData(CreatedVehicle, "kms", 0);
-                Core.VnX.IVehiclevnxSetSharedData(CreatedVehicle, "gas", 100);
+                Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "kms", 0);
+                Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "gas", 100);
 
                 Core.VnX.IVehicleSetSharedBoolData(CreatedVehicle, EntityData.VEHICLE_NOT_SAVED, true);
                 CreatedVehicle.NumberplateText = NumberplateText;
