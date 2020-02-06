@@ -15,7 +15,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
     {
         public static List<ScoreboardModel> SpielerLi;
         public static ScoreboardModel SpielerListe;
-        public static Rgba OtherLobbyRgba = new Rgba(180, 180, 180, 255);
+        public static Rgba OtherLobbyColor = new Rgba(180, 180, 180, 255);
 
         public static void DrawReallifeScoreboard(IPlayer Spieler)
         {
@@ -72,16 +72,16 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     SpielerListe.kills = "-";
                     SpielerListe.tode = "-";
                     SpielerListe.Ping = playerping;
-                    SpielerListe.RgbaStorageR = 255;
-                    SpielerListe.RgbaStorageG = 255;
-                    SpielerListe.RgbaStorageB = 255;
-                    SpielerListe.RgbaStorageTacticsR = OtherLobbyRgba.R;
-                    SpielerListe.RgbaStorageTacticsG = OtherLobbyRgba.G;
-                    SpielerListe.RgbaStorageTacticsB = OtherLobbyRgba.B;
+                    SpielerListe.ColorStorageR = 255;
+                    SpielerListe.ColorStorageG = 255;
+                    SpielerListe.ColorStorageB = 255;
+                    SpielerListe.ColorStorageTacticsR = OtherLobbyColor.R;
+                    SpielerListe.ColorStorageTacticsG = OtherLobbyColor.G;
+                    SpielerListe.ColorStorageTacticsB = OtherLobbyColor.B;
 
-                    SpielerListe.RgbaStorageVR = 255;
-                    SpielerListe.RgbaStorageVG = 255;
-                    SpielerListe.RgbaStorageVB = 255;
+                    SpielerListe.ColorStorageVR = 255;
+                    SpielerListe.ColorStorageVG = 255;
+                    SpielerListe.ColorStorageVB = 255;
 
 
                 }
@@ -119,12 +119,12 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_MECHANIK) { R = 255; G = 100; B = 0; MECHANIKER += 1; }
                     if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_BALLAS) { R = 138; G = 43; B = 226; BALLAS += 1; }
                     if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_GROVE) { R = 0; G = 152; B = 0; GROVE += 1; }
-                    SpielerListe.RgbaStorageR = R;
-                    SpielerListe.RgbaStorageG = G;
-                    SpielerListe.RgbaStorageB = B;
-                    SpielerListe.RgbaStorageTacticsR = 255;
-                    SpielerListe.RgbaStorageTacticsG = 255;
-                    SpielerListe.RgbaStorageTacticsB = 255;
+                    SpielerListe.ColorStorageR = R;
+                    SpielerListe.ColorStorageG = G;
+                    SpielerListe.ColorStorageB = B;
+                    SpielerListe.ColorStorageTacticsR = 255;
+                    SpielerListe.ColorStorageTacticsG = 255;
+                    SpielerListe.ColorStorageTacticsB = 255;
                     if (viplevel == "-") { VR = 255; VG = 255; VB = 255; }
                     if (viplevel == "Bronze") { VR = 205; VG = 127; VB = 50; }
                     if (viplevel == "Silber") { VR = 192; VG = 192; VB = 192; }
@@ -132,9 +132,9 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     if (viplevel == "Platin") { VR = 229; VG = 228; VB = 226; }
                     if (viplevel == "Ultimate RED") { VR = 175; VG = 0; VB = 0; }
                     if (viplevel == "Top Donator") { VR = 0; VG = 150; VB = 255; }
-                    SpielerListe.RgbaStorageVR = VR;
-                    SpielerListe.RgbaStorageVG = VG;
-                    SpielerListe.RgbaStorageVB = VB;
+                    SpielerListe.ColorStorageVR = VR;
+                    SpielerListe.ColorStorageVG = VG;
+                    SpielerListe.ColorStorageVB = VB;
 
                 }
                 TOTALPLAYERS += 1;
@@ -180,17 +180,17 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 {
                     SpielerListe.FID = -2;
                     SpielerListe.FIDTactics = 20;
-                    R = Tactics.globals.EntityData.COPS_Rgba.R;
-                    G = Tactics.globals.EntityData.COPS_Rgba.G;
-                    B = Tactics.globals.EntityData.COPS_Rgba.B;
+                    R = Tactics.globals.EntityData.COPS_Color.R;
+                    G = Tactics.globals.EntityData.COPS_Color.G;
+                    B = Tactics.globals.EntityData.COPS_Color.B;
                 }
                 else
                 {
                     SpielerListe.FID = -3;
                     SpielerListe.FIDTactics = 30;
-                    R = Tactics.globals.EntityData.BFAC_Rgba.R;
-                    G = Tactics.globals.EntityData.BFAC_Rgba.G;
-                    B = Tactics.globals.EntityData.BFAC_Rgba.B;
+                    R = Tactics.globals.EntityData.BFAC_Color.R;
+                    G = Tactics.globals.EntityData.BFAC_Color.G;
+                    B = Tactics.globals.EntityData.BFAC_Color.B;
                 }
                 SpielerListe.SpielerName = Spieler.Name;
                 SpielerListe.SpielzeitTactics = label;
@@ -203,15 +203,15 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 SpielerListe.tode = tode.ToString();
                 SpielerListe.Ping = playerping;
 
-                SpielerListe.RgbaStorageTacticsR = R;
-                SpielerListe.RgbaStorageTacticsG = G;
-                SpielerListe.RgbaStorageTacticsB = B;
-                SpielerListe.RgbaStorageR = OtherLobbyRgba.R;
-                SpielerListe.RgbaStorageG = OtherLobbyRgba.G;
-                SpielerListe.RgbaStorageB = OtherLobbyRgba.B;
-                SpielerListe.RgbaStorageVR = OtherLobbyRgba.R;
-                SpielerListe.RgbaStorageVG = OtherLobbyRgba.G;
-                SpielerListe.RgbaStorageVB = OtherLobbyRgba.B;
+                SpielerListe.ColorStorageTacticsR = R;
+                SpielerListe.ColorStorageTacticsG = G;
+                SpielerListe.ColorStorageTacticsB = B;
+                SpielerListe.ColorStorageR = OtherLobbyColor.R;
+                SpielerListe.ColorStorageG = OtherLobbyColor.G;
+                SpielerListe.ColorStorageB = OtherLobbyColor.B;
+                SpielerListe.ColorStorageVR = OtherLobbyColor.R;
+                SpielerListe.ColorStorageVG = OtherLobbyColor.G;
+                SpielerListe.ColorStorageVB = OtherLobbyColor.B;
 
 
             }
@@ -247,13 +247,13 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 SpielerListe.Fraktion = "-";
                 SpielerListe.Ping = playerping;
 
-                SpielerListe.RgbaStorageTacticsR = R;
-                SpielerListe.RgbaStorageTacticsG = G;
-                SpielerListe.RgbaStorageTacticsB = B;                
+                SpielerListe.ColorStorageTacticsR = R;
+                SpielerListe.ColorStorageTacticsG = G;
+                SpielerListe.ColorStorageTacticsB = B;                
                 
-                SpielerListe.RgbaStorageR = R;
-                SpielerListe.RgbaStorageG = G;
-                SpielerListe.RgbaStorageB = B;
+                SpielerListe.ColorStorageR = R;
+                SpielerListe.ColorStorageG = G;
+                SpielerListe.ColorStorageB = B;
 
             }
             catch { }
