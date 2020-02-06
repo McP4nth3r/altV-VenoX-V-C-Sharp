@@ -85,11 +85,13 @@ namespace VenoXV.Tactics.weapons
                 {
                     return;
                 }
-                
-                if (target.Health <= 0) // If target is Dead Niggah then he should Return.
+                else if (target.Health <= 0) // If target is Dead Niggah then he should Return.
                 {
                     return;
                 }
+
+                Reallife.Core.Debug.OutputDebugString("Target Team : " + target.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
+                Reallife.Core.Debug.OutputDebugString("Player Team : " + player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
 
                 // If Weapon is Sniper && BONE == HEAD THEN KILL DONE
                 if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == AltV.Net.Data.BodyPart.Head)
@@ -107,14 +109,16 @@ namespace VenoXV.Tactics.weapons
                    /* if (veh.GetSharedData("VEHICLE_HEALTH_SERVER") == null) { veh.vnxSetSharedData("VEHICLE_HEALTH_SERVER", 1000); // Fix if no Value! }
                     float vehdamage = Damage * 2;
                     target.Emit("set_bodyhealth", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the target Lower.
-                    VenoXV.Reallife.Core.VnX.IVehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
+                    VenoXV.Reallife.Core.VnX.VehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
                     // Reallife.Core.RageAPI.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
                 }
                 else
                 {
-                    player.SetData(globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<int>(globals.EntityData.PLAYER_DAMAGE_DONE)+ Damage);
-                    Reallife.Core.VnX.vnxSetSharedData(player,globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<int>(globals.EntityData.PLAYER_DAMAGE_DONE) + (int)Damage);
-                    player.Emit("Tactics:PlayHitsound");
+                    
+                    player.SetData(globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    player.SetSyncedMetaData(globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    //Reallife.Core.VnX.vnxSetSharedData(player,globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    player.Emit("Globals:PlayHitsound");
                     if (target.Armor > 0)
                     {
                         int Adiff = target.Armor - Convert.ToInt32(Damage);
@@ -136,7 +140,7 @@ namespace VenoXV.Tactics.weapons
                 }
 
             }
-            catch (Exception ex) { Reallife.Core.Debug.CatchExceptions("OnHittedEntity", ex); }
+            catch {}
         }
     }
 }
