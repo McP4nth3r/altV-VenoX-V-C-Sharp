@@ -121,10 +121,15 @@ namespace VenoXV.Reallife.business
             // Car dealer creation
             //carShopTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153));
             //TextLabel carShopSubTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(Messages.GEN_CATALOG_HELP, new Position(-56.88f, -1097.12f, 26.42f), 10.0f, 0.5f, 4, new Rgba(255, 255, 255));
-            //Blip carShopBlip = NAPI.Blip.CreateBlip(new Position(-56.88f, -1097.12f, 26.52f));
-            //carShopBlip.Name ="Autohändler";
-            //carShopBlip.Sprite = 225;
-
+            BlipModel blip = new BlipModel();
+            blip.Name = "Autohändler";
+            blip.posX = -56.88f;
+            blip.posY = -1097.12f;
+            blip.posZ = 26.52f;
+            blip.Sprite = 225;
+            blip.Color = 0;
+            blip.ShortRange = false;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
             // Motorcycle dealer creation
             /*motorbikeShopTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("/" + "CSHOP", new Position(286.76f, -1148.36f, 29.29f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153));
             //TextLabel motorbikeShopSubTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(Messages.GEN_CATALOG_HELP, new Position(286.76f, -1148.36f, 29.19f), 10.0f, 0.5f, 4, new Rgba(255, 255, 255));
@@ -240,8 +245,8 @@ namespace VenoXV.Reallife.business
                         Core.VnX.IVehicleSetSharedINTData(Vehicle, EntityData.VEHICLE_ID, 500);
                         Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.Name);
 
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "gas", 100);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_NOT_SAVED, true);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle, "TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
@@ -257,8 +262,8 @@ namespace VenoXV.Reallife.business
                         Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.Name);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_NOT_SAVED, true);
 
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "gas", 100);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle, "TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
@@ -272,15 +277,15 @@ namespace VenoXV.Reallife.business
                         Core.VnX.IVehicleSetSharedStringData(Vehicle,EntityData.VEHICLE_OWNER,player.Name);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle,EntityData.VEHICLE_NOT_SAVED, true);
 
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.IVehiclevnxSetSharedData(Vehicle, "gas", 100);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
+                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle,"TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
                 }
 
-                VnX.IVehiclevnxSetSharedData(Vehicle, "kms", 0);
-                VnX.IVehiclevnxSetSharedData(Vehicle, "gas", 100);
+                VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
+                VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
                 Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_TESTING, true);
                 Vehicle.Dimension = 1200;
                 player.Dimension = 1200;
