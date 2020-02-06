@@ -66,6 +66,7 @@ namespace VenoXV.Tactics.Lobby
             player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, false);
             player.SetData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
             player.Emit("LoadTacticUI");
+            RageAPI.SetPlayerVisible(player, true);
         }
 
         public static bool IsTacticRoundRunning()
@@ -155,7 +156,7 @@ namespace VenoXV.Tactics.Lobby
                     player.Armor = 100;
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                Reallife. dxLibary.VnX.SetElementFrozen(player, false);
+                Reallife.dxLibary.VnX.SetElementFrozen(player, false);
             }
             catch { }
         }
@@ -295,7 +296,7 @@ namespace VenoXV.Tactics.Lobby
                     else
                     {
                         // To Do : Cam event erstellen.
-                        player.Spawn(new Position(player.Position.X, player.Position.Y, player.Position.Z + 70));
+                        player.Despawn();
                         Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllWeapons();
                         player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
@@ -348,7 +349,11 @@ namespace VenoXV.Tactics.Lobby
                 {
                     if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.Emit("Tactics:UpdatePlayerStats", players.vnxGetElementData<int>(EntityData.PLAYER_DAMAGE_DONE), players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS));
+                        float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
+                        int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
+                        //Reallife.Core.Debug.OutputDebugString("Damage Done : " + DamageDone); 
+                        //Reallife.Core.Debug.OutputDebugString("Kills Done : " + KillsDone); 
+                        players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
                     }
                 }
             }
