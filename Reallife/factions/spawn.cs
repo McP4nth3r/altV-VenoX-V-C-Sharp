@@ -26,6 +26,7 @@ namespace VenoXV.Reallife.factions
         {
             try {
                 AntiCheat_Allround.SetTimeOutHealth(player, 1000);
+                
                 player.Spawn(player.Position);
                 player.SetData(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
@@ -43,11 +44,11 @@ namespace VenoXV.Reallife.factions
                 player.Emit("start_screen_fx", "RaceTurbo", 2000, false);
                 dxLibary.VnX.CreateDiscordUpdate(player, "Spawnt auf VenoX", "VenoX - Reallife");
                 player.Emit("VnX:ShowChat", true);
-                if (player.vnxGetElementData<bool>("ACCOUNT_VORHANDEN") == false)
+                /*if (player.vnxGetElementData<bool>("ACCOUNT_VORHANDEN") == false)
                 {
                     player.Position = new Position(152.26f, -1004.47f, -99.00f);
                     return;
-                }
+                }*/
                 if (Database.FindCharakterPrison(player.Name))
                 {
                     int PrisonTime = Database.GetCharakterPrisonTime(player.Name);
@@ -325,7 +326,7 @@ namespace VenoXV.Reallife.factions
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_SAMCRO)
                         {
                             player.Position = new Position(982.0083f, -100.8747f, 74.84512f);
-                            player.Dimension = Constants.FACTION_SAMCRO;
+                            //player.Dimension = Constants.FACTION_SAMCRO;
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                         {
