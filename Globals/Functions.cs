@@ -4,11 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Reallife.Core;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Globals
 {
     public class Functions : IScript
     {
+        public static List<BlipModel> BlipList = new List<BlipModel>();
+        
         public static bool IstargetInAnotherLobby(IPlayer player, IPlayer target)
         {
             try
