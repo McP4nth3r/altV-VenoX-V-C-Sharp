@@ -16,7 +16,9 @@ namespace VenoXV.Reallife.character
             try
             {
                 // Populate the head
-               /* HeadBlend headBlend = new HeadBlend();
+
+                /*HeadBlend headBlend = new HeadBlend();
+                
                 headBlend.ShapeFirst = Convert.ToByte(skinModel.firstHeadShape);
                 headBlend.ShapeSecond = Convert.ToByte(skinModel.secondHeadShape);
                 headBlend.SkinFirst = Convert.ToByte(skinModel.firstSkinTone);
@@ -59,6 +61,8 @@ namespace VenoXV.Reallife.character
                 // Update the character's skin
                 player.SetCustomization(sex == Constants.SEX_MALE, headBlend, eyeRgba, hairRgba, hightlightRgba, faceFeatures, headOverlays, new Decoration[] { });
                 //ToDo Sie Clientseitig Laden! : player.SetClothes(2, skinModel.hairModel, 0);*/
+                Core.RageAPI.SetClothes(player, 2, skinModel.hairModel, 0);
+
             }
             catch { }
         }
@@ -74,11 +78,13 @@ namespace VenoXV.Reallife.character
                     {
                         if (clothes.type == 0)
                         {
+                            Core.RageAPI.SetClothes(player, clothes.slot, clothes.drawable, clothes.texture);
                             //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
-                           // player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
+                            Core.RageAPI.SetAccessories(player, clothes.slot, clothes.drawable, clothes.texture);
+                            // player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }

@@ -13,12 +13,20 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV.Reallife.character;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace VenoXV.Reallife.register_login
 {
     public class Login : IScript
     {
-
+        [Command("createtestnotify")]
+        public static void CreateTestNotify(IPlayer player, string text)
+        {
+            dxLibary.VnX.DrawNotification(player, "info", text);
+            dxLibary.VnX.DrawNotification(player, "warning", text);
+            dxLibary.VnX.DrawNotification(player, "error", text);
+        }
         public static string GetCurrentChangelogs()
         {
                 return "" + 
@@ -480,7 +488,7 @@ namespace VenoXV.Reallife.register_login
 
 
 
-        //[AltV.Net.ClientEvent("load_data_login")]
+        [AltV.Net.ClientEvent("load_data_login")]
         public static void LoadDatasRemote(IPlayer player)
         {
             try
@@ -522,7 +530,6 @@ namespace VenoXV.Reallife.register_login
                     Environment.Gzone.Zone.CreateGreenzone(player);
                     gangwar.Allround._gangwarManager.UpdateData(player);
                     CreateGasBlips(player);
-                    player.SetData("EXECUTED_GW_AREAS", true);
 
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, 100);
                     //ToDo : ZwischenLösung Finden! player.Transparency = 255;
@@ -536,8 +543,12 @@ namespace VenoXV.Reallife.register_login
         {
             try
             {
+                List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
+                player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
+                Console.WriteLine("Blip Gesendet!");
                 // Player must have a character selected
+
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID) <= 0)
                 {
                     return;
@@ -551,7 +562,7 @@ namespace VenoXV.Reallife.register_login
                         if (owner != null && owner ==player.Name)
                         {
                             Vehicle.Dimension = 0;
-                            Core.VnX.IVehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, 0);
+                            Core.VnX.VehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, 0);
                         }
                         // JOB 
                         if (
@@ -580,7 +591,7 @@ namespace VenoXV.Reallife.register_login
                     // Give the weapons to the player
                     Reallife.weapons.Weapons.GivePlayerWeaponItems(player);
 
-                    player.Emit("movecamtocurrentposPLAYER");
+                    player.Emit("movecamtocurrentpos_client");
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                     {
@@ -590,7 +601,7 @@ namespace VenoXV.Reallife.register_login
                     }
                 }
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
         }
 
 
@@ -627,7 +638,7 @@ namespace VenoXV.Reallife.register_login
                             if (character != null && character.realName != null)
                             {
                                 player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
-                                player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                                player.Model = character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01");
                                 Login.LoadCharacterData(player, character);
                                 Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
                                 anzeigen.Usefull.VnX.UpdateHUD(player);
@@ -816,6 +827,7 @@ namespace VenoXV.Reallife.register_login
             {
                 // Set player's position
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
+                
                 player.Rotation = new Rotation(0.0f, 0.0f, 180.0f);
                 player.Position = new Position(152.3787f, -1000.644f, -99f);
             }
