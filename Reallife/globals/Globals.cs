@@ -870,7 +870,7 @@ namespace VenoXV.Reallife.Globals
                         if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
-                            Core.VnX.IVehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
+                            Core.VnX.VehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
                            /* ToDo : Fix if (Vehicle.Occupants.Count > 0)
                             {
                                 var playersInCar = NAPI.Vehicle.GetIVehicleOccupants(Vehicle);
@@ -1105,7 +1105,7 @@ namespace VenoXV.Reallife.Globals
                             {
 
                                 IVehicle Vehicle = player.Vehicle;
-                                float Gas = Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_PLAYER");
+                                float Gas = Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT");
                                 float kostenberechnung = 100f - Gas;
                                 int kosten = (int)kostenberechnung * 15;
                                 if (kosten == 0)
@@ -1115,7 +1115,7 @@ namespace VenoXV.Reallife.Globals
                                 }
                                 else
                                 {
-                                    Core.VnX.IVehiclevnxSetSharedData(Vehicle, "gas", Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_PLAYER") + 15);
+                                    Core.VnX.VehiclevnxSetSharedData(Vehicle, "gas", Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT") + 15);
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Fahrzeug aufgefüllt!");
                                     item.amount -= 1;
                                     if (item.amount <= 0)
