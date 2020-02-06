@@ -29,7 +29,7 @@ namespace VenoXV.Globals
             }
             catch { }
         }
-               
+
         //[ServerEvent(Event.PlayerExitIColShape)]
         public static void OnPlayerExitIColShape(IColShape shape, IPlayer player)
         {
@@ -46,7 +46,7 @@ namespace VenoXV.Globals
             if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
             {
                 if (Functions.IstargetInSameLobby(player, killer) || killer == null)
-                {   if(killer == null) { killer = Reallife.Core.RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
+                { if (killer == null) { killer = Reallife.Core.RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
                     VenoXV.Tactics.environment.Death.OnPlayerDeath(player, killer);
                 }
                 return;
@@ -73,7 +73,7 @@ namespace VenoXV.Globals
             {
 
             }
-        }        
+        }
 
         //[ServerEvent(Event.PlayerDisconnected)]
         public void OnPlayerDisconnected(IPlayer player, string type, string reason)
@@ -92,7 +92,7 @@ namespace VenoXV.Globals
             //Reallife.Core.Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.Name + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
             AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
             //Reallife.Core.Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
-            Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.Name);
+            //Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.Name);
             if (target != null && source != null)
             {
                 Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
