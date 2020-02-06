@@ -40,6 +40,7 @@ namespace VenoXV.Reallife
             {
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_REALLIFE); //Reallife Gamemode Selected
                 register_login.Login.OnSelectedReallifeGM(player);
+                player.Emit("Player:ChangeCurrentLobby", "Reallife");
             }
             else if(value == 1)
             {
@@ -48,12 +49,14 @@ namespace VenoXV.Reallife
                     player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_ZOMBIE); //Tactics Gamemode Selected
                     Zombie.World.Main.OnSelectedZombieGM(player);
                     player.Emit("Load_Zombie_GM");
+                    player.Emit("Player:ChangeCurrentLobby", "Zombies");
                 }
             }
             else if(value == 2)
             {
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_TACTICS); //Tactics Gamemode Selected
                 Tactics.Lobby.Main.OnSelectedTacticsGM(player);
+                player.Emit("Player:ChangeCurrentLobby", "Tactics");
             }
         }
 
@@ -87,6 +90,7 @@ namespace VenoXV.Reallife
                 //ShowLogin(player);
                 Core.Debug.OutputDebugString("[CONNECTED] : " + player.Name + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_NONE); // None Gamemode
+                Login.CreateNewLogin_Cam(player, 0, 0);
             }
             catch(Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }
