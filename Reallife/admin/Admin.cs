@@ -895,6 +895,7 @@ namespace VenoXV.Reallife.admin
                 else
                 {
                     //NAPI.World.SetWeather((Weather)weather);
+                    AltV.Net.Async.AltAsync.SetWeatherAsync(player, (uint)weather);
                     Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat das Wetter zu " + weather + " gewechselt!");
                     Main.WEATHER_CURRENT = weather;
                     Main.WEATHER_COUNTER = 0;
