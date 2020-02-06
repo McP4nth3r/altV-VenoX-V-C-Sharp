@@ -24,6 +24,17 @@ namespace VenoXV.Reallife.Vehicles
             //Blip TuningGaragenBlip = NAPI.Blip.CreateBlip(new Position(-354.7027f, -135.3738f, 38.57238f));
             //TuningGaragenBlip.Name = "Werkstatt";
             //TuningGaragenBlip.Sprite = 446;
+
+            BlipModel blip = new BlipModel();
+            Position pos = new Position(-354.7027f, -135.3738f, 38.57238f);
+            blip.Name = "Werkstatt";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 446;
+            blip.Color = 0;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
         public static IColShape TuningGaragenTeleport = Alt.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);

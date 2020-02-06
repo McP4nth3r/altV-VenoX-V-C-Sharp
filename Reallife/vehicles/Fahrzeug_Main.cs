@@ -234,7 +234,7 @@ namespace VenoXV.Reallife.Vehicles
                             localIVehicle.Position = localVehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
                             localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
                             Player.SetData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
-                            Core.VnX.IVehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
+                            Core.VnX.VehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
                             Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
                         else
@@ -299,7 +299,7 @@ namespace VenoXV.Reallife.Vehicles
                             IVehicle.Position = Vehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
                             IVehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
                             Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_DIMENSION);
-                            Core.VnX.IVehiclevnxSetSharedData(Vehicle,"VEHICLE_HEALTH_SERVER", 1000);
+                            Core.VnX.VehiclevnxSetSharedData(Vehicle,"VEHICLE_HEALTH_SERVER", 1000);
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
                             player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }

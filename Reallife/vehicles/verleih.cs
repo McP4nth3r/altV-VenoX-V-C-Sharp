@@ -12,6 +12,7 @@ using AltV.Net;
 using AltV.Net.Data;
 using VenoXV.Reallife.Core;
 using AltV.Net.Resources.Chat.Api;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.Vehicles
 {
@@ -34,7 +35,8 @@ namespace VenoXV.Reallife.Vehicles
         public static void OnResourceStart()
         {
             // Noobspawn
-            /*Blip NoobspawnVerleih = NAPI.Blip.CreateBlip(NOOBSPAWN_RENTALS);
+            /*Blip NoobspawnVerleih = 
+             * (NOOBSPAWN_RENTALS);
             NoobspawnVerleih.Name = "VenoX Rental Service";
             NoobspawnVerleih.Sprite = 545;
             NoobspawnVerleih.Rgba = 3;
@@ -45,6 +47,28 @@ namespace VenoXV.Reallife.Vehicles
             LSPDVerleih.Rgba = 3;
             NAPI.Object.CreateObject(1000639787, new Position(NOOBSPAWN_RENTALS.X, NOOBSPAWN_RENTALS.Y, NOOBSPAWN_RENTALS.Z - 1), new Position(0.0f, 0.0f, 0.0f), 0);
             NAPI.Object.CreateObject(1000639787, new Position(LSPD_RENTALS.X, LSPD_RENTALS.Y, LSPD_RENTALS.Z - 1), new Position(0.0f, 0.0f, 180f), 0);*/
+
+            BlipModel blip = new BlipModel();
+            Position pos = NOOBSPAWN_RENTALS;
+            blip.Name = "VenoX Rental Service";
+            blip.posX = pos.X;
+            blip.posY = pos.Y;
+            blip.posZ = pos.Z;
+            blip.Sprite = 545;
+            blip.Color = 3;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
+
+            BlipModel blip1 = new BlipModel();
+            Position pos1 = LSPD_RENTALS;
+            blip1.Name = "VenoX Rental Service";
+            blip1.posX = pos1.X;
+            blip1.posY = pos1.Y;
+            blip1.posZ = pos1.Z;
+            blip1.Sprite = 545;
+            blip1.Color = 3;
+            blip1.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip1);
         }
 
 
