@@ -53,8 +53,8 @@ namespace VenoXV.Reallife.database
             Main.tunningList = LoadAllTunning();
 
             // IVehicle loading
-           /* VehicleModel IVehiclesClass = new VehicleModel();
-            VehicleModel.LoadDatabaseIVehicles();*/
+            Vehicles.Vehicles veh = new Vehicles.Vehicles();
+            veh.LoadDatabaseVehicles();
 
             // Item loading
             //Inventory.LoadDatabaseItems();
@@ -1630,7 +1630,7 @@ namespace VenoXV.Reallife.database
         }
 
 
-        public static List<VehicleModel> LoadAllIVehicles()
+        public static List<VehicleModel> LoadAllVehicles()
         {
             try
             {
@@ -1640,7 +1640,7 @@ namespace VenoXV.Reallife.database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM IVehicles";
+                    command.CommandText = "SELECT * FROM Vehicles";
 
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -1654,7 +1654,7 @@ namespace VenoXV.Reallife.database
 
                 return IVehicleList;
             }
-            catch { return null; }
+            catch(Exception ex) { Core.Debug.CatchExceptions("LoadAllVehicles", ex); return null; }
         }
         
         /*
@@ -1918,8 +1918,8 @@ namespace VenoXV.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, RgbaType = @RgbaType, ";
-                    command.CommandText += "firstRgba = @firstRgba, secondRgba = @secondRgba, pearlescent = @pearlescent, dimension = @dimension, ";
+                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, ColorType = @ColorType, ";
+                    command.CommandText += "firstColor = @firstColor, secondColor = @secondColor, pearlescent = @pearlescent, dimension = @dimension, ";
                     command.CommandText += "engine = @engine, locked = @locked, faction = @faction, owner = @owner, plate = @plate, price = @price, ";
                     command.CommandText += "parking = @parking, parkedTime = @parkedTime, gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
 
@@ -1930,10 +1930,10 @@ namespace VenoXV.Reallife.database
                         command.Parameters.AddWithValue("@posX", IVehicle.position.X);
                         command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
                         command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
-                        command.Parameters.AddWithValue("@rotation", IVehicle.rotation);
-                        command.Parameters.AddWithValue("@RgbaType", IVehicle.RgbaType);
-                        command.Parameters.AddWithValue("@firstRgba", IVehicle.firstRgba);
-                        command.Parameters.AddWithValue("@secondRgba", IVehicle.secondRgba);
+                        command.Parameters.AddWithValue("@rotation", IVehicle.rotation.Yaw);
+                        command.Parameters.AddWithValue("@ColorType", IVehicle.RgbaType);
+                        command.Parameters.AddWithValue("@firstColor", IVehicle.firstRgba);
+                        command.Parameters.AddWithValue("@secondColor", IVehicle.secondRgba);
                         command.Parameters.AddWithValue("@pearlescent", IVehicle.pearlescent);
                         command.Parameters.AddWithValue("@dimension", IVehicle.dimension);
                         command.Parameters.AddWithValue("@engine", IVehicle.engine);
