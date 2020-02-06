@@ -86,19 +86,19 @@ namespace VenoXV.Reallife.Core
         }
 
 
-        public static void IVehiclevnxSetSharedData(IVehicle Vehicle, string e, float v)
+        public static void VehiclevnxSetSharedData(IVehicle Vehicle, string e, float v)
         {
             try
             {
                 if (e == "gas")
                 {
                     Vehicle.SetData(EntityData.VEHICLE_GAS, v);
-                    Vehicle.SetSyncedMetaData("VEHICLE_GAS_Player", v);
+                    Vehicle.SetSyncedMetaData("VEHICLE_GAS_CLIENT", v);
                 }
                 else if (e == "kms")
                 {
                     Vehicle.SetData(EntityData.VEHICLE_KMS, v);
-                    Vehicle.SetSyncedMetaData("VEHICLE_KMS_Player", v);
+                    Vehicle.SetSyncedMetaData("VEHICLE_KMS_CLIENT", v);
                 }
                 else
                 {
