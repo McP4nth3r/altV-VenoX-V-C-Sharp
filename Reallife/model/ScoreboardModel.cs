@@ -22,17 +22,17 @@ namespace VenoXV.Reallife.model
         public string kills { get; set; }
         public string tode { get; set; }
 
-        public int RgbaStorageR { get; set; }
-        public int RgbaStorageG { get; set; }
-        public int RgbaStorageB { get; set; }        
+        public int ColorStorageR { get; set; }
+        public int ColorStorageG { get; set; }
+        public int ColorStorageB { get; set; }        
         
-        public int RgbaStorageTacticsR { get; set; }
-        public int RgbaStorageTacticsG { get; set; }
-        public int RgbaStorageTacticsB { get; set; }
+        public int ColorStorageTacticsR { get; set; }
+        public int ColorStorageTacticsG { get; set; }
+        public int ColorStorageTacticsB { get; set; }
 
-        public int RgbaStorageVR { get; set; }
-        public int RgbaStorageVG { get; set; }
-        public int RgbaStorageVB { get; set; }
+        public int ColorStorageVR { get; set; }
+        public int ColorStorageVG { get; set; }
+        public int ColorStorageVB { get; set; }
 
 
 

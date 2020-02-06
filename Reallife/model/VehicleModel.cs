@@ -48,9 +48,9 @@ namespace VenoXV.Reallife.model
 
             this.id = reader.GetInt32("id");
             this.model = reader.GetString("model");
-            this.RgbaType = reader.GetInt32("RgbaType");
-            this.firstRgba = reader.GetString("firstRgba");
-            this.secondRgba = reader.GetString("secondRgba");
+            this.RgbaType = reader.GetInt32("colorType");
+            this.firstRgba = reader.GetString("firstColor");
+            this.secondRgba = reader.GetString("secondColor");
             this.pearlescent = reader.GetInt32("pearlescent");
             this.owner = reader.GetString("owner");
             this.plate = reader.GetString("plate");
