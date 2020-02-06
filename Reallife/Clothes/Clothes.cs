@@ -8,6 +8,7 @@ using VenoXV.Reallife.anzeigen;
 using VenoXV.Reallife.Core;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.Clothes
 {
@@ -17,11 +18,15 @@ namespace VenoXV.Reallife.Clothes
         //Marker ClothesImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-158.886f, -296.9503f, 39.73328f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         public static void OnResourceStart()
         {
-           /* Blip ClotheShopBlip = NAPI.Blip.CreateBlip(new Position(-158.886f, -296.9503f, 39.73328f));
-            ClotheShopBlip.Name = "Klamottengeschäft";
-            ClotheShopBlip.Sprite = 73;
-            ClotheShopBlip.Rgba = 26;
-            ClotheShopBlip.ShortRange = true;*/
+            BlipModel blip = new BlipModel();
+            blip.Name = "Klamottengeschäft";
+            blip.posX = -158.886f;
+            blip.posY = -296.9503f;
+            blip.posZ = 39.73328f;
+            blip.Sprite = 73;
+            blip.Color = 26;
+            blip.ShortRange = true;
+            VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
 
