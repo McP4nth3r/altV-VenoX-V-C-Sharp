@@ -105,6 +105,24 @@ namespace VenoXV.Reallife.Core
                 }
             }
             catch { }
-        }        
+        }
+
+        public static void SetClothes(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
+        {
+            try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
+            catch { }
+        }
+
+        public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
+        {
+            try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
+            catch { }
+        }
+
+        public static void SetPlayerVisible(IPlayer element, bool trueOrFalse)
+        {
+            try { element.Emit("Player:Visible", trueOrFalse); }
+            catch { }
+        }
     }
 }
