@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using VenoXV.Reallife.Core;
 using VenoXV.Reallife.Globals;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
 {
@@ -29,7 +30,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
 
         public static Dictionary<Position, int> ShopSkins;
         //public static Blip[] ShopBlips { get; set; }
-        public static List<Blip> ShopBlips = new List<Blip>();
+        public static List<BlipModel> ShopBlips = new List<BlipModel>();
         public static List<IColShape> ShopIColShapes = new List<IColShape>();
 
         public static string SHOP_COOLDOWN = "SHOP_COOLDOWN";
@@ -79,7 +80,16 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                     Col.SetData(SHOP_IS_COL, true);
                     Col.SetData(SHOP_ID, SHOP_ID_COUNTER);
                     ShopIColShapes.Add(Col);
-                    //ShopBlips.Add(NAPI.Blip.CreateBlip(SHOP_BLIP_ID, ShopCoord.Key, 1, (byte)SHOP_Rgba_POSSIBLE, SHOP_BLIP_NAME_POSSIBLE, 255, 0, true, 0, 0));
+                    BlipModel blip = new BlipModel();
+                    blip.Name = SHOP_BLIP_NAME_POSSIBLE;
+                    blip.posX = ShopCoord.Key.X;
+                    blip.posY = ShopCoord.Key.Y;
+                    blip.posZ = ShopCoord.Key.Z;
+                    blip.Sprite = SHOP_BLIP_ID;
+                    blip.Color = SHOP_Rgba_POSSIBLE;
+                    blip.ShortRange = true;
+                    VenoXV.Globals.Functions.BlipList.Add(blip);
+                    ShopBlips.Add(blip);
                     SHOP_ID_COUNTER += 1;
 
                 }
@@ -133,8 +143,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                             int CURRENT_ID = player.vnxGetElementData<int>(SHOP_ID);
                             if (ShopIColShapes[CURRENT_ID].vnxGetElementData<bool>(SHOP_ROB_STARTED) == false && ShopIColShapes[CURRENT_ID].vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now)
                             {
-                                Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_BEING_ROBBED);
+                                //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_BEING_ROBBED);
                                 //RobbedBlip. = SHOP_BLIP_NAME_BEING_ROBBED;
                                 player.SetData(SHOP_ROB_ID, CURRENT_ID);
                                 player.SetData(PLAYER_ROB_STARTED, true);
@@ -168,10 +178,10 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                             int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                             if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
                             {
-                                if (player.Health >= 0 && player.Position.Distance(ShopBlips[CURRENT_ID].Position) < 7)
+                                if (player.Health >= 0 && player.Position.Distance(new Position (ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) < 7)
                                 {
-                                    Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                                     //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
 
                                     col.SetData(SHOP_ROB_STARTED, false);
@@ -184,8 +194,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                 }
                                 else
                                 {
-                                    Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                                     //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
 
 
@@ -204,10 +214,10 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                             int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                             if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
                             {
-                                if (player.Health <= 0 || player.Position.Distance(ShopBlips[CURRENT_ID].Position) > 7)
+                                if (player.Health <= 0 || player.Position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) > 7)
                                 {
-                                    Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                                     //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
 
 
@@ -238,8 +248,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                         int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                         if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
                         {
-                            Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                            RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                           // Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                            //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                             //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
                             col.SetData(SHOP_ROB_STARTED, false);
                             col.SetData(SHOP_ROB_POSSIBLE, false);
@@ -264,8 +274,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                         {
                             int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                             col.SetData(SHOP_ROB_POSSIBLE, true);
-                            Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                            RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                            //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                            //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                             //RobbedBlip.Name = SHOP_BLIP_NAME_POSSIBLE; // Reset Data.
                         }
                     }
