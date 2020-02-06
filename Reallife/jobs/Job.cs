@@ -286,33 +286,8 @@ namespace VenoXV.Reallife.jobs
         {
             try
             {
+
                 /*
-                Blip trashBlip = NAPI.Blip.CreateBlip(new Position(-322.088f, -1546.014f, 31.01991f));
-                trashBlip.Name = Messages.GEN_GARBAGE_JOB;
-                trashBlip.ShortRange = true;
-                trashBlip.Sprite = 318;
-
-                Blip mechanicBlip = NAPI.Blip.CreateBlip(new Position(486.5268f, -1314.683f, 29.22961f));
-                mechanicBlip.Name = Messages.GEN_MECHANIC_JOB;
-                mechanicBlip.ShortRange = true;
-                mechanicBlip.Sprite = 72;
-                
-                Blip fastFoodBlip = NAPI.Blip.CreateBlip(new Position(864.2459f, -2312.139f, 5.553192f));
-                fastFoodBlip.Name = "Venox City Transport";
-                fastFoodBlip.ShortRange = true;
-                fastFoodBlip.Sprite = 501;
-
-                Blip airportBlip = NAPI.Blip.CreateBlip(new Position(-1047.312, -2744.564, 21.3594));
-                airportBlip.Name = "Venox City Airport";
-                airportBlip.ShortRange = true;
-                airportBlip.Sprite = 307;
-                
-                Blip BusJobBlip = NAPI.Blip.CreateBlip(new Position(438.2896, -626.1547, 28.70835));
-                BusJobBlip.Name = "Venox City Busjob";
-                BusJobBlip.ShortRange = true;
-                BusJobBlip.Sprite = 513;
-
-
                 foreach (JobPickModel job in jobList)
                 {
                     //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new Rgba(0, 150, 200), false, 0);

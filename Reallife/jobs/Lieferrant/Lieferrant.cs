@@ -64,8 +64,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PARKING, 0);
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "kms", 0);
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "gas", 100);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "kms", 0);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "gas", 100);
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_NOT_SAVED, true);
 
@@ -184,8 +184,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKING, 0);
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Core.VnX.IVehicleSetSharedBoolData(Lieferjob_IVehicle, EntityData.VEHICLE_NOT_SAVED, true);
 
@@ -248,8 +248,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKING, 0);
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
-                Core.VnX.IVehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
+                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Core.VnX.IVehicleSetSharedBoolData(Lieferjob_IVehicle, EntityData.VEHICLE_NOT_SAVED, true);
 
