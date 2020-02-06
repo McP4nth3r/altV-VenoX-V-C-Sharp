@@ -134,8 +134,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 WT_TRUCK.EngineOn = true;
                 WT_TRUCK.SetData(EntityData.VEHICLE_MODEL, "WT");
                 WT_TRUCK.SetData(EntityData.VEHICLE_PLATE, "WT");
-                Core.VnX.IVehiclevnxSetSharedData(WT_TRUCK, "kms", 0);
-                Core.VnX.IVehiclevnxSetSharedData(WT_TRUCK, "gas", 100);
+                Core.VnX.VehiclevnxSetSharedData(WT_TRUCK, "kms", 0);
+                Core.VnX.VehiclevnxSetSharedData(WT_TRUCK, "gas", 100);
                 WT_TRUCK.NumberplateText = "VenoX";
                 WT_TRUCK.SetData("AKTIONS_FAHRZEUG", true);
                 WT_TRUCK.SetData(EntityData.VEHICLE_NOT_SAVED, true);
