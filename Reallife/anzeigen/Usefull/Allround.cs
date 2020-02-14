@@ -410,12 +410,12 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
 
         //[AltV.Net.ClientEvent("onIPlayerClicked")]
-        public static void onIPlayerClicked(IPlayer player, Entity objekt)
+        /*public static void onIPlayerClicked(IPlayer player, Entity objekt)
         {
             player.SendChatMessage("Du hast auf ein : " + objekt + " geklickt! ");
         }
 
-
+    */
         public static int GetRandomNumber(int min, int max)
         {
             Random random = new Random();
