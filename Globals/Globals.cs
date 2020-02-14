@@ -20,24 +20,16 @@ namespace VenoXV.Globals
             catch { }
         }
 
-        //[ServerEvent(Event.PlayerEnterIColShape)]
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        [ScriptEvent(ScriptEventType.ColShape)]
+        public static void OnColShape(IColShape shape, IEntity entity, bool state)
         {
             try
             {
-                Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player);
+                IPlayer player = entity as IPlayer;
+                if (state)  { Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
+                else        { Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
             }
-            catch { }
-        }
-
-        //[ServerEvent(Event.PlayerExitIColShape)]
-        public static void OnPlayerExitIColShape(IColShape shape, IPlayer player)
-        {
-            try
-            {
-                Reallife.Globals.Main.OnPlayerExitIColShape(shape, player);
-            }
-            catch { }
+            catch{}
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
