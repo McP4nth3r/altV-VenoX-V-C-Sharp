@@ -775,7 +775,7 @@ namespace VenoXV.Reallife.admin
             {
                 Console.WriteLine("Position : " + player.Position);
                 player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "  Rot : " + RageAPI.GetHexColorcode(255,255,255) + player.Rotation);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "  POS X :" + player.Position + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
             }
         }
 
@@ -895,7 +895,10 @@ namespace VenoXV.Reallife.admin
                 else
                 {
                     //NAPI.World.SetWeather((Weather)weather);
-                    AltV.Net.Async.AltAsync.SetWeatherAsync(player, (uint)weather);
+                    foreach(IPlayer players in Alt.GetAllPlayers())
+                    {
+                        players.SetWeather((AltV.Net.Enums.WeatherType)weather);
+                    }
                     Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat das Wetter zu " + weather + " gewechselt!");
                     Main.WEATHER_CURRENT = weather;
                     Main.WEATHER_COUNTER = 0;
@@ -1569,7 +1572,7 @@ namespace VenoXV.Reallife.admin
             catch { }
         }*/
 
-        [Command("createIVehicle")]
+        [Command("createvehicle")]
         public static void CreatePermanentIVehicle(IPlayer player, string VehicleModel, string IVehicleOwner, int FID, int R, int G, int B, int R2, int G2, int B2, int IVehiclePreis, float IVehicleLiter)
         {
             try
