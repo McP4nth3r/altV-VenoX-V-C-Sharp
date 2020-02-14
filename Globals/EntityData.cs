@@ -16,5 +16,6 @@ namespace VenoXV.globals
         public static string GAMEMODE_REALLIFE = "GAMEMODE_REALLIFE";
         public static string GAMEMODE_TACTICS = "GAMEMODE_TACTICS";
         public static string GAMEMODE_ZOMBIE = "GAMEMODE_ZOMBIE";
+        public static string GAMEMODE_SEVENTOWERS = "GAMEMODE_SEVENTOWERS";
     }
 }
