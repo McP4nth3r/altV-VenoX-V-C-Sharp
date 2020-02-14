@@ -57,6 +57,10 @@ namespace VenoXV.Reallife.Core
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
 
+        public static void WarpIntoVehicle<T>(this IPlayer player, IVehicle veh, int seat)
+        {
+            player.Emit("Player:WarpIntoVehicle", veh, seat);
+        }
 
         public static IPlayer GetPlayerFromName(string name)
         {
