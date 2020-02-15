@@ -22,23 +22,6 @@ alt.onServer('Remote_Speedo_Hide', (state) => {
 });
 
 export function RenderTacho() {
-	//ToDo: Unperformant!
-	/*if (player.getVariable("HIDE_SPEEDO")) {
-		speedo.execute("hideSpeedo();");
-		return;
-	}
-	else {
-
-	}
-	//ToDo: Unperformant!
-	
-	if (player.getVariable("PLAYER_DRIVINGSCHOOL") == true && player.vehicle) {
-		let vel = player.vehicle.getSpeed() * 3.6;
-		if (vel >= 125) {
-			mp.events.callRemote('CancelDrivingSchool', vel);
-			return;
-		}
-	}*/
 	//ToDo : Unperformant!!
 	if (alt.Player.local.vehicle) {
 		if (showed === false) {
