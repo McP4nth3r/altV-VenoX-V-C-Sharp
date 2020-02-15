@@ -7,14 +7,15 @@ import * as CameraLib from '/VenoXV_Client/Globals/VnX-Lib/camera.js';
 import * as EventLib from '/VenoXV_Client/Globals/VnX-Lib/events.js';
 import * as Nametags from '/VenoXV_Client/Globals/Anzeigen/nametags/nametags.js';
 import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
+import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 //import * as WeaponLibary from '/VenoXV_Client/Globals/Weapons/combat.js';
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
 import * as TacticsLobby from '/VenoXV_Client/Tactics/VenoXV/Lobby/index.js';
-
-
-
-
+import * as jobs from '/VenoXV_Client/Reallife/jobs/allround.js';
+import * as environment_house from '/VenoXV_Client/Reallife/environment/house/index.js';
+import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
+import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
 game.requestIpl('chop_props');
 game.requestIpl('FIBlobby');
 game.removeIpl('FIBlobbyfake');
