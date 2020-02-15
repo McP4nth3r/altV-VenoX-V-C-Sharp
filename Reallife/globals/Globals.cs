@@ -101,10 +101,11 @@ namespace VenoXV.Reallife.Globals
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, IEntity entity)
         {
             try
             {
+                IPlayer player = entity as IPlayer;
                 CarShop.OnPlayerEnterIColShape(shape, player);
                 Clothes.Clothes.OnPlayerEnterIColShape(shape, player);
                 Environment.ammunation.ammunation.OnPlayerEnterIColShape(shape, player);
@@ -413,7 +414,7 @@ namespace VenoXV.Reallife.Globals
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true)
+                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.Name && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true)
                     {
 
                         int IVehicleTaxes = (int)Math.Round((int)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PRICE) * Constants.TAXES_IVehicle);
