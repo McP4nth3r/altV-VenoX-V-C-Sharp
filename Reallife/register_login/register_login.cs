@@ -15,6 +15,7 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV.Reallife.character;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using AltV.Net.Async;
 
 namespace VenoXV.Reallife.register_login
 {
@@ -606,17 +607,23 @@ namespace VenoXV.Reallife.register_login
 
 
 
-       
+        Dictionary<string, IPlayer> playerNames = new Dictionary<string, IPlayer>();
+
 
         [ClientEvent("loginAccount")]
         public void LoginAccountEvent(IPlayer player, string username, string password)
         {
             try
             {
-                //Core.Debug.OutputDebugString(username + " | " + password);
                 bool login = Database.LoginAccountByName(username, password);
                 if (login == true)
                 {
+                    if(username.ToLower() != player.Name.ToLower())
+                    {
+                        player.SendChatMessage("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
+                        player.Kick("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
+                        return;
+                    }
                     player.Emit("DestroyLoginWindow");
                     player.Emit("preload_gm_list");
                     Preload.GetAllPlayersInAllGamemodes(player);
@@ -677,8 +684,8 @@ namespace VenoXV.Reallife.register_login
                         }
                         return;
                     }
-
                     return;
+
                 }
                 else
                 {
