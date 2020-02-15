@@ -14,6 +14,9 @@ import { ShowCursor } from '../Globals/VnX-Lib';
 function test() {
 	dxClass.vnxDestroyWindow("TestWindow");
 }
+
+
+
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -21,10 +24,11 @@ dxClass.vnxDrawButton("Smart_Kaufen", "Irgend ein Test Button WTF", "Panto Miete
 
 dxClass.vnxDrawButton("Roller_Kaufen", "Dies ist eine Info für dich ;)", "Roller Mieten [75$]", 0.05, 0.09, 0.09, 0.04, "TestWindow", test);
 
-dxClass.vnxDrawText("RollerText", "Roller Vermietungs Text lol", "Hello Alt:V,\nThis is a Test lmfao ^_^", 0, -0.03, [0.7, 0.55], 1, [255, 255, 255, 255], "TestWindow", test);
+dxClass.vnxDrawText("RollerText", "Roller Vermietungs Text lol", "Hello Alt:V,\nThis is a Test lmfao ^_^", 0, -0.03, [0.7, 0.55], 1, [255, 255, 255, 255], "TestWindow", test);*/
 
 //dxClass.vnxDrawWindow("FynnZeigt", "Info für FynnScheisst", "Fynnzeigts erstes Window", 0, 0, 0.3, 0.2, penis);
-*/
+
+
 
 
 alt.onServer('preload_gm_list', () => {
@@ -32,6 +36,7 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser.destroy();
 		preloadbrowser = null;
 	}
+	alt.hash
 	//ToDo : Hide/ShowChat - mp.gui.chat.activate(false);
 	//ToDo : Hide/ShowChat - mp.gui.chat.show(false);
 	//ToDo : Hide/ShowCursor - mp.gui.cursor.show(true, true);

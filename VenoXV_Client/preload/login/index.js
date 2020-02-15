@@ -59,7 +59,7 @@ alt.onServer('DestroyLoginWindow', () => {
 	}
 	if (Login_Kamera != undefined) {
 		CamerasManager.setActiveCamera(Login_Kamera, false);
-		Login_Kamera.destroy();
+		//Login_Kamera.destroy();
 		Login_Kamera = undefined;
 	}
 	if (Login_Timer_Load != undefined) {
@@ -89,7 +89,7 @@ alt.onServer("StartCameraMovementVnX", (p1, p2, p3, p4, p5, p6, p7, p8) => {
 alt.onServer("SetCamera_Event_Login", (p1, p2, p3, p4, p5, p6, p7, p8) => {
 	if (Login_Kamera != undefined) {
 		CamerasManager.setActiveCamera(Login_Kamera, false);
-		Login_Kamera.destroy();
+		//Login_Kamera.destroy();
 	}
 	Login_Kamera = CamerasManager.createCamera('Login_C', 'default', p1, p3, p5);
 	CamerasManager.setActiveCameraWithInterp(Login_Kamera, p2, p4, p6, 0, 0);
