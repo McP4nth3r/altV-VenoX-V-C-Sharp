@@ -143,13 +143,13 @@ namespace VenoXV.Reallife.gangwar.v2
         public void CreateIVehicles()
         {
             try
-            {/*
+            {
                 this.IVehicles = new IVehicle[]
                 {
-                NAPI.Vehicle.CreateIVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y+10, this.TK.Z), 355, new Rgba(0, 255, 0), new Rgba(255, 255, 255)),
-                NAPI.Vehicle.CreateIVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y+10, this.TK.Z), 355, new Rgba(0, 255, 0), new Rgba(255, 255, 255)),
-                NAPI.Vehicle.CreateIVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y-10, this.TK.Z), 355, new Rgba(0, 255, 0), new Rgba(255, 255, 255)),
-                NAPI.Vehicle.CreateIVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y-10, this.TK.Z), 355, new Rgba(0, 255, 0), new Rgba(255, 255, 255))
+                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
+                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
+                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
+                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
                 };
 
                 foreach (var veh in this.IVehicles)
@@ -165,12 +165,12 @@ namespace VenoXV.Reallife.gangwar.v2
                     veh.SetData(EntityData.VEHICLE_PRICE, 0);
                     veh.SetData(EntityData.VEHICLE_PARKING, 0);
                     veh.SetData(EntityData.VEHICLE_PARKED, 0);
-                    veh.CustomPrimaryRgba = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
+                    veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
                     Core.VnX.VehiclevnxSetSharedData(veh, "kms", 0);
                     Core.VnX.VehiclevnxSetSharedData(veh, "gas", 100);
                     veh.SetData(EntityData.VEHICLE_NOT_SAVED, true);
                     veh.Dimension = GangwarManager.GW_DIM;
-                }*/
+                }
             }
             catch { }
         }

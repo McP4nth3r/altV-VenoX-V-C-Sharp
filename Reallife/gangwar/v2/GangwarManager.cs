@@ -50,15 +50,15 @@ namespace VenoXV.Reallife.gangwar.v2
         {
             try
             {
-                // ToDo: Add function to remove any gangwar area
-                /*List<GangwarModel> areas = Database.LoadAllGWAreas();
+                //ToDo: Add function to remove any gangwar area
+                List<GangwarModel> areas = Database.LoadAllGWAreas();
 
                 foreach (var aModel in areas)
                 {
                     var area = new GangwarArea(aModel.gang_area_name, aModel.gang_area_position, (int)aModel.gang_area_radius, aModel.gang_area_tk_position,
                         aModel.GANG_AREA_OWNER, aModel.gang_area_rotation, aModel.GANG_AREA_COOLDOWN);
                     this.CreateGangwarArea(area);
-                }*/
+                }
             }
             catch { }
         }
