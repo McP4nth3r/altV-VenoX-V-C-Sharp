@@ -60,14 +60,6 @@ namespace VenoXV.Reallife.database
             //Inventory.LoadDatabaseItems();
             Main.itemList = LoadAllItems();
 
-            // Item loading
-           // Globals.Inventar_Liste = GetPlayerInventar();
-
-            // Police controls loading
-
-            // Announcements loading
-            //WeazelNews.annoucementList = LoadAllAnnoucements();
-
             // Clothes loading
             Main.clothesList = LoadAllClothes();
 
@@ -1657,7 +1649,7 @@ namespace VenoXV.Reallife.database
             catch(Exception ex) { Core.Debug.CatchExceptions("LoadAllVehicles", ex); return null; }
         }
         
-        /*
+        
         public static List<GangwarModel> LoadAllGWAreas()
         {
             try
@@ -1687,7 +1679,7 @@ namespace VenoXV.Reallife.database
                 return gwList;
             }
             catch { return new List<GangwarModel>(); }
-        }*/
+        }
 
         public static int AddNewIVehicle(VehicleModel IVehicle)
         {
