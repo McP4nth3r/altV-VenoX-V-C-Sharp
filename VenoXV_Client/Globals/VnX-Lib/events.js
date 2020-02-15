@@ -13,6 +13,8 @@ import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
 import { RenderTacho } from '../Anzeigen/tacho';
 import { KeyUp, KeyDown } from '../Scoreboard';
+import { RenderHUDs } from '../Anzeigen/hud';
+import { Render7TowersLobby } from '../../SevenTowers/Lobby';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
@@ -62,13 +64,16 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
 });
 
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedPreloadVariationData(alt.Player.local, clothesslot, clothesdrawable, clothestexture);
-    alt.log
+    game.setPedComponentVariation(alt.Player.local.scriptID, clothesslot, clothesdrawable, clothestexture);
+    alt.log("Clothes:Loaded");
 });
 
 alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedPreloadVariationData(alt.Player.local, clothesslot, clothesdrawable, clothestexture);
+    game.setPedPreloadVariationData(alt.Player.local.scriptID, clothesslot, clothesdrawable, clothestexture);
+    alt.log("Accessories:Loaded");
 });
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,6 +83,9 @@ alt.onServer('Player:Visible', (bool) => {
     alt.log("Invisible = " + bool);
 });
 
+alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
+    game.taskWarpPedIntoVehicle(alt.Player.local.scriptID, veh.scriptID, seat);
+});
 
 alt.on('keyup', (key) => {
     KeyUp(key);
@@ -89,10 +97,6 @@ alt.on('keydown', (key) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
 let lastFrameCount = game.getFrameCount();
 let CurrentFPS = 0;
 
@@ -102,16 +106,22 @@ alt.setInterval(() => {
 }, 1000);
 
 function DrawGlobalHUD() {
-    DrawText(CurrentFPS.toString(), [0.99, 0.002], [0.5, 0.5], 0, [0, 105, 145, 200], true, true);
+    DrawText(CurrentFPS.toString(), [0.99, 0.001], [0.5, 0.5], 0, [0, 105, 145, 200], true, true);
 }
 
 alt.everyTick(() => {
     DrawGlobalHUD();
-    TacticsEveryTick();
     dxLibaryEveryTick();
     OnCameraEveryTick();
     RenderHitMarker();
     RenderTacho();
+    RenderHUDs();
+    if (CurrentLobby == PLAYER_LOBBY_7TOWERS) {
+        Render7TowersLobby();
+    }
+    else if (CurrentLobby == PLAYER_LOBBY_7TOWERS) {
+        TacticsEveryTick();
+    }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
