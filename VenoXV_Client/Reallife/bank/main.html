@@ -1,0 +1,94 @@
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script src="bank.js"></script>
+
+    <script type="text/javascript">
+        function validate_num(formdata) {
+            formdata.value = formdata.value.replace(/\D/, '');
+        }
+        window.onload = function () {
+            const myInput = document.getElementById('betrag');
+            myInput.onpaste = function (e) {
+                e.preventDefault();
+            }
+        }
+    </script>
+    <script>
+        if ("alt" in window) {
+            alt.on("Bank:Load", (k, k1, k2, k3, u1, u2, u3) => {
+                document.getElementById('info_back').innerHTML = k + " $";
+                document.getElementById('kontoinfo1').innerHTML = k1;
+                document.getElementById('kontoinfo2').innerHTML = k2;
+                document.getElementById('kontoinfo3').innerHTML = k3;
+                document.getElementById('kontosend1').innerHTML = u1;
+                document.getElementById('kontosend2').innerHTML = u2;
+                document.getElementById('kontosend3').innerHTML = u3;
+            });
+            alt.on("LoadMoneyStorage", (money) => { document.getElementById('info_back').innerHTML = money + " $"; });
+        }
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <div class="all">
+        <div class="back"></div>
+
+        <div class="text_head">VenoX City Bank</div>
+        <div class="close" onclick="mp.trigger('closeATM')">X</div>
+        <img src="images/logo.png" id="logo_image">
+        <div class="image_back"></div>
+
+        <input type="radio" id="infos" name="radio-group" checked>
+        <label for="infos" onclick="mp.trigger('atm_load_money_storage');">Kontoinformationen</label>
+
+        <section id="infos1">
+            <div class="option">Kontoinformationen</div>
+            <div class="info_header">Kontostand</div>
+            <div class="info_back" id="info_back">0$</div>
+        </section>
+
+
+        <input type="radio" id="statements" name="radio-group">
+        <label id="kontoinfo1" for="statements">Kontoauszüge</label>
+
+        <section id="statements1">
+            <div id="kontoinfo2" class="option">Kontoauszüge</div>
+            <div id="kontoinfo3" class="folgt">Kontoauszüge folgen</div>
+        </section>
+
+
+        <input type="radio" id="transfers" name="radio-group">
+        <label id="kontosend1" for="transfers">Überweisen</label>
+
+        <section id="transfers1">
+            <div id="kontosend2" class="option">Überweisen</div>
+            <input id="to" class="to_box" type="to_box" placeholder="Spieler..." rows="1" maxlength="25">
+            <input id="ammount" class="ammount_box" type="ammount_box" placeholder="Betrag..." rows="1" maxlength="15"
+                onkeyup="validate_num(this)">
+            <input id="because" class="because_box" type="because_box" placeholder="Grund..." rows="1" maxlength="50">
+            <div id="kontosend3" class="pay" onclick='atm_money_send()'>Überweisen</div>
+        </section>
+
+
+
+        <input type="radio" id="deposits" name="radio-group">
+        <label for="deposits">Geld einzahlen<br>/ auszahlen</label>
+
+        <section id="deposits1">
+            <input type="radio" id="deposit" name="radio-group">
+            <div class="option">Einzahlen / Auszahlen</div>
+            <input id="betrag" class="betrag_box" type="betrag_box" placeholder="Betrag..." rows="1" maxlength="15"
+                onkeyup="validate_num(this)">
+            <div class="in" onclick="money_button_pressed('einzahlen')">Einzahlen</div>
+            <div class="out" onclick="money_button_pressed('auszahlen')">Auszahlen</div>
+        </section>
+
+
+    </div>
+</body>
