@@ -76,7 +76,6 @@ alt.everyTick(() => {
 		}
 	}
 	*/
-	let screenRes = game.getScreenResolution(0, 0);
 
 	if (players.length > 1) {
 		let localPlayer = alt.Player.local;
@@ -98,26 +97,21 @@ alt.everyTick(() => {
 					if (player.getSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
 					else { let values = returnRGB(player); r = values[0]; g = values[1]; b = values[2]; }
 
-					/*if (player.getSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getSyncedMeta("PLAYER_FACTION") > 0) {
-						if (!mp.game.graphics.hasStreamedTextureDictLoaded("Commonmenu")) {
-							mp.game.graphics.requestStreamedTextureDict("Commonmenu", true);
-						}
-	
-						if (mp.game.graphics.hasStreamedTextureDictLoaded("Commonmenu")) {
-							mp.game.graphics.drawSprite("Commonmenu", "shop_new_star", x, y + 0.040, 0.0625, 0.06315, 0, 255, 255, 255, 255);
-							mp.game.graphics.DrawText(player.getSyncedMeta("PLAYER_WANTEDS"), [x + 0.001, y + 0.030],
-								{
-									font: 4,
-									color: [255, 255, 255, 255],
-									scale: [0.30, 0.30],
-									outline: true
-								});
-						}
-					}*/
-					//alt.log("[DISTANCE ZUM SPIELER] : " + distance);
-					//alt.log("[MAX_DISTANCE] : " + maxDistance_load);
+
 
 					let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
+					if (player.getSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getSyncedMeta("PLAYER_FACTION") > 0) {
+						if (!game.hasStreamedTextureDictLoaded("Commonmenu")) {
+							game.requestStreamedTextureDict("Commonmenu", true);
+						}
+
+						if (game.hasStreamedTextureDictLoaded("Commonmenu")) {
+							game.drawSprite("Commonmenu", "shop_new_star", x, y + 0.040, 0.0625, 0.06315, 0, 255, 255, 255, 255);
+							DrawText(player.getSyncedMeta("PLAYER_WANTEDS"), [screenPos[1] + 0.001, screenPos[2] + 0.030], [0.30, 0.30], 4, [255, 255, 255, 255], true, true);
+						}
+					}
+					//alt.log("[DISTANCE ZUM SPIELER] : " + distance);
+					//alt.log("[MAX_DISTANCE] : " + maxDistance_load);
 					DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
 					DrawText(player.getSyncedMeta("SocialState_NAMETAG"), [screenPos[1], screenPos[2] - 0.030 + 0.042], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 				}
