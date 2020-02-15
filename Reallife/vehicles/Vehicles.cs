@@ -632,7 +632,6 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                Core.Debug.OutputDebugString("Called : ");
                 if (player.IsInVehicle)
                 {
                     if (player.Vehicle.EngineOn)
@@ -674,9 +673,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     int rest = (Convert.ToInt32(distance) * 3);
                     int tank = Convert.ToInt32(vehicle.vnxGetElementData<float>("VEHICLE_GAS_CLIENT"));
-                    Core.Debug.OutputDebugString(tank + " -");
                     int newtank = (tank - rest);
-                    Core.Debug.OutputDebugString(tank + "_ ");
                     if (newtank < 0)
                     {
                         vehicle.EngineOn = false;
@@ -709,9 +706,6 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                Core.Debug.OutputDebugString("CATCHED!");
-                Core.Debug.OutputDebugString("Player : " + player.Name);
-                Core.Debug.OutputDebugString("Player : " + player.Seat);
                 if (player.Seat == 0)
                 {
                     if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_MOTOR) == true)
@@ -722,7 +716,6 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         Vehicle.EngineOn = false;
                     }
-                    Core.Debug.OutputDebugString("CATCHED!");
 
                     /*if(Vehicle.vnxGetElementData("VEHICLE_HEALTH_SERVER") == null)
                     {
