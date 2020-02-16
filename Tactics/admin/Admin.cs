@@ -16,9 +16,9 @@ namespace VenoXV.Tactics.admin
         {
             if(player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
             {
-                Tactics.globals.Functions.SendTacticRoundMessage(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat die Tactic Runde übersprungen!");
-                Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin",player.Name + " hat die Runde übersprungen!");
-                Tactics.globals.Functions.ShowOutroScreen("[VnX]" +player.Name + " hat die Tactic Runde übersprungen!");
+                Tactics.globals.Functions.SendTacticRoundMessage(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat die Tactic Runde übersprungen!");
+                Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin",player.GetVnXName<string>() + " hat die Runde übersprungen!");
+                Tactics.globals.Functions.ShowOutroScreen("[VnX]" +player.GetVnXName<string>() + " hat die Tactic Runde übersprungen!");
             }
         }
     }

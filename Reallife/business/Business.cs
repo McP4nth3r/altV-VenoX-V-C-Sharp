@@ -187,7 +187,7 @@ namespace VenoXV.Reallife.business
         {
             try
             {
-                return (player.Name == business.owner);
+                return (player.GetVnXName<string>() == business.owner);
             }
             catch { return false; }
 
@@ -353,7 +353,7 @@ namespace VenoXV.Reallife.business
 
                     player.SendChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                     dxLibary.VnX.DrawNotification(player, "info", "Transaktion in Höhe von " + price + "$ abgeschlossen!");
-                    vnx_stored_files.logfile.WriteLogs("clothes",player.Name + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
+                    vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName<string>() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }
                 else
                 {

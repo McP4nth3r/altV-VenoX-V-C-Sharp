@@ -39,7 +39,7 @@ namespace VenoXV.Reallife.bank
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) + value);
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - value);
                             player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " " + value + " $" + RageAPI.GetHexColorcode(255,255,255) + " eingezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] hat " + value + " $ eingezahlt!");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] hat " + value + " $ eingezahlt!");
                         }
                     }
                     else
@@ -62,7 +62,7 @@ namespace VenoXV.Reallife.bank
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - value);
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + value);
                             player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " " + value + " $" + RageAPI.GetHexColorcode(255,255,255) + " ausgezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] hat " + value + " $ aussgezahlt!");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] hat " + value + " $ aussgezahlt!");
                         }
                     }
                     else
@@ -105,13 +105,13 @@ namespace VenoXV.Reallife.bank
                         else
                         {
                             player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " " + SpielerNameNormal + " " + RageAPI.GetHexColorcode(255,255,255) +  + value + "  " + RageAPI.GetHexColorcode(0,200,255) + "  $ überwiesen!!");
-                           target.SendChatMessage(RageAPI.GetHexColorcode(0,255,0) +player.Name + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                           target.SendChatMessage(RageAPI.GetHexColorcode(0,255,0) +player.GetVnXName<string>() + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - value);
                             Core.VnX.vnxSetSharedData(target, Core.VnX.PLAYER_BANKMONEY, target.vnxGetElementData<int>(EntityData.PLAYER_BANK) + value);
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Name + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Name + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
-                                admin.Admin.sendAdminNotification(player.Name + " hat " + target.Name + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
+                                admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
                             }
                         }
                     }

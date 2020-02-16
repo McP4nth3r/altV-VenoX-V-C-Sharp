@@ -757,7 +757,7 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != Constants.FACTION_NONE)
                 {
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.Name + " hat die Fraktion verlassen...");
+                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.GetVnXName<string>() + " hat die Fraktion verlassen...");
                     player.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NONE);
                     anzeigen.Usefull.VnX.OnFactionChange(player);
                     player.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
@@ -813,7 +813,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
                     {
-                        if (target.Name ==player.Name)
+                        if (target.Name ==player.GetVnXName<string>())
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
                             return;
@@ -884,12 +884,12 @@ namespace VenoXV.Reallife.factions
                     }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_RANK) < number)
                     {
-                        target.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Glückwunsch, du wurdest soeben von " +player.Name + " zum " + rankString + " befördert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Glückwunsch, du wurdest soeben von " +player.GetVnXName<string>() + " zum " + rankString + " befördert!");
 
                     }
                     else
                     {
-                        target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben von " +player.Name + " zum " + rankString + " degradiert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben von " +player.GetVnXName<string>() + " zum " + rankString + " degradiert!");
                     }
                     player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast " + target.Name + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
                     target.SetData(EntityData.PLAYER_RANK, number);
@@ -962,7 +962,7 @@ namespace VenoXV.Reallife.factions
                     PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
-                    //ToDo : Fix & find another Way! player.Name = character.realName;
+                    //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                     player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);

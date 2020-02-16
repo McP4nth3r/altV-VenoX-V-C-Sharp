@@ -46,21 +46,21 @@ namespace VenoXV.Reallife.chat
                                 switch (type)
                                 {
                                     case Constants.MESSAGE_TALK:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.Name + " sagt : " + message + "..." : chatMessageRgba +player.Name + " sagt : " + message);
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.GetVnXName<string>() + " sagt : " + message + "..." : chatMessageRgba +player.GetVnXName<string>() + " sagt : " + message);
                                         if (secondMessage.Length > 0)
                                         {
                                             target.SendChatMessage(chatMessageRgba + secondMessage);
                                         }
                                         break;
                                     case Constants.MESSAGE_YELL:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.Name + " schreit : " + message + "..." : chatMessageRgba +player.Name + " schreit : " + message + "!!!");
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.GetVnXName<string>() + " schreit : " + message + "..." : chatMessageRgba +player.GetVnXName<string>() + " schreit : " + message + "!!!");
                                         if (secondMessage.Length > 0)
                                         {
                                             target.SendChatMessage(chatMessageRgba + secondMessage + "!!!");
                                         }
                                         break;
                                     case Constants.MESSAGE_WHISPER:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.Name + " flüstert : " + message + "..." : chatMessageRgba +player.Name + " flüstert : " + message);
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +player.GetVnXName<string>() + " flüstert : " + message + "..." : chatMessageRgba +player.GetVnXName<string>() + " flüstert : " + message);
                                         if (secondMessage.Length > 0)
                                         {
                                             target.SendChatMessage(chatMessageRgba + secondMessage);
@@ -122,8 +122,8 @@ namespace VenoXV.Reallife.chat
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_TALK, player.Dimension > 0 ? 7.5f : 10.0f);
-                    Console.WriteLine("[ID:" + player.Id + "]" +player.Name + "say" + message);
-                    logfile.WriteLogs("chat", "[ " +player.Name + " ] sagt : " + message);
+                    Console.WriteLine("[ID:" + player.Id + "]" +player.GetVnXName<string>() + "say" + message);
+                    logfile.WriteLogs("chat", "[ " +player.GetVnXName<string>() + " ] sagt : " + message);
                 }
             }
             catch { }
@@ -141,7 +141,7 @@ namespace VenoXV.Reallife.chat
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_TALK, player.Dimension > 0 ? 7.5f : 10.0f);
-                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] sagt : " + message);
+                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] sagt : " + message);
                 }
             }
             catch { }
@@ -159,7 +159,7 @@ namespace VenoXV.Reallife.chat
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_YELL, 45.0f);
-                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] schreit : " + message + " !!!");
+                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] schreit : " + message + " !!!");
                 }
             }
             catch { }
@@ -177,7 +177,7 @@ namespace VenoXV.Reallife.chat
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_WHISPER, 3.0f);
-                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] flüstert : " + message + " ...");
+                    logfile.WriteLogs("chat", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] flüstert : " + message + " ...");
                 }
             }
             catch { }

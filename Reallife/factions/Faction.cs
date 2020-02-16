@@ -154,7 +154,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.Name + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
                     }
                 }
             }
@@ -172,7 +172,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (Allround.isStateFaction(target) || target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.Name + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
                     }
                 }
             }
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (Allround.isBadFaction(target))
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.Name + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
                     }
                 }
             }

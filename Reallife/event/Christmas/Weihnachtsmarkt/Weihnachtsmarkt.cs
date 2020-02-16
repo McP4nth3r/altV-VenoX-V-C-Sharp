@@ -153,7 +153,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     IVehicle.firstRgba = 0 + "," + 200 + "," + 255;
                     IVehicle.secondRgba = 255 + "," + 255 + "," + 255;
                     IVehicle.pearlescent = 0;
-                    IVehicle.owner =player.Name;
+                    IVehicle.owner =player.GetVnXName<string>();
                     IVehicle.plate = string.Empty;
                     IVehicle.price = 0;
                     IVehicle.parking = 0;
@@ -197,7 +197,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     IVehicle.firstRgba = 0 + "," + 200 + "," + 255;
                     IVehicle.secondRgba = 255 + "," + 255 + "," + 255;
                     IVehicle.pearlescent = 0;
-                    IVehicle.owner =player.Name;
+                    IVehicle.owner =player.GetVnXName<string>();
                     IVehicle.plate = string.Empty;
                     IVehicle.price = 0;
                     IVehicle.parking = 0;

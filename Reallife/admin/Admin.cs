@@ -145,8 +145,8 @@ namespace VenoXV.Reallife.admin
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + target.Name + " wurde von " +player.Name + " gekickt! Grund : " + reason);
-                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + target.SocialClubId + "][" + target.Name + "] gekickt! Grund : " + reason);
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + target.Name + " wurde von " +player.GetVnXName<string>() + " gekickt! Grund : " + reason);
+                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + target.SocialClubId + "][" + target.Name + "] gekickt! Grund : " + reason);
                     target.Kick("~r~Grund : ~h~" + reason);
                 }
             }
@@ -164,33 +164,33 @@ namespace VenoXV.Reallife.admin
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 7)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {B40000}Projektleitung " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Projektleitung " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {B40000}Projektleitung " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Projektleitung " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 6)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {EC0000}Stellv.Projektleitung " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Stellv.Projektleitung " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {EC0000}Stellv.Projektleitung " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Stellv.Projektleitung " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 5)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {E8AE00}Administrator " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Administrator " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {E8AE00}Administrator " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Administrator " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 4)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {002DE0}Moderator " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Moderator " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {002DE0}Moderator " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Moderator " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 3)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {006600}Supporter " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Supporter " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {006600}Supporter " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Supporter " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 2)
                         {
-                            targetsingame.SendChatMessage("{{ ACHAT {C800C8}Ticket-Supporter " +player.Name + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Ticket-Supporter " +player.Name + ": " + message + " }} ");
+                            targetsingame.SendChatMessage("{{ ACHAT {C800C8}Ticket-Supporter " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Ticket-Supporter " +player.GetVnXName<string>() + ": " + message + " }} ");
                         }
                     }
                 }
@@ -236,7 +236,7 @@ namespace VenoXV.Reallife.admin
                         // Weapon Ban Fix 
                         player.RemoveAllWeapons();
 
-                        Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " ist nun Admin - Duty.");
+                        Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " ist nun Admin - Duty.");
                     }
                     else
                     {
@@ -249,7 +249,7 @@ namespace VenoXV.Reallife.admin
                         SkinModel skinModel = Database.GetCharacterSkin(sqlid);
                         if (character != null && character.realName != null)
                         {
-                            //ToDo : Fix & find another Way! player.Name = character.realName;
+                            //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                             player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                         player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                             Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
@@ -258,7 +258,7 @@ namespace VenoXV.Reallife.admin
 
                             // Weapon ban Fix
                             weapons.Weapons.GivePlayerWeaponItems(player);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " ist nun nicht mehr im Admin - Duty.");
+                            Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " ist nun nicht mehr im Admin - Duty.");
 
                         }
                     }
@@ -281,8 +281,8 @@ namespace VenoXV.Reallife.admin
                     player.Position = target.Position;
                     player.Dimension = target.Dimension;
                     player.SendChatMessage(RageAPI.GetHexColorcode(255,255,255) + "Du hast dich zu " + RageAPI.GetHexColorcode(0,200,255) + target.Name + " " + RageAPI.GetHexColorcode(255,255,255) + "teleportiert!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "[VnX]" +player.Name + " " + RageAPI.GetHexColorcode(255,255,255) + "hat sich zu dir teleportiert!");
-                    logfile.WriteLogs("admin",player.Name + " hat sich zu " + target.Name + " geportet!");
+                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "[VnX]" +player.GetVnXName<string>() + " " + RageAPI.GetHexColorcode(255,255,255) + "hat sich zu dir teleportiert!");
+                    logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat sich zu " + target.Name + " geportet!");
                 }
                 else
                 {
@@ -304,8 +304,8 @@ namespace VenoXV.Reallife.admin
                     target.Position = player.Position;
                     target.Dimension = player.Dimension;
                     player.SendChatMessage(RageAPI.GetHexColorcode(255,255,255) + "Du hast " + RageAPI.GetHexColorcode(0,200,255) + target.Name + " " + RageAPI.GetHexColorcode(255,255,255) + " zu dir teleportiert!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "[VnX]" +player.Name + " " + RageAPI.GetHexColorcode(255,255,255) + "hat dich zu ihm teleportiert!");
-                    logfile.WriteLogs("admin",player.Name + " hat " + target.Name + " zu sich geportet!");
+                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "[VnX]" +player.GetVnXName<string>() + " " + RageAPI.GetHexColorcode(255,255,255) + "hat dich zu ihm teleportiert!");
+                    logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat " + target.Name + " zu sich geportet!");
                 }
                 else
                 {
@@ -334,8 +334,8 @@ namespace VenoXV.Reallife.admin
                                     {
                                         target.SetData(EntityData.PLAYER_BANK, value);
                                         player.SendChatMessage("~g~Du hast das Bankgeld von " + target.Name + " auf : " + value + " gesetzt!");
-                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.Name + "hat dein Bankgeld auf : " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.Name + " hat das Bankgeld von " + target.Name + " Auf " + value + " gesetzt!");
+                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + "hat dein Bankgeld auf : " + value + " gesetzt!");
+                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.GetVnXName<string>() + " hat das Bankgeld von " + target.Name + " Auf " + value + " gesetzt!");
                                     }
                                     break;
                                 case "money":
@@ -343,8 +343,8 @@ namespace VenoXV.Reallife.admin
                                     {
                                         target.SetData(EntityData.PLAYER_MONEY, value);
                                         player.SendChatMessage("~g~Du hast das Bargeld von " + target.Name + " auf : " + value + " gesetzt!");
-                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat dein Bargeld auf : " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.Name + " hat das Bargeld von " + target.Name + " Auf " + value + " gesetzt!");
+                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat dein Bargeld auf : " + value + " gesetzt!");
+                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.GetVnXName<string>() + " hat das Bargeld von " + target.Name + " Auf " + value + " gesetzt!");
                                     }
                                     break;
                                 case "dimension":
@@ -352,8 +352,8 @@ namespace VenoXV.Reallife.admin
                                     {
                                         target.Dimension = value;
                                         player.SendChatMessage("~g~Du hast " + target.Name + " Dimension auf " + value + " gesetzt!");
-                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat deine Dimension auf :  " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.Name + " hat " + target.Name + " in die Dimension " + value + " verschoben!");
+                                        target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat deine Dimension auf :  " + value + " gesetzt!");
+                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" +player.GetVnXName<string>() + " hat " + target.Name + " in die Dimension " + value + " verschoben!");
 
                                     }
                                     break;
@@ -396,8 +396,8 @@ namespace VenoXV.Reallife.admin
                         Target.Spawn(Target.Position);
                         Core.VnX.vnxSetSharedData(Target, EntityData.PLAYER_KILLED, 0);
                         player.SendChatMessage("~g~Du hast " + Target.Name + " wiederbelebt.");
-                        Target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat dich wiederbelebt.");
-                        logfile.WriteLogs("admin",player.Name + " hat " + Target.Name + " wiederbelebt!");
+                        Target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat dich wiederbelebt.");
+                        logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat " + Target.Name + " wiederbelebt!");
                         Target.Emit("destroyKrankenhausTimer");
                         Target.Emit("VnX_DestroyIPlayerSideTimer_KH");
                         foreach (IPlayer medics in Alt.GetAllPlayers())
@@ -431,15 +431,15 @@ namespace VenoXV.Reallife.admin
                         if (Database.FindCharakterPrison(SpielerName))
                         {
                             int PrisonTime = Database.GetCharakterPrisonTime(SpielerName);
-                            Database.UpdatePlayerPrisonTime(UID, PrisonTime + zeit, grund,player.Name, DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0)+ SpielerName + " wurde von [VnX]" +player.Name + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
+                            Database.UpdatePlayerPrisonTime(UID, PrisonTime + zeit, grund,player.GetVnXName<string>(), DateTime.Now);
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0)+ SpielerName + " wurde von [VnX]" +player.GetVnXName<string>() + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
                         }
                         else
                         {
-                            Database.AddPlayerToPrison(UID, SpielerName, zeit, grund,player.Name, DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName +" wurde von [VnX]" +player.Name + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
+                            Database.AddPlayerToPrison(UID, SpielerName, zeit, grund,player.GetVnXName<string>(), DateTime.Now);
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName +" wurde von [VnX]" +player.GetVnXName<string>() + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
                         }
                         if (targetplayer != null)
                         {
@@ -484,22 +484,22 @@ namespace VenoXV.Reallife.admin
                             Accountbans ban = Database.GetAccountbans(SocialClubId.ToString());
                             if (ban.banzeit > DateTime.Now)
                             {
-                                Database.UpdatePlayerTimeBan(UID, grund,player.Name, ban.banzeit.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" +player.Name + " für " + zeit + " Stunden gebannt! Grund : " + grund);
+                                Database.UpdatePlayerTimeBan(UID, grund,player.GetVnXName<string>(), ban.banzeit.AddHours(zeit), DateTime.Now);
+                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
+                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" +player.GetVnXName<string>() + " für " + zeit + " Stunden gebannt! Grund : " + grund);
                             }
                             else
                             {
-                                Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund,player.Name, DateTime.Now.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0)+  SpielerName + " wurde von [VnX]" +player.Name + " für " + zeit + " Stunden gebannt! Grund : " + grund);
+                                Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund,player.GetVnXName<string>(), DateTime.Now.AddHours(zeit), DateTime.Now);
+                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
+                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0)+  SpielerName + " wurde von [VnX]" +player.GetVnXName<string>() + " für " + zeit + " Stunden gebannt! Grund : " + grund);
                             }
                         }
                         else
                         {
-                            Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund,player.Name, DateTime.Now.AddHours(zeit), DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" + player.Name + " für " + zeit + " Stunden gebannt! Grund : " + grund);
+                            Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund,player.GetVnXName<string>(), DateTime.Now.AddHours(zeit), DateTime.Now);
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" + player.GetVnXName<string>() + " für " + zeit + " Stunden gebannt! Grund : " + grund);
                         }
                         if (targetplayer != null)
                         {
@@ -529,7 +529,7 @@ namespace VenoXV.Reallife.admin
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
                 {
                     anzeigen.Usefull.VnX.SpectatePlayer(player, target, 0);
-                    sendAdminInformation(player.Name + " spectatet grade " + target.Name + "!");
+                    sendAdminInformation(player.GetVnXName<string>() + " spectatet grade " + target.Name + "!");
                 }
             }
             catch { }
@@ -541,7 +541,7 @@ namespace VenoXV.Reallife.admin
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
             {
                 anzeigen.Usefull.VnX.SpectatePlayer(player, player, 1);
-                sendAdminInformation(player.Name + " hat aufgehört " +player.Name + " zu spectaten!");
+                sendAdminInformation(player.GetVnXName<string>() + " hat aufgehört " +player.GetVnXName<string>() + " zu spectaten!");
             }
         }
 
@@ -561,7 +561,7 @@ namespace VenoXV.Reallife.admin
                 {
                     Reallife.Core.RageAPI.SendChatMessageToAll(" ");
                 }
-                vnx_stored_files.logfile.WriteLogs("admin",player.Name + " hat den Chat gecleared!");
+                vnx_stored_files.logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat den Chat gecleared!");
             }
         }
 
@@ -578,7 +578,7 @@ namespace VenoXV.Reallife.admin
                 }
                 else if (Werbungjaodernein == "ja")
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat das AD-System " + state);
+                    Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat das AD-System " + state);
                 }
                 else
                 {
@@ -596,35 +596,35 @@ namespace VenoXV.Reallife.admin
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 7)
                     {
-                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {B40000}Projektleitung " +player.Name + ": {FFFFFF}" + message + " )) ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Projektleitung " +player.Name + ": " + message + " }} ");
+                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {B40000}Projektleitung " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " )) ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Projektleitung " +player.GetVnXName<string>() + ": " + message + " }} ");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 6)
                     {
-                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {EC0000}Stellv.Projektleitung " +player.Name + ": {FFFFFF}" + message + " )) ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Stellv.Projektleitung " +player.Name + ": " + message + " }} ");
+                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {EC0000}Stellv.Projektleitung " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " )) ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Stellv.Projektleitung " +player.GetVnXName<string>() + ": " + message + " }} ");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 5)
                     {
-                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {E8AE00}Administrator " +player.Name + ": {FFFFFF}" + message + " )) ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Administrator " +player.Name + ": " + message + " }} ");
+                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {E8AE00}Administrator " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " )) ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Administrator " +player.GetVnXName<string>() + ": " + message + " }} ");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 4)
                     {
-                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {002DE0}Moderator " +player.Name + ": {FFFFFF}" + message + " )) ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Moderator " +player.Name + ": " + message + " }} ");
+                        Reallife.Core.RageAPI.SendChatMessageToAll("(( {002DE0}Moderator " +player.GetVnXName<string>() + ": {FFFFFF}" + message + " )) ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Moderator " +player.GetVnXName<string>() + ": " + message + " }} ");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 3)
                     {
                         player.SendChatMessage("{FF0000}Du bist nicht Befugt!");
-                        logfile.WriteLogs("admin", "{{ OCHAT Supporter " +player.Name + " hat versucht in dem O - Chat zu schreiben! }} ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Supporter " +player.Name + " versuchte Nachricht : " + message + " }}");
+                        logfile.WriteLogs("admin", "{{ OCHAT Supporter " +player.GetVnXName<string>() + " hat versucht in dem O - Chat zu schreiben! }} ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Supporter " +player.GetVnXName<string>() + " versuchte Nachricht : " + message + " }}");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 2)
                     {
                         player.SendChatMessage("{FF0000}Du bist nicht Befugt!");
-                        logfile.WriteLogs("admin", "{{ OCHAT Ticket - Supporter " +player.Name + " hat versucht in dem O - Chat zu schreiben! }} ");
-                        logfile.WriteLogs("admin", "{{ OCHAT Ticket - Supporter " +player.Name + " versuchte Nachricht : " + message + " }}");
+                        logfile.WriteLogs("admin", "{{ OCHAT Ticket - Supporter " +player.GetVnXName<string>() + " hat versucht in dem O - Chat zu schreiben! }} ");
+                        logfile.WriteLogs("admin", "{{ OCHAT Ticket - Supporter " +player.GetVnXName<string>() + " versuchte Nachricht : " + message + " }}");
                     }
                 }
             }
@@ -687,15 +687,15 @@ namespace VenoXV.Reallife.admin
                         if (Database.FindCharacterBan(SocialClubId))
                         {
                             Database.RemoveOldBan(SocialClubId);
-                            Database.AddPlayerPermaBan(UID, SocialClubId, SpielerSerial, grund,player.Name);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] permanent gebannt! Grund : " + grund);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) +SpielerName + " wurde von [VnX]" +player.Name + " permanent gebannt! Grund : " + grund);
+                            Database.AddPlayerPermaBan(UID, SocialClubId, SpielerSerial, grund,player.GetVnXName<string>());
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] permanent gebannt! Grund : " + grund);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) +SpielerName + " wurde von [VnX]" +player.GetVnXName<string>() + " permanent gebannt! Grund : " + grund);
                         }
                         else
                         {
-                            Database.AddPlayerPermaBan(UID, SocialClubId, SpielerSerial, grund,player.Name);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] permanent gebannt! Grund : " + grund);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" + player.Name + " permanent gebannt! Grund : " + grund);
+                            Database.AddPlayerPermaBan(UID, SocialClubId, SpielerSerial, grund,player.GetVnXName<string>());
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] permanent gebannt! Grund : " + grund);
+                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + SpielerName + " wurde von [VnX]" + player.GetVnXName<string>() + " permanent gebannt! Grund : " + grund);
                         }
                         if (targetplayer != null)
                         {
@@ -786,8 +786,8 @@ namespace VenoXV.Reallife.admin
             {
                 target.SetData(EntityData.PLAYER_STATUS, element);
                 target.SetSyncedMetaData(EntityData.PLAYER_STATUS, element);
-                sendAdminNotification(player.Name + " hat " + target.Name + " Sozialen Status geändert zu " + element + ".");
-                logfile.WriteLogs("admin",player.Name + " hat " + target.Name + " sozialen status auf " + element + " geändert!");
+                sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " Sozialen Status geändert zu " + element + ".");
+                logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat " + target.Name + " sozialen status auf " + element + " geändert!");
             }
         }
 
@@ -836,43 +836,43 @@ namespace VenoXV.Reallife.admin
                 if (PaketNr == 0)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Abgelaufen", 0);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "-");
                 }
                 else if (PaketNr == 1)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Bronze", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (PaketNr == 2)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Silber", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "Silber");
                 }
                 else if (PaketNr == 3)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Gold", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (PaketNr == 4)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "UltimateRed", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
                 }
                 else if (PaketNr == 5)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Platin", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "Platin");
                 }
                 else if (PaketNr == 6)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "TOP DONATOR", Tage);
-                    sendAdminNotification(player.Name + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.Name + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.SetData(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }
                 else
@@ -899,7 +899,7 @@ namespace VenoXV.Reallife.admin
                     {
                         players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                     }
-                    Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat das Wetter zu " + weather + " gewechselt!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat das Wetter zu " + weather + " gewechselt!");
                     Main.WEATHER_CURRENT = weather;
                     Main.WEATHER_COUNTER = 0;
                 }
@@ -926,7 +926,7 @@ namespace VenoXV.Reallife.admin
                         {
                             Database.RemoveOldBan(SocialClubId);
                             Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) +SpielerName + " wurde entbannt.");
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat [" + SocialClubId + "][" + SpielerName + "] entbannt!");
+                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat [" + SocialClubId + "][" + SpielerName + "] entbannt!");
                         }
                     }
                 }
@@ -981,7 +981,7 @@ namespace VenoXV.Reallife.admin
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
                         }
                     }
-                    sendAdminInformation(player.Name + " hat alle Fahrzeuge in seiner Nähe despawned!");
+                    sendAdminInformation(player.GetVnXName<string>() + " hat alle Fahrzeuge in seiner Nähe despawned!");
                 }
             }
             catch { }
@@ -1009,7 +1009,7 @@ namespace VenoXV.Reallife.admin
                     }
                     Fun.Allround.ChangeAktionsTimer(DateTime.Now);
                     Fun.Allround.ChangeAktionsState(false);
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,200,200) + "[VnX]" +player.Name + " hat alle Aktionen Resettet!");
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,200,200) + "[VnX]" +player.GetVnXName<string>() + " hat alle Aktionen Resettet!");
                 }
                 else
                 {
@@ -1047,8 +1047,8 @@ namespace VenoXV.Reallife.admin
                 ////house.houseLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255));
                 House.houseList.Add(house);
 
-                sendAdminInformation(player.Name + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0,200,255) + " [" + RageAPI.GetHexColorcode(255,255,255) +  + house.id +RageAPI.GetHexColorcode(0,200,255) + " ]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + preis +RageAPI.GetHexColorcode(0,200,255) + "  $]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + interior +RageAPI.GetHexColorcode(0,200,255) + " ]");
-                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat einen Hausmarker erstellt! [ID : " + house.id + "]" + "[ PREIS : " + preis + " $]" + "[INTERIOR : " + interior + "]");
+                sendAdminInformation(player.GetVnXName<string>() + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0,200,255) + " [" + RageAPI.GetHexColorcode(255,255,255) +  + house.id +RageAPI.GetHexColorcode(0,200,255) + " ]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + preis +RageAPI.GetHexColorcode(0,200,255) + "  $]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + interior +RageAPI.GetHexColorcode(0,200,255) + " ]");
+                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat einen Hausmarker erstellt! [ID : " + house.id + "]" + "[ PREIS : " + preis + " $]" + "[INTERIOR : " + interior + "]");
 
             }
             else
@@ -1066,8 +1066,8 @@ namespace VenoXV.Reallife.admin
                 //house.houseLabel.Remove();
                 Database.DeleteHouse(house.id);
                 House.houseList.Remove(house);
-                sendAdminInformation(player.Name + " hat einen Hausmarker gelöscht! " + RageAPI.GetHexColorcode(0,200,255) + " [" + RageAPI.GetHexColorcode(255,255,255) +  + house.id + "]");
-                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "] hat einen Hausmarker Gelöscht! ID : " + house.id);
+                sendAdminInformation(player.GetVnXName<string>() + " hat einen Hausmarker gelöscht! " + RageAPI.GetHexColorcode(0,200,255) + " [" + RageAPI.GetHexColorcode(255,255,255) +  + house.id + "]");
+                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "] hat einen Hausmarker Gelöscht! ID : " + house.id);
             }
             else
             {
@@ -1091,77 +1091,77 @@ namespace VenoXV.Reallife.admin
                     if (faction == 0)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du wurdest soeben zum Bürger gemacht.");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 1)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du wurdest soeben zum Chief of Police ernannt! Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 2)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun Don der La Cosa Nostra von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 3)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun Leader der Yakuza von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 4)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [GESPERRT ] Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 5)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Chefredakteur der Venox City News - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 6)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Direktor des Federal Investigation Bureau - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 7)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Boss der Venox City Vatos Locos - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 8)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Commander der Venox U.S Army - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 9)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der President der SAMCRO Redwoods Original´s - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 10)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Leader der Venox Medic's - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 11)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun der Leader von den Venox City Mechaniker - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 12)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + "Du bist nun der Banger der Venox City Ballas - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     else if (faction == 13)
                     {
                         target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Du bist nun Leader der Venox City Grove Street - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                        sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_FACTION, faction);
                     target.SetData(EntityData.PLAYER_RANK, 5);
                     anzeigen.Usefull.VnX.OnFactionChange(target);
-                    logfile.WriteLogs("admin",player.Name + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
+                    logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat " + target.Name + " zum Leader von Fraktion " + faction + " gemacht!");
                 }
             }
             catch
@@ -1187,9 +1187,9 @@ namespace VenoXV.Reallife.admin
                 {
                     target.SetData(EntityData.PLAYER_RANK, rank);
                     anzeigen.Usefull.VnX.OnFactionChange(target);
-                    target.SendChatMessage( Constants.Rgba_ADMIN_CLANTAG +player.Name + " hat deinen Fraktion´s rang auf " + rank + " geändert!");
-                    sendAdminNotification(player.Name + " hat " + target.Name + " Franktion´s Rang auf " + rank + " geändert!");
-                    logfile.WriteLogs("admin",player.Name + " hat " + target.Name + " Franktion´s Rang auf " + rank + " geändert!");
+                    target.SendChatMessage( Constants.Rgba_ADMIN_CLANTAG +player.GetVnXName<string>() + " hat deinen Fraktion´s rang auf " + rank + " geändert!");
+                    sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " Franktion´s Rang auf " + rank + " geändert!");
+                    logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat " + target.Name + " Franktion´s Rang auf " + rank + " geändert!");
                 }
             }
         }
@@ -1290,8 +1290,8 @@ namespace VenoXV.Reallife.admin
                     }
                     Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Snowballs, 10);
                 }
-                vnx_stored_files.logfile.WriteLogs("admin",player.Name + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
-                Admin.sendAdminNotification(player.Name + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
+                vnx_stored_files.logfile.WriteLogs("admin",player.GetVnXName<string>() + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
+                Admin.sendAdminNotification(player.GetVnXName<string>() + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
             }
         }
 
@@ -1452,8 +1452,8 @@ namespace VenoXV.Reallife.admin
                         house.ipl = Constants.HOUSE_IPL_LIST[value].ipl;
 
                         Database.UpdateHouse(house);
-                        sendAdminInformation(player.Name + " hat den Hausmarker " + RageAPI.GetHexColorcode(0,200,255) + " [ID : " + house.id + "] " + RageAPI.GetHexColorcode(255,255,255) + "Interior zu " + value + " geändert! ");
-                        logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "]" + " hat den Hausmarker [ID: " + house.id + "] Interior zu " + value + " geändert! ");
+                        sendAdminInformation(player.GetVnXName<string>() + " hat den Hausmarker " + RageAPI.GetHexColorcode(0,200,255) + " [ID : " + house.id + "] " + RageAPI.GetHexColorcode(255,255,255) + "Interior zu " + value + " geändert! ");
+                        logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "]" + " hat den Hausmarker [ID: " + house.id + "] Interior zu " + value + " geändert! ");
                     }
                     else
                     {
@@ -1468,8 +1468,8 @@ namespace VenoXV.Reallife.admin
                     //house.houseLabel.Text = House.GetHouseLabelText(house);
 
                     Database.UpdateHouse(house);
-                    sendAdminInformation(player.Name + " hat den Hausmarker " + RageAPI.GetHexColorcode(0,200,255) + " [ID : " + house.id + "] " + RageAPI.GetHexColorcode(255,255,255) + "Preis zu " + value + " geändert! ");
-                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.Name + "]" + " hat den Hausmarker [ID: " + house.id + "] Preis zu " + value + " geändert! ");
+                    sendAdminInformation(player.GetVnXName<string>() + " hat den Hausmarker " + RageAPI.GetHexColorcode(0,200,255) + " [ID : " + house.id + "] " + RageAPI.GetHexColorcode(255,255,255) + "Preis zu " + value + " geändert! ");
+                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" +player.GetVnXName<string>() + "]" + " hat den Hausmarker [ID: " + house.id + "] Preis zu " + value + " geändert! ");
                 }
             }
         }

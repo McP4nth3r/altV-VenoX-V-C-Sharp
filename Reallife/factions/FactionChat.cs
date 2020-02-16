@@ -78,7 +78,7 @@ namespace VenoXV.Reallife.factions
             try {
                 int FraktionsID = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
                 Faction.CreateFactionMessage(FraktionsID, text, GetFactionRgba(FraktionsID), player);
-                vnx_stored_files.logfile.WriteLogs("teamsay" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), "[TEAMSAY FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] : " + text);
+                vnx_stored_files.logfile.WriteLogs("teamsay" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), "[TEAMSAY FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] : " + text);
             }
             catch (Exception ex)
             {
@@ -110,7 +110,7 @@ namespace VenoXV.Reallife.factions
                 if (Allround.isStateFaction(player) || player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                 {
                     Faction.CreateStateMessage(text,RageAPI.GetHexColorcode( 140, 10, 10), player);
-                    vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] : " + text);
+                    vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] : " + text);
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace VenoXV.Reallife.factions
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= 2)
                     {
                         Faction.CreateBadMessage(text,RageAPI.GetHexColorcode( 107, 107, 107), player);
-                        vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.Name + " ] : " + text);
+                        vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] : " + text);
                     }
                     else
                     {

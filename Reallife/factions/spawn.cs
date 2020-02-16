@@ -49,12 +49,12 @@ namespace VenoXV.Reallife.factions
                     player.Position = new Position(152.26f, -1004.47f, -99.00f);
                     return;
                 }*/
-                if (Database.FindCharakterPrison(player.Name))
+                if (Database.FindCharakterPrison(player.GetVnXName<string>()))
                 {
-                    int PrisonTime = Database.GetCharakterPrisonTime(player.Name);
-                    string Grund = Database.GetCharakterPrisonReason(player.Name);
-                    string AdminVon = Database.GetCharakterPrisonAdminBy(player.Name);
-                    DateTime ErstelltAm = Database.GetCharakterPrisonErstelltAm(player.Name);
+                    int PrisonTime = Database.GetCharakterPrisonTime(player.GetVnXName<string>());
+                    string Grund = Database.GetCharakterPrisonReason(player.GetVnXName<string>());
+                    string AdminVon = Database.GetCharakterPrisonAdminBy(player.GetVnXName<string>());
+                    DateTime ErstelltAm = Database.GetCharakterPrisonErstelltAm(player.GetVnXName<string>());
                     if (PrisonTime > 0)
                     {
                         player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du bist noch " + PrisonTime + " Minuten im Prison!");
@@ -354,7 +354,7 @@ namespace VenoXV.Reallife.factions
                     {
                         foreach (HouseModel house in House.houseList)
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.Name == house.owner)
+                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.GetVnXName<string>() == house.owner)
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                                 player.Position = Main.GetHouseIplExit(house.ipl);

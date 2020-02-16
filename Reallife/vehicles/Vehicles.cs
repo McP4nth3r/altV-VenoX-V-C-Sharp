@@ -161,7 +161,7 @@ namespace VenoXV.Reallife.Vehicles
                             Core.Debug.OutputDebugString("Position CAR :" + Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION));
                         }
                     }
-                    factions.Faction.CreateFactionInformation(fraktionsID,player.Name + " hat die Fraktion´s Fahrzeuge Respawned!");
+                    factions.Faction.CreateFactionInformation(fraktionsID,player.GetVnXName<string>() + " hat die Fraktion´s Fahrzeuge Respawned!");
                 }
                 else
                 {
@@ -181,12 +181,12 @@ namespace VenoXV.Reallife.Vehicles
                 IVehicle Vehicle = Vehicles.GetVehicleById(FahrzeugID);
                 if (Vehicle != null)
                 {
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         if (Preis > 0)
                         {
                             // Sell cAr
-                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) +player.Name + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
+                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
                            target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Du hast " + target.Name + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
                             Core.VnX.vnxSetSharedData(target, FahrzeugID.ToString(), Preis);
@@ -215,14 +215,14 @@ namespace VenoXV.Reallife.Vehicles
                             {
                                 if (Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) == FahrzeugID)
                                 {
-                                    Vehicle.SetData(EntityData.VEHICLE_OWNER,player.Name);
-                                    Vehicle.SetSyncedMetaData(EntityData.VEHICLE_OWNER,player.Name);
+                                    Vehicle.SetData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
+                                    Vehicle.SetSyncedMetaData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
-                                   target.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.Name + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
+                                   target.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.GetVnXName<string>() + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
                                     Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_MONEY, target.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + player.vnxGetElementData(FahrzeugID.ToString()));
                                     player.SetData(FahrzeugID.ToString(), null);
-                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.Name + " hat das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.GetVnXName<string>() + " hat das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                 }
                             }
                             else { dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!"); }
@@ -254,9 +254,9 @@ namespace VenoXV.Reallife.Vehicles
                         float kostenberechnung = 100f - Gas;
                         kostenWindow = (int)kostenberechnung * 15;
                         dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
-                        /*Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.Name + " hat :" + Gas);
-                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.Name + " hat :" + kostenberechnung);
-                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.Name + " hat :" + kostenWindow);*/
+                        /*Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + Gas);
+                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenberechnung);
+                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenWindow);*/
                     }
                     player.Emit("createGasWindow", kostenWindow);
                 }
@@ -518,6 +518,7 @@ namespace VenoXV.Reallife.Vehicles
                     string[] secondRgba = vehModel.secondRgba.Split(',');
                     if (IsModVehicleName(vehModel.model))
                     {
+                        return;
                         Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
@@ -535,6 +536,7 @@ namespace VenoXV.Reallife.Vehicles
                     string[] secondRgba = vehModel.secondRgba.Split(',');
                     if (IsModVehicleName(vehModel.model))
                     {
+                        return;
                         Rotation rot = vehModel.rotation;
                         Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), vehModel.model), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
@@ -584,10 +586,6 @@ namespace VenoXV.Reallife.Vehicles
                 else
                 {
                     //ToDo Fix it                     Vehicle.Locked = true;
-                }
-                if(vehModel.faction > Constants.FACTION_NONE)
-                {
-                    Console.WriteLine("[FACTION] : " + vehModel.faction);
                 }
             }
             catch (Exception ex)
@@ -852,7 +850,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                 {
                     player.SetData("FAHRZEUG_AM_TESTEN", false);
                     player.Dimension = 0;
@@ -960,7 +958,7 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Admin!");
                     }
-                    else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) !=player.Name && VehicleFaction != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) && VehicleFaction != Constants.FACTION_ADMIN)
+                    else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) !=player.GetVnXName<string>() && VehicleFaction != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) && VehicleFaction != Constants.FACTION_ADMIN)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Schlüssel für dieses Fahrzeug!");
                     }

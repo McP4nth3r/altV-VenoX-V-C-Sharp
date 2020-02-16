@@ -76,7 +76,7 @@ namespace VenoXV.Tactics.weapons
         {
             try
             {
-                target.SetData(EntityData.PLAYER_LAST_DAMAGED_BY, player.Name);
+                target.SetData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName<string>());
                 if(target.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM))
                 {
                     return;

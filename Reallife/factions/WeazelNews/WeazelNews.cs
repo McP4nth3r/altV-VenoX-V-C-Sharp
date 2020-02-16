@@ -25,9 +25,9 @@ namespace VenoXV.Reallife.factions.WeazelNews
                         return;
                     }*/
                     player.SendChatMessage( RageAPI.GetHexColorcode(0,175,0) + "Du hast " + target.Name + " eine Anfrage geschickt!");
-                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + Faction.GetPlayerFactionRank(player) + " | " +player.Name + " hat dir eine Live Anfrage gesendet!");
-                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Nutze /acceptlive " +player.Name + " um Live zu gehen");
-                    target.SetData("LIVE_ANFRAGE_ERHALTEN_VON",player.Name);
+                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat dir eine Live Anfrage gesendet!");
+                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Nutze /acceptlive " +player.GetVnXName<string>() + " um Live zu gehen");
+                    target.SetData("LIVE_ANFRAGE_ERHALTEN_VON",player.GetVnXName<string>());
                     player.SetData("LIVE_ANFrAGE_GESENDET_AN", target.Name);
                 }
                 else
@@ -51,7 +51,7 @@ namespace VenoXV.Reallife.factions.WeazelNews
                     Core.VnX.SetSharedSettingsData(target, "settings_reporter", "ja");
                     player.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Du bist nun Live mit " + target.Name + "!");
                     player.SendChatMessage( RageAPI.GetHexColorcode(175,175,0)+"Nutze /live [Text] um das Interview durchzuführen!");
-                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + player.Name + " hat deine Live Anfrage Bestätigt! Ihr seid nun Live! Nutze /live [Text] um ein Interview durchzuführen!");
+                   target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + player.GetVnXName<string>() + " hat deine Live Anfrage Bestätigt! Ihr seid nun Live! Nutze /live [Text] um ein Interview durchzuführen!");
                     player.SetData("PLAYER_IS_LIVE", "TRUE");
                     target.SetData("PLAYER_IS_LIVE", "TRUE");
                 }
@@ -76,7 +76,7 @@ namespace VenoXV.Reallife.factions.WeazelNews
                     {
                         if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
                         {
-                            targetsingame.SendChatMessage( RageAPI.GetHexColorcode(200,200,0)+ Faction.GetPlayerFactionRank(player) + " | " +player.Name + " : " + text);
+                            targetsingame.SendChatMessage( RageAPI.GetHexColorcode(200,200,0)+ Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
                         }
                     }
                 }
@@ -106,7 +106,7 @@ namespace VenoXV.Reallife.factions.WeazelNews
                     {
                         if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
                         {
-                            targetsingame.SendChatMessage( RageAPI.GetHexColorcode(200,200,0) + Faction.GetPlayerFactionRank(player) + " | " +player.Name + " hat das Live interview beendet.");
+                            targetsingame.SendChatMessage( RageAPI.GetHexColorcode(200,200,0) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat das Live interview beendet.");
                         }
                     }
                 }

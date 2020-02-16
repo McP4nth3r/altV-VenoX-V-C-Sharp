@@ -11,6 +11,7 @@ using VenoXV.Reallife.vnx_stored_files;
 using System;
 using VenoXV.Reallife.Core;
 using AltV.Net.Resources.Chat.Api;
+using AltV.Net.Async;
 
 namespace VenoXV.Reallife
 {
@@ -58,6 +59,12 @@ namespace VenoXV.Reallife
                 Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                 player.Emit("Player:ChangeCurrentLobby", "Tactics");
             }
+            else if(value == 4)
+            {
+                player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_SEVENTOWERS); //7-Towers Gamemode Selected
+                SevenTowers.Lobby.Main.JoinedSevenTowers(player);
+                player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
+            }
         }
 
 
@@ -85,12 +92,14 @@ namespace VenoXV.Reallife
         {
             try
             {
+
                 Login.InitializePlayerData(player);
                 player.Emit("showLoginWindow", "Willkommen auf VenoX", Login.GetCurrentChangelogs());
                 //ShowLogin(player);
-                Core.Debug.OutputDebugString("[CONNECTED] : " + player.Name + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
+                Core.Debug.OutputDebugString("[CONNECTED] : " + player.GetVnXName<string>() + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_NONE); // None Gamemode
                 Login.CreateNewLogin_Cam(player, 0, 0);
+            
             }
             catch(Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }
@@ -208,19 +217,19 @@ namespace VenoXV.Reallife
                             //player.SetData(EntityData.SERVER_TIME, DateTime.Now.ToString("HH:mm:ss"));
                             player.Dimension = 0;
                             player.Emit("FreezePlayerPLAYER_VnX", true);
-                            player.Emit("showLoginWindow", "Willkommen zurück " +player.Name, Login.GetCurrentChangelogs());
+                            player.Emit("showLoginWindow", "Willkommen zurück " +player.GetVnXName<string>(), Login.GetCurrentChangelogs());
                             //player.Emit("showLoginWindow", "EVENT MODE ONLINE", GetCurrentChangelogs());
                             Login.CreateNewLogin_Cam(player, 0, 0);
                         }
                         else
                         {
-                            admin.Admin.sendAdminNotification(player.Name + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
+                            admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
                         }
                     }
                     else
                     {
                         player.Emit("LoadReallifeGamemodeRemote");
-                        // //ToDo : Fix & find another Way! player.Name = Database.GetAccountSpielerName(player.SocialClubId.ToString());
+                        // //ToDo : Fix & find another Way! player.GetVnXName<string>() = Database.GetAccountSpielerName(player.SocialClubId.ToString());
                         //player.Transparency = 255;
                         string Geschlecht = Database.GetAccountGeschlecht(player.SocialClubId.ToString());
                         int Geschlecht_ = 0;
@@ -257,7 +266,7 @@ namespace VenoXV.Reallife
                         SkinModel skinModel = Database.GetCharacterSkin(player_uid);
                         if (character != null && character.realName != null)
                         {
-                            //ToDo : Fix & find another Way! player.Name = character.realName;
+                            //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                             player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
                             player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
 
@@ -274,19 +283,19 @@ namespace VenoXV.Reallife
                             }
                             player.Dimension = 0;
                             player.Emit("FreezePlayerPLAYER_VnX", true);
-                            player.Emit("showLoginWindow", "Willkommen zurück " +player.Name, Login.GetCurrentChangelogs());
+                            player.Emit("showLoginWindow", "Willkommen zurück " +player.GetVnXName<string>(), Login.GetCurrentChangelogs());
                             //player.Emit("showLoginWindow", "EVENT MODE ONLINE", GetCurrentChangelogs());
                             Login.CreateNewLogin_Cam(player, 0, 0);
                         }
                         else
                         {
-                            admin.Admin.sendAdminNotification(player.Name + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
+                            admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
                         }
                     }
                     else
                     {
                         player.Emit("LoadReallifeGamemodeRemote");
-                        //ToDo : Fix & find another Way! player.Name = Database.GetAccountSpielerName(player.SocialClubId.ToString());
+                        //ToDo : Fix & find another Way! player.GetVnXName<string>() = Database.GetAccountSpielerName(player.SocialClubId.ToString());
                         //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                         string Geschlecht = Database.GetAccountGeschlecht(player.SocialClubId.ToString());
                         int Geschlecht_ = 0;

@@ -55,6 +55,7 @@ namespace VenoXV.Reallife.register_login
                 player.RemoveAllWeapons();
 
                 // Initialize shared entity data
+                player.SetVnXName<string>("Random-Player");
                 player.SetData(EntityData.PLAYER_SEX, 0);
                 player.SetData(EntityData.PLAYER_MONEY, 0);
                 player.SetData(EntityData.PLAYER_BANK, 3500);
@@ -238,8 +239,8 @@ namespace VenoXV.Reallife.register_login
         //[AltV.Net.ClientEvent("HelpButtonPressed_Login")]
         public void SendAllAdminsLoginHelpNotify(IPlayer player)
         {
-            admin.Admin.sendAdminNotification("[" +player.Name + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
-            logfile.WriteLogs("connect",player.Name + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
+            admin.Admin.sendAdminNotification("[" +player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
+            logfile.WriteLogs("connect",player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
         }
         private static int GetRandomNumber()
         {
@@ -510,7 +511,7 @@ namespace VenoXV.Reallife.register_login
                     player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "_____________________________________");
 
                     premium.viplevels.VIPLEVELS.SendVIPNotify(player);
-                    //ToDo : Fix & find another Way! player.Name = player.vnxGetElementData(EntityData.PLAYER_NAME);
+                    //ToDo : Fix & find another Way! player.GetVnXName<string>() = player.vnxGetElementData(EntityData.PLAYER_NAME);
                     //player.Rotation = player.vnxGetElementData<int>(EntityData.PLAYER_SPAWN_ROT);
                     //player.Health = player.vnxGetElementData<int>(EntityData.PLAYER_HEALTH);
                     //player.Armor = player.vnxGetElementData<int>(EntityData.PLAYER_ARMOR);
@@ -560,16 +561,16 @@ namespace VenoXV.Reallife.register_login
                     {
 
                         string owner = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER);
-                        if (owner != null && owner ==player.Name)
+                        if (owner != null && owner ==player.GetVnXName<string>())
                         {
                             Vehicle.Dimension = 0;
                             Core.VnX.VehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, 0);
                         }
                         // JOB 
                         if (
-                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
+                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
                         )
                         {
                             if (Vehicle != null)
@@ -579,7 +580,7 @@ namespace VenoXV.Reallife.register_login
                         }
 
                         //Test Vehilce Delete
-                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             Vehicle.Remove();
                         }
@@ -618,7 +619,8 @@ namespace VenoXV.Reallife.register_login
                 bool login = Database.LoginAccountByName(username, password);
                 if (login == true)
                 {
-                    if(username.ToLower() != player.Name.ToLower())
+                    player.SetVnXName<string>(username);
+                    if (username.ToLower() != player.GetVnXName<string>().ToLower())
                     {
                         player.SendChatMessage("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
                         player.Kick("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
@@ -660,13 +662,13 @@ namespace VenoXV.Reallife.register_login
                             }
                             else
                             {
-                                admin.Admin.sendAdminNotification(player.Name + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
+                                admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " hat Probleme beim Einloggen! Schwerwiegender Fehler... Bitte bei Solid_Snake melden !");
                             }
                         }
                         else
                         {
                             player.Emit("LoadReallifeGamemodeRemote");
-                            // //ToDo : Fix & find another Way! player.Name = Database.GetAccountSpielerName(player.SocialClubId.ToString());
+                            // //ToDo : Fix & find another Way! player.GetVnXName<string>() = Database.GetAccountSpielerName(player.SocialClubId.ToString());
                             //player.Transparency = 255;
                             string Geschlecht = Database.GetAccountGeschlecht(player.SocialClubId.ToString());
                             int Geschlecht_ = 0;
@@ -729,9 +731,9 @@ namespace VenoXV.Reallife.register_login
                     {
                         geschlechtalsstring = "Weiblich";
                     }
-                    //ToDo : Fix & find another Way! player.Name = nickname;
-                    Database.RegisterAccount(player.Name, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), email, password, geschlechtalsstring);
-                    _ = Program.CreateForumUser(player.Name, email, password);
+                    //ToDo : Fix & find another Way! player.GetVnXName<string>() = nickname;
+                    Database.RegisterAccount(player.GetVnXName<string>(), player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), email, password, geschlechtalsstring);
+                    _ = Program.CreateForumUser(player.GetVnXName<string>(), email, password);
                     player.Emit("clearRegisterWindow_first");
                     player.Emit("showCharacterCreationMenu");
                     Core.VnX.vnxSetSharedData(player, "PLAYER_LOGGED_IN", 1);

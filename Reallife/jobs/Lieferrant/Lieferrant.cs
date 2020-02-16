@@ -44,7 +44,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                 JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
 
                 //player.SendChatMessage("Die koordinaten sind : " + Destination);
@@ -55,7 +55,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_MODEL, "Rumpo2");
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_FACTION, 0);
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PLATE, "VenoX");
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_OWNER,player.Name);
+                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
                 Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
@@ -86,7 +86,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLONE[random.Next(1, 8)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                     JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
@@ -100,7 +100,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLTWO[random.Next(1, 8)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                     JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
@@ -113,7 +113,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLTHREE[random.Next(1, 5)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                     JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
@@ -164,7 +164,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                 JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
 
 
@@ -175,7 +175,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_MODEL, "Mule");
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_FACTION, 0);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.Name);
+                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
@@ -227,7 +227,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                 JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
 
 
@@ -239,7 +239,7 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_MODEL, "Mule");
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_FACTION, 0);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.Name);
+                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                 Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
                 Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_SECOND_Rgba, "0,255,0");

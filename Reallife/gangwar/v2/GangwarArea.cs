@@ -53,7 +53,7 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public void Update(IPlayer player)
         {
-           // Reallife.Core.RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.Name + " )");
+           // Reallife.Core.RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 

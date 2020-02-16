@@ -29,16 +29,16 @@ namespace VenoXV.Reallife.jobs
                     {
                         if (
                         //LieferrantenJobIVehicle
-                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name       
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
+                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()       
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
                         )
                         {
                             player.SetData(EntityData.PLAYER_IS_IN_JOB, false);
                             dxLibary.VnX.DestroyRadarElement(player, "Blip");
                             dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Job beendet!");
-                            if (JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) ==player.Name)
+                            if (JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) ==player.GetVnXName<string>())
                             {
                                 AltV.Net.Alt.RemoveColShape(JobAbgabeMarker);
                             }
@@ -75,7 +75,7 @@ namespace VenoXV.Reallife.jobs
             {
                 if (shape.vnxGetElementData<bool>(EntityData.PLAYER_IS_JOB_COL) == true)
                 {
-                    if (shape.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) !=player.Name)
+                    if (shape.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) !=player.GetVnXName<string>())
                     {
                         return;
                     }

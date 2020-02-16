@@ -58,7 +58,7 @@ namespace VenoXV.Reallife.Vehicles
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
-                        else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) !=player.Name)
+                        else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) !=player.GetVnXName<string>())
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;

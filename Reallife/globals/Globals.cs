@@ -26,6 +26,7 @@ namespace VenoXV.Reallife.Globals
         public static List<ItemModel> itemList;
         public static List<TunningModel> tunningList;
         public static Timer minuteTimer;
+        public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
         public static string CURRENT_VERSION = "1.1.1";
 
@@ -414,7 +415,7 @@ namespace VenoXV.Reallife.Globals
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.Name && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true)
+                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>() && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true)
                     {
 
                         int IVehicleTaxes = (int)Math.Round((int)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PRICE) * Constants.TAXES_IVehicle);
@@ -458,7 +459,7 @@ namespace VenoXV.Reallife.Globals
                     // House taxes
                     foreach (HouseModel house in House.houseList)
                     {
-                        if (house.owner ==player.Name)
+                        if (house.owner ==player.GetVnXName<string>())
                         {
                             int houseTaxes = (int)Math.Round((int)house.price * Constants.TAXES_HOUSE);
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " Immobiliensteuer :  " + RageAPI.GetHexColorcode(255,255,255) + house.name + ": -" + houseTaxes + "$");
@@ -826,7 +827,7 @@ namespace VenoXV.Reallife.Globals
                 }*/
 
                 minuteTimer = new Timer(OnMinuteSpent, null, 60000, 60000); // Payday Generation und alles was nach einer Minute passiert!
-                minuteTimer = new Timer(VenoXV.Globals.Globals.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
+                OnTickTimer = new Timer(VenoXV.Globals.Globals.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
                 ScoreboardTimer = new Timer(anzeigen.Scorebard.Scoreboard.Fill_Playerlist, null, 7000, 7000); // Scoreboard Updater.
 
 
@@ -868,7 +869,7 @@ namespace VenoXV.Reallife.Globals
                 {
                     foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                     {
-                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
+                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>() && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
                             Core.VnX.VehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
@@ -889,10 +890,10 @@ namespace VenoXV.Reallife.Globals
                         {
                             if (
                             //LieferrantenJobIVehicle
-                            Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
+                            Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
                             //Airport ToDo
-                            ||Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
-                            ||Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name
+                            ||Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
+                            ||Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
                             )
                             {
                                 if (Vehicle != null)
@@ -901,14 +902,14 @@ namespace VenoXV.Reallife.Globals
                                 }
                                 if (JoB_Allround.JobAbgabeMarker != null)
                                 {
-                                    if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) ==player.Name)
+                                    if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) ==player.GetVnXName<string>())
                                     {
                                         AltV.Net.Alt.RemoveColShape(JoB_Allround.JobAbgabeMarker);
                                     }
                                 }
                             }
                         }
-                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
                         }
@@ -1074,7 +1075,7 @@ namespace VenoXV.Reallife.Globals
                                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_KOKS_MODUS_AKTIV) == false)
                                 {
                                     player.SetData(EntityData.PLAYER_KOKS_MODUS_AKTIV, true);
-                                    player.SendChatMessage(player.Name + " zieht eine Line Kokain");
+                                    player.SendChatMessage(player.GetVnXName<string>() + " zieht eine Line Kokain");
                                     player.Emit("start_screen_fx", "DrugsDrivingIn", 0, false);
                                     player.Emit("fx_handler", 1, 30000, "DrugsDrivingIn", "DrugsDrivingOut");
 

@@ -246,7 +246,7 @@ namespace VenoXV.Tactics.Lobby
                 {
                     if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.SendChatMessage( RageAPI.GetHexColorcode(200,0,0) +player.Name + " ist Disconnected!");
+                        players.SendChatMessage( RageAPI.GetHexColorcode(200,0,0) +player.GetVnXName<string>() + " ist Disconnected!");
                     }
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)

@@ -37,7 +37,7 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (job == "Arbeitslos")
                     {
-                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " +player.Name + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -67,7 +67,7 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " +player.Name + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -82,7 +82,7 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " +player.Name + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -318,7 +318,7 @@ namespace VenoXV.Reallife.jobs
                     PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
-                    //ToDo : Fix & find another Way! player.Name = character.realName;
+                    //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                     player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.Model = character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);

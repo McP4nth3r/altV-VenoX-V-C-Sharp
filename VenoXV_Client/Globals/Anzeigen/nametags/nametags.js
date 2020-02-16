@@ -85,12 +85,12 @@ alt.everyTick(() => {
 			let playerPos = localPlayer.pos;
 			let playerPos2 = player.pos;
 			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
-			if (player.name != localPlayer.name) {
+			if (player.GetVnXName<string>() != localplayer.GetVnXName<string>()) {
 				if (player.vehicle && localPlayer.vehicle) { maxDistance_load = 60; } else { maxDistance_load = maxDistance; }
 				//if(distance <= maxDistance_load && player.getSyncedMeta("PLAYER_LOGGED_IN")) {
 				if (distance <= maxDistance_load) {
-					if (player.getSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.name; }
-					else { name = player.name; }
+					if (player.getSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.GetVnXName<string>(); }
+					else { name = player.GetVnXName<string>(); }
 					if (isStateFaction(player) && isBadFaction(localPlayer) || isStateFaction(localPlayer) && isBadFaction(player)) { r1 = 200; g1 = 0; b1 = 0; }
 					else if (player.getSyncedMeta("PLAYER_FACTION") == localPlayer.getSyncedMeta("PLAYER_FACTION") && player.getSyncedMeta("PLAYER_FACTION") > 0) { r1 = 0; g1 = 200; b1 = 0; }
 					else { r1 = 0; g1 = 105; b1 = 145; }

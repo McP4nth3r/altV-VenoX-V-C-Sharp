@@ -373,11 +373,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
                 {
-                    name = "[VnX]" +player.Name;
+                    name = "[VnX]" +player.GetVnXName<string>();
                 }
                 else
                 {
-                    name =player.Name;
+                    name =player.GetVnXName<string>();
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD) == 0)
                 {
@@ -433,11 +433,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Name + " : " + text);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName<string>() + " : " + text);
                     }
                 }
-                //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Name + " : " + text);
-                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" +player.Name + "] : " + text);
+                //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName<string>() + " : " + text);
+                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" +player.GetVnXName<string>() + "] : " + text);
             }
             catch { }
         }
@@ -567,10 +567,10 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     int UID = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                     int PRISON_TIME = player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME);
                     string PRISON_STRING = player.vnxGetElementData<string>(EntityData.PLAYER_PRISON_GRUND);
-                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.Name);
-                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.Name);
+                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.GetVnXName<string>());
+                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.GetVnXName<string>());
 
-                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.Name);
+                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.GetVnXName<string>());
 
                     Database.UpdatePlayerPrisonTime(UID, PRISON_TIME, PRISON_REASON, PRISON_FROMADMIN, PRISON_DATETIME);
 
@@ -578,7 +578,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     {
                         player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(player);
-                        Database.RemoveOldPrison(player.Name);
+                        Database.RemoveOldPrison(player.GetVnXName<string>());
                     }
                 }
             }
@@ -660,7 +660,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_MODEL, CreatedVehicle.Model.ToString());
                 Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_FACTION, 0);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_OWNER,player.Name);
+                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                 Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_FIRST_Rgba, primaryC.R + "," + primaryC.G + "," + primaryC.B);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_SECOND_Rgba, secondC.R + "," + secondC.G + "," + secondC.B);

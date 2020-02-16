@@ -20,7 +20,7 @@ namespace VenoXV.Anti_Cheat
                 {
                     string Banhash = "0x0139";
                     //AntiCheat_Allround.Anticheat_time_ban(player, 2, Banhash);
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0) + player.Name + " wurde von [VenoX Anti-Cheat Shield] gekickt! Grund : # " + Banhash);
+                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0) + player.GetVnXName<string>() + " wurde von [VenoX Anti-Cheat Shield] gekickt! Grund : # " + Banhash);
                     player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
                 }
             }

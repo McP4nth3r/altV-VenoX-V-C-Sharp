@@ -91,7 +91,7 @@ namespace VenoXV.Reallife.Vehicles
                 player.SendChatMessage( "---------------Fahrzeuge---------------");
                 foreach (IVehicle veh in Alt.GetAllVehicles())
                 {
-                    if (veh != null && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (veh != null && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         Random random = new Random();
                         int cevent = random.Next(1, 5);
@@ -142,7 +142,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         //IVehicle.Locked = !IVehicle.Locked;
                         //player.SendChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
@@ -161,7 +161,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             //IVehicle.Locked = !IVehicle.Locked;
                             //player.SendChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
@@ -187,7 +187,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     IVehicle localVehicle = player.Vehicle;
                     VehicleModel Vehicle = new VehicleModel();
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         Vehicle.position = player.Vehicle.Position;
                         Vehicle.rotation = player.Vehicle.Rotation;
@@ -221,7 +221,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle localVehicle = player.Vehicle;
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
                         {
@@ -256,7 +256,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
                             {
@@ -291,7 +291,7 @@ namespace VenoXV.Reallife.Vehicles
                 IVehicle Vehicle = IVehicles.GetVehicleById(FahrzeugSlot);
                 if (Vehicle != null)
                 {
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
                         {
@@ -356,7 +356,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle localIVehicle = player.Vehicle;
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         if (localVehicle.vnxGetElementData("HandbremseAngezogen") == false)
                         {
@@ -386,7 +386,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             if (localVehicle.vnxGetElementData("HandbremseAngezogen") == false)
                             {

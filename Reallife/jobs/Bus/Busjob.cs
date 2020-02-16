@@ -71,7 +71,7 @@ namespace VenoXV.Reallife.jobs.Bus
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
                 dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                 JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
                 Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
                 if (value == 1) {anzeigen.Usefull.VnX.CreateRandomIVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
@@ -110,7 +110,7 @@ namespace VenoXV.Reallife.jobs.Bus
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.Name);
+                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
                     JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + BUSJOB_LEVEL_ONE_MONEY);
                     dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true);

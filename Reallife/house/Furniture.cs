@@ -56,7 +56,7 @@ namespace VenoXV.Reallife.house
                 int houseId = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED);
                 HouseModel house = House.GetHouseById(houseId);
 
-                if (house != null && house.owner ==player.Name)
+                if (house != null && house.owner ==player.GetVnXName<string>())
                 {
                     switch (action.ToLower())
                     {

@@ -200,7 +200,7 @@ namespace VenoXV.Reallife.Vehicles
             {
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
-                    if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_RENTED) == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                    if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_RENTED) == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
                         Core.VnX.vnxSetSharedData(player, HAVE_PLAYER_RENTED_VEHICLE, 0);
                         Vehicle.Remove();

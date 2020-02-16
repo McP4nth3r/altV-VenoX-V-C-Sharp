@@ -16,6 +16,7 @@ namespace VenoXV.Globals
             {
                 Reallife.Globals.Main.OnResourceStart();
                 Tactics.globals.Globals.OnResourceStart();
+                SevenTowers.Lobby.Main.OnResourceStart();
             }
             catch { }
         }
@@ -61,10 +62,7 @@ namespace VenoXV.Globals
                 Tactics.globals.Globals.OnUpdate();
                 Zombie.globals.Main.OnUpdate();
             }
-            catch
-            {
-
-            }
+            catch{}
         }
 
         //[ServerEvent(Event.PlayerDisconnected)]

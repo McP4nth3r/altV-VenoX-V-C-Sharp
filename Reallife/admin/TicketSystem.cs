@@ -29,12 +29,12 @@ namespace VenoXV.Reallife.admin
                 }
 
                 AdminTickets ticket = new AdminTickets();
-                ticket.playerName =player.Name;
+                ticket.playerName =player.GetVnXName<string>();
                 ticket.Betreff = betreff;
                 ticket.Frage = text;
                 ticket.id = Database.AddNewAdminTicket(ticket);
                 player.Emit("Destroy_Ticket_Window");
-                Admin.sendAdminInformation(player.Name + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
+                Admin.sendAdminInformation(player.GetVnXName<string>() + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
                 player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
                 player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
             }

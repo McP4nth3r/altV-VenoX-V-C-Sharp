@@ -323,7 +323,7 @@ namespace VenoXV.Reallife.database
                 return login;
             }
             catch(Exception ex) { Core.Debug.CatchExceptions("LoginAccountByName", ex); return false; }
-        }
+        }        
 
         public static void ChangeUserPasswort(string Spielername, string password)
         {
@@ -476,7 +476,7 @@ namespace VenoXV.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "INSERT INTO users (UID, SpielerName, sex, socialName) VALUES (@UID, @playerName, @playerSex, @socialName)";
-                    command.Parameters.AddWithValue("@playerName",player.Name);
+                    command.Parameters.AddWithValue("@playerName",player.GetVnXName<string>());
                     command.Parameters.AddWithValue("@UID", UID);
                     command.Parameters.AddWithValue("@playerSex", (int)player.vnxGetElementData<int>(EntityData.PLAYER_SEX));
                     command.Parameters.AddWithValue("@socialName", player.SocialClubId.ToString());

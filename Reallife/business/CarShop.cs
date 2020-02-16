@@ -90,7 +90,7 @@ namespace VenoXV.Reallife.business
                     vehmodel.plate = string.Empty;
                     vehmodel.position = spawns[i];
                     vehmodel.rotation = new Rotation(0.0f, 0.0f, 0.0f);
-                    vehmodel.owner = player.Name;
+                    vehmodel.owner = player.GetVnXName<string>();
                     vehmodel.RgbaType = Constants.VEHICLE_Rgba_TYPE_CUSTOM;
                     vehmodel.firstRgba = firstRgba;
                     vehmodel.secondRgba = secondRgba;
@@ -219,7 +219,7 @@ namespace VenoXV.Reallife.business
                 {
                     foreach (IVehicle veh in Alt.GetAllVehicles())
                     {
-                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.Name)
+                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                         {
                             player.SetData("FAHRZEUG_AM_TESTEN", false);
                             veh.Remove();
@@ -243,7 +243,7 @@ namespace VenoXV.Reallife.business
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba1[0])), Convert.ToByte(int.Parse(firstRgba1[1])), Convert.ToByte(int.Parse(firstRgba1[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba1[0])), Convert.ToByte(int.Parse(secondRgba1[1])), Convert.ToByte(int.Parse(secondRgba1[2])), 255);
                         Core.VnX.IVehicleSetSharedINTData(Vehicle, EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.Name);
+                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
 
                         VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
                         VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
@@ -259,7 +259,7 @@ namespace VenoXV.Reallife.business
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
                         Core.VnX.IVehicleSetSharedINTData(Vehicle, EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.Name);
+                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_NOT_SAVED, true);
 
                         VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
@@ -274,7 +274,7 @@ namespace VenoXV.Reallife.business
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba3[0])), Convert.ToByte(int.Parse(firstRgba3[1])), Convert.ToByte(int.Parse(firstRgba3[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba3[0])), Convert.ToByte(int.Parse(secondRgba3[1])), Convert.ToByte(int.Parse(secondRgba3[2])), 255);
                         Core.VnX.IVehicleSetSharedINTData(Vehicle,EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle,EntityData.VEHICLE_OWNER,player.Name);
+                        Core.VnX.IVehicleSetSharedStringData(Vehicle,EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                         Core.VnX.IVehicleSetSharedBoolData(Vehicle,EntityData.VEHICLE_NOT_SAVED, true);
 
                         VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);

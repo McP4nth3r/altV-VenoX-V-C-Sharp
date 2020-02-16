@@ -60,7 +60,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                        medics.Emit("Destroy_MedicBlips",player.Name);
+                        medics.Emit("Destroy_MedicBlips",player.GetVnXName<string>());
                     }
                 }
             }
@@ -74,8 +74,8 @@ namespace VenoXV.Reallife.factions
                 {
                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                        medics.Emit("ShowMedicBlips",player.Name, player.Position);
-                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + player.Name + " ist gestorben! Zeit bis zum Respawn : " + time);
+                        medics.Emit("ShowMedicBlips",player.GetVnXName<string>(), player.Position);
+                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + player.GetVnXName<string>() + " ist gestorben! Zeit bis zum Respawn : " + time);
                     }
                 }
             }
@@ -90,8 +90,8 @@ namespace VenoXV.Reallife.factions
             {
                 if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                 {
-                    medics.Emit("Destroy_MedicBlips",player.Name);
-                    medics.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.Name + " ist Respawned!");
+                    medics.Emit("Destroy_MedicBlips",player.GetVnXName<string>());
+                    medics.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.GetVnXName<string>() + " ist Respawned!");
                 }
             }
         }
@@ -122,7 +122,7 @@ namespace VenoXV.Reallife.factions
                                 {
                                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                                     {
-                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.Name + " hat "+target.Name + " aufgesammelt!");
+                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.GetVnXName<string>() + " hat "+target.Name + " aufgesammelt!");
                                         medics.Emit("Destroy_MedicBlips", target.Name);
                                     }
                                 }

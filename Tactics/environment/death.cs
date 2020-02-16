@@ -19,7 +19,7 @@ namespace VenoXV.Tactics.environment
                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_IS_DEAD) == false || player.vnxGetElementData<string>(EntityData.PLAYER_IS_DEAD) == "")
                 {
                     AntiCheat_Allround.SetTimeOutHealth(player, 1000);
-                    Tactics.globals.Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0,200,0) + killer.Name + " hat " +player.Name + " getötet!");
+                    Tactics.globals.Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0,200,0) + killer.Name + " hat " +player.GetVnXName<string>() + " getötet!");
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, false);
                     player.SetData(EntityData.PLAYER_IS_DEAD, true);
 

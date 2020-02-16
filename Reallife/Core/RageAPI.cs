@@ -60,6 +60,19 @@ namespace VenoXV.Reallife.Core
         public static void WarpIntoVehicle<T>(this IPlayer player, IVehicle veh, int seat)
         {
             player.Emit("Player:WarpIntoVehicle", veh, seat);
+        }                
+        public static void WarpOutOfVehicle<T>(this IPlayer player)
+        {
+            player.Emit("Player:WarpOutOfVehicle");
+        }        
+        public static void SetVnXName<T>(this IPlayer player, string Name)
+        {
+            player.SetData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
+            player.SetStreamSyncedMetaData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
+        }       
+        public static string GetVnXName<T>(this IPlayer player)
+        {
+            return player.vnxGetElementData<string>(Reallife.Globals.EntityData.PLAYER_NAME);
         }
 
         public static IPlayer GetPlayerFromName(string name)
