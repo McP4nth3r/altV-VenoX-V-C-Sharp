@@ -8,5 +8,6 @@ namespace VenoXV.SevenTowers.globals
     {
         public static string PLAYER_LOBBY;
         public static string PLAYER_SPAWNED = "PLAYER_SPAWNED";
+        public static string PLAYER_SPAWN_POSITION = "PLAYER_SPAWN_POSITION";
     }
 }
