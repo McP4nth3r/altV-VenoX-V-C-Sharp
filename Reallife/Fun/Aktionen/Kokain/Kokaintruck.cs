@@ -99,7 +99,7 @@ namespace VenoXV.Reallife.Fun
                                 Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                                 Allround.ChangeAktionsState(false);
                                 Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,200,200) +"[Illegal]: Der Kokaintruck wurde abgegeben!");
-                                //ToDo :  Fix player.WarpOutOfIVehicle();
+                                player.WarpOutOfVehicle<bool>();
                                 player.Vehicle.Remove();
                                 AltV.Net.Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
