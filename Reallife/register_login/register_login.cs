@@ -644,6 +644,9 @@ namespace VenoXV.Reallife.register_login
                             }
                             PlayerModel character = Database.LoadCharacterInformationById(player_uid);
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
+                            Core.Debug.OutputDebugString("PLAYER_UID : " + player_uid);
+                            Core.Debug.OutputDebugString("skinModel : " + skinModel.ToString());
+                            Core.Debug.OutputDebugString("skinModel 2 : " + skinModel);
                             if (character != null && character.realName != null)
                             {
                                 player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
@@ -651,8 +654,8 @@ namespace VenoXV.Reallife.register_login
                                 Login.LoadCharacterData(player, character);
                                 Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
                                 anzeigen.Usefull.VnX.UpdateHUD(player);
-                                Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                                 Customization.ApplyPlayerClothes(player);
+                                Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                                 Customization.ApplyPlayerTattoos(player);
 
                                 foreach (var Tankstellen in Globals.Constants.AUTO_ZAPF_LIST_BLIPS)
@@ -694,7 +697,7 @@ namespace VenoXV.Reallife.register_login
                     player.Emit("showLoginError");
                 }
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("ShowLogin", ex); }
         }
 
 
