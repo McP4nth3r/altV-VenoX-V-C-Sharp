@@ -1183,7 +1183,7 @@ namespace VenoXV.Reallife.Globals
         {
             // Masks
 
-           			//new BusinessClothesModel(0, "Schwein", CLOTHES_MASK, 1, SEX_NONE, 3500),
+           	//new BusinessClothesModel(0, "Schwein", CLOTHES_MASK, 1, SEX_NONE, 3500),
             new BusinessClothesModel(0, "Totenkopf", CLOTHES_MASK, 2, SEX_NONE, 3500),
             //new BusinessClothesModel(0, "Affe", CLOTHES_MASK, 3, SEX_NONE, 3500),
             new BusinessClothesModel(0, "Hockey", CLOTHES_MASK, 4, SEX_NONE, 3500),
