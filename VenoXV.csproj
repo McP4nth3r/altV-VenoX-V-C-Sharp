@@ -18,9 +18,11 @@
     <None Remove="internationalization\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AltV.Net" Version="1.27.0" />
-    <PackageReference Include="AltV.Net.Async" Version="1.27.0" />
+    <PackageReference Include="AltV.Net" Version="1.27.2" />
+    <PackageReference Include="AltV.Net.Async" Version="1.27.2" />
     <PackageReference Include="AltV.Net.ColShape" Version="1.7.0-dev-preview" />
+    <PackageReference Include="AltV.Net.EntitySync" Version="1.0.19-dev-preview" />
+    <PackageReference Include="AltV.Net.EntitySync.ServerEvent" Version="1.0.19-dev-preview" />
     <PackageReference Include="AltV.Net.NetworkingEntity" Version="1.10.0-dev-preview" />
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="MySql.Data" Version="8.0.19" />

@@ -16,7 +16,6 @@ function test() {
 }
 
 
-
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -36,11 +35,6 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser.destroy();
 		preloadbrowser = null;
 	}
-	alt.hash
-	//ToDo : Hide/ShowChat - mp.gui.chat.activate(false);
-	//ToDo : Hide/ShowChat - mp.gui.chat.show(false);
-	//ToDo : Hide/ShowCursor - mp.gui.cursor.show(true, true);
-	//ToDo :Freeze/Unfreeze Player - mp.players.local.freezePosition(true);
 	preloadbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/main.html");
 	preloadbrowser.focus();
 	ShowCursor(true);
@@ -63,7 +57,6 @@ alt.onServer('preload_gm_list', () => {
 		game.displayRadar(true);
 		game.displayHud(true);
 		ShowCursor(false);
-
 	});
 });
 
@@ -73,6 +66,7 @@ alt.onServer('LoadReallifeGamemodeRemote', () => {
 });
 
 alt.onServer('LoadPreloadUserInfo', (z, r, t) => {
+	alt.emit("Load:UserInfo", z, r, t);
 	//preloadbrowser.execute(`document.getElementById('rec_0_userinfo').innerHTML="` + z + `";document.getElementById('rec_1_userinfo').innerHTML="` + r + `";document.getElementById('rec_2_userinfo').innerHTML="` + t + `";`);
 });
 

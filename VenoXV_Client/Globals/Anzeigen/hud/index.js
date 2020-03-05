@@ -44,16 +44,15 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 	}
 	alt.log("HUD Browser : " + HUD_BROWSER);
 });
-
+/*
 alt.onServer('Tactics:LoadHUD', () => {
 	if (HUD_BROWSER != null) {
 		HUD_BROWSER.destroy();
 	}
 	HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/second/main.html");
-	hungermain = 14;
 	CURRENT_HUD = 0;
 });
-
+*/
 /*
 mp.keys.bind(18, true, function () {
    if (mp.gui.cursor.show) {

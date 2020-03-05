@@ -13,6 +13,15 @@
 			}
 		}
 	</script>
+	<script>
+		if ("alt" in window) {
+			alt.on('Load:UserInfo', (z, r, t) => {
+				document.getElementById('rec_0_userinfo').innerHTML = z;
+				document.getElementById('rec_1_userinfo').innerHTML = r;
+				document.getElementById('rec_2_userinfo').innerHTML = t;
+			});
+		}
+	</script>
 </head>
 
 <body onload="playAudio">

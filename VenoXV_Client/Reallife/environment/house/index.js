@@ -16,7 +16,7 @@ alt.onServer("ShowHouseBlips", (blippos, c, n) => {
     let NewHouseBlip = new alt.PointBlip(blippos.x, blippos.y, blippos.z);
     NewHouseBlip.sprite = 411;
     NewHouseBlip.color = c;
-    NewHouseBlip.shortRange = false;
+    NewHouseBlip.shortRange = true;
     NewHouseBlip.name = n;
     HouseBlip[blippos + counter] = NewHouseBlip;
 });

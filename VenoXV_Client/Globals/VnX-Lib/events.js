@@ -23,7 +23,7 @@ export let PLAYER_LOBBY_7TOWERS = "Seven-Towers";
 
 
 let CurrentLobby = PLAYER_LOBBY_REALLIFE;
-
+let LocalPlayer = alt.Player.local;
 export function GetCurrentLobby() { return CurrentLobby; }
 alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { CurrentLobby = Lobby; });
 
@@ -31,25 +31,25 @@ alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { CurrentLobby = Lobby; });
 
 //////////////////////////////////////////////////////////////////////////////////////////
 alt.onServer('FreezePlayerPLAYER_VnX', (bool) => {
-    game.freezeEntityPosition(alt.Player.local.scriptID, bool);
+    game.freezeEntityPosition(LocalPlayer.scriptID, bool);
 });
 
 alt.onServer("movecamtocurrentpos_client", () => {
     let executedcmd = false;
-    game.switchOutPlayer(alt.Player.local.scriptID);
-    game.freezeEntityPosition(alt.Player.local.scriptID, true);
+    game.switchOutPlayer(LocalPlayer.scriptID);
+    game.freezeEntityPosition(LocalPlayer.scriptID, true);
     alt.setTimeout(() => {
         if (executedcmd == false) {
             alt.emitServer('load_data_login');
-            game.setEntityAlpha(alt.Player.local.scriptID, 255);
+            game.setEntityAlpha(LocalPlayer.scriptID, 255);
             executedcmd = true;
         }
     }, 6000);
 
     alt.setTimeout(() => {
-        game.switchInPlayer(alt.Player.local.scriptID);
+        game.switchInPlayer(LocalPlayer.scriptID);
         alt.setTimeout(() => {
-            game.freezeEntityPosition(alt.Player.local.scriptID, false);
+            game.freezeEntityPosition(LocalPlayer.scriptID, false);
         }, 8000);
     }, 8000);
 });
@@ -64,27 +64,157 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
 });
 
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedComponentVariation(alt.Player.local.scriptID, clothesslot, clothesdrawable, clothestexture);
+    game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
     alt.log("Clothes:Loaded");
 });
 
 alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedPreloadVariationData(alt.Player.local.scriptID, clothesslot, clothesdrawable, clothestexture);
+    game.setPedPreloadVariationData(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
     alt.log("Accessories:Loaded");
 });
 
+alt.onServer("HeadShape:Load", (HeadShapeJson) => {
+    ///////////////////////////
+    let firstHeadShape = 0;
+    let secondHeadShape = 0;
+    let firstSkinTone = 0
+    let secondSkinTone = 0;
+    let headMix = 0;
+    let skinMix = 0;
+    let eyesColor = 0;
+    let firstHairColor = 0;
+    let secondHairColor = 0;
+    let faceFeatures = [];
+    let blemishesModel = 0;
+    let beardModel = 0;
+    let beardColor = 0;
+    let eyebrowsModel = 0;
+    let eyebrowsColor = 0;
+    let ageingModel = 0;
+    let makeupModel = 0;
+    let blushModel = 0;
+    let blushColor = 0;
+    let complexionModel = 0;
+    let sundamageModel = 0;
+    let lipstickModel = 0;
+    let lipstickColor = 0;
+    let frecklesModel = 0;
+    let chestModel = 0;
+    let chestColor = 0;
+    ///////////////////////////
+    let HeadoverlayDataFirst = 0;
+    let HeadoverlayDataSecond = 0;
 
+    alt.log(HeadShapeJson);
+    let p = JSON.parse(HeadShapeJson);
+    for (let i = 0; i < p.length; i++) {
+        let data_pl = p[i];
+        firstHeadShape = data_pl.firstHeadShape;
+        secondHeadShape = data_pl.secondHeadShape;
+        firstSkinTone = data_pl.firstSkinTone;
+        secondSkinTone = data_pl.secondSkinTone;
+        headMix = data_pl.headMix;
+        skinMix = data_pl.skinMix;
+        eyesColor = data_pl.eyesColor;
+        firstHairColor = data_pl.firstHairColor;
+        secondHairColor = data_pl.secondHairColor;
+
+        blemishesModel = data_pl.blemishesModel;
+        beardModel = data_pl.beardModel;
+        beardColor = data_pl.beardColor;
+        eyebrowsModel = data_pl.eyebrowsModel;
+        eyebrowsColor = data_pl.eyebrowsColor;
+        ageingModel = data_pl.ageingModel;
+        makeupModel = data_pl.makeupModel;
+        blushModel = data_pl.blushModel;
+        blushColor = data_pl.blushColor;
+        complexionModel = data_pl.complexionModel;
+        sundamageModel = data_pl.sundamageModel;
+        lipstickModel = data_pl.lipstickModel;
+        lipstickColor = data_pl.lipstickColor;
+        frecklesModel = data_pl.frecklesModel;
+        chestModel = data_pl.chestModel;
+        chestColor = data_pl.chestColor;
+        faceFeatures = [
+            data_pl.noseWidth, data_pl.noseHeight, data_pl.noseLength, data_pl.noseBridge, data_pl.noseTip, data_pl.noseShift, data_pl.browHeight,
+            data_pl.browWidth, data_pl.cheekboneHeight, data_pl.cheekboneWidth, data_pl.cheeksWidth, data_pl.eyes, data_pl.lips, data_pl.jawWidth,
+            data_pl.jawHeight, data_pl.chinLength, data_pl.chinPosition, data_pl.chinWidth, data_pl.chinShape, data_pl.neckWidth
+        ];
+    }
+    for (var facef in faceFeatures) {
+        game.setPedFaceFeature(LocalPlayer.scriptID, faceFeatures[facef], 1.0);
+    }
+    for (let i = 0; i < 11; i++) {
+        if (i == 0) {
+            HeadoverlayDataFirst = blemishesModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 1) {
+            HeadoverlayDataFirst = beardModel;
+            HeadoverlayDataSecond = beardColor;
+        }
+        else if (i == 2) {
+            HeadoverlayDataFirst = eyebrowsModel;
+            HeadoverlayDataSecond = eyebrowsColor;
+        }
+        else if (i == 3) {
+            HeadoverlayDataFirst = ageingModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 4) {
+            HeadoverlayDataFirst = makeupModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 5) {
+            HeadoverlayDataFirst = blushModel;
+            HeadoverlayDataSecond = blushColor;
+        }
+        else if (i == 6) {
+            HeadoverlayDataFirst = complexionModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 7) {
+            HeadoverlayDataFirst = sundamageModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 8) {
+            HeadoverlayDataFirst = lipstickModel;
+            HeadoverlayDataSecond = lipstickColor;
+        }
+        else if (i == 9) {
+            HeadoverlayDataFirst = frecklesModel;
+            HeadoverlayDataSecond = 0;
+        }
+        else if (i == 10) {
+            HeadoverlayDataFirst = chestModel;
+            HeadoverlayDataSecond = chestColor;
+        }
+        game.setPedHeadOverlay(LocalPlayer.scriptID, HeadoverlayDataFirst, HeadoverlayDataSecond, 1);
+    }
+    game.setPedHeadBlendData(LocalPlayer.scriptID, firstHeadShape, secondHeadShape, 0, firstSkinTone, secondSkinTone, 0, headMix, skinMix, 0);
+    game.setPedEyeColor(LocalPlayer.scriptID, eyesColor);
+    game.setPedHairColor(LocalPlayer.scriptID, firstHairColor, secondHairColor);
+    alt.log("HeadShape:Loaded");
+});
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
 alt.onServer('Player:Visible', (bool) => {
-    game.setEntityVisible(alt.Player.local.scriptID, bool, 0);
+    game.setEntityVisible(LocalPlayer.scriptID, bool, 0);
     alt.log("Invisible = " + bool);
 });
 
 alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
-    game.taskWarpPedIntoVehicle(alt.Player.local.scriptID, veh.scriptID, seat);
+    alt.setTimeout(() => {
+        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+    }, 500);
+});
+
+alt.onServer('Player:WarpOutOfVehicle', () => {
+    if (LocalPlayer.vehicle) {
+        game.taskLeaveVehicle(alt.Player.local.scriptID, LocalPlayer.vehicle.scriptID, 16);
+    }
 });
 
 alt.on('keyup', (key) => {
@@ -119,7 +249,7 @@ alt.everyTick(() => {
     if (CurrentLobby == PLAYER_LOBBY_7TOWERS) {
         Render7TowersLobby();
     }
-    else if (CurrentLobby == PLAYER_LOBBY_7TOWERS) {
+    else if (CurrentLobby == PLAYER_LOBBY_TACTICS) {
         TacticsEveryTick();
     }
 });

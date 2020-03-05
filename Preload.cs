@@ -12,6 +12,7 @@ using System;
 using VenoXV.Reallife.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net.Async;
+using AltV.Net.Data;
 
 namespace VenoXV.Reallife
 {

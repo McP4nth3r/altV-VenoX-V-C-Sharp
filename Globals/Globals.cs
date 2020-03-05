@@ -63,17 +63,21 @@ namespace VenoXV.Globals
                 Reallife.Globals.Main.OnUpdate();
                 Tactics.globals.Globals.OnUpdate();
                 Zombie.globals.Main.OnUpdate();
+                SevenTowers.globals.Main.OnUpdate();
             }
             catch{}
         }
 
         //[ServerEvent(Event.PlayerDisconnected)]
-        public void OnPlayerDisconnected(IPlayer player, string type, string reason)
+        [ScriptEvent(ScriptEventType.PlayerDisconnect)]
+        public void OnPlayerDisconnected(IPlayer player, string reason)
         {
             try
             {
+                string type = string.Empty;
                 Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
                 Tactics.globals.Globals.OnPlayerDisconnect(player, type, reason);
+                SevenTowers.globals.Main.OnPlayerDisconnect(player);
             }
             catch { }
         }
