@@ -30,8 +30,8 @@ namespace VenoXV.Reallife.database
                 <setting name="password" value="G#l7wz27"/>
                 <setting name="database" value="venox_ingame"/> 
             */
-            string host = "127.0.0.1";
-            //string host = "5.180.66.146";
+            //string host = "127.0.0.1";
+            string host = "5.180.66.146";
             string user = "VenoXV_Security";
             string pass = "0Ux1k^x8k30vDx2*1g0dOt9@";
             string db = "VenoXV_Security";
@@ -102,11 +102,7 @@ namespace VenoXV.Reallife.database
             }
             catch { return null; }
         }
-
-
          
-         
-
         public static Fraktions_Waffenlager GetFactionWaffenlager(int factionID)
         {
             try
@@ -484,10 +480,10 @@ namespace VenoXV.Reallife.database
 
                     // Store player's skin
                     command.CommandText = "INSERT INTO skins VALUES (@playerId, @firstHeadShape, @secondHeadShape, @firstSkinTone, @secondSkinTone, @headMix, @skinMix, ";
-                    command.CommandText += "@hairModel, @firstHairRgba, @secondHairRgba, @beardModel, @beardRgba, @chestModel, @chestRgba, @blemishesModel, @ageingModel, ";
+                    command.CommandText += "@hairModel, @firstHairColor, @secondHairColor, @beardModel, @beardColor, @chestModel, @chestColor, @blemishesModel, @ageingModel, ";
                     command.CommandText += "@complexionModel, @sundamageModel, @frecklesModel, @noseWidth, @noseHeight, @noseLength, @noseBridge, @noseTip, @noseShift, @browHeight, ";
                     command.CommandText += "@browWidth, @cheekboneHeight, @cheekboneWidth, @cheeksWidth, @eyes, @lips, @jawWidth, @jawHeight, @chinLength, @chinPosition, @chinWidth, ";
-                    command.CommandText += "@chinShape, @neckWidth, @eyesRgba, @eyebrowsModel, @eyebrowsRgba, @makeupModel, @blushModel, @blushRgba, @lipstickModel, @lipstickRgba)";
+                    command.CommandText += "@chinShape, @neckWidth, @eyesColor, @eyebrowsModel, @eyebrowsColor, @makeupModel, @blushModel, @blushColor, @lipstickModel, @lipstickColor)";
                     command.Parameters.AddWithValue("@playerId", UID);
                     command.Parameters.AddWithValue("@firstHeadShape", skin.firstHeadShape);
                     command.Parameters.AddWithValue("@secondHeadShape", skin.secondHeadShape);
@@ -496,12 +492,12 @@ namespace VenoXV.Reallife.database
                     command.Parameters.AddWithValue("@headMix", skin.headMix);
                     command.Parameters.AddWithValue("@skinMix", skin.skinMix);
                     command.Parameters.AddWithValue("@hairModel", skin.hairModel);
-                    command.Parameters.AddWithValue("@firstHairRgba", skin.firstHairRgba);
-                    command.Parameters.AddWithValue("@secondHairRgba", skin.secondHairRgba);
+                    command.Parameters.AddWithValue("@firstHairColor", skin.firstHairColor);
+                    command.Parameters.AddWithValue("@secondHairColor", skin.secondHairColor);
                     command.Parameters.AddWithValue("@beardModel", skin.beardModel);
-                    command.Parameters.AddWithValue("@beardRgba", skin.beardRgba);
+                    command.Parameters.AddWithValue("@beardColor", skin.beardColor);
                     command.Parameters.AddWithValue("@chestModel", skin.chestModel);
-                    command.Parameters.AddWithValue("@chestRgba", skin.chestRgba);
+                    command.Parameters.AddWithValue("@chestColor", skin.chestColor);
                     command.Parameters.AddWithValue("@blemishesModel", skin.blemishesModel);
                     command.Parameters.AddWithValue("@ageingModel", skin.ageingModel);
                     command.Parameters.AddWithValue("@complexionModel", skin.complexionModel);
@@ -527,14 +523,14 @@ namespace VenoXV.Reallife.database
                     command.Parameters.AddWithValue("@chinWidth", skin.chinWidth);
                     command.Parameters.AddWithValue("@chinShape", skin.chinShape);
                     command.Parameters.AddWithValue("@neckWidth", skin.neckWidth);
-                    command.Parameters.AddWithValue("@eyesRgba", skin.eyesRgba);
+                    command.Parameters.AddWithValue("@eyesColor", skin.eyesColor);
                     command.Parameters.AddWithValue("@eyebrowsModel", skin.eyebrowsModel);
-                    command.Parameters.AddWithValue("@eyebrowsRgba", skin.eyebrowsRgba);
+                    command.Parameters.AddWithValue("@eyebrowsColor", skin.eyebrowsColor);
                     command.Parameters.AddWithValue("@makeupModel", skin.makeupModel);
                     command.Parameters.AddWithValue("@blushModel", skin.blushModel);
-                    command.Parameters.AddWithValue("@blushRgba", skin.blushRgba);
+                    command.Parameters.AddWithValue("@blushColor", skin.blushColor);
                     command.Parameters.AddWithValue("@lipstickModel", skin.lipstickModel);
-                    command.Parameters.AddWithValue("@lipstickRgba", skin.lipstickRgba);
+                    command.Parameters.AddWithValue("@lipstickColor", skin.lipstickColor);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -572,12 +568,12 @@ namespace VenoXV.Reallife.database
                             skin.headMix = reader.GetFloat("headMix");
                             skin.skinMix = reader.GetFloat("skinMix");
                             skin.hairModel = reader.GetInt32("hairModel");
-                            skin.firstHairRgba = reader.GetInt32("firstHairRgba");
-                            skin.secondHairRgba = reader.GetInt32("secondHairRgba");
+                            skin.firstHairColor = reader.GetInt32("firstHairColor");
+                            skin.secondHairColor = reader.GetInt32("secondHairColor");
                             skin.beardModel = reader.GetInt32("beardModel");
-                            skin.beardRgba = reader.GetInt32("beardRgba");
+                            skin.beardColor = reader.GetInt32("beardColor");
                             skin.chestModel = reader.GetInt32("chestModel");
-                            skin.chestRgba = reader.GetInt32("chestRgba");
+                            skin.chestColor = reader.GetInt32("chestColor");
                             skin.blemishesModel = reader.GetInt32("blemishesModel");
                             skin.ageingModel = reader.GetInt32("ageingModel");
                             skin.complexionModel = reader.GetInt32("complexionModel");
@@ -603,21 +599,21 @@ namespace VenoXV.Reallife.database
                             skin.chinWidth = reader.GetFloat("chinWidth");
                             skin.chinShape = reader.GetFloat("chinShape");
                             skin.neckWidth = reader.GetFloat("neckWidth");
-                            skin.eyesRgba = reader.GetInt32("eyesRgba");
+                            skin.eyesColor = reader.GetInt32("eyesColor");
                             skin.eyebrowsModel = reader.GetInt32("eyebrowsModel");
-                            skin.eyebrowsRgba = reader.GetInt32("eyebrowsRgba");
+                            skin.eyebrowsColor = reader.GetInt32("eyebrowsColor");
                             skin.makeupModel = reader.GetInt32("makeupModel");
                             skin.blushModel = reader.GetInt32("blushModel");
-                            skin.blushRgba = reader.GetInt32("blushRgba");
+                            skin.blushColor = reader.GetInt32("blushColor");
                             skin.lipstickModel = reader.GetInt32("lipstickModel");
-                            skin.lipstickRgba = reader.GetInt32("lipstickRgba");
+                            skin.lipstickColor = reader.GetInt32("lipstickColor");
                         }
                     }
                 }
 
                 return skin;
             }
-            catch { return null; }
+            catch (Exception ex){ Core.Debug.CatchExceptions("DB:GETCHARACTERSKIN", ex); return null; }
         }
 
         public static void UpdateCharacterHair(int playerId, SkinModel skin)
@@ -628,15 +624,15 @@ namespace VenoXV.Reallife.database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE skins SET hairModel = @hairModel, firstHairRgba = @firstHairRgba, secondHairRgba = @secondHairRgba, beardModel = @beardModel, ";
-                    command.CommandText += "beardRgba = @beardRgba, eyebrowsModel = @eyebrowsModel, eyebrowsRgba = @eyebrowsRgba WHERE characterId = @playerId LIMIT 1";
+                    command.CommandText = "UPDATE skins SET hairModel = @hairModel, firstHairColor = @firstHairColor, secondHairColor = @secondHairColor, beardModel = @beardModel, ";
+                    command.CommandText += "beardColor = @beardColor, eyebrowsModel = @eyebrowsModel, eyebrowsColor = @eyebrowsColor WHERE characterId = @playerId LIMIT 1";
                     command.Parameters.AddWithValue("@hairModel", skin.hairModel);
-                    command.Parameters.AddWithValue("@firstHairRgba", skin.firstHairRgba);
-                    command.Parameters.AddWithValue("@secondHairRgba", skin.secondHairRgba);
+                    command.Parameters.AddWithValue("@firstHairColor", skin.firstHairColor);
+                    command.Parameters.AddWithValue("@secondHairColor", skin.secondHairColor);
                     command.Parameters.AddWithValue("@beardModel", skin.beardModel);
-                    command.Parameters.AddWithValue("@beardRgba", skin.beardRgba);
+                    command.Parameters.AddWithValue("@beardColor", skin.beardColor);
                     command.Parameters.AddWithValue("@eyebrowsModel", skin.eyebrowsModel);
-                    command.Parameters.AddWithValue("@eyebrowsRgba", skin.eyebrowsRgba);
+                    command.Parameters.AddWithValue("@eyebrowsColor", skin.eyebrowsColor);
                     command.Parameters.AddWithValue("@playerId", playerId);
                     command.ExecuteNonQuery();
                 }
