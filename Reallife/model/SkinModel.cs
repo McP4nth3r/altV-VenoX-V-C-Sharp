@@ -15,14 +15,14 @@ namespace VenoXV.Reallife.model
         public float skinMix { get; set; }
 
         public int hairModel { get; set; }
-        public int firstHairRgba { get; set; }
-        public int secondHairRgba { get; set; }
+        public int firstHairColor { get; set; }
+        public int secondHairColor { get; set; }
 
         public int beardModel { get; set; }
-        public int beardRgba { get; set; }
+        public int beardColor { get; set; }
 
         public int chestModel { get; set; }
-        public int chestRgba { get; set; }
+        public int chestColor { get; set; }
 
         public int blemishesModel { get; set; }
         public int ageingModel { get; set; }
@@ -30,15 +30,15 @@ namespace VenoXV.Reallife.model
         public int sundamageModel { get; set; }
         public int frecklesModel { get; set; }
 
-        public int eyesRgba { get; set; }
+        public int eyesColor { get; set; }
         public int eyebrowsModel { get; set; }
-        public int eyebrowsRgba { get; set; }
+        public int eyebrowsColor { get; set; }
 
         public int makeupModel { get; set; }
         public int blushModel { get; set; }
-        public int blushRgba { get; set; }
+        public int blushColor { get; set; }
         public int lipstickModel { get; set; }
-        public int lipstickRgba { get; set; }
+        public int lipstickColor { get; set; }
 
         public float noseWidth { get; set; }
         public float noseHeight { get; set; }
