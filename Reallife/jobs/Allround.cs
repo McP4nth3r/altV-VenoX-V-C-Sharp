@@ -129,7 +129,7 @@ namespace VenoXV.Reallife.jobs
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 2 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 350 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 2);
-                                   // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                   // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }
                                 if (JOB_STAGE == 2)
@@ -141,7 +141,7 @@ namespace VenoXV.Reallife.jobs
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 4 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 450 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 4);
-                                   // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                   // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }
                                 if (JOB_STAGE == 3)
@@ -153,7 +153,7 @@ namespace VenoXV.Reallife.jobs
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 6 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 575 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 6);
-                                   // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                   // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }
                             }
