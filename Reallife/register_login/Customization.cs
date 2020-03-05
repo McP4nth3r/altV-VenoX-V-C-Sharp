@@ -15,56 +15,10 @@ namespace VenoXV.Reallife.character
         {
             try
             {
-                // Populate the head
-
-                /*HeadBlend headBlend = new HeadBlend();
-                
-                headBlend.ShapeFirst = Convert.ToByte(skinModel.firstHeadShape);
-                headBlend.ShapeSecond = Convert.ToByte(skinModel.secondHeadShape);
-                headBlend.SkinFirst = Convert.ToByte(skinModel.firstSkinTone);
-                headBlend.SkinSecond = Convert.ToByte(skinModel.secondSkinTone);
-                headBlend.ShapeMix = skinModel.headMix;
-                headBlend.SkinMix = skinModel.skinMix;
-
-                // Get the hair and eyes Rgbas
-                byte eyeRgba = Convert.ToByte(skinModel.eyesRgba);
-                byte hairRgba = Convert.ToByte(skinModel.firstHairRgba);
-                byte hightlightRgba = Convert.ToByte(skinModel.secondHairRgba);
-
-                // Add the face features
-                float[] faceFeatures = new float[]
-                {
-                skinModel.noseWidth, skinModel.noseHeight, skinModel.noseLength, skinModel.noseBridge, skinModel.noseTip, skinModel.noseShift, skinModel.browHeight,
-                skinModel.browWidth, skinModel.cheekboneHeight, skinModel.cheekboneWidth, skinModel.cheeksWidth, skinModel.eyes, skinModel.lips, skinModel.jawWidth,
-                skinModel.jawHeight, skinModel.chinLength, skinModel.chinPosition, skinModel.chinWidth, skinModel.chinShape, skinModel.neckWidth
-                };
-
-                // Populate the head overlays
-                Dictionary<int, HeadOverlay> headOverlays = new Dictionary<int, HeadOverlay>();
-
-                for (int i = 0; i < Constants.MAX_HEAD_OVERLAYS; i++)
-                {
-                    // Get the overlay model and Rgba
-                    int[] overlayData = GetOverlayData(skinModel, i);
-
-                    // Create the overlay
-                    HeadOverlay headOverlay = new HeadOverlay();
-                    headOverlay.Index = Convert.ToByte(overlayData[0]);
-                    headOverlay.Rgba = Convert.ToByte(overlayData[1]);
-                    headOverlay.SecondaryRgba = 0;
-                    headOverlay.Opacity = 1.0f;
-
-                    // Add the overlay
-                    headOverlays[i] = headOverlay;
-                }
-
-                // Update the character's skin
-                player.SetCustomization(sex == Constants.SEX_MALE, headBlend, eyeRgba, hairRgba, hightlightRgba, faceFeatures, headOverlays, new Decoration[] { });
-                //ToDo Sie Clientseitig Laden! : player.SetClothes(2, skinModel.hairModel, 0);*/
                 Core.RageAPI.SetClothes(player, 2, skinModel.hairModel, 0);
-
+                Core.RageAPI.SetCustomization(player, skinModel);
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerCustomization", ex); }
         }
 
         public static void ApplyPlayerClothes(IPlayer player)
@@ -110,65 +64,6 @@ namespace VenoXV.Reallife.character
                 }*/
             }
             catch { }
-        }
-
-        private static int[] GetOverlayData(SkinModel skinModel, int index)
-        {
-            try
-            {
-                int[] overlayData = new int[2];
-
-                switch (index)
-                {
-                    case 0:
-                        overlayData[0] = skinModel.blemishesModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 1:
-                        overlayData[0] = skinModel.beardModel;
-                        overlayData[1] = skinModel.beardRgba;
-                        break;
-                    case 2:
-                        overlayData[0] = skinModel.eyebrowsModel;
-                        overlayData[1] = skinModel.eyebrowsRgba;
-                        break;
-                    case 3:
-                        overlayData[0] = skinModel.ageingModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 4:
-                        overlayData[0] = skinModel.makeupModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 5:
-                        overlayData[0] = skinModel.blushModel;
-                        overlayData[1] = skinModel.blushRgba;
-                        break;
-                    case 6:
-                        overlayData[0] = skinModel.complexionModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 7:
-                        overlayData[0] = skinModel.sundamageModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 8:
-                        overlayData[0] = skinModel.lipstickModel;
-                        overlayData[1] = skinModel.lipstickRgba;
-                        break;
-                    case 9:
-                        overlayData[0] = skinModel.frecklesModel;
-                        overlayData[1] = 0;
-                        break;
-                    case 10:
-                        overlayData[0] = skinModel.chestModel;
-                        overlayData[1] = skinModel.chestRgba;
-                        break;
-                }
-
-                return overlayData;
-            }
-            catch { return null; }
         }
     }
 }
