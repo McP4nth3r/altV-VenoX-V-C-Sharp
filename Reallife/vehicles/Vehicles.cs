@@ -726,7 +726,7 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN) != 1)
                         {
-                            //ToDo :  Fix player.WarpOutOfIVehicle();
+                            player.WarpOutOfVehicle<bool>();
                             dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Motorradschein");
                             return;
                         }
@@ -738,13 +738,13 @@ namespace VenoXV.Reallife.Vehicles
                             /*IVehicle testingIVehicle = player.vnxGetElementData<bool>(EntityData.PLAYER_TESTING_VEHICLE);
                             if (Vehicle != testingIVehicle)
                             {
-                                //ToDo :  Fix player.WarpOutOfIVehicle();
+                                player.WarpOutOfVehicle<bool>();
                                 return;
                             }*/
                         }
                         else
                         {
-                            //ToDo :  Fix player.WarpOutOfIVehicle();
+                            player.WarpOutOfVehicle<bool>();
                             return;
                         }
                     }
@@ -754,7 +754,7 @@ namespace VenoXV.Reallife.Vehicles
                         {
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                             {
-                                //ToDo :  Fix player.WarpOutOfIVehicle();
+                                player.WarpOutOfVehicle<bool>();
                                 dxLibary.VnX.DrawNotification(player, "error", "Du bist in keiner Fraktion!");
                                 return;
                             }
@@ -780,7 +780,7 @@ namespace VenoXV.Reallife.Vehicles
                                 {
                                     if (factions.Allround.isStateFaction(player))
                                     {
-                                        // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                        // player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Polizist im Dienst!");
                                         return;
                                     }
@@ -792,7 +792,7 @@ namespace VenoXV.Reallife.Vehicles
                                 {
                                     if (factions.Allround.isBadFaction(player))
                                     {
-                                        // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                        // player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Gang-Skin an!");
                                         return;
                                     }
@@ -804,7 +804,7 @@ namespace VenoXV.Reallife.Vehicles
                                 {
                                     if (factions.Allround.isNeutralFaction(player))
                                     {
-                                        // //ToDo :  Fix player.WarpOutOfIVehicle();
+                                        // player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Fraktion´s-Skin an!");
                                         return;
                                     }
@@ -813,13 +813,13 @@ namespace VenoXV.Reallife.Vehicles
 
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
                             {
-                                //ToDo :  Fix player.WarpOutOfIVehicle();
+                                player.WarpOutOfVehicle<bool>();
                                 dxLibary.VnX.DrawNotification(player, "error", "Du bist kein teil des Admin - Teams!");
                                 return;
                             }
                             else if (vehFaction > 0 && playerFaction != vehFaction && vehFaction != Constants.FACTION_ADMIN)
                             {
-                                //ToDo :  Fix player.WarpOutOfIVehicle();
+                                player.WarpOutOfVehicle<bool>();
                                 dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Mitglied dieser Fraktion!");
                                 return;
                             }
