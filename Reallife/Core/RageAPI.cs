@@ -6,6 +6,7 @@ using System.Text;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Drawing;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.Core
 {
@@ -128,6 +129,16 @@ namespace VenoXV.Reallife.Core
         {
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
+        }        
+        public static void SetCustomization(IPlayer element, SkinModel model)
+        {
+            List<SkinModel> modellist = new List<SkinModel>
+            {
+                model
+            };
+            try { element.Emit("HeadShape:Load", JsonConvert.SerializeObject(modellist)); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SetCustomization", ex); }
+            modellist.Clear();
         }
 
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
