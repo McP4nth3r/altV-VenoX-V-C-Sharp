@@ -119,8 +119,9 @@ namespace VenoXV.Reallife.business
         public static void OnResourceStart()
         {
             // Car dealer creation
-            //carShopTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153));
-            //TextLabel carShopSubTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(Messages.GEN_CATALOG_HELP, new Position(-56.88f, -1097.12f, 26.42f), 10.0f, 0.5f, 4, new Rgba(255, 255, 255));
+            Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153, 255));
+
+            
             BlipModel blip = new BlipModel();
             blip.Name = "Autohändler";
             blip.posX = -56.88f;
@@ -143,6 +144,8 @@ namespace VenoXV.Reallife.business
             Blip shipShopBlip = NAPI.Blip.CreateBlip(new Position(-711.6249f, -1299.427f, 5.41f));
             shipShopBlip.Name = "Boot Händler";
             shipShopBlip.Sprite = 455;*/
+
+
         }
 
 

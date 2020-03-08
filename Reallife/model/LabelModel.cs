@@ -9,10 +9,13 @@ namespace VenoXV.Reallife.model
     {
         public string Name { get; set; }
         public string Text { get; set; }
-        public float posX { get; set; }
-        public float posY { get; set; }
-        public float posZ { get; set; }
-        public int Color { get; set; }
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+        public float PosZ { get; set; }
+        public float Size { get; set; }
+        public int Font { get; set; }
+        public Rgba LabelColor { get; set; }
+        public int Dimension { get; set; }
         public float Range { get; set; }
 
         /*

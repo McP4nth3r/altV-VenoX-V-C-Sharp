@@ -7,6 +7,7 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Drawing;
 using VenoXV.Reallife.model;
+using AltV.Net.Data;
 
 namespace VenoXV.Reallife.Core
 {
@@ -150,6 +151,28 @@ namespace VenoXV.Reallife.Core
         public static void SetPlayerVisible(IPlayer element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
+            catch { }
+        }
+
+
+        public static void CreateTextLabel(string text, Position pos, float range, float size, int font, Rgba color, int dimension = 0)
+        {
+            try
+            {
+                LabelModel label = new LabelModel
+                {
+                    Text = text,
+                    PosX = pos.X,
+                    PosY = pos.Y,
+                    PosZ = pos.Z,
+                    Range = range,
+                    Size = size,
+                    Font = font,
+                    Dimension = dimension,
+                    LabelColor = color
+                };
+                Reallife.Globals.Main.LabelList.Add(label);
+            }
             catch { }
         }
     }

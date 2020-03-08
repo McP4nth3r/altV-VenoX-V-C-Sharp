@@ -10,7 +10,6 @@ using System.Linq;
 using System;
 using VenoXV.Reallife.Core;
 using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.gangwar.v2;
 using VenoXV.Reallife.database;
 using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
@@ -25,10 +24,11 @@ namespace VenoXV.Reallife.Globals
         public static List<TattooModel> tattooList;
         public static List<ItemModel> itemList;
         public static List<TunningModel> tunningList;
+        public static List<LabelModel> LabelList = new List<LabelModel>();
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
-        public static string CURRENT_VERSION = "1.1.1";
+        public const string CURRENT_VERSION = "1.1.2";
 
 
 
@@ -822,7 +822,8 @@ namespace VenoXV.Reallife.Globals
 
                     if (interior.captionMessage != string.Empty)
                     {
-                        //interior.textLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new Rgba(interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB), false, 0);
+                        //interior.textLabel = //ToDo: ClientSide erstellen NAPI.
+                        .CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new Rgba(interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB), false, 0);
                     }
                 }*/
 

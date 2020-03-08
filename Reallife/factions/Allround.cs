@@ -75,39 +75,41 @@ namespace VenoXV.Reallife.factions
             
             BAD_INTERIOR3_FGUNS.Dimension = Constants.FACTION_SAMCRO;
             BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_MS13;
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("LCN Ausgang", LCN_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), true, Constants.FACTION_COSANOSTRA));
+            //ToDo: ClientSide erstellen NAPI.
+            //.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255));
+            RageAPI.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255));
+            RageAPI.CreateTextLabel("LCN Ausgang", LCN_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), Constants.FACTION_COSANOSTRA);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Yakuza Eingang", YAKUZA_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(175, 0, 0, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Yakuza Ausgang", YAKUZA_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(175, 0, 0, 255), true, Constants.FACTION_YAKUZA));
+            RageAPI.CreateTextLabel("Yakuza Eingang", YAKUZA_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(175, 0, 0, 255));
+            RageAPI.CreateTextLabel("Yakuza Ausgang", YAKUZA_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(175, 0, 0, 255), Constants.FACTION_YAKUZA);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mitarbeiter Ausgang", FIB_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mitarbeiter Eingang", FIB_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Tiefgaragen Ausgang", FIB_Teleport_Garage_Exit, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Tiefgaragen Eingang", FIB_Teleport_Garage_Enter, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
+            RageAPI.CreateTextLabel("Mitarbeiter Ausgang", FIB_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
+            RageAPI.CreateTextLabel("Mitarbeiter Eingang", FIB_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
+            RageAPI.CreateTextLabel("Tiefgaragen Ausgang", FIB_Teleport_Garage_Exit, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
+            RageAPI.CreateTextLabel("Tiefgaragen Eingang", FIB_Teleport_Garage_Enter, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mitarbeiter Eingang", Emergency_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new Rgba(255, 51, 51, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mitarbeiter Ausgang", Emergency_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new Rgba(255, 51, 51, 255));
+            RageAPI.CreateTextLabel("Mitarbeiter Eingang", Emergency_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new Rgba(255, 51, 51, 255));
+            RageAPI.CreateTextLabel("Mitarbeiter Ausgang", Emergency_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new Rgba(255, 51, 51, 255));
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Narcos Eingang", MS13_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), true, Constants.FACTION_MS13));
+            RageAPI.CreateTextLabel("Narcos Eingang", MS13_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255));
+            RageAPI.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), Constants.FACTION_MS13);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), true, Constants.FACTION_SAMCRO));
+            RageAPI.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255));
+            RageAPI.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), Constants.FACTION_SAMCRO);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Narcos Dach Eingang", MS13_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), true, Constants.FACTION_NONE));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Narcos Dach Ausgang", MS13_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), true, Constants.FACTION_NONE));
+            RageAPI.CreateTextLabel("Narcos Dach Eingang", MS13_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), Constants.FACTION_NONE);
+            RageAPI.CreateTextLabel("Narcos Dach Ausgang", MS13_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new Rgba(128, 129, 150, 255), Constants.FACTION_NONE);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mafia Dach Eingang", LCN_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), true, Constants.FACTION_NONE));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Mafia Dach Ausgang", LCN_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), true, Constants.FACTION_NONE));
+            RageAPI.CreateTextLabel("Mafia Dach Eingang", LCN_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), Constants.FACTION_NONE);
+            RageAPI.CreateTextLabel("Mafia Dach Ausgang", LCN_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255), Constants.FACTION_NONE);
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Rollin Height´s Eingang", Ballas_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Rollin Height´s Ausgang", Ballas_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255), true, Constants.FACTION_BALLAS));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Danke für Alles" + "\n_______________\n" + "For Palma", new Position(276.7415f, -2066.709f, 17.17801f), 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255), true, 0);
+            RageAPI.CreateTextLabel("Rollin Height´s Eingang", Ballas_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255));
+            RageAPI.CreateTextLabel("Rollin Height´s Ausgang", Ballas_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255), Constants.FACTION_BALLAS);
+            RageAPI.CreateTextLabel("Danke für Alles" + "\n_______________\n" + "For Palma", new Position(276.7415f, -2066.709f, 17.17801f), 10.0f, 0.5f, 4, new Rgba(138, 43, 226, 255), 0);
 
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Compton Family´s Eingang", Compton_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(0, 152, 0, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Compton Family´s Ausgang", Compton_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(0, 152, 0, 255), true, Constants.FACTION_GROVE));
+            RageAPI.CreateTextLabel("Compton Family´s Eingang", Compton_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(0, 152, 0, 255));
+            RageAPI.CreateTextLabel("Compton Family´s Ausgang", Compton_Teleport_Base_Exit, 10.0f, 0.5f, 4, new Rgba(0, 152, 0, 255), Constants.FACTION_GROVE);
 
 
             //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_sm_15_office_01b");
@@ -115,15 +117,15 @@ namespace VenoXV.Reallife.factions
 
             /* IColShapes */
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("L.S.P.D Equip", LSPD_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(0, 105, 145, 255));
+            RageAPI.CreateTextLabel("L.S.P.D Equip", LSPD_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(0, 105, 145, 255));
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("F.I.B Equip", FBI_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
+            RageAPI.CreateTextLabel("F.I.B Equip", FBI_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(0, 86, 184, 255));
 
 
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("BAD Equip", BAD_INTERIOR_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("BAD Equip", BAD_INTERIOR2_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("BAD Equip", BAD_INTERIOR3_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("BAD Equip", BAD_INTERIOR4_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
+            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
+            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR2_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
+            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR3_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
+            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR4_FGUNS_COL, 10.0f, 0.5f, 4, new Rgba(200, 0, 0, 255));
 
             BAD_INTERIOR_FGUNS.SetData("isWeaponSelectShape", true);
             BAD_INTERIOR2_FGUNS.SetData("isWeaponSelectShape", true);

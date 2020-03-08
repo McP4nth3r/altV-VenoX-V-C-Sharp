@@ -59,19 +59,19 @@ namespace VenoXV.Reallife.factions
             ///////////////////////////////////
             IColShape fkassencolNEWS = Alt.CreateColShapeSphere(new Position(-537.0566f, -886.5463f, 25.20651f), 2);
             fkassencolNEWS.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("News - Kasse", new Position(-537.0566f, -886.5463f, 25.20651f), 20.0f, 0.75f, 4, new Rgba(200, 200, 0), true);
+            Core.RageAPI.CreateTextLabel("News - Kasse", new Position(-537.0566f, -886.5463f, 25.20651f), 20.0f, 0.75f, 4, new Rgba(200, 200, 0, 255));
             //////////////////////////////      
             //////////////////////////////////////
             IColShape fskincolNEWS = Alt.CreateColShapeSphere(new Position(-575.1335f, -939.9796f, 23.8616f), 2);
             fskincolNEWS.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
             fskincolNEWS.SetData("NEUTRALMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Fraktion - Skin", new Position(-575.1335, -939.9796, 23.8616), 20.0f, 0.75f, 4, new Rgba(200, 200, 0), true, fskincolNEWS.Dimension);
+            RageAPI.CreateTextLabel("Fraktion - Skin", new Position(-575.1335f, -939.9796f, 23.8616f), 20.0f, 0.75f, 4, new Rgba(200, 200, 0, 255), fskincolNEWS.Dimension);
             //////////////////////////////               
             /////////////////////////////////////////
             IColShape fskincolMEDIC = Alt.CreateColShapeSphere(new Position(326.3686f, -559.8064f, 28.74379f), 2);
             fskincolMEDIC.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
             fskincolMEDIC.SetData("NEUTRALMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Fraktion - Skin", new Position(326.3686, -559.8064, 28.74379), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fskincolMEDIC.Dimension);
+            RageAPI.CreateTextLabel("Fraktion - Skin", new Position(326.3686f, -559.8064f, 28.74379f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0, 255), fskincolMEDIC.Dimension);
             //////////////////////////////            
 
 

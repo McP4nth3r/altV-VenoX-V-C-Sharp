@@ -287,13 +287,13 @@ namespace VenoXV.Reallife.jobs
             try
             {
 
-                /*
+                
                 foreach (JobPickModel job in jobList)
                 {
-                    //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new Rgba(0, 150, 200), false, 0);
-                    //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Bist du interessiert hier zu Arbeiten?", new Position(job.position.X, job.position.Y, job.position.Z - 0.1f), 10.0f, 0.5f, 4, new Rgba(0, 150, 200), false, 0);
+                    RageAPI.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new Rgba(0, 150, 200, 255), 0);
+                    RageAPI.CreateTextLabel("Bist du interessiert hier zu Arbeiten?", new Position(job.position.X, job.position.Y, job.position.Z - 0.1f), 10.0f, 0.5f, 4, new Rgba(0, 150, 200, 255), 0);
                 }
-                Reallife.jobs.Bus.Busjob.OnResourceStart(); // Bus - Sign Loading.*/
+                Reallife.jobs.Bus.Busjob.OnResourceStart(); // Bus - Sign Loading.
             }
             catch { }
 
