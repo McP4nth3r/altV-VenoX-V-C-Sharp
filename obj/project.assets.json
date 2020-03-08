@@ -5449,7 +5449,7 @@
       ]
     },
     "System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "h4CEgOgv5PKVF/HwaHzJRiVboL2THYCou97zpmhjghx5frc7fIvlkY1jL+lnIQyChrJDMNEXS6r7byGif8Cy4w==",
+      "sha512": "vOYy7Jv9KsG3ld2hLt0GoERd82SZi4BelrbXLwI9yFBYX7kpbvUCWYo4eyevk47cuJXZ9ZLVAryANcc7iY71aA==",
       "type": "package",
       "path": "system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -6574,23 +6574,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LIQUID\\.nuget\\packages\\": {},
+    "C:\\Users\\Fynn\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\altv-server_DEBUG\\resources\\VenoX-V\\VenoXV.csproj",
+      "projectUniqueName": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj",
       "projectName": "VenoXV",
-      "projectPath": "C:\\altv-server_DEBUG\\resources\\VenoX-V\\VenoXV.csproj",
-      "packagesPath": "C:\\Users\\LIQUID\\.nuget\\packages\\",
-      "outputPath": "C:\\altv-server_DEBUG\\resources\\VenoX-V\\obj\\",
+      "projectPath": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj",
+      "packagesPath": "C:\\Users\\Fynn\\.nuget\\packages\\",
+      "outputPath": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\LIQUID\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Fynn\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6598,8 +6598,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-experimental/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
@@ -6671,7 +6670,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
