@@ -2,12 +2,13 @@
 using AltV.Net;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using DasNiels.AltV.Streamers;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Drawing;
 using VenoXV.Reallife.model;
 using AltV.Net.Data;
+using System.Numerics;
 
 namespace VenoXV.Reallife.Core
 {
@@ -69,8 +70,8 @@ namespace VenoXV.Reallife.Core
         }        
         public static void SetVnXName<T>(this IPlayer player, string Name)
         {
-            player.SetData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
-            player.SetStreamSyncedMetaData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
+            player.SetData(Globals.EntityData.PLAYER_NAME, Name);
+            player.SetStreamSyncedMetaData(Globals.EntityData.PLAYER_NAME, Name);
         }       
         public static string GetVnXName<T>(this IPlayer player)
         {
@@ -82,19 +83,17 @@ namespace VenoXV.Reallife.Core
             IPlayer player = null;
             try
             {
+                name = name.ToLower();
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
-                    if(players.Name == name)
+                    if(players.GetVnXName<bool>().ToLower() == name)
                     {
                         player = players;
                     }
                 }
                 return player;
             }
-            catch
-            {
-                return player;
-            }
+            catch{return player;}
         }
         public static void GivePlayerWeapon(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
@@ -155,7 +154,7 @@ namespace VenoXV.Reallife.Core
         }
 
 
-        public static void CreateTextLabel(string text, Position pos, float range, float size, int font, Rgba color, int dimension = 0)
+        public static void CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
         {
             try
             {
@@ -172,8 +171,34 @@ namespace VenoXV.Reallife.Core
                     LabelColor = color
                 };
                 Reallife.Globals.Main.LabelList.Add(label);
+                //DynamicTextLabel textLabel = TextLabel.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
+                TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
+        }
+        public static void CreateTextLabels()
+        {
+            // Create some textLabels
+            TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
+            TextLabelStreamer.CreateDynamicTextLabel("Another textlabel", new Vector3(-869.655f, -853.499f, 19.566f), 0, true, new Rgba(25, 231, 125, 255));
+            TextLabelStreamer.CreateDynamicTextLabel("[SOME MORE TEXT]", new Vector3(-859.655f, -853.499f, 19.566f), 0, true, new Rgba(125, 10, 250, 255));
+        }
+
+
+       
+
+        [Command("getlabels")]
+        public static void GetAllLabelss(IPlayer player)
+        {
+            Core.Debug.OutputDebugString("Started");
+            foreach(DynamicTextLabel label in TextLabelStreamer.GetAllDynamicTextLabels())
+            {
+                Debug.OutputDebugString("________________________");
+                Debug.OutputDebugString("Name : " + label.Text);
+                Debug.OutputDebugString("Position : " + label.Position);
+                Debug.OutputDebugString("________________________");
+            }
+            Core.Debug.OutputDebugString("Stopped");
         }
     }
 }
