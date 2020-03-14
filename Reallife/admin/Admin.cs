@@ -20,6 +20,7 @@ using AltV.Net.Resources.Chat.Api;
 using AltV.Net;
 using AltV.Net.Data;
 using VenoXV.Reallife.Core;
+using System.Numerics;
 
 namespace VenoXV.Reallife.admin
 {
@@ -75,11 +76,12 @@ namespace VenoXV.Reallife.admin
         {
             try
             {
-                //foreach (IPlayer targetsingame in Alt.GetAllPlayers())
+                //foreach (string target_namesingame in Alt.GetAllPlayers())
                 player.SendChatMessage("---------------------------------------------------------");
                 player.SendChatMessage("Folgende Admins sind grade Online : ");
                 foreach (IPlayer targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
                 {
+                    string targetsname = Core.RageAPI.GetVnXName<bool>(targetsingame);
                     if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                     {
                         if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == 7)
@@ -139,10 +141,12 @@ namespace VenoXV.Reallife.admin
         /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
 
         [Command("kick", true)]
-        public static void KickPlayer(IPlayer player, IPlayer target, string reason)
+        public static void KickPlayer(IPlayer player, string target_name, string reason)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                 {
                     Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + target.Name + " wurde von " +player.GetVnXName<string>() + " gekickt! Grund : " + reason);
@@ -269,8 +273,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("goto", true)]
-        public void TpCommand(IPlayer player, IPlayer target)
+        public void TpCommand(IPlayer player, string target_name)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
             {
                 // We get the player from the input string
@@ -292,9 +298,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("gethere",true)]
-        public void BringCommand(IPlayer player, IPlayer target)
+        public void BringCommand(IPlayer player, string target_name)
         {
-
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
             {
                 if (target != null)
@@ -315,10 +322,12 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("charakter")]
-        public void CharacterCommand(IPlayer player, string action, IPlayer target, string amount)
+        public void CharacterCommand(IPlayer player, string action, string target_name, string amount)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
                 {
                     // We check whether the player is connected
@@ -374,8 +383,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("getdim")]
-        public static void GetAdminDimension(IPlayer player, IPlayer target)
+        public static void GetAdminDimension(IPlayer player, string target_name)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
             {
                 player.SendChatMessage(target.Name + " hat dimension : " + target.Dimension);
@@ -384,8 +395,10 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("revive")]
-        public void ReviveCommand(IPlayer player, IPlayer Target)
+        public void ReviveCommand(IPlayer player, string target_name)
         {
+            IPlayer Target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (Target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
             {
                 if (Target != null)
@@ -522,13 +535,15 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("spec")]
-        public void ReconCommand(IPlayer player, IPlayer target)
+        public void ReconCommand(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
                 {
-                    anzeigen.Usefull.VnX.SpectatePlayer(player, target, 0);
+                    //anzeigen.Usefull.VnX.SpectatePlayer(player, target, 0);
                     sendAdminInformation(player.GetVnXName<string>() + " spectatet grade " + target.Name + "!");
                 }
             }
@@ -540,7 +555,7 @@ namespace VenoXV.Reallife.admin
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
             {
-                anzeigen.Usefull.VnX.SpectatePlayer(player, player, 1);
+                //anzeigen.Usefull.VnX.SpectatePlayer(player, player, 1);
                 sendAdminInformation(player.GetVnXName<string>() + " hat aufgehört " +player.GetVnXName<string>() + " zu spectaten!");
             }
         }
@@ -726,10 +741,12 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("clearinventar")]
-        public static void ClearTargetPlayerInventar(IPlayer player, IPlayer target)
+        public static void ClearTargetPlayerInventar(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
                     int targetId = target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
@@ -780,8 +797,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("sstate")]
-        public static void SetSocialStatePlayer(IPlayer player, IPlayer target, string element)
+        public static void SetSocialStatePlayer(IPlayer player, string target_name, string element)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.SetData(EntityData.PLAYER_STATUS, element);
@@ -793,8 +812,10 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("triggersound")]
-        public static void TriggerSoundEffect(IPlayer player, IPlayer target, string SoundName, string SoundSetName)
+        public static void TriggerSoundEffect(IPlayer player, string target_name, string SoundName, string SoundSetName)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.Emit("VnX_Play_Sound", SoundName, SoundSetName);
@@ -802,8 +823,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("triggermp3")]
-        public static void Triggeraudio(IPlayer player, IPlayer target, string audioclass)
+        public static void Triggeraudio(IPlayer player, string target_name, string audioclass)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.Emit("load_audio_table_vnx", audioclass);
@@ -811,8 +834,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("triggerfx")]
-        public static void Triggerfx(IPlayer player, IPlayer target, string effect, int duration, bool loop)
+        public static void Triggerfx(IPlayer player, string target_name, string effect, int duration, bool loop)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.Emit("start_screen_fx", effect, duration, loop);
@@ -820,8 +845,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("stopfx")]
-        public static void StopfxAdmin(IPlayer player, IPlayer target, string effect)
+        public static void StopfxAdmin(IPlayer player, string target_name, string effect)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.Emit("stop_screen_fx", effect);
@@ -829,8 +856,10 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("setpremium")]
-        public static void GivePremiumToPlayer(IPlayer player, IPlayer target, int PaketNr, int Tage)
+        public static void GivePremiumToPlayer(IPlayer player, string target_name, int PaketNr, int Tage)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 if (PaketNr == 0)
@@ -920,7 +949,6 @@ namespace VenoXV.Reallife.admin
                     {
                         string SocialClubId = Database.GetCharakterSocialName(target);
                         string SpielerName = Database.GetAccountSpielerName(SocialClubId);
-                        IPlayer targetplayer = Reallife.Core.RageAPI.GetPlayerFromName(SpielerName);
                         int UID = Database.GetCharakterUID(SpielerName);
                         if (Database.FindCharacterBan(SocialClubId))
                         {
@@ -1045,7 +1073,7 @@ namespace VenoXV.Reallife.admin
                 // Add a new house
                 house.id = Database.AddHouse(house);
                 ////house.houseLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255));
-                Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255, 255));
+                Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255} );
                 House.houseList.Add(house);
 
                 sendAdminInformation(player.GetVnXName<string>() + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0,200,255) + " [" + RageAPI.GetHexColorcode(255,255,255) +  + house.id +RageAPI.GetHexColorcode(0,200,255) + " ]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + preis +RageAPI.GetHexColorcode(0,200,255) + "  $]" + "[" + RageAPI.GetHexColorcode(255,255,255) +  + interior +RageAPI.GetHexColorcode(0,200,255) + " ]");
@@ -1078,12 +1106,14 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("makeleader")]
-        public void MakeLeader_AdminFunc(IPlayer player, IPlayer target, int faction)
+        public void MakeLeader_AdminFunc(IPlayer player, string target_name, int faction)
         {
             try
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
+                    IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                    if (target == null) { return; }
                     if (faction > 13 || faction < 0)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Fraktions ID nur zwischen 0-13 möglich!");
@@ -1171,10 +1201,12 @@ namespace VenoXV.Reallife.admin
         }
 
         [Command("setrank")]
-        public void setUserRank(IPlayer player, IPlayer target, int rank)
+        public void setUserRank(IPlayer player, string target_name, int rank)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                 {
                     dxLibary.VnX.DrawNotification(player, "error", "Der Spieler " + target.Name + " ist in keiner Fraktion!");
@@ -1372,8 +1404,10 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("getserial")]
-        public static void GetAdminSerial(IPlayer player, IPlayer target)
+        public static void GetAdminSerial(IPlayer player, string target_name)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0) + target.Name + " hat serial : " + target.HardwareIdHash);
@@ -1389,7 +1423,7 @@ namespace VenoXV.Reallife.admin
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         [Command("vnxGetElementData")]
-        public static void GetElementDataAdmin(IPlayer player, IPlayer target, string element)
+        public static void GetElementDataAdmin(IPlayer player, string target_name, string element)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
@@ -1477,8 +1511,10 @@ namespace VenoXV.Reallife.admin
 
 
         [Command("sethunger")]
-        public static void SetPlayerAdminHunger(IPlayer player, IPlayer target, int value)
+        public static void SetPlayerAdminHunger(IPlayer player, string target_name, int value)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
                 Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_HUNGER, value);
@@ -1497,7 +1533,7 @@ namespace VenoXV.Reallife.admin
         }
 
         /*[Command("healp")]
-        public static void HealPlayerForSomeReason(IPlayer player, IPlayer target, string value, int valuea)
+        public static void HealPlayerForSomeReason(IPlayer player, string target_name, string value, int valuea)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
