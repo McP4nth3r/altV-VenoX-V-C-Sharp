@@ -1,0 +1,142 @@
+<html>
+
+<head>
+	<script src="files/script/main.js"></script>
+	<link rel="stylesheet" href="style.css">
+
+	<script>
+		if ("alt" in window) {
+
+			alt.on("OnStateWeaponLoad", (s, t, p, p2, s2, p3, k, r, s3, i, st) => {
+				document.getElementById('get_nightstick').innerHTML = s;
+				document.getElementById('get_stungun').innerHTML = t;
+				document.getElementById('get_pistol').innerHTML = p;
+				document.getElementById('get_pistol50').innerHTML = p2;
+				document.getElementById('get_pumpshotgun').innerHTML = s2;
+				document.getElementById('get_combatpdw').innerHTML = p3;
+				document.getElementById('get_carbiner').innerHTML = k;
+				document.getElementById('get_advancedrifle').innerHTML = r;
+				document.getElementById('get_sniperrifle').innerHTML = s3;
+				document.getElementById('mag_info').innerHTML = i;
+
+				if (st == 1) { $("#pistol50_unlocked").removeClass("d-none"); $("#pistol50_locked").addClass("d-none"); }
+				else if (st == 2) { $("#pistol50_unlocked").removeClass("d-none"); $("#pistol50_locked").addClass("d-none"); $("#shotgun_unlocked").removeClass("d-none"); $("#shotgun_locked").addClass("d-none"); $("#combatpdw_unlocked").removeClass("d-none"); $("#combatpdw_locked").addClass("d-none"); }
+				else if (st == 3) { $("#pistol50_unlocked").removeClass("d-none"); $("#pistol50_locked").addClass("d-none"); $("#shotgun_unlocked").removeClass("d-none"); $("#shotgun_locked").addClass("d-none"); $("#combatpdw_unlocked").removeClass("d-none"); $("#combatpdw_locked").addClass("d-none"); $("#carbiner_unlocked").removeClass("d-none"); $("#carbiner_locked").addClass("d-none"); $("#advancedrifle_unlocked").removeClass("d-none"); $("#advancedrifle_locked").addClass("d-none") }
+				else if (st >= 4) { $("#pistol50_unlocked").removeClass("d-none"); $("#pistol50_locked").addClass("d-none"); $("#shotgun_unlocked").removeClass("d-none"); $("#shotgun_locked").addClass("d-none"); $("#combatpdw_unlocked").removeClass("d-none"); $("#combatpdw_locked").addClass("d-none"); $("#carbiner_unlocked").removeClass("d-none"); $("#carbiner_locked").addClass("d-none"); $("#advancedrifle_unlocked").removeClass("d-none"); $("#advancedrifle_locked").addClass("d-none"); $("#sniperrifle_unlocked").removeClass("d-none"); $("#sniperrifle_locked").addClass("d-none"); }
+			});
+
+			alt.on()
+		}
+	</script>
+
+</head>
+
+<body>
+	<div class="all">
+		<div class="back"></div>
+		<div class="blue_header"></div>
+		<center>
+			<div class="text_head" id="text_head">Staatswaffen Lager</div>
+
+
+
+			<!--				 	Row 1 									-->
+			<img src="files/images/weapon_nightstick.png" id="nightstick">
+			<div id="get_nightstick" class="get_nightstick"
+				onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Schlagstock`);"></div>
+
+			<img src="files/images/weapon_stungun.png" id="stungun">
+			<div id="get_stungun" class="get_stungun" onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Tazer`);">
+			</div>
+
+			<img src="files/images/weapon_pistol.png" id="pistol">
+			<div id="get_pistol" class="get_pistol" onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Pistol`);">
+			</div>
+
+
+
+			<!--				 	Row 2 									-->
+
+			<div id="pistol50_unlocked" class="d-none">
+				<img src="files/images/weapon_pistol50.png" id="pistol50">
+				<div id="get_pistol50" class="get_pistol50"
+					onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Pistol50`);"></div>
+			</div>
+			<div id="pistol50_locked">
+				<img src="files/images/weapon_pistol50.png" id="pistol50">
+				<img src="files/images/locked_background.png" id="pistol50_locked_background">
+				<img src="files/images/locked.png" id="pistol50_locked_lock">
+				<div class="get_pistol50_locked">Wird freigeschaltet ab Rank 1</div>
+			</div>
+
+			<div id="shotgun_unlocked" class="d-none">
+				<img src="files/images/weapon_pumpshotgun.png" id="pumpshotgun">
+				<div id="get_pumpshotgun" class="get_pumpshotgun"
+					onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Shotgun`);"></div>
+			</div>
+			<div id="shotgun_locked">
+				<img src="files/images/weapon_pumpshotgun.png" id="pumpshotgun">
+				<img src="files/images/locked_background.png" id="pumpshotgun_locked_background">
+				<img src="files/images/locked.png" id="pumpshotgun_locked_lock">
+				<div class="get_pumpshotgun_locked">Wird freigeschaltet ab Rank 2</div>
+			</div>
+
+
+			<div id="combatpdw_unlocked" class="d-none">
+				<img src="files/images/weapon_combatpdw.png" id="combatpdw">
+				<div id="get_combatpdw" class="get_combatpdw" onclick="alt.emit(`triggerStateWeaponWindowBtn`, `PDW`);">
+				</div>
+			</div>
+			<div id="combatpdw_locked" class="d-nne">
+				<img src="files/images/weapon_combatpdw.png" id="combatpdw">
+				<img src="files/images/locked_background.png" id="combatpdw_locked_background">
+				<img src="files/images/locked.png" id="combatpdw_locked_lock">
+				<div class="get_combatpdw_locked">Wird freigeschaltet ab Rank 2</div>
+			</div>
+
+
+			<!--				 	Row 3 									-->
+			<div id="carbiner_unlocked" class="d-none">
+				<img src="files/images/weapon_carbinerifle.png" id="carbiner">
+				<div id="get_carbiner" class="get_carbiner"
+					onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Karabiner`);"></div>
+			</div>
+			<div id="carbiner_locked" class="d-nne">
+				<img src="files/images/weapon_carbinerifle.png" id="carbiner">
+				<img src="files/images/locked_background.png" id="carbiner_locked_background">
+				<img src="files/images/locked.png" id="carbiner_locked_lock">
+				<div class="get_carbiner_locked">Wird freigeschaltet ab Rank 3</div>
+			</div>
+
+			<div id="advancedrifle_unlocked" class="d-none">
+				<img src="files/images/weapon_advancedrifle.png" id="advancedrifle">
+				<div id="get_advancedrifle" class="get_advancedrifle"
+					onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Rifle`);"></div>
+			</div>
+			<div id="advancedrifle_locked" class="d-nne">
+				<img src="files/images/weapon_advancedrifle.png" id="advancedrifle">
+				<img src="files/images/locked_background.png" id="advancedrifle_locked_background">
+				<img src="files/images/locked.png" id="advancedrifle_locked_lock">
+				<div class="get_advancedrifle_locked">Wird freigeschaltet ab Rank 3</div>
+			</div>
+
+			<div id="sniperrifle_unlocked" class="d-none">
+				<img src="files/images/weapon_sniperrifle.png" id="sniperrifle">
+				<div id="get_sniperrifle" class="get_sniperrifle"
+					onclick="alt.emit(`triggerStateWeaponWindowBtn`, `Sniper`);"></div>
+			</div>
+			<div id="sniperrifle_locked" class="d-nne">
+				<img src="files/images/weapon_sniperrifle.png" id="sniperrifle">
+				<img src="files/images/locked_background.png" id="sniperrifle_locked_background">
+				<img src="files/images/locked.png" id="sniperrifle_locked_lock">
+				<div class="get_sniperrifle_locked">Wird freigeschaltet ab Rank 4</div>
+			</div>
+
+			<div id="mag_info"><br><br>Test</div>
+
+			<div class="close" onclick="alt.emit(`destroyStateWeaponWindow`);">X</div>
+		</center>
+	</div>
+</body>
+
+</html>
