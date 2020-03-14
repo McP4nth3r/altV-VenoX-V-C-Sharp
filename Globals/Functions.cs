@@ -12,26 +12,6 @@ namespace VenoXV.Globals
     {
         public static List<BlipModel> BlipList = new List<BlipModel>();
         
-        public static bool IstargetInAnotherLobby(IPlayer player, IPlayer target)
-        {
-            try
-            {
-                string CurrentPlayerLobby = player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE);
-                string CurrenttargetLobby = target.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE);
-                if (CurrentPlayerLobby != CurrenttargetLobby)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }        
         public static bool IstargetInSameLobby(IPlayer player, IPlayer target)
         {
             try

@@ -1,6 +1,9 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using AltV.Net.EntitySync;
+using AltV.Net.EntitySync.ServerEvent;
+using AltV.Net.EntitySync.SpatialPartitions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +20,11 @@ namespace VenoXV.Globals
                 Reallife.Globals.Main.OnResourceStart();
                 Tactics.globals.Globals.OnResourceStart();
                 SevenTowers.Lobby.Main.OnResourceStart();
+                AltEntitySync.Init(1, 100,
+                   repository => new ServerEventNetworkLayer(repository),
+                   () => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 600),
+                   new IdProvider()
+                );
             }
             catch { }
         }
@@ -24,7 +32,7 @@ namespace VenoXV.Globals
 
 
         [ScriptEvent(ScriptEventType.ColShape)]
-        public static void OnColShape(IColShape shape, IEntity entity, bool state)
+        public static void OnColShape(IColShape shape, AltV.Net.Elements.Entities.IEntity entity, bool state)
         {
             try
             {
