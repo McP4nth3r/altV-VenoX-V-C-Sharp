@@ -119,7 +119,7 @@ namespace VenoXV.Reallife.business
         public static void OnResourceStart()
         {
             // Car dealer creation
-            Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153, 255));
+            Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new int[] { 255, 255, 255, 255 });
 
             
             BlipModel blip = new BlipModel();
