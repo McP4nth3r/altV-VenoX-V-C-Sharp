@@ -25,7 +25,7 @@ namespace VenoXV.Reallife.house
             foreach (HouseModel houseModel in houseList)
             {
                 string houseLabelText = GetHouseLabelText(houseModel);
-                RageAPI.CreateTextLabel(houseLabelText, houseModel.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255, 255), houseModel.Dimension);
+                RageAPI.CreateTextLabel(houseLabelText, houseModel.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, houseModel.Dimension);
                 //ToDo: Requesting Offices NAPI.World.RequestIpl (houseModel.ipl);
             }
         }
