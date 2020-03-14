@@ -6,6 +6,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
+let player = alt.Player.local;
 let cursor = false;
 export function ShowCursor(bool) {
     if (cursor == false && bool == false || cursor == true && bool == true) {
@@ -48,8 +49,43 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 }
 
 
+
+
+
+
+
+
+export function Draw3DText(msg, pos, fontType, color, scale, range, useOutline = true, useDropShadow = true, layer = 0) {
+    alt.log(msg + " | " + pos + " | " + fontType + " | " + color + " | " + scale + " | " + range)
+    let hex = msg.match('{.*}');
+    if (hex) {
+        const rgb = hexToRgb(hex[0].replace('{', '').replace('}', ''));
+        color[0] = rgb[0];
+        color[1] = rgb[1];
+        color[2] = rgb[2];
+        msg = msg.replace(hex[0], '');
+    }
+
+    native.setDrawOrigin(pos[0], pos[1], pos[2], 0);
+    native.beginTextCommandDisplayText('STRING');
+    native.addTextComponentSubstringPlayerName(msg);
+    native.setTextFont(fontType);
+    native.setTextScale(1, scale);
+    native.setTextWrap(0.0, 1.0);
+    native.setTextCentre(true);
+    native.setTextColour(color[0], color[1], color[2], color[3]);
+
+    if (useOutline) native.setTextOutline();
+
+    if (useDropShadow) native.setTextDropShadow();
+
+    native.endTextCommandDisplayText(0, 0);
+    native.clearDrawOrigin();
+}
+
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     let blip = new alt.PointBlip(pos[0], pos[1], pos[2]);
+    blip.alpha = 10;
     blip.sprite = sprite;
     blip.color = color;
     blip.shortRange = shortrange;
