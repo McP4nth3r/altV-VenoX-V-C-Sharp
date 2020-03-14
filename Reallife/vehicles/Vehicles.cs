@@ -174,10 +174,12 @@ namespace VenoXV.Reallife.Vehicles
 
 
         [Command("sellcarto")]
-        public static void SellCarTo(IPlayer player, IPlayer target, int FahrzeugID, int Preis)
+        public static void SellCarTo(IPlayer player, string target_name, int FahrzeugID, int Preis)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if(target == null) { return; }
                 IVehicle Vehicle = Vehicles.GetVehicleById(FahrzeugID);
                 if (Vehicle != null)
                 {
@@ -208,7 +210,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (player.vnxGetElementData<int>(FahrzeugID.ToString()) != null)
                     {
-                        IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
+                        string target_name = Reallife.Core.RageAPI.GetPlayerFromName(Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
                         if(target != null)
                         {
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= player.vnxGetElementData<string>(FahrzeugID.ToString()))
@@ -781,6 +783,7 @@ namespace VenoXV.Reallife.Vehicles
                                     if (factions.Allround.isStateFaction(player))
                                     {
                                         // player.WarpOutOfVehicle<bool>();
+                                        player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Polizist im Dienst!");
                                         return;
                                     }
@@ -793,6 +796,7 @@ namespace VenoXV.Reallife.Vehicles
                                     if (factions.Allround.isBadFaction(player))
                                     {
                                         // player.WarpOutOfVehicle<bool>();
+                                        player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Gang-Skin an!");
                                         return;
                                     }
@@ -805,6 +809,7 @@ namespace VenoXV.Reallife.Vehicles
                                     if (factions.Allround.isNeutralFaction(player))
                                     {
                                         // player.WarpOutOfVehicle<bool>();
+                                        player.WarpOutOfVehicle<bool>();
                                         dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Fraktion´s-Skin an!");
                                         return;
                                     }
