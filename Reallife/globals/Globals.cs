@@ -1524,13 +1524,15 @@ namespace VenoXV.Reallife.Globals
     
 
         //[AltV.Net.ClientEvent("getPlayerTattoos")]
-        public void GetPlayerTattoosEvent(IPlayer player, IPlayer targetPlayer)
+        public void GetPlayerTattoosEvent(IPlayer player, string target_name)
         {
             try
             {
-                int targetId = targetPlayer.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
+                int targetId = target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                 List<TattooModel> playerTattooList = tattooList.Where(t => t.player == targetId).ToList();
-                player.Emit("updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), targetPlayer);
+                player.Emit("updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), target);
             }
             catch { }
         }
