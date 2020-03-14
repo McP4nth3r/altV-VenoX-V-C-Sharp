@@ -43,7 +43,7 @@ namespace VenoXV.Reallife.character
                     }
                 }
             }
-            catch { }
+            catch(Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
         }
 
         public static void ApplyPlayerTattoos(IPlayer player)
