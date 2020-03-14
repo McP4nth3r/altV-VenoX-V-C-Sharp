@@ -290,8 +290,8 @@ namespace VenoXV.Reallife.jobs
                 
                 foreach (JobPickModel job in jobList)
                 {
-                    RageAPI.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new Rgba(0, 150, 200, 255), 0);
-                    RageAPI.CreateTextLabel("Bist du interessiert hier zu Arbeiten?", new Position(job.position.X, job.position.Y, job.position.Z - 0.1f), 10.0f, 0.5f, 4, new Rgba(0, 150, 200, 255), 0);
+                    RageAPI.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new int[] { 0, 150, 200, 255 }, 0);
+                    RageAPI.CreateTextLabel("Bist du interessiert hier zu Arbeiten?", new Position(job.position.X, job.position.Y, job.position.Z - 0.1f), 10.0f, 0.5f, 4, new int[] { 0, 150, 200, 255 }, 0);
                 }
                 Reallife.jobs.Bus.Busjob.OnResourceStart(); // Bus - Sign Loading.
             }
