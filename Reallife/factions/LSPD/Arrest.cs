@@ -97,13 +97,15 @@ namespace VenoXV.Reallife.factions.LSPD
         }
 
         [Command("tie")]
-        public static void TiePlayerinIVehicle(IPlayer player, IPlayer target)
+        public static void TiePlayerinIVehicle(IPlayer player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    if(player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
+                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    if (target == null) { return; }
+                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Staatsfraktionist im Dienst!");
                         return;
@@ -171,12 +173,14 @@ namespace VenoXV.Reallife.factions.LSPD
 
 
         [Command("grab")]
-        public static void GrabPlayer(IPlayer player, IPlayer target)
+        public static void GrabPlayer(IPlayer player, string target_name)
         {
             try
             {
                 if(Allround.isStateFaction(player))
                 {
+                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    if (target == null) { return; }
                     if (player.IsInVehicle)
                     {
                         if (target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED))
@@ -199,9 +203,11 @@ namespace VenoXV.Reallife.factions.LSPD
 
 
         [Command("arrest",  true)]
-        public void ArrestPlayerCMD(IPlayer player, IPlayer target, string kaution)
+        public void ArrestPlayerCMD(IPlayer player, string target_name, string kaution)
         {
             try {
+                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 Position arrestpositioncar = new Position(479.1359f, -1021.734f, 28.00093f);
                 if (player.Position.Distance(arrestpositioncar) < 3.5f)
                 {

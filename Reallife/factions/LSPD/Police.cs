@@ -25,9 +25,11 @@ namespace VenoXV.Reallife.factions
     public class Police : IScript
     {
         [Command("zeigen")]
-        public static void ShowToPlayerLicense(IPlayer player, IPlayer target)
+        public static void ShowToPlayerLicense(IPlayer player, string target_name)
         {
             try {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.Position.Distance(target.Position) < 5)
                 {
                     string Lizenzen = "";
@@ -74,10 +76,12 @@ namespace VenoXV.Reallife.factions
 
 
         [Command("frisk")]
-        public static void FriskPlayer(IPlayer player, IPlayer target)
+        public static void FriskPlayer(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.Position.Distance(target.Position) < 5)
                 {
                     string inventory = RageAPI.GetHexColorcode(175,0,0) + " Gegenstände von " + target.Name + " : " + RageAPI.GetHexColorcode(255,255,255) + "";
@@ -115,12 +119,14 @@ namespace VenoXV.Reallife.factions
         }
 
         [Command("takeillegal")]
-        public static void Takeillegal(IPlayer player, IPlayer target)
+        public static void Takeillegal(IPlayer player, string target_name)
         {
             try
             {
                 if(Allround.isStateFaction(player))
                 {
+                    IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                    if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                     {
                         if (player.Position.Distance(target.Position) < 5)
@@ -1276,7 +1282,7 @@ namespace VenoXV.Reallife.factions
         */
 
         [Command("ausknasten")]
-        public void RemovePlayerFromKnast(IPlayer player, IPlayer target)
+        public void RemovePlayerFromKnast(IPlayer player, string target_name)
         {
             try
             {
@@ -1285,6 +1291,8 @@ namespace VenoXV.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= 3)
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
@@ -1308,17 +1316,17 @@ namespace VenoXV.Reallife.factions
 
 
         [Command("suspect",  true)]
-        public void GivePlayerStars_LongVersion(IPlayer player, IPlayer target, string action)
+        public void GivePlayerStars_LongVersion(IPlayer player, string target_name, string action)
         {
             try
             {
-                GivePlayerStars(player, target, action);
+                GivePlayerStars(player, target_name, action);
             }
             catch { }
         }
 
         [Command("su",  true)]
-        public void GivePlayerStars(IPlayer player, IPlayer target, string action)
+        public void GivePlayerStars(IPlayer player, string target_name, string action)
         {
             try
             {
@@ -1327,6 +1335,8 @@ namespace VenoXV.Reallife.factions
                     player.SendChatMessage("Du bist kein Staatsfraktionist!");
                     return;
                 }
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
 
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
@@ -1525,7 +1535,7 @@ namespace VenoXV.Reallife.factions
             catch { }
         }
         [Command("clear",  true)]
-        public void Clearuserwanteds(IPlayer player, IPlayer target)
+        public void Clearuserwanteds(IPlayer player, string target_name)
         {
             try
             {
@@ -1534,8 +1544,9 @@ namespace VenoXV.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
 
-                // We check whether the player is connected
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
