@@ -442,9 +442,9 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             catch { }
         }
 
-        public static void SpectatePlayer(IPlayer player, IPlayer Target, int einsfürfalse)
+        public static void SpectatePlayer(IPlayer player, string target_name, int einsfürfalse)
         {
-            player.Emit("VnX_Start_S", Target, einsfürfalse);
+           // player.Emit("VnX_Start_S", Target, einsfürfalse);
         }
 
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
