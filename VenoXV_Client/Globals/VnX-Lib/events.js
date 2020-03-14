@@ -8,7 +8,7 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/VenoXV/Lobby';
 import { OnCameraEveryTick } from './camera';
-import { DrawText, CreateBlip } from './index';
+import { DrawText, Draw3DText, CreateBlip } from './index';
 import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
 import { RenderTacho } from '../Anzeigen/tacho';
@@ -20,7 +20,6 @@ export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
 export let PLAYER_LOBBY_TACTICS = "Tactics";
 export let PLAYER_LOBBY_7TOWERS = "Seven-Towers";
-
 
 let CurrentLobby = PLAYER_LOBBY_REALLIFE;
 let LocalPlayer = alt.Player.local;
@@ -233,11 +232,12 @@ let CurrentFPS = 0;
 alt.setInterval(() => {
     CurrentFPS = game.getFrameCount() - lastFrameCount;
     lastFrameCount = game.getFrameCount();
-}, 1000);
+}, 2000);
 
 function DrawGlobalHUD() {
     DrawText(CurrentFPS.toString(), [0.99, 0.001], [0.5, 0.5], 0, [0, 105, 145, 200], true, true);
 }
+
 
 alt.everyTick(() => {
     DrawGlobalHUD();
