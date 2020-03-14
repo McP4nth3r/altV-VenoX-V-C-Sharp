@@ -13,10 +13,12 @@ namespace VenoXV.Reallife.factions.WeazelNews
     public class WeazelNews : IScript
     {
         [Command("requestlive")]
-        public void SendIPlayerLiveOffer(IPlayer player, IPlayer target)
+        public void SendIPlayerLiveOffer(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                 {
                     /*if(target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
@@ -41,10 +43,12 @@ namespace VenoXV.Reallife.factions.WeazelNews
         }
 
         [Command("acceptlive")]
-        public void AcceptLiveOffcer(IPlayer player, IPlayer target)
+        public void AcceptLiveOffcer(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.Name)
                 {
                     Core.VnX.SetSharedSettingsData(player, "settings_reporter", "ja");
@@ -95,6 +99,7 @@ namespace VenoXV.Reallife.factions.WeazelNews
         {
             try
             {
+
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
                     string targetName = player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON");
