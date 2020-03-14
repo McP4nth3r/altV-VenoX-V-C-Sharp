@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj": {}
+    "C:\\altv-server_DEBUG\\resources\\VenoXReallife_AltV\\VenoXV.csproj": {}
   },
   "projects": {
-    "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj": {
+    "C:\\altv-server_DEBUG\\resources\\VenoXReallife_AltV\\VenoXV.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj",
+        "projectUniqueName": "C:\\altv-server_DEBUG\\resources\\VenoXReallife_AltV\\VenoXV.csproj",
         "projectName": "VenoXV",
-        "projectPath": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\VenoXV.csproj",
-        "packagesPath": "C:\\Users\\Fynn\\.nuget\\packages\\",
-        "outputPath": "D:\\[VenoX]\\[VenoX - V]\\Backup\\5.3. 19.40\\VenoXReallife_AltV\\obj\\",
+        "projectPath": "C:\\altv-server_DEBUG\\resources\\VenoXReallife_AltV\\VenoXV.csproj",
+        "packagesPath": "C:\\Users\\LIQUID\\.nuget\\packages\\",
+        "outputPath": "C:\\altv-server_DEBUG\\resources\\VenoXReallife_AltV\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Fynn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LIQUID\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +25,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-experimental/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -43,7 +44,7 @@
           "dependencies": {
             "AltV.Net": {
               "target": "Package",
-              "version": "[1.27.2, )"
+              "version": "[1.27.4, )"
             },
             "AltV.Net.Async": {
               "target": "Package",
@@ -55,15 +56,11 @@
             },
             "AltV.Net.EntitySync": {
               "target": "Package",
-              "version": "[1.0.19-dev-preview, )"
+              "version": "[1.0.20-dev-preview, )"
             },
             "AltV.Net.EntitySync.ServerEvent": {
               "target": "Package",
               "version": "[1.0.19-dev-preview, )"
-            },
-            "AltV.Net.NetworkingEntity": {
-              "target": "Package",
-              "version": "[1.10.0-dev-preview, )"
             },
             "AltV.Net.Resources.Chat.Api": {
               "target": "Package",
@@ -97,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
