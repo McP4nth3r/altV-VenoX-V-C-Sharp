@@ -16,6 +16,7 @@ using VenoXV.Reallife.character;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using AltV.Net.Async;
+using System.Linq;
 
 namespace VenoXV.Reallife.register_login
 {
@@ -546,10 +547,9 @@ namespace VenoXV.Reallife.register_login
             try
             {
                 List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
+
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
                 player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
-                Console.WriteLine("Blip Gesendet!");
-                // Player must have a character selected
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID) <= 0)
                 {
@@ -644,9 +644,6 @@ namespace VenoXV.Reallife.register_login
                             }
                             PlayerModel character = Database.LoadCharacterInformationById(player_uid);
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
-                            Core.Debug.OutputDebugString("PLAYER_UID : " + player_uid);
-                            Core.Debug.OutputDebugString("skinModel : " + skinModel.ToString());
-                            Core.Debug.OutputDebugString("skinModel 2 : " + skinModel);
                             if (character != null && character.realName != null)
                             {
                                 player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
