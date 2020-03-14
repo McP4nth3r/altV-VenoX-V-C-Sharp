@@ -98,10 +98,12 @@ namespace VenoXV.Reallife.factions
 
 
         [Command("heal")]
-        public void HealIPlayerMedic(IPlayer player, IPlayer target)
+        public void HealIPlayerMedic(IPlayer player, string target_name)
         {
             try
             {
+                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {
                     if (player.IsInVehicle)
