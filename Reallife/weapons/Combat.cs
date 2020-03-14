@@ -75,7 +75,7 @@ namespace VenoXV.Reallife.weapons
 
 
         //[AltV.Net.ClientEvent("OnHittedEntity")]
-        public static void OnHittedEntity(IPlayer player, IPlayer target, string currentWeapon, string hitBone)
+        public static void OnHittedEntity(IPlayer player, string target_name, string currentWeapon, string hitBone)
         {
             try
             {
