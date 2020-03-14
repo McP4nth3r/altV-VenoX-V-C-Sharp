@@ -93,7 +93,7 @@ namespace VenoXV.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessDamage(IPlayer source, IPlayer target, float damage)
+        public void ProcessDamage(IPlayer source, string target_name, float damage)
         {
             try
             {

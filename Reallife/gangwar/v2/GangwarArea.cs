@@ -65,7 +65,7 @@ namespace VenoXV.Reallife.gangwar.v2
                 this.TKIColShape = Alt.CreateColShapeSphere(this.TK, gangwar.v2.GangwarManager.TKRange);
                 //ToDo Create Marker NAPI.Marker.CreateMarker(3, this.TK, new Position(0, 0, 0), new Position(0, 0, 0), 0.75f, new Rgba(200, 200, 200, 150), true, 0);
 
-                RageAPI.CreateTextLabel("TK", new Position(this.TK.X, this.TK.Y, this.TK.Z + 0.13f), 20.0f, 2f, 4, new Rgba(0, 150, 200, 255));
+                RageAPI.CreateTextLabel("TK", new Position(this.TK.X, this.TK.Y, this.TK.Z + 0.13f), 20.0f, 2f, 4, new int[] { 0, 150, 200, 255 });
                 this.TKIColShape.SetData(gangwar.v2.GangwarManager.TKType, true);
 
                 /* GANGWAR GEBIET */
