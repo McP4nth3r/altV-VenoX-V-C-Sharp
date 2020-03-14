@@ -103,10 +103,15 @@ namespace VenoXV.Reallife.chat
         
 
         //[ServerEvent(Event.ChatMessage)]
+        [ClientEvent("chat:message")]
         public void OnChatMessage(IPlayer player, string message)
         {
             try
             {
+                if(message[0] === '/')
+                {
+
+                }
                 if(player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == globals.EntityData.GAMEMODE_TACTICS)
                 {
                     Tactics.chat.Chat.OnChatMessage(player, message);
