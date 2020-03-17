@@ -108,10 +108,10 @@ namespace VenoXV.Reallife.bank
                            target.SendChatMessage(RageAPI.GetHexColorcode(0,255,0) +player.GetVnXName<string>() + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - value);
                             Core.VnX.vnxSetSharedData(target, Core.VnX.PLAYER_BANKMONEY, target.vnxGetElementData<int>(EntityData.PLAYER_BANK) + value);
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Name + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " +player.GetVnXName<string>() + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.GetVnXName<string>() + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
-                                admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " hat " + target.Name + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
+                                admin.Admin.sendAdminNotification(player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
                             }
                         }
                     }
