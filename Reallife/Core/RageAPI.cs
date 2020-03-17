@@ -138,7 +138,6 @@ namespace VenoXV.Reallife.Core
             };
             try { element.Emit("HeadShape:Load", JsonConvert.SerializeObject(modellist)); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetCustomization", ex); }
-            modellist.Clear();
         }
 
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
