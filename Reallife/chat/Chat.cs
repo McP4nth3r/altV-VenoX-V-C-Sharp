@@ -17,11 +17,8 @@ namespace VenoXV.Reallife.chat
         {
             try
             {
-                if(player.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true)
-                {
-                    return;
-                }
-                player.Emit("ScoreBoard_Allow");
+                if(player.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true) {return;}
+                //player.Emit("ScoreBoard_Allow");
                 string secondMessage = string.Empty;
                 float distanceGap = range / Constants.CHAT_RANGES;
 
@@ -108,11 +105,10 @@ namespace VenoXV.Reallife.chat
         {
             try
             {
-                if(message[0] === '/')
-                {
-
-                }
-                if(player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == globals.EntityData.GAMEMODE_TACTICS)
+                
+                if(message[0].ToString() == "/") { return; }
+                else { Core.Debug.OutputDebugString(message[0].ToString()); }
+                if (player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == globals.EntityData.GAMEMODE_TACTICS)
                 {
                     Tactics.chat.Chat.OnChatMessage(player, message);
                 }
