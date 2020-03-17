@@ -61,12 +61,12 @@ namespace VenoXV.Reallife.factions
                     else { Lizenzen = Lizenzen + " Angelschein  [ ✘ ]"; }
 
 
-                    player.SendChatMessage( "Du hast " + target.Name + " deine Lizenzen gezeigt!");
+                    player.SendChatMessage( "Du hast " + target.GetVnXName<string>() + " deine Lizenzen gezeigt!");
                    target.SendChatMessage( RageAPI.GetHexColorcode(200,0,200) + "Vorhandene Lizenzen von " + player.GetVnXName<string>() + " : " + RageAPI.GetHexColorcode(200,200,0) + " Lizenzen");
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.Name + " entfernt!");
+                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName<string>() + " entfernt!");
                 }
             }
             catch
@@ -84,7 +84,7 @@ namespace VenoXV.Reallife.factions
                 if (target == null) { return; }
                 if (player.Position.Distance(target.Position) < 5)
                 {
-                    string inventory = RageAPI.GetHexColorcode(175,0,0) + " Gegenstände von " + target.Name + " : " + RageAPI.GetHexColorcode(255,255,255) + "";
+                    string inventory = RageAPI.GetHexColorcode(175,0,0) + " Gegenstände von " + target.GetVnXName<string>() + " : " + RageAPI.GetHexColorcode(255,255,255) + "";
 
                     ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
                     ItemModel WEED = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_WEED);
@@ -110,7 +110,7 @@ namespace VenoXV.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.Name + " entfernt!");
+                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName<string>() + " entfernt!");
                 }
             }
             catch
@@ -131,7 +131,7 @@ namespace VenoXV.Reallife.factions
                     {
                         if (player.Position.Distance(target.Position) < 5)
                         {
-                            string inventory = RageAPI.GetHexColorcode(175,0,0) + " Gegenstände von " + target.Name + " : " + RageAPI.GetHexColorcode(255,255,255) + "";
+                            string inventory = RageAPI.GetHexColorcode(175,0,0) + " Gegenstände von " + target.GetVnXName<string>() + " : " + RageAPI.GetHexColorcode(255,255,255) + "";
 
                             ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
                             ItemModel WEED = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_WEED);
@@ -156,11 +156,11 @@ namespace VenoXV.Reallife.factions
                             }
 
                             target.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) +player.GetVnXName<string>() + " hat dir deine Illegalen Gegenstaende abgenommen!");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast " + target.Name + " seine Illegalen Gegenstaende abgenommen!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast " + target.GetVnXName<string>() + " seine Illegalen Gegenstaende abgenommen!");
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.Name + " entfernt!");
+                            dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName<string>() + " entfernt!");
                         }
                     }
                     else
@@ -1302,7 +1302,7 @@ namespace VenoXV.Reallife.factions
                         target.Position = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;
                        target.SendChatMessage( RageAPI.GetHexColorcode(0,150,0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                        Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,105,145) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.Name + " ausgeknastet.");
+                        Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,105,145) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " ausgeknastet.");
                     }
                 }
                 else
@@ -1520,7 +1520,7 @@ namespace VenoXV.Reallife.factions
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
-                            targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0,145,200) +Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat das Fahndungslevel von " + target.Name + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                            targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0,145,200) +Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat das Fahndungslevel von " + target.GetVnXName<string>() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
 
                         }
                     }
@@ -1529,7 +1529,7 @@ namespace VenoXV.Reallife.factions
                 }
                 else
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + target.Name + " ist grade am Connecten....");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + target.GetVnXName<string>() + " ist grade am Connecten....");
                 }
             }
             catch { }
@@ -1564,14 +1564,14 @@ namespace VenoXV.Reallife.factions
                         {
                             if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 1)
                             {
-                                targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0,145,200) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat die Akte von " + target.Name + " Gelöscht!");
+                                targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0,145,200) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat die Akte von " + target.GetVnXName<string>() + " Gelöscht!");
                             }
                         }
                     }
                 }
                 else
                 {
-                    player.SendChatMessage(target.Name + " ist grade am Connecten...");
+                    player.SendChatMessage(target.GetVnXName<string>() + " ist grade am Connecten...");
                 }
             }
             catch { }
