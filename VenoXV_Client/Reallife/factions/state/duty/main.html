@@ -1,0 +1,46 @@
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script>
+
+        if ("alt" in window) {
+            alt.on("Duty:Load", (e, name) => {
+                document.getElementById('text_head').innerHTML = "Willkommen Officer " + name;
+                document.getElementById('text_info').innerHTML = e;
+            });
+        }
+    </script>
+</head>
+
+
+<body>
+    <div class="all">
+        <div class="back"></div>
+        <div class="blue_header"></div>
+
+        <center>
+            <div class="text_head" id="text_head"></div>
+            <div class="text_info" id="text_info"></div>
+            <div class="duty" onclick="ButtonPressed('goDUTYServer')">Duty</div>
+            <div class="noose" onclick="ButtonPressed('goSWATServer')">S.W.A.T</div>
+            <div class="offduty" onclick="ButtonPressed('goOFFDUTYServer')">Off-Duty</div>
+            <div class="close" onclick="CloseStateWindow()">X</div>
+
+            <script>
+                function ButtonPressed(button) {
+                    if ("alt" in window) {
+                        alt.emit("ButtonPressed", button);
+                    }
+                }
+                function CloseStateWindow() {
+                    if ("alt" in window) {
+                        alt.emit("destroyDutyWindow");
+                    }
+                }
+            </script>
+
+        </center>
+    </div>
+
+</body>

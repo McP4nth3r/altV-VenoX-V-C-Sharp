@@ -18,6 +18,8 @@ import * as environment_house from '/VenoXV_Client/Reallife/environment/house/in
 import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
 import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
 import * as StateFguns from '/VenoXV_Client/Reallife/factions/state_fguns/index.js';
+import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
+import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js';
 game.requestIpl('chop_props');
 game.requestIpl('FIBlobby');
 game.removeIpl('FIBlobbyfake');

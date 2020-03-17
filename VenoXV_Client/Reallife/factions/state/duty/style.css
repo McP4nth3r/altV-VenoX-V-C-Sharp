@@ -1,0 +1,150 @@
+.back {
+	background: rgba(10, 10, 10, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 20vw;
+    border-radius: 0.3vw;
+    top: 13vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.blue_header {
+	background: rgba(0, 150, 200, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 13vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_head {
+	background: rgba(10, 10, 10, 0.4);
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.5vw;
+	font-family: sans-serif;
+    top: 13.4vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_info {
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1vw;
+	font-family: sans-serif;
+    top: 18.5vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.duty {
+	position: absolute;
+	padding: 0.5vw 1vw;
+	width: 6vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-weight: bold;  
+    font-size: 1vw;
+    top: 25.7vw;
+    left: 38%;
+    transform: translate(-50%);
+}
+.duty:hover, .duty:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.noose {
+	position: absolute;
+	padding: 0.5vw 1vw;
+	width: 6vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-weight: bold;
+    font-size: 1vw;
+    top: 25.7vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+.noose:hover, .noose:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.offduty {
+	position: absolute;
+	padding: 0.5vw 1vw;
+	width: 6vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-weight: bold;
+    font-size: 1vw;
+    top: 25.7vw;
+    left: 62%;
+    transform: translate(-50%);
+}
+.offduty:hover, .offduty:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 13.6vw;
+    left: 66.5%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}

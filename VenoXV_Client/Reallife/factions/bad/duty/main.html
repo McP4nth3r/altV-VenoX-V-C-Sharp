@@ -1,0 +1,44 @@
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script>
+
+        if ("alt" in window) {
+            alt.on("Duty:Load", () => {
+                document.getElementById('text_head').innerHTML = "Fraktion´s Skin";
+                document.getElementById('skin_info').innerHTML = "Hier kannst du deinen Fraktion Skin an/ausziehen";
+            });
+        }
+
+
+    </script>
+</head>
+
+
+<body>
+
+    <div class="all">
+        <div class="back"></div>
+
+        <div class="text_head" id="text_head">Gang Klamotten</div>
+        <div class="skin_info" id="skin_info">Hier kannst du deinen Gang Skin an/ausziehen</div>
+        <div class="skin_btn" onclick="TriggerSelectedButton('anziehen');">Anziehen</div>
+        <div class="skin_btn2" onclick="TriggerSelectedButton('ausziehen');">Ausziehen</div>
+        <div class="close" onclick="CloseBadWindow()">X</div>
+
+        <script>
+            function TriggerSelectedButton(text) {
+                if ("alt" in window) {
+                    alt.emit("duty_window_bad_btn_pressed", text);
+                }
+            }
+            function CloseBadWindow() {
+                if ("alt" in window) {
+                    alt.emit("destroy_duty_window_bad");
+                }
+            }
+        </script>
+    </div>
+
+</body>

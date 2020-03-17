@@ -1,0 +1,128 @@
+@font-face { font-family: 'drugs';
+             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+
+.all {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+}
+
+/* Hintergrund */
+
+.back {
+	background: rgba(15, 15, 15, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 15vw;
+    border-radius: 0.3vw;
+    top: 15vw;
+    left: 50%;
+    transform: translate(-50%);
+    border-top: 0.3vw solid rgba(0, 105, 150, 0.6);
+}
+
+/* Überschrift */
+
+.text_head {
+	background: rgba(15, 15, 15, 0.6);
+	position: absolute;
+	color: white;
+	width: 35vw;
+	font-size: 1.5vw;
+	font-family: drugs;
+    top: 15.3vw;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    padding: 0.2vw 0vw;
+}
+
+/* Skin Info */
+
+.skin_info {
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.2vw;
+	font-family: robot;
+    top: 20.6vw;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+}
+
+/* Skin Button An */
+
+.skin_btn {
+	position: absolute;
+	padding: 0.2vw 0vw;
+	width: 12vw;
+	background: rgba(0, 150, 0, 0.4);
+	color: white;
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 0.15s;
+    font-weight: bold;  
+    font-size: 1.5vw;
+    top: 24.5vw;
+    left: 42%;
+    transform: translate(-50%);
+    font-family: robot;
+    text-align: center;
+}
+.skin_btn:hover, .skin_btn:active {
+    position: absolute;
+	outline: none;
+	background: rgba(0, 220, 0, 0.6);
+	color: white;
+}
+
+/* Skin Button Aus */
+
+.skin_btn2 {
+	position: absolute;
+	padding: 0.2vw 0vw;
+	width: 12vw;
+	background: rgb(170, 0, 0, 0.4);
+	color: white;
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 0.15s;
+    font-weight: bold;  
+    font-size: 1.5vw;
+    top: 24.5vw;
+    left: 58%;
+    transform: translate(-50%);
+    font-family: robot;
+    text-align: center;
+}
+.skin_btn2:hover, .skin_btn2:active {
+    position: absolute;
+	outline: none;
+	background: rgb(220, 0, 0, 0.6);
+	color: white;
+}
+
+/* Close Button */
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 15.8vw;
+    left: 66.5%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}

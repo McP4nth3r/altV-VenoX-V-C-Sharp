@@ -60,7 +60,7 @@ function isBadFaction(player) {
 	return false;
 }
 
-alt.everyTick(() => {
+export function DrawNametags() {
 	let players = alt.Player.all;
 	/*let graphics = mp.game.graphics;
 	let screenRes = graphics.getScreenResolution(0, 0);
@@ -115,8 +115,7 @@ alt.everyTick(() => {
 					DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
 					DrawText(player.getSyncedMeta("SocialState_NAMETAG"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 				}
-
 			}
 		}
 	}
-});
+}
