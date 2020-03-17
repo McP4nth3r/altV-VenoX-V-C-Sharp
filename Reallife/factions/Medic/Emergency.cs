@@ -124,8 +124,8 @@ namespace VenoXV.Reallife.factions
                                 {
                                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                                     {
-                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.GetVnXName<string>() + " hat "+target.Name + " aufgesammelt!");
-                                        medics.Emit("Destroy_MedicBlips", target.Name);
+                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.GetVnXName<string>() + " hat "+target.GetVnXName<string>() + " aufgesammelt!");
+                                        medics.Emit("Destroy_MedicBlips", target.GetVnXName<string>());
                                     }
                                 }
 
@@ -134,7 +134,7 @@ namespace VenoXV.Reallife.factions
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du zu weit von " + target.Name + " entfernt!");
+                                dxLibary.VnX.DrawNotification(player, "error", "Du zu weit von " + target.GetVnXName<string>() + " entfernt!");
                             }
                         }
                         else
