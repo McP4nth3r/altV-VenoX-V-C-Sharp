@@ -62,7 +62,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 if (Spieler.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false && Spieler.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == globals.EntityData.GAMEMODE_REALLIFE)
                 {
                     SpielerListe.FID = -1;
-                    SpielerListe.SpielerName = Spieler.Name;
+                    SpielerListe.SpielerName = Spieler.GetVnXName<string>();
                     SpielerListe.Spielzeit = "-";
                     SpielerListe.SpielzeitTactics = "-";
                     SpielerListe.VIP = "-";
@@ -97,7 +97,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     if (viplevel == "TOP DONATOR") { viplevel = "Top Donator"; }
                     if (viplevel == "UltimateRed") { viplevel = "Ultimate RED"; }
                     SpielerListe.FID = FraktionsID;
-                    SpielerListe.SpielerName = Spieler.Name;
+                    SpielerListe.SpielerName = Spieler.GetVnXName<string>();
                     SpielerListe.Spielzeit = label;
                     SpielerListe.SpielzeitTactics = "-";
                     SpielerListe.VIP = viplevel;
@@ -192,7 +192,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     G = Tactics.globals.EntityData.BFAC_Color.G;
                     B = Tactics.globals.EntityData.BFAC_Color.B;
                 }
-                SpielerListe.SpielerName = Spieler.Name;
+                SpielerListe.SpielerName = Spieler.GetVnXName<string>();
                 SpielerListe.SpielzeitTactics = label;
                 SpielerListe.SozialerStatusTactics = Spieler.vnxGetElementData<string>(EntityData.PLAYER_STATUS);                
                 SpielerListe.Spielzeit= "-";
@@ -236,7 +236,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 string playerping = Spieler.Ping.ToString();
                 SpielerListe.FID = -2;
 
-                SpielerListe.SpielerName = Spieler.Name;
+                SpielerListe.SpielerName = Spieler.GetVnXName<string>();
                 SpielerListe.Spielzeit = "-";
                 SpielerListe.SpielzeitTactics = "-";
                 SpielerListe.SozialerStatus = "Lobby";
