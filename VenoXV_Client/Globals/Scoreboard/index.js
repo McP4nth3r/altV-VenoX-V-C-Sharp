@@ -12,6 +12,7 @@ import { GetCurrentLobby, PLAYER_LOBBY_REALLIFE, PLAYER_LOBBY_TACTICS } from '..
 let CurrentBrowser = null;
 let CurrentBrowserPath = "";
 let removed = false;
+let allowed = true;
 let ReallifeScoreboardPath = "http://resource/VenoXV_Client/Globals/Scoreboard/reallife/tab.html";
 let TacticsScoreboardPath = "http://resource/VenoXV_Client/Globals/Scoreboard/tactics/tab.html";
 
@@ -46,13 +47,13 @@ alt.onServer('UpdateScoreboard_Event', (pl_li) => {
 
 
 
-
+/*
 alt.onServer('ScoreBoard_Allow', () => {
 	allowed = false;
 	alt.setTimeout(function () {
 		allowed = true;
 	}, 350);
-});
+});*/
 
 
 export function KeyDown(key) {
