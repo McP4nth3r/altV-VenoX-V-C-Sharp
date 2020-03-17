@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.Vehicles
                             // Sell cAr
                            target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
                            target.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Du hast " + target.Name + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "Du hast " + target.GetVnXName<string>() + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
                             Core.VnX.vnxSetSharedData(target, FahrzeugID.ToString(), Preis);
                         }
                     }
@@ -219,12 +219,12 @@ namespace VenoXV.Reallife.Vehicles
                                 {
                                     Vehicle.SetData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                                     Vehicle.SetSyncedMetaData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.GetVnXName<string>() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.GetVnXName<string>() + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
                                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
                                     Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_MONEY, target.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + player.vnxGetElementData(FahrzeugID.ToString()));
                                     player.SetData(FahrzeugID.ToString(), null);
-                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.GetVnXName<string>() + " hat das Fahrzeug von " + target.Name + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.GetVnXName<string>() + " hat das Fahrzeug von " + target.GetVnXName<string>() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                 }
                             }
                             else { dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!"); }
