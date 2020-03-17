@@ -83,7 +83,7 @@ namespace VenoXV.Reallife.weapons
                 // DEBUG - DEV
                 /*
                 NAPI.Chat.SendChatMessageToAll("Hitbone : " + hitBone);
-                NAPI.Chat.SendChatMessageToAll("target : " + target.Name);
+                NAPI.Chat.SendChatMessageToAll("target : " + target.GetVnXName<string>());
                 NAPI.Chat.SendChatMessageToAll("currentWeapon : " + currentWeapon);*/
                 /*
                 if (target != null) // If Target is a Real Player Niggah
