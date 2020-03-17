@@ -119,7 +119,7 @@ namespace VenoXV.Reallife.Environment
             {
                 IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                logfile.WriteLogs("damage",player.GetVnXName<string>() +  " hat das Fahrzeug von " + target.Name + "["+ target.Vehicle.Model.ToString() +"] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg); 
+                logfile.WriteLogs("damage",player.GetVnXName<string>() +  " hat das Fahrzeug von " + target.GetVnXName<string>() + "["+ target.Vehicle.Model.ToString() +"] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg); 
             }
             catch
             {
@@ -134,7 +134,7 @@ namespace VenoXV.Reallife.Environment
             {
                 IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                logfile.WriteLogs("damage",player.GetVnXName<string>() + " hat den Spieler " + target.Name + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
+                logfile.WriteLogs("damage",player.GetVnXName<string>() + " hat den Spieler " + target.GetVnXName<string>() + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }
             catch
             {

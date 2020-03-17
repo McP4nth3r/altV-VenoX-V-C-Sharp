@@ -105,9 +105,8 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.SetData("PRUEFUNGS_AUTO", true);
                 PruefungsAuto.SetData("PRUEFUNGS_AUTO_BESITZER",player.GetVnXName<string>());
 
-
-                Core.VnX.SetDelayedINTSharedData(player, "Marker_Pruefung", 0, 1400);
-                Core.VnX.SetDelayedBoolSharedData(player, "PLAYER_DRIVINGSCHOOL", true, 1400);
+                Core.VnX.SetDelayedData(player, new string[] { "Marker_Pruefung", "0", "string", "1400" });
+                Core.VnX.SetDelayedData(player, new string[] { "PLAYER_DRIVINGSCHOOL", "true", "bool", "1400" });
 
 
                 player.SetData("PRUEFUNGS_NAME", "AUTO");
