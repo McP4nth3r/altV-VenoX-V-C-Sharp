@@ -159,6 +159,7 @@ namespace VenoXV.Reallife.factions
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Nicht befugt!");
+                        Console.WriteLine("ColShape Player hit : " + player.GetVnXName<string>());
                         Console.WriteLine("FID" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                         Console.WriteLine("FID COL " + shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                     }
