@@ -6,8 +6,9 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives"
-import { ShowCursor } from '../../Globals/VnX-Lib';
+import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
 import { CamerasManager } from '../../Globals/VnX-Lib/Camera';
+import { KeyUp, KeyDown } from '../../Globals/Scoreboard';
 
 let loginbrowser = null;
 let Login_Timer_Load = undefined;
@@ -48,6 +49,21 @@ function OnPlayerSpawnLoad() {
 	for (const stat of statNames) game.statSetInt(statNames, 100, false);
 };
 
+
+export function BasicKeyBinds(key) {
+	switch (key) {
+		case 0x4B:
+			if (alt.Player.local.vehicle && game.getPedInVehicleSeat(alt.Player.local.vehicle.scriptID, -1) == alt.Player.local.scriptID && !GetCursorStatus()) {
+				alt.emitServer("engineOnEventKey");
+			}
+			break;
+		case 0x45:
+			//if (!GetCursorStatus()) {
+			alt.emitServer("checkPlayerEventKey");
+			//}
+			break;
+	}
+}
 
 
 alt.onServer('DestroyLoginWindow', () => {
