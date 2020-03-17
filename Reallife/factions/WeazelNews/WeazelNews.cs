@@ -26,11 +26,11 @@ namespace VenoXV.Reallife.factions.WeazelNews
                         dxLibary.VnX.DrawNotification(player, "error", "Du kannst keinen Arbeitskollegen Interviewn.");
                         return;
                     }*/
-                    player.SendChatMessage( RageAPI.GetHexColorcode(0,175,0) + "Du hast " + target.Name + " eine Anfrage geschickt!");
+                    player.SendChatMessage( RageAPI.GetHexColorcode(0,175,0) + "Du hast " + target.GetVnXName<string>() + " eine Anfrage geschickt!");
                    target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat dir eine Live Anfrage gesendet!");
                    target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Nutze /acceptlive " +player.GetVnXName<string>() + " um Live zu gehen");
                     target.SetData("LIVE_ANFRAGE_ERHALTEN_VON",player.GetVnXName<string>());
-                    player.SetData("LIVE_ANFrAGE_GESENDET_AN", target.Name);
+                    player.SetData("LIVE_ANFrAGE_GESENDET_AN", target.GetVnXName<string>());
                 }
                 else
                 {
@@ -49,11 +49,11 @@ namespace VenoXV.Reallife.factions.WeazelNews
             {
                 IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.Name)
+                if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.GetVnXName<string>())
                 {
                     Core.VnX.SetSharedSettingsData(player, "settings_reporter", "ja");
                     Core.VnX.SetSharedSettingsData(target, "settings_reporter", "ja");
-                    player.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Du bist nun Live mit " + target.Name + "!");
+                    player.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + "Du bist nun Live mit " + target.GetVnXName<string>() + "!");
                     player.SendChatMessage( RageAPI.GetHexColorcode(175,175,0)+"Nutze /live [Text] um das Interview durchzuführen!");
                    target.SendChatMessage( RageAPI.GetHexColorcode(175,175,0) + player.GetVnXName<string>() + " hat deine Live Anfrage Bestätigt! Ihr seid nun Live! Nutze /live [Text] um ein Interview durchzuführen!");
                     player.SetData("PLAYER_IS_LIVE", "TRUE");
@@ -61,7 +61,7 @@ namespace VenoXV.Reallife.factions.WeazelNews
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Live Anfrage von " + target.Name + " erhalten!");
+                    dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Live Anfrage von " + target.GetVnXName<string>() + " erhalten!");
                 }
             }
             catch
