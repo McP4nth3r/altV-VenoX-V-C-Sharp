@@ -26,7 +26,6 @@ alt.onServer('SetVoiceStatusVnX', (state) => {
 
 
 alt.onServer('Reallife:LoadHUD', (e) => {
-	alt.log("HUD: " + e);
 	if (HUD_BROWSER != null) {
 		HUD_BROWSER.destroy();
 	}
@@ -34,15 +33,12 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/main/main.html");
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show");
-		alt.log("HUD Erstellt [0]");
 	}
 	else if (e == 1) {
 		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/second/main.html");
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show");
-		alt.log("HUD Erstellt [1]");
 	}
-	alt.log("HUD Browser : " + HUD_BROWSER);
 });
 /*
 alt.onServer('Tactics:LoadHUD', () => {
@@ -317,7 +313,7 @@ export function RenderHUDs() {
 	game.enableControlAction(0, 23, true);
 	game.disableControlAction(0, 58, true);
 	if (game.isDisabledControlJustPressed(0, 58) && !GetCursorStatus()) {
-		alt.emit('pressgkey')
+		alt.emit('pressgkey');
 	}
 	if (game.isPedSprinting(player.scriptID)) {
 		game.restorePlayerStamina(player.scriptID, 100);
