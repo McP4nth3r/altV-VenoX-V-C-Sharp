@@ -15,6 +15,8 @@ import { RenderTacho } from '../Anzeigen/tacho';
 import { KeyUp, KeyDown } from '../Scoreboard';
 import { RenderHUDs } from '../Anzeigen/hud';
 import { Render7TowersLobby } from '../../SevenTowers/Lobby';
+import { DrawNametags } from '../Anzeigen/nametags/nametags';
+import { BasicKeyBinds } from '../../preload/login';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
@@ -24,6 +26,8 @@ export let PLAYER_LOBBY_7TOWERS = "Seven-Towers";
 let CurrentLobby = PLAYER_LOBBY_REALLIFE;
 let LocalPlayer = alt.Player.local;
 export function GetCurrentLobby() { return CurrentLobby; }
+export function FreezeClient(bool) { game.freezeEntityPosition(alt.Player.local.scriptID, bool); }
+
 alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { CurrentLobby = Lobby; });
 
 
@@ -64,12 +68,10 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
 
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
     game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
-    alt.log("Clothes:Loaded");
 });
 
 alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
     game.setPedPreloadVariationData(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
-    alt.log("Accessories:Loaded");
 });
 
 alt.onServer("HeadShape:Load", (HeadShapeJson) => {
@@ -144,51 +146,70 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
         game.setPedFaceFeature(LocalPlayer.scriptID, faceFeatures[facef], 1.0);
     }
     for (let i = 0; i < 11; i++) {
-        if (i == 0) {
-            HeadoverlayDataFirst = blemishesModel;
-            HeadoverlayDataSecond = 0;
+        switch (i) {
+            case 0:
+                HeadoverlayDataFirst = blemishesModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+            case 1:
+                HeadoverlayDataFirst = beardModel;
+                HeadoverlayDataSecond = beardColor;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 1, HeadoverlayDataSecond, 0);
+
+            case 2:
+                HeadoverlayDataFirst = eyebrowsModel;
+                HeadoverlayDataSecond = eyebrowsColor;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 1, HeadoverlayDataSecond, 0);
+                break;
+
+            case 3:
+                HeadoverlayDataFirst = ageingModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+            case 4:
+                HeadoverlayDataFirst = makeupModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+
+            case 5:
+                HeadoverlayDataFirst = blushModel;
+                HeadoverlayDataSecond = blushColor;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 2, HeadoverlayDataSecond, 0);
+                break;
+            case 6:
+                HeadoverlayDataFirst = complexionModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+            case 7:
+                HeadoverlayDataFirst = sundamageModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+            case 8:
+                HeadoverlayDataFirst = lipstickModel;
+                HeadoverlayDataSecond = lipstickColor;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 2, HeadoverlayDataSecond, 0);
+                break;
+            case 9:
+                HeadoverlayDataFirst = frecklesModel;
+                HeadoverlayDataSecond = 0;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                break;
+            case 10:
+                HeadoverlayDataFirst = chestModel;
+                HeadoverlayDataSecond = chestColor;
+                game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
+                game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 1, HeadoverlayDataSecond, 0);
+                break;
         }
-        else if (i == 1) {
-            HeadoverlayDataFirst = beardModel;
-            HeadoverlayDataSecond = beardColor;
-        }
-        else if (i == 2) {
-            HeadoverlayDataFirst = eyebrowsModel;
-            HeadoverlayDataSecond = eyebrowsColor;
-        }
-        else if (i == 3) {
-            HeadoverlayDataFirst = ageingModel;
-            HeadoverlayDataSecond = 0;
-        }
-        else if (i == 4) {
-            HeadoverlayDataFirst = makeupModel;
-            HeadoverlayDataSecond = 0;
-        }
-        else if (i == 5) {
-            HeadoverlayDataFirst = blushModel;
-            HeadoverlayDataSecond = blushColor;
-        }
-        else if (i == 6) {
-            HeadoverlayDataFirst = complexionModel;
-            HeadoverlayDataSecond = 0;
-        }
-        else if (i == 7) {
-            HeadoverlayDataFirst = sundamageModel;
-            HeadoverlayDataSecond = 0;
-        }
-        else if (i == 8) {
-            HeadoverlayDataFirst = lipstickModel;
-            HeadoverlayDataSecond = lipstickColor;
-        }
-        else if (i == 9) {
-            HeadoverlayDataFirst = frecklesModel;
-            HeadoverlayDataSecond = 0;
-        }
-        else if (i == 10) {
-            HeadoverlayDataFirst = chestModel;
-            HeadoverlayDataSecond = chestColor;
-        }
-        game.setPedHeadOverlay(LocalPlayer.scriptID, HeadoverlayDataFirst, HeadoverlayDataSecond, 1);
     }
     game.setPedHeadBlendData(LocalPlayer.scriptID, firstHeadShape, secondHeadShape, 0, firstSkinTone, secondSkinTone, 0, headMix, skinMix, 0);
     game.setPedEyeColor(LocalPlayer.scriptID, eyesColor);
@@ -222,10 +243,30 @@ alt.on('keyup', (key) => {
 
 alt.on('keydown', (key) => {
     KeyDown(key);
+    BasicKeyBinds(key);
+});
+
+
+alt.onServer('delay_element_data', (e, v, type, ms) => {
+    let requesteddata = undefined;
+    if (type == "bool") {
+        requesteddata = "Store_Delayed_Element_Data_BOOL";
+    }
+    else if (type == "int") {
+        requesteddata = "Store_Delayed_Element_Data_INT";
+    }
+    else if (type == "string") {
+        requesteddata = "Store_Delayed_Element_Data_STRING";
+    }
+    if (requesteddata != undefined) {
+        alt.setTimeout(function () {
+            alt.emitServer(requesteddata, e, v);
+        }, ms);
+    }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 let lastFrameCount = game.getFrameCount();
 let CurrentFPS = 0;
 
@@ -237,20 +278,24 @@ alt.setInterval(() => {
 function DrawGlobalHUD() {
     DrawText(CurrentFPS.toString(), [0.99, 0.001], [0.5, 0.5], 0, [0, 105, 145, 200], true, true);
 }
-
+*/
 
 alt.everyTick(() => {
-    DrawGlobalHUD();
+    //DrawGlobalHUD();
+    DrawNametags();
     dxLibaryEveryTick();
     OnCameraEveryTick();
     RenderHitMarker();
     RenderTacho();
     RenderHUDs();
-    if (CurrentLobby == PLAYER_LOBBY_7TOWERS) {
-        Render7TowersLobby();
-    }
-    else if (CurrentLobby == PLAYER_LOBBY_TACTICS) {
-        TacticsEveryTick();
+    switch (CurrentLobby) {
+        case PLAYER_LOBBY_7TOWERS:
+            Render7TowersLobby();
+            break;
+
+        case PLAYER_LOBBY_TACTICS:
+            TacticsEveryTick();
+            break;
     }
 });
 
