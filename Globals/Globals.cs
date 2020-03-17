@@ -37,6 +37,7 @@ namespace VenoXV.Globals
             try
             {
                 IPlayer player = entity as IPlayer;
+                if (player == null) return;
                 if (state)  { Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
                 else        { Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
             }
@@ -93,10 +94,10 @@ namespace VenoXV.Globals
         [ScriptEvent(ScriptEventType.WeaponDamage)]
         public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, UInt16 damage, Position offset, AltV.Net.Data.BodyPart bodypart)
         {
-            //Reallife.Core.Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.Name + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
+            //Reallife.Core.Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.GetVnXName<string>() + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
             AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
             //Reallife.Core.Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
-            //Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.Name);
+            //Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.GetVnXName<string>());
             if (target != null && source != null)
             {
                 Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
