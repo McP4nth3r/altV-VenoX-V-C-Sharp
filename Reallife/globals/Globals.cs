@@ -328,34 +328,45 @@ namespace VenoXV.Reallife.Globals
             }
         }
 
+        public static bool CheckBadElementDatas(string elementdata)
+        {
+            return elementdata switch
+            {
+                EntityData.PLAYER_MONEY => true,
+                EntityData.PLAYER_ADMIN_RANK => true,
+                _ => false,
+            };
+        }
 
-
-        //[AltV.Net.ClientEvent("Store_Delayed_Element_Data_INT")]
+        [ClientEvent("Store_Delayed_Element_Data_INT")]
         public static void Store_Delayed_ElementData_INT(IPlayer player, string elementdata, int value)
         {
             try
             {
+                if(CheckBadElementDatas(elementdata)) { return; }
                 VnX.vnxSetSharedData(player, elementdata, value);
             }
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("Store_Delayed_Element_Data_STRING")]
+        [ClientEvent("Store_Delayed_Element_Data_STRING")]
         public static void Store_Delayed_ElementData_INT(IPlayer player, string elementdata, string value)
         {
             try
             {
+                if (CheckBadElementDatas(elementdata)) { return; }
                 player.SetData(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("Store_Delayed_Element_Data_BOOL")]
+        [ClientEvent("Store_Delayed_Element_Data_BOOL")]
         public static void Store_Delayed_ElementData_BOOL(IPlayer player, string elementdata, bool value)
         {
             try
             {
+                if (CheckBadElementDatas(elementdata)) { return; }
                 player.SetData(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
@@ -936,6 +947,7 @@ namespace VenoXV.Reallife.Globals
 
 
         //[AltV.Net.ClientEvent("checkPlayerEventKey")]
+        [ClientEvent("checkPlayerEventKey")]
         public void CheckPlayerEventKeyEvent(IPlayer player)
         {
             try
