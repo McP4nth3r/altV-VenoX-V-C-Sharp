@@ -156,6 +156,20 @@ namespace VenoXV.Reallife.Core
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player">Der Spieler wird Definiert.</param>
+        /// <param name="args">[0] = Element Name, [1] = value für die Element Data, [2] Type der Value, [3] = TimeInMS (TimeOut-JS-CS)</param>
+        public static void SetDelayedData(IPlayer player, string[] args)
+        {
+            try
+            {
+                player.Emit("delay_element_data", args[0], args[1], args[2], args[3]);
+            }
+            catch { }
+        }
+        
         public static void SetDelayedBoolSharedData(IPlayer player, string element, bool value, int TimeInMS)
         {
             try
@@ -172,14 +186,6 @@ namespace VenoXV.Reallife.Core
             }
             catch { }
         }
-        public static void SetDelayedSTRINGSharedData(IPlayer player, string element, string value, int TimeInMS)
-        {
-            try
-            {
-                player.Emit("delay_element_data", element, value, "string", TimeInMS);
-            }
-            catch { }
-        }
-
+        
     }
 }
