@@ -24,7 +24,8 @@ alt.onServer('showDutyWindow', (e) => {
             case "Swat":
                 alt.emitServer('goSWATServer');
         }
-        duty_browser.emit("destroyDutyWindow");
+        alt.log(button);
+        alt.emit("destroyDutyWindow");
     });
 
     duty_browser.on('destroyDutyWindow', () => {
