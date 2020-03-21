@@ -1,0 +1,97 @@
+
+@font-face { font-family: 'drugs';
+             src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }		
+@font-face { font-family: 'hangover';
+             src: url('./files/font/hangover.ttf') format('truetype'); }		 
+
+
+
+.all {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+}
+
+.inventar_bg{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -70%);
+	width: 26.25vw;
+	height: 24.25vw;
+	background: rgba(0,0,0,0.8);
+	border-top: 0.20vw solid rgb(0, 150, 200);
+}
+
+.inventar_header{
+	position: absolute;
+	height: 2vw;
+	width: 100%;
+	background: rgba(0,0,0,0.6);
+	color: white;
+	font-family: drugs;
+
+	font-size: 1.5vw;
+}
+
+/* Prevent the text contents of draggable elements from being selectable. */
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+.column {
+  height: 3vw;
+  margin-top: 0.5vw;
+  margin-left: 0.5vw;
+
+  width: 3vw;
+  float: left;
+
+  background-color: rgba(40,40,40,0.8);
+  color: transparent;
+  text-align: center;
+  cursor: move;
+  background-image: url("");background-repeat:no-repeat;background-size:contain;
+}
+
+
+.column.over {
+ -webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+-moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+  overflow: hidden;
+}
+
+.column:hover {color: white;  background-color: rgba(0,150,200,0.8);}
+
+.column_amount {
+	color: rgb(0,200,255);
+	margin-top: 70%;
+	background-color: rgba(0,0,0,0.7);
+	border-radius: 1vw;
+	margin-left: 50%;
+	width: 1.6vw;
+	font-family: arial;
+ 
+	font-size: 0.7vw;
+}
+
+.inventar_column_container{
+	position: absolute;
+	left: 2.5%;
+	top: 10%;
+	width: 95%;
+	height: 87.5%;
+	overflow: hidden;
+}
+
+.d-none {	
+	display: none;
+}
