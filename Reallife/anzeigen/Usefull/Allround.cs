@@ -452,11 +452,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         {
             if (state == true)
             {
-                player.SetSyncedMetaData("SocialState_NAMETAG", "Schreibt...");
+                player.SetStreamSyncedMetaData("SocialState_NAMETAG", "Schreibt...");
             }
             else
             {
-                player.SetSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(EntityData.PLAYER_STATUS));
+                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(EntityData.PLAYER_STATUS));
             }
         }
 

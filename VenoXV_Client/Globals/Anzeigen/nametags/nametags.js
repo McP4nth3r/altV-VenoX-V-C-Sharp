@@ -27,7 +27,7 @@ function returnRGB(player) {
 	let hp = game.getEntityHealth(player.scriptID);
 
 	let armor = game.getPedArmour(player.scriptID);
-	//if (hp <= 0 || player.getSyncedMeta("PLAYER_KILLED") == 1)
+	//if (hp <= 0 || player.getStreamSyncedMeta("PLAYER_KILLED") == 1)
 	if (hp <= 0) {
 		return [40, 40, 40];
 	}
@@ -46,15 +46,15 @@ function returnRGB(player) {
 
 
 function isStateFaction(player) {
-	if (player.getSyncedMeta("PLAYER_FACTION") == 1 || player.getSyncedMeta("PLAYER_FACTION") == 6 || player.getSyncedMeta("PLAYER_FACTION") == 8) {
+	if (player.getStreamSyncedMeta("PLAYER_FACTION") == 1 || player.getStreamSyncedMeta("PLAYER_FACTION") == 6 || player.getStreamSyncedMeta("PLAYER_FACTION") == 8) {
 		return true;
 	}
 	return false;
 }
 
 function isBadFaction(player) {
-	if (player.getSyncedMeta("PLAYER_FACTION") == 2 || player.getSyncedMeta("PLAYER_FACTION") == 3 || player.getSyncedMeta("PLAYER_FACTION") == 7
-		|| player.getSyncedMeta("PLAYER_FACTION") == 9 || player.getSyncedMeta("PLAYER_FACTION") == 12 || player.getSyncedMeta("PLAYER_FACTION") == 13) {
+	if (player.getStreamSyncedMeta("PLAYER_FACTION") == 2 || player.getStreamSyncedMeta("PLAYER_FACTION") == 3 || player.getStreamSyncedMeta("PLAYER_FACTION") == 7
+		|| player.getStreamSyncedMeta("PLAYER_FACTION") == 9 || player.getStreamSyncedMeta("PLAYER_FACTION") == 12 || player.getStreamSyncedMeta("PLAYER_FACTION") == 13) {
 		return true;
 	}
 	return false;
@@ -85,35 +85,35 @@ export function DrawNametags() {
 			let playerPos = localPlayer.pos;
 			let playerPos2 = player.pos;
 			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
-			if (player.getSyncedMeta("PLAYER_NAME") != localPlayer.getSyncedMeta("PLAYER_NAME")) {
+			if (player.getStreamSyncedMeta("PLAYER_NAME") != localPlayer.getStreamSyncedMeta("PLAYER_NAME")) {
 				if (player.vehicle && localPlayer.vehicle) { maxDistance_load = 60; } else { maxDistance_load = maxDistance; }
-				//if(distance <= maxDistance_load && player.getSyncedMeta("PLAYER_LOGGED_IN")) {
+				//if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
 				if (distance <= maxDistance_load) {
-					if (player.getSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.getSyncedMeta("PLAYER_NAME"); }
-					else { name = player.getSyncedMeta("PLAYER_NAME"); }
+					if (player.getStreamSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.getStreamSyncedMeta("PLAYER_NAME"); }
+					else { name = player.getStreamSyncedMeta("PLAYER_NAME"); }
 					if (isStateFaction(player) && isBadFaction(localPlayer) || isStateFaction(localPlayer) && isBadFaction(player)) { r1 = 200; g1 = 0; b1 = 0; }
-					else if (player.getSyncedMeta("PLAYER_FACTION") == localPlayer.getSyncedMeta("PLAYER_FACTION") && player.getSyncedMeta("PLAYER_FACTION") > 0) { r1 = 0; g1 = 200; b1 = 0; }
+					else if (player.getStreamSyncedMeta("PLAYER_FACTION") == localPlayer.getStreamSyncedMeta("PLAYER_FACTION") && player.getStreamSyncedMeta("PLAYER_FACTION") > 0) { r1 = 0; g1 = 200; b1 = 0; }
 					else { r1 = 0; g1 = 105; b1 = 145; }
-					if (player.getSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
+					if (player.getStreamSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
 					else { let values = returnRGB(player); r = values[0]; g = values[1]; b = values[2]; }
 
 
 
 					let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
-					if (player.getSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getSyncedMeta("PLAYER_FACTION") > 0) {
+					if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
 						if (!game.hasStreamedTextureDictLoaded("Commonmenu")) {
 							game.requestStreamedTextureDict("Commonmenu", true);
 						}
 
 						if (game.hasStreamedTextureDictLoaded("Commonmenu")) {
 							game.drawSprite("Commonmenu", "shop_new_star", screenPos[1], screenPos[2] - 0.010, 0.0625, 0.06315, 0, 255, 255, 255, 255);
-							DrawText(player.getSyncedMeta("PLAYER_WANTEDS").toString(), [screenPos[1] - 0.001, screenPos[2] + 0.030], [0.30, 0.30], 4, [255, 255, 255, 255], true, true);
+							DrawText(player.getStreamSyncedMeta("PLAYER_WANTEDS").toString(), [screenPos[1] - 0.001, screenPos[2] + 0.030], [0.30, 0.30], 4, [255, 255, 255, 255], true, true);
 						}
 					}
 					//alt.log("[DISTANCE ZUM SPIELER] : " + distance);
 					//alt.log("[MAX_DISTANCE] : " + maxDistance_load);
 					DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
-					DrawText(player.getSyncedMeta("SocialState_NAMETAG"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
+					DrawText(player.getStreamSyncedMeta("SocialState_NAMETAG"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 				}
 			}
 		}

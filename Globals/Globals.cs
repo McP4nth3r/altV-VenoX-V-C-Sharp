@@ -4,8 +4,10 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.EntitySync;
 using AltV.Net.EntitySync.ServerEvent;
 using AltV.Net.EntitySync.SpatialPartitions;
+using DasNiels.AltV.Streamers;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using VenoXV.Reallife.Core;
 
@@ -17,16 +19,17 @@ namespace VenoXV.Globals
         {
             try
             {
-                Reallife.Globals.Main.OnResourceStart();
-                Tactics.globals.Globals.OnResourceStart();
-                SevenTowers.Lobby.Main.OnResourceStart();
                 AltEntitySync.Init(1, 100,
                    repository => new ServerEventNetworkLayer(repository),
                    () => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 600),
                    new IdProvider()
                 );
+                Reallife.Globals.Main.OnResourceStart();
+                Tactics.globals.Globals.OnResourceStart();
+                SevenTowers.Lobby.Main.OnResourceStart();
+                DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(469.8354f, -985.0742f, 33.89248f), 0, true, new Rgba(255, 255, 255, 255));
             }
-            catch { }
+            catch (Exception ex) { Reallife.Core.Debug.CatchExceptions("OnResourceStart", ex); }
         }
 
 
@@ -64,7 +67,6 @@ namespace VenoXV.Globals
             }
         }
 
-        //[ServerEvent(Event.Update)]
         public static void OnUpdate(object unused)
         {
             try
@@ -77,7 +79,6 @@ namespace VenoXV.Globals
             catch{}
         }
 
-        //[ServerEvent(Event.PlayerDisconnected)]
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
         public void OnPlayerDisconnected(IPlayer player, string reason)
         {

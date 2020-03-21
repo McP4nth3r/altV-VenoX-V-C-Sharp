@@ -19,17 +19,17 @@ namespace VenoXV.Reallife.weapons
         {
             try
             {
-                /*int itemId = 0;
+                int itemId = 0;
                 int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                 foreach (ItemModel item in Main.itemList)
                 {
                     if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ownerEntity == Constants.ITEM_ENTITY_PLAYER && item.ITEM_ART == "Waffe")
                     {
-                        AltV.Net.Enums.WeaponModel WeaponModel = NAPI.Util.WeaponNameToModel(item.hash);
-                        Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel, 0);
-                        player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel, item.amount);
+                        AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
+                        Reallife.Core.RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
+                        player.SetWeaponAmmo(WeaponModel, item.amount);
                     }
-                }*/
+                }
             }
             catch (Exception ex)
             {

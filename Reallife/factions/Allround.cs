@@ -930,21 +930,18 @@ namespace VenoXV.Reallife.factions
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > Constants.FACTION_NONE)
                     {
+                        PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                        SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                        Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                         foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                         {
                             if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
                             {
-                                PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
-                                SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                                 Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                                Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                             }
                             else if (uniform.type == 1 && playerSex == uniform.characterSex)
                             {
-                                PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
-                                SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                                 Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                                Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                             }
                         }
                         AntiCheat_Allround.SetTimeOutHealth(player, 5000);
@@ -1017,33 +1014,28 @@ namespace VenoXV.Reallife.factions
                 }
                 else if (isStateFaction(player))
                 {
+                    PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                    SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                    Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                     {
                         if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
                         {
-                            PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
-                            SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                             Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                            Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                         }
                         else if (uniform.type == 1 && playerSex == uniform.characterSex)
                         {
-                            PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
-                            SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                             Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                            Reallife.character.Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                         }
                     }
                     player.SetData(EntityData.PLAYER_ON_DUTY, 1);
                     AntiCheat_Allround.SetTimeOutHealth(player, 5000);
-                    player.Health = 100;
+                    player.Health = 200;
                     player.Armor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
                 }
             }
-            catch
-            {
-            }
+            catch(Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
         }
 
         [ClientEvent("goSWATServer")]
@@ -1056,9 +1048,8 @@ namespace VenoXV.Reallife.factions
                 player.SetData(EntityData.PLAYER_ON_DUTY, 1);
                 weapons.Weapons.GivePlayerWeaponItems(player);
             }
-            catch
-            {
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
+
         }
 
         [ClientEvent("goOFFDUTYServer")]

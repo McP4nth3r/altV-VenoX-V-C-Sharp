@@ -9,6 +9,7 @@ import * as Nametags from '/VenoXV_Client/Globals/Anzeigen/nametags/nametags.js'
 import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
 import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 import * as TextlabelStreamer from '/VenoXV_Client/Globals/EntitySync/TextLabel/Streamer.js';
+import * as TextlabelStreamerClient from '/VenoXV_Client/Globals/EntitySync/TextLabel/Client.js';
 //import * as WeaponLibary from '/VenoXV_Client/Globals/Weapons/combat.js';
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
@@ -20,6 +21,7 @@ import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
 import * as StateFguns from '/VenoXV_Client/Reallife/factions/state_fguns/index.js';
 import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
 import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js';
+import * as Inventory from '/VenoXV_Client/Reallife/inventory/index.js';
 game.requestIpl('chop_props');
 game.requestIpl('FIBlobby');
 game.removeIpl('FIBlobbyfake');

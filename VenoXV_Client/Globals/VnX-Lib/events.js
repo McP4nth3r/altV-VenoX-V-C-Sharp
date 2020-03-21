@@ -8,15 +8,16 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/VenoXV/Lobby';
 import { OnCameraEveryTick } from './camera';
-import { DrawText, Draw3DText, CreateBlip } from './index';
+import { DrawText, Draw3DText, CreateBlip, ShowCursor } from './index';
 import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
 import { RenderTacho } from '../Anzeigen/tacho';
 import { KeyUp, KeyDown } from '../Scoreboard';
 import { RenderHUDs } from '../Anzeigen/hud';
 import { Render7TowersLobby } from '../../SevenTowers/Lobby';
-import { DrawNametags } from '../Anzeigen/nametags/nametags';
 import { BasicKeyBinds } from '../../preload/login';
+import { OnInventoryKeyPressed } from '../../Reallife/inventory';
+import { DrawNametags } from '../Anzeigen/nametags/nametags';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
@@ -27,6 +28,7 @@ let CurrentLobby = PLAYER_LOBBY_REALLIFE;
 let LocalPlayer = alt.Player.local;
 export function GetCurrentLobby() { return CurrentLobby; }
 export function FreezeClient(bool) { game.freezeEntityPosition(alt.Player.local.scriptID, bool); }
+export function SetEntityAlpha(Entity, alpha) { game.setEntityAlpha(Entity.scriptID, alpha, true); }
 
 alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { CurrentLobby = Lobby; });
 
@@ -38,21 +40,18 @@ alt.onServer('FreezePlayerPLAYER_VnX', (bool) => {
 });
 
 alt.onServer("movecamtocurrentpos_client", () => {
-    let executedcmd = false;
-    game.switchOutPlayer(LocalPlayer.scriptID);
-    game.freezeEntityPosition(LocalPlayer.scriptID, true);
+    moveFromToAir(alt.Player.local, 'up', 1, false);
+    FreezeClient(true);
+
     alt.setTimeout(() => {
-        if (executedcmd == false) {
-            alt.emitServer('load_data_login');
-            game.setEntityAlpha(LocalPlayer.scriptID, 255);
-            executedcmd = true;
-        }
+        alt.emitServer('load_data_login');
+        ShowCursor(false);
     }, 6000);
 
     alt.setTimeout(() => {
-        game.switchInPlayer(LocalPlayer.scriptID);
+        moveFromToAir(alt.Player.local, 'down');
         alt.setTimeout(() => {
-            game.freezeEntityPosition(LocalPlayer.scriptID, false);
+            FreezeClient(false);
         }, 8000);
     }, 8000);
 });
@@ -67,7 +66,9 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
 });
 
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
+    if (clothesdrawable < 0 || clothestexture < 0) { return; }
     game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
+    alt.log("Clothes Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
 });
 
 alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
@@ -242,6 +243,7 @@ alt.on('keyup', (key) => {
 });
 
 alt.on('keydown', (key) => {
+    OnInventoryKeyPressed(key);
     KeyDown(key);
     BasicKeyBinds(key);
 });
@@ -278,13 +280,15 @@ alt.setInterval(() => {
 function DrawGlobalHUD() {
     DrawText(CurrentFPS.toString(), [0.99, 0.001], [0.5, 0.5], 0, [0, 105, 145, 200], true, true);
 }
+
+DrawGlobalHUD();
+dxLibaryEveryTick();
+OnCameraEveryTick();
+
 */
 
 alt.everyTick(() => {
-    //DrawGlobalHUD();
     DrawNametags();
-    dxLibaryEveryTick();
-    OnCameraEveryTick();
     RenderHitMarker();
     RenderTacho();
     RenderHUDs();
@@ -300,3 +304,36 @@ alt.everyTick(() => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
+let gui = 'true';
+function moveFromToAir(player, moveTo, switchType, showGui) {
+    switch (moveTo) {
+        case 'up':
+            if (showGui == false) {
+                //mp.gui.chat.show(showGui);
+                gui = 'false';
+            };
+            game.switchOutPlayer(player.scriptID, 0, parseInt(switchType));
+            break;
+        case 'down':
+            if (gui == 'false') {
+                checkCamInAir();
+            };
+            game.switchInPlayer(player.scriptID);
+            SetEntityAlpha(player.scriptID, 255);
+            break;
+
+        default:
+            break;
+    }
+}
+
+function checkCamInAir() {
+    if (game.isPlayerSwitchInProgress()) {
+        alt.setTimeout(() => {
+            checkCamInAir();
+        }, 400);
+    } else {
+        //mp.gui.chat.show(true);
+        gui = 'true';
+    }
+}

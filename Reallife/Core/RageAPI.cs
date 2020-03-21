@@ -127,9 +127,10 @@ namespace VenoXV.Reallife.Core
 
         public static void SetClothes(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
+            if (clothesslot < 0 || clothesdrawable < 0) { return; }
+            Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
-            catch { }
-        }        
+            catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }        }
         public static void SetCustomization(IPlayer element, SkinModel model)
         {
             List<SkinModel> modellist = new List<SkinModel>
@@ -170,8 +171,8 @@ namespace VenoXV.Reallife.Core
                     LabelColor = color
                 };
                 Reallife.Globals.Main.LabelList.Add(label);
-                //DynamicTextLabel textLabel = TextLabel.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
-                TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
+                //DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
+                //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
             catch(Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
         }

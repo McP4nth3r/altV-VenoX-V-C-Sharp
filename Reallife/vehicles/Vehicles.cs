@@ -520,14 +520,13 @@ namespace VenoXV.Reallife.Vehicles
                     string[] secondRgba = vehModel.secondRgba.Split(',');
                     if (IsModVehicleName(vehModel.model))
                     {
-                        return;
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
+                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
                     }
                     else
                     {
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
+                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
                     }
@@ -538,16 +537,15 @@ namespace VenoXV.Reallife.Vehicles
                     string[] secondRgba = vehModel.secondRgba.Split(',');
                     if (IsModVehicleName(vehModel.model))
                     {
-                        return;
                         Rotation rot = vehModel.rotation;
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), vehModel.model), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
+                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
                     }
                     else
                     {
                         Rotation rot = vehModel.rotation;
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Enum.Parse(typeof(AltV.Net.Enums.VehicleModel), FirstCharToUpper(vehModel.model)), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
+                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
                     }
