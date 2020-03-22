@@ -6,7 +6,7 @@ namespace VenoXV.Reallife.model
 {
     public class BusinessItemModel
     {
-        public string deIScription { get; set; }
+        public string description { get; set; }
         public string hash { get; set; }
         public int type { get; set; }
         public int products { get; set; }
@@ -18,9 +18,9 @@ namespace VenoXV.Reallife.model
         public int business { get; set; }
         public float alcoholLevel { get; set; }
 
-        public BusinessItemModel(string deIScription, string hash, int type, int products, float weight, int health, int uses, Position position, Rotation rotation, int business, float alcoholLevel)
+        public BusinessItemModel(string description, string hash, int type, int products, float weight, int health, int uses, Position position, Rotation rotation, int business, float alcoholLevel)
         {
-            this.deIScription = deIScription;
+            this.description = description;
             this.hash = hash;
             this.type = type;
             this.products = products;

@@ -4,15 +4,15 @@ namespace VenoXV.Reallife.model
 {
     public class JobModel
     {
-        public string deIScriptionMale { get; set; }
-        public string deIScriptionFemale { get; set; }
+        public string descriptionMale { get; set; }
+        public string descriptionFemale { get; set; }
         public int job { get; set; }
         public int salary { get; set; }
 
-        public JobModel(string deIScriptionMale, string deIScriptionFemale, int job, int salary)
+        public JobModel(string descriptionMale, string descriptionFemale, int job, int salary)
         {
-            this.deIScriptionMale = deIScriptionMale;
-            this.deIScriptionFemale = deIScriptionFemale;
+            this.descriptionMale = descriptionMale;
+            this.descriptionFemale = descriptionFemale;
             this.job = job;
             this.salary = salary;
         }

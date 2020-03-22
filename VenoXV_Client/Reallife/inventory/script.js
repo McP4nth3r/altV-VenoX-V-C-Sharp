@@ -1,6 +1,19 @@
 var box = $(".column");
 var mainCanvas = $(".columns");
 
+box.mouseover(function(e, ui) {
+
+
+	$(this).children().children().removeClass('d-none');
+	
+});
+
+
+box.mouseout(function(e, ui) {
+    $(this).children().children().addClass('d-none');
+});
+
+
 box.draggable({
     containment: mainCanvas,
     helper: "clone",
@@ -64,11 +77,7 @@ box.droppable({
         let name = ui.draggable.css('background-image');
         let patt = /\"|\'|\)/g;
         let text = name.split('/').pop().replace(patt, '');
-        if (text == "style.css") {
-
-            return;
-
-        }
+        if (text == "style.css") {return;}
 
         $(this).addClass('over');
         //$(this).css("opacity", "0");

@@ -81,7 +81,7 @@ namespace VenoXV.Reallife.business
                 BusinessItemModel item = null;
                 foreach (BusinessItemModel businessItem in Constants.BUSINESS_ITEM_LIST)
                 {
-                    if (businessItem.deIScription == itemName)
+                    if (businessItem.description == itemName)
                     {
                         
                         item = businessItem;

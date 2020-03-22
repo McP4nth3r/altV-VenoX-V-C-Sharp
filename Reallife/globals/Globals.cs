@@ -684,7 +684,7 @@ namespace VenoXV.Reallife.Globals
             catch { return 0; }
         }
 
-        private List<InventoryModel> GetPlayerInventory(IPlayer player)
+        public static List<InventoryModel> GetPlayerInventory(IPlayer player)
         {
             try
             {
@@ -696,14 +696,14 @@ namespace VenoXV.Reallife.Globals
                     if (item.ownerEntity == Constants.ITEM_ENTITY_PLAYER && item.ownerIdentifier == playerId)
                     {
                         BusinessItemModel businessItem = Business.GetBusinessItemFromHash(item.hash);
-                        if (businessItem != null && businessItem.type != Constants.ITEM_TYPE_WEAPON && businessItem.deIScription != Constants.ITEM_NAME_PISTOLAMMO)
+                        if (businessItem != null && businessItem.type != Constants.ITEM_TYPE_WEAPON && businessItem.description != Constants.ITEM_NAME_PISTOLAMMO)
                         {
                             // Create the item into the inventory
                             InventoryModel inventoryItem = new InventoryModel();
                             {
                                 inventoryItem.id = item.id;
                                 inventoryItem.hash = item.hash;
-                                inventoryItem.deIScription = businessItem.deIScription;
+                                inventoryItem.description = businessItem.description;
                                 inventoryItem.type = businessItem.type;
                                 inventoryItem.amount = item.amount;
                             }
@@ -766,7 +766,7 @@ namespace VenoXV.Reallife.Globals
                     {
                         if (businessClothes.clothesId == clothes.drawable && businessClothes.bodyPart == clothes.slot && businessClothes.type == clothes.type)
                         {
-                            clothesNames.Add(businessClothes.deIScription);
+                            clothesNames.Add(businessClothes.description);
                             break;
                         }
                     }
@@ -1509,7 +1509,7 @@ namespace VenoXV.Reallife.Globals
                     case "Weg werfen":
                         item.amount--;
                         /*
-                        if (businessItem.deIScription == Constants.ITEM_NAME_PISTOLAMMO)
+                        if (businessItem.description == Constants.ITEM_NAME_PISTOLAMMO)
                         {
                             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                             ItemModel PistolenMagazin = GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOL_AMMO);
@@ -1524,7 +1524,7 @@ namespace VenoXV.Reallife.Globals
                         inventory = GetPlayerInventory(player);
                         player.Emit("showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
 
-                        player.SendChatMessage( "Du hast folgendes aus deinem Inventar geschmissen : " + RageAPI.GetHexColorcode(0,200,255) + "  " + businessItem.deIScription);
+                        player.SendChatMessage( "Du hast folgendes aus deinem Inventar geschmissen : " + RageAPI.GetHexColorcode(0,200,255) + "  " + businessItem.description);
                         inventory = GetPlayerInventory(player);
                         player.Emit("showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
                         break;

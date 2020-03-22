@@ -29,13 +29,25 @@
 	position: absolute;
 	height: 2vw;
 	width: 100%;
-	background: rgba(0,0,0,0.6);
+	background: rgba(0,0,0,0.4);
 	color: white;
 	font-family: drugs;
-
 	font-size: 1.5vw;
 }
-
+.inventar_header_text{
+	position: absolute;
+	height: 2vw;
+	left: 10%;
+	top: 0.5%;
+	color: white;
+	font-family: drugs;
+	font-size: 1.5vw;
+}
+.inventar_icon{
+	position: absolute;
+	height: 2vw;
+	color: white;	
+}
 /* Prevent the text contents of draggable elements from being selectable. */
 [draggable] {
   -moz-user-select: none;
@@ -50,7 +62,7 @@
   height: 3vw;
   margin-top: 0.5vw;
   margin-left: 0.5vw;
-
+  z-index: 1;
   width: 3vw;
   float: left;
 
@@ -72,6 +84,7 @@ box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
 .column:hover {color: white;  background-color: rgba(0,150,200,0.8);}
 
 .column_amount {
+	z-index: 10;
 	color: rgb(0,200,255);
 	margin-top: 70%;
 	background-color: rgba(0,0,0,0.7);
@@ -83,13 +96,28 @@ box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
 	font-size: 0.7vw;
 }
 
+.info {
+	position: relative;
+	left: -24%;
+	top: -10%;
+	color: white;
+	background-color: rgba(0,0,0,0.9);
+	border-radius: 1vw;
+	width: 8.5vw;
+	height: 4vw;
+	font-family: drugs;
+	z-index: 10;
+	 -webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+-moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+}
+
 .inventar_column_container{
 	position: absolute;
 	left: 2.5%;
 	top: 10%;
 	width: 95%;
 	height: 87.5%;
-	overflow: hidden;
 }
 
 .d-none {	

@@ -8,13 +8,13 @@ namespace VenoXV.Reallife.model
     {
         public string job { get; set; }
         public Position position { get; set; }
-        public string deIScription { get; set; }
+        public string description { get; set; }
 
-        public JobPickModel(string job, Position position, string deIScription)
+        public JobPickModel(string job, Position position, string description)
         {
             this.job = job;
             this.position = position;
-            this.deIScription = deIScription;
+            this.description = description;
         }
     }
 }

@@ -17,41 +17,32 @@ namespace VenoXV.Reallife.Core
         {
             try
             {
-                if (e == EntityData.PLAYER_MONEY)
+                switch(e)
                 {
-                    player.SetData(EntityData.PLAYER_MONEY, v);
-                    player.SetSyncedMetaData(EntityData.PLAYER_MONEY, v);
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
-                    /* DEV STUFF 
-                    player.SendChatMessage("Dein Geld Wert wurde getriggert als : "  + v);
-                    player.SendChatMessage("Dein Geld Wert SERVERSEITIG ist : " + player.vnxGetElementData<int>(EntityData.PLAYER_MONEY));
-                    player.SendChatMessage("Dein Geld Wert IPlayerseitig ist : " + player.vnxGetSharedData("PLAYER_MONEYPLAYER"));*/
-                }
-                else if (e == EntityData.PLAYER_BANK)
-                {
-                    player.SetData(EntityData.PLAYER_BANK, v);
-                    player.SetSyncedMetaData("PLAYER_BANK_Player", v);
-                }
-                else if (e == EntityData.PLAYER_QUESTS)
-                {
-                    player.SetData(EntityData.PLAYER_QUESTS, v);
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
-                }
-                else if (e == EntityData.PLAYER_HUNGER)
-                {
-                    player.SetData(EntityData.PLAYER_HUNGER, v);
-                    player.Emit("UpdateHunger", v);
-                }
-                else
-                {
-                    player.SetData(e, v);
-                    player.SetSyncedMetaData(e, v);
+                    case EntityData.PLAYER_MONEY:
+                        player.SetData(EntityData.PLAYER_MONEY, v);
+                        player.SetSyncedMetaData(EntityData.PLAYER_MONEY, v);
+                        anzeigen.Usefull.VnX.UpdateHUD(player);
+                        break;
+                    case EntityData.PLAYER_BANK:
+                        player.SetData(EntityData.PLAYER_BANK, v);
+                        player.SetSyncedMetaData("PLAYER_BANK_Player", v);
+                        break;
+                    case EntityData.PLAYER_QUESTS:
+                        player.SetData(EntityData.PLAYER_QUESTS, v);
+                        anzeigen.Usefull.VnX.UpdateHUD(player);
+                        break;
+                    case EntityData.PLAYER_HUNGER:
+                        player.SetData(EntityData.PLAYER_HUNGER, v);
+                        player.Emit("UpdateHunger", v);
+                        break;
+                    default:
+                        player.SetData(e, v);
+                        player.SetSyncedMetaData(e, v);
+                        break;
                 }
             }
-            catch
-            {
-
-            }
+            catch{}
         }
 
         public static void SetSharedSettingsData(IPlayer player, string e, string v)
@@ -62,12 +53,12 @@ namespace VenoXV.Reallife.Core
                 || e == "settings_reporter" || e == "settings_globalchat")
                 {
                     player.SetData(e, v);
-                    player.SetSyncedMetaData(e, v);
+                    player.SetStreamSyncedMetaData(e, v);
                 }
                 else
                 {
                     player.SetData(e, v);
-                    player.SetSyncedMetaData(e, v);
+                    player.SetStreamSyncedMetaData(e, v);
                 }
             }
             catch
@@ -116,7 +107,7 @@ namespace VenoXV.Reallife.Core
             try
             {
                 Vehicle.SetData(e, v);
-                Vehicle.SetSyncedMetaData(e, v);
+                Vehicle.SetStreamSyncedMetaData(e, v);
             }
             catch
             {
@@ -127,7 +118,7 @@ namespace VenoXV.Reallife.Core
             try
             {
                 Vehicle.SetData(e, v);
-                Vehicle.SetSyncedMetaData(e, v);
+                Vehicle.SetStreamSyncedMetaData(e, v);
             }
             catch
             {
@@ -138,7 +129,7 @@ namespace VenoXV.Reallife.Core
             try
             {
                 Vehicle.SetData(e, v);
-                Vehicle.SetSyncedMetaData(e, v);
+                Vehicle.SetStreamSyncedMetaData(e, v);
             }
             catch
             {

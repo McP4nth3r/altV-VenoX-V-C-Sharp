@@ -88,7 +88,7 @@ namespace VenoXV.Reallife.dxLibary
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createVnXSAWindow", headertext, boxtext, buttontext1, buttontext2);
         }
 
-        // Job Windows ( Job 1 = 3 Buttons , Job LvL Anzeige, Text Header , Text Info , Job DeIScription 1-3 ) 
+        // Job Windows ( Job 1 = 3 Buttons , Job LvL Anzeige, Text Header , Text Info , Job description 1-3 ) 
         public static void DrawJobWindow(IPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2, string buttontext3, string button1desc, string button2desc, string button3desc, string joblvlinfo)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createJobWindow1", headertext, boxtext, buttontext1, buttontext2, buttontext3, button1desc, button2desc, button3desc, joblvlinfo);
