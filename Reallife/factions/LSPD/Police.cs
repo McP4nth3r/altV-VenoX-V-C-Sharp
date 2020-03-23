@@ -1353,6 +1353,31 @@ namespace VenoXV.Reallife.factions
                     /////////////////////////////// 1 STAR ///////////////////////////////
                     /////////////////////////////// 1 STAR ///////////////////////////////
                     /////////////////////////////// 1 STAR ///////////////////////////////
+                    
+                    switch(action)
+                    {
+                        case "kpv":     case "körperverletzung":
+                        case "behind":  case "beamtenbehinderung":  case "behinderung":
+                        case "beläst":  case "beamtenbelästigung":  case "belästigung":
+                        case "belei":   case "beamtenbeleidigung":  case "beleidigung":
+                        case "vkk":     case "flucht":              case "kontrolle":
+                        case "dieb":    case "diebstahl":
+                        case "vdieb":
+                        case "sb":      case "sachbeschädigung":    case "beschädigung":
+                        case "werb":    case "illegale werbung":    case "werbung":
+                        case "rennen":  case "straßenrennen":
+                        case "tat":     case "tatsachen":
+                        case "fof":     case "fahrerlaubnis":
+                        case "besitz1": case "illegal1":            
+                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
+                            break;
+                        default:
+                            player.SendChatMessage("Falsches Wantedkürzel");
+                            break;
+
+                    }
+
+
                     if (
                        action == "kpv" || action == "körperverletzung"
                     || action == "beamtenbehinderung" || action == "behind"

@@ -87,3 +87,38 @@ C:\altv-server_DEBUG\resources\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtime
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csproj.CopyComplete
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csprojAssemblyReference.cache
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.deps.json
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.pdb
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.Async.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.ColShape.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.EntitySync.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.EntitySync.ServerEvent.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\AltV.Net.Resources.Chat.Api.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\BCrypt.Net-Core.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\BouncyCastle.Crypto.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\Google.Protobuf.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\MySql.Data.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\Ubiety.Dns.Core.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\Newtonsoft.Json.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\Renci.SshNet.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\SshNet.Security.Cryptography.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Drawing.Common.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Security.Permissions.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Windows.Extensions.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csprojAssemblyReference.cache
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.AssemblyInfoInputs.cache
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.AssemblyInfo.cs
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csproj.CopyComplete
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.dll
+D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.pdb

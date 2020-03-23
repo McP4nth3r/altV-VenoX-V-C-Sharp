@@ -307,7 +307,7 @@ namespace VenoXV.Reallife.factions.LSPD
         }
 
 
-        //[AltV.Net.ClientEvent("Stellen_Server_Event")]
+        [ClientEvent("Stellen_Server_Event")]
         public void Stellen_server_event(IPlayer player)
         {
             try
