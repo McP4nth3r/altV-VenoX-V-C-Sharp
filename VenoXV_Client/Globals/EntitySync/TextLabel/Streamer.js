@@ -5,182 +5,272 @@
 import * as alt from 'alt';
 import * as natives from 'natives';
 
-class TextLabelStreamer {
+import { asyncModel } from "./async-models";
+
+let OBJECT_TYPES = {
+    OBJECT: 0,
+    RWO: 1
+};
+
+
+class ObjectStreamer {
     constructor() {
-        this.textLabels = [];
+        this.objects = [];
     }
 
-    async addTextLabel(entityId, text, position, scale, font, color, dropShadow, edge, center, proportional, entityType) {
-        this.removeTextLabel(entityId);
-        this.clearTextLabel(entityId);
+    async addObject(entityId, model, entityType, pos, rot, lodDistance, textureVariation, dynamic, visible, onFire, frozen, lightColor) {
+        // clear the object incase it still exists.
+        this.removeObject(entityId, entityType);
+        this.clearObject(entityId, entityType);
 
-        let textLabel = {
-            onDisplay: true, position: position,
-            entityId: +entityId, entityType: entityType,
-        };
+        if (!await asyncModel.load(+entityId, model))
+            return alt.log(`[OBJECT-STREAMER] Couldn't create object with model ${model}.`);
 
-        this.setText(textLabel, text);
-        this.setScale(textLabel, scale);
-        this.setFont(textLabel, font);
-        this.setColor(textLabel, color);
-        this.setDropShadow(textLabel, dropShadow);
-        this.setEdge(textLabel, edge);
-        this.setCenter(textLabel, center);
-        this.setProportional(textLabel, proportional);
+        let handle = natives.createObjectNoOffset(model, pos.x, pos.y, pos.z, true, true, false);
 
-        this.textLabels.push(textLabel);
+        let obj = { handle: handle, entityId: +entityId, model: model, entityType: entityType, position: pos, move: null };
+        this.objects.push(obj);
+
+        this.setRotation(obj, rot);
+        this.setLodDistance(obj, lodDistance);
+        this.setTextureVariation(obj, textureVariation);
+        this.setDynamic(obj, dynamic);
+        this.setVisible(obj, visible);
+        this.setOnFire(obj, onFire);
+        this.setFrozen(obj, frozen);
+        this.setLightColor(obj, lightColor);
     }
 
-    getTextLabel(entityId) {
-        let marker = this.textLabels.find(t => +t.entityId === +entityId);
+    removeWorldObject(entityId, position, model, radius, entityType) {
 
-        if (!marker)
+        let handle = natives.getClosestObjectOfType(position.x, position.y, position.z, +radius, model, false, true, true);
+
+        alt.log(`remove world object: ${entityId}, ${model}, ${handle}`);
+
+        if (handle !== 0) {
+            alt.log("handle is valid");
+            natives.setEntityCollision(+handle, false, false);
+            natives.setEntityVisible(+handle, false, false);
+        }
+
+        this.objects.push({ handle: handle, entityId: +entityId, model: model, entityType: entityType, radius: radius, position: position });
+    }
+
+    getObject(entityId, entityType) {
+        let obj = this.objects.find(o => +o.entityId === +entityId && +o.entityType === +entityType);
+
+        if (!obj)
             return null;
 
-        return marker;
+        return obj;
     }
 
-    restoreTextLabel(entityId) {
-        let textLabel = this.getTextLabel(entityId);
+    async restoreObject(entityId, entityType) {
+        let obj = this.getObject(entityId, entityType);
 
-        if (textLabel === null)
+        if (obj === null)
             return;
 
-        textLabel.onDisplay = true;
+        if (entityType === OBJECT_TYPES.RWO) {
+            natives.setEntityCollision(+obj.handle, false, false);
+            natives.setEntityVisible(+obj.handle, false, false);
+            return;
+        }
+
+        if (!await asyncModel.load(+entityId, obj.model))
+            return alt.log(`[OBJECT-STREAMER] Couldn't create object with model ${obj.model}.`);
+
+        obj.handle = natives.createObjectNoOffset(natives.getHashKey(obj.model), obj.position.x, obj.position.y, obj.position.z, true, true, false);
+
+        this.setRotation(obj, obj.rotation);
+        this.setLodDistance(obj, obj.lodDistance);
+        this.setTextureVariation(obj, obj.textureVariation);
+        this.setDynamic(obj, obj.dynamic);
+        this.setVisible(obj, obj.visible);
+        this.setOnFire(obj, obj.onFire);
+        this.setFrozen(obj, obj.frozen);
+        this.setLightColor(obj, obj.lightColor);
     }
 
-    removeTextLabel(entityId) {
-        let textLabel = this.getTextLabel(entityId);
+    removeObject(entityId, entityType) {
+        let obj = this.getObject(entityId, entityType);
 
-        if (textLabel === null)
+        if (obj === null)
             return;
 
-        textLabel.onDisplay = false;
+        if (entityType === OBJECT_TYPES.RWO) {
+            natives.setEntityCollision(+obj.handle, true, true);
+            natives.setEntityVisible(+obj.handle, true, false);
+            return;
+        }
+
+        asyncModel.cancel(+entityId);
+
+        natives.deleteObject(+obj.handle);
+        obj.handle = null;
     }
 
-    clearTextLabel(entityId) {
-        let idx = this.textLabels.findIndex(t => +t.entityId === +entityId);
+    clearObject(entityId, entityType) {
+        let idx = this.objects.findIndex(o => +o.entityId === +entityId && +o.entityType === +entityType);
 
         if (idx === -1)
             return;
 
-        this.textLabels.splice(idx, 1);
+        this.objects.splice(idx, 1);
     }
 
-    setPosition(textLabel, pos) {
-        textLabel.position = pos;
+    setRotation(obj, rot) {
+        natives.setEntityRotation(+obj.handle, rot.x, rot.y, rot.z, 2, false);
+        obj.rotation = rot;
     }
 
-    setText(textLabel, text) {
-        if (text === null)
-            text = "3D Textlabel";
+    setPosition(obj, pos) {
+        if (obj.move !== null)
+            return;
 
-        textLabel.text = text;
+        natives.setEntityCoordsNoOffset(+obj.handle, pos.x, pos.y, pos.z, true, true, true);
+        obj.position = pos;
     }
 
-    setScale(textLabel, scale) {
-        if (scale === null)
-            scale = 1;
+    async setModel(obj, model) {
 
-        textLabel.scale = scale;
+        if (obj.entityType !== OBJECT_TYPES.RWO) {
+            if (!await asyncModel.load(+obj.entityId, model))
+                return alt.log(`[OBJECT-STREAMER] Couldn't load model ${model}.`);
+
+            natives.createModelSwap(obj.position.x, obj.position.y, obj.position.z, 2, natives.getHashKey(obj.model), natives.getHashKey(model), true);
+        }
+
+        obj.model = model;
     }
 
-    setFont(textLabel, font) {
-        if (font === null)
-            font = 4;
+    setLodDistance(obj, lodDistance) {
+        if (lodDistance === null)
+            return;
 
-        textLabel.font = font;
+        natives.setEntityLodDist(+obj.handle, +lodDistance);
+        obj.lodDistance = lodDistance;
     }
 
-    setColor(textLabel, color) {
-        if (color === null)
-            color = { r: 255, g: 255, b: 255, a: 255 };
+    setRadius(obj, radius) {
+        if (radius === null)
+            return;
 
-        textLabel.color = color;
+        obj.radius = radius;
     }
 
-    setDropShadow(textLabel, dropShadow) {
-        if (dropShadow === null)
-            dropShadow = { distance: 0, r: 0, g: 0, b: 0, a: 255 };
+    setTextureVariation(obj, textureVariation) {
+        if (textureVariation === null) {
+            if (obj.textureVariation !== null) {
+                natives.setObjectTextureVariation(+obj.handle, +textureVariation);
+                obj.textureVariation = null;
+            }
+            return;
+        }
 
-        textLabel.dropShadow = dropShadow;
+        natives.setObjectTextureVariation(+obj.handle, +textureVariation);
+        obj.textureVariation = textureVariation;
     }
 
-    setEdge(textLabel, edge) {
-        if (edge === null)
-            edge = { r: 255, g: 255, b: 255, a: 255 };
+    setDynamic(obj, dynamic) {
+        if (dynamic === null)
+            return;
 
-        textLabel.edge = edge;
+        natives.setEntityDynamic(+obj.handle, !!dynamic);
+        obj.dynamic = !!dynamic;
     }
 
-    setCenter(textLabel, center) {
-        if (center === null)
-            center = true;
+    setVisible(obj, visible) {
+        if (visible === null)
+            return;
 
-        textLabel.center = center;
+        natives.setEntityVisible(+obj.handle, !!visible, false);
+        obj.textureVariation = !!visible;
     }
 
-    setProportional(textLabel, proportional) {
-        if (proportional === null)
-            proportional = true;
+    setOnFire(obj, onFire) {
+        if (onFire === null)
+            return;
 
-        textLabel.proportional = proportional;
+        if (!!onFire) {
+            obj.fireHandle = natives.startScriptFire(obj.position.x, obj.position.y, obj.position.z, 1, true);
+        }
+        else {
+            if (obj.fireHandle !== null) {
+                natives.removeScriptFire(+obj.fireHandle);
+                obj.fireHandle = null;
+            }
+        }
+
+        obj.onFire = !!onFire;
+    }
+
+    setFrozen(obj, frozen) {
+        if (frozen === null)
+            return;
+
+        natives.freezeEntityPosition(+obj.handle, !!frozen);
+        obj.frozen = !!frozen;
+    }
+
+    setLightColor(obj, lightColor) {
+        if (lightColor === null)
+            natives.setObjectLightColor(+obj.handle, false, 0, 0, 0);
+        else
+            natives.setObjectLightColor(+obj.handle, true, +lightColor.r, +lightColor.g, +lightColor.b);
+
+        obj.lightColor = lightColor;
+    }
+
+    moveObject(obj, data) {
+        alt.log('data recieved: ', JSON.stringify(data));
+        if (data === null)
+            obj.move = null;
+        else
+            obj.move = { ...data, speed: data.speed / 100 };
     }
 }
 
-export const textLabelStreamer = new TextLabelStreamer();
+function calculateNextPosForAxis(currentPos, nextPos, step) {
+    if (currentPos !== nextPos) {
+        if (Math.abs(currentPos - nextPos) < step)
+            currentPos = nextPos;
+        else if (currentPos < nextPos)
+            currentPos += step;
+        else
+            currentPos -= step;
+    }
+
+    return currentPos;
+}
+
+export const objStreamer = new ObjectStreamer();
 
 alt.on("resourceStop", () => {
-    textLabelStreamer.textLabels.forEach((textLabel) => {
-        textLabelStreamer.removeTextLabel(+textLabel.entityId);
-        textLabelStreamer.clearTextLabel(+textLabel.entityId);
+    objStreamer.objects.forEach((obj) => {
+        objStreamer.removeObject(+obj.entityId, +obj.entityType);
+        objStreamer.clearObject(+obj.entityId, +obj.entityType);
     });
 });
 
-function draw3dText(text, pos, scale, font, color, dropShadow, edge, center, proportional) {
-    // const entity = alt.Player.local.vehicle ? alt.Player.local.vehicle.scriptID : alt.Player.local.scriptID;
-    // const vector = natives.getEntityVelocity( entity );
-    const frameTime = natives.getFrameTime();
+alt.setInterval(() => {
+    objStreamer.objects.filter(o => o.move !== null && o.entityType !== OBJECT_TYPES.RWO).forEach((obj) => {
+        let pos = {
+            x: calculateNextPosForAxis(obj.position.x, obj.move.x, obj.move.speed),
+            y: calculateNextPosForAxis(obj.position.y, obj.move.y, obj.move.speed),
+            z: calculateNextPosForAxis(obj.position.z, obj.move.z, obj.move.speed),
+        };
 
-    natives.setDrawOrigin(pos.x + (frameTime), pos.y + (frameTime), pos.z + (frameTime), 0);
-    natives.beginTextCommandDisplayText('STRING');
-    natives.addTextComponentSubstringPlayerName(text);
-    natives.setTextFont(font);
-    natives.setTextScale(scale / 3, scale / 3);
-    natives.setTextWrap(0.0, 1.0);
-    natives.setTextCentre(center);
-    natives.setTextProportional(proportional);
-    natives.setTextColour(color.r, color.g, color.b, color.a);
+        // objStreamer.setPosition( obj, pos );
 
-    natives.setTextOutline();
-    natives.setTextDropShadow();
+        natives.setEntityCoordsNoOffset(+obj.handle, pos.x, pos.y, pos.z, true, true, true);
+        obj.position = pos;
 
-    natives.endTextCommandDisplayText(0, 0, 0);
-    natives.clearDrawOrigin();
-}
-
-alt.everyTick(() => {
-    textLabelStreamer.textLabels.forEach((textLabel) => {
-        if (textLabel.onDisplay) {
-            // let pos = alt.Player.local.pos;
-            // let ray = natives.startShapeTestRay( pos.x, pos.y, pos.z, textLabel.position.x, textLabel.position.y, textLabel.position.z, ( 1 | 2 | 16 | 256 ), +alt.Player.local.scriptID, 0 );
-            // let result = natives.getShapeTestResult( ray, undefined, undefined, undefined, undefined );
-            //
-            // alt.log( `data; ${ JSON.stringify( result ) }` );
-
-            // if( natives.hasEntityClearLosToEntity( ) ) {
-            draw3dText(
-                textLabel.text,
-                textLabel.position,
-                textLabel.scale,
-                textLabel.font,
-                textLabel.color,
-                textLabel.dropShadow,
-                textLabel.edge,
-                textLabel.center,
-                textLabel.proportional
-            );
-            // }
+        if (pos.x === obj.move.x && pos.y === obj.move.y && pos.z === obj.move.z) {
+            // obj.move = null;
+            // alt.log( JSON.stringify( obj ) );
+            alt.log('object moved!');
+            // alt.emitServer( "OnDynamicObjectMoveFinished", +obj.entityId );
         }
     });
-});
+}, 1);

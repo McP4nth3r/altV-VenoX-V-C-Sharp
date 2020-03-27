@@ -7,8 +7,8 @@
 import * as alt from 'alt-client';
 import * as game from "natives"
 import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
-import { CamerasManager } from '../../Globals/VnX-Lib/Camera';
 import { KeyUp, KeyDown } from '../../Globals/Scoreboard';
+import Camera from '../../Globals/VnX-Lib/camera';
 
 let loginbrowser = null;
 let Login_Timer_Load = undefined;
@@ -95,8 +95,8 @@ alt.onServer('showLoginError', () => {
 
 
 alt.onServer("StartCameraMovementVnX", (p1, p2, p3, p4, p5, p6, p7, p8) => {
-	Login_Kamera = CamerasManager.createCamera('Login_C', 'default', p1, p3, p5);
-	CamerasManager.setActiveCameraWithInterp(Login_Kamera, p2, p4, p6, 0, 0);
+	//Login_Kamera = CamerasManager.createCamera('Login_C', 'default', p1, p3, p5);
+	//CamerasManager.setActiveCameraWithInterp(Login_Kamera, p2, p4, p6, 0, 0);
 	alt.log(p1 + " | " + p2 + " | " + p3 + " | " + p4 + " | " + p5 + " | " + p6 + " | " + p7 + " | " + p8);
 	Login_Value = p7;
 	Login_Value_2 = p8;
@@ -104,11 +104,18 @@ alt.onServer("StartCameraMovementVnX", (p1, p2, p3, p4, p5, p6, p7, p8) => {
 
 alt.onServer("SetCamera_Event_Login", (p1, p2, p3, p4, p5, p6, p7, p8) => {
 	if (Login_Kamera != undefined) {
-		CamerasManager.setActiveCamera(Login_Kamera, false);
+		//CamerasManager.setActiveCamera(Login_Kamera, false);
 		//Login_Kamera.destroy();
 	}
-	Login_Kamera = CamerasManager.createCamera('Login_C', 'default', p1, p3, p5);
-	CamerasManager.setActiveCameraWithInterp(Login_Kamera, p2, p4, p6, 0, 0);
+
+	let camera = game.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", p1.X, p1.Y, p1.Z, 0, 0, p3.Z, p5, false, 0)[0];
+	let interpolCam = game.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", p2.X, p2.Y, p2.Z, 0, 0, p4.Z, p5, false, 0)[0];
+	game.setCamActiveWithInterp(interpolCam, camera, p6, 1, 1);
+	game.renderScriptCams(true, false, 0, true, false);
+
+	//StopCam.setActiveWithInterp(StopCam, p6, 0, 0);
+	//Login_Kamera = CamerasManager.createCamera('Login_C', 'default', p1, p3, p5);
+	//CamerasManager.setActiveCameraWithInterp(Login_Kamera, p2, p4, p6, 0, 0);
 	alt.log(p1 + " | " + p2 + " | " + p3 + " | " + p4 + " | " + p5 + " | " + p6 + " | " + p7 + " | " + p8);
 	Login_Value = p7;
 	Login_Value_2 = p8;

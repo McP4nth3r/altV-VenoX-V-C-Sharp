@@ -4,81 +4,93 @@
 */
 
 import * as alt from 'alt';
-import { textLabelStreamer } from './Streamer';
 
+import { objStreamer } from "./object-streamer";
 
 // when an object is streamed in
-alt.onServer("entitySync:create", entity => {
-    if (entity.data) {
-        let data = entity.data;
+alt.onServer("entitySync:create", (entityId, entityType, position, entityData) => {
+    alt.log('obj streamin: ', JSON.stringify(entityData));
 
-        if (data && data.entityType === "3dtextlabel") {
+    if (entityData) {
+        if (+entityType === 0) {
 
-            // alt.log( 'streamin texltabel: ', JSON.stringify( entity ) );
-
-            textLabelStreamer.addTextLabel(
-                +entity.id, data.text, entity.position, data.scale, data.font, data.color, data.dropShadow, data.edge, data.center, data.proportional, data.entityType
+            objStreamer.addObject(
+                +entityId, +entityData.model, +entityType,
+                position, entityData.rotation,
+                entityData.lodDistance, entityData.textureVariation, entityData.dynamic,
+                entityData.visible, entityData.onFire, entityData.frozen, entityData.lightColor
             );
+        }
+
+        if (+entityType === 1) {
+            objStreamer.removeWorldObject(+entityId, position, +entityData.model, entityData.radius, entityType);
         }
     }
     // this entity has streamed in before
-    // else
-    // {
-    //     textLabelStreamer.restoreTextLabel( +entity.id );
-    // }
+    else {
+        objStreamer.restoreObject(+entityId, +entityType);
+    }
 });
 
 // when an object is streamed out
-alt.onServer("entitySync:remove", entityId => {
+alt.onServer("entitySync:remove", (entityId, entityType) => {
 
-    //alt.log( 'streamout: ', entityId );
-    textLabelStreamer.removeTextLabel(+entityId);
+    alt.log('streamout: ', entityId);
+    objStreamer.removeObject(+entityId, +entityType);
 });
 
 // when a streamed in object changes position data
-alt.onServer("entitySync:updatePosition", (entityId, position) => {
-    let textLabel = textLabelStreamer.getTextLabel(+entityId);
+alt.onServer("entitySync:updatePosition", (entityId, entityType, position) => {
+    let obj = objStreamer.getObject(+entityId, +entityType);
 
-    if (textLabel === null)
+    if (obj === null)
         return;
 
-    textLabelStreamer.setPosition(textLabel, position);
+    objStreamer.setPosition(obj, position);
 });
 
 // when a streamed in object changes data
-alt.onServer("entitySync:updateData", (entityId, newData) => {
-    let textLabel = textLabelStreamer.getTextLabel(+entityId);
+alt.onServer("entitySync:updateData", (entityId, entityType, newData) => {
+    let obj = objStreamer.getObject(+entityId, +entityType);
 
-    if (textLabel === null)
+    if (obj === null)
         return;
 
-    if (newData.hasOwnProperty("center"))
-        textLabelStreamer.setCenter(textLabel, newData.center);
+    if (newData.hasOwnProperty("rotation"))
+        objStreamer.setRotation(obj, newData.rotation);
 
-    if (newData.hasOwnProperty("color"))
-        textLabelStreamer.setColor(textLabel, newData.color);
+    if (newData.hasOwnProperty("model"))
+        objStreamer.setModel(obj, newData.model);
 
-    if (newData.hasOwnProperty("center"))
-        textLabelStreamer.setDropShadow(textLabel, newData.center);
+    if (newData.hasOwnProperty("lodDistance"))
+        objStreamer.setLodDistance(obj, newData.lodDistance);
 
-    if (newData.hasOwnProperty("edge"))
-        textLabelStreamer.setEdge(textLabel, newData.edge);
+    if (newData.hasOwnProperty("textureVariation"))
+        objStreamer.setTextureVariation(obj, newData.textureVariation);
 
-    if (newData.hasOwnProperty("font"))
-        textLabelStreamer.setFont(textLabel, newData.font);
+    if (newData.hasOwnProperty("dynamic"))
+        objStreamer.setDynamic(obj, newData.dynamic);
 
-    if (newData.hasOwnProperty("proportional"))
-        textLabelStreamer.setProportional(textLabel, newData.proportional);
+    if (newData.hasOwnProperty("visible"))
+        objStreamer.setVisible(obj, newData.visible);
 
-    if (newData.hasOwnProperty("scale"))
-        textLabelStreamer.setScale(textLabel, newData.scale);
+    if (newData.hasOwnProperty("onFire"))
+        objStreamer.setOnFire(obj, newData.onFire);
 
-    if (newData.hasOwnProperty("text"))
-        textLabelStreamer.setText(textLabel, newData.text);
+    if (newData.hasOwnProperty("frozen"))
+        objStreamer.setFrozen(obj, newData.frozen);
 
+    if (newData.hasOwnProperty("lightColor"))
+        objStreamer.setLightColor(obj, newData.lightColor);
+
+    if (newData.hasOwnProperty("move"))
+        objStreamer.moveObject(obj, newData.move);
+
+    if (newData.hasOwnProperty("radius"))
+        objStreamer.setRadius(obj, newData.radius);
 });
 
 // when a streamed in object needs to be removed
-alt.onServer("entitySync:clearCache", entityId => {
-    textLabelStreamer.clearTextLabel(+entityId);
+alt.onServer("entitySync:clearCache", (entityId, entityType) => {
+    objStreamer.clearObject(+entityId, +entityType);
 });

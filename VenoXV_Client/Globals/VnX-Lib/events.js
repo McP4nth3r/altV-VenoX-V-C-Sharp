@@ -7,7 +7,6 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/VenoXV/Lobby';
-import { OnCameraEveryTick } from './camera';
 import { DrawText, Draw3DText, CreateBlip, ShowCursor } from './index';
 import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
@@ -18,13 +17,14 @@ import { Render7TowersLobby } from '../../SevenTowers/Lobby';
 import { BasicKeyBinds } from '../../preload/login';
 import { OnInventoryKeyPressed } from '../../Reallife/inventory';
 import { DrawNametags } from '../Anzeigen/nametags/nametags';
+import { XMENU_KEY, OnXKeyUp, OnXKeyDown } from '../../Reallife/xmenu';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
 export let PLAYER_LOBBY_TACTICS = "Tactics";
 export let PLAYER_LOBBY_7TOWERS = "Seven-Towers";
 
-let CurrentLobby = PLAYER_LOBBY_REALLIFE;
+let CurrentLobby = PLAYER_LOBBY_MAIN;
 let LocalPlayer = alt.Player.local;
 export function GetCurrentLobby() { return CurrentLobby; }
 export function FreezeClient(bool) { game.freezeEntityPosition(alt.Player.local.scriptID, bool); }
@@ -240,12 +240,22 @@ alt.onServer('Player:WarpOutOfVehicle', () => {
 
 alt.on('keyup', (key) => {
     KeyUp(key);
+    switch (key) {
+        case XMENU_KEY:
+            OnXKeyUp();
+            break;
+    }
 });
 
 alt.on('keydown', (key) => {
     OnInventoryKeyPressed(key);
     KeyDown(key);
     BasicKeyBinds(key);
+    switch (key) {
+        case XMENU_KEY:
+            OnXKeyDown();
+            break;
+    }
 });
 
 

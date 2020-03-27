@@ -6,164 +6,214 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor } from './index';
 
-let executedcmd = false;
+export default class Camera {
+    constructor(name, position, rotation, fov) {
 
-
-
-const CamerasManagerInfo = {
-    gameplayCamera: null,
-    activeCamera: null,
-    interpCamera: null,
-    interpActive: false,
-    _events: new Map(),
-    cameras: new Map([
-        ['testCamera', game.createCamWithParams("default", 0, 0, 0, 0, 0, 0, 50.0, false, 0)],
-    ])
-};
-
-export function OnCameraEveryTick() {
-    if (CamerasManagerInfo.interpCamera && CamerasManager.doesExist(CamerasManagerInfo.interpCamera) && !game.isCamInterpolating(CamerasManagerInfo.activeCamera)) {
-        CamerasManager.fireEvent('stopInterp', CamerasManagerInfo.activeCamera);
-
-        game.setCamActive(CamerasManagerInfo.interpCamera, false);
-        game.destroyCam(CamerasManagerInfo.interpCamera);
-        CamerasManagerInfo.interpCamera = null;
+        this.camera = game.createCam(name, 1)
+        game.setCamCoord(this.camera, position.x, position.y, position.z)
+        game.setCamRot(this.camera, rotation.x, rotation.y, rotation.z)
+        game.setCamFov(this.camera, fov)
     }
+
+    attachCamToEntity(entity, xOffset, yOffset, zOffset, isRelative) {
+        game.attachCamToEntity(this.camera, entity, xOffset, yOffset, zOffset, isRelative)
+    }
+
+    attachCamToPedBone(ped, boneIndex, x, y, z, heading) {
+        game.attachCamToPedBone(this.camera, ped, boneIndex, x, y, z, heading)
+    }
+
+    destroy(thisScriptCheck) {
+        game.destroyCam(this.camera, thisScriptCheck)
+    }
+
+    detachCam() {
+        game.detachCam(this.camera)
+    }
+
+    doesExist() {
+        return game.doesCamExist(this.camera)
+    }
+
+    getAnimCurrentPhase() {
+        return game.getCamAnimCurrentPhase(this.camera)
+    }
+
+    getCoord() {
+        return game.getCamCoord(this.camera)
+    }
+
+    getFarClip() {
+        return game.getCamFarClip(this.camera)
+    }
+
+    getFarDof() {
+        return game.getFarDof(this.camera)
+    }
+
+    getFov() {
+        return game.getCamFov(this.camera)
+    }
+
+    getNearClip() {
+        return game.getCamNearClip(this.camera)
+    }
+
+    getRot(rotationOrder) {
+        return game.getCamRot(this.camera, rotationOrder)
+    }
+
+    getSplineNodeIndex() {
+        return game.getCamSplineNodeIndex(this.camera)
+    }
+
+    getSplinePhase() {
+        return game.getCamSplinePhase(this.camera)
+    }
+
+    isActive() {
+        return game.isCamActive(this.camera)
+    }
+
+    isInterpolating() {
+        return game.isCamInterpolating(this.camera)
+    }
+
+    isPlayingAnim(animName, animDictionary) {
+        return game.isCamPlayingAnim(this.camera, animName, animDictionary)
+    }
+
+    isRendering() {
+        return game.isCamRendering(this.camera)
+    }
+
+    isShaking() {
+        return game.isCamShaking(this.camera)
+    }
+
+    playAnim(animName, animDictionary, x, y, z, xRot, yRot, zRot, p9, p10) {
+        game.playCamAnim(this.camera, animName, animDictionary, x, y, z, xRot, yRot, zRot, p9, p10)
+    }
+
+    pointAtCoord(x, y, z) {
+        game.pointCamAtCoord(this.camera, x, y, z)
+    }
+
+    pointAtEntity(entity, x, y, z, p5) {
+        game.pointCamAtEntity(this.camera, entity, x, y, z, p5)
+    }
+
+    pointAtPedBone(ped, boneIndex, x, y, z, p6) {
+        game.pointCamAtPedBone(this.camera, ped, boneIndex, x, y, z, p6)
+    }
+
+    setActive(active) {
+        game.setCamActive(this.camera, active)
+    }
+
+    setActiveWithInterp(camFrom, duration, easeLocation, easeRotation) {
+        game.setCamActiveWithInterp(this.camera, camFrom, duration, easeLocation, easeRotation)
+    }
+
+    setAffectsAiming(toggle) {
+        game.setCamAffectsAiming(this.camera, toggle)
+    }
+
+    setAnimCurrentPhase(phase) {
+        game.setCamAnimCurrentPhase(this.camera, phase)
+    }
+
+    setCoord(x, y, z) {
+        game.setCamCoord(this.camera, x, y, z)
+    }
+
+    setDebugName(name) {
+        game.setCamDebugName(this.camera, name)
+    }
+
+    setDofFnumberOfLens(p1) {
+        game.setCamDofFnumberOfLens(this.camera, p1)
+    }
+
+    setDofFocusDistanceBias(p1) {
+        game.setCamDofFocusDistanceBias(this.camera, p1)
+    }
+
+    setDofMaxNearInFocusDistance(p1) {
+        game.setCamDofMaxNearInFocusDistance(this.camera, p1)
+    }
+
+    setDofMaxNearInFocusDistanceBlendLevel(p1) {
+        game.setCamDofMaxNearInFocusDistanceBlendLevel(this.camera, p1)
+    }
+
+    setDofPlanes(p1, p2, p3, p4) {
+        game.setCamDofPlanes(this.camera, p1, p2, p3, p4)
+    }
+
+    setFarClip(farClip) {
+        game.setCamFarClip(this.camera, farClip)
+    }
+
+    setDofStrength(dofStrength) {
+        game.setCamDofStrength(this.camera, dofStrength)
+    }
+
+    setFarDof(farDOF) {
+        game.setCamFarDof(this.camera, farDOF)
+    }
+
+    setFov(fieldOfView) {
+        game.setCamFov(this.camera, fieldOfView)
+    }
+
+    setInheritRollVehicle(p1) {
+        game.setCamInheritRollVehicle(this.camera, p1)
+    }
+
+    setMotionBlurStrength(strength) {
+        game.setCamMotionBlurStrength(this.camera, strength)
+    }
+
+    setNearClip(nearClip) {
+        game.setCamNearClip(this.camera, nearClip)
+    }
+
+    setNearDof(nearDOF) {
+        game.setCamNearDof(this.camera, nearDOF)
+    }
+
+    setParams(x, y, z, rx, ry, rz, fov, duration, p9, p10, p11) {
+        game.setCamParams(this.camera, x, y, z, rx, ry, rz, fov, duration, p9, p10, p11)
+    }
+
+    setRot(rotX, rotY, rotZ, p4) {
+        game.setCamRot(this.camera, rotX, rotY, rotZ, p4)
+    }
+
+    setShakeAmplitude(amplitude) {
+        game.setCamShakeAmplitude(this.camera, amplitude)
+    }
+
+    setUseShallowDofMode(toggle) {
+        game.setCamUseShallowDofMode(this.camera, toggle)
+    }
+
+    shake(type, amplitude) {
+        game.shakeCam(this.camera, type, amplitude)
+    }
+
+    stopPointing() {
+        game.stopCamPointing(this.camera)
+    }
+
+    stopShaking(p1) {
+        game.stopCamShaking(this.camera, p1)
+    }
+
+    get cam() {
+        return this.camera
+    }
+
 }
-
-
-
-export class CamerasManager {
-
-    static on(eventName, eventFunction) {
-        if (CamerasManagerInfo._events.has(eventName)) {
-            const event = CamerasManagerInfo._events.get(eventName);
-
-            if (!event.has(eventFunction)) {
-                event.add(eventFunction);
-            }
-        } else {
-            CamerasManagerInfo._events.set(eventName, new Set([eventFunction]));
-        }
-    }
-
-    static fireEvent(eventName, ...args) {
-        if (CamerasManagerInfo._events.has(eventName)) {
-            const event = CamerasManagerInfo._events.get(eventName);
-
-            event.forEach(eventFunction => {
-                eventFunction(...args);
-            });
-        }
-    }
-
-    static getCamera(name) {
-
-        const camera = CamerasManagerInfo.cameras.get(name);
-
-        if (typeof camera.setActiveCamera !== 'function') {
-            //cameraSerialize(camera);
-        }
-
-        return camera;
-    }
-
-    static setCamera(name, camera) {
-        CamerasManagerInfo.cameras.set(name, camera);
-    }
-
-    static hasCamera(name) {
-        return CamerasManagerInfo.cameras.has(name);
-    }
-
-    static destroyCamera(camera) {
-        if (this.doesExist(camera)) {
-            if (camera === this.activeCamera) {
-                game.setCamActive(this.activeCamera, false);
-            }
-            camera.destroy();
-        }
-    }
-
-    static createCamera(name, type, position, rotation, fov) {
-        const cam = game.createCamWithParams("default", position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, fov);
-        //cameraSerialize(cam);
-        CamerasManagerInfo.cameras.set(name, cam);
-        return cam;
-    }
-
-    static setActiveCamera(activeCamera, toggle) {
-        if (!toggle) {
-            if (this.doesExist(CamerasManagerInfo.activeCamera)) {
-                CamerasManagerInfo.activeCamera = null;
-                game.setCamActive(activeCamera, false);
-                game.renderScriptCams(false, false, 0, false, false);
-            }
-
-            if (this.doesExist(CamerasManagerInfo.interpCamera)) {
-                game.setCamActive(CamerasManagerInfo.interpCamera, false);
-                game.destroyCam(CamerasManagerInfo.interpCamera);
-                CamerasManagerInfo.interpCamera = null;
-            }
-
-        } else {
-            if (this.doesExist(CamerasManagerInfo.activeCamera)) {
-                game.setCamActive(CamerasManagerInfo.activeCamera, false);
-            }
-            CamerasManagerInfo.activeCamera = activeCamera;
-            game.setCamActive(activeCamera, true);
-            game.renderScriptCams(true, false, 0, false, false);
-        }
-    }
-
-    static setActiveCameraWithInterp(activeCamera, position, rotation, duration, easeLocation, easeRotation) {
-
-        if (this.doesExist(CamerasManagerInfo.activeCamera)) {
-            game.setCamActive(CamerasManagerInfo.activeCamera, false);
-        }
-
-        if (this.doesExist(CamerasManagerInfo.interpCamera)) {
-
-            CamerasManager.fireEvent('stopInterp', CamerasManagerInfo.interpCamera);
-
-            game.setCamActive(CamerasManagerInfo.interpCamera, false);
-            game.destroyCam(CamerasManagerInfo.interpCamera, true);
-            CamerasManagerInfo.interpCamera = null;
-        }
-        const interpCamera = game.createCamWithParams('default', game.getCamCoord(activeCamera), game.getCamRot(activeCamera, 2), game.getCamFov(activeCamera));
-        game.setCamCoord(activeCamera, position.x, position.y, position.z);
-        game.setCamRot(activeCamera, rotation.x, rotation.y, rotation.z, 2);
-        game.stopCamPointing(activeCamera);
-
-        CamerasManagerInfo.activeCamera = activeCamera;
-        CamerasManagerInfo.interpCamera = interpCamera;
-        game.setCamActiveWithInterp(activeCamera.scriptID, interpCamera.scriptID, duration, easeLocation, easeRotation);
-        game.renderScriptCams(true, false, 0, false, false);
-
-        CamerasManager.fireEvent('startInterp', CamerasManagerInfo.interpCamera);
-        alt.log("Executed!");
-    }
-
-    static doesExist(camera) {
-        return game.doesCamExist(camera);
-    }
-
-    static get activeCamera() {
-        return CamerasManagerInfo.activeCamera;
-    }
-
-    static get gameplayCam() {
-        if (!CamerasManagerInfo.gameplayCamera) {
-            CamerasManagerInfo.gameplayCamera = game.createCameraWithParams("default", game.getGameplayCamCoord().x, game.getGameplayCamCoord().y, game.getGameplayCamCoord().z, game.getGameplayCamRot(2).x, game.getGameplayCamRot(2).y, game.getGameplayCamRot(2).z, game.getGameplayCamFov(), false, 0);
-        }
-        return CamerasManagerInfo.gameplayCamera;
-    }
-}
-/*
-const proxyscriptIDr = {
-    get: (target, name, receiver) => typeof CamerasManager[name] !== 'undefined' ? CamerasManager[name] : CamerasManagerInfo.cameras.get(name)
-};
-
-exports = new Proxy({}, proxyscriptIDr);*/

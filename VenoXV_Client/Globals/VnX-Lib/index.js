@@ -96,14 +96,13 @@ export function CreatePed(PedName, Vector3Pos, rot) {
     game.createPed(0, alt.hash(PedName), Vector3Pos[0], Vector3Pos[1], Vector3Pos[2], rot, 0, 0);
 }
 
-
-export function getOffset(x, y, z, rz, rx, ry, offX, offY, offZ) {
-    let pos = [];
-
-    pos[0] = (cos(rz) * sin(ry) + cos(ry) * sin(rz) * sin(rx)) * offZ + (-cos(rx) * sin(rz)) * offY + (cos(rz) * cos(ry) - sin(rz) * sin(rx) * sin(ry)) * offX + x;
-    pos[1] = (sin(rz) * sin(ry) - cos(rz) * cos(ry) * sin(rx)) * offZ + (cos(rz) * cos(rx)) * offY + (cos(ry) * sin(rz) + cos(rz) * sin(rx) * sin(ry)) * offX + y;
-    pos[2] = (cos(rx) * cos(ry)) * offZ + (sin(rx)) * offY + (-cos(rx) * sin(ry)) * offX + z;
-
+export function frontOfPlayer(distance) {
+    var result = game.getEntityForwardVector(player.scriptID);
+    var pos = {
+        x: player.pos.x + result.x * distance,
+        y: player.pos.y + result.y * distance,
+        z: player.pos.z + result.z * distance
+    }
     return pos;
 }
 
