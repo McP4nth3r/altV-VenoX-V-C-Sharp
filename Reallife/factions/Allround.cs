@@ -9,7 +9,7 @@ using VenoXV.Reallife.character;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net.Data;
@@ -778,7 +778,7 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != Constants.FACTION_NONE && player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= 4)
                 {
-                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                     {
@@ -815,7 +815,7 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != Constants.FACTION_NONE && player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= 4)
                 {
-                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
                     {
@@ -858,7 +858,7 @@ namespace VenoXV.Reallife.factions
         {
             try
             {
-                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (number > 4 || number < 0)
                 {

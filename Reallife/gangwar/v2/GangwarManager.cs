@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;

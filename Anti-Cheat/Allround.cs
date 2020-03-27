@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 
@@ -119,7 +119,7 @@ namespace VenoXV.Anti_Cheat
             try
             {
                 Database.AddPlayerTimeBan((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString().ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash, DateTime.Now.AddHours(time), DateTime.Now);
-                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0) + player.GetVnXName<string>() + " wurde von [VenoX Anti-Cheat Shield] für " + time + " Stunden gebannt! Grund : # " + Banhash);
+                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0) + player.GetVnXName<string>() + " wurde von [VenoX Anti-Cheat Shield] für " + time + " Stunden gebannt! Grund : # " + Banhash);
                 player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
             }
             catch { }

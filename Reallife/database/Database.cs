@@ -1,15 +1,15 @@
-﻿using AltV.Net.Elements.Entities;
-using AltV.Net;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VenoXV.Core;
 using VenoXV.Reallife.gangwar.v2;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.house;
 using VenoXV.Reallife.model;
-using AltV.Net.Data;
-using VenoXV.Reallife.Core;
-using MySql.Data.MySqlClient;
 
 namespace VenoXV.Reallife.database
 {
@@ -58,7 +58,7 @@ namespace VenoXV.Reallife.database
 
             // Item loading
             //Inventory.LoadDatabaseItems();
-            Main.itemList = LoadAllItems();
+            anzeigen.Inventar.Main.CurrentOfflineItemList = LoadAllItems();
 
             // Clothes loading
             Main.clothesList = LoadAllClothes();
@@ -102,7 +102,7 @@ namespace VenoXV.Reallife.database
             }
             catch { return null; }
         }
-         
+
         public static Fraktions_Waffenlager GetFactionWaffenlager(int factionID)
         {
             try
@@ -162,9 +162,9 @@ namespace VenoXV.Reallife.database
 
         public static void SetFactionWeaponlager(int factionID, int weapon_knuckle, int weapon_nightstick, int weapon_baseball, int weapon_stungun, int weapon_pistol, int weapon_pistol50,
             int weapon_revolver, int weapon_pumpshotgun, int weapon_combatpdw, int weapon_mp5, int weapon_assaultrifle, int weapon_carbinerifle, int weapon_advancedrifle,
-            int weapon_gusenberg, int weapon_rifle, int weapon_sniperrifle, int weapon_rpg, int weapon_bzgas, int weapon_molotov, int weapon_smokegrenade, int weapon_pistol_ammo, int weapon_pistol50_ammo, int weapon_revolver_ammo, int weapon_pumpshotgun_ammo, int weapon_combatpdw_ammo,int weapon_mp5_ammo, int weapon_assaultrifle_ammo,
+            int weapon_gusenberg, int weapon_rifle, int weapon_sniperrifle, int weapon_rpg, int weapon_bzgas, int weapon_molotov, int weapon_smokegrenade, int weapon_pistol_ammo, int weapon_pistol50_ammo, int weapon_revolver_ammo, int weapon_pumpshotgun_ammo, int weapon_combatpdw_ammo, int weapon_mp5_ammo, int weapon_assaultrifle_ammo,
             int weapon_carbinerifle_ammo, int weapon_advancedrifle_ammo, int weapon_gusenberg_ammo, int weapon_rifle_ammo, int weapon_sniperrifle_ammo, int weapon_rpg_ammo)
-            { 
+        {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -295,7 +295,7 @@ namespace VenoXV.Reallife.database
                 return login;
             }
             catch { return false; }
-        }       
+        }
         public static bool LoginAccountByName(string name, string password)
         {
             try
@@ -318,8 +318,8 @@ namespace VenoXV.Reallife.database
 
                 return login;
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("LoginAccountByName", ex); return false; }
-        }        
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoginAccountByName", ex); return false; }
+        }
 
         public static void ChangeUserPasswort(string Spielername, string password)
         {
@@ -394,7 +394,7 @@ namespace VenoXV.Reallife.database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE advertised SET " + where+ " = @Value LIMIT 1";
+                    command.CommandText = "UPDATE advertised SET " + where + " = @Value LIMIT 1";
                     command.Parameters.AddWithValue("@Value", howmuch);
 
                     command.ExecuteNonQuery();
@@ -472,7 +472,7 @@ namespace VenoXV.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "INSERT INTO users (UID, SpielerName, sex, socialName) VALUES (@UID, @playerName, @playerSex, @socialName)";
-                    command.Parameters.AddWithValue("@playerName",player.GetVnXName<string>());
+                    command.Parameters.AddWithValue("@playerName", player.GetVnXName<string>());
                     command.Parameters.AddWithValue("@UID", UID);
                     command.Parameters.AddWithValue("@playerSex", (int)player.vnxGetElementData<int>(EntityData.PLAYER_SEX));
                     command.Parameters.AddWithValue("@socialName", player.SocialClubId.ToString());
@@ -613,7 +613,7 @@ namespace VenoXV.Reallife.database
 
                 return skin;
             }
-            catch (Exception ex){ Core.Debug.CatchExceptions("DB:GETCHARACTERSKIN", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DB:GETCHARACTERSKIN", ex); return null; }
         }
 
         public static void UpdateCharacterHair(int playerId, SkinModel skin)
@@ -942,7 +942,7 @@ namespace VenoXV.Reallife.database
             }
             catch { return false; }
         }
-        
+
         public static bool FindCharacterName(string name)
         {
             try
@@ -1212,7 +1212,7 @@ namespace VenoXV.Reallife.database
             }
             catch { return -1; }
         }
-        
+
         public static int GetAccountUIDBySerial(string serial)
         {
             try
@@ -1236,7 +1236,7 @@ namespace VenoXV.Reallife.database
                 return -1;
             }
             catch { return -1; }
-        }       
+        }
         public static int GetAccountUIDByName(string name)
         {
             try
@@ -1642,17 +1642,17 @@ namespace VenoXV.Reallife.database
 
                 return IVehicleList;
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("LoadAllVehicles", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoadAllVehicles", ex); return null; }
         }
-        
-        
+
+
         public static List<GangwarModel> LoadAllGWAreas()
         {
             try
             {
-                
+
                 List<GangwarModel> gwList = new List<GangwarModel>();
-                
+
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
@@ -1671,7 +1671,7 @@ namespace VenoXV.Reallife.database
                         }
                     }
                 }
-                
+
                 return gwList;
             }
             catch { return new List<GangwarModel>(); }
@@ -2207,8 +2207,8 @@ namespace VenoXV.Reallife.database
                     Console.WriteLine("[EXCEPTION RemoveItem] " + ex.StackTrace);
                 }
             }
-        }        
-        
+        }
+
         public static void RemoveAllItemsByArt(int SQLID, string ItemArt)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -2705,7 +2705,7 @@ namespace VenoXV.Reallife.database
                 }
             }
         }
-       
+
 
         public static List<ClothesModel> LoadAllClothes()
         {
@@ -2865,8 +2865,8 @@ namespace VenoXV.Reallife.database
             catch { return false; }
         }
 
-       
-        
+
+
 
         public static void AddAdminLog(string admin, string player, string action, int time, string reason)
         {
@@ -2976,7 +2976,7 @@ namespace VenoXV.Reallife.database
                 }
             }
         }
-        public static void AddPlayerTimeBan(int UID, string SpielerSocial, string serial, string Bangrund, string Admin, DateTime Banzeit, DateTime BannerstelltAm )
+        public static void AddPlayerTimeBan(int UID, string SpielerSocial, string serial, string Bangrund, string Admin, DateTime Banzeit, DateTime BannerstelltAm)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {

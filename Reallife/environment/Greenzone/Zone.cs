@@ -4,7 +4,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 
 namespace VenoXV.Reallife.Environment.Gzone
 {

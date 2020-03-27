@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.gangwar.v2;
@@ -83,11 +83,11 @@ namespace VenoXV.Reallife.gangwar
                                                 ++_gangwarManager.attacksCount;
 
                                                 // Notify all player about this event
-                                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Ein Gangwar wird vorbereitet!");
+                                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Ein Gangwar wird vorbereitet!");
                                                 factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName<string>() + " hat einen Gangwar gegen " + factions.Faction.GetPlayerFactionName(_gangwarManager.currentArea.GetCurrentRound().DefenderId) + " gestartet!");
                                                 return;
                                             }
-                                            else { Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
+                                            else { RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
                                         }
                                         else { dxLibary.VnX.DrawNotification(player, "error", "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
                                     }

@@ -3,7 +3,7 @@ using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.database;
 using System;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net;
 
@@ -96,7 +96,7 @@ namespace VenoXV.Reallife.bank
                     if (charakterexestiert)
                     {
                         string SpielerNameNormal = Database.GetAccountSpielerName(Database.GetCharakterSocialName(name));
-                        IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(SpielerNameNormal);
+                        IPlayer target = RageAPI.GetPlayerFromName(SpielerNameNormal);
                         if (target == null || target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) != true)
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht Online!");

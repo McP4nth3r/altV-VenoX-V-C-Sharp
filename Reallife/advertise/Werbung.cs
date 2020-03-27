@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.Globals;
 
 namespace VenoXV.Reallife.advertise
@@ -29,10 +29,10 @@ namespace VenoXV.Reallife.advertise
                         int FINAL_AD_COSTS = text.Length * AD_COSTS;
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
                         {
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " [Werbung] : " + RageAPI.GetHexColorcode(255,255,255) + text);
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " Von : " + RageAPI.GetHexColorcode(255,255,255) +player.GetVnXName<string>() + " | " + RageAPI.GetHexColorcode(0,200,255) + " Handy : " + RageAPI.GetHexColorcode(255,255,255) + "V.2.0.0 INCOMING");
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " [Werbung] : " + RageAPI.GetHexColorcode(255,255,255) + text);
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " Von : " + RageAPI.GetHexColorcode(255,255,255) +player.GetVnXName<string>() + " | " + RageAPI.GetHexColorcode(0,200,255) + " Handy : " + RageAPI.GetHexColorcode(255,255,255) + "V.2.0.0 INCOMING");
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
                             Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);

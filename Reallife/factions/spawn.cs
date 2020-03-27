@@ -9,7 +9,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
@@ -95,7 +95,7 @@ namespace VenoXV.Reallife.factions
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                        Main.itemList.Add(Kanister);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -128,7 +128,7 @@ namespace VenoXV.Reallife.factions
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                        Main.itemList.Add(Kanister);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -156,7 +156,7 @@ namespace VenoXV.Reallife.factions
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                        Main.itemList.Add(Kanister);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -185,7 +185,7 @@ namespace VenoXV.Reallife.factions
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                        Main.itemList.Add(Kanister);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -205,7 +205,7 @@ namespace VenoXV.Reallife.factions
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
                         Snack.id = Database.AddNewItem(Snack);
-                        Main.itemList.Add(Snack);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                     }
                     else
                     {
@@ -233,7 +233,7 @@ namespace VenoXV.Reallife.factions
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                        Main.itemList.Add(Kanister);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -253,7 +253,7 @@ namespace VenoXV.Reallife.factions
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
                         Snack.id = Database.AddNewItem(Snack);
-                        Main.itemList.Add(Snack);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                     }
                     else
                     {

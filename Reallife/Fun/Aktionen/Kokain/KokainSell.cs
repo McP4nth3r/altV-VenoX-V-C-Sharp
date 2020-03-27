@@ -5,7 +5,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Threading.Tasks;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
@@ -62,7 +62,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Kokain
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.id);
-                                Main.itemList.Remove(KOKS);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                             }
                         }
                         else

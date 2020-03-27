@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Timers;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Fun.Aktionen.SWT;
 using VenoXV.Reallife.Globals;
@@ -166,7 +166,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 WTTimer.Interval = 20 * 60000;
                 WTTimer.Enabled = true;
 
-                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "[Illegal]: Ein Waffentruck wurde beladen!");
+                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "[Illegal]: Ein Waffentruck wurde beladen!");
             }
             catch
             {
@@ -181,7 +181,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,175,175)+"Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,175,175)+"Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
                     WT_TRUCK.Remove();
                 }
             }

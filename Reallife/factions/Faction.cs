@@ -11,7 +11,7 @@ using System.Linq;
 using System;
 using VenoXV.Reallife.dxLibary;
 using AltV.Net;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net.Data;
 

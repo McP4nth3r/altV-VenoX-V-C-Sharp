@@ -5,7 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 
 namespace VenoXV.Zombie.World
 {
@@ -39,9 +39,9 @@ namespace VenoXV.Zombie.World
                 //NAPI.Player.SpawnPlayer(player, PLAYER_SPAWN_NOOBSPAWN);
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 player.Emit("Zombie:OnResourceStart");
-                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
-                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
-                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 999);
+                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
+                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
+                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 999);
                 SendPlayerWelcomeNotify(player);
             }
             catch { }

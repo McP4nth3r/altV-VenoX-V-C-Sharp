@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Tactics.globals;
 
 namespace VenoXV.Tactics.environment
@@ -62,7 +62,7 @@ namespace VenoXV.Tactics.environment
                     //}
                 }
             }
-            catch(Exception ex) { Reallife.Core.Debug.CatchExceptions("OnPlayerDeath", ex); }
+            catch(Exception ex) { Debug.CatchExceptions("OnPlayerDeath", ex); }
         }
     }
 }

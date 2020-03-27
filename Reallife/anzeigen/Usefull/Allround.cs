@@ -5,9 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.factions;
 using VenoXV.Reallife.Globals;
@@ -23,11 +21,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllWeapons();
                 int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-                foreach(ItemModel waffen in Main.itemList.ToList())
+                foreach (ItemModel waffen in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
-                    if(waffen.ITEM_ART == Constants.ITEM_ART_WAFFE && waffen.ownerIdentifier == playerId)
+                    if (waffen.ITEM_ART == Constants.ITEM_ART_WAFFE && waffen.ownerIdentifier == playerId)
                     {
-                        Main.itemList.Remove(waffen);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(waffen);
                     }
                 }
                 Database.RemoveAllItemsByArt(playerId, Constants.ITEM_ART_WAFFE);
@@ -58,37 +56,37 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 if (Switchblade != null)
                 {
                     Database.RemoveItem(Switchblade.id);
-                    Main.itemList.Remove(Switchblade);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Switchblade);
                 }
 
                 if (Baseball != null)
                 {
                     Database.RemoveItem(Baseball.id);
-                    Main.itemList.Remove(Baseball);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Baseball);
                 }
 
                 if (Nightstick != null)
                 {
                     Database.RemoveItem(Nightstick.id);
-                    Main.itemList.Remove(Nightstick);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Nightstick);
                 }
 
                 if (Tazer != null)
                 {
                     Database.RemoveItem(Tazer.id);
-                    Main.itemList.Remove(Tazer);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Tazer);
                 }
 
                 if (Shotgun != null)
                 {
                     Database.RemoveItem(Shotgun.id);
-                    Main.itemList.Remove(Shotgun);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Shotgun);
                 }
 
                 if (Sniperrifle != null)
                 {
                     Database.RemoveItem(Sniperrifle.id);
-                    Main.itemList.Remove(Sniperrifle);
+                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Sniperrifle);
                 }
 
                 weapons.Weapons.GivePlayerWeaponItems(player);
@@ -126,7 +124,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         public const int QUEST_GET225 = 11;
         public static string GetQuestContainerText(IPlayer player)
         {
-            if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_VENOXRENTALS)
+            if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_VENOXRENTALS)
             {
                 return "Willkommen auf VenoX - V,<br>begib dich zu VenoX Rentals um<br>deine Erste Belohnung zu bekommen!";
             }
@@ -158,23 +156,23 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             {
                 return "One Car One Dream!<br>Kaufe dir dein erstes Auto!";
             }
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET100K)
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET100K)
             {
                 return "Kauf dir einen Benzinkannister.";
             }
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GETWEAPONLICENSE)
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GETWEAPONLICENSE)
             {
                 return "Waffen sind wichtig.....!!!<br>Besorge dir einen Waffenschein ( ab 3 H Verfügbar ).";
             }
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GETADVANCEDRIFLE)
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GETADVANCEDRIFLE)
             {
                 return "Ein Kampfgewehr? Not Bad...<br>Besorge dir eine Advanced Rifle.";
-            }            
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_START_SHOPROB)
+            }
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_START_SHOPROB)
             {
                 return "Es wird Zeit etwas Geld zu verdienen...<br>Raube einen 24/7 Shop aus!";
-            }            
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET225)
+            }
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET225)
             {
                 return "Kauf einen Schneeball auf dem Weihnachtsmarkt!";
             }
@@ -209,21 +207,21 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_AUTOSCHEIN)
             {
-                return "Belohnung : "+ QUEST_MONEY_AUTOSCHEIN + "$";
+                return "Belohnung : " + QUEST_MONEY_AUTOSCHEIN + "$";
             }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_ATM_EINZAHLEN)
             {
-                return "<br>Belohnung : "+ QUEST_MONEY_ATM_EINZAHLEN + "$";
+                return "<br>Belohnung : " + QUEST_MONEY_ATM_EINZAHLEN + "$";
             }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GAS_SNACK)
             {
-                return "Belohnung : "+ QUEST_MONEY_GAS_SNACK + "$";
+                return "Belohnung : " + QUEST_MONEY_GAS_SNACK + "$";
             }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_AUTOKAUFEN)
             {
-                return "Belohnung : "+ QUEST_MONEY_AUTOKAUFEN + "$";
+                return "Belohnung : " + QUEST_MONEY_AUTOKAUFEN + "$";
             }
-            else if(player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET100K)
+            else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET100K)
             {
                 return "Belohnung : " + QUEST_MONEY_GET100K + "$";
             }
@@ -234,11 +232,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GETADVANCEDRIFLE)
             {
                 return "Belohnung : " + QUEST_MONEY_GETADVANCEDRIFLE + "$";
-            }            
+            }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_START_SHOPROB)
             {
                 return "Belohnung : " + QUEST_MONEY_START_SHOPROB + "$";
-            }            
+            }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_GET225)
             {
                 return "Belohnung : " + QUEST_MONEY_GET225 + "$";
@@ -247,12 +245,12 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         }
 
 
-        public static void UpdateQuestLVL(IPlayer player,  int QUESTDONE)
+        public static void UpdateQuestLVL(IPlayer player, int QUESTDONE)
         {
             try
             {
                 int playerquest = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS);
-                if(playerquest < QUESTDONE) { return; }
+                if (playerquest < QUESTDONE) { return; }
 
 
                 if (QUESTDONE == QUEST_VENOXRENTALS)
@@ -336,7 +334,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                         Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
                         Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
                     }
-                }                
+                }
                 else if (QUESTDONE == QUEST_START_SHOPROB)
                 {
                     if (playerquest == QUEST_START_SHOPROB)
@@ -344,7 +342,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                         Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
                         Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
                     }
-                }                
+                }
                 else if (QUESTDONE == QUEST_GET225)
                 {
                     if (playerquest == QUEST_GET225)
@@ -360,7 +358,8 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         [Command("updatehud")]
         public static void UpdateHUD(IPlayer player)
         {
-            try {
+            try
+            {
                 string name = string.Empty;
                 int oldquest = 0;
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) - 1 == -1)
@@ -373,11 +372,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
                 {
-                    name = "[VnX]" +player.GetVnXName<string>();
+                    name = "[VnX]" + player.GetVnXName<string>();
                 }
                 else
                 {
-                    name =player.GetVnXName<string>();
+                    name = player.GetVnXName<string>();
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD) == 0)
                 {
@@ -393,7 +392,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     return;
                 }
                 player.Emit("UpdateHUD", name, Faction.GetPlayerFactionName((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), Faction.GetPlayerFactionRank(player), player.vnxGetElementData<int>(EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
-                
+
             }
             catch { }
         }
@@ -433,22 +432,22 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName<string>() + " : " + text);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.GetVnXName<string>() + " : " + text);
                     }
                 }
                 //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName<string>() + " : " + text);
-                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" +player.GetVnXName<string>() + "] : " + text);
+                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.GetVnXName<string>() + "] : " + text);
             }
             catch { }
         }
 
         public static void SpectatePlayer(IPlayer player, string target_name, int einsfürfalse)
         {
-           // player.Emit("VnX_Start_S", Target, einsfürfalse);
+            // player.Emit("VnX_Start_S", Target, einsfürfalse);
         }
 
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
-        public  static void CreateTypingEffect(IPlayer player, bool state)
+        public static void CreateTypingEffect(IPlayer player, bool state)
         {
             if (state == true)
             {
@@ -462,7 +461,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
         public static void ResetDiscordData(IPlayer player)
         {
-            if(Allround.isStateFaction(player))
+            if (Allround.isStateFaction(player))
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
                 {
@@ -576,13 +575,13 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) == 0)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(player);
                         Database.RemoveOldPrison(player.GetVnXName<string>());
                     }
                 }
             }
-            catch{}
+            catch { }
         }
 
         public static void SaveIVehicleDatas()
@@ -646,10 +645,10 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         {
             try
             {
-                
+
                 IVehicle CreatedVehicle = Alt.CreateVehicle((uint)vehName.GetHashCode(), coord, new Rotation(0, 0, (float)rot));
-                if (WarpPlayerIntoVeh == true) 
-                { 
+                if (WarpPlayerIntoVeh == true)
+                {
                     //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, CreatedIVehicle, -1); 
                 }
 
@@ -660,7 +659,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_MODEL, CreatedVehicle.Model.ToString());
                 Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_FACTION, 0);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
+                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
                 Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_FIRST_Rgba, primaryC.R + "," + primaryC.G + "," + primaryC.B);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_SECOND_Rgba, secondC.R + "," + secondC.G + "," + secondC.B);
@@ -670,7 +669,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_PARKED, 0);
                 Core.VnX.IVehicleSetSharedBoolData(CreatedVehicle, EntityData.VEHICLE_RENTED, isRentedIVehicle);
                 Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_JOB, Job);
-                
+
                 // KM & Gas load and Safe.
                 Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "kms", 0);
                 Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "gas", 100);

@@ -15,7 +15,7 @@ using VenoXV.Reallife.dxLibary;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Async;
 
 namespace VenoXV.Reallife.Vehicles
@@ -210,7 +210,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (player.vnxGetElementData<int>(FahrzeugID.ToString()) != null)
                     {
-                        string target_name = Reallife.Core.RageAPI.GetPlayerFromName(Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
+                        string target_name = RageAPI.GetPlayerFromName(Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
                         if(target != null)
                         {
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= player.vnxGetElementData<string>(FahrzeugID.ToString()))
@@ -256,9 +256,9 @@ namespace VenoXV.Reallife.Vehicles
                         float kostenberechnung = 100f - Gas;
                         kostenWindow = (int)kostenberechnung * 15;
                         dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
-                        /*Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + Gas);
-                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenberechnung);
-                        Reallife.Core.RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenWindow);*/
+                        /*RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + Gas);
+                        RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenberechnung);
+                        RageAPI.SendChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName<string>() + " hat :" + kostenWindow);*/
                     }
                     player.Emit("createGasWindow", kostenWindow);
                 }
@@ -292,7 +292,7 @@ namespace VenoXV.Reallife.Vehicles
 
                         // Add the item into the database
                         Snack.id = Database.AddNewItem(Snack);
-                        Main.itemList.Add(Snack);
+                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                 }
                 else
                 {
@@ -333,7 +333,7 @@ namespace VenoXV.Reallife.Vehicles
 
                     // Add the item into the database
                     Kanister.id = Database.AddNewItem(Kanister);
-                    Main.itemList.Add(Kanister);
+                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 450);
                     player.SendChatMessage( "Du hast einen " + RageAPI.GetHexColorcode(0,200,255) + " Benzinkannister " + RageAPI.GetHexColorcode(255,255,255) + "erworben.");
                 }
@@ -578,13 +578,16 @@ namespace VenoXV.Reallife.Vehicles
                 Core.VnX.VehiclevnxSetSharedData(Vehicle, "kms", vehModel.kms);
                 // Set IVehicle's tunning
                 Tunning.AddTunningToIVehicle(Vehicle);
-                if(vehModel.faction > Constants.FACTION_NONE)
+                Vehicle.ManualEngineControl = false;
+                if (vehModel.faction > Constants.FACTION_NONE)
                 {
+                    Vehicle.LockState = AltV.Net.Enums.VehicleLockState.Unlocked;
                     //ToDo Fix it Vehicle.LockState = false;
                     //ToDo Fix it                     Vehicle.Lock
                 }
                 else
                 {
+                    Vehicle.LockState = AltV.Net.Enums.VehicleLockState.Locked ;
                     //ToDo Fix it                     Vehicle.Locked = true;
                 }
             }

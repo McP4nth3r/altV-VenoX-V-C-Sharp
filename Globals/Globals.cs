@@ -4,12 +4,11 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.EntitySync;
 using AltV.Net.EntitySync.ServerEvent;
 using AltV.Net.EntitySync.SpatialPartitions;
-using DasNiels.AltV.Streamers;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 
 namespace VenoXV.Globals
 {
@@ -19,17 +18,17 @@ namespace VenoXV.Globals
         {
             try
             {
-                AltEntitySync.Init(1, 100,
+                /*AltEntitySync.Init(1, 100,
                    repository => new ServerEventNetworkLayer(repository),
                    () => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 600),
                    new IdProvider()
-                );
+                );*/
                 Reallife.Globals.Main.OnResourceStart();
                 Tactics.globals.Globals.OnResourceStart();
                 SevenTowers.Lobby.Main.OnResourceStart();
-                DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(469.8354f, -985.0742f, 33.89248f), 0, true, new Rgba(255, 255, 255, 255));
+               // DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(469.8354f, -985.0742f, 33.89248f), 0, true, new Rgba(255, 255, 255, 255));
             }
-            catch (Exception ex) { Reallife.Core.Debug.CatchExceptions("OnResourceStart", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("OnResourceStart", ex); }
         }
 
 
@@ -53,7 +52,7 @@ namespace VenoXV.Globals
             if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
             {
                 if (Functions.IstargetInSameLobby(player, killer) || killer == null)
-                { if (killer == null) { killer = Reallife.Core.RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
+                { if (killer == null) { killer = RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
                     VenoXV.Tactics.environment.Death.OnPlayerDeath(player, killer);
                 }
                 return;
@@ -95,10 +94,10 @@ namespace VenoXV.Globals
         [ScriptEvent(ScriptEventType.WeaponDamage)]
         public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, UInt16 damage, Position offset, AltV.Net.Data.BodyPart bodypart)
         {
-            //Reallife.Core.Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.GetVnXName<string>() + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
+            //Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.GetVnXName<string>() + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
             AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
-            //Reallife.Core.Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
-            //Reallife.Core.Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.GetVnXName<string>());
+            //Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
+            //Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.GetVnXName<string>());
             if (target != null && source != null)
             {
                 Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);

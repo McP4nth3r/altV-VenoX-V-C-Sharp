@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.Globals;
 
 namespace VenoXV.Reallife.chat

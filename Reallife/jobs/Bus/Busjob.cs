@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.jobs;

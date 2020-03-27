@@ -15,7 +15,7 @@ using System.Threading;
 using System.Linq;
 using System;
 using VenoXV.Reallife.anzeigen.Usefull;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net.Data;
 using AltV.Net;
@@ -140,19 +140,19 @@ namespace VenoXV.Reallife.factions
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.id);
-                                Main.itemList.Remove(KOKS);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                             }
                             if (WEED != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(WEED.id);
-                                Main.itemList.Remove(WEED);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
                             }
                             if (MATS != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(MATS.id);
-                                Main.itemList.Remove(MATS);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
                             }
 
                             target.SendChatMessage(RageAPI.GetHexColorcode(200,0,0) +player.GetVnXName<string>() + " hat dir deine Illegalen Gegenstaende abgenommen!");
@@ -246,8 +246,8 @@ namespace VenoXV.Reallife.factions
                                 SCHLAGSTOCK.ITEM_ART = "Waffe";
                                 SCHLAGSTOCK.objectHandle = null;
                                 SCHLAGSTOCK.id = Database.AddNewItem(SCHLAGSTOCK);
-                                Main.itemList.Add(SCHLAGSTOCK);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Nightstick, 0);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SCHLAGSTOCK);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Nightstick, 0);
                                 weapon_nightstick = weapon_nightstick - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat einen Schlagstock vom Lager genommen.");
                             }
@@ -280,9 +280,9 @@ namespace VenoXV.Reallife.factions
 
 
                                     TAZER.id = Database.AddNewItem(TAZER);
-                                    Main.itemList.Add(TAZER);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(TAZER);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.StunGun, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.StunGun, 0);
                                 weapon_stungun = weapon_stungun - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat einen Tazer vom Lager genommen.");
                             }
@@ -313,9 +313,9 @@ namespace VenoXV.Reallife.factions
                                 PISTOLE.objectHandle = null;
 
                                 PISTOLE.id = Database.AddNewItem(PISTOLE);
-                                Main.itemList.Add(PISTOLE);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol, 0);
                                 weapon_pistol = weapon_pistol - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Pistole vom Lager genommen.");
                             }
@@ -343,7 +343,7 @@ namespace VenoXV.Reallife.factions
 
 
                                         PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                        Main.itemList.Add(PistolenMagazin);
+                                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
                                 }
                                 else
                                 {
@@ -378,9 +378,9 @@ namespace VenoXV.Reallife.factions
                                 PISTOLE50.objectHandle = null;
 
                                     PISTOLE50.id = Database.AddNewItem(PISTOLE50);
-                                    Main.itemList.Add(PISTOLE50);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE50);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 0);
                                 weapon_pistol50 = weapon_pistol50 - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Pistol50. vom Lager genommen.");
                             }
@@ -408,7 +408,7 @@ namespace VenoXV.Reallife.factions
 
                                     // Add the item into the database
                                     PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                    Main.itemList.Add(PistolenMagazin);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
                                 }
                                 else
                                 {
@@ -443,9 +443,9 @@ namespace VenoXV.Reallife.factions
                                 SHOTGUN.objectHandle = null;
 
                                     SHOTGUN.id = Database.AddNewItem(SHOTGUN);
-                                    Main.itemList.Add(SHOTGUN);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SHOTGUN);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 0);
                                 weapon_pumpshotgun = weapon_pumpshotgun - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Shotgun vom Lager genommen.");
                             }
@@ -487,8 +487,8 @@ namespace VenoXV.Reallife.factions
                                 PDW.ITEM_ART = "Waffe";
                                 PDW.objectHandle = null;
                                     PDW.id = Database.AddNewItem(PDW);
-                                    Main.itemList.Add(PDW);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PDW);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 0);
                                 weapon_combatpdw = weapon_combatpdw - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine PDW vom Lager genommen.");
                             }
@@ -534,12 +534,12 @@ namespace VenoXV.Reallife.factions
                                     if (AdvancedRifle != null)
                                     {
                                         Database.RemoveItem(AdvancedRifle.id);
-                                        Main.itemList.Remove(AdvancedRifle);
+                                       anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(AdvancedRifle);
                                         player.RemoveWeapon( AltV.Net.Enums.WeaponModel.AdvancedRifle);
                                     }
                                     KARABINER.id = Database.AddNewItem(KARABINER);
-                                    Main.itemList.Add(KARABINER);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(KARABINER);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 0);
                                 weapon_carbinerifle = weapon_carbinerifle - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Karabiner vom Lager genommen.");
                             }
@@ -584,12 +584,12 @@ namespace VenoXV.Reallife.factions
                                     if (Karabiner != null)
                                     {
                                         Database.RemoveItem(Karabiner.id);
-                                        Main.itemList.Remove(Karabiner);
+                                       anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Karabiner);
                                         player.RemoveWeapon( AltV.Net.Enums.WeaponModel.CarbineRifle);
                                     }
                                     ADVANCEDRIFLE.id = Database.AddNewItem(ADVANCEDRIFLE);
-                                    Main.itemList.Add(ADVANCEDRIFLE);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AdvancedRifle, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(ADVANCEDRIFLE);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AdvancedRifle, 0);
                                 weapon_advancedrifle = weapon_advancedrifle - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine AdvancedRifle vom Lager genommen.");
                             }
@@ -632,8 +632,8 @@ namespace VenoXV.Reallife.factions
                                 SNIPER.objectHandle = null;
 
                                     SNIPER.id = Database.AddNewItem(SNIPER);
-                                    Main.itemList.Add(SNIPER);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SNIPER);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 0);
                                 weapon_sniperrifle = weapon_sniperrifle - 1;
                                 Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Sniper vom Lager genommen.");
                             }
@@ -751,8 +751,8 @@ namespace VenoXV.Reallife.factions
                                 BASEBALL.ITEM_ART = "Waffe";
                                 BASEBALL.objectHandle = null;
                                 BASEBALL.id = Database.AddNewItem(BASEBALL);
-                                Main.itemList.Add(BASEBALL);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.BaseballBat, 0);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(BASEBALL);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.BaseballBat, 0);
                                 weapon_baseball = weapon_baseball - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat einen Baseball-Schläger vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -784,9 +784,9 @@ namespace VenoXV.Reallife.factions
                                 PISTOLE.objectHandle = null;
 
                                 PISTOLE.id = Database.AddNewItem(PISTOLE);
-                                Main.itemList.Add(PISTOLE);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol, 0);
                                 weapon_pistol = weapon_pistol - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Pistole vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -814,7 +814,7 @@ namespace VenoXV.Reallife.factions
 
 
                                         PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                        Main.itemList.Add(PistolenMagazin);
+                                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
                                 }
                                 else
                                 {
@@ -849,9 +849,9 @@ namespace VenoXV.Reallife.factions
                                 PISTOLE50.objectHandle = null;
 
                                     PISTOLE50.id = Database.AddNewItem(PISTOLE50);
-                                    Main.itemList.Add(PISTOLE50);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE50);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 0);
                                 weapon_pistol50 = weapon_pistol50 - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Pistol50. vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -879,7 +879,7 @@ namespace VenoXV.Reallife.factions
 
                                     // Add the item into the database
                                     PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                    Main.itemList.Add(PistolenMagazin);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
                                 }
                                 else
                                 {
@@ -913,9 +913,9 @@ namespace VenoXV.Reallife.factions
                                 REVOLVER.objectHandle = null;
 
                                 REVOLVER.id = Database.AddNewItem(REVOLVER);
-                                    Main.itemList.Add(REVOLVER);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(REVOLVER);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 0);
                                 weapon_revolver = weapon_revolver - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Revolver vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -943,7 +943,7 @@ namespace VenoXV.Reallife.factions
 
                                     // Add the item into the database
                                     PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                    Main.itemList.Add(PistolenMagazin);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
                                 }
                                 else
                                 {
@@ -978,9 +978,9 @@ namespace VenoXV.Reallife.factions
                                 MP5.objectHandle = null;
 
                                 MP5.id = Database.AddNewItem(MP5);
-                                    Main.itemList.Add(MP5);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(MP5);
 
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 0);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 0);
                                 weapon_mp5 = weapon_mp5 - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine MP5 vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -1022,8 +1022,8 @@ namespace VenoXV.Reallife.factions
                                 AK47.ITEM_ART = "Waffe";
                                 AK47.objectHandle = null;
                                 AK47.id = Database.AddNewItem(AK47);
-                                    Main.itemList.Add(AK47);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(AK47);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 0);
                                 weapon_assaultrifle = weapon_assaultrifle - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Ak-47 vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -1065,8 +1065,8 @@ namespace VenoXV.Reallife.factions
                                 RIFLE.ITEM_ART = "Waffe";
                                 RIFLE.objectHandle = null;
                                 RIFLE.id = Database.AddNewItem(RIFLE);
-                                Main.itemList.Add(RIFLE);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 0);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(RIFLE);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 0);
                                 weapon_rifle = weapon_rifle - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Rifle vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -1108,8 +1108,8 @@ namespace VenoXV.Reallife.factions
                                 SNIPER.ITEM_ART = "Waffe";
                                 SNIPER.objectHandle = null;
                                 SNIPER.id = Database.AddNewItem(SNIPER);
-                                    Main.itemList.Add(SNIPER);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SNIPER);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 0);
                                 weapon_sniperrifle = weapon_sniperrifle - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine Sniper vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -1152,8 +1152,8 @@ namespace VenoXV.Reallife.factions
                                 RPG.objectHandle = null;
 
                                 RPG.id = Database.AddNewItem(RPG);
-                                    Main.itemList.Add(RPG);
-                                Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 0);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Add(RPG);
+                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 0);
                                 weapon_sniperrifle = weapon_sniperrifle - 1;
                                 Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0,150,200) +player.GetVnXName<string>() + " hat eine RPG vom Lager genommen.", player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             }
@@ -1302,7 +1302,7 @@ namespace VenoXV.Reallife.factions
                         target.Position = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;
                        target.SendChatMessage( RageAPI.GetHexColorcode(0,150,0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                        Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,105,145) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " ausgeknastet.");
+                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,105,145) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " ausgeknastet.");
                     }
                 }
                 else

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using VenoXV.Reallife.Environment.Rathaus;
 using AltV.Net.Data;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 
 namespace VenoXV.Reallife.Globals
 {

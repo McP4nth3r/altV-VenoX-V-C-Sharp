@@ -9,7 +9,7 @@ using VenoXV.Reallife.jobs.Lieferrant;
 using VenoXV.Reallife.weapons;
 using AltV.Net;
 using AltV.Net.Data;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 
 namespace VenoXV.Reallife.jobs

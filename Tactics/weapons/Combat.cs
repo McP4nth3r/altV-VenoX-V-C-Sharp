@@ -3,7 +3,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Tactics.globals;
 
 namespace VenoXV.Tactics.weapons
@@ -90,8 +90,8 @@ namespace VenoXV.Tactics.weapons
                     return;
                 }
 
-                Reallife.Core.Debug.OutputDebugString("Target Team : " + target.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
-                Reallife.Core.Debug.OutputDebugString("Player Team : " + player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
+                Debug.OutputDebugString("Target Team : " + target.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
+                Debug.OutputDebugString("Player Team : " + player.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_TEAM));
 
                 // If Weapon is Sniper && BONE == HEAD THEN KILL DONE
                 if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == AltV.Net.Data.BodyPart.Head)
@@ -109,15 +109,15 @@ namespace VenoXV.Tactics.weapons
                    /* if (veh.GetSharedData("VEHICLE_HEALTH_SERVER") == null) { veh.vnxSetSharedData("VEHICLE_HEALTH_SERVER", 1000); // Fix if no Value! }
                     float vehdamage = Damage * 2;
                     target.Emit("set_bodyhealth", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the target Lower.
-                    VenoXV.Reallife.Core.VnX.VehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
-                    // Reallife.Core.RageAPI.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
+                    VenoXV.VnX.VehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
+                    // RageAPI.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
                 }
                 else
                 {
                     
                     player.SetData(globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
                     player.SetSyncedMetaData(globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
-                    //Reallife.Core.VnX.vnxSetSharedData(player,globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    //VnX.vnxSetSharedData(player,globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
                     player.Emit("Globals:PlayHitsound");
                     if (target.Armor > 0)
                     {

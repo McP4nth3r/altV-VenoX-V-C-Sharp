@@ -1,18 +1,15 @@
-﻿using AltV.Net.Elements.Entities;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using VenoXV.Core;
+using VenoXV.Reallife.character;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
-using VenoXV.Reallife.character;
-using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Threading.Tasks;
-using VenoXV.Reallife.dxLibary;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
-using AltV.Net;
-using VenoXV.Reallife.Core;
-using Newtonsoft.Json;
 
 namespace VenoXV.Reallife.business
 {
@@ -83,7 +80,7 @@ namespace VenoXV.Reallife.business
                 {
                     if (businessItem.description == itemName)
                     {
-                        
+
                         item = businessItem;
                         break;
                     }
@@ -169,7 +166,7 @@ namespace VenoXV.Reallife.business
         {
             try
             {
-                Position exit = new Position(0,0,0);
+                Position exit = new Position(0, 0, 0);
                 foreach (BusinessIplModel businessIpl in Constants.BUSINESS_IPL_LIST)
                 {
                     if (businessIpl.ipl == ipl)
@@ -236,7 +233,7 @@ namespace VenoXV.Reallife.business
                         itemModel.dimension = 0;
                         // Adding the item to the list and database
                         itemModel.id = Database.AddNewItem(itemModel);
-                        Globals.Main.itemList.Add(itemModel);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(itemModel);
                     }
                     else
                     {
@@ -268,7 +265,7 @@ namespace VenoXV.Reallife.business
                     }
 
                     player.SetData(EntityData.PLAYER_MONEY, money - price);
-                    player.SendChatMessage("Transaktion in höhe von " + RageAPI.GetHexColorcode(0,200,255) + "  " + price + " $ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
+                    player.SendChatMessage("Transaktion in höhe von " + RageAPI.GetHexColorcode(0, 200, 255) + "  " + price + " $ " + RageAPI.GetHexColorcode(255, 255, 255) + "abgeschlossen!");
                 }
             }
             catch { }
@@ -362,7 +359,7 @@ namespace VenoXV.Reallife.business
             }
             catch { }
         }
-        
+
         //[AltV.Net.ClientEvent("loadCharacterClothes")]
         public void LoadCharacterClothesEvent(IPlayer player)
         {

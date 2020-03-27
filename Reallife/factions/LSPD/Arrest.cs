@@ -6,7 +6,7 @@ using VenoXV.Anti_Cheat;
 using VenoXV.Reallife.model;
 using VenoXV.Reallife.database;
 using AltV.Net.Data;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net;
 
@@ -103,7 +103,7 @@ namespace VenoXV.Reallife.factions.LSPD
             {
                 if (Allround.isStateFaction(player))
                 {
-                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
                     {
@@ -179,7 +179,7 @@ namespace VenoXV.Reallife.factions.LSPD
             {
                 if(Allround.isStateFaction(player))
                 {
-                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.IsInVehicle)
                     {
@@ -206,7 +206,7 @@ namespace VenoXV.Reallife.factions.LSPD
         public void ArrestPlayerCMD(IPlayer player, string target_name, string kaution)
         {
             try {
-                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 Position arrestpositioncar = new Position(479.1359f, -1021.734f, 28.00093f);
                 if (player.Position.Distance(arrestpositioncar) < 3.5f)
@@ -273,7 +273,7 @@ namespace VenoXV.Reallife.factions.LSPD
                                         target.SetData(EntityData.PLAYER_HANDCUFFED, false);
                                         target.Emit("toggleHandcuffed", false);
                                     }
-                                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,0,175) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " eingesperrt.");
+                                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,0,175) + Faction.GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " eingesperrt.");
                                 }
                             }
                             else
@@ -319,7 +319,7 @@ namespace VenoXV.Reallife.factions.LSPD
                 else
                 {
                     AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 145, 200) +player.GetVnXName<string>() + RageAPI.GetHexColorcode(255,255,255) + " hat sich gestellt!");
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 145, 200) +player.GetVnXName<string>() + RageAPI.GetHexColorcode(255,255,255) + " hat sich gestellt!");
                     player.SetData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4);
                     player.SetData(EntityData.PLAYER_KAUTION, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * KostenProWanted);
                     BailInfoPlayer(player);

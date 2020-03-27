@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using AltV.Net;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 
 namespace VenoXV.Reallife.character
 {

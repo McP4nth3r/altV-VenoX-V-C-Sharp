@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
 
@@ -103,8 +103,8 @@ namespace VenoXV.Reallife.factions.WeazelNews
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
                     string targetName = player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON");
-                    //Reallife.Core.RageAPI.SendChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
-                    IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(targetName);
+                    //RageAPI.SendChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
+                    IPlayer target = RageAPI.GetPlayerFromName(targetName);
                     player.SetData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.SetData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     foreach (IPlayer targetsingame in Alt.GetAllPlayers())

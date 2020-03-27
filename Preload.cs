@@ -1,18 +1,13 @@
-﻿using AltV.Net.Elements.Entities;
-using AltV.Net;
-using VenoXV.Tactics;
-using VenoXV.Reallife;
-using VenoXV.Reallife.database;
-using VenoXV.globals;
-using VenoXV.Reallife.register_login;
-using VenoXV.Reallife.character;
-using VenoXV.Reallife.model;
-using VenoXV.Reallife.vnx_stored_files;
+﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using System;
-using VenoXV.Reallife.Core;
-using AltV.Net.Resources.Chat.Api;
-using AltV.Net.Async;
-using AltV.Net.Data;
+using VenoXV.Core;
+using VenoXV.globals;
+using VenoXV.Reallife.character;
+using VenoXV.Reallife.database;
+using VenoXV.Reallife.model;
+using VenoXV.Reallife.register_login;
+using VenoXV.Reallife.vnx_stored_files;
 
 namespace VenoXV.Reallife
 {
@@ -38,33 +33,35 @@ namespace VenoXV.Reallife
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(IPlayer player, int value)
         {
-            if(value == 0)
+            switch (value)
             {
-                player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_REALLIFE); //Reallife Gamemode Selected
-                register_login.Login.OnSelectedReallifeGM(player);
-                player.Emit("Player:ChangeCurrentLobby", "Reallife");
-            }
-            else if(value == 1)
-            {
-                if (player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ADMIN_RANK) >= Reallife.Globals.Constants.ADMINLVL_TSUPPORTER)
-                {
-                    player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_ZOMBIE); //Tactics Gamemode Selected
-                    Zombie.World.Main.OnSelectedZombieGM(player);
-                    player.Emit("Load_Zombie_GM");
-                    player.Emit("Player:ChangeCurrentLobby", "Zombies");
-                }
-            }
-            else if(value == 2)
-            {
-                player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_TACTICS); //Tactics Gamemode Selected
-                Tactics.Lobby.Main.OnSelectedTacticsGM(player);
-                player.Emit("Player:ChangeCurrentLobby", "Tactics");
-            }
-            else if(value == 4)
-            {
-                player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_SEVENTOWERS); //7-Towers Gamemode Selected
-                SevenTowers.Lobby.Main.JoinedSevenTowers(player);
-                player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
+                case 0:
+                    player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_REALLIFE); //Reallife Gamemode Selected
+                    register_login.Login.OnSelectedReallifeGM(player);
+                    player.Emit("Player:ChangeCurrentLobby", "Reallife");
+                    break;
+                case 1:
+                    if (player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ADMIN_RANK) >= Reallife.Globals.Constants.ADMINLVL_TSUPPORTER)
+                    {
+                        player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_ZOMBIE); //Tactics Gamemode Selected
+                        Zombie.World.Main.OnSelectedZombieGM(player);
+                        player.Emit("Load_Zombie_GM");
+                        player.Emit("Player:ChangeCurrentLobby", "Zombies");
+                    }
+                    break;
+                case 2:
+                    player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_TACTICS); //Tactics Gamemode Selected
+                    Tactics.Lobby.Main.OnSelectedTacticsGM(player);
+                    player.Emit("Player:ChangeCurrentLobby", "Tactics");
+                    break;
+
+                case 3:
+                    break;
+                case 4:
+                    player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_SEVENTOWERS); //7-Towers Gamemode Selected
+                    SevenTowers.Lobby.Main.JoinedSevenTowers(player);
+                    player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
+                    break;
             }
         }
 
@@ -93,18 +90,26 @@ namespace VenoXV.Reallife
         {
             try
             {
-
                 Login.InitializePlayerData(player);
                 player.Emit("showLoginWindow", "Willkommen auf VenoX", Login.GetCurrentChangelogs());
                 //ShowLogin(player);
                 Core.Debug.OutputDebugString("[CONNECTED] : " + player.GetVnXName<string>() + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_NONE); // None Gamemode
                 Login.CreateNewLogin_Cam(player, 0, 0);
-            
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }
 
+
+        [ClientEvent("TriggerClientsideVehicle")]
+        public static void GetTriggeredVehicle(IPlayer player, IVehicle veh)
+        {
+            try
+            {
+                Core.Debug.OutputDebugString(player.Name + " : Das Fahrzeug hast du bekommen : " + veh.PrimaryColorRgb.R);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("TriggerClientsideVehicle", ex); }
+        }
 
 
         public static void ShowLogin(IPlayer player)
@@ -218,7 +223,7 @@ namespace VenoXV.Reallife
                             //player.SetData(EntityData.SERVER_TIME, DateTime.Now.ToString("HH:mm:ss"));
                             player.Dimension = 0;
                             player.Emit("FreezePlayerPLAYER_VnX", true);
-                            player.Emit("showLoginWindow", "Willkommen zurück " +player.GetVnXName<string>(), Login.GetCurrentChangelogs());
+                            player.Emit("showLoginWindow", "Willkommen zurück " + player.GetVnXName<string>(), Login.GetCurrentChangelogs());
                             //player.Emit("showLoginWindow", "EVENT MODE ONLINE", GetCurrentChangelogs());
                             Login.CreateNewLogin_Cam(player, 0, 0);
                         }
@@ -284,7 +289,7 @@ namespace VenoXV.Reallife
                             }
                             player.Dimension = 0;
                             player.Emit("FreezePlayerPLAYER_VnX", true);
-                            player.Emit("showLoginWindow", "Willkommen zurück " +player.GetVnXName<string>(), Login.GetCurrentChangelogs());
+                            player.Emit("showLoginWindow", "Willkommen zurück " + player.GetVnXName<string>(), Login.GetCurrentChangelogs());
                             //player.Emit("showLoginWindow", "EVENT MODE ONLINE", GetCurrentChangelogs());
                             Login.CreateNewLogin_Cam(player, 0, 0);
                         }

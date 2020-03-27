@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using VenoXV.Reallife.business;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
@@ -236,7 +236,7 @@ namespace VenoXV.Reallife.factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(WEED.id);
-                                    Main.itemList.Remove(WEED);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
                                 }
                             }
                         }
@@ -267,7 +267,7 @@ namespace VenoXV.Reallife.factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(KOKS.id);
-                                    Main.itemList.Remove(KOKS);
+                                   anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                                 }
                             }
                         }
@@ -296,7 +296,7 @@ namespace VenoXV.Reallife.factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(MATS.id);
-                                        Main.itemList.Remove(MATS);
+                                       anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
                                 }
                             }
                         }
@@ -382,7 +382,7 @@ namespace VenoXV.Reallife.factions
 
                             // Add the item into the database
                             WEED.id = Database.AddNewItem(WEED);
-                            Main.itemList.Add(WEED);
+                           anzeigen.Inventar.Main.CurrentOnlineItemList.Add(WEED);
                         }
                         else
                         {
@@ -409,7 +409,7 @@ namespace VenoXV.Reallife.factions
 
                             // Add the item into the database
                             KOKS.id = Database.AddNewItem(KOKS);
-                                Main.itemList.Add(KOKS);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(KOKS);
                         }
                         else
                         {
@@ -436,7 +436,7 @@ namespace VenoXV.Reallife.factions
 
                             // Add the item into the database
                             WEED.id = Database.AddNewItem(MATS);
-                                Main.itemList.Add(MATS);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Add(MATS);
                         }
                         else
                         {

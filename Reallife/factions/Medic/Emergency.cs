@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.Globals;
 
 
@@ -102,7 +102,7 @@ namespace VenoXV.Reallife.factions
         {
             try
             {
-                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {

@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.factions;
 using VenoXV.Reallife.Globals;
 
@@ -108,11 +108,11 @@ namespace VenoXV.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0) + "Die " + Faction.GetPlayerFactionName(winnerId) +" haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0) + "Die " + Faction.GetPlayerFactionName(winnerId) +" haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
                 else
                 {
-                    Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0)+ "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100,150,0)+ "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
             }
             catch { }
@@ -200,7 +200,7 @@ namespace VenoXV.Reallife.gangwar.v2
                     if (DateTime.Now >= this.PreparingCD)
                     {
                         // Prepare Time is over
-                        //Reallife.Core.RageAPI.SendChatMessageToAll("UPDATE");
+                        //RageAPI.SendChatMessageToAll("UPDATE");
                         CurrentState = RoundStates.RUNNING;
                         this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
                         informDefender();

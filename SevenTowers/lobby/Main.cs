@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.SevenTowers.globals;
 
 namespace VenoXV.SevenTowers.Lobby
@@ -86,7 +86,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
             catch (Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("InitializePlayerData", ex);
+                Debug.CatchExceptions("InitializePlayerData", ex);
             }
 
         }
@@ -122,7 +122,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
             catch (Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("StartNewRound", ex);
+                Debug.CatchExceptions("StartNewRound", ex);
             }
         }
         public static void EndRound()
@@ -141,7 +141,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
             catch (Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("EndRound", ex);
+                Debug.CatchExceptions("EndRound", ex);
             }
         }
 
@@ -161,14 +161,14 @@ namespace VenoXV.SevenTowers.Lobby
                         SevenTowersVehicles.Add(vehicle);
                         SevenTowerSpawns.Remove(Spawns.Key);
                         SevenTowerSpawns.Add(Spawns.Key, true);
-                        Reallife.Core.VnX.VehiclevnxSetSharedData(vehicle, "kms", 0);
-                        Reallife.Core.VnX.VehiclevnxSetSharedData(vehicle, "gas", 100);
+                        VnX.VehiclevnxSetSharedData(vehicle, "kms", 0);
+                        VnX.VehiclevnxSetSharedData(vehicle, "gas", 100);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("SpawnPlayerInRound", ex);
+                Debug.CatchExceptions("SpawnPlayerInRound", ex);
             }
         }
         public static void PutPlayerInRound(IPlayer player)
@@ -180,7 +180,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
             catch (Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("PutPlayerInRound", ex);
+                Debug.CatchExceptions("PutPlayerInRound", ex);
             }
         }
 
@@ -202,7 +202,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
             catch(Exception ex)
             {
-                Reallife.Core.Debug.CatchExceptions("JoinedSevenTowers", ex);
+                Debug.CatchExceptions("JoinedSevenTowers", ex);
             }
         }
     }

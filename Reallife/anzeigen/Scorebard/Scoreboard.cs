@@ -4,7 +4,7 @@ using AltV.Net.Elements.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.factions;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;

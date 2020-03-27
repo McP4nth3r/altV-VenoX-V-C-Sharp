@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV.Reallife.anzeigen.Usefull;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.factions;
 using VenoXV.Reallife.Globals;
@@ -117,7 +117,7 @@ namespace VenoXV.Reallife.Environment
         {
             try
             {
-                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 logfile.WriteLogs("damage",player.GetVnXName<string>() +  " hat das Fahrzeug von " + target.GetVnXName<string>() + "["+ target.Vehicle.Model.ToString() +"] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg); 
             }
@@ -132,7 +132,7 @@ namespace VenoXV.Reallife.Environment
         {
             try
             {
-                IPlayer target = Reallife.Core.RageAPI.GetPlayerFromName(target_name);
+                IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 logfile.WriteLogs("damage",player.GetVnXName<string>() + " hat den Spieler " + target.GetVnXName<string>() + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }

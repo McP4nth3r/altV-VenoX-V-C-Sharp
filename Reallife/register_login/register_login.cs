@@ -1,22 +1,20 @@
-﻿using AltV.Net.Elements.Entities;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using VenoXV.Anti_Cheat;
+using VenoXV.Core;
+using VenoXV.Reallife.character;
 using VenoXV.Reallife.database;
+using VenoXV.Reallife.factions;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
-using VenoXV.Reallife.vnx_stored_files;
-using VenoXV.Reallife.Core;
-using VenoXV.Reallife.factions;
-using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.Woltlab;
 using VenoXV.Reallife.Vehicles;
-using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
-using VenoXV.Reallife.character;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using AltV.Net.Async;
-using System.Linq;
+using VenoXV.Reallife.vnx_stored_files;
+using VenoXV.Reallife.Woltlab;
 
 namespace VenoXV.Reallife.register_login
 {
@@ -31,13 +29,13 @@ namespace VenoXV.Reallife.register_login
         }
         public static string GetCurrentChangelogs()
         {
-                return "" + 
-               "10.12.2019 <br>---------------------------------<br>"
-               + " - Version 1.1.1 ist nun Online.<br>"
-               + " - EVENT MODE wurde entfernt.<br>"
-               + " - 225.000$ wurde entfernt.<br>"
-               + " - More Infos Cooming Soon...<br>"
-               ;
+            return "" +
+           "10.12.2019 <br>---------------------------------<br>"
+           + " - Version 1.1.1 ist nun Online.<br>"
+           + " - EVENT MODE wurde entfernt.<br>"
+           + " - 225.000$ wurde entfernt.<br>"
+           + " - More Infos Cooming Soon...<br>"
+           ;
         }
 
         public static void InitializePlayerData(IPlayer player)
@@ -64,7 +62,7 @@ namespace VenoXV.Reallife.register_login
                 // Initialize entity data
                 player.SetData(EntityData.PLAYER_NAME, string.Empty);
                 player.SetData(EntityData.PLAYER_SPAWN_POS, new Position(-2286.745f, 356.3762f, 175.317f));
-                player.SetData(EntityData.PLAYER_SPAWN_ROT, rotation); 
+                player.SetData(EntityData.PLAYER_SPAWN_ROT, rotation);
                 player.SetData(EntityData.PLAYER_ADMIN_RANK, 0);
                 player.SetData(EntityData.PLAYER_AGE, 18);
                 player.SetData(EntityData.PLAYER_HEALTH, 100);
@@ -225,7 +223,7 @@ namespace VenoXV.Reallife.register_login
             }
             return false;
         }*/
-        
+
 
         public static void OnSelectedReallifeGM(IPlayer player)
         {
@@ -240,8 +238,8 @@ namespace VenoXV.Reallife.register_login
         //[AltV.Net.ClientEvent("HelpButtonPressed_Login")]
         public void SendAllAdminsLoginHelpNotify(IPlayer player)
         {
-            admin.Admin.sendAdminNotification("[" +player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
-            logfile.WriteLogs("connect",player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
+            admin.Admin.sendAdminNotification("[" + player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
+            logfile.WriteLogs("connect", player.GetVnXName<string>() + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
         }
         private static int GetRandomNumber()
         {
@@ -275,6 +273,7 @@ namespace VenoXV.Reallife.register_login
                     Rotation EndRotation = new Rotation(320, 0, 220);
                     player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.Position = new Position(411.4904f, -956.7184f, 20);
+
                 }
                 else if (cevent == 2)
                 {
@@ -500,16 +499,16 @@ namespace VenoXV.Reallife.register_login
                 {
                     if (player.vnxGetElementData<bool>("SPIELER_BAN_ABGELAUFEN") == true)
                     {
-                        player.SendChatMessage( "~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
-                        player.SendChatMessage( "~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
+                        player.SendChatMessage("~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
+                        player.SendChatMessage("~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
                     }
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "_____________________________________");
-                    player.SendChatMessage( "Willkommen auf VenoX - Reallife.");
-                    player.SendChatMessage( "Teamspeak 3 : ts3.VenoX-Reallife.com");
-                    player.SendChatMessage( "Forum : www.VenoX-Reallife.com");
-                    player.SendChatMessage( "Controlpanel : cp.venox-reallife.com");
-                    player.SendChatMessage( "Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + "_____________________________________");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
+                    player.SendChatMessage("Willkommen auf VenoX - Reallife.");
+                    player.SendChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
+                    player.SendChatMessage("Forum : www.VenoX-Reallife.com");
+                    player.SendChatMessage("Controlpanel : cp.venox-reallife.com");
+                    player.SendChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
 
                     premium.viplevels.VIPLEVELS.SendVIPNotify(player);
                     //ToDo : Fix & find another Way! player.GetVnXName<string>() = player.vnxGetElementData(EntityData.PLAYER_NAME);
@@ -546,6 +545,7 @@ namespace VenoXV.Reallife.register_login
         {
             try
             {
+                anzeigen.Inventar.Main.OnPlayerConnect(player);
                 List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
 
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
@@ -561,16 +561,16 @@ namespace VenoXV.Reallife.register_login
                     {
 
                         string owner = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER);
-                        if (owner != null && owner ==player.GetVnXName<string>())
+                        if (owner != null && owner == player.GetVnXName<string>())
                         {
                             Vehicle.Dimension = 0;
-                            Core.VnX.VehiclevnxSetSharedData(Vehicle,EntityData.VEHICLE_DIMENSION, 0);
+                            Core.VnX.VehiclevnxSetSharedData(Vehicle, EntityData.VEHICLE_DIMENSION, 0);
                         }
                         // JOB 
                         if (
-                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
-                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
+                        Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
+                        || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
                         )
                         {
                             if (Vehicle != null)
@@ -580,7 +580,7 @@ namespace VenoXV.Reallife.register_login
                         }
 
                         //Test Vehilce Delete
-                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
                         {
                             Vehicle.Remove();
                         }
@@ -599,11 +599,11 @@ namespace VenoXV.Reallife.register_login
                     {
                         player.Health = 0;
                         Core.VnX.UpdateHUDArmorHealth(player);
-                        
+
                     }
                 }
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
         }
 
 
@@ -694,7 +694,7 @@ namespace VenoXV.Reallife.register_login
                     player.Emit("showLoginError");
                 }
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("ShowLogin", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ShowLogin", ex); }
         }
 
 
@@ -737,7 +737,7 @@ namespace VenoXV.Reallife.register_login
                     player.Emit("clearRegisterWindow_first");
                     player.Emit("showCharacterCreationMenu");
                     Core.VnX.vnxSetSharedData(player, "PLAYER_LOGGED_IN", 1);
-                    
+
                     anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                     if (geschlecht == "1") { ChangeCharacterSexEvent(player, 1); }
                     else { ChangeCharacterSexEvent(player, 0); }
@@ -836,7 +836,7 @@ namespace VenoXV.Reallife.register_login
             {
                 // Set player's position
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                
+
                 player.Rotation = new Rotation(0.0f, 0.0f, 180.0f);
                 player.Position = new Position(152.3787f, -1000.644f, -99f);
             }

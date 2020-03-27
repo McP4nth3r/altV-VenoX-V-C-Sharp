@@ -9,7 +9,7 @@ using VenoXV.Reallife.vnx_stored_files;
 using System;
 using AltV.Net;
 using AltV.Net.Data;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 

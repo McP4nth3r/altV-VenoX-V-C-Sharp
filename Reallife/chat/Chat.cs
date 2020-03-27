@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using VenoXV.Reallife.vnx_stored_files;
 using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net;
 

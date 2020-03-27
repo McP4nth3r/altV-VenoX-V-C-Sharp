@@ -1,15 +1,9 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.database;
+﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
+using System;
+using VenoXV.Core;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.Core;
-using AltV.Net;
-using AltV.Net.Data;
 
 namespace VenoXV.Reallife.weapons
 {
@@ -21,12 +15,12 @@ namespace VenoXV.Reallife.weapons
             {
                 int itemId = 0;
                 int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-                foreach (ItemModel item in Main.itemList)
+                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
                     if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ownerEntity == Constants.ITEM_ENTITY_PLAYER && item.ITEM_ART == "Waffe")
                     {
                         AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
-                        Reallife.Core.RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
+                        RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
                         player.SetWeaponAmmo(WeaponModel, item.amount);
                     }
                 }
@@ -45,7 +39,7 @@ namespace VenoXV.Reallife.weapons
             try
             {
                 ItemModel item = null;
-                foreach (ItemModel itemModel in Main.itemList)
+                foreach (ItemModel itemModel in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
                     if (itemModel.ownerIdentifier == playerId && (itemModel.ownerEntity == Constants.ITEM_ENTITY_WHEEL || itemModel.ownerEntity == Constants.ITEM_ENTITY_RIGHT_HAND) && weapon.ToString() == itemModel.hash)
                     {
@@ -94,7 +88,7 @@ namespace VenoXV.Reallife.weapons
                             if (Munition <= 0)
                             {
                                 Database.RemoveItem(Snowball.id);
-                                Main.itemList.Remove(Snowball);
+                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Snowball);
                                 player.RemoveWeapon( oldWeapon);
                             }
                         }
@@ -733,12 +727,12 @@ namespace VenoXV.Reallife.weapons
                             }
                             else
                             {
-                                Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             }
                         }
                         if (weapon != "unbewaffnet" || AltV.Net.Enums.WeaponModel != AltV.Net.Enums.WeaponModel.Fist || AltV.Net.Enums.WeaponModel != 0
                         {
-                            Reallife.Core.RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             Anti_Cheat_Weapons.anticheat_permanent_ban(player, "0x047_" + AltV.Net.Enums.WeaponModel);
                             return;
                         }

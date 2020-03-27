@@ -5,7 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Tactics.globals;
 namespace VenoXV.Tactics.Lobby
 {
@@ -93,33 +93,33 @@ namespace VenoXV.Tactics.Lobby
                 player.RemoveAllWeapons();
                 if (RandomRound == 0)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
                     player.SendChatMessage("[Tactics] : Only Revolver Modus!");
                 }
                 else if (RandomRound == 1)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
                     player.SendChatMessage( "[Tactics] : Only SMG Modus!");
                 }                
                 else if (RandomRound == 3)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
                     player.SendChatMessage( "[Tactics] : Only Shotgun Modus!");
                 }                
                 else if (RandomRound == 4)
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 200);
                     player.SendChatMessage( "[Tactics] : Only Sniper Modus!");
                 }
                 else
                 {
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
-                    Reallife.Core.RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
+                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 200);
                 }
             }
             catch { }
@@ -351,8 +351,8 @@ namespace VenoXV.Tactics.Lobby
                     {
                         float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
                         int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
-                        //Reallife.Core.Debug.OutputDebugString("Damage Done : " + DamageDone); 
-                        //Reallife.Core.Debug.OutputDebugString("Kills Done : " + KillsDone); 
+                        //Debug.OutputDebugString("Damage Done : " + DamageDone); 
+                        //Debug.OutputDebugString("Kills Done : " + KillsDone); 
                         players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
                     }
                 }
@@ -384,7 +384,7 @@ namespace VenoXV.Tactics.Lobby
                     if (TACTICMANAGER_ROUND_START_AFTER_LOADING <= DateTime.Now)
                     {
                         TACTICMANAGER__ROUND_ISRUNNING = false;
-                        // Reallife.Core.RageAPI.SendChatMessageToAll("RUNDE BEENDET.");
+                        // RageAPI.SendChatMessageToAll("RUNDE BEENDET.");
                         StartNewTacticRound();
                     }
                 }

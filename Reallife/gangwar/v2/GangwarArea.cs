@@ -5,7 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV.Reallife.anzeigen.Usefull;
-using VenoXV.Reallife.Core;
+using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 
@@ -47,13 +47,13 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public void Update()
         {
-            //Reallife.Core.RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea");
+            //RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea");
             Alt.EmitAllClients("gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
         public void Update(IPlayer player)
         {
-           // Reallife.Core.RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
+           // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
