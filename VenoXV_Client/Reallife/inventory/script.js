@@ -1,16 +1,66 @@
 var box = $(".column");
 var mainCanvas = $(".columns");
 
-box.mouseover(function(e, ui) {
+box.mouseover(function (e, ui) {
+    let name = $(this).css('background-image');
+    let patt = /\"|\'|\)/g;
+    let text = name.split('/').pop().replace(patt, '');
 
 
-	$(this).children().children().removeClass('d-none');
-	
+    if (text == 'style.css') {
+        return;
+    }
+    $(this).children('.info').removeClass('d-none');
+
 });
 
 
-box.mouseout(function(e, ui) {
-    $(this).children().children().addClass('d-none');
+var CurrentInventoryItems = [];
+function ItemExists(itemName) {
+    for (let i = 0; i < CurrentInventoryItems.length; i++) {
+        if (CurrentInventoryItems[i] == itemName) {
+            return true;
+        }
+    }
+    CurrentInventoryItems.push(itemName);
+    return false;
+}
+
+function OnUpdateItems(hash, amount, itemname, iteminfo) {
+    var cols = document.querySelectorAll('#columns .column');
+    [].forEach.call(cols, function (col) {
+        let name = $(col).css('background-image');
+        let patt = /\"|\'|\)/g;
+        let text = name.split('/').pop().replace(patt, '');
+
+
+        if (text == 'style.css') {
+            if (!ItemExists(itemname)) {
+                $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
+                $(col).children('.column_amount').html(amount.toString());
+                $(col).children('.info').html(iteminfo);
+            }
+        }
+    });
+}
+
+function RemoveAllItems() {
+    var cols = document.querySelectorAll('#columns .column');
+    [].forEach.call(cols, function (col) {
+        let name = $(col).css('background-image');
+        let patt = /\"|\'|\)/g;
+        let text = name.split('/').pop().replace(patt, '');
+        CurrentInventoryItems = [];
+        if (text != 'style.css') {
+            $(col).css('background-image', 'url("style.css")');
+            $(col).children('.column_amount').html("");
+            $(col).children('.info').html("");
+        }
+    });
+}
+
+box.mouseout(function (e, ui) {
+    $(this).children('.info').addClass('d-none');
 });
 
 
@@ -77,7 +127,7 @@ box.droppable({
         let name = ui.draggable.css('background-image');
         let patt = /\"|\'|\)/g;
         let text = name.split('/').pop().replace(patt, '');
-        if (text == "style.css") {return;}
+        if (text == "style.css") { return; }
 
         $(this).addClass('over');
         //$(this).css("opacity", "0");
