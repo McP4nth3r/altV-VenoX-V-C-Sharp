@@ -1,0 +1,105 @@
+@font-face { font-family: 'drugs';
+             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+
+
+
+.back {
+	background: rgba(10, 10, 10, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 15.6vw;
+    border-radius: 0.3vw;
+    top: 14vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.blue_header {
+	background: rgba(0, 150, 200, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 14vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_head {
+	background: rgba(10, 10, 10, 0.4);
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.5vw;
+	font-family: drugs; 
+    top: 14.4vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_info {
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.2vw;
+	font-family: robot;
+    top: 17.6vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.stellen {
+	position: absolute;
+	padding: 0.2vw 1vw;
+	width: 30vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-size: 1.3vw;
+    top: 25.7vw;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: robot;
+}
+.stellen:hover, .stellen:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 14.6vw;
+    left: 66.5%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}

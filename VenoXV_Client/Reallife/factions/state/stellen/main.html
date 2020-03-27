@@ -1,0 +1,37 @@
+<head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="style.css" rel="stylesheet">
+<script src="script.js"></script>
+
+</head>
+    
+    
+<body>
+    
+    <div class="all">
+    <div class="back"></div>
+    <div class="blue_header"></div>
+    
+    <center>
+    <div class="text_head">Los Santos Police Department</div>
+    <div class="text_info" id="text_info">Du kannst dich hier stellen gehen, falls du Wanteds besitzt</div>
+    <div class="stellen" onclick="ButtonPressed()">Stellen</div>
+    <div class="close" onclick="CloseStateWindow()">X</div>
+
+    <script>
+        if ("alt" in window) {
+            function ButtonPressed() {
+                alt.emit("ButtonPressed");
+            }
+            function CloseStateWindow() {
+                alt.emit("destroyStellenWindow");
+            }
+            
+        }
+    </script>
+
+    </center>
+    </div>
+    
+</body>
