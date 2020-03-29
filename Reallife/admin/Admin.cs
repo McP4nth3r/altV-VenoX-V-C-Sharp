@@ -676,7 +676,16 @@ namespace VenoXV.Reallife.admin
 
         }
 
-
+        [Command("pos")]
+        public void PosCommand(IPlayer player)
+        {
+            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
+            {
+                Console.WriteLine("Position : " + player.Position);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  Rot : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Rotation);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
+            }
+        }
 
         [Command("permaban", true)]
         public void permaban_player(IPlayer player, string target, string grund)
@@ -788,17 +797,6 @@ namespace VenoXV.Reallife.admin
                 player.Position = new Position(posX, posY, posZ);
                 player.SetData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                 player.SetData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
-            }
-        }
-
-        [Command("pos")]
-        public void PosCommand(IPlayer player)
-        {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
-            {
-                Console.WriteLine("Position : " + player.Position);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  Rot : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Rotation);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
             }
         }
 
