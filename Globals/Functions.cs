@@ -16,8 +16,8 @@ namespace VenoXV.Globals
         {
             try
             {
-                string CurrentPlayerLobby = player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE);
-                string CurrenttargetLobby = target.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE);
+                string CurrentPlayerLobby = player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE);
+                string CurrenttargetLobby = target.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE);
                 if (CurrentPlayerLobby == CurrenttargetLobby)
                 {
                     return true;
