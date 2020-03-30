@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 using VenoXV.Core;
-using VenoXV.globals;
+using VenoXV.Globals;
 using VenoXV.Reallife.character;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.model;
@@ -17,13 +17,13 @@ namespace VenoXV.Reallife
         {
             public override void OnStart()
             {
-                VenoXV.Globals.Globals.OnResourceStart();
-                Console.WriteLine("Started");
+                VenoXV.Globals.Main.OnResourceStart();
+                //Console.WriteLine("Started");
             }
 
             public override void OnStop()
             {
-                Console.WriteLine("Stopped");
+                //Console.WriteLine("Stopped");
             }
         }
     }
@@ -38,11 +38,13 @@ namespace VenoXV.Reallife
                 case 0:
                     player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_REALLIFE); //Reallife Gamemode Selected
                     register_login.Login.OnSelectedReallifeGM(player);
+                    VenoXV.Globals.Main.ReallifePlayers.Add(player);
                     player.Emit("Player:ChangeCurrentLobby", "Reallife");
                     break;
                 case 1:
                     if (player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ADMIN_RANK) >= Reallife.Globals.Constants.ADMINLVL_TSUPPORTER)
                     {
+                        VenoXV.Globals.Main.ZombiePlayers.Add(player);
                         player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_ZOMBIE); //Tactics Gamemode Selected
                         Zombie.World.Main.OnSelectedZombieGM(player);
                         player.Emit("Load_Zombie_GM");
@@ -51,6 +53,7 @@ namespace VenoXV.Reallife
                     break;
                 case 2:
                     player.SetData(EntityData.PLAYER_CURRENT_GAMEMODE, EntityData.GAMEMODE_TACTICS); //Tactics Gamemode Selected
+                    VenoXV.Globals.Main.TacticsPlayers.Add(player);
                     Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Tactics");
                     break;

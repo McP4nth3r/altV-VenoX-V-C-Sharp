@@ -682,7 +682,7 @@ namespace VenoXV.Reallife.register_login
                             }
                             Login.ChangeCharacterSexEvent(player, Geschlecht_);
                             player.Emit("showCharacterCreationMenu");
-                            player.SetData(globals.EntityData.PLAYER_CURRENT_GAMEMODE, globals.EntityData.GAMEMODE_REALLIFE);
+                            player.SetData(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE, VenoXV.Globals.EntityData.GAMEMODE_REALLIFE);
                         }
                         return;
                     }

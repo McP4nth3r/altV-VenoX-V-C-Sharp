@@ -25,7 +25,8 @@ import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js
 import * as Inventory from '/VenoXV_Client/Reallife/inventory/index.js';
 import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/index.js';
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
-
+import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
+import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 
 game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
 game.startAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE');

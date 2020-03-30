@@ -54,34 +54,44 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 
 
 
+//function drawText3d(msg, pos = [0, 0, 0], scale, fontType, r, g, b, a, useOutline = true, useDropShadow = true) {
 
-export function Draw3DText(msg, pos, fontType, color, scale, range, useOutline = true, useDropShadow = true, layer = 0) {
-    alt.log(msg + " | " + pos + " | " + fontType + " | " + color + " | " + scale + " | " + range)
-    let hex = msg.match('{.*}');
-    if (hex) {
-        const rgb = hexToRgb(hex[0].replace('{', '').replace('}', ''));
-        color[0] = rgb[0];
-        color[1] = rgb[1];
-        color[2] = rgb[2];
-        msg = msg.replace(hex[0], '');
+export function Draw3DText(msg, x, y, z, fontType, color, useOutline = true, useDropShadow = true) {
+    const [bol, _x, _y] = game.getScreenCoordFromWorldCoord(x, y, z);
+    const camCord = game.getFinalRenderedCamCoord();
+    const dist = game.getDistanceBetweenCoords(camCord.x, camCord.y, camCord.z, x, y, z, 1)
+
+
+    if (dist > 20) return;
+
+    let scale = (4.00001 / dist) * 0.3
+    if (scale > 0.2)
+        scale = 0.2;
+
+
+    const fov = (1 / game.getGameplayCamFov()) * 100;
+    scale = scale * fov;
+
+    if (bol) {
+        game.setTextScale(scale, scale);
+        game.setTextFont(fontType);
+        game.setTextProportional(true);
+        game.setTextColour(color[0], color[1], color[2], color[3]);
+        game.setTextDropshadow(0, 0, 0, 0, 255);
+        game.setTextEdge(2, 0, 0, 0, 150);
+        game.setTextDropShadow();
+        game.setTextOutline();
+        game.setTextCentre(true);
+        game.beginTextCommandDisplayText("STRING");
+        game.addTextComponentSubstringPlayerName(msg);
+        if (useOutline) game.setTextOutline();
+        if (useDropShadow) game.setTextDropShadow();
+        game.endTextCommandDisplayText(_x, _y + 0.025);
     }
 
-    native.setDrawOrigin(pos[0], pos[1], pos[2], 0);
-    native.beginTextCommandDisplayText('STRING');
-    native.addTextComponentSubstringPlayerName(msg);
-    native.setTextFont(fontType);
-    native.setTextScale(1, scale);
-    native.setTextWrap(0.0, 1.0);
-    native.setTextCentre(true);
-    native.setTextColour(color[0], color[1], color[2], color[3]);
-
-    if (useOutline) native.setTextOutline();
-
-    if (useDropShadow) native.setTextDropShadow();
-
-    native.endTextCommandDisplayText(0, 0);
-    native.clearDrawOrigin();
 }
+
+
 
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     let blip = new alt.PointBlip(pos[0], pos[1], pos[2]);

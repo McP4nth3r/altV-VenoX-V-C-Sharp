@@ -78,7 +78,7 @@ namespace VenoXV.Reallife.Globals
 
 
         public static int WEATHER_COUNTER = 0;
-        public static int WEATHER_CURRENT = 13; // Aktuelles Wetter
+        public static int WEATHER_CURRENT = 0; // Aktuelles Wetter
         public static int GetRandomWeather(int min, int max)
         {
             Random random = new Random();
@@ -90,6 +90,7 @@ namespace VenoXV.Reallife.Globals
         {
             gangwar.Allround.OnUpdate();
             Fun.Aktionen.Shoprob.Shoprob.OnUpdate();
+            environment.Weed.Main.OnUpdate();
         }
 
         public static void OnPlayerExitIColShape(IColShape shape, IPlayer player)
@@ -302,15 +303,15 @@ namespace VenoXV.Reallife.Globals
                 }
                 foreach (IPlayer player in Alt.GetAllPlayers())
                 {
-                    if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_REALLIFE)
+                    if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
                     {
                         OnMinuteSpentReallifeGM(player);
                     }
-                    else if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                    else if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
                         OnMinuteSpentTacticGM(player);
                     }
-                    else if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_ZOMBIE)
+                    else if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_ZOMBIE)
                     {
                         OnMinuteSpentZombieGM(player);
                     }
@@ -573,7 +574,7 @@ namespace VenoXV.Reallife.Globals
                 ItemModel itemModel = null;
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
-                    if (item.ownerEntity == Constants.ITEM_ENTITY_PLAYER && item.ownerIdentifier == playerId && item.hash == hash)
+                    if (item.ownerIdentifier == playerId && item.hash == hash)
                     {
                         itemModel = item;
                         break;
@@ -691,7 +692,7 @@ namespace VenoXV.Reallife.Globals
                 }*/
 
                 minuteTimer = new Timer(OnMinuteSpent, null, 60000, 60000); // Payday Generation und alles was nach einer Minute passiert!
-                OnTickTimer = new Timer(VenoXV.Globals.Globals.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
+                OnTickTimer = new Timer(VenoXV.Globals.Main.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
                 ScoreboardTimer = new Timer(anzeigen.Scorebard.Scoreboard.Fill_Playerlist, null, 7000, 7000); // Scoreboard Updater.
 
 
@@ -729,6 +730,7 @@ namespace VenoXV.Reallife.Globals
                 gangwar.Allround.OnPlayerDisconnected(player, type, reason);
                 Fun.Aktionen.Shoprob.Shoprob.OnPlayerDisconnected(player, type, reason);
                 anzeigen.Inventar.Main.OnPlayerDisconnect(player, type, reason);
+                VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
                     foreach (IVehicle Vehicle in Alt.GetAllVehicles())
@@ -947,15 +949,16 @@ namespace VenoXV.Reallife.Globals
                     {
                         if (Item == null)
                         {
-                            Item = new ItemModel();
-                            Item.amount = ItemAmount;
-                            Item.dimension = 0;
-                            Item.position = new Position(0.0f, 0.0f, 0.0f);
-                            Item.hash = ItemHash;
-                            Item.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                            Item.ownerIdentifier = playerId;
-                            Item.ITEM_ART = ItemArt;
-                            Item.objectHandle = null;
+                            Item = new ItemModel
+                            {
+                                amount = ItemAmount,
+                                dimension = 0,
+                                position = new Position(0.0f, 0.0f, 0.0f),
+                                hash = ItemHash,
+                                ownerIdentifier = playerId,
+                                ITEM_ART = ItemArt,
+                                objectHandle = null
+                            };
                             Item.id = Database.AddNewItem(Item);
                             anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Item);
                         }
@@ -976,26 +979,69 @@ namespace VenoXV.Reallife.Globals
                     if (ItemArt == Constants.ITEM_ART_WAFFE)
                     {
                         AltV.Net.Enums.WeaponModel weapon = AltV.Net.Enums.WeaponModel.Fist;
-                        if (ItemHash == Constants.ITEM_HASH_SNOWBALL) { weapon = AltV.Net.Enums.WeaponModel.Snowballs; }
-                        else if (ItemHash == Constants.ITEM_HASH_HAMMER) { weapon = AltV.Net.Enums.WeaponModel.Hammer; }
-                        else if (ItemHash == Constants.ITEM_HASH_NIGHTSTICK) { weapon = AltV.Net.Enums.WeaponModel.Nightstick; }
-                        else if (ItemHash == Constants.ITEM_HASH_BASEBALL) { weapon = AltV.Net.Enums.WeaponModel.BaseballBat; }
-                        else if (ItemHash == Constants.ITEM_HASH_SWITCHBLADE) { weapon = AltV.Net.Enums.WeaponModel.Switchblade; }
-                        else if (ItemHash == Constants.ITEM_HASH_BROKENBOTTLE) { weapon = AltV.Net.Enums.WeaponModel.BrokenBottle; }
-                        else if (ItemHash == Constants.ITEM_HASH_TAZER) { weapon = AltV.Net.Enums.WeaponModel.StunGun; }
-                        else if (ItemHash == Constants.ITEM_HASH_VINTAGEPISTOL) { weapon = AltV.Net.Enums.WeaponModel.VintagePistol; }
-                        else if (ItemHash == Constants.ITEM_HASH_PISTOLE) { weapon = AltV.Net.Enums.WeaponModel.Pistol; }
-                        else if (ItemHash == Constants.ITEM_HASH_REVOLVER) { weapon = AltV.Net.Enums.WeaponModel.HeavyRevolver; }
-                        else if (ItemHash == Constants.ITEM_HASH_PISTOLE50) { weapon = AltV.Net.Enums.WeaponModel.Pistol50; }
-                        else if (ItemHash == Constants.ITEM_HASH_SHOTGUN) { weapon = AltV.Net.Enums.WeaponModel.PumpShotgun; }
-                        else if (ItemHash == Constants.ITEM_HASH_MINISMG) { weapon = AltV.Net.Enums.WeaponModel.MiniSMG; }
-                        else if (ItemHash == Constants.ITEM_HASH_MP5) { weapon = AltV.Net.Enums.WeaponModel.SMG; }
-                        else if (ItemHash == Constants.ITEM_HASH_PDW) { weapon = AltV.Net.Enums.WeaponModel.CombatPDW; }
-                        else if (ItemHash == Constants.ITEM_HASH_KARABINER) { weapon = AltV.Net.Enums.WeaponModel.CarbineRifle; }
-                        else if (ItemHash == Constants.ITEM_HASH_ADVANCEDRIFLE) { weapon = AltV.Net.Enums.WeaponModel.AdvancedRifle; }
-                        else if (ItemHash == Constants.ITEM_HASH_AK47) { weapon = AltV.Net.Enums.WeaponModel.AssaultRifle; }
-                        else if (ItemHash == Constants.ITEM_HASH_RIFLE) { weapon = AltV.Net.Enums.WeaponModel.Musket; }
-                        else if (ItemHash == Constants.ITEM_HASH_SNIPERRIFLE) { weapon = AltV.Net.Enums.WeaponModel.SniperRifle; }
+                        switch (ItemHash)
+                        {
+                            case Constants.ITEM_HASH_SNOWBALL:
+                                weapon = AltV.Net.Enums.WeaponModel.Snowballs;
+                                break;
+                            case Constants.ITEM_HASH_HAMMER:
+                                weapon = AltV.Net.Enums.WeaponModel.Hammer;
+                                break;
+                            case Constants.ITEM_HASH_NIGHTSTICK:
+                                weapon = AltV.Net.Enums.WeaponModel.Nightstick;
+                                break;
+                            case Constants.ITEM_HASH_BASEBALL:
+                                weapon = AltV.Net.Enums.WeaponModel.BaseballBat;
+                                break;
+                            case Constants.ITEM_HASH_SWITCHBLADE:
+                                weapon = AltV.Net.Enums.WeaponModel.Switchblade;
+                                break;
+                            case Constants.ITEM_HASH_BROKENBOTTLE:
+                                weapon = AltV.Net.Enums.WeaponModel.BrokenBottle;
+                                break;
+                            case Constants.ITEM_HASH_TAZER:
+                                weapon = AltV.Net.Enums.WeaponModel.StunGun;
+                                break;
+                            case Constants.ITEM_HASH_VINTAGEPISTOL:
+                                weapon = AltV.Net.Enums.WeaponModel.VintagePistol;
+                                break;
+                            case Constants.ITEM_HASH_PISTOLE:
+                                weapon = AltV.Net.Enums.WeaponModel.Pistol;
+                                break;
+                            case Constants.ITEM_HASH_REVOLVER:
+                                weapon = AltV.Net.Enums.WeaponModel.HeavyRevolver;
+                                break;
+                            case Constants.ITEM_HASH_PISTOLE50:
+                                weapon = AltV.Net.Enums.WeaponModel.Pistol50;
+                                break;
+                            case Constants.ITEM_HASH_SHOTGUN:
+                                weapon = AltV.Net.Enums.WeaponModel.PumpShotgun;
+                                break;
+                            case Constants.ITEM_HASH_MINISMG:
+                                weapon = AltV.Net.Enums.WeaponModel.MiniSMG;
+                                break;
+                            case Constants.ITEM_HASH_MP5:
+                                weapon = AltV.Net.Enums.WeaponModel.SMG;
+                                break;
+                            case Constants.ITEM_HASH_PDW:
+                                weapon = AltV.Net.Enums.WeaponModel.CombatPDW;
+                                break;
+                            case Constants.ITEM_HASH_KARABINER:
+                                weapon = AltV.Net.Enums.WeaponModel.CarbineRifle;
+                                break;
+                            case Constants.ITEM_HASH_ADVANCEDRIFLE:
+                                weapon = AltV.Net.Enums.WeaponModel.AdvancedRifle;
+                                break;
+                            case Constants.ITEM_HASH_AK47:
+                                weapon = AltV.Net.Enums.WeaponModel.AssaultRifle;
+                                break;
+                            case Constants.ITEM_HASH_RIFLE:
+                                weapon = AltV.Net.Enums.WeaponModel.Musket;
+                                break;
+                            case Constants.ITEM_HASH_SNIPERRIFLE:
+                                weapon = AltV.Net.Enums.WeaponModel.SniperRifle;
+                                break;
+                        }
 
                         if (weapon != AltV.Net.Enums.WeaponModel.Fist)
                         {

@@ -1,10 +1,6 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.model;
+﻿using AltV.Net.Data;
 using System.Collections.Generic;
-using System;
-using VenoXV.Reallife.Environment.Rathaus;
-using AltV.Net.Data;
-using VenoXV.Core;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.Globals
 {
@@ -12,26 +8,6 @@ namespace VenoXV.Reallife.Globals
     {
         // Gamemode version
         public const string GM_VERSION = "v1.1.2";
-
-        public const int ENVIRONMENT_KILL = 65535;
-        public const int ITEMS_PER_INVENTORY_PAGE = 16;
-        public const decimal ITEMS_ROBBED_PER_TIME = 1.5m;
-        public const int MAX_GARBAGE_ROUTES = 4;
-        public const int TOTAL_Rgba_ELEMENTS = 3;
-        public const int MAX_BANK_OPERATIONS = 25;
-        public const int MAX_LICENSE_QUESTIONS = 3;
-        public const int MAX_DRIVING_IVehicle = 100;
-        public const int REDUCTION_PER_KMS = 125;
-        public const int MAX_THEFTS_IN_ROW = 4;
-        public const int MAX_WEAPON_SPAWNS = 1;
-        public const int MAX_CRATES_SPAWN = 12;
-        public const int MAX_WEAPON_CHANCE = 1235;
-        public const int MAX_AMMO_CHANCE = 500;
-        public const float GAS_CAN_LITRES = 10.0f;
-        public const float LEVEL_MULTIPLIER = 3.25f;
-        public const int PAID_PER_LEVEL = 30;
-        public const float HOUSE_SALE_STATE = 0.7f;
-        public const int MAX_HEAD_OVERLAYS = 11;
 
 
         // Sex
@@ -42,10 +18,6 @@ namespace VenoXV.Reallife.Globals
         // Chat
         public const int CHAT_LENGTH = 85;
         public const int CHAT_RANGES = 5;
-
-        // Jail types
-        public const int JAIL_TYPE_IC = 1;
-        public const int JAIL_TYPE_OOC = 2;
 
         // Administrative ranks
 
@@ -58,49 +30,6 @@ namespace VenoXV.Reallife.Globals
         public const int ADMINLVL_STELLVP = 6;
         public const int ADMINLVL_PROJEKTLEITER = 7;
 
-        // Actions
-        public const int ACTION_LOAD = 0;
-        public const int ACTION_SAVE = 1;
-        public const int ACTION_RENAME = 2;
-        public const int ACTION_DELETE = 3;
-        public const int ACTION_ADD = 4;
-        public const int ACTION_SMS = 5;
-
-        // Business types
-        public const int BUSINESS_TYPE_NONE = -1;
-        public const int BUSINESS_TYPE_24_7 = 1;
-        public const int BUSINESS_TYPE_ELECTRONICS = 2;
-        public const int BUSINESS_TYPE_HARDWARE = 3;
-        public const int BUSINESS_TYPE_CLOTHES = 4;
-        public const int BUSINESS_TYPE_BAR = 5;
-        public const int BUSINESS_TYPE_DISCO = 6;
-        public const int BUSINESS_TYPE_AMMUNATION = 7;
-        public const int BUSINESS_TYPE_WAREHOUSE = 8;
-        public const int BUSINESS_TYPE_JEWELRY = 9;
-        public const int BUSINESS_TYPE_PRIVATE_OFFICE = 10;
-        public const int BUSINESS_TYPE_CLUBHOUSE = 11;
-        public const int BUSINESS_TYPE_GAS_STATION = 12;
-        public const int BUSINESS_TYPE_SLAUGHTERHOUSE = 13;
-        public const int BUSINESS_TYPE_BARBER_SHOP = 14;
-        public const int BUSINESS_TYPE_FACTORY = 15;
-        public const int BUSINESS_TYPE_TORTURE_ROOM = 16;
-        public const int BUSINESS_TYPE_GARAGE_LOW_END = 17;
-        public const int BUSINESS_TYPE_WAREHOUSE_MEDIUM = 18;
-        public const int BUSINESS_TYPE_SOCIAL_CLUB = 19;
-        public const int BUSINESS_TYPE_MECHANIC = 20;
-        public const int BUSINESS_TYPE_TATTOO_SHOP = 21;
-        public const int BUSINESS_TYPE_BENNYS_WHORKSHOP = 22;
-        public const int BUSINESS_TYPE_VANILLA = 23;
-        public const int BUSINESS_TYPE_FISHING = 24;
-
-
-        // Parking types
-        public const int PARKING_TYPE_PUBLIC = 0;
-        public const int PARKING_TYPE_GARAGE = 1;
-        public const int PARKING_TYPE_SCRAPYARD = 2;
-        public const int PARKING_TYPE_DEPOSIT = 3;
-
-        // Clothes bodyparts
         public const int CLOTHES_MASK = 1;
         public const int CLOTHES_TORSO = 3;
         public const int CLOTHES_LEGS = 4;
@@ -160,6 +89,34 @@ namespace VenoXV.Reallife.Globals
         public const int VEHICLE_JOB_OFFLINE_DIM = 180;
 
 
+
+        //
+        public const int BUSINESS_TYPE_NONE = -1;
+        public const int BUSINESS_TYPE_24_7 = 1;
+        public const int BUSINESS_TYPE_ELECTRONICS = 2;
+        public const int BUSINESS_TYPE_HARDWARE = 3;
+        public const int BUSINESS_TYPE_CLOTHES = 4;
+        public const int BUSINESS_TYPE_BAR = 5;
+        public const int BUSINESS_TYPE_DISCO = 6;
+        public const int BUSINESS_TYPE_AMMUNATION = 7;
+        public const int BUSINESS_TYPE_WAREHOUSE = 8;
+        public const int BUSINESS_TYPE_JEWELRY = 9;
+        public const int BUSINESS_TYPE_PRIVATE_OFFICE = 10;
+        public const int BUSINESS_TYPE_CLUBHOUSE = 11;
+        public const int BUSINESS_TYPE_GAS_STATION = 12;
+        public const int BUSINESS_TYPE_SLAUGHTERHOUSE = 13;
+        public const int BUSINESS_TYPE_BARBER_SHOP = 14;
+        public const int BUSINESS_TYPE_FACTORY = 15;
+        public const int BUSINESS_TYPE_TORTURE_ROOM = 16;
+        public const int BUSINESS_TYPE_GARAGE_LOW_END = 17;
+        public const int BUSINESS_TYPE_WAREHOUSE_MEDIUM = 18;
+        public const int BUSINESS_TYPE_SOCIAL_CLUB = 19;
+        public const int BUSINESS_TYPE_MECHANIC = 20;
+        public const int BUSINESS_TYPE_TATTOO_SHOP = 21;
+        public const int BUSINESS_TYPE_BENNYS_WHORKSHOP = 22;
+        public const int BUSINESS_TYPE_VANILLA = 23;
+        public const int BUSINESS_TYPE_FISHING = 24;
+
         // Item types
         public const int ITEM_TYPE_CONSUMABLE = 0;
         public const int ITEM_TYPE_EQUIPABLE = 1;
@@ -175,18 +132,18 @@ namespace VenoXV.Reallife.Globals
 
         // ALLGEMEINE ITEMS : 
 
-        public const string ITEM_HASH_WEED =                "1233311452";
-        public const string ITEM_HASH_KOKS =                "1243355452";
-        public const string ITEM_HASH_BENZINKANNISTER =     "1243844452";
-        public const string ITEM_HASH_TANKSTELLENSNACK =    "1243344492";
-        public const string ITEM_HASH_LEBKUCHENMAENNCHEN =  "1243444492";
-        public const string ITEM_HASH_MILCH =               "1243544492";
-        public const string ITEM_HASH_COOKIES =             "1243644492";
-        public const string ITEM_HASH_GLUEHWEIN =           "1243744492";
-        public const string ITEM_HASH_SPARERIPS =           "1243844492";
-        public const string ITEM_HASH_SCHOKOLADE =          "1243944492";
-        public const string ITEM_HASH_HEISSESCHOKOLADE =    "1244044492";
-        public const string ITEM_HASH_MATS =                "1246355452";
+        public const string ITEM_HASH_WEED = "1233311452";
+        public const string ITEM_HASH_KOKS = "1243355452";
+        public const string ITEM_HASH_BENZINKANNISTER = "1243844452";
+        public const string ITEM_HASH_TANKSTELLENSNACK = "1243344492";
+        public const string ITEM_HASH_LEBKUCHENMAENNCHEN = "1243444492";
+        public const string ITEM_HASH_MILCH = "1243544492";
+        public const string ITEM_HASH_COOKIES = "1243644492";
+        public const string ITEM_HASH_GLUEHWEIN = "1243744492";
+        public const string ITEM_HASH_SPARERIPS = "1243844492";
+        public const string ITEM_HASH_SCHOKOLADE = "1243944492";
+        public const string ITEM_HASH_HEISSESCHOKOLADE = "1244044492";
+        public const string ITEM_HASH_MATS = "1246355452";
 
 
 
@@ -254,62 +211,6 @@ namespace VenoXV.Reallife.Globals
 
         // Waffen Namen 
         public const string ITEM_NAME_PISTOLAMMO = "Pistolen Magazin";
-
-
-        // 24-7 items
-
-        public const string ITEM_HASH_FRIES = "1443311452";
-        public const string ITEM_HASH_HOTDOG = "2565741261";
-        public const string ITEM_HASH_CHOCOLATE_BAR = "921283475";
-        public const string ITEM_HASH_BURGER = "2240524752";
-        public const string ITEM_HASH_SANDWICH = "3602873787";
-        public const string ITEM_HASH_CANDY = "3310697493";
-
-        public const string ITEM_HASH_CUP_JUICE = "3638960837";
-        public const string ITEM_HASH_ENERGY_DRINK = "582043502";
-        public const string ITEM_HASH_BOTTLE_WATER = "746336278";
-        public const string ITEM_HASH_CUP_COFFEE = "3696781377";
-        public const string ITEM_HASH_CAN_COLA = "1020618269";
-
-        public const string ITEM_HASH_CUP_WINE = "2998419875";
-        public const string ITEM_HASH_CUP_CHAMPANGE = "600913159";
-        public const string ITEM_HASH_BOTTLE_BEER_PISSWASSER = "4016900153";
-        public const string ITEM_HASH_BOTTLE_BEER_AM = "1350970027";
-        public const string ITEM_HASH_PACK_BEER_AM = "4241316616";
-        public const string ITEM_HASH_BOTTLE_COGNAC = "1404018125";
-        public const string ITEM_HASH_BOTTLE_CAVA = "3846720762";
-
-        public const string ITEM_HASH_CIGARRETES_PACK_OPEN = "1079465856";
-
-        // Electronic items
-        public const string ITEM_HASH_TELEPHONE = "2277609629";
-        public const string ITEM_HASH_WALKIE = "1806057883";
-        public const string ITEM_HASH_RADIO_CASSETTE = "1060029110";
-        public const string ITEM_HASH_CAMERA = "680380202";
-
-        // Ammunition items
-        public const string ITEM_HASH_PISTOL_AMMO_CLIP = "PistolAmmo";
-        public const string ITEM_HASH_MACHINEGUN_AMMO_CLIP = "SmgAmmo";
-        public const string ITEM_HASH_ASSAULTRIFLE_AMMO_CLIP = "RifleAmmo";
-        public const string ITEM_HASH_SNIPERRIFLE_AMMO_CLIP = "SniperAmmo";
-        public const string ITEM_HASH_SHOTGUN_AMMO_CLIP = "ShotgunAmmo";
-
-        // Stack of the guns
-        public const Int32 STACK_PISTOL_CAPACITY = 32;
-        public const Int32 STACK_MACHINEGUN_CAPACITY = 100;
-        public const Int32 STACK_SHOTGUN_CAPACITY = 24;
-        public const Int32 STACK_ASSAULTRIFLE_CAPACITY = 60;
-        public const Int32 STACK_SNIPERRIFLE_CAPACITY = 8;
-
-        // Miscelaneous items
-        public const string ITEM_HASH_ID_CARD = "511938898";
-        public const string ITEM_HASH_CUFFS = "1070220657";
-        public const string ITEM_HASH_JERRYCAN = "1069395324";
-        public const string ITEM_HASH_FISHING_ROD = "2384362703";
-        public const string ITEM_HASH_STOLEN_OBJECTS = "Stolen";
-        public const string ITEM_HASH_BUSINESS_PRODUCTS = "Products";
-        public const string ITEM_HASH_BAIT = "Bait";
-        public const string ITEM_HASH_FISH = "Fish";
 
 
 
@@ -443,7 +344,7 @@ namespace VenoXV.Reallife.Globals
         public const float TAXES_IVehicle = 0.0025f;
         public const float TAXES_HOUSE = 0.0030f;
 
-        public const float VIP_BONI_BRONZE = 0.025f; 
+        public const float VIP_BONI_BRONZE = 0.025f;
         public const float VIP_BONI_SILBER = 0.050f;
         public const float VIP_BONI_GOLD = 0.1f;
         public const float VIP_BONI_RED = 0.15f;
@@ -458,27 +359,6 @@ namespace VenoXV.Reallife.Globals
 
         // Gargabe route money
         public const int MONEY_GARBAGE_ROUTE = 350;
-
-        // Price in products
-        public const int PRICE_VEHICLE_CHASSIS = 300;
-        public const int PRICE_VEHICLE_DOORS = 60;
-        public const int PRICE_VEHICLE_WINDOWS = 15;
-        public const int PRICE_VEHICLE_TYRES = 10;
-        public const int PRICE_BARBER_SHOP = 100;
-        public const int PRICE_ANNOUNCEMENT = 500;
-        public const int PRICE_DRIVING_THEORICAL = 200;
-        public const int PRICE_DRIVING_PRACTICAL = 300;
-        public const int PRICE_IDENTIFICATION = 500;
-        public const int PRICE_MEDICAL_INSURANCE = 2000;
-        public const int PRICE_TAXI_LICENSE = 5000;
-        public const int PRICE_STOLEN = 20;
-        public const int PRICE_PARKING_PUBLIC = 50;
-        public const int PRICE_PARKING_DEPOSIT = 500;
-        public const int PRICE_PIZZA = 20;
-        public const int PRICE_HAMBURGER = 10;
-        public const int PRICE_SANDWICH = 5;
-        public const int PRICE_GAS = 1;
-        public const int PRICE_FISH = 20;
 
         // Factions
         public const int FACTION_NONE = 0;
@@ -518,36 +398,18 @@ namespace VenoXV.Reallife.Globals
         // Jobs
         public const string JOB_NONE = "Arbeitslos";
         public const string JOB_CITY_TRANSPORT = "VENOX_CITY_TRANSPORT";
-        public const string JOB_AIRPORT ="VENOX_AIRPORT";
-        public const string JOB_BUS ="VENOX_BUSCENTER";
+        public const string JOB_AIRPORT = "VENOX_AIRPORT";
+        public const string JOB_BUS = "VENOX_BUSCENTER";
 
 
 
-        // Database stored items' place
-        public const string ITEM_ENTITY_GROUND = "Ground";
-        public const string ITEM_ENTITY_PLAYER = "Player";
-        public const string ITEM_ENTITY_IVehicle = "IVehicle";
-        public const string ITEM_ENTITY_HOUSE = "House";
-        public const string ITEM_ENTITY_WHEEL = "Wheel";
-        public const string ITEM_ENTITY_LEFT_HAND = "Left hand";
-        public const string ITEM_ENTITY_RIGHT_HAND = "Right hand";
 
-        // Bank operations
-        public const int OPERATION_WITHDRAW = 1;
-        public const int OPERATION_DEPOSIT = 2;
-        public const int OPERATION_TRANSFER = 3;
-        public const int OPERATION_BALANCE = 4;
+
 
         // House status
         public const int HOUSE_STATE_NONE = 0;
         public const int HOUSE_STATE_RENTABLE = 1;
         public const int HOUSE_STATE_BUYABLE = 2;
-
-        // Police control's items
-        public const int POLICE_DEPLOYABLE_CONE = 1245865676;
-        public const int POLICE_DEPLOYABLE_BEACON = 93871477;
-        public const int POLICE_DEPLOYABLE_BARRIER = -143315610;
-        public const int POLICE_DEPLOYABLE_SPIKES = -874338148;
 
         // Chat message types
         public const int MESSAGE_TALK = 0;
@@ -584,18 +446,6 @@ namespace VenoXV.Reallife.Globals
         public const string Rgba_SU_POSITIVE = "{E3E47D}";
         public const string Rgba_NEWS = "{805CC9}";
 
-        // Gargabe collector's routes
-        public const int NORTH_ROUTE = 0;
-        public const int EAST_ROUTE = 1;
-        public const int SOUTH_ROUTE = 2;
-        public const int WEST_ROUTE = 3;
-
-        // Hooker's services
-        public const int HOOKER_SERVICE_BASIC = 0;
-        public const int HOOKER_SERVICE_FULL = 1;
-
-        // Alcohol limit
-        public const float WASTED_LEVEL = 0.4f;
 
         // Generic interiors
         public static List<InteriorModel> INTERIOR_LIST = new List<InteriorModel>
@@ -607,34 +457,6 @@ namespace VenoXV.Reallife.Globals
 
         };
 
-        // Business IPLs from the game
-        public static List<BusinessIplModel> BUSINESS_IPL_LIST = new List<BusinessIplModel>
-        {
-            new BusinessIplModel(BUSINESS_TYPE_24_7, "ipl_supermarket", new Position(-710.1048f, -914.5465f, 19.21559f)),
-            new BusinessIplModel(BUSINESS_TYPE_ELECTRONICS, "ex_exec_warehouse_placement_interior_2_int_warehouse_l_dlc_milo", new Position(1026.751f, -3101.307f, -38.99986f)),
-            new BusinessIplModel(BUSINESS_TYPE_HARDWARE, "v_chopshop", new Position(481.9714f, -1313.103f, 29.20123f)),
-            new BusinessIplModel(BUSINESS_TYPE_CLOTHES, "ipl_clothes", new Position(126.5524f, -212.5681f, 54.55783f)),
-            new BusinessIplModel(BUSINESS_TYPE_DISCO, "v_bahama", new Position(-1387.981f, -587.6373f, 30.31952f)),
-            new BusinessIplModel(BUSINESS_TYPE_WAREHOUSE, "v_recycle", new Position(-593.5312f, -1630.137f, 27.01079f)),
-            new BusinessIplModel(BUSINESS_TYPE_AMMUNATION, "ipl_ammu", new Position(1698.488f, 3752.896f, 34.70532f)),
-            new BusinessIplModel(BUSINESS_TYPE_BAR, "v_rockclub", new Position(-564.4153f, 277.4367f, 83.13631f)),
-            new BusinessIplModel(BUSINESS_TYPE_JEWELRY, "post_hiest_unload", new Position(-630.4483f, -236.8936f, 38.05701f)),
-            new BusinessIplModel(BUSINESS_TYPE_PRIVATE_OFFICE, "v_psycheoffice", new Position(-1906.785f, -573.757f, 19.077f)),
-            new BusinessIplModel(BUSINESS_TYPE_CLUBHOUSE, "bkr_bi_hw1_13_int", new Position(982.4059f, -100.1532f, 74.84502f)),
-            new BusinessIplModel(BUSINESS_TYPE_GAS_STATION, "ipl_supermarket", new Position(-710.1048f, -914.5465f, 19.21559f)),
-            new BusinessIplModel(BUSINESS_TYPE_SLAUGHTERHOUSE, "ipl_slaughterhouse", new Position(964.3511f, -2185.115f, 30.30081f)),
-            new BusinessIplModel(BUSINESS_TYPE_BARBER_SHOP, "barber_shop", new Position(133.9966f, -1710.311f, 29.29162f)),
-            new BusinessIplModel(BUSINESS_TYPE_FACTORY, "id2_14_during1", new Position(717.0f, -975.0f, 25.0f)),
-            new BusinessIplModel(BUSINESS_TYPE_TORTURE_ROOM, "v_torture", new Position(135.7002f, -2203.643f, 7.309135f)),
-            new BusinessIplModel(BUSINESS_TYPE_GARAGE_LOW_END, "low_end_garage_no_ipl", new Position(178.8302f, -1000.515f, -98.99998f)),
-            new BusinessIplModel(BUSINESS_TYPE_WAREHOUSE_MEDIUM, "ex_exec_warehouse_placement_interior_0_int_warehouse_m_dlc_milo", new Position(1048.286f, -3096.858f, -38.99991f)),
-            new BusinessIplModel(BUSINESS_TYPE_SOCIAL_CLUB, "house_no_ipl_a", new Position(265.9776f, -1006.97f, -100.8839f)),
-            new BusinessIplModel(BUSINESS_TYPE_TATTOO_SHOP, "business_no_ipl", new Position(-1154.249f, -1424.721f, 4.954462f)),
-            new BusinessIplModel(BUSINESS_TYPE_BENNYS_WHORKSHOP, "business_no_ipl2", new Position(-205.4454f, -1312.916f, 31.13982f)),
-            new BusinessIplModel(BUSINESS_TYPE_MECHANIC, "v_chopshop", new Position(481.9714f, -1313.103f, 29.20123f)),
-            new BusinessIplModel(BUSINESS_TYPE_VANILLA, "vanilla_no_ipl", new Position(128.9892f, -1296.068f, 29.26953f)),
-            new BusinessIplModel(BUSINESS_TYPE_FISHING, "ex_exec_warehouse_placement_interior_0_int_warehouse_m_dlc_milo", new Position(1048.286f, -3096.858f, -38.99991f))
-        };
 
         // House interiors from the game
         public static List<HouseIplModel> HOUSE_IPL_LIST = new List<HouseIplModel>
@@ -893,10 +715,10 @@ namespace VenoXV.Reallife.Globals
 
 
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 2, -1, -1),
-            
-            
+
+
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 5, 0, 0),
-            
+
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 7, 0, 0),
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 8, 15, 0),
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 9, 0, 0),
@@ -1133,7 +955,7 @@ namespace VenoXV.Reallife.Globals
             new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 11, 250, 0),
         };
 
-     
+
 
         // Jail positions
         public static List<Position> JAIL_SPAWNS = new List<Position>
@@ -1162,7 +984,6 @@ namespace VenoXV.Reallife.Globals
         public static List<BusinessItemModel> BUSINESS_ITEM_LIST = new List<BusinessItemModel>
         {
             // 24-7
-            new BusinessItemModel("BIER", ITEM_HASH_BOTTLE_BEER_AM, ITEM_TYPE_CONSUMABLE, 10, 0.1f, 1, 1, new Position(0.05f, -0.02f, -0.02f), new Rotation(270.0f, 0.0f, 0.0f), BUSINESS_TYPE_24_7, 0.08f),
             new BusinessItemModel("Benzinkannister", ITEM_HASH_BENZINKANNISTER, ITEM_TYPE_CONSUMABLE, 60, 0.1f, 0, 1, new Position(0.0f, 0.0f, 0.0f), new Rotation(0.0f, 0.0f, 0.0f), BUSINESS_TYPE_24_7, 0.0f),
             new BusinessItemModel("Tankstellen Snack", ITEM_HASH_TANKSTELLENSNACK, ITEM_TYPE_CONSUMABLE, 60, 0.1f, 0, 1, new Position(0.0f, 0.0f, 0.0f), new Rotation(0.0f, 0.0f, 0.0f), BUSINESS_TYPE_24_7, 0.0f),
             new BusinessItemModel("Lebkuchenmännchen", ITEM_HASH_LEBKUCHENMAENNCHEN, ITEM_TYPE_CONSUMABLE, 60, 0.1f, 0, 1, new Position(0.0f, 0.0f, 0.0f), new Rotation(0.0f, 0.0f, 0.0f), BUSINESS_TYPE_24_7, 0.0f),
@@ -3725,29 +3546,6 @@ namespace VenoXV.Reallife.Globals
             new TunningPriceModel(VEHICLE_MOD_ENGINE, 5000),
         };
 
-        // Pawn shops
-        public static List<Position> PAWN_SHOP = new List<Position>()
-        {
-            new Position(183.02f, -1319.41f, 29.13f)
-        };
-
-  
-
-        // Highlighted businesses
-        public static List<BusinessBlipModel> BUSINESS_BLIP_LIST = new List<BusinessBlipModel>()
-        {
-            new BusinessBlipModel(3, 93),
-            new BusinessBlipModel(117, 93),
-            new BusinessBlipModel(259, 71),
-            new BusinessBlipModel(276, 68),
-            new BusinessBlipModel(280, 136),
-            new BusinessBlipModel(282, 121),
-            new BusinessBlipModel(283, 446),
-            new BusinessBlipModel(287, 75),
-            new BusinessBlipModel(288, 73),
-            new BusinessBlipModel(297, 52)
-        };
-
         // ATMs
         public static List<Position> ATM_LIST = new List<Position>()
         {
@@ -3974,19 +3772,6 @@ namespace VenoXV.Reallife.Globals
             new Position(1782.791f, 3328.84f, 41.25505f), // 10
             new Position(1208.164f, 2660.351f, 37.89971f), // 11
             new Position(264.0676f, 2606.484f, 44.98285f), // 12
-        };
-
-
-
-
-
-        public enum AnimationFlags
-        {
-            Loop = 1 << 0,
-            StopOnLastFrame = 1 << 1,
-            OnlyAnimateUpperBody = 1 << 4,
-            AllowPlayerControl = 1 << 5,
-            Cancellable = 1 << 7
         };
     }
 }

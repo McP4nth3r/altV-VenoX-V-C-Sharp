@@ -35,7 +35,7 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 		HUD_BROWSER.emit("HUD:Show");
 	}
 	else if (e == 1) {
-		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/second/main.html");
+		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/second/main.html");
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show");
 	}

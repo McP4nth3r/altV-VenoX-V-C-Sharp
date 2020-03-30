@@ -2,11 +2,9 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
 
-namespace VenoXV.Tactics.globals
+namespace VenoXV.Tactics.Globals
 {
     public class Functions : IScript
     {
@@ -16,10 +14,10 @@ namespace VenoXV.Tactics.globals
             {
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.SendChatMessage( text);
-                        
+                        players.SendChatMessage(text);
+
                     }
                 }
             }

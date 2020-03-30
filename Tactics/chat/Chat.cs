@@ -1,9 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
 
 namespace VenoXV.Tactics.chat
@@ -14,9 +11,9 @@ namespace VenoXV.Tactics.chat
         {
             foreach (IPlayer players in Alt.GetAllPlayers())
             {
-                if (players.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                 {
-                    players.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Tactics]" + RageAPI.GetHexColorcode(255,255,255) + " " + player.GetVnXName<string>() + " : " + message);
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.GetVnXName<string>() + " : " + message);
                 }
             }
         }

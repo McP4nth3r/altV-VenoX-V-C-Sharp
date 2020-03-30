@@ -89,7 +89,7 @@ namespace VenoXV.Reallife.weapons
                 if (target != null) // If Target is a Real Player Niggah
                 {
 
-                    if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS && target.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                    if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS && target.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
                     {
                         Tactics.weapons.Combat.OnHittedEntity(player, target, currentWeapon, hitBone);
                         return;

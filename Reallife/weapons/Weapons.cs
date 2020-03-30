@@ -17,7 +17,7 @@ namespace VenoXV.Reallife.weapons
                 int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
-                    if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ownerEntity == Constants.ITEM_ENTITY_PLAYER && item.ITEM_ART == "Waffe")
+                    if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ITEM_ART == "Waffe")
                     {
                         AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
                         RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
@@ -34,28 +34,6 @@ namespace VenoXV.Reallife.weapons
 
 
 
-        public static ItemModel GetEquippedWeaponItemModelByHash(int playerId, AltV.Net.Enums.WeaponModel weapon)
-        {
-            try
-            {
-                ItemModel item = null;
-                foreach (ItemModel itemModel in anzeigen.Inventar.Main.CurrentOnlineItemList)
-                {
-                    if (itemModel.ownerIdentifier == playerId && (itemModel.ownerEntity == Constants.ITEM_ENTITY_WHEEL || itemModel.ownerEntity == Constants.ITEM_ENTITY_RIGHT_HAND) && weapon.ToString() == itemModel.hash)
-                    {
-                        item = itemModel;
-                        break;
-                    }
-                }
-                return item;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.Message);
-                Console.WriteLine("[EXCEPTION GetEquippedWeaponItemModelByHash] " + ex.StackTrace);
-                return null;
-            }
-        }
 
 
 
@@ -67,12 +45,12 @@ namespace VenoXV.Reallife.weapons
             {
                 if (WeaponModel != AltV.Net.Enums.WeaponModel.Fist)
                 {
-                    if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                    if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
                     {
                         Tactics.lobby.Anticheat_Weapon.LoadTacticsAnticheat(player, oldWeapon, WeaponModel);
                         return;
                     }                    
-                    if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_ZOMBIE)
+                    if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_ZOMBIE)
                     {
                         //Tactics.lobby.Anticheat_Weapon.LoadTacticsAnticheat(player, oldWeapon, AltV.Net.Enums.WeaponModel);
                         return;
@@ -406,7 +384,7 @@ namespace VenoXV.Reallife.weapons
         public void OnWeaponFire(IPlayer player, string weapon, string ammo)
         {
             try {
-                if (player.vnxGetElementData<string>(VenoXV.globals.EntityData.PLAYER_CURRENT_GAMEMODE) != VenoXV.globals.EntityData.GAMEMODE_REALLIFE)
+                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) != EntityData.GAMEMODE_REALLIFE)
                 {
                     return;
                 }

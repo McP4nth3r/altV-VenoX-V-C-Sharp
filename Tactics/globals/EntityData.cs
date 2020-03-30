@@ -1,11 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace VenoXV.Tactics.globals
+namespace VenoXV.Tactics.Globals
 {
     public class EntityData : IScript
     {
@@ -22,7 +18,7 @@ namespace VenoXV.Tactics.globals
 
         // STATIC STRINGS
         public static string BFAC_NAME = "Grove Street";
-        public static Rgba BFAC_Color = new Rgba(0, 152, 0,255);
+        public static Rgba BFAC_Color = new Rgba(0, 152, 0, 255);
         public static string COPS_NAME = "L.S.P.D";
         public static Rgba COPS_Color = new Rgba(0, 140, 183, 255);
 

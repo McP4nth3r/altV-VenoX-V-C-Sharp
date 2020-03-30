@@ -1,13 +1,9 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using VenoXV.Core;
 using VenoXV.Reallife.character;
-using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
 
@@ -143,133 +139,6 @@ namespace VenoXV.Reallife.business
             catch { return 10000; }
         }
 
-        public static string GetBusinessTypeIpl(int type)
-        {
-            try
-            {
-                string businessIpl = string.Empty;
-                foreach (BusinessIplModel iplModel in Constants.BUSINESS_IPL_LIST)
-                {
-                    if (iplModel.type == type)
-                    {
-                        businessIpl = iplModel.ipl;
-                        break;
-
-                    }
-                }
-                return businessIpl;
-            }
-            catch { return ""; }
-        }
-
-        public static Position GetBusinessExitPoint(string ipl)
-        {
-            try
-            {
-                Position exit = new Position(0, 0, 0);
-                foreach (BusinessIplModel businessIpl in Constants.BUSINESS_IPL_LIST)
-                {
-                    if (businessIpl.ipl == ipl)
-                    {
-                        exit = businessIpl.position;
-                        break;
-                    }
-                }
-                return exit;
-            }
-            catch { return new Position(0, 0, 0); }
-        }
-
-        public static bool HasPlayerBusinessKeys(IPlayer player, BusinessModel business)
-        {
-            try
-            {
-                return (player.GetVnXName<string>() == business.owner);
-            }
-            catch { return false; }
-
-        }
-
-
-        //[AltV.Net.ClientEvent("businessPurchaseMade")]
-        public void BusinessPurchaseMadeEvent(IPlayer player, string itemName, int amount)
-        {
-            try
-            {
-                int businessId = player.vnxGetElementData<int>(EntityData.PLAYER_BUSINESS_ENTERED);
-                BusinessModel business = GetBusinessById(businessId);
-                BusinessItemModel businessItem = GetBusinessItemFromName(itemName);
-                int hash = 0;
-                int price = (int)Math.Round(businessItem.products * business.multiplier) * amount;
-                int money = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
-
-                if (money < price)
-                {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
-                }
-                else
-                {
-                    int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-
-                    // We look for the item in the inventory
-                    ItemModel itemModel = Globals.Main.GetPlayerItemModelFromHash(playerId, businessItem.hash);
-                    if (itemModel == null)
-                    {
-                        // We create the purchased item
-                        itemModel = new ItemModel();
-                        itemModel.hash = businessItem.hash;
-                        if (businessItem.type == Constants.ITEM_TYPE_WEAPON)
-                        {
-                            itemModel.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                        }
-                        else
-                        {
-                            itemModel.ownerEntity = int.TryParse(itemModel.hash, out hash) ? Constants.ITEM_ENTITY_PLAYER : Constants.ITEM_ENTITY_PLAYER;
-                        }
-                        itemModel.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-                        itemModel.amount = businessItem.uses * amount;
-                        itemModel.position = new Position(0.0f, 0.0f, 0.0f);
-                        itemModel.ITEM_ART = "Business";
-                        itemModel.dimension = 0;
-                        // Adding the item to the list and database
-                        itemModel.id = Database.AddNewItem(itemModel);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(itemModel);
-                    }
-                    else
-                    {
-                        if (int.TryParse(itemModel.hash, out hash) == true)
-                        {
-                            itemModel.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                        }
-                        itemModel.amount += (businessItem.uses * amount);
-
-
-                        // Update the item's amount
-                        Database.UpdateItem(itemModel);
-                    }
-
-
-                    // We set the item into the hand variable
-                    player.SetData(EntityData.PLAYER_RIGHT_HAND, itemModel.id);
-
-
-
-                    // We substract the product and add funds to the business
-                    if (business.owner != string.Empty)
-                    {
-                        business.funds += price;
-                        business.products -= businessItem.products;
-
-                        // Update the business
-                        Database.UpdateBusiness(business);
-                    }
-
-                    player.SetData(EntityData.PLAYER_MONEY, money - price);
-                    player.SendChatMessage("Transaktion in höhe von " + RageAPI.GetHexColorcode(0, 200, 255) + "  " + price + " $ " + RageAPI.GetHexColorcode(255, 255, 255) + "abgeschlossen!");
-                }
-            }
-            catch { }
-        }
 
         //[AltV.Net.ClientEvent("getClothesByType")]
         public void GetClothesByTypeEvent(IPlayer player, int type, int slot)

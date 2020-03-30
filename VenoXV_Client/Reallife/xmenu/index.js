@@ -78,7 +78,7 @@ export function OnXKeyUp() {
 let laststring = "";
 let Hitted = null;
 function GetCurrentObject() {
-    let distance = 15;
+    let distance = 5;
     let position = alt.Player.local.pos;
     let farAway = frontOfPlayer(distance);
     const hitData = game.startShapeTestRay(position.x, position.y, position.z, farAway.x, farAway.y, farAway.z, 10, -1, alt.Player.local.scriptID);

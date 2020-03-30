@@ -7,7 +7,7 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/VenoXV/Lobby';
-import { DrawText, Draw3DText, CreateBlip, ShowCursor } from './index';
+import { DrawText, Draw3DText, CreateBlip, ShowCursor, CreatePed } from './index';
 import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
 import { RenderTacho } from '../Anzeigen/tacho';
@@ -216,6 +216,10 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
     game.setPedEyeColor(LocalPlayer.scriptID, eyesColor);
     game.setPedHairColor(LocalPlayer.scriptID, firstHairColor, secondHairColor);
     alt.log("HeadShape:Loaded");
+});
+
+alt.onServer('Sync:CreateNPC', (PedJson)=>{
+    CreatePed();
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////

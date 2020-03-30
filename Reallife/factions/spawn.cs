@@ -3,15 +3,14 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
-using System;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
-using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.house;
 using VenoXV.Reallife.model;
@@ -24,9 +23,10 @@ namespace VenoXV.Reallife.factions
         //[AltV.Net.ClientEvent("SpawnPlayer_On_Spawnpoint")]
         public static void spawnplayer_on_spawnpoint(IPlayer player)
         {
-            try {
+            try
+            {
                 AntiCheat_Allround.SetTimeOutHealth(player, 1000);
-                
+
                 player.Spawn(player.Position);
                 player.SetData(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
@@ -39,7 +39,7 @@ namespace VenoXV.Reallife.factions
                     Core.VnX.vnxSetSharedData(player, "EVENTINFOGOTVNX", 1);
                     Core.VnX.SetDelayedINTSharedData(player, "EVENTINFOGOTVNX", 0, 2000);
                 }*/
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER,100);
+                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, 100);
                 AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 player.Emit("start_screen_fx", "RaceTurbo", 2000, false);
                 dxLibary.VnX.CreateDiscordUpdate(player, "Spawnt auf VenoX", "VenoX - Reallife");
@@ -57,8 +57,8 @@ namespace VenoXV.Reallife.factions
                     DateTime ErstelltAm = Database.GetCharakterPrisonErstelltAm(player.GetVnXName<string>());
                     if (PrisonTime > 0)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du bist noch " + PrisonTime + " Minuten im Prison!");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Grund : " + Grund);
+                        player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du bist noch " + PrisonTime + " Minuten im Prison!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund : " + Grund);
                         player.SetData(EntityData.PLAYER_PRISON_TIME, PrisonTime);
                         player.SetData(EntityData.PLAYER_PRISON_GRUND, Grund);
                         player.SetData(EntityData.PLAYER_PRISON_VONADMIN, AdminVon);
@@ -89,13 +89,12 @@ namespace VenoXV.Reallife.factions
                         Kanister.dimension = 0;
                         Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                         Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                        Kanister.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Kanister.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Kanister.ITEM_ART = "NUTZ_ITEM";
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -111,7 +110,8 @@ namespace VenoXV.Reallife.factions
                     }
                 }
 
-                if (viplevel == "Gold") {
+                if (viplevel == "Gold")
+                {
                     player.Armor = 100;
 
                     ItemModel Kanister = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_BENZINKANNISTER);
@@ -122,13 +122,12 @@ namespace VenoXV.Reallife.factions
                         Kanister.dimension = 0;
                         Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                         Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                        Kanister.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Kanister.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Kanister.ITEM_ART = "NUTZ_ITEM";
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -150,13 +149,12 @@ namespace VenoXV.Reallife.factions
                         Kanister.dimension = 0;
                         Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                         Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                        Kanister.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Kanister.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Kanister.ITEM_ART = "NUTZ_ITEM";
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -179,13 +177,12 @@ namespace VenoXV.Reallife.factions
                         Kanister.dimension = 0;
                         Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                         Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                        Kanister.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Kanister.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Kanister.ITEM_ART = "NUTZ_ITEM";
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -200,12 +197,11 @@ namespace VenoXV.Reallife.factions
                         Snack.dimension = 0;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
-                        Snack.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Snack.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
                         Snack.id = Database.AddNewItem(Snack);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                     }
                     else
                     {
@@ -227,13 +223,12 @@ namespace VenoXV.Reallife.factions
                         Kanister.dimension = 0;
                         Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                         Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                        Kanister.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Kanister.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Kanister.ITEM_ART = "NUTZ_ITEM";
                         Kanister.objectHandle = null;
 
                         Kanister.id = Database.AddNewItem(Kanister);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     }
                     else
                     {
@@ -248,12 +243,11 @@ namespace VenoXV.Reallife.factions
                         Snack.dimension = 0;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
-                        Snack.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
                         Snack.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
                         Snack.id = Database.AddNewItem(Snack);
-                       anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
+                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                     }
                     else
                     {
@@ -279,12 +273,13 @@ namespace VenoXV.Reallife.factions
                 else if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "Rathaus")
                 {
                     player.Position = new Position(-533.1649f, -211.0938f, 37.64977f);
-                }                
+                }
                 else if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "Wuerfelpark")
                 {
                     player.Position = new Position(180.3914f, -923.7885f, 30.68681f);
                 }
-                else {
+                else
+                {
                     if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "Basis")
                     {
                         //Dimension für Böse Fraktionen mit mehreren Gleichen interiors einstellen!.
@@ -354,7 +349,7 @@ namespace VenoXV.Reallife.factions
                     {
                         foreach (HouseModel house in House.houseList)
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.GetVnXName<string>() == house.owner)
+                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName<string>() == house.owner)
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                                 player.Position = Main.GetHouseIplExit(house.ipl);

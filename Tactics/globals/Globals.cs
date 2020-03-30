@@ -1,12 +1,9 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace VenoXV.Tactics.globals
+namespace VenoXV.Tactics.Globals
 {
-    public class Globals : IScript
+    public class Main : IScript
     {
 
         public static void OnResourceStart()

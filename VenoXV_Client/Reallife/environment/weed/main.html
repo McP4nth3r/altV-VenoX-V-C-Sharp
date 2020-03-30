@@ -1,0 +1,38 @@
+<head>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="style.css" rel="stylesheet">
+<script src="script.js"></script>
+
+</head>
+    
+    
+<body>
+    
+    <div class="all">
+    <div class="back"></div>
+    <div class="blue_header"></div>
+    
+    <center>
+    <div class="text_head">Weed-Seeds</div>
+    <div class="text_info" id="text_info">Wenn du paar Weedsamen brauchst, bist du hier richtig</div>
+    <input class="textarea" id="betrag" type="betrag_box" placeholder="Betrag..." rows="1" maxlength="15" onkeyup="validate_num(this)">
+    <div class="buybutton" onclick="ButtonPressed()">Kaufen</div>
+    <div class="close" onclick="CloseStateWindow()">X</div>
+
+    <script>
+        if ("alt" in window) {
+            function ButtonPressed() {
+                alt.emit("ButtonPressed");
+            }
+            function CloseWeedShopWindow() {
+                alt.emit("destroyWeedShopWindow");
+            }
+            
+        }
+    </script>
+
+    </center>
+    </div>
+    
+</body>
