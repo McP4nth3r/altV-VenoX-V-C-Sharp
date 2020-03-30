@@ -11,7 +11,7 @@ using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.anzeigen.Scorebard
 {
-    public class Scoreboard : IScript 
+    public class Scoreboard : IScript
     {
         public static List<ScoreboardModel> SpielerLi;
         public static ScoreboardModel SpielerListe;
@@ -59,7 +59,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 string playerping = Spieler.Ping.ToString();
                 int FraktionsID = Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
                 string viplevel = Spieler.vnxGetElementData<string>(EntityData.PLAYER_VIP_LEVEL);
-                if (Spieler.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false && Spieler.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == globals.EntityData.GAMEMODE_REALLIFE)
+                if (Spieler.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false && Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
                 {
                     SpielerListe.FID = -1;
                     SpielerListe.SpielerName = Spieler.GetVnXName<string>();
@@ -176,26 +176,26 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
 
                 string playerping = Spieler.Ping.ToString();
 
-                if(Spieler.vnxGetElementData<string>(Tactics.globals.EntityData.PLAYER_CURRENT_TEAM) == Tactics.globals.EntityData.COPS_NAME)
+                if (Spieler.vnxGetElementData<string>(Tactics.Globals.EntityData.PLAYER_CURRENT_TEAM) == Tactics.Globals.EntityData.COPS_NAME)
                 {
                     SpielerListe.FID = -2;
                     SpielerListe.FIDTactics = 20;
-                    R = Tactics.globals.EntityData.COPS_Color.R;
-                    G = Tactics.globals.EntityData.COPS_Color.G;
-                    B = Tactics.globals.EntityData.COPS_Color.B;
+                    R = Tactics.Globals.EntityData.COPS_Color.R;
+                    G = Tactics.Globals.EntityData.COPS_Color.G;
+                    B = Tactics.Globals.EntityData.COPS_Color.B;
                 }
                 else
                 {
                     SpielerListe.FID = -3;
                     SpielerListe.FIDTactics = 30;
-                    R = Tactics.globals.EntityData.BFAC_Color.R;
-                    G = Tactics.globals.EntityData.BFAC_Color.G;
-                    B = Tactics.globals.EntityData.BFAC_Color.B;
+                    R = Tactics.Globals.EntityData.BFAC_Color.R;
+                    G = Tactics.Globals.EntityData.BFAC_Color.G;
+                    B = Tactics.Globals.EntityData.BFAC_Color.B;
                 }
                 SpielerListe.SpielerName = Spieler.GetVnXName<string>();
                 SpielerListe.SpielzeitTactics = label;
-                SpielerListe.SozialerStatusTactics = Spieler.vnxGetElementData<string>(EntityData.PLAYER_STATUS);                
-                SpielerListe.Spielzeit= "-";
+                SpielerListe.SozialerStatusTactics = Spieler.vnxGetElementData<string>(EntityData.PLAYER_STATUS);
+                SpielerListe.Spielzeit = "-";
                 SpielerListe.SozialerStatus = "Tactics";
                 SpielerListe.Fraktion = "-";
                 SpielerListe.VIP = "-";
@@ -249,8 +249,8 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
 
                 SpielerListe.ColorStorageTacticsR = R;
                 SpielerListe.ColorStorageTacticsG = G;
-                SpielerListe.ColorStorageTacticsB = B;                
-                
+                SpielerListe.ColorStorageTacticsB = B;
+
                 SpielerListe.ColorStorageR = R;
                 SpielerListe.ColorStorageG = G;
                 SpielerListe.ColorStorageB = B;
@@ -269,15 +269,15 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 foreach (IPlayer Spieler in Alt.GetAllPlayers())
                 {
                     SpielerListe = new ScoreboardModel();
-                    if (Spieler.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_TACTICS)
+                    if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
                         DrawTacticScoreboard(Spieler);
-                    }              
-                    else if(Spieler.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_REALLIFE)
+                    }
+                    else if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
                     {
                         DrawReallifeScoreboard(Spieler);
-                    }                    
-                    else if(Spieler.vnxGetElementData<string>(globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.globals.EntityData.GAMEMODE_NONE)
+                    }
+                    else if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_NONE)
                     {
                         DrawLobbyScoreboard(Spieler);
                     }
