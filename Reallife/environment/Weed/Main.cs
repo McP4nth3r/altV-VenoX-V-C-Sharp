@@ -19,7 +19,7 @@ namespace VenoXV.Reallife.environment.Weed
         //Settings : 
 
         public const int MAX_WEED_DISTANCE = 50; // Die Maximale Distanz um ein Weed Objekt zu Streamen.
-        public const int UPDATE_INTERVAL_WEED = 5; // Distance Interval zum Checken der Maximalen Distanz für jeden Spieler.
+        public const int UPDATE_INTERVAL_WEED = 2; // Distance Interval zum Checken der Maximalen Distanz für jeden Spieler.
 
 
 
@@ -53,7 +53,7 @@ namespace VenoXV.Reallife.environment.Weed
                 {
                     CreatedBy = RageAPI.GetVnXName<string>(player),
                     Name = "Hanfpflanze",
-                    Position = new Position(player.Position.X, player.Position.Y, player.Position.Z),
+                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z),
                     Rotation = player.Rotation,
                     Created = DateTime.Now,
                     Value = 15,
@@ -61,7 +61,6 @@ namespace VenoXV.Reallife.environment.Weed
                     IsFakeWeedPlant = false,
                 };
                 WeedList.Add(weed);
-
             }
         }
         public static void OnUpdate()
@@ -76,6 +75,11 @@ namespace VenoXV.Reallife.environment.Weed
                 List<WeedModel> NearestWeedPlants3 = new List<WeedModel>();
                 List<WeedModel> NearestWeedPlants4 = new List<WeedModel>();
                 List<WeedModel> NearestWeedPlants5 = new List<WeedModel>();
+                List<WeedModel> NearestWeedPlants6 = new List<WeedModel>();
+                List<WeedModel> NearestWeedPlants7 = new List<WeedModel>();
+                List<WeedModel> NearestWeedPlants8 = new List<WeedModel>();
+                List<WeedModel> NearestWeedPlants9 = new List<WeedModel>();
+                List<WeedModel> NearestWeedPlants10 = new List<WeedModel>();
                 foreach (WeedModel weed in WeedList)
                 {
                     if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
@@ -94,8 +98,11 @@ namespace VenoXV.Reallife.environment.Weed
                 if (NearestWeedPlants3.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants3)); }
                 if (NearestWeedPlants4.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants4)); }
                 if (NearestWeedPlants5.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants5)); }
-
-                Core.Debug.OutputDebugString(NearestWeedPlants.ToString());
+                if (NearestWeedPlants6.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants6)); }
+                if (NearestWeedPlants7.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants7)); }
+                if (NearestWeedPlants8.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants8)); }
+                if (NearestWeedPlants9.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants9)); }
+                if (NearestWeedPlants10.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants10)); }
             }
             NextUpdate = DateTime.Now.AddSeconds(UPDATE_INTERVAL_WEED);
         }
