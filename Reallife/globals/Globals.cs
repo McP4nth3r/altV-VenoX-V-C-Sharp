@@ -24,6 +24,15 @@ namespace VenoXV.Reallife.Globals
         public static List<TattooModel> tattooList;
         public static List<TunningModel> tunningList;
         public static List<LabelModel> LabelList = new List<LabelModel>();
+        public static List<LabelModel> LabelList1 = new List<LabelModel>();
+        public static List<LabelModel> LabelList2 = new List<LabelModel>();
+        public static List<LabelModel> LabelList3 = new List<LabelModel>();
+        public static List<LabelModel> LabelList4 = new List<LabelModel>();
+        public static List<LabelModel> LabelList5 = new List<LabelModel>();
+        public static List<LabelModel> LabelList6 = new List<LabelModel>();
+        public static List<LabelModel> LabelList7 = new List<LabelModel>();
+        public static List<LabelModel> LabelList8 = new List<LabelModel>();
+        public static List<LabelModel> LabelList9 = new List<LabelModel>();
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
