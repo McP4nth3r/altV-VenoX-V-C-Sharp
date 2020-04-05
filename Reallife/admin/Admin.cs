@@ -676,16 +676,7 @@ namespace VenoXV.Reallife.admin
 
         }
 
-        [Command("pos")]
-        public void PosCommand(IPlayer player)
-        {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
-            {
-                Console.WriteLine("Position : " + player.Position);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  Rot : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Rotation);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
-            }
-        }
+
 
         [Command("permaban", true)]
         public void permaban_player(IPlayer player, string target, string grund)
@@ -769,7 +760,7 @@ namespace VenoXV.Reallife.admin
                     {
                         foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                         {
-                            if (item.ownerIdentifier == targetId && item.ownerEntity == Constants.ITEM_ENTITY_PLAYER)
+                            if (item.ownerIdentifier == targetId)
                             {
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(item);
                             }
@@ -797,6 +788,17 @@ namespace VenoXV.Reallife.admin
                 player.Position = new Position(posX, posY, posZ);
                 player.SetData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                 player.SetData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
+            }
+        }
+
+        [Command("pos")]
+        public void PosCommand(IPlayer player)
+        {
+            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
+            {
+                Console.WriteLine("Position : " + player.Position);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  Rot : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Rotation);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
             }
         }
 
@@ -1077,7 +1079,7 @@ namespace VenoXV.Reallife.admin
                 // Add a new house
                 house.id = Database.AddHouse(house);
                 ////house.houseLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255));
-                Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 });
+                Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 });
                 House.houseList.Add(house);
 
                 sendAdminInformation(player.GetVnXName<string>() + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0, 200, 255) + " [" + RageAPI.GetHexColorcode(255, 255, 255) + +house.id + RageAPI.GetHexColorcode(0, 200, 255) + " ]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +preis + RageAPI.GetHexColorcode(0, 200, 255) + "  $]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +interior + RageAPI.GetHexColorcode(0, 200, 255) + " ]");
@@ -1252,80 +1254,12 @@ namespace VenoXV.Reallife.admin
                 int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                 if (weapon == "mp5")
                 {
-                    ItemModel Mp5 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MP5);
-                    if (Mp5 == null)
-                    {
-                        Mp5 = new ItemModel();
-                        Mp5.amount = 90;
-                        Mp5.dimension = 0;
-                        Mp5.position = new Position(0.0f, 0.0f, 0.0f);
-                        Mp5.hash = Constants.ITEM_HASH_MP5;
-                        Mp5.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                        Mp5.ownerIdentifier = playerId;
-                        Mp5.ITEM_ART = "Waffe";
-                        Mp5.objectHandle = null;
-                        // Add the item into the database
-                        Mp5.id = Database.AddNewItem(Mp5);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Mp5);
-                    }
-                    else
-                    {
-                        Mp5.amount = 90;
-                        Database.UpdateItem(Mp5);
-                    }
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 90);
-
+                    Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 200, true);
                 }
                 else if (weapon == "m4")
                 {
-                    ItemModel M4A1 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KARABINER);
-                    if (M4A1 == null)
-                    {
-                        M4A1 = new ItemModel();
-                        M4A1.amount = 90;
-                        M4A1.dimension = 0;
-                        M4A1.position = new Position(0.0f, 0.0f, 0.0f);
-                        M4A1.hash = Constants.ITEM_HASH_KARABINER;
-                        M4A1.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                        M4A1.ownerIdentifier = playerId;
-                        M4A1.ITEM_ART = "Waffe";
-                        M4A1.objectHandle = null;
-                        // Add the item into the database
-                        M4A1.id = Database.AddNewItem(M4A1);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(M4A1);
-                    }
-                    else
-                    {
-                        M4A1.amount = 90;
-                        Database.UpdateItem(M4A1);
-                    }
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 90);
+                    Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, Constants.ITEM_ART_WAFFE, 200, true);
 
-                }
-                else if (weapon == "schneeball")
-                {
-                    ItemModel Schneeball = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNOWBALL);
-                    if (Schneeball == null)
-                    {
-                        Schneeball = new ItemModel();
-                        Schneeball.amount = 90;
-                        Schneeball.dimension = 0;
-                        Schneeball.position = new Position(0.0f, 0.0f, 0.0f);
-                        Schneeball.hash = Constants.ITEM_HASH_SNOWBALL;
-                        Schneeball.ownerEntity = Constants.ITEM_ENTITY_PLAYER;
-                        Schneeball.ownerIdentifier = playerId;
-                        Schneeball.ITEM_ART = "Waffe";
-                        Schneeball.objectHandle = null;
-                        // Add the item into the database
-                        Schneeball.id = Database.AddNewItem(Schneeball);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Schneeball);
-                    }
-                    else
-                    {
-                        Schneeball.amount = 10;
-                        Database.UpdateItem(Schneeball);
-                    }
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Snowballs, 10);
                 }
                 vnx_stored_files.logfile.WriteLogs("admin", player.GetVnXName<string>() + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
                 Admin.sendAdminNotification(player.GetVnXName<string>() + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");
@@ -1613,6 +1547,19 @@ namespace VenoXV.Reallife.admin
              catch { }
          }*/
 
+        [Command("giveweapons")]
+        public static void GiveTestWeapons(IPlayer player)
+        {
+            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.BullpupRifleMkII, 200);
+            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.BullpupRifleMkII, 2);
+
+            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 200);
+            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.Pistol50, 3);
+
+            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
+            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.AssaultRifle, 2);
+        }
+
         [Command("createvehicle")]
         public static void CreatePermanentIVehicle(IPlayer player, string VehicleModel, string IVehicleOwner, int FID, int R, int G, int B, int R2, int G2, int B2, int IVehiclePreis, float IVehicleLiter)
         {
@@ -1655,8 +1602,6 @@ namespace VenoXV.Reallife.admin
             }
             catch { }
         }
-
-
 
 
         // DrugsMichaelAliensFightIn == Sollten wir verwenden für drogen system ^^
