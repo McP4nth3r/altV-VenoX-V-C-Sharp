@@ -18,6 +18,7 @@ alt.onServer('showWeedShopWindow', (e) => {
 	weedshop_browser.on('ButtonPressed', () => {
 		alt.emitServer('WeedShop_Server_Event');
 		if (weedshop_browser != null) {
+            let v = document.getElementById('value').value;
             weedshop_browser.destroy();
 			weedshop_browser = null;
             ShowCursor(false);
