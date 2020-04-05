@@ -1,3 +1,9 @@
+//----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//
+
 import alt from 'alt-client';
 import * as game from "natives";
 
@@ -8,10 +14,7 @@ import * as EventLib from '/VenoXV_Client/Globals/VnX-Lib/events.js';
 import * as Nametags from '/VenoXV_Client/Globals/Anzeigen/nametags/nametags.js';
 import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
 import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
-//import * as TextlabelStreamer from '/VenoXV_Client/Globals/EntitySync/TextLabel/Streamer.js';
-//import * as TextlabelStreamerClient from '/VenoXV_Client/Globals/EntitySync/TextLabel/Client.js';
-//import * as TextlabelStreamerAsync from '/VenoXV_Client/Globals/EntitySync/TextLabel/Async.js';
-//import * as WeaponLibary from '/VenoXV_Client/Globals/Weapons/combat.js';
+import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
 import * as TacticsLobby from '/VenoXV_Client/Tactics/VenoXV/Lobby/index.js';
@@ -27,6 +30,12 @@ import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/in
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
+
+
+alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
+game.scaleformMovieMethodAddParamInt(3);
+game.endScaleformMovieMethod();
+
 
 game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
 game.startAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE');
