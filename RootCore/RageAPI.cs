@@ -1,13 +1,12 @@
-﻿using AltV.Net.Elements.Entities;
-using AltV.Net;
-using System;
-using System.Collections.Generic;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using VenoXV.Reallife.model;
-using AltV.Net.Data;
-using System.Numerics;
 
 namespace VenoXV.Core
 {
@@ -35,9 +34,9 @@ namespace VenoXV.Core
                 }
                 return default;
             }
-            catch{ return default; }
-        }                 
-                
+            catch { return default; }
+        }
+
         public static T vnxGetSharedData<T>(this IEntity element, string key)
         {
             try
@@ -50,9 +49,9 @@ namespace VenoXV.Core
                 }
                 return default;
             }
-            catch{ return default; }
-        }      
-        
+            catch { return default; }
+        }
+
         public static string GetHexColorcode(int r, int g, int b)
         {
             Color myColor = Color.FromArgb(r, g, b);
@@ -62,16 +61,16 @@ namespace VenoXV.Core
         public static void WarpIntoVehicle<T>(this IPlayer player, IVehicle veh, int seat)
         {
             player.Emit("Player:WarpIntoVehicle", veh, seat);
-        }                
+        }
         public static void WarpOutOfVehicle<T>(this IPlayer player)
         {
             player.Emit("Player:WarpOutOfVehicle");
-        }        
+        }
         public static void SetVnXName<T>(this IPlayer player, string Name)
         {
             player.SetData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
             player.SetStreamSyncedMetaData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
-        }       
+        }
         public static string GetVnXName<T>(this IPlayer player)
         {
             return player.vnxGetElementData<string>(Reallife.Globals.EntityData.PLAYER_NAME);
@@ -85,14 +84,14 @@ namespace VenoXV.Core
                 name = name.ToLower();
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
-                    if(players.GetVnXName<bool>().ToLower() == name)
+                    if (players.GetVnXName<bool>().ToLower() == name)
                     {
                         player = players;
                     }
                 }
                 return player;
             }
-            catch{return player;}
+            catch { return player; }
         }
         public static void GivePlayerWeapon(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
@@ -101,8 +100,8 @@ namespace VenoXV.Core
                 player.GiveWeapon(weapon, ammo, false);
             }
             catch { }
-        }        
-                
+        }
+
         public static void SetWeaponAmmo(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
@@ -110,13 +109,13 @@ namespace VenoXV.Core
                 player.GiveWeapon(weapon, ammo, false);
             }
             catch { }
-        }        
+        }
 
         public static void SendChatMessageToAll(string text)
         {
             try
             {
-                foreach(IPlayer players in Alt.GetAllPlayers())
+                foreach (IPlayer players in Alt.GetAllPlayers())
                 {
                     players.SendChatMessage(text);
                 }
@@ -129,7 +128,8 @@ namespace VenoXV.Core
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }        }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
+        }
         public static void SetCustomization(IPlayer element, SkinModel model)
         {
             List<SkinModel> modellist = new List<SkinModel>
@@ -167,24 +167,27 @@ namespace VenoXV.Core
                     Size = size,
                     Font = font,
                     Dimension = dimension,
-                    LabelColor = color
+                    ColorR = color[0],
+                    ColorG = color[1],
+                    ColorB = color[2],
+                    ColorA = color[3]
                 };
-                Reallife.Globals.Main.LabelList.Add(label);
+                if (Reallife.Globals.Main.LabelList.Count < 50) { Reallife.Globals.Main.LabelList.Add(label); }
+                else if (Reallife.Globals.Main.LabelList1.Count < 50) { Reallife.Globals.Main.LabelList1.Add(label); }
+                else if (Reallife.Globals.Main.LabelList2.Count < 50) { Reallife.Globals.Main.LabelList2.Add(label); }
+                else if (Reallife.Globals.Main.LabelList3.Count < 50) { Reallife.Globals.Main.LabelList3.Add(label); }
+                else if (Reallife.Globals.Main.LabelList4.Count < 50) { Reallife.Globals.Main.LabelList4.Add(label); }
+                else if (Reallife.Globals.Main.LabelList5.Count < 50) { Reallife.Globals.Main.LabelList5.Add(label); }
+                else if (Reallife.Globals.Main.LabelList6.Count < 50) { Reallife.Globals.Main.LabelList6.Add(label); }
+                else if (Reallife.Globals.Main.LabelList7.Count < 50) { Reallife.Globals.Main.LabelList7.Add(label); }
+                else if (Reallife.Globals.Main.LabelList8.Count < 50) { Reallife.Globals.Main.LabelList8.Add(label); }
+                else if (Reallife.Globals.Main.LabelList9.Count < 50) { Reallife.Globals.Main.LabelList9.Add(label); }
                 //DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
                 //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
-        }
-        public static void CreateTextLabels()
-        {
-            // Create some textLabels
-            //TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
-            //TextLabelStreamer.CreateDynamicTextLabel("Another textlabel", new Vector3(-869.655f, -853.499f, 19.566f), 0, true, new Rgba(25, 231, 125, 255));
-            //TextLabelStreamer.CreateDynamicTextLabel("[SOME MORE TEXT]", new Vector3(-859.655f, -853.499f, 19.566f), 0, true, new Rgba(125, 10, 250, 255));
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
         }
 
-
-       
 
         [Command("getlabels")]
         public static void GetAllLabelss(IPlayer player)
