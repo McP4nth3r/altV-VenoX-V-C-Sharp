@@ -1,12 +1,13 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
+using System.Numerics;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 using VenoXV.Tactics.Globals;
+using VenoXV.Tactics.model;
+
 namespace VenoXV.Tactics.Lobby
 {
     public class Main : IScript
@@ -27,34 +28,26 @@ namespace VenoXV.Tactics.Lobby
 
         //public IPlayer[] TACTICS_PLAYERS_IN_LOBBY { get; set; }
         public static bool TACTICMANAGER__ROUND_ISRUNNING;
-        public static DateTime TACTICMANAGER_ROUND_CURRENTTIME;
-        public static DateTime TACTICMANAGER_ROUND_TIMETOJOIN;
-        public static DateTime TACTICMANAGER_ROUND_START_AFTER_LOADING;
+        public static DateTime TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+        public static DateTime TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now;
+        public static DateTime TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now;
         public static bool TACTICMANAGER_ROUND_JOIN_ALLOWED;
         public static int MEMBER_COUNT_COPS = 0;
         public static int MEMBER_COUNT_BFAC = 0;
         public static int MEMBER_COUNT_MAX_COPS = 0;
         public static int MEMBER_COUNT_MAX_BFAC = 0;
         public static int RandomRound = 0;
+        public static RoundModel CurrentMap;
 
-
-        public static List<Position> TACTICS_TEAM_COPS = new List<Position> // Good Factions :3
-        {
-            new Position(3052.326f, -4654.027f, 15.26142f),
-            new Position(3045.766f, -4655.521f, 15.2623f),
-            new Position(3036.987f, -4658.588f, 15.26142f),
-            new Position(3029.982f, -4657.58f, 15.26163f),
-        };
-
-        public static List<Position> TACTICS_TEAM_BFAC = new List<Position> // Bad Factions
-        {
-            new Position(3077.715f, -4795.332f, 15.2613f),
-            new Position(3090.292f, -4791.002f, 15.26161f),
-            new Position(3097.125f, -4786.874f, 15.26162f),
-            new Position(3090.783f, -4792.346f, 15.26162f),
-        };
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+        private static void GetNewMap()
+        {
+            Random random = new Random();
+            int RandomMap = random.Next(0, maps.Main.TacticMaps.Count); // Count Spawnpoints
+            CurrentMap = maps.Main.TacticMaps[RandomMap];
+        }
         private static void InitializePlayerData(IPlayer player)
         {
             player.SetData(EntityData.PLAYER_JOINED_TACTICS, true);
@@ -65,7 +58,7 @@ namespace VenoXV.Tactics.Lobby
             player.SetData(EntityData.PLAYER_IS_DEAD, false);
             player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, false);
             player.SetData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
-            player.Emit("LoadTacticUI");
+            player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
             RageAPI.SetPlayerVisible(player, true);
         }
 
@@ -91,47 +84,54 @@ namespace VenoXV.Tactics.Lobby
             try
             {
                 player.RemoveAllWeapons();
-                if (RandomRound == 0)
+                if (CurrentMap.Custom_Weapon_Map)
                 {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
-                    player.SendChatMessage("[Tactics] : Only Revolver Modus!");
+                    foreach (AltV.Net.Enums.WeaponModel weapon in CurrentMap.Custom_Weapons)
+                    {
+                        RageAPI.GivePlayerWeapon(player, weapon, 400);
+                    }
+                    player.SendChatMessage("[Tactics] : Only " + CurrentMap.Custom_Weapon_Mode_Name + " Modus!");
+                    return;
                 }
-                else if (RandomRound == 1)
+                switch (RandomRound)
                 {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
-                    player.SendChatMessage("[Tactics] : Only SMG Modus!");
-                }
-                else if (RandomRound == 3)
-                {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
-                    player.SendChatMessage("[Tactics] : Only Shotgun Modus!");
-                }
-                else if (RandomRound == 4)
-                {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 200);
-                    player.SendChatMessage("[Tactics] : Only Sniper Modus!");
-                }
-                else if (RandomRound == 5)
-                {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 200);
-                    player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.RPG, 4);
-                    player.SendChatMessage("[Tactics] : Only RPG Modus!");
-                }
-                else if (RandomRound == 6)
-                {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Minigun, 200);
-                    player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.Minigun, 5);
-                    player.SendChatMessage("[Tactics] : Only Minigun Modus!");
-                }
-                else
-                {
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
-                    RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 200);
+                    case 0:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
+                        player.SendChatMessage("[Tactics] : Only Revolver Modus!");
+                        break;
+                    case 1:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
+                        player.SendChatMessage("[Tactics] : Only SMG Modus!");
+                        break;
+                    case 2:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
+                        player.SendChatMessage("[Tactics] : Only Shotgun Modus!");
+                        break;
+                    case 3:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 200);
+                        player.SendChatMessage("[Tactics] : Only Sniper Modus!");
+                        break;
+                    case 4:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 200);
+                        player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.RPG, 4);
+                        player.SendChatMessage("[Tactics] : Only RPG Modus!");
+                        break;
+                    case 5:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Minigun, 1000);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Switchblade, 1);
+                        player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.Minigun, 5);
+                        player.SendChatMessage("[Tactics] : Only Minigun Modus!");
+                        break;
+                    default:
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
+                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 200);
+                        break;
+
                 }
             }
             catch { }
@@ -142,12 +142,12 @@ namespace VenoXV.Tactics.Lobby
             try
             {
                 Random random = new Random();
-                int randomzahl = random.Next(0, 3);
+                int randomspawnpoint = random.Next(0, CurrentMap.Team_A_Spawnpoints.Count); // Count Spawnpoints
                 if (Fac == EntityData.BFAC_NAME)
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
-                    Position Spawnpunkt = TACTICS_TEAM_BFAC[randomzahl];
-                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash("u_m_y_abner");
+                    Vector3 Spawnpunkt = CurrentMap.Team_B_Spawnpoints[randomspawnpoint];
+                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_B_Skin);
                     player.Dimension = 0;
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
@@ -158,8 +158,8 @@ namespace VenoXV.Tactics.Lobby
                 else if (Fac == EntityData.COPS_NAME)
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
-                    Position Spawnpunkt = TACTICS_TEAM_COPS[randomzahl];
-                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash("s_f_y_cop_01");
+                    Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
+                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_A_Skin);
                     player.Dimension = 0;
                     player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
@@ -170,7 +170,7 @@ namespace VenoXV.Tactics.Lobby
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 Reallife.dxLibary.VnX.SetElementFrozen(player, false);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
 
 
@@ -224,6 +224,7 @@ namespace VenoXV.Tactics.Lobby
         {
             try
             {
+                GetNewMap();
                 TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now.AddMinutes(TACTIC_ROUND_MINUTE);
                 TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now.AddSeconds(TACTIC_ROUND_JOINTIME);
                 MEMBER_COUNT_BFAC = 0;
@@ -238,7 +239,7 @@ namespace VenoXV.Tactics.Lobby
                     {
                         AntiCheat_Allround.SetTimeOutHealth(players, 3000);
                         players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                        players.Emit("LoadTacticUI");
+                        players.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
                         PutPlayerInTeam(players);
                         SyncTime();
                         SyncPlayerStats();
@@ -246,7 +247,7 @@ namespace VenoXV.Tactics.Lobby
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
 
         public static void OnPlayerDisconnect(IPlayer player, string type, string reason)
@@ -295,9 +296,8 @@ namespace VenoXV.Tactics.Lobby
         {
             try
             {
-                AntiCheat_Allround.SetTimeOutHealth(player, 3000);
-                AntiCheat_Allround.StartTimerTeleport(player);
-                player.Emit("Tactics:LoadHUD");
+                //AntiCheat_Allround.SetTimeOutHealth(player, 3000);
+                //AntiCheat_Allround.StartTimerTeleport(player);
                 if (TACTICMANAGER__ROUND_ISRUNNING && TACTICMANAGER_ROUND_TIMETOJOIN < DateTime.Now)
                 {
                     if (MEMBER_COUNT_MAX_BFAC == 0 || MEMBER_COUNT_MAX_COPS == 0)
@@ -319,7 +319,7 @@ namespace VenoXV.Tactics.Lobby
                     StartNewTacticRound();
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedTacticsGM", ex); }
         }
 
         public static void SyncTime()
