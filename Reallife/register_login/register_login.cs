@@ -550,7 +550,7 @@ namespace VenoXV.Reallife.register_login
 
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
                 player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
-
+                RootCore.Sync.LoadAllTextLabels(player);
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID) <= 0)
                 {
                     return;
