@@ -9,6 +9,15 @@ import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
 let InventoryOpen = false;
 let InventoryBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/inventory/main.html");
 
+InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
+    switch (Btn) {
+        case 'use':
+            alt.emitServer('Inventory:Use', Hash);
+        case 'remove':
+            alt.emitServer('Inventory:Remove', Hash);
+    }
+});
+
 export function OnInventoryKeyPressed(key) {
     if (key == 0x49) {
         if (!InventoryOpen) { if (!GetCursorStatus()) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); } }

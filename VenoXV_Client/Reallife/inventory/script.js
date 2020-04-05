@@ -1,17 +1,32 @@
 var box = $(".column");
 var mainCanvas = $(".columns");
 
+let ClickedOnItem = false;
+let LastItemClicked = null;
+
+
+box.click(function () {
+    let name = $(this).css('background-image');
+    let patt = /\"|\'|\)/g;
+    let text = name.split('/').pop().replace(patt, '');
+    if (text == 'style.css') { return; }
+
+    if (LastItemClicked != null) { LastItemClicked.children('.OptionsMenu').addClass('d-none'); LastItemClicked = null; ClickedOnItem = false; return; }
+    $(this).children('.OptionsMenu').removeClass('d-none');
+    $(this).children('.info').addClass('d-none');
+    ClickedOnItem = true;
+    LastItemClicked = $(this);
+});
+
+
 box.mouseover(function (e, ui) {
     let name = $(this).css('background-image');
     let patt = /\"|\'|\)/g;
     let text = name.split('/').pop().replace(patt, '');
 
-
-    if (text == 'style.css') {
-        return;
-    }
+    if (text == 'style.css') { return; }
+    else if (ClickedOnItem) { return; }
     $(this).children('.info').removeClass('d-none');
-
 });
 
 
@@ -138,3 +153,13 @@ box.droppable({
         $(this).removeClass('over');
     }
 });
+
+function OnInventoryButtonPressed(Btn) {
+    if (!LastItemClicked) { return; }
+    let name = LastItemClicked.css('background-image');
+    let patt = /\"|\'|\)/g;
+    let text = name.split('/').pop().replace(patt, '');
+    if (text == 'style.css') { return; }
+
+    alt.emit('OnInventoryButtonClicked', Btn, text);
+}
