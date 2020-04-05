@@ -1,9 +1,4 @@
-﻿using AltV.Net.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VenoXV.Reallife.model
+﻿namespace VenoXV.Reallife.model
 {
     public class LabelModel
     {
@@ -13,7 +8,10 @@ namespace VenoXV.Reallife.model
         public float PosZ { get; set; }
         public float Size { get; set; }
         public int Font { get; set; }
-        public int[] LabelColor { get; set; }
+        public int ColorR { get; set; }
+        public int ColorG { get; set; }
+        public int ColorB { get; set; }
+        public int ColorA { get; set; }
         public int Dimension { get; set; }
         public float Range { get; set; }
 
