@@ -23,7 +23,7 @@ namespace VenoXV.Tactics.maps
                 },
                 //Team B
                 Team_B_Name = "Grove Street",
-                Team_B_Skin = "u_m_y_abner",
+                Team_B_Skin = "ig_ramp_gang",
                 Team_B_Color = new int[] { 0, 152, 0 },
                 Team_B_Spawnpoints = new List<Vector3>{
                     new Vector3(3077.715f, -4795.332f, 15.2613f),
@@ -42,7 +42,7 @@ namespace VenoXV.Tactics.maps
             {
                 Map_Name = "L.S.P.D",
                 Team_A_Name = "S.W.A.T",
-                Team_A_Skin = "s_f_y_cop_01",
+                Team_A_Skin = "s_m_y_swat_01",
                 Team_A_Color = new int[] { 0, 50, 183 },
                 Team_A_Spawnpoints = new List<Vector3>{
                     new Vector3(438.94946f,  -991.5033f,  30.678345f),
@@ -51,7 +51,7 @@ namespace VenoXV.Tactics.maps
                     new Vector3(440.822f,    -994.8659f,  30.678345f),
                 },
                 Team_B_Name = "Yakuza",
-                Team_B_Skin = "u_m_y_abner",
+                Team_B_Skin = "s_f_y_stripper_01",
                 Team_B_Color = new int[] { 152, 0, 0 },
                 Team_B_Spawnpoints = new List<Vector3>{
                     new Vector3(378.8176f,  -954.4352f, 29.296753f),
