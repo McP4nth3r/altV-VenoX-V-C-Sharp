@@ -50,23 +50,19 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 
 
 
-
-
-
-
 //function drawText3d(msg, pos = [0, 0, 0], scale, fontType, r, g, b, a, useOutline = true, useDropShadow = true) {
 
-export function Draw3DText(msg, x, y, z, fontType, color, useOutline = true, useDropShadow = true) {
+export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true) {
     const [bol, _x, _y] = game.getScreenCoordFromWorldCoord(x, y, z);
     const camCord = game.getFinalRenderedCamCoord();
     const dist = game.getDistanceBetweenCoords(camCord.x, camCord.y, camCord.z, x, y, z, 1)
 
 
-    if (dist > 20) return;
+    if (dist > range) return;
 
-    let scale = (4.00001 / dist) * 0.3
-    if (scale > 0.2)
-        scale = 0.2;
+    let scale = (4.00001 / dist) * 0.4
+    if (scale > 0.6)
+        scale = 0.6;
 
 
     const fov = (1 / game.getGameplayCamFov()) * 100;
@@ -86,7 +82,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, useOutline = true, use
         game.addTextComponentSubstringPlayerName(msg);
         if (useOutline) game.setTextOutline();
         if (useDropShadow) game.setTextDropShadow();
-        game.endTextCommandDisplayText(_x, _y + 0.025);
+        game.endTextCommandDisplayText(_x, _y);
     }
 
 }
@@ -115,4 +111,3 @@ export function frontOfPlayer(distance) {
     }
     return pos;
 }
-
