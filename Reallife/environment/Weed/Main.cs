@@ -20,7 +20,7 @@ namespace VenoXV.Reallife.environment.Weed
 
         public const int MAX_WEED_DISTANCE = 50; // Die Maximale Distanz um ein Weed Objekt zu Streamen.
         public const int UPDATE_INTERVAL_WEED = 2; // Distance Interval zum Checken der Maximalen Distanz für jeden Spieler.
-
+        public const int MAX_LIST_SIZE = 70;
 
 
         //Const
@@ -84,12 +84,12 @@ namespace VenoXV.Reallife.environment.Weed
                 {
                     if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
                     {
-                        if (NearestWeedPlants.Count < 10) { NearestWeedPlants.Add(weed); }
-                        else if (NearestWeedPlants1.Count < 10) { NearestWeedPlants1.Add(weed); }
-                        else if (NearestWeedPlants2.Count < 10) { NearestWeedPlants2.Add(weed); }
-                        else if (NearestWeedPlants3.Count < 10) { NearestWeedPlants3.Add(weed); }
-                        else if (NearestWeedPlants4.Count < 10) { NearestWeedPlants4.Add(weed); }
-                        else if (NearestWeedPlants5.Count < 10) { NearestWeedPlants5.Add(weed); }
+                        if (NearestWeedPlants.Count < MAX_LIST_SIZE) { NearestWeedPlants.Add(weed); }
+                        else if (NearestWeedPlants1.Count < MAX_LIST_SIZE) { NearestWeedPlants1.Add(weed); }
+                        else if (NearestWeedPlants2.Count < MAX_LIST_SIZE) { NearestWeedPlants2.Add(weed); }
+                        else if (NearestWeedPlants3.Count < MAX_LIST_SIZE) { NearestWeedPlants3.Add(weed); }
+                        else if (NearestWeedPlants4.Count < MAX_LIST_SIZE) { NearestWeedPlants4.Add(weed); }
+                        else if (NearestWeedPlants5.Count < MAX_LIST_SIZE) { NearestWeedPlants5.Add(weed); }
                     }
                 }
                 if (NearestWeedPlants.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants)); }
