@@ -17,7 +17,6 @@ namespace VenoXV.Tactics.Globals
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
                         players.SendChatMessage(text);
-
                     }
                 }
             }
