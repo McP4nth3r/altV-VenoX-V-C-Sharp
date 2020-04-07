@@ -580,19 +580,6 @@ namespace VenoXV.Reallife.Vehicles
                     Vehicle.LockState = AltV.Net.Enums.VehicleLockState.Locked;
                     //ToDo Fix it                     Vehicle.Locked = true;
                 }
-
-                WeedModel weed = new WeedModel
-                {
-                    CreatedBy = "Solid_Snake",
-                    Name = "Hanfpflanze",
-                    Position = new Position(vehModel.position.X, vehModel.position.Y, vehModel.position.Z),
-                    Rotation = vehModel.rotation,
-                    Created = DateTime.Now,
-                    Value = 15,
-                    IsInWeedGarage = false,
-                    IsFakeWeedPlant = false,
-                };
-                environment.Weed.Main.WeedList.Add(weed);
             }
             catch (Exception ex)
             {
