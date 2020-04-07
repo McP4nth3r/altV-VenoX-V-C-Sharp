@@ -27,6 +27,9 @@ namespace VenoXV.Tactics.weapons
         public const float RPG_DAMAGE = 200;
         public const float MINIGUN_DAMAGE = 5;
 
+        public const float RAY_PISTOL = 30;
+        public const float RAY_MINIGUN = 20;
+
 
         // HIT BONE MULE 
         public const string BONE_HEAD = "SKEL_Head"; // Kopf.
@@ -63,7 +66,9 @@ namespace VenoXV.Tactics.weapons
                 { AltV.Net.Enums.WeaponModel.Musket, RIFLE_DAMAGE }, // MUSKET - RIFLE DAMAGE
                 { AltV.Net.Enums.WeaponModel.SniperRifle, SNIPER_DAMAGE }, // SNIPERRIFLE - DAMAGE
                 { AltV.Net.Enums.WeaponModel.RPG, RPG_DAMAGE }, // SNIPERRIFLE - DAMAGE
-                { AltV.Net.Enums.WeaponModel.Minigun, MINIGUN_DAMAGE } // SNIPERRIFLE - DAMAGE
+                { AltV.Net.Enums.WeaponModel.Minigun, MINIGUN_DAMAGE }, // SNIPERRIFLE - DAMAGE
+                {(AltV.Net.Enums.WeaponModel)AltV.Net.Alt.Hash("weapon_raypistol"), RAY_PISTOL },// SNIPERRIFLE - DAMAGE
+                {(AltV.Net.Enums.WeaponModel)AltV.Net.Alt.Hash("weapon_rayminigun"), RAY_MINIGUN } // SNIPERRIFLE - DAMAGE
             };
         }
 
@@ -81,6 +86,8 @@ namespace VenoXV.Tactics.weapons
         {
             try
             {
+                if (target == player) { return; }
+                Core.Debug.OutputDebugString("Helikopter Waffenschaden : " + WeaponModel);
                 target.SetData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName<string>());
                 if (target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM))
                 {
@@ -95,13 +102,18 @@ namespace VenoXV.Tactics.weapons
                     return;
                 }
 
-                Debug.OutputDebugString("Target Team : " + target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM));
-                Debug.OutputDebugString("Player Team : " + player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM));
-
                 // If Weapon is Sniper && BONE == HEAD THEN KILL DONE
                 if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == AltV.Net.Data.BodyPart.Head)
                 {
+                    player.Emit("Globals:PlayHitsound");
                     target.Health = 0;
+                    return;
+                }
+
+                if (WeaponModel == AltV.Net.Enums.WeaponModel.RPG)
+                {
+                    player.Emit("Globals:PlayHitsound");
+                    target.Health -= 150;
                     return;
                 }
 
