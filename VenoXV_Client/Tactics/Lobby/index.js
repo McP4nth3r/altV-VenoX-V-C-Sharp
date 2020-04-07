@@ -5,7 +5,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText } from '../../../Globals/VnX-Lib';
+import { DrawText } from '../../Globals/VnX-Lib';
 
 let gamemode_version = "1.0.0";
 let RageMP_version = "0.3.7";
@@ -20,10 +20,30 @@ let Current_Kills = 0;
 let WinnerText = "";
 let ShowWinningWindow = false;
 let BG_AP = 0;
-alt.onServer('LoadTacticUI', () => {
+
+let Team_A_Name = "";
+let Team_A_R = 0;
+let Team_A_G = 0;
+let Team_A_B = 0;
+
+let Team_B_Name = "";
+let Team_B_R = 0;
+let Team_B_G = 0;
+let Team_B_B = 0;
+
+alt.onServer('LoadTacticUI', (A_Name, B_Name, r, g, b, r1, g1, b1) => {
     game.freezeEntityPosition(alt.Player.local.scriptID, false);
     game.displayHud(true);
     game.displayRadar(true);
+    Team_A_Name = A_Name;
+    Team_A_R = r;
+    Team_A_G = g;
+    Team_A_B = b;
+    ////////////////
+    Team_B_Name = B_Name;
+    Team_B_R = r1;
+    Team_B_G = g1;
+    Team_B_B = b1;
 });
 
 alt.onServer('Tactics:UpdateMemberInfo', (L, LA, B, BA) => {
@@ -89,15 +109,15 @@ export function TacticsEveryTick() {
     if (tactictimer == null) { return; }
     if (ShowWinningWindow) { Tactics_Show_Winner(); return; }
 
-    DrawText("L.S.P.D", [0.42478, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
+    DrawText(Team_A_Name, [0.42478, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
     DrawText(CURRENT_LSPD_ALIVE_IN_ROUND + " / " + CURRENT_LSPD_IN_ROUND, [0.42478, 0.028], [0.25, 0.25], 0, [255, 255, 255, 255], true, true);
     DrawText(TACTIC_COUNTDOWN, [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);
-    DrawText("Grove Street", [0.575, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
+    DrawText(Team_B_Name, [0.575, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
     DrawText(CURRENT_BFAC_ALIVE_IN_ROUND + " / " + CURRENT_BFAC_IN_ROUND, [0.575, 0.028], [0.25, 0.25], 0, [255, 255, 255, 255], true, true);
 
-    game.drawRect(0.42478, 0, 0.1, 0.1, 0, 140, 183, 175);
+    game.drawRect(0.42478, 0, 0.1, 0.1, Team_A_R, Team_A_G, Team_A_B, 175);
     game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175);
-    game.drawRect(0.575, 0, 0.1, 0.1, 0, 152, 0, 175);
+    game.drawRect(0.575, 0, 0.1, 0.1, Team_B_R, Team_B_G, Team_B_B, 175);
 
     game.drawRect(0.846, 0.30, 0.06, 0.035, 0, 0, 0, 175);
     game.drawRect(0.9105, 0.30, 0.06, 0.035, 0, 0, 0, 175);

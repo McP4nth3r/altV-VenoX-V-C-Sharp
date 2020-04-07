@@ -17,7 +17,8 @@ import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
-import * as TacticsLobby from '/VenoXV_Client/Tactics/VenoXV/Lobby/index.js';
+import * as TacticsLobby from '/VenoXV_Client/Tactics/Lobby/index.js';
+import * as TacticsSpectator from '/VenoXV_Client/Tactics/Spectator/index.js';
 import * as jobs from '/VenoXV_Client/Reallife/jobs/allround.js';
 import * as environment_house from '/VenoXV_Client/Reallife/environment/house/index.js';
 import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
@@ -31,11 +32,11 @@ import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 
-
+/*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
-
+*/
 
 game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
 game.startAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE');

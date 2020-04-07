@@ -16,7 +16,6 @@ CurrentWeedPlants.Name = "";
 let CurrentWeedCounter = 0;
 
 function DestroyAllWeedObjects() {
-    alt.log('Called to Destroy Weed');
     for (var weed in CurrentWeedPlants) {
         game.deleteObject(CurrentWeedPlants[weed].Object);
     }

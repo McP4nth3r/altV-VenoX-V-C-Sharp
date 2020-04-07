@@ -6,7 +6,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { TacticsEveryTick } from '../../Tactics/VenoXV/Lobby';
+import { TacticsEveryTick } from '../../Tactics/Lobby';
 import { DrawText, Draw3DText, CreateBlip, ShowCursor, CreatePed } from './index';
 import { dxLibaryEveryTick } from './dxClass';
 import { RenderHitMarker } from '../Notification';
@@ -18,6 +18,7 @@ import { BasicKeyBinds } from '../../preload/login';
 import { OnInventoryKeyPressed } from '../../Reallife/inventory';
 import { DrawNametags } from '../Anzeigen/nametags/nametags';
 import { XMENU_KEY, OnXKeyUp, OnXKeyDown } from '../../Reallife/xmenu';
+import { OnTacticsSpectatorKeyUp, onTacticsSpectatorKeyDown } from '../../Tactics/Spectator';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
@@ -218,7 +219,7 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
     alt.log("HeadShape:Loaded");
 });
 
-alt.onServer('Sync:CreateNPC', (PedJson)=>{
+alt.onServer('Sync:CreateNPC', (PedJson) => {
     CreatePed();
 });
 
@@ -244,6 +245,7 @@ alt.onServer('Player:WarpOutOfVehicle', () => {
 
 alt.on('keyup', (key) => {
     KeyUp(key);
+    OnTacticsSpectatorKeyUp(key);
     switch (key) {
         case XMENU_KEY:
             OnXKeyUp();
@@ -255,6 +257,7 @@ alt.on('keydown', (key) => {
     OnInventoryKeyPressed(key);
     KeyDown(key);
     BasicKeyBinds(key);
+    onTacticsSpectatorKeyDown(key);
     switch (key) {
         case XMENU_KEY:
             OnXKeyDown();
