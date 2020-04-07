@@ -326,7 +326,7 @@ namespace VenoXV.Reallife.admin
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
                 {
                     // We check whether the player is connected
-                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true) w
                     {
                         if (int.TryParse(amount, out int value) == true)
                         {
@@ -1363,9 +1363,11 @@ namespace VenoXV.Reallife.admin
         [Command("vnxGetElementData")]
         public static void GetElementDataAdmin(IPlayer player, string target_name, string element)
         {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
-                // player.SendChatMessage("[vnxGetElementData(" + element + ") = " + target.vnxGetElementData);
+                player.SendChatMessage("[vnxGetElementData(" + element + ") = " + target.vnxGetElementData<int>(element));
             }
         }
 
