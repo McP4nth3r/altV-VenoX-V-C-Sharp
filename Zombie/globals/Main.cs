@@ -21,7 +21,7 @@ namespace VenoXV.Zombie.globals
         {
             try
             {
-                player.SetData(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS) + 1);
+                player.vnxSetElementData<object>(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS) + 1);
                 Console.WriteLine(player.GetVnXName<string>() + " hat einen Zombie Getötet!");
             }
             catch { }

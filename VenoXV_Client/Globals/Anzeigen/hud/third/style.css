@@ -1,0 +1,273 @@
+
+@font-face { font-family: 'drugs';
+             src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }		 
+@font-face { font-family: 'quest_header';
+             src: url('./files/font/quest_header.ttf') format('truetype'); }
+
+
+
+.all {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+	position: absolute;
+    top: 0vw;
+    height: 100%;
+    left: 0vw;
+    width: 100%;
+	overflow: hidden;
+}
+
+
+.backa {
+    position: absolute;
+    background: rgba(0, 40, 80, 0.0);
+    top: 0vw;
+    height: 100%;
+    left: 0vw;
+    width: 100%;
+}
+
+.STREET_BAR_MAIN {
+	position: absolute;
+	left: 86%;
+	color:white;
+	top: 0.5vw;
+	text-align: left;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#0096c8+0,ffc4c4+100 */
+background: rgb(0,150,200); /* Old browsers */
+background: -moz-linear-gradient(left,  rgb(0,150,200) 0%, rgb(255,196,196) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgb(0,150,200) 0%,rgb(255,196,196) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgb(0,150,200) 0%,rgb(255,196,196) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0096c8', endColorstr='#ffc4c4',GradientType=1 ); /* IE6-9 */
+
+	transform: skew(-20deg);
+	width: 14vw;
+	padding: 0.2vw 0.2vw;
+	height: 1vw;
+}
+
+.STREET_HEADER_LOGO {
+	position: absolute;
+	right: 3%;
+	width: 1.5vw;
+	height: 1vw;
+	font-size: 0.925vw;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#00c8ff+0,006991+100 */
+	background: rgb(0,200,255); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgb(0,200,255) 0%, rgb(0,105,145) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  rgb(0,200,255) 0%,rgb(0,105,145) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  rgb(0,200,255) 0%,rgb(0,105,145) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00c8ff', endColorstr='#006991',GradientType=0 ); /* IE6-9 */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	-webkit-text-stroke: 0.01vw black;
+
+}
+
+.PLAYER_STREET_LOCATION{
+	font-size: 0.925vw;
+    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+
+}
+
+
+.ARMOR_BAR_MAIN {
+	position: absolute;
+	left: 86%;
+	top: 2vw;
+	background-color: rgba(255,0,0,0);
+	transform: skew(-20deg);
+	width: 14vw;
+	height: 1.4vw;
+}
+
+.MONEY_BAR_MAIN {
+	position: absolute;
+	left: 86%;
+	top: 6vw;
+	background-color: rgba(0,0,0,0.8);
+	transform: skew(-20deg);
+	width: 14vw;
+	height: 1.4vw;
+}
+.money_bar_text {
+	position: absolute;
+	text-align: right;
+	left: -5%;
+	color: rgba(0,200,0,1);
+	z-index: 1;
+	font-size: 1.4vw;
+	width: 14vw;
+	height: 1.3vw;
+    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+
+}
+.mic_bar_text {
+	position: absolute;
+	text-align: right;
+	left: -80%;
+	color: rgba(255,255,255,1);
+	z-index: 1;
+	font-size: 1vw;
+	width: 14vw;
+	top: 0.15vw;
+	height: 1.3vw;
+    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+
+}
+
+.mic_bar_image {
+	position: absolute;
+	left: 3vw;
+	width: 2vw;
+	height: 1.4vw;
+}
+
+
+.HEALTH_BAR_MAIN {
+	position: absolute;
+	left: 86%;
+	top: 4vw;
+	background-color: rgba(255,0,0,0);
+	transform: skew(-20deg);
+	width: 14vw;
+	height: 1.4vw;
+}
+
+/* Armor */
+.armor_bar {
+	position: absolute;
+	top: 0.08vw;
+	left: 0.10vw;
+    background-color: rgba(0,150,200,1);
+    height: 1.4vw;
+    width: 13vw;
+    border-radius: 0.0vw;
+}
+
+.armor_bar_bg {
+	position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    height: 1.4vw;
+    width: 14vw;
+    border-radius: 0.0vw;
+	text-align: center;
+    
+	border: 0.1vw solid rgba(0, 200,255,1);
+}
+.armor_bar_text {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	top: 0.25vw;
+	color: white;
+	z-index: 1;
+	font-size: 1vw;
+	    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+
+}
+
+/* Health */
+.health_bar {
+	position: absolute;
+	top: 0.08vw;
+	left: 0.10vw;
+    background-color: rgba(150,0,0,1);
+    height: 1.4vw;
+    width: 10vw;
+    border-radius: 0.0vw;
+}
+
+.health_bar_bg {
+	position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    height: 1.4vw;
+    width: 14vw;
+    border-radius: 0.0vw;
+	text-align: center;
+    
+	border: 0.1vw solid rgba(0, 200,255,1);
+}
+.health_bar_text {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+	top: 0.25vw;
+	color: white;
+	z-index: 1;
+	font-size: 1vw;
+	    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+
+}
+
+
+.stripes {
+    background-size: 30px 30px;
+    background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, .15) 50%,
+        rgba(255, 255, 255, .15) 75%,
+        transparent 75%,
+        transparent
+    );
+}
+
+.stripes.animated {
+  animation: animate-stripes 0.6s linear infinite;
+}
+
+.stripes.animated.slower {
+  animation-duration: 1.25s;
+}
+
+.stripes.reverse {
+  animation-direction: reverse;
+}
+
+
+@keyframes animate-stripes {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 60px 0;
+    }
+}
+
+@keyframes auto-progress {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+
+
+.d-none{
+    display:none;
+}

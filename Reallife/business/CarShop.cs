@@ -1,15 +1,14 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
-using VenoXV.Reallife.Vehicles;
-using System.Collections.Generic;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using VenoXV.Core;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
-using AltV.Net;
-using Newtonsoft.Json;
+using VenoXV.Reallife.Globals;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Reallife.business
 {
@@ -121,7 +120,7 @@ namespace VenoXV.Reallife.business
             // Car dealer creation
             Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new int[] { 255, 255, 255, 255 });
 
-            
+
             BlipModel blip = new BlipModel();
             blip.Name = "Autohändler";
             blip.posX = -56.88f;
@@ -163,13 +162,13 @@ namespace VenoXV.Reallife.business
                     foreach (CarShopVehicleModel carShopVehicle in carList)
                     {
                         AltV.Net.Enums.VehicleModel VehicleModel = (AltV.Net.Enums.VehicleModel)uint.Parse(carShopVehicle.model);
-                        
 
-                       // carShopIVehicle.speed = (int)Math.Round(NAPI.Vehicle.GetIVehicleMaxSpeed(VehicleModel) * 3.6f);
+
+                        // carShopIVehicle.speed = (int)Math.Round(NAPI.Vehicle.GetIVehicleMaxSpeed(VehicleModel) * 3.6f);
                     }
 
                     // We show the catalog
-                    VnX.vnxSetSharedData(player, "HideHUD", 1);
+                    player.vnxSetSharedElementData<object>("HideHUD", 1);
                     anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.Emit("showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
                 }
@@ -193,7 +192,7 @@ namespace VenoXV.Reallife.business
                         case 0:
                             // Create a new car
                             SpawnPurchasedIVehicle(player, Constants.CARSHOP_SPAWNS, VehicleModel, IVehiclePrice, firstRgba, secondRgba);
-                            VnX.vnxSetSharedData(player, "HideHUD", 0);
+                            player.vnxSetSharedElementData<object>("HideHUD", 0);
                             anzeigen.Usefull.VnX.UpdateHUD(player);
                             break;
                         case 1:
@@ -217,16 +216,17 @@ namespace VenoXV.Reallife.business
         //[AltV.Net.ClientEvent("testIVehicle")]
         public void TestIVehicleEvent(IPlayer player, string hash, string firstRgba, string secondRgba)
         {
-            try {
+            try
+            {
                 if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true)
                 {
                     foreach (IVehicle veh in Alt.GetAllVehicles())
                     {
-                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
                         {
-                            player.SetData("FAHRZEUG_AM_TESTEN", false);
+                            player.vnxSetElementData<object>("FAHRZEUG_AM_TESTEN", false);
                             veh.Remove();
-                            player.SendChatMessage(RageAPI.GetHexColorcode(225,0,0) + "[VenoX Motorsport Shop] :  " + RageAPI.GetHexColorcode(255,255,255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(225, 0, 0) + "[VenoX Motorsport Shop] :  " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
                             Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.Position = new Position(-51.54087f, -1076.941f, 26.94754f);
                             player.Dimension = 0;
@@ -245,58 +245,58 @@ namespace VenoXV.Reallife.business
 
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba1[0])), Convert.ToByte(int.Parse(firstRgba1[1])), Convert.ToByte(int.Parse(firstRgba1[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba1[0])), Convert.ToByte(int.Parse(secondRgba1[1])), Convert.ToByte(int.Parse(secondRgba1[2])), 255);
-                        Core.VnX.IVehicleSetSharedINTData(Vehicle, EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
 
-                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_NOT_SAVED, true);
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle, "TEST_FAHRZEUG", true);
+                        Vehicle.vnxSetSharedElementData<object>("kms", 0);
+                        Vehicle.vnxSetSharedElementData<object>("gas", 100);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetSharedElementData<object>("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
 
 
                         break;
                     case 1:
-                        Vehicle = Alt.CreateVehicle(VehicleModel, new Position(307.0036f, -1162.707f, 29.29191f),new Rotation(0, 0, 180.0f));
+                        Vehicle = Alt.CreateVehicle(VehicleModel, new Position(307.0036f, -1162.707f, 29.29191f), new Rotation(0, 0, 180.0f));
                         string[] firstRgba2 = firstRgba.Split(',');
                         string[] secondRgba2 = secondRgba.Split(',');
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
-                        Core.VnX.IVehicleSetSharedINTData(Vehicle, EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
-                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle, "TEST_FAHRZEUG", true);
+                        Vehicle.vnxSetSharedElementData<object>("kms", 0);
+                        Vehicle.vnxSetSharedElementData<object>("gas", 100);
+                        Vehicle.vnxSetSharedElementData<object>("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
                     case 2:
-                        Vehicle = Alt.CreateVehicle(VehicleModel, new Position(-717.3467f, -1319.792f, -0.42f), new Rotation(0,0,180.0f));
+                        Vehicle = Alt.CreateVehicle(VehicleModel, new Position(-717.3467f, -1319.792f, -0.42f), new Rotation(0, 0, 180.0f));
                         string[] firstRgba3 = firstRgba.Split(',');
                         string[] secondRgba3 = secondRgba.Split(',');
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba3[0])), Convert.ToByte(int.Parse(firstRgba3[1])), Convert.ToByte(int.Parse(firstRgba3[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba3[0])), Convert.ToByte(int.Parse(secondRgba3[1])), Convert.ToByte(int.Parse(secondRgba3[2])), 255);
-                        Core.VnX.IVehicleSetSharedINTData(Vehicle,EntityData.VEHICLE_ID, 500);
-                        Core.VnX.IVehicleSetSharedStringData(Vehicle,EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle,EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                        Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
-                        VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
-                        VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
-                        Core.VnX.IVehicleSetSharedBoolData(Vehicle,"TEST_FAHRZEUG", true);
+                        Vehicle.vnxSetSharedElementData<object>("kms", 0);
+                        Vehicle.vnxSetSharedElementData<object>("gas", 100);
+                        Vehicle.vnxSetSharedElementData<object>("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
                 }
 
-                VnX.VehiclevnxSetSharedData(Vehicle, "kms", 0);
-                VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
-                Core.VnX.IVehicleSetSharedBoolData(Vehicle, EntityData.VEHICLE_TESTING, true);
+                Vehicle.vnxSetSharedElementData<object>("kms", 0);
+                Vehicle.vnxSetSharedElementData<object>("gas", 100);
+                Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_TESTING, true);
                 Vehicle.Dimension = 1200;
                 player.Dimension = 1200;
-                player.SetData(EntityData.PLAYER_TESTING_VEHICLE, Vehicle);
+                player.vnxSetElementData<object>(EntityData.PLAYER_TESTING_VEHICLE, Vehicle);
                 //player.SetIntoIVehicle(IVehicle, (int)IVehicleSeat.Driver);
                 Vehicle.EngineOn = true;
-                VnX.vnxSetSharedData(player, "HideHUD", 0);
+                player.vnxSetSharedElementData<object>("HideHUD", 0);
                 anzeigen.Usefull.VnX.UpdateHUD(player);
             }
             catch
@@ -307,7 +307,7 @@ namespace VenoXV.Reallife.business
         //[AltV.Net.ClientEvent("showhudagain")]
         public void ShowHUDAgain(IPlayer player)
         {
-            VnX.vnxSetSharedData(player, "HideHUD", 0);
+            player.vnxSetSharedElementData<object>("HideHUD", 0);
             anzeigen.Usefull.VnX.UpdateHUD(player);
         }
     }

@@ -526,6 +526,28 @@ top: 54vw
     }
 }
 
+#blood_in_vnx{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0%;
+    left: 0%;
+    display: none;
+    transform: translateZ(0);
+}
+@keyframes fadeout_blood {
+    0%{
+        opacity:1;
+    }
+
+   100%{
+        opacity:0;
+        display: none;
+    }
+}
+
+
 .d-none {
     display: none !important
 }

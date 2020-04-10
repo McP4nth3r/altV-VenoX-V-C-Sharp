@@ -27,9 +27,9 @@ namespace VenoXV.Reallife.Environment.Gzone
                 player.Emit("Greenzone:ChangeStatus", true);
                 if (player.vnxGetElementData<string>("settings_quest") == "ja")
                 {
-                    Core.VnX.SetSharedSettingsData(player, "settings_quest", "nein");
+                    player.vnxSetSharedElementData<object>( "settings_quest", "nein");
                     anzeigen.Usefull.VnX.UpdateHUD(player);
-                    player.SetData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", true);
+                    player.vnxSetElementData<object>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", true);
                 }
             }
         }
@@ -42,9 +42,9 @@ namespace VenoXV.Reallife.Environment.Gzone
                 {
                     if(player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
                     {
-                        Core.VnX.SetSharedSettingsData(player, "settings_quest", "ja");
+                        player.vnxSetSharedElementData<object>( "settings_quest", "ja");
                         anzeigen.Usefull.VnX.UpdateHUD(player);
-                        player.SetData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
+                        player.vnxSetElementData<object>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
                     }
                     player.Emit("Greenzone:ChangeStatus", false);
                 }

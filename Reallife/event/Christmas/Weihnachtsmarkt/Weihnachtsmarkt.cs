@@ -42,7 +42,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     Database.SetVIPStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Bronze", 3);
                     player.SendChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_BRONZE + RageAPI.GetHexColorcode(255, 255, 255) + " für 3 Tage bekommen!");
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "Bronze");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (Day == 9)
                 {
@@ -70,12 +70,12 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                 }
                 else if (Day == 10)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 5000);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 5000);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 5.000$");
                 }
                 else if (Day == 11)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 12500);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 12500);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 12.500$");
                 }
                 else if (Day == 12)
@@ -86,7 +86,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     Database.SetVIPStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Gold", 3);
                     player.SendChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_GOLD + RageAPI.GetHexColorcode(255, 255, 255) + " für 3 Tage bekommen!");
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "Gold");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (Day == 14)
                 {
@@ -116,21 +116,21 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     Database.SetVIPStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "TOP DONATOR", 2);
                     player.SendChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_TOP_DONATOR + RageAPI.GetHexColorcode(255, 255, 255) + " für 2 Tage bekommen!");
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }
                 else if (Day == 16)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 12500);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 12500);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 12.500$");
                 }
                 else if (Day == 19)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 15000);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 15000);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 15.000$");
                 }
                 else if (Day == 20)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 5000);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 5000);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 5.000$ + 10 Schneebälle");
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, Constants.ITEM_ART_WAFFE, 10, true);
                 }
@@ -167,15 +167,15 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                 else if (Day == 22)
                 {
                     Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 300, false);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 75000);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 75000);
                     Database.SetVIPStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "TOP DONATOR", 7);
                     player.SendChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_TOP_DONATOR + RageAPI.GetHexColorcode(255, 255, 255) + " für 7 Tage bekommen!");
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                     player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Heute ist Solids Geburtstag :D Gönn dir ruhig mal auf sein nacken 75.000$ + 7 Tage TOP Donator ;).");
                 }
                 else if (Day == 23)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 25000);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 25000);
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 25.000$");
                 }
                 else if (Day == 24)
@@ -204,7 +204,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     player.SendChatMessage("Heute schenkt dir der Weihnachtsmann einen NAGEL NEUEN COMET! Gönn dir! Frohe Weihnachten " + RageAPI.GetHexColorcode(0, 200, 255) + " VenoX " + RageAPI.GetHexColorcode(200, 0, 0) + "<3");
 
                 }
-                player.SetData(EntityData.PLAYER_ADVENTSKALENEDER, Day);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ADVENTSKALENEDER, Day);
             }
             catch { }
         }
@@ -247,7 +247,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // Schockolade
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SCHOKOLADE, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 12);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 12);
                 }
                 else if (v == 2)
                 {
@@ -258,7 +258,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // Cookies
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_COOKIES, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 17);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 17);
                 }
                 else if (v == 3)
                 {
@@ -269,7 +269,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // Lebkuchen
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_LEBKUCHENMAENNCHEN, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 34);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 34);
                 }
                 else if (v == 4)
                 {
@@ -280,7 +280,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // sparerips
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SPARERIPS, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 60);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 60);
                 }
                 else if (v == 5)
                 {
@@ -291,7 +291,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // gluehwein
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_GLUEHWEIN, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 15);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 15);
                 }
                 else if (v == 6)
                 {
@@ -302,7 +302,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // milk
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MILCH, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 6);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 6);
                 }
                 else if (v == 7)
                 {
@@ -313,7 +313,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     // hotchocolate
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HEISSESCHOKOLADE, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 12);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 12);
                 }
                 else if (v == 8)
                 {
@@ -323,7 +323,7 @@ namespace VenoXV.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, Constants.ITEM_ART_WAFFE, 1, true);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 75);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 75);
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GET225);
                 }
             }

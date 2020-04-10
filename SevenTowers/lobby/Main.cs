@@ -5,7 +5,6 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VenoXV.Core;
 using VenoXV.SevenTowers.globals;
 
@@ -15,11 +14,11 @@ namespace VenoXV.SevenTowers.Lobby
     {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+
         // SETTINGS 
-        public static int   SEVENTOWERS_ROUND_MINUTE = 3;                       // Zeit in Sekunden.
-        public static int   SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;          // Zeit in Sekunden.
-        public static int   SEVENTOWERS_ROUND_JOINTIME = 5;                     // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
+        public static int SEVENTOWERS_ROUND_MINUTE = 3;                       // Zeit in Sekunden.
+        public static int SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;          // Zeit in Sekunden.
+        public static int SEVENTOWERS_ROUND_JOINTIME = 5;                     // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,7 +81,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                player.SetData(EntityData.PLAYER_SPAWNED, false);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNED, false);
             }
             catch (Exception ex)
             {
@@ -93,11 +92,11 @@ namespace VenoXV.SevenTowers.Lobby
 
         public static bool CanPlayerJoin()
         {
-            if(SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
+            if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
             {
                 return true;
             }
-            else if(SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
+            else if (SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
             {
                 return false;
             }
@@ -108,7 +107,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             player.SendChatMessage("Du bist zuschauer!");
         }
-        
+
         public static void StartNewRound()
         {
             try
@@ -129,7 +128,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                foreach(IVehicle veh in SevenTowersVehicles)
+                foreach (IVehicle veh in SevenTowersVehicles)
                 {
                     Alt.RemoveVehicle(veh);
                 }
@@ -155,14 +154,14 @@ namespace VenoXV.SevenTowers.Lobby
                     {
                         IVehicle vehicle = Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Key, new Rotation(0, 0, 0));
                         player.Position = Spawns.Key;
-                        
-                        player.SetData(EntityData.PLAYER_SPAWNED, true);
+
+                        player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNED, true);
                         player.WarpIntoVehicle<bool>(vehicle, -1);
                         SevenTowersVehicles.Add(vehicle);
                         SevenTowerSpawns.Remove(Spawns.Key);
                         SevenTowerSpawns.Add(Spawns.Key, true);
-                        VnX.VehiclevnxSetSharedData(vehicle, "kms", 0);
-                        VnX.VehiclevnxSetSharedData(vehicle, "gas", 100);
+                        vehicle.vnxSetSharedElementData<object>("kms", 0);
+                        vehicle.vnxSetSharedElementData<object>("gas", 100);
                     }
                 }
             }
@@ -173,7 +172,8 @@ namespace VenoXV.SevenTowers.Lobby
         }
         public static void PutPlayerInRound(IPlayer player)
         {
-            try {
+            try
+            {
                 InitializePlayerData(player);
                 player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "~ ~ ~ ~ 7 TOWERS ~ ~ ~ ~ ");
                 SpawnPlayerInRound(player);
@@ -190,7 +190,7 @@ namespace VenoXV.SevenTowers.Lobby
             try
             {
                 SevenTowersPlayers.Add(player);
-                if(SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
+                if (SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
                 if (CanPlayerJoin())
                 {
                     PutPlayerInRound(player);
@@ -200,7 +200,7 @@ namespace VenoXV.SevenTowers.Lobby
                     PutPlayerSpectate(player);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.CatchExceptions("JoinedSevenTowers", ex);
             }

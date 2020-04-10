@@ -2,8 +2,6 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
@@ -34,10 +32,10 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                     return;
                 }
                 Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                if(fkasse.money < totalcost)
+                if (fkasse.money < totalcost)
                 {
-                   dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
-                   return;
+                    dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
+                    return;
                 }
                 Allround.ChangeAktionsState(true);
 
@@ -95,7 +93,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 if (rifle_final_value > Constants.KARABINER_MAX_LAGER) { rifle_final_value = Constants.KARABINER_MAX_LAGER; }
                 if (rifle_ammo_final_value > Constants.KARABINER_AMMO_MAX_LAGER) { rifle_ammo_final_value = Constants.KARABINER_AMMO_MAX_LAGER; }
 
-               
+
 
                 if (sniperrifle_final_value > Constants.SNIPER_MAX_LAGER) { sniperrifle_final_value = Constants.SNIPER_MAX_LAGER; }
                 if (sniperrifle_ammo_final_value > Constants.SNIPER_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Constants.SNIPER_AMMO_MAX_LAGER; }
@@ -130,34 +128,34 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
 
 
                 Marker_WT.CreateFactionWTEnter(false, "WT");
-                WT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(2861.777f, 1519.65f, 24.56755f), new Rotation(0,0,70f));
+                WT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(2861.777f, 1519.65f, 24.56755f), new Rotation(0, 0, 70f));
                 WT_TRUCK.EngineOn = true;
-                WT_TRUCK.SetData(EntityData.VEHICLE_MODEL, "WT");
-                WT_TRUCK.SetData(EntityData.VEHICLE_PLATE, "WT");
-                Core.VnX.VehiclevnxSetSharedData(WT_TRUCK, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(WT_TRUCK, "gas", 100);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_MODEL, "WT");
+                WT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_PLATE, "WT");
+                WT_TRUCK.vnxSetSharedElementData<object>("kms", 0);
+                WT_TRUCK.vnxSetSharedElementData<object>("gas", 100);
                 WT_TRUCK.NumberplateText = "VenoX";
-                WT_TRUCK.SetData("AKTIONS_FAHRZEUG", true);
-                WT_TRUCK.SetData(EntityData.VEHICLE_NOT_SAVED, true);
+                WT_TRUCK.vnxSetElementData<object>("AKTIONS_FAHRZEUG", true);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
-                WT_TRUCK.SetData(EntityData.WEAPON_BASEBALL, baseball_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_PISTOL, pistol_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_PISTOL_AMMO, pistol_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_PISTOL50, pistol50_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_PISTOL50_AMMO, pistol50_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_REVOLVER, revolver_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_REVOLVER_AMMO, revolver_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_MP5, mp5_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_MP5_AMMO, mp5_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_AK47, ak47_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_AK47_AMMO, ak47_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_RIFLE, rifle_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_RIFLE_AMMO, rifle_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_SNIPERRIFLE, sniperrifle_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_SNIPERRIFLE_AMMO, sniperrifle_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_RPG, rpg_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_RPG_AMMO, rpg_ammo_final_value);
-                WT_TRUCK.SetData(EntityData.WEAPON_MOLOTOV, molotov_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_BASEBALL, baseball_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_PISTOL, pistol_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_PISTOL_AMMO, pistol_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_PISTOL50, pistol50_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_PISTOL50_AMMO, pistol50_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_REVOLVER, revolver_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_REVOLVER_AMMO, revolver_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_MP5, mp5_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_MP5_AMMO, mp5_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_AK47, ak47_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_AK47_AMMO, ak47_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_RIFLE, rifle_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_RIFLE_AMMO, rifle_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_SNIPERRIFLE, sniperrifle_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_SNIPERRIFLE_AMMO, sniperrifle_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_RPG, rpg_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_RPG_AMMO, rpg_ammo_final_value);
+                WT_TRUCK.vnxSetElementData<object>(EntityData.WEAPON_MOLOTOV, molotov_final_value);
                 //player.SetIntoIVehicle(WT_TRUCK, -1);
 
 
@@ -166,7 +164,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 WTTimer.Interval = 20 * 60000;
                 WTTimer.Enabled = true;
 
-                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "[Illegal]: Ein Waffentruck wurde beladen!");
+                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal]: Ein Waffentruck wurde beladen!");
             }
             catch
             {
@@ -181,7 +179,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,175,175)+"Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 175, 175) + "Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
                     WT_TRUCK.Remove();
                 }
             }

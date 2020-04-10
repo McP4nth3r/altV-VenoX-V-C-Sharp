@@ -71,7 +71,7 @@ namespace VenoXV.Reallife.house
                             break;
                         case Messages.ARG_MOVE:
                             string furnitureJson = JsonConvert.SerializeObject(GetFurnitureInHouse(houseId));
-                            player.SetData(EntityData.PLAYER_MOVING_FURNITURE, true);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_MOVING_FURNITURE, true);
                             player.Emit("moveFurniture", furnitureJson);
                             break;
                         case Messages.ARG_REMOVE:

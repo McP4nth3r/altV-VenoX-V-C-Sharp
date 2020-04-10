@@ -38,7 +38,7 @@ namespace VenoXV.Reallife.factions
                                             spielerimauto.Emit("toggleHandcuffed", false);
                                             Core.VnX.vnxSetSharedData(spielerimauto, EntityData.PLAYER_KILLED, 0);
                                             player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast " + spielerimauto.Name + " wiederbelebt! Du bekommst " + 350 + " $.");
-                                            Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
+                                            player.vnxSetSharedElementData<object>( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
                                             Spawn.spawnplayer_on_spawnpoint(spielerimauto);
                                         }
                                     }

@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Reallife.anzeigen.Usefull;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.factions;
@@ -36,7 +35,7 @@ namespace VenoXV.Reallife.Environment
                 {
                     anzeigen.Usefull.VnX.RemoveAllWeapons(player);
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 3000);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_KILLED, 1);
+                    player.vnxSetSharedElementData<object>(EntityData.PLAYER_KILLED, 1);
                     Emergency.CreateEmergencyDeathNotify(player, 120);
                     CreateKrankenhausTimer(player);
                     if (killer != null)
@@ -45,7 +44,7 @@ namespace VenoXV.Reallife.Environment
                         if (player.GetVnXName<string>() == killer.Name)
                         {
                             player.SendChatMessage("Du hast Selbstmord begangen!");
-                            logfile.WriteLogs("kill",player.GetVnXName<string>() + " hat sich selbst umgebracht! ");
+                            logfile.WriteLogs("kill", player.GetVnXName<string>() + " hat sich selbst umgebracht! ");
                             return;
                         }
                         if (Allround.isStateFaction(killer))
@@ -56,21 +55,21 @@ namespace VenoXV.Reallife.Environment
                                 if (killer.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                                 {
                                     Database.SetFactionStats(Constants.FACTION_POLICE, fkasse.money + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 400, fkasse.weed, fkasse.koks, fkasse.mats);
-                                    player.SetData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 6);
-                                    killer.SendChatMessage("{007d00}Du hast " +player.GetVnXName<string>() + " verhaftet für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten! " + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
+                                    player.vnxSetElementData<object>(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 6);
+                                    killer.SendChatMessage("{007d00}Du hast " + player.GetVnXName<string>() + " verhaftet für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten! " + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
                                     player.SendChatMessage("{000096}Officer " + killer.Name + " hat dich eingesperrt für " + player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) + " Minuten!.");
-                                    Core.VnX.vnxSetSharedData(killer, Core.VnX.PLAYER_BANKMONEY, killer.vnxGetElementData<int>(EntityData.PLAYER_BANK) + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75);
-                                    logfile.WriteLogs("kill", "[WANTED] Officer " + killer.Name + " hat " +player.GetVnXName<string>() + " getötet!");
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_WANTEDS, 0);
+                                    killer.vnxSetSharedElementData<object>(Core.VnX.PLAYER_BANKMONEY, killer.vnxGetElementData<int>(EntityData.PLAYER_BANK) + player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 75);
+                                    logfile.WriteLogs("kill", "[WANTED] Officer " + killer.Name + " hat " + player.GetVnXName<string>() + " getötet!");
+                                    player.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 0);
                                     //RemoveAllWeapons(player);
                                     anzeigen.Usefull.VnX.onWantedChange(player);
                                 }
                             }
                             else
                             {
-                                killer.SendChatMessage("Du hast einen Zivilisten getötet! (" +player.GetVnXName<string>() + ")");
+                                killer.SendChatMessage("Du hast einen Zivilisten getötet! (" + player.GetVnXName<string>() + ")");
                                 player.SendChatMessage(killer.Name + " hat dich getötet.");
-                                logfile.WriteLogs("kill", "Officer " + killer.Name + " hat " +player.GetVnXName<string>() + " Ohne Wanteds getötet!");
+                                logfile.WriteLogs("kill", "Officer " + killer.Name + " hat " + player.GetVnXName<string>() + " Ohne Wanteds getötet!");
                             }
                             return;
                         }
@@ -80,18 +79,18 @@ namespace VenoXV.Reallife.Environment
                         }
                         else if (killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 3)
                         {
-                            Core.VnX.vnxSetSharedData(killer, EntityData.PLAYER_WANTEDS, 6);
+                            killer.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 6);
                             killer.SendChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
                         }
                         else
                         {
-                            Core.VnX.vnxSetSharedData(killer, EntityData.PLAYER_WANTEDS, killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
+                            killer.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
                             killer.SendChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + " ! Grund : Mord ");
                         }
 
-                        killer.SendChatMessage("Du hast " +player.GetVnXName<string>() + " getötet!");
+                        killer.SendChatMessage("Du hast " + player.GetVnXName<string>() + " getötet!");
                         player.SendChatMessage(killer.Name + " hat dich getötet.");
-                        logfile.WriteLogs("kill", killer.Name + " hat " +player.GetVnXName<string>() + " getötet!");
+                        logfile.WriteLogs("kill", killer.Name + " hat " + player.GetVnXName<string>() + " getötet!");
                         anzeigen.Usefull.VnX.onWantedChange(killer);
                     }
                     player.SendChatMessage(Constants.Rgba_ERROR + "Du bist gestorben! Warte 120 Sekunden oder auf einen Medic.");
@@ -106,7 +105,8 @@ namespace VenoXV.Reallife.Environment
         //[AltV.Net.ClientEvent("OnDeath_DMG")]
         public static void OnDeath_DMG(IPlayer killer, IPlayer player)
         {
-            try {
+            try
+            {
                 OnPlayerDeath(player, killer, 0);
             }
             catch { }
@@ -119,7 +119,7 @@ namespace VenoXV.Reallife.Environment
             {
                 IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                logfile.WriteLogs("damage",player.GetVnXName<string>() +  " hat das Fahrzeug von " + target.GetVnXName<string>() + "["+ target.Vehicle.Model.ToString() +"] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg); 
+                logfile.WriteLogs("damage", player.GetVnXName<string>() + " hat das Fahrzeug von " + target.GetVnXName<string>() + "[" + target.Vehicle.Model.ToString() + "] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }
             catch
             {
@@ -134,7 +134,7 @@ namespace VenoXV.Reallife.Environment
             {
                 IPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                logfile.WriteLogs("damage",player.GetVnXName<string>() + " hat den Spieler " + target.GetVnXName<string>() + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
+                logfile.WriteLogs("damage", player.GetVnXName<string>() + " hat den Spieler " + target.GetVnXName<string>() + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }
             catch
             {

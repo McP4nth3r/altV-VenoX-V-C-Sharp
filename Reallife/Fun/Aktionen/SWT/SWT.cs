@@ -2,8 +2,6 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Timers;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
@@ -34,10 +32,10 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 }
                 Allround.ChangeAktionsState(true);
                 Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_POLICE);
-                if(fkasse.money < totalcost)
+                if (fkasse.money < totalcost)
                 {
-                   dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
-                   return;
+                    dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
+                    return;
                 }
 
                 Database.SetFactionStats(Constants.FACTION_POLICE, fkasse.money - totalcost, fkasse.weed, fkasse.koks, fkasse.mats);
@@ -115,33 +113,33 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 player.SendChatMessage("smokegrenade : " + smokegrenade);*/
 
                 Marker_WT.CreateFactionWTEnter(false, "SWT");
-                SWT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(1813.723f, 3685.898f, 33.84286f), new Rotation(0,0,115));
+                SWT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(1813.723f, 3685.898f, 33.84286f), new Rotation(0, 0, 115));
                 SWT_TRUCK.EngineOn = true;
-                SWT_TRUCK.SetData(EntityData.VEHICLE_MODEL, "SWT");
-                SWT_TRUCK.SetData(EntityData.VEHICLE_PLATE, "SWT");
-                Core.VnX.VehiclevnxSetSharedData(SWT_TRUCK, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(SWT_TRUCK, "gas", 100);
+                SWT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_MODEL, "SWT");
+                SWT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_PLATE, "SWT");
+                SWT_TRUCK.vnxSetSharedElementData<object>("kms", 0);
+                SWT_TRUCK.vnxSetSharedElementData<object>("gas", 100);
                 SWT_TRUCK.NumberplateText = "VenoX";
-                SWT_TRUCK.SetData("AKTIONS_FAHRZEUG", true);
-                SWT_TRUCK.SetData(EntityData.VEHICLE_NOT_SAVED, true);
+                SWT_TRUCK.vnxSetElementData<object>("AKTIONS_FAHRZEUG", true);
+                SWT_TRUCK.vnxSetElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
-                SWT_TRUCK.SetData("nightstick", nightstick_final_value);
-                SWT_TRUCK.SetData("stungun", stungun_final_value);
-                SWT_TRUCK.SetData("pistol", pistol_final_value);
-                SWT_TRUCK.SetData("pistol_ammo", pistol_ammo_final_value);
-                SWT_TRUCK.SetData("pistol50", pistol50_final_value);
-                SWT_TRUCK.SetData("pistol50_ammo", pistol50_ammo_final_value);
-                SWT_TRUCK.SetData("pumpshotgun", pumpshotgun_final_value);
-                SWT_TRUCK.SetData("pumpshotgun_ammo", pumpshotgun_ammo_final_value);
-                SWT_TRUCK.SetData("combatpdw", combatpdw_final_value);
-                SWT_TRUCK.SetData("combatpdw_ammo", combatpdw_ammo_final_value);
-                SWT_TRUCK.SetData("carbinerifle", carbinerifle_final_value);
-                SWT_TRUCK.SetData("carbinerifle_ammo", carbinerifle_ammo_final_value);
-                SWT_TRUCK.SetData("advancedrifle", advancedrifle_final_value);
-                SWT_TRUCK.SetData("advancedrifle_ammo", advancedrifle_ammo_final_value);
-                SWT_TRUCK.SetData("sniperrifle", sniperrifle_final_value);
-                SWT_TRUCK.SetData("sniperrifle_ammo", sniperrifle_ammo_final_value);
-                SWT_TRUCK.SetData("smokegrenade", smokegrenade_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("nightstick", nightstick_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("stungun", stungun_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pistol", pistol_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pistol_ammo", pistol_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pistol50", pistol50_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pistol50_ammo", pistol50_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pumpshotgun", pumpshotgun_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("pumpshotgun_ammo", pumpshotgun_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("combatpdw", combatpdw_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("combatpdw_ammo", combatpdw_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("carbinerifle", carbinerifle_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("carbinerifle_ammo", carbinerifle_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("advancedrifle", advancedrifle_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("advancedrifle_ammo", advancedrifle_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("sniperrifle", sniperrifle_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("sniperrifle_ammo", sniperrifle_ammo_final_value);
+                SWT_TRUCK.vnxSetElementData<object>("smokegrenade", smokegrenade_final_value);
                 //player.SetIntoIVehicle(SWT_TRUCK, -1);
 
 
@@ -150,7 +148,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 SWTTimer.Interval = 20 * 60000;
                 SWTTimer.Enabled = true;
 
-                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,175,0) +"[Staat] : Ein Staatswaffentruck wurde beladen!");
+                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 175, 0) + "[Staat] : Ein Staatswaffentruck wurde beladen!");
             }
             catch
             {
@@ -165,7 +163,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
 
                     SWT_TRUCK.Remove();
                 }
@@ -202,9 +200,9 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
 
                 if (FID == Constants.FACTION_POLICE || FID == Constants.FACTION_FBI || FID == Constants.FACTION_USARMY)
                 {
-                    Database.SetFactionWeaponlager(Constants.FACTION_POLICE, 0, 
+                    Database.SetFactionWeaponlager(Constants.FACTION_POLICE, 0,
                     fraktion.weapon_nightstick + nightstick,
-                    0,fraktion.weapon_tazer + stungun, 
+                    0, fraktion.weapon_tazer + stungun,
                     fraktion.weapon_pistol + pistol,
                     fraktion.weapon_pistol50 + pistol50,
                     0,
@@ -217,7 +215,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                     0,
                     0,
                     fraktion.weapon_sniperrifle,
-                    0,0,0,fraktion.weapon_smokegrenade + smokegrenade,
+                    0, 0, 0, fraktion.weapon_smokegrenade + smokegrenade,
                     fraktion.weapon_pistol_ammo + pistol_ammo,
                     fraktion.weapon_pistol50_ammo + pistol50_ammo,
                     0,
@@ -227,7 +225,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                     0,
                     fraktion.weapon_carbinerifle_ammo + carbinerifle_ammo,
                     fraktion.weapon_advancedrifle_ammo + advancedrifle_ammo,
-                    0,0,fraktion.weapon_sniperrifle_ammo+  sniperrifle_ammo,0
+                    0, 0, fraktion.weapon_sniperrifle_ammo + sniperrifle_ammo, 0
                     );
                 }
             }

@@ -230,7 +230,7 @@ namespace VenoXV.Reallife.admin
                         //ToDo Sie Clientseitig Laden! : player.SetClothes(10, 0, 0);
                         //ToDo Sie Clientseitig Laden! : player.SetClothes(11, 178, 3);
                         //ToDo Sie Clientseitig Laden! :NAPI.Player.SetPlayerAccessory(player, 0, 91, 3);
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_ADMIN_ON_DUTY, 1);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_ADMIN_ON_DUTY, 1);
 
                         // Weapon Ban Fix 
                         player.RemoveAllWeapons();
@@ -240,7 +240,7 @@ namespace VenoXV.Reallife.admin
                     else
                     {
                         // Remove 
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_ADMIN_ON_DUTY, 0);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_ADMIN_ON_DUTY, 0);
 
                         // Restore old skin
                         int sqlid = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
@@ -249,7 +249,7 @@ namespace VenoXV.Reallife.admin
                         if (character != null && character.realName != null)
                         {
                             //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
-                            player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_SKIN_MODEL, skinModel);
                             player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                             Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                             Customization.ApplyPlayerClothes(player);
@@ -326,7 +326,7 @@ namespace VenoXV.Reallife.admin
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_SUPPORTER)
                 {
                     // We check whether the player is connected
-                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true) w
+                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                     {
                         if (int.TryParse(amount, out int value) == true)
                         {
@@ -336,7 +336,7 @@ namespace VenoXV.Reallife.admin
                                 case "bank":
                                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_STELLVP)
                                     {
-                                        target.SetData(EntityData.PLAYER_BANK, value);
+                                        target.vnxSetElementData<object>(EntityData.PLAYER_BANK, value);
                                         player.SendChatMessage("~g~Du hast das Bankgeld von " + target.GetVnXName<string>() + " auf : " + value + " gesetzt!");
                                         target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName<string>() + "hat dein Bankgeld auf : " + value + " gesetzt!");
                                         logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.GetVnXName<string>() + " hat das Bankgeld von " + target.GetVnXName<string>() + " Auf " + value + " gesetzt!");
@@ -345,7 +345,7 @@ namespace VenoXV.Reallife.admin
                                 case "money":
                                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_STELLVP)
                                     {
-                                        target.SetData(EntityData.PLAYER_MONEY, value);
+                                        target.vnxSetElementData<object>(EntityData.PLAYER_MONEY, value);
                                         player.SendChatMessage("~g~Du hast das Bargeld von " + target.GetVnXName<string>() + " auf : " + value + " gesetzt!");
                                         target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName<string>() + " hat dein Bargeld auf : " + value + " gesetzt!");
                                         logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.GetVnXName<string>() + " hat das Bargeld von " + target.GetVnXName<string>() + " Auf " + value + " gesetzt!");
@@ -372,6 +372,7 @@ namespace VenoXV.Reallife.admin
                     {
                         player.SendChatMessage(Constants.Rgba_ERROR + "SPIELER NICHT GEFUNDEN");
                     }
+
                 }
             }
             catch { }
@@ -402,7 +403,7 @@ namespace VenoXV.Reallife.admin
                     {
                         AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
                         Target.Spawn(Target.Position);
-                        Core.VnX.vnxSetSharedData(Target, EntityData.PLAYER_KILLED, 0);
+                        Target.vnxSetSharedElementData<object>(EntityData.PLAYER_KILLED, 0);
                         player.SendChatMessage("~g~Du hast " + Target.GetVnXName<string>() + " wiederbelebt.");
                         Target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName<string>() + " hat dich wiederbelebt.");
                         logfile.WriteLogs("admin", player.GetVnXName<string>() + " hat " + Target.GetVnXName<string>() + " wiederbelebt!");
@@ -455,7 +456,7 @@ namespace VenoXV.Reallife.admin
                             targetplayer.Dimension = 0;
                             targetplayer.Position = new Position(1651.441f, 2569.83f, 45.56486f);
                             anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
-                            targetplayer.SetData(EntityData.PLAYER_PRISON_TIME, zeit);
+                            targetplayer.vnxSetElementData<object>(EntityData.PLAYER_PRISON_TIME, zeit);
                         }
                     }
                     else
@@ -667,7 +668,7 @@ namespace VenoXV.Reallife.admin
                         targetplayer.Dimension = 0;
                         targetplayer.Position = new Position(1651.441f, 2569.83f, 45.56486f);
                         anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
-                        targetplayer.SetData(EntityData.PLAYER_PRISON_TIME, 0);
+                        targetplayer.vnxSetElementData<object>(EntityData.PLAYER_PRISON_TIME, 0);
                         targetplayer.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(targetplayer);
                     }
@@ -786,8 +787,8 @@ namespace VenoXV.Reallife.admin
                 AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                 player.Dimension = 0;
                 player.Position = new Position(posX, posY, posZ);
-                player.SetData(EntityData.PLAYER_HOUSE_ENTERED, 0);
-                player.SetData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BUSINESS_ENTERED, 0);
             }
         }
 
@@ -809,7 +810,7 @@ namespace VenoXV.Reallife.admin
             if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.SetData(EntityData.PLAYER_STATUS, element);
+                target.vnxSetElementData<object>(EntityData.PLAYER_STATUS, element);
                 target.SetStreamSyncedMetaData(EntityData.PLAYER_STATUS, element);
                 sendAdminNotification(player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " Sozialen Status geändert zu " + element + ".");
                 logfile.WriteLogs("admin", player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " sozialen status auf " + element + " geändert!");
@@ -872,43 +873,43 @@ namespace VenoXV.Reallife.admin
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Abgelaufen", 0);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "-");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "-");
                 }
                 else if (PaketNr == 1)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Bronze", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "Bronze");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (PaketNr == 2)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Silber", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "Silber");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Silber");
                 }
                 else if (PaketNr == 3)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Gold", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "Gold");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (PaketNr == 4)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "UltimateRed", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
                 }
                 else if (PaketNr == 5)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "Platin", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "Platin");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "Platin");
                 }
                 else if (PaketNr == 6)
                 {
                     Database.SetVIPStats((int)target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), "TOP DONATOR", Tage);
                     sendAdminNotification(player.GetVnXName<string>() + " hat das VIP Level von " + target.GetVnXName<string>() + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.SetData(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
+                    target.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }
                 else
                 {
@@ -1195,8 +1196,8 @@ namespace VenoXV.Reallife.admin
                         target.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Venox City Grove Street - Für mehr Infos öffne das Hilfemenue!");
                         sendAdminNotification(player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
-                    Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_FACTION, faction);
-                    target.SetData(EntityData.PLAYER_RANK, 5);
+                    target.vnxSetSharedElementData<object>(EntityData.PLAYER_FACTION, faction);
+                    target.vnxSetElementData<object>(EntityData.PLAYER_RANK, 5);
                     anzeigen.Usefull.VnX.OnFactionChange(target);
                     logfile.WriteLogs("admin", player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " zum Leader von Fraktion " + faction + " gemacht!");
                 }
@@ -1224,7 +1225,7 @@ namespace VenoXV.Reallife.admin
                 }
                 else
                 {
-                    target.SetData(EntityData.PLAYER_RANK, rank);
+                    target.vnxSetElementData<object>(EntityData.PLAYER_RANK, rank);
                     anzeigen.Usefull.VnX.OnFactionChange(target);
                     target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName<string>() + " hat deinen Fraktion´s rang auf " + rank + " geändert!");
                     sendAdminNotification(player.GetVnXName<string>() + " hat " + target.GetVnXName<string>() + " Franktion´s Rang auf " + rank + " geändert!");
@@ -1457,7 +1458,7 @@ namespace VenoXV.Reallife.admin
             if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
-                Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_HUNGER, value);
+                target.vnxSetSharedElementData<object>(EntityData.PLAYER_HUNGER, value);
                 player.SendChatMessage("Du hast" + target.GetVnXName<string>() + " Hunger Level auf : " + value + " gesetzt!");
             }
         }
@@ -1577,7 +1578,7 @@ namespace VenoXV.Reallife.admin
                     dxLibary.VnX.DrawNotification(player, "error", "Primary & Sec. Rgba darf nicht unter 0 sein!");
                     return;
                 }
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) > Constants.ADMINLVL_MODERATOR)
+                if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                 {
                     VehicleModel IVehicle = new VehicleModel();
                     // Basic data for IVehicle creation

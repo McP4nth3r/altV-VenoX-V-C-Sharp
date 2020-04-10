@@ -20,7 +20,8 @@ let Current_Kills = 0;
 let WinnerText = "";
 let ShowWinningWindow = false;
 let BG_AP = 0;
-
+let CountdownDone = false;
+let CountdownState = 3;
 let Team_A_Name = "";
 let Team_A_R = 0;
 let Team_A_G = 0;
@@ -94,7 +95,8 @@ alt.onServer('Tactics:OnTacticEndRound', (v) => {
     alt.setTimeout(function () {
         BG_AP = 0;
         ShowWinningWindow = false;
-        game.freezeEntityPosition(alt.Player.local.scriptID, false);
+        CountdownDone = false;
+        CountdownState = 3;
     }, 5000);
 });
 
@@ -104,11 +106,57 @@ alt.onServer('Tactics:SpectatePlayer', (p) => {
     //cam.setActive(true);
     //mp.game.cam.renderScriptCams(true, false, 0, true, false);
 });
+let TimeOut = null;
+function DrawTacticCountdown() {
+    switch (CountdownState) {
+        case 3:
+
+            DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+            game.freezeEntityPosition(alt.Player.local.scriptID, true);
+            if (TimeOut == null) {
+                TimeOut = alt.setTimeout(() => {
+                    CountdownState -= 1;
+                    TimeOut = null;
+                }, 1250);
+            }
+            break;
+        case 2:
+            DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+            game.freezeEntityPosition(alt.Player.local.scriptID, true);
+            if (TimeOut == null) {
+                TimeOut = alt.setTimeout(() => {
+                    CountdownState -= 1;
+                    TimeOut = null;
+                }, 1250);
+            }
+            break;
+        case 1:
+            DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+            game.freezeEntityPosition(alt.Player.local.scriptID, true);
+            if (TimeOut == null) {
+                TimeOut = alt.setTimeout(() => {
+                    CountdownState -= 1;
+                    TimeOut = null;
+                }, 1250);
+            }
+            break;
+        case 0:
+            DrawText("GO!", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+            game.freezeEntityPosition(alt.Player.local.scriptID, false);
+            if (TimeOut == null) {
+                TimeOut = alt.setTimeout(() => {
+                    CountdownState -= 1;
+                    TimeOut = null;
+                }, 1250);
+            }
+            break;
+    }
+}
 
 export function TacticsEveryTick() {
     if (tactictimer == null) { return; }
     if (ShowWinningWindow) { Tactics_Show_Winner(); return; }
-
+    if (tactictimer != null && !CountdownDone) { DrawTacticCountdown() };
     DrawText(Team_A_Name, [0.42478, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
     DrawText(CURRENT_LSPD_ALIVE_IN_ROUND + " / " + CURRENT_LSPD_IN_ROUND, [0.42478, 0.028], [0.25, 0.25], 0, [255, 255, 255, 255], true, true);
     DrawText(TACTIC_COUNTDOWN, [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);

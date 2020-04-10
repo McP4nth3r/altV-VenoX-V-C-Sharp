@@ -16,7 +16,7 @@ namespace VenoXV.Tactics.weapons
         public const float PISTOL_DAMAGE = 15;
         public const float PISTOL50_DAMAGE = 25;
         public const float REVOLVER_DAMAGE = 30;
-        public const float SHOTGUN_DAMAGE = 40;
+        public const float SHOTGUN_DAMAGE = 4;
         public const float PDW_DAMAGE = 12;
         public const float MP5_DAMAGE = 9;
         public const float AK47_DAMAGE = 14;
@@ -87,8 +87,8 @@ namespace VenoXV.Tactics.weapons
             try
             {
                 if (target == player) { return; }
-                Core.Debug.OutputDebugString("Helikopter Waffenschaden : " + WeaponModel);
-                target.SetData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName<string>());
+                if (player.GetVnXName<string>() == target.GetVnXName<string>()) { return; }
+                target.vnxSetElementData<object>(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName<string>());
                 if (target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM))
                 {
                     return;
@@ -106,6 +106,7 @@ namespace VenoXV.Tactics.weapons
                 if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == AltV.Net.Data.BodyPart.Head)
                 {
                     player.Emit("Globals:PlayHitsound");
+                    target?.Emit("Globals:ShowBloodScreen");
                     target.Health = 0;
                     return;
                 }
@@ -113,6 +114,7 @@ namespace VenoXV.Tactics.weapons
                 if (WeaponModel == AltV.Net.Enums.WeaponModel.RPG)
                 {
                     player.Emit("Globals:PlayHitsound");
+                    target?.Emit("Globals:ShowBloodScreen");
                     target.Health -= 150;
                     return;
                 }
@@ -132,10 +134,11 @@ namespace VenoXV.Tactics.weapons
                 else
                 {
 
-                    player.SetData(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    player.vnxSetElementData<object>(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
                     player.SetSyncedMetaData(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
-                    //VnX.vnxSetSharedData(player,Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
+                    //player.vnxSetSharedElementData<object>(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
                     player.Emit("Globals:PlayHitsound");
+                    target?.Emit("Globals:ShowBloodScreen");
                     if (target.Armor > 0)
                     {
                         int Adiff = target.Armor - Convert.ToInt32(Damage);

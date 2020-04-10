@@ -80,7 +80,7 @@ namespace VenoXV.Reallife.Vehicles
                         int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 180)
                         {
-                            VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney - 180);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playerMoney - 180);
                             var paynsprayfahrzeug = player.Vehicle;
                             player.SendChatMessage( "~g~Fahrzeug Repariert! [180 $]", true);
                             NAPI.Vehicle.RepairIVehicle(paynsprayfahrzeug);

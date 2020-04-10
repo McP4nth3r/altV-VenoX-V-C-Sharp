@@ -60,13 +60,13 @@ namespace VenoXV.Reallife.premium.viplevels
                 {
                     player.SendChatMessage( RageAPI.GetHexColorcode(0,175,0) +"---------- VIP Level : " + GetVIPRangName(VipL.Vip_Paket) + " " + RageAPI.GetHexColorcode(0,175,0) +" ----------");
                     player.SendChatMessage( RageAPI.GetHexColorcode(0,175,0) +"---------- Gültig bis : " + VipL.Vip_BisZum + " ----------");
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, VipL.Vip_Paket);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, VipL.Vip_Paket);
                 }
                 else
                 {
                     player.SendChatMessage( RageAPI.GetHexColorcode(175,0,0) + "---------- VIP Level : " + GetVIPRangName(VipL.Vip_Paket) + " ----------");
                     player.SendChatMessage( RageAPI.GetHexColorcode(175,0,0) + "Abgelaufen am : " + VipL.Vip_BisZum);
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "-");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "-");
                 }
             }
             catch { }
@@ -187,8 +187,8 @@ namespace VenoXV.Reallife.premium.viplevels
                             dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                             return;
                         }
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
-                        Core.VnX.VehiclevnxSetSharedData(Vehicle, "gas", 100);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                        Vehicle.vnxSetSharedElementData<object>( "gas", 100);
                         dxLibary.VnX.DrawNotification(player, "info", "Du hast dein Auto voll getankt!");
                     }
                 }
@@ -219,7 +219,7 @@ namespace VenoXV.Reallife.premium.viplevels
                 {
                     if (playermoney >= 100)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 100);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 100);
                         player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Waffe gekauft.");
                         VenoXV.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_BROKENBOTTLE, Constants.ITEM_ART_WAFFE, 1, false);
                     }
@@ -228,7 +228,7 @@ namespace VenoXV.Reallife.premium.viplevels
                 {
                     if (playermoney >= 150)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 150);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 150);
                         player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Waffe gekauft.");
                         VenoXV.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HAMMER, Constants.ITEM_ART_WAFFE, 1, false);
                     }
@@ -243,7 +243,7 @@ namespace VenoXV.Reallife.premium.viplevels
                     {
                         if (playermoney >= 500)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 500);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 500);
                             player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Waffe gekauft.");
                             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
@@ -272,7 +272,7 @@ namespace VenoXV.Reallife.premium.viplevels
                     {
                         if (playermoney >= 150)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 150);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 150);
                             player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Magazin gekauft.");
                             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
@@ -301,7 +301,7 @@ namespace VenoXV.Reallife.premium.viplevels
                     {
                         if (playermoney >= 800)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 800);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 800);
                             player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Mini - SMG gekauft.");
                             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                             ItemModel MINISMG = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
@@ -330,7 +330,7 @@ namespace VenoXV.Reallife.premium.viplevels
                     {
                         if (playermoney >= 300)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - 300);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playermoney - 300);
                             player.SendChatMessage( RageAPI.GetHexColorcode(0,200,255) + " Magazin gekauft.");
                             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);

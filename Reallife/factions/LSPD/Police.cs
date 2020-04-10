@@ -1270,7 +1270,7 @@ namespace VenoXV.Reallife.factions
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
                     {
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
-                        Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_KNASTZEIT, 0);
+                        target.vnxSetSharedElementData<object>(EntityData.PLAYER_KNASTZEIT, 0);
                         target.Position = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;
                         target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
@@ -1359,7 +1359,7 @@ namespace VenoXV.Reallife.factions
                         case "fahrerlaubnis":
                         case "besitz1":
                         case "illegal1":
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
                             break;
                         default:
                             player.SendChatMessage("Falsches Wantedkürzel");
@@ -1386,7 +1386,7 @@ namespace VenoXV.Reallife.factions
                     || action == "matsbesitz1" || action == "mats1"
                     )
                     {
-                        Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
+                        target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
 
                         if (action == "kpv") { wantedgrund = "Körperverletzung"; }
                         else if (action == "behind") { wantedgrund = "Beamtenbehinderung"; }
@@ -1427,11 +1427,11 @@ namespace VenoXV.Reallife.factions
                     {
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 5)
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, 6);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 6);
                         }
                         else
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 2);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 2);
                         }
 
                         if (action == "verweig") { wantedgrund = "Verweigerung der Durchsuchung"; }
@@ -1468,11 +1468,11 @@ namespace VenoXV.Reallife.factions
                     {
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 3)
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, 6);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 6);
                         }
                         else
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
                         }
                         if (action == "mord") { wantedgrund = "Mord"; }
                         else if (action == "sperr") { wantedgrund = "Betreten von Sperrzonen"; }
@@ -1496,11 +1496,11 @@ namespace VenoXV.Reallife.factions
                     {
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 2)
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, 6);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 6);
                         }
                         else
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
                         }
                         if (action == "br") { wantedgrund = "Bankraub"; }
                         else if (action == "geisel") { wantedgrund = "Geiselnahme"; }
@@ -1515,11 +1515,11 @@ namespace VenoXV.Reallife.factions
                     {
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 2)
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, 6);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 6);
                         }
                         else
                         {
-                            Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
+                            target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
                         }
                         if (action == "fib") { wantedgrund = "Einbruch beim FIB"; }
                         else if (action == "pd") { wantedgrund = "Einbruch beim LSPD"; }
@@ -1571,7 +1571,7 @@ namespace VenoXV.Reallife.factions
                     }
                     else
                     {
-                        Core.VnX.vnxSetSharedData(target, EntityData.PLAYER_WANTEDS, 0);
+                        target.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 0);
                         target.SendChatMessage("{007d00}Officer " + player.GetVnXName<string>() + " hat deine Akte Gelöscht!");
                         anzeigen.Usefull.VnX.onWantedChange(target);
 

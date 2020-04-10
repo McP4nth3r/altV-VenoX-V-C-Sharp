@@ -207,11 +207,11 @@ namespace VenoXV.Reallife.Globals
                         // Generate the payday
                         GeneratePlayerPayday(player);
                     }
-                    player.SetData(EntityData.PLAYER_PLAYED, played + 1);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_PLAYED, played + 1);
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) > 0)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) - 1);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_HUNGER, player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) - 1);
 
                     }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 30)
@@ -237,13 +237,13 @@ namespace VenoXV.Reallife.Globals
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) - 1);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) - 1);
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) == 0)
                         {
                             AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.Position = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_KAUTION, 0);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_KAUTION, 0);
                             player.SendChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
                     }
@@ -266,7 +266,7 @@ namespace VenoXV.Reallife.Globals
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.SetData(EntityData.PLAYER_PLAYED, played + 1);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PLAYED, played + 1);
 
                 anzeigen.Usefull.VnX.SavePlayerDatas(player);
             }
@@ -286,7 +286,7 @@ namespace VenoXV.Reallife.Globals
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.SetData(EntityData.PLAYER_PLAYED, played + 1);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PLAYED, played + 1);
 
 
                 anzeigen.Usefull.VnX.SavePlayerDatas(player);
@@ -353,7 +353,7 @@ namespace VenoXV.Reallife.Globals
             try
             {
                 if (CheckBadElementDatas(elementdata)) { return; }
-                VnX.vnxSetSharedData(player, elementdata, value);
+                player.vnxSetSharedElementData<object>( elementdata, value);
             }
             catch { }
         }
@@ -364,7 +364,7 @@ namespace VenoXV.Reallife.Globals
             try
             {
                 if (CheckBadElementDatas(elementdata)) { return; }
-                player.SetData(elementdata, value);
+                player.vnxSetElementData<object>(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
             catch { }
@@ -376,7 +376,7 @@ namespace VenoXV.Reallife.Globals
             try
             {
                 if (CheckBadElementDatas(elementdata)) { return; }
-                player.SetData(elementdata, value);
+                player.vnxSetElementData<object>(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
             catch { }
@@ -395,7 +395,7 @@ namespace VenoXV.Reallife.Globals
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_WANTEDS, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) - 1);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_WANTEDS, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) - 1);
                     anzeigen.Usefull.VnX.UpdateHUD(player);
                 }
                 if (playerFaction > 0)
@@ -538,11 +538,11 @@ namespace VenoXV.Reallife.Globals
 
                 if (total < 0)
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - Math.Abs(total));
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - Math.Abs(total));
                 }
                 else
                 {
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) + total);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) + total);
                 }
             }
             catch (Exception ex)
@@ -747,7 +747,7 @@ namespace VenoXV.Reallife.Globals
                         if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>() && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
-                            Core.VnX.VehiclevnxSetSharedData(Vehicle, EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
+                            Vehicle.vnxSetSharedElementData<object>( EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
                             /* ToDo : Fix if (Vehicle.Occupants.Count > 0)
                              {
                                  var playersInCar = NAPI.Vehicle.GetIVehicleOccupants(Vehicle);
@@ -868,8 +868,8 @@ namespace VenoXV.Reallife.Globals
                                     player.Position = GetHouseIplExit(house.ipl);
                                     player.Dimension = house.id;
 
-                                    player.SetData(EntityData.PLAYER_IPL, house.ipl);
-                                    player.SetData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
+                                    player.vnxSetElementData<object>(EntityData.PLAYER_IPL, house.ipl);
+                                    player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, house.id);
                                 }
                                 return;
                             }
@@ -885,7 +885,7 @@ namespace VenoXV.Reallife.Globals
                                     }*/
                                     player.Position = house.position;
                                     player.Dimension = 0;
-                                    player.SetData(EntityData.PLAYER_HOUSE_ENTERED, 0);
+                                    player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, 0);
                                     /*
                                     foreach (IPlayer target in Alt.GetAllPlayers())
                                     {
@@ -916,7 +916,7 @@ namespace VenoXV.Reallife.Globals
             {
                 if (drug == 1)
                 {
-                    player.SetData(EntityData.PLAYER_KOKS_MODUS_AKTIV, false);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_KOKS_MODUS_AKTIV, false);
                 }
             }
             catch { }

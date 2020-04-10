@@ -102,7 +102,7 @@ namespace VenoXV.Reallife.jobs
             {
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) != Constants.JOB_NONE)
                 {
-                    player.SetData(EntityData.PLAYER_JOB, Constants.JOB_NONE);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_JOB, Constants.JOB_NONE);
                     dxLibary.VnX.DrawNotification(player, "info", "Du bist nun Arbeitslos.");
                 }
             }
@@ -114,18 +114,18 @@ namespace VenoXV.Reallife.jobs
         {
             if (windowname == "Venox City Transport")
             {
-                player.SetData(EntityData.PLAYER_JOB, Constants.JOB_CITY_TRANSPORT);
+                player.vnxSetElementData<object>(EntityData.PLAYER_JOB, Constants.JOB_CITY_TRANSPORT);
                 dxLibary.VnX.DestroyWindow(player, "DestroyVnXSAWindowLib");
                 dxLibary.VnX.DrawJobWindow(player, "Venox City Transport", "Wähle dein Fahrzeug aus", "Van<br>[Ab LvL 0]", "Transporter<br>[Ab LvL 50]", "LkW<br>[Ab LvL 100]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 100<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL));
             }
             else if (windowname == "LS Airport")
             {
-                player.SetData(EntityData.PLAYER_JOB, Constants.JOB_AIRPORT);
+                player.vnxSetElementData<object>(EntityData.PLAYER_JOB, Constants.JOB_AIRPORT);
                 dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL));
             }
             else if(windowname == "VenoX Busdepot")
             {
-                player.SetData(EntityData.PLAYER_JOB, Constants.JOB_BUS);
+                player.vnxSetElementData<object>(EntityData.PLAYER_JOB, Constants.JOB_BUS);
                 dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL));
             }
         }
@@ -174,7 +174,7 @@ namespace VenoXV.Reallife.jobs
                         {
                             dxLibary.VnX.DestroyWindow(player, "Job1");
                             Airport.Airport.Airport_job_start(player, 1);
-                            player.SetData("JOB_STAGE_LVL_AIRPORT", 1);
+                            player.vnxSetElementData<object>("JOB_STAGE_LVL_AIRPORT", 1);
                         }
                         else
                         {
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.jobs
                             {
                                 dxLibary.VnX.DestroyWindow(player, "Job1");
                                 Airport.Airport.Airport_job_start(player, 2);
-                                player.SetData("JOB_STAGE_LVL_AIRPORT", 2);
+                                player.vnxSetElementData<object>("JOB_STAGE_LVL_AIRPORT", 2);
                             }
                             else
                             {
@@ -210,7 +210,7 @@ namespace VenoXV.Reallife.jobs
                             {
                                 dxLibary.VnX.DestroyWindow(player, "Job1");
                                 Airport.Airport.Airport_job_start(player, 3);
-                                player.SetData("JOB_STAGE_LVL_AIRPORT", 3);
+                                player.vnxSetElementData<object>("JOB_STAGE_LVL_AIRPORT", 3);
                             }
                             else
                             {
@@ -319,13 +319,13 @@ namespace VenoXV.Reallife.jobs
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
                     //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
-                    player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.Model = character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);
                     Customization.ApplyPlayerTattoos(player);
                     // We set the player on duty
-                    player.SetData(EntityData.PLAYER_ON_DUTY, 0);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 0);
                     Weapons.GivePlayerWeaponItems(player);
             }
             else
@@ -344,7 +344,7 @@ namespace VenoXV.Reallife.jobs
                 }
 
                 // We set the player on duty
-                player.SetData(EntityData.PLAYER_ON_DUTY, 1);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 1);
 
 
                 Weapons.GivePlayerWeaponItems(player);

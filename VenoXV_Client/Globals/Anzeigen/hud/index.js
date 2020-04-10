@@ -8,7 +8,7 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { DrawText, ShowCursor, GetCursorStatus } from '../../VnX-Lib';
 import { GetWeaponData } from '../../Weapons/Combat';
-import { GetCurrentLobby } from '../../VnX-Lib/events';
+import { CreateThirdHUD } from './third';
 
 
 let HUD_BROWSER = null;
@@ -29,16 +29,23 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 	if (HUD_BROWSER != null) {
 		HUD_BROWSER.destroy();
 	}
-	if (e == 0) {
-		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/main/main.html");
-		CURRENT_HUD = e;
-		HUD_BROWSER.emit("HUD:Show");
+	switch (e) {
+		case 0:
+			HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/main/main.html");
+			CURRENT_HUD = e;
+			HUD_BROWSER.emit("HUD:Show");
+			break;
+		case 1:
+			HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/second/main.html");
+			CURRENT_HUD = e;
+			HUD_BROWSER.emit("HUD:Show");
+			break;
+		case 3:
+			CreateThirdHUD();
+			CURRENT_HUD = e;
+			break
 	}
-	else if (e == 1) {
-		HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/second/main.html");
-		CURRENT_HUD = e;
-		HUD_BROWSER.emit("HUD:Show");
-	}
+	alt.log(e);
 });
 /*
 alt.onServer('Tactics:LoadHUD', () => {

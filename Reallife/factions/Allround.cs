@@ -127,10 +127,10 @@ namespace VenoXV.Reallife.factions
             RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR3_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
             RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR4_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
 
-            BAD_INTERIOR_FGUNS.SetData("isWeaponSelectShape", true);
-            BAD_INTERIOR2_FGUNS.SetData("isWeaponSelectShape", true);
-            BAD_INTERIOR3_FGUNS.SetData("isWeaponSelectShape", true);
-            BAD_INTERIOR4_FGUNS.SetData("isWeaponSelectShape", true);
+            BAD_INTERIOR_FGUNS.vnxSetElementData<object>("isWeaponSelectShape", true);
+            BAD_INTERIOR2_FGUNS.vnxSetElementData<object>("isWeaponSelectShape", true);
+            BAD_INTERIOR3_FGUNS.vnxSetElementData<object>("isWeaponSelectShape", true);
+            BAD_INTERIOR4_FGUNS.vnxSetElementData<object>("isWeaponSelectShape", true);
 
         }
 
@@ -395,7 +395,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false,3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = LCN_Teleport_Base_Exit;
@@ -409,7 +409,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = LCN_Teleport_Base_Enter;
@@ -425,7 +425,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = LCN_Teleport_Base_heli_Exit;
@@ -440,7 +440,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = LCN_Teleport_Base_heli_Enter;
@@ -459,7 +459,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = YAKUZA_Teleport_Base_Exit;
@@ -473,7 +473,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = YAKUZA_Teleport_Base_Enter;
@@ -492,7 +492,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = FIB_Teleport_Heli_Exit;
@@ -505,7 +505,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = FIB_Teleport_Heli_Enter;
@@ -518,7 +518,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = FIB_Teleport_Garage_Exit;
@@ -531,7 +531,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = FIB_Teleport_Garage_Enter;
@@ -549,7 +549,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Emergency_Teleport_Heli_Exit;
@@ -562,7 +562,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Emergency_Teleport_Heli_Enter;
@@ -580,7 +580,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = MS13_Teleport_Base_Exit;
@@ -594,7 +594,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = MS13_Teleport_Base_Enter;
@@ -610,7 +610,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = MS13_Teleport_Base_heli_Exit;
@@ -623,7 +623,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = MS13_Teleport_Base_heli_Enter;
@@ -641,7 +641,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Ballas_Teleport_Base_Exit;
@@ -655,7 +655,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Ballas_Teleport_Base_Enter;
@@ -674,7 +674,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Compton_Teleport_Base_Exit;
@@ -688,7 +688,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = Compton_Teleport_Base_Enter;
@@ -707,7 +707,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = SAM_Teleport_Base_Exit;
@@ -721,7 +721,7 @@ namespace VenoXV.Reallife.factions
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        player.vnxSetElementData<object>("TELEPORT_ANTICHEAT_COOLDOWN", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = SAM_Teleport_Base_Enter;
@@ -760,10 +760,10 @@ namespace VenoXV.Reallife.factions
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != Constants.FACTION_NONE)
                 {
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.GetVnXName<string>() + " hat die Fraktion verlassen...");
-                    player.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NONE);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_NONE);
                     anzeigen.Usefull.VnX.OnFactionChange(player);
-                    player.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.SetData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
                     dxLibary.VnX.DrawNotification(player, "info", "Du hast dich selbst uninvitet!");
                 }
             }
@@ -784,8 +784,8 @@ namespace VenoXV.Reallife.factions
                     {
                         if (target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
                         {
-                            target.SetData(EntityData.PLAYER_FACTION, player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                            target.SetData(EntityData.PLAYER_RANK, 0);
+                            target.vnxSetElementData<object>(EntityData.PLAYER_FACTION, player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                            target.vnxSetElementData<object>(EntityData.PLAYER_RANK, 0);
                             anzeigen.Usefull.VnX.OnFactionChange(target);
                            target.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du hast den Spieler " + target.GetVnXName<string>() + " in deine Fraktion aufgenommen!");
@@ -826,11 +826,11 @@ namespace VenoXV.Reallife.factions
                         }
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_RANK) < 5)
                         {
-                            target.SetData(EntityData.PLAYER_FACTION, 0);
-                            target.SetData(EntityData.PLAYER_RANK, 0);
-                            target.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
+                            target.vnxSetElementData<object>(EntityData.PLAYER_FACTION, 0);
+                            target.vnxSetElementData<object>(EntityData.PLAYER_RANK, 0);
+                            target.vnxSetElementData<object>(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
                             anzeigen.Usefull.VnX.OnFactionChange(target);
-                            player.SetData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
+                            player.vnxSetElementData<object>(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
                             target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast den Spieler " + target.GetVnXName<string>() + " aus deiner Fraktion entfernt!");
                         }
@@ -900,7 +900,7 @@ namespace VenoXV.Reallife.factions
                         target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben von " +player.GetVnXName<string>() + " zum " + rankString + " degradiert!");
                     }
                     player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast " + target.GetVnXName<string>() + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
-                    target.SetData(EntityData.PLAYER_RANK, number);
+                    target.vnxSetElementData<object>(EntityData.PLAYER_RANK, number);
 
                 }
                 else
@@ -947,14 +947,14 @@ namespace VenoXV.Reallife.factions
                         AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                         player.Health = 200;
                         player.Armor = 100;
-                        player.SetData(EntityData.PLAYER_ARMOR, 100);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_ARMOR, 100);
                         if (isBadFaction(player))
                         {
-                            player.SetData(EntityData.PLAYER_ON_DUTY_BAD, 1);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY_BAD, 1);
                         }
                         else if(isNeutralFaction(player))
                         {
-                            player.SetData(EntityData.PLAYER_ON_DUTY_NEUTRAL, 1);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY_NEUTRAL, 1);
                         }
                     }
                 }
@@ -966,7 +966,7 @@ namespace VenoXV.Reallife.factions
                     }
 
                     Customization.ApplyPlayerClothes(player);
-                    player.SetData(EntityData.PLAYER_ON_DUTY_BAD, 0);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY_BAD, 0);
 
 
                     // Load selected character
@@ -974,7 +974,7 @@ namespace VenoXV.Reallife.factions
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
                     //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
-                    player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);
@@ -987,11 +987,11 @@ namespace VenoXV.Reallife.factions
 
                     if (isBadFaction(player))
                     {
-                        player.SetData(EntityData.PLAYER_ON_DUTY_BAD, 0);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY_BAD, 0);
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                     {
-                        player.SetData(EntityData.PLAYER_ON_DUTY_NEUTRAL, 0);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY_NEUTRAL, 0);
                     }
                 }
             }
@@ -1028,7 +1028,7 @@ namespace VenoXV.Reallife.factions
                             Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                         }
                     }
-                    player.SetData(EntityData.PLAYER_ON_DUTY, 1);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 1);
                     AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                     player.Health = 200;
                     player.Armor = 100;
@@ -1045,7 +1045,7 @@ namespace VenoXV.Reallife.factions
             {
                 AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                 player.Model = Alt.Hash("Swat01SMY");
-                player.SetData(EntityData.PLAYER_ON_DUTY, 1);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 1);
                 weapons.Weapons.GivePlayerWeaponItems(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
@@ -1068,13 +1068,13 @@ namespace VenoXV.Reallife.factions
                     Customization.ApplyPlayerClothes(player);
 
                     // We set the player off duty
-                    player.SetData(EntityData.PLAYER_ON_DUTY, 0);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 0);
 
                     // Load selected character
                     PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
-                    player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SKIN_MODEL, skinModel);
                     player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);

@@ -82,22 +82,36 @@ namespace VenoXV.Globals
         [ScriptEvent(ScriptEventType.PlayerDead)]
         public static void OnPlayerDeath(IPlayer player, IPlayer killer, uint reason)
         {
-            if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
+            try
             {
-                if (Functions.IstargetInSameLobby(player, killer) || killer == null)
+                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
                 {
                     if (killer == null) { killer = RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.Globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
-                    VenoXV.Tactics.environment.Death.OnPlayerDeath(player, killer);
+                    if (Functions.IstargetInSameLobby(player, killer))
+                    {
+                        Tactics.environment.Death.OnPlayerDeath(player, killer);
+                    }
+                    else
+                    {
+                        Core.Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName<string>());
+                        Core.RageAPI.SendChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName<string>());
+                    }
+                    return;
                 }
-                return;
-            }
-            else if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_REALLIFE)
-            {
-                if (killer == null || Functions.IstargetInSameLobby(player, killer))
+                else if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_REALLIFE)
                 {
-                    VenoXV.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                    if (killer == null || Functions.IstargetInSameLobby(player, killer))
+                    {
+                        VenoXV.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                    }
+                }
+                else
+                {
+                    Core.Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
+                    Core.RageAPI.SendChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
                 }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnDeath", ex); }
         }
 
         public static void OnUpdate(object unused)
@@ -126,16 +140,19 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.WeaponDamage)]
-        public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, UInt16 damage, Position offset, AltV.Net.Data.BodyPart bodypart)
+        public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
         {
-            //Debug.OutputDebugString("Source :" + source.Name + " | target : " + target.GetVnXName<string>() + " | Weapon : " + weapon + " | damage " + damage + " | offset : " + offset + " | Bodypart : " + bodypart);
             AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
-            //Debug.OutputDebugString("Deine Waffe umkonvertiert heißt : " + weaponModel);
-            //Debug.OutputDebugString(DateTime.Now + "Deine Target : " + target.GetVnXName<string>());
             if (target != null && source != null)
             {
                 Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
             }
+        }
+
+        [ScriptEvent(ScriptEventType.PlayerDamage)]
+        public static void PlayerDamage(IPlayer source, IPlayer attacker, uint weapon, ushort damage)
+        {
+            source?.Emit("Globals:ShowBloodScreen");
         }
 
 

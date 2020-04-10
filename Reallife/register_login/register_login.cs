@@ -55,75 +55,75 @@ namespace VenoXV.Reallife.register_login
 
                 // Initialize shared entity data
                 player.SetVnXName<string>("Random-Player");
-                player.SetData(EntityData.PLAYER_SEX, 0);
-                player.SetData(EntityData.PLAYER_MONEY, 0);
-                player.SetData(EntityData.PLAYER_BANK, 3500);
-                player.SetData(EntityData.PLAYER_PLAYING, false);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SEX, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_MONEY, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BANK, 3500);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PLAYING, false);
                 // Initialize entity data
-                player.SetData(EntityData.PLAYER_NAME, string.Empty);
-                player.SetData(EntityData.PLAYER_SPAWN_POS, new Position(-2286.745f, 356.3762f, 175.317f));
-                player.SetData(EntityData.PLAYER_SPAWN_ROT, rotation);
-                player.SetData(EntityData.PLAYER_ADMIN_RANK, 0);
-                player.SetData(EntityData.PLAYER_AGE, 18);
-                player.SetData(EntityData.PLAYER_HEALTH, 100);
-                player.SetData(EntityData.PLAYER_ARMOR, 0);
-                player.SetData(EntityData.PLAYER_PHONE, 0);
-                player.SetData(EntityData.PLAYER_KILLED, 0);
-                player.SetData(EntityData.PLAYER_FACTION, 0);
-                player.SetData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now);
-                player.SetData(EntityData.PLAYER_JOB, "-");
-                player.SetData(EntityData.PLAYER_VIP_LEVEL, "-");
-                player.SetData(EntityData.PLAYER_LIEFERJOB_LEVEL, 0);
-                player.SetData(EntityData.PLAYER_BUSJOB_LEVEL, 0);
-                player.SetData(EntityData.PLAYER_AIRPORTJOB_LEVEL, 0);
-                player.SetData(EntityData.PLAYER_RANK, 0);
-                player.SetData(EntityData.PLAYER_ON_DUTY, 0);
-                player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
-                player.SetData(EntityData.PLAYER_HOUSE_ENTERED, 0);
-                player.SetData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_NAME, string.Empty);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWN_POS, new Position(-2286.745f, 356.3762f, 175.317f));
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWN_ROT, rotation);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ADMIN_RANK, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_AGE, 18);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HEALTH, 100);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ARMOR, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PHONE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KILLED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FACTION, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZIVIZEIT, DateTime.Now);
+                player.vnxSetElementData<object>(EntityData.PLAYER_JOB, "-");
+                player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "-");
+                player.vnxSetElementData<object>(EntityData.PLAYER_LIEFERJOB_LEVEL, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BUSJOB_LEVEL, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_AIRPORTJOB_LEVEL, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RANK, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BUSINESS_ENTERED, 0);
 
-                player.SetData(EntityData.PLAYER_PERSONALAUSWEIS, 0);
-                player.SetData(EntityData.PLAYER_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_LKW_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 0);
-                player.SetData(EntityData.PLAYER_ADVENTSKALENEDER, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PERSONALAUSWEIS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_LKW_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ADVENTSKALENEDER, 0);
 
-                player.SetData(EntityData.PLAYER_PLAYED, 0);
-                player.SetData(EntityData.PLAYER_STATUS, 0);
-                player.SetData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                player.SetData(EntityData.PLAYER_QUESTS, 0);
-                player.SetData(EntityData.PLAYER_FACTION, 0);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_WANTEDS, 0);
-                player.SetData(EntityData.PLAYER_KNASTZEIT, 0);
-                player.SetData(EntityData.PLAYER_KAUTION, 0);
-                Core.VnX.SetSharedSettingsData(player, "settings_atm", "ja");
-                Core.VnX.SetSharedSettingsData(player, "settings_haus", "ja");
-                Core.VnX.SetSharedSettingsData(player, "settings_tacho", "ja");
-                Core.VnX.SetSharedSettingsData(player, "settings_quest", "ja");
-                Core.VnX.SetSharedSettingsData(player, "settings_reporter", "ja");
-                Core.VnX.SetSharedSettingsData(player, "settings_globalchat", "ja");
-                Core.VnX.SetSharedSettingsData(player, EntityData.PLAYER_STATUS, "VenoX");
-                Core.VnX.SetSharedSettingsData(player, "SocialState_NAMETAG", "VenoX");
-                Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, 60);
-                player.SetData(Verleih.HAVE_PLAYER_RENTED_VEHICLE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PLAYED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_STATUS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
+                player.vnxSetElementData<object>(EntityData.PLAYER_QUESTS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FACTION, 0);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KNASTZEIT, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KAUTION, 0);
+                player.vnxSetSharedElementData<object>("settings_atm", "ja");
+                player.vnxSetSharedElementData<object>("settings_haus", "ja");
+                player.vnxSetSharedElementData<object>("settings_tacho", "ja");
+                player.vnxSetSharedElementData<object>("settings_quest", "ja");
+                player.vnxSetSharedElementData<object>("settings_reporter", "ja");
+                player.vnxSetSharedElementData<object>("settings_globalchat", "ja");
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_STATUS, "VenoX");
+                player.vnxSetSharedElementData<object>("SocialState_NAMETAG", "VenoX");
+                player.vnxSetSharedElementData<object>("HideHUD", 1);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_HUNGER, 60);
+                player.vnxSetElementData<object>(Verleih.HAVE_PLAYER_RENTED_VEHICLE, 0);
 
                 //Tactic 
 
-                player.SetData(EntityData.PLAYER_TACTIC_KILLS, 0);
-                player.SetData(EntityData.PLAYER_TACTIC_TODE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_TACTIC_KILLS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_TACTIC_TODE, 0);
 
-                player.SetData(EntityData.PLAYER_REALLIFE_HUD, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_REALLIFE_HUD, 0);
 
-                player.SetData(EntityData.PLAYER_ZOMBIE_KILLS, 0);
-                player.SetData(EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, 0);
-                player.SetData(EntityData.PLAYER_ZOMBIE_TODE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_KILLS, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_TODE, 0);
 
             }
             catch { }
@@ -135,74 +135,74 @@ namespace VenoXV.Reallife.register_login
             {
 
 
-                player.SetData(EntityData.PLAYER_SEX, character.sex);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SEX, character.sex);
 
-                player.SetData(EntityData.PLAYER_SQL_ID, character.id);
-                player.SetData(EntityData.PLAYER_NAME, character.realName);
-                player.SetData(EntityData.PLAYER_HEALTH, character.health);
-                player.SetData(EntityData.PLAYER_ARMOR, character.armor);
-                player.SetData(EntityData.PLAYER_AGE, character.age);
-                player.SetData(EntityData.PLAYER_SPAWN_POS, character.position);
-                player.SetData(EntityData.PLAYER_SPAWN_ROT, character.rotation);
-                player.SetData(EntityData.PLAYER_PHONE, character.phone);
-                player.SetData(EntityData.PLAYER_KILLED, character.killed);
-                player.SetData(EntityData.PLAYER_JOB, character.job);
-                player.SetData(EntityData.PLAYER_LIEFERJOB_LEVEL, character.LIEFERJOB_LEVEL);
-                player.SetData(EntityData.PLAYER_AIRPORTJOB_LEVEL, character.AIRPORTJOB_LEVEL);
-                player.SetData(EntityData.PLAYER_BUSJOB_LEVEL, character.BUSJOB_LEVEL);
-                player.SetData(EntityData.PLAYER_RANK, character.rank);
-                player.SetData(EntityData.PLAYER_ON_DUTY, 0);
-                player.SetData(EntityData.PLAYER_RENT_HOUSE, character.houseRent);
-                player.SetData(EntityData.PLAYER_HOUSE_ENTERED, character.houseEntered);
-                player.SetData(EntityData.PLAYER_BUSINESS_ENTERED, character.businessEntered);
-                player.SetData(EntityData.PLAYER_PLAYED, character.played);
-                player.SetData(EntityData.PLAYER_STATUS, character.status);
-                player.SetData(EntityData.PLAYER_SPAWNPOINT, character.spawn);
-                player.SetData(EntityData.PLAYER_ZIVIZEIT, character.zivizeit);
-                player.SetData(EntityData.PLAYER_QUESTS, character.quests);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_WANTEDS, character.wanteds);
-                player.SetData(EntityData.PLAYER_KNASTZEIT, character.knastzeit);
-                player.SetData(EntityData.PLAYER_KAUTION, character.kaution);
-                player.SetData(EntityData.PLAYER_ADVENTSKALENEDER, character.adventskalender);
-
-
-                player.SetData(EntityData.PLAYER_PERSONALAUSWEIS, character.Personalausweis);
-                player.SetData(EntityData.PLAYER_FÜHRERSCHEIN, character.Autofuehrerschein);
-                player.SetData(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN, character.Motorradfuehrerschein);
-                player.SetData(EntityData.PLAYER_LKW_FÜHRERSCHEIN, character.LKWfuehrerschein);
-                player.SetData(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, character.Helikopterfuehrerschein);
-                player.SetData(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, character.FlugscheinKlasseA);
-                player.SetData(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, character.FlugscheinKlasseB);
-                player.SetData(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, character.Motorbootschein);
-                player.SetData(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, character.Angelschein);
-                player.SetData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, character.Waffenschein);
-                player.SetData(EntityData.PLAYER_HANDCUFFED, false);
-
-                Core.VnX.SetSharedSettingsData(player, "settings_atm", character.atm);
-                Core.VnX.SetSharedSettingsData(player, "settings_haus", character.haus);
-                Core.VnX.SetSharedSettingsData(player, "settings_tacho", character.tacho);
-                Core.VnX.SetSharedSettingsData(player, "settings_quest", character.quest_anzeigen);
-                Core.VnX.SetSharedSettingsData(player, "settings_reporter", character.reporter);
-                Core.VnX.SetSharedSettingsData(player, "settings_globalchat", character.globalchat);
-                Core.VnX.SetSharedSettingsData(player, EntityData.PLAYER_STATUS, character.SocialState);
-                Core.VnX.SetSharedSettingsData(player, "SocialState_NAMETAG", character.SocialState);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_ADMIN_ON_DUTY, 0);
-
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_FACTION, character.faction);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_ADMIN_RANK, character.adminRank);
-                Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_BANK, character.bank);
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, character.money);
-                player.SetData(Verleih.HAVE_PLAYER_RENTED_VEHICLE, 0);
-
-                player.SetData(EntityData.PLAYER_TACTIC_KILLS, character.tactic_kills);
-                player.SetData(EntityData.PLAYER_TACTIC_TODE, character.tactic_tode);
-                player.SetData(EntityData.PLAYER_REALLIFE_HUD, character.REALLIFE_HUD);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SQL_ID, character.id);
+                player.vnxSetElementData<object>(EntityData.PLAYER_NAME, character.realName);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HEALTH, character.health);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ARMOR, character.armor);
+                player.vnxSetElementData<object>(EntityData.PLAYER_AGE, character.age);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWN_POS, character.position);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWN_ROT, character.rotation);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PHONE, character.phone);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KILLED, character.killed);
+                player.vnxSetElementData<object>(EntityData.PLAYER_JOB, character.job);
+                player.vnxSetElementData<object>(EntityData.PLAYER_LIEFERJOB_LEVEL, character.LIEFERJOB_LEVEL);
+                player.vnxSetElementData<object>(EntityData.PLAYER_AIRPORTJOB_LEVEL, character.AIRPORTJOB_LEVEL);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BUSJOB_LEVEL, character.BUSJOB_LEVEL);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RANK, character.rank);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ON_DUTY, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, character.houseRent);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, character.houseEntered);
+                player.vnxSetElementData<object>(EntityData.PLAYER_BUSINESS_ENTERED, character.businessEntered);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PLAYED, character.played);
+                player.vnxSetElementData<object>(EntityData.PLAYER_STATUS, character.status);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNPOINT, character.spawn);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZIVIZEIT, character.zivizeit);
+                player.vnxSetElementData<object>(EntityData.PLAYER_QUESTS, character.quests);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_WANTEDS, character.wanteds);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KNASTZEIT, character.knastzeit);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KAUTION, character.kaution);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ADVENTSKALENEDER, character.adventskalender);
 
 
-                player.SetData(EntityData.PLAYER_ZOMBIE_KILLS, character.zombie_kills);
-                player.SetData(EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, character.zombie_player_kills);
-                player.SetData(EntityData.PLAYER_ZOMBIE_TODE, character.zombie_tode);
+                player.vnxSetElementData<object>(EntityData.PLAYER_PERSONALAUSWEIS, character.Personalausweis);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FÜHRERSCHEIN, character.Autofuehrerschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN, character.Motorradfuehrerschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_LKW_FÜHRERSCHEIN, character.LKWfuehrerschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, character.Helikopterfuehrerschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, character.FlugscheinKlasseA);
+                player.vnxSetElementData<object>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, character.FlugscheinKlasseB);
+                player.vnxSetElementData<object>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, character.Motorbootschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, character.Angelschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, character.Waffenschein);
+                player.vnxSetElementData<object>(EntityData.PLAYER_HANDCUFFED, false);
+
+                player.vnxSetSharedElementData<object>("settings_atm", character.atm);
+                player.vnxSetSharedElementData<object>("settings_haus", character.haus);
+                player.vnxSetSharedElementData<object>("settings_tacho", character.tacho);
+                player.vnxSetSharedElementData<object>("settings_quest", character.quest_anzeigen);
+                player.vnxSetSharedElementData<object>("settings_reporter", character.reporter);
+                player.vnxSetSharedElementData<object>("settings_globalchat", character.globalchat);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_STATUS, character.SocialState);
+                player.vnxSetSharedElementData<object>("SocialState_NAMETAG", character.SocialState);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_ADMIN_ON_DUTY, 0);
+
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_FACTION, character.faction);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_ADMIN_RANK, character.adminRank);
+                player.vnxSetSharedElementData<object>("HideHUD", 1);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_BANK, character.bank);
+                player.vnxSetSharedElementData<object>(EntityData.PLAYER_MONEY, character.money);
+                player.vnxSetElementData<object>(Verleih.HAVE_PLAYER_RENTED_VEHICLE, 0);
+
+                player.vnxSetElementData<object>(EntityData.PLAYER_TACTIC_KILLS, character.tactic_kills);
+                player.vnxSetElementData<object>(EntityData.PLAYER_TACTIC_TODE, character.tactic_tode);
+                player.vnxSetElementData<object>(EntityData.PLAYER_REALLIFE_HUD, character.REALLIFE_HUD);
+
+
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_KILLS, character.zombie_kills);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, character.zombie_player_kills);
+                player.vnxSetElementData<object>(EntityData.PLAYER_ZOMBIE_TODE, character.zombie_tode);
             }
             catch { }
         }
@@ -248,7 +248,7 @@ namespace VenoXV.Reallife.register_login
             return cevent;
         }
 
-        //[AltV.Net.ClientEvent("Load_New_Login_Cam")]
+        [ClientEvent("Load_New_Login_Cam")]
         public static void CreateNewLogin_Cam(IPlayer player, int number, int new_lastNumber)
         {
             try
@@ -450,7 +450,7 @@ namespace VenoXV.Reallife.register_login
         [Command("createcameraevent")]
         public static void CreateCameraTestEvent(IPlayer player, float x, float y, float z, int rotx, int roty, int rotz)
         {
-            Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
+            player.vnxSetSharedElementData<object>("HideHUD", 1);
             AntiCheat_Allround.StopTimerTeleport(player);
             Position LastPosition = player.Position;
             Position StartPosition = LastPosition;
@@ -467,7 +467,7 @@ namespace VenoXV.Reallife.register_login
         [Command("createfullcameraevent")]
         public static void CreateFullCameraTestEvent(IPlayer player, float startx, float starty, float startz, float endx, float endy, float endz, int rotx, int roty, int rotz)
         {
-            Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
+            player.vnxSetSharedElementData<object>("HideHUD", 1);
             AntiCheat_Allround.StopTimerTeleport(player);
             Position LastPosition = player.Position;
             Position StartPosition = new Position(startx, starty, startz);
@@ -515,25 +515,25 @@ namespace VenoXV.Reallife.register_login
                     //player.Rotation = player.vnxGetElementData<int>(EntityData.PLAYER_SPAWN_ROT);
                     //player.Health = player.vnxGetElementData<int>(EntityData.PLAYER_HEALTH);
                     //player.Armor = player.vnxGetElementData<int>(EntityData.PLAYER_ARMOR);
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY));
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT));
-                    Core.VnX.vnxSetSharedData(player, "PLAYER_QUESTSPLAYER", player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS));
+                    player.vnxSetSharedElementData<object>(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY));
+                    player.vnxSetSharedElementData<object>(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT));
+                    player.vnxSetSharedElementData<object>("PLAYER_QUESTSPLAYER", player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS));
                     Spawn.spawnplayer_on_spawnpoint(player);
                     Settings.VnX.LoadSettingsData(player);
-                    Core.VnX.vnxSetSharedData(player, "HideHUD", 0);
+                    player.vnxSetSharedElementData<object>("HideHUD", 0);
                     anzeigen.Usefull.VnX.UpdateHUD(player);
                     AntiCheat_Allround.StartTimerTeleport(player);
                     Faction.CreateFactionBaseBlip(player);
                     Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
                     // Toggle connection flag
-                    player.SetData(EntityData.PLAYER_PLAYING, true);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_PLAYING, true);
                     player.SetSyncedMetaData("PLAYER_LOGGED_IN", true);
                     //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                     Environment.Gzone.Zone.CreateGreenzone(player);
                     gangwar.Allround._gangwarManager.UpdateData(player);
                     CreateGasBlips(player);
 
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, 100);
+                    player.vnxSetSharedElementData<object>(EntityData.PLAYER_HUNGER, 100);
                     //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 }
             }
@@ -559,12 +559,11 @@ namespace VenoXV.Reallife.register_login
                 {
                     foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                     {
-
                         string owner = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER);
                         if (owner != null && owner == player.GetVnXName<string>())
                         {
                             Vehicle.Dimension = 0;
-                            Core.VnX.VehiclevnxSetSharedData(Vehicle, EntityData.VEHICLE_DIMENSION, 0);
+                            Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_DIMENSION, 0);
                         }
                         // JOB 
                         if (
@@ -646,10 +645,10 @@ namespace VenoXV.Reallife.register_login
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
                             if (character != null && character.realName != null)
                             {
-                                player.SetData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
+                                player.vnxSetElementData<object>(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
                                 player.Model = character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01");
                                 Login.LoadCharacterData(player, character);
-                                Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
+                                player.vnxSetSharedElementData<object>("HideHUD", 1);
                                 anzeigen.Usefull.VnX.UpdateHUD(player);
                                 Customization.ApplyPlayerClothes(player);
                                 Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
@@ -682,7 +681,7 @@ namespace VenoXV.Reallife.register_login
                             }
                             Login.ChangeCharacterSexEvent(player, Geschlecht_);
                             player.Emit("showCharacterCreationMenu");
-                            player.SetData(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE, VenoXV.Globals.EntityData.GAMEMODE_REALLIFE);
+                            player.vnxSetElementData<object>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE, VenoXV.Globals.EntityData.GAMEMODE_REALLIFE);
                         }
                         return;
                     }
@@ -736,13 +735,13 @@ namespace VenoXV.Reallife.register_login
                     _ = Program.CreateForumUser(player.GetVnXName<string>(), email, password);
                     player.Emit("clearRegisterWindow_first");
                     player.Emit("showCharacterCreationMenu");
-                    Core.VnX.vnxSetSharedData(player, "PLAYER_LOGGED_IN", 1);
+                    player.vnxSetSharedElementData<object>("PLAYER_LOGGED_IN", 1);
 
                     anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                     if (geschlecht == "1") { ChangeCharacterSexEvent(player, 1); }
                     else { ChangeCharacterSexEvent(player, 0); }
                     Database.SetVIPStats(Database.GetAccountUID(player.SocialClubId.ToString()), "Abgelaufen", 0);
-                    player.SetData(EntityData.PLAYER_VIP_LEVEL, "-");
+                    player.vnxSetElementData<object>(EntityData.PLAYER_VIP_LEVEL, "-");
                     gangwar.Allround._gangwarManager.UpdateData(player);
                 }
             }
@@ -767,7 +766,7 @@ namespace VenoXV.Reallife.register_login
                 //ToDo Sie Clientseitig Laden! : player.SetClothes(8, 15, 0);
 
                 // Save sex entity shared data
-                player.SetData(EntityData.PLAYER_SEX, sex);
+                player.vnxSetElementData<object>(EntityData.PLAYER_SEX, sex);
             }
             catch (Exception ex)
             {
@@ -795,7 +794,7 @@ namespace VenoXV.Reallife.register_login
                     /*SkinModel skinModel = NAPI.Util.FromJson<SkinModel>(skinJson);
                     
                     // Apply the skin to the character
-                    player.SetData(EntityData.PLAYER_SKIN_MODEL, skinModel);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SKIN_MODEL, skinModel);
                     Customization.ApplyPlayerCustomization(player, skinModel, player.vnxGetElementData<int>(EntityData.PLAYER_SEX));
                     int UID = Database.GetAccountUID(player.SocialClubId.ToString());
                     int playerId = Database.CreateCharacter(player, UID, skinModel);
@@ -810,14 +809,14 @@ namespace VenoXV.Reallife.register_login
                         player.Emit("characterCreatedSuccessfully");
                         Spawn.spawnplayer_on_spawnpoint(player);
                         Settings.VnX.LoadSettingsData(player);
-                        Core.VnX.vnxSetSharedData(player, "HideHUD", 0);
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, 0);
-                        Core.VnX.vnxSetSharedData(player, "PLAYER_QUESTSPLAYER", 0);
+                        player.vnxSetSharedElementData<object>( "HideHUD", 0);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_QUESTS, 0);
+                        player.vnxSetSharedElementData<object>( "PLAYER_QUESTSPLAYER", 0);
                         anzeigen.Usefull.VnX.UpdateHUD(player);
                         CreateGasBlips(player);
                         AntiCheat_Allround.StartTimerTeleport(player);
                          dxLibary.VnX.SetElementFrozen(player, false);
-                        player.SetData(EntityData.PLAYER_PLAYING, true);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_PLAYING, true);
                         player.Emit("Reallife:LoadHUD", 0);
                     }*/
                 }

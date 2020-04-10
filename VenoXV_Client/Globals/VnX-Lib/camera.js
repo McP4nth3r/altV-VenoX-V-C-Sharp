@@ -3,217 +3,70 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
-
 import * as alt from 'alt-client';
-import * as game from "natives";
+import * as native from "natives"
 
-export default class Camera {
-    constructor(name, position, rotation, fov) {
+let camera = null;
+let interpolCam = null;
 
-        this.camera = game.createCam(name, 1)
-        game.setCamCoord(this.camera, position.x, position.y, position.z)
-        game.setCamRot(this.camera, rotation.x, rotation.y, rotation.z)
-        game.setCamFov(this.camera, fov)
+export function interpolateCamera(pos1X, pos1Y, pos1Z, rot1, fov, pos2X, pos2Y, pos2Z, rot2, fov2, duration) {
+
+    if (camera != null || interpolCam != null) {
+        native.renderScriptCams(false, false, 0, true, false);
+        native.destroyCam(camera, true);
+        native.destroyCam(interpolCam, true);
+        native.destroyAllCams(true);
+        camera = null;
+        interpolCam = null;
+        native.setFollowPedCamViewMode(1);
+        native.clearFocus();
     }
 
-    attachCamToEntity(entity, xOffset, yOffset, zOffset, isRelative) {
-        game.attachCamToEntity(this.camera, entity, xOffset, yOffset, zOffset, isRelative)
-    }
+    native.setHdArea(pos1X, pos1Y, pos1Z, 30);
 
-    attachCamToPedBone(ped, boneIndex, x, y, z, heading) {
-        game.attachCamToPedBone(this.camera, ped, boneIndex, x, y, z, heading)
-    }
-
-    destroy(thisScriptCheck) {
-        game.destroyCam(this.camera, thisScriptCheck)
-    }
-
-    detachCam() {
-        game.detachCam(this.camera)
-    }
-
-    doesExist() {
-        return game.doesCamExist(this.camera)
-    }
-
-    getAnimCurrentPhase() {
-        return game.getCamAnimCurrentPhase(this.camera)
-    }
-
-    getCoord() {
-        return game.getCamCoord(this.camera)
-    }
-
-    getFarClip() {
-        return game.getCamFarClip(this.camera)
-    }
-
-    getFarDof() {
-        return game.getFarDof(this.camera)
-    }
-
-    getFov() {
-        return game.getCamFov(this.camera)
-    }
-
-    getNearClip() {
-        return game.getCamNearClip(this.camera)
-    }
-
-    getRot(rotationOrder) {
-        return game.getCamRot(this.camera, rotationOrder)
-    }
-
-    getSplineNodeIndex() {
-        return game.getCamSplineNodeIndex(this.camera)
-    }
-
-    getSplinePhase() {
-        return game.getCamSplinePhase(this.camera)
-    }
-
-    isActive() {
-        return game.isCamActive(this.camera)
-    }
-
-    isInterpolating() {
-        return game.isCamInterpolating(this.camera)
-    }
-
-    isPlayingAnim(animName, animDictionary) {
-        return game.isCamPlayingAnim(this.camera, animName, animDictionary)
-    }
-
-    isRendering() {
-        return game.isCamRendering(this.camera)
-    }
-
-    isShaking() {
-        return game.isCamShaking(this.camera)
-    }
-
-    playAnim(animName, animDictionary, x, y, z, xRot, yRot, zRot, p9, p10) {
-        game.playCamAnim(this.camera, animName, animDictionary, x, y, z, xRot, yRot, zRot, p9, p10)
-    }
-
-    pointAtCoord(x, y, z) {
-        game.pointCamAtCoord(this.camera, x, y, z)
-    }
-
-    pointAtEntity(entity, x, y, z, p5) {
-        game.pointCamAtEntity(this.camera, entity, x, y, z, p5)
-    }
-
-    pointAtPedBone(ped, boneIndex, x, y, z, p6) {
-        game.pointCamAtPedBone(this.camera, ped, boneIndex, x, y, z, p6)
-    }
-
-    setActive(active) {
-        game.setCamActive(this.camera, active)
-    }
-
-    setActiveWithInterp(camFrom, duration, easeLocation, easeRotation) {
-        game.setCamActiveWithInterp(this.camera, camFrom, duration, easeLocation, easeRotation)
-    }
-
-    setAffectsAiming(toggle) {
-        game.setCamAffectsAiming(this.camera, toggle)
-    }
-
-    setAnimCurrentPhase(phase) {
-        game.setCamAnimCurrentPhase(this.camera, phase)
-    }
-
-    setCoord(x, y, z) {
-        game.setCamCoord(this.camera, x, y, z)
-    }
-
-    setDebugName(name) {
-        game.setCamDebugName(this.camera, name)
-    }
-
-    setDofFnumberOfLens(p1) {
-        game.setCamDofFnumberOfLens(this.camera, p1)
-    }
-
-    setDofFocusDistanceBias(p1) {
-        game.setCamDofFocusDistanceBias(this.camera, p1)
-    }
-
-    setDofMaxNearInFocusDistance(p1) {
-        game.setCamDofMaxNearInFocusDistance(this.camera, p1)
-    }
-
-    setDofMaxNearInFocusDistanceBlendLevel(p1) {
-        game.setCamDofMaxNearInFocusDistanceBlendLevel(this.camera, p1)
-    }
-
-    setDofPlanes(p1, p2, p3, p4) {
-        game.setCamDofPlanes(this.camera, p1, p2, p3, p4)
-    }
-
-    setFarClip(farClip) {
-        game.setCamFarClip(this.camera, farClip)
-    }
-
-    setDofStrength(dofStrength) {
-        game.setCamDofStrength(this.camera, dofStrength)
-    }
-
-    setFarDof(farDOF) {
-        game.setCamFarDof(this.camera, farDOF)
-    }
-
-    setFov(fieldOfView) {
-        game.setCamFov(this.camera, fieldOfView)
-    }
-
-    setInheritRollVehicle(p1) {
-        game.setCamInheritRollVehicle(this.camera, p1)
-    }
-
-    setMotionBlurStrength(strength) {
-        game.setCamMotionBlurStrength(this.camera, strength)
-    }
-
-    setNearClip(nearClip) {
-        game.setCamNearClip(this.camera, nearClip)
-    }
-
-    setNearDof(nearDOF) {
-        game.setCamNearDof(this.camera, nearDOF)
-    }
-
-    setParams(x, y, z, rx, ry, rz, fov, duration, p9, p10, p11) {
-        game.setCamParams(this.camera, x, y, z, rx, ry, rz, fov, duration, p9, p10, p11)
-    }
-
-    setRot(rotX, rotY, rotZ, p4) {
-        game.setCamRot(this.camera, rotX, rotY, rotZ, p4)
-    }
-
-    setShakeAmplitude(amplitude) {
-        game.setCamShakeAmplitude(this.camera, amplitude)
-    }
-
-    setUseShallowDofMode(toggle) {
-        game.setCamUseShallowDofMode(this.camera, toggle)
-    }
-
-    shake(type, amplitude) {
-        game.shakeCam(this.camera, type, amplitude)
-    }
-
-    stopPointing() {
-        game.stopCamPointing(this.camera)
-    }
-
-    stopShaking(p1) {
-        game.stopCamShaking(this.camera, p1)
-    }
-
-    get cam() {
-        return this.camera
-    }
-
+    camera = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos1X, pos1Y, pos1Z, -fov, 0, rot1, 80.0, false, 2);
+    interpolCam = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos2X, pos2Y, pos2Z, -fov2, 0, rot2, 30.0, false, 2);
+    native.setCamActive(camera, true);
+    //native.setCamActive(interpolCam, true);
+    native.setCamActiveWithInterp(interpolCam, camera, duration, 1, 1);
+    native.renderScriptCams(true, false, 0, false, false);
+    //alt.log(pos1X + " | " + pos1Y + " | " + pos1Z + " | " + rot1 + " | " + fov + " | " + pos2X + " | " + pos2Y + " | " + pos2Z + " | " + rot2 + " | " + fov2 + " | " + duration);
 }
+
+alt.onServer('destroyCamera', () => {
+    native.renderScriptCams(false, false, 0, true, false);
+    native.destroyCam(camera, true);
+    native.destroyCam(interpolCam, true);
+    native.destroyAllCams(true);
+    camera = null;
+    interpolCam = null;
+    native.setFollowPedCamViewMode(1);
+    native.clearFocus();
+});
+
+export function destroyCamera() {
+    if (camera != null || interpolCam != null) {
+        native.renderScriptCams(false, false, 0, true, false);
+        native.destroyCam(camera, true);
+        native.destroyCam(interpolCam, true);
+        native.destroyAllCams(true);
+        camera = null;
+        interpolCam = null;
+        native.setFollowPedCamViewMode(1);
+        native.clearFocus();
+    }
+}
+
+
+alt.onServer('createCamera', () => {
+    if (camera != null || interpolCam != null) {
+        destroyCamera;
+    }
+
+    native.setFocusPosAndVel(pos1X, pos1Y, pos1Z, 0.0, 0.0, 0.0);
+    native.setHdArea(pos1X, pos1Y, pos1Z, 30)
+
+    camera = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos1X, pos1Y, pos1Z, rot1, fov, 0, 2, false, 0);
+    native.setCamActive(camera, true);
+    native.renderScriptCams(true, false, 0, false, false);
+});

@@ -117,7 +117,7 @@ namespace VenoXV.Reallife.house
                     {
                         int bank = player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - house.price;
                         string labelText = GetHouseLabelText(house);
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_BANK, bank);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_BANK, bank);
                         logfile.WriteLogs("house", player.GetVnXName<string>() + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
                         house.status = Constants.HOUSE_STATE_NONE;
                         house.owner = player.GetVnXName<string>();
@@ -171,7 +171,7 @@ namespace VenoXV.Reallife.house
                     if (player.vnxGetElementData("SELL_HOUSE_REQUESTED") == true)
                     {
                         int moneyget = house.price / 2;
-                        player.SetData("SELL_HOUSE_REQUESTED", false);
+                        player.vnxSetElementData<object>("SELL_HOUSE_REQUESTED", false);
 
                         house.owner = string.Empty;
                         house.status = Constants.HOUSE_STATE_BUYABLE;
@@ -182,7 +182,7 @@ namespace VenoXV.Reallife.house
 
                         Database.UpdateHouse(house);
                         player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Haus für " + moneyget + " verkauft!");
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + moneyget);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + moneyget);
                         return;
                     }
                     else
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.house
                         int moneyget = house.price / 2;
                         player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Möchtest du dein Haus verkaufen für " + moneyget + " $ ?");
                         player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Bestätige dies mit /sellhouse.");
-                        player.SetData("SELL_HOUSE_REQUESTED", true);
+                        player.vnxSetElementData<object>("SELL_HOUSE_REQUESTED", true);
                     }
                 }
             }
@@ -388,8 +388,8 @@ namespace VenoXV.Reallife.house
                         else
                         {
                             int money = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - house.rental;
-                            player.SetData(EntityData.PLAYER_RENT_HOUSE, house.id);
-                            Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, money);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, house.id);
+                            player.vnxSetSharedElementData<object>( Core.VnX.PLAYER_MONEY, money);
                             //house.tenants--;
 
                             /*if (house.tenants == 0)
@@ -404,7 +404,7 @@ namespace VenoXV.Reallife.house
                     }
                     /*else if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == house.id)
                     {
-                        player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, 0);
                         house.tenants++;
                         Database.UpdateHouse(house);
 
@@ -424,12 +424,12 @@ namespace VenoXV.Reallife.house
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
             {
-                player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, 0);
                 //player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "DEBUG RENT");
             }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) != 0)
             {
-                player.SetData(EntityData.PLAYER_RENT_HOUSE, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_RENT_HOUSE, 0);
                 player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast dich Erfolgreich ausgemietet!");
                 //Database.KickTenantsOut(house.id);
             }

@@ -258,16 +258,16 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_VENOXRENTALS)
                     {
                         int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney + QUEST_MONEY_VENOXRENTALS);
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, 1);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_MONEY, playerMoney + QUEST_MONEY_VENOXRENTALS);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, 1);
                     }
                 }
                 else if (QUESTDONE == QUEST_STADTHALLE)
                 {
                     if (playerquest == QUEST_STADTHALLE)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_STADTHALLE);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_STADTHALLE);
                     }
                 }
 
@@ -275,80 +275,80 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (playerquest == QUEST_PERSO)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_PERSO);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_PERSO);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOSCHEIN)
                 {
                     if (playerquest == QUEST_AUTOSCHEIN)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOSCHEIN);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOSCHEIN);
                     }
                 }
                 else if (QUESTDONE == QUEST_ATM_EINZAHLEN)
                 {
                     if (playerquest == QUEST_ATM_EINZAHLEN)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_ATM_EINZAHLEN);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_ATM_EINZAHLEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GAS_SNACK)
                 {
                     if (playerquest == QUEST_GAS_SNACK)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GAS_SNACK);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GAS_SNACK);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOKAUFEN)
                 {
                     if (playerquest == QUEST_AUTOKAUFEN)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOKAUFEN);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOKAUFEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET100K)
                 {
                     if (playerquest == QUEST_GET100K)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET100K);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET100K);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETWEAPONLICENSE)
                 {
                     if (playerquest == QUEST_GETWEAPONLICENSE)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETWEAPONLICENSE);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETWEAPONLICENSE);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETADVANCEDRIFLE)
                 {
                     if (playerquest == QUEST_GETADVANCEDRIFLE)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
                     }
                 }
                 else if (QUESTDONE == QUEST_START_SHOPROB)
                 {
                     if (playerquest == QUEST_START_SHOPROB)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET225)
                 {
                     if (playerquest == QUEST_GET225)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET225);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
+                        player.vnxSetSharedElementData<object>(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET225);
                     }
                 }
             }
@@ -403,7 +403,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         [Command("resethud")]
         public static void ResetHUD(IPlayer player)
         {
-            Core.VnX.vnxSetSharedData(player, "HideHUD", 0);
+            player.vnxSetSharedElementData<object>("HideHUD", 0);
             UpdateHUD(player);
         }
 
@@ -561,7 +561,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 Database.SaveCharacterInformation(character);
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) > 0)
                 {
-                    player.SetData(EntityData.PLAYER_PRISON_TIME, player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) - 1);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_PRISON_TIME, player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) - 1);
 
                     int UID = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
                     int PRISON_TIME = player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME);
@@ -655,26 +655,26 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 CreatedVehicle.PrimaryColorRgb = new Rgba(primaryC.R, primaryC.G, primaryC.B, 255);
                 CreatedVehicle.SecondaryColorRgb = new Rgba(secondC.R, secondC.G, secondC.B, 255);
                 // EntityData Load & Save
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_ID, 9999);
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_MODEL, CreatedVehicle.Model.ToString());
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_FACTION, 0);
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_FIRST_Rgba, primaryC.R + "," + primaryC.G + "," + primaryC.B);
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_SECOND_Rgba, secondC.R + "," + secondC.G + "," + secondC.B);
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_PRICE, 0);
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_PARKING, 0);
-                Core.VnX.IVehicleSetSharedINTData(CreatedVehicle, EntityData.VEHICLE_PARKED, 0);
-                Core.VnX.IVehicleSetSharedBoolData(CreatedVehicle, EntityData.VEHICLE_RENTED, isRentedIVehicle);
-                Core.VnX.IVehicleSetSharedStringData(CreatedVehicle, EntityData.VEHICLE_JOB, Job);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_ID, 9999);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_MODEL, CreatedVehicle.Model.ToString());
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FACTION, 0);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PLATE, "VenoX");
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FIRST_Rgba, primaryC.R + "," + primaryC.G + "," + primaryC.B);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_SECOND_Rgba, secondC.R + "," + secondC.G + "," + secondC.B);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PRICE, 0);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKING, 0);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKED, 0);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_RENTED, isRentedIVehicle);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_JOB, Job);
 
                 // KM & Gas load and Safe.
-                Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(CreatedVehicle, "gas", 100);
+                CreatedVehicle.vnxSetSharedElementData<object>("kms", 0);
+                CreatedVehicle.vnxSetSharedElementData<object>("gas", 100);
 
-                Core.VnX.IVehicleSetSharedBoolData(CreatedVehicle, EntityData.VEHICLE_NOT_SAVED, true);
+                CreatedVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
                 CreatedVehicle.NumberplateText = NumberplateText;
                 CreatedVehicle.EngineOn = true;
             }

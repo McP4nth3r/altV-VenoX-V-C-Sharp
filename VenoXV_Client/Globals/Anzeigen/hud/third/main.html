@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		alt.on('HUD:UpdateHealthBars', (currentarmor, currenthealth) => {
+			document.getElementById('health_bar').style.width = 14 * (currenthealth / 100);
+			document.getElementById('health_text').innerHTML = currenthealth;
+			document.getElementById('armor_bar').style.width = 14 * (currentarmor / 100);
+			document.getElementById('armor_text').innerHTML = currentarmor;
+		});
+		alt.on('HUD:UpdateLocation', (realZoneName) => {
+			document.getElementById('PLAYER_STREET_LOCATION').innerHTML = realZoneName;
+		});
+		alt.on("HUD:Show", () => { console.log('removed da shit'); $("#Main").removeClass("d-none"); });
+		alt.on("HUD:Hide", () => { console.log('showed da shit'); $("#Main").addClass("d-none"); });
+	</script>
+</head>
+
+<body>
+	<div id="Main" class="all backa d-none">
+		<div class="STREET_BAR_MAIN">
+			<div class="STREET_HEADER_LOGO">26s</div>
+			<div id="PLAYER_STREET_LOCATION" class="PLAYER_STREET_LOCATION">Los Santos International Airport</div>
+		</div>
+
+		<div class="ARMOR_BAR_MAIN">
+			<div class="armor_bar_bg"></div>
+			<div id="armor_bar" class="armor_bar stripes animated reverse slower"></div>
+			<div id="armor_text" class="armor_bar_text">90%</div>
+		</div>
+
+		<div class="HEALTH_BAR_MAIN">
+			<div class="health_bar_bg"></div>
+			<div id="health_bar" class="health_bar stripes animated reverse slower"></div>
+			<div id="health_text" class="health_bar_text">70%</div>
+		</div>
+		<div class="MONEY_BAR_MAIN">
+			<div class="money_bar_text">2.543 $</div>
+			<img src="files/images/nmuted.png" class="mic_bar_image"></img>
+			<div class="mic_bar_text">MIC :</div>
+		</div>
+	</div>
+</body>
+
+</html>

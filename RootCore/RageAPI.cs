@@ -12,52 +12,55 @@ namespace VenoXV.Core
 {
     public static class RageAPI
     {
-        /*
-        public static dynamic vnxGetElementData(this IPlayer player, string key)
-        {
-            try
-            {
-                return player.vnxGetElementData(key, out object value) ? value : default(dynamic);
-            }
-            catch { return null; }
-        }*/
-
         public static T vnxGetElementData<T>(this IBaseObject element, string key)
         {
             try
             {
-                //Console.WriteLine("[LOADED vnxGetElementData] : 1");
-                if (element.GetData(key, out T value))
-                {
-                    //Console.WriteLine("[LOADED vnxGetElementData] KEY : " + key + " | " + value);
-                    return value;
-                }
+                if (element.GetData(key, out T value)) { return value; }
                 return default;
             }
             catch { return default; }
         }
-
+        public static void vnxSetElementData<T>(this IBaseObject element, string key, object value)
+        {
+            try { element.SetData(key, value); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetElementData", ex); }
+        }
+        public static void vnxSetSharedElementData<T>(this IEntity element, string key, object value)
+        {
+            try
+            {
+                element.SetData(key, value);
+                element.SetSyncedMetaData(key, value);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetSharedElementData", ex); }
+        }
+        public static void vnxSetStreamSharedElementData<T>(this IPlayer element, string key, object value)
+        {
+            try
+            {
+                element.vnxSetElementData<object>(key, value);
+                element.SetStreamSyncedMetaData(key, value);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetSharedElementData", ex); }
+        }
         public static T vnxGetSharedData<T>(this IEntity element, string key)
         {
             try
             {
-                //Console.WriteLine("[LOADED vnxGetSharedData] : 2");
                 if (element.GetSyncedMetaData(key, out T value))
                 {
-                    //Console.WriteLine("[LOADED vnxGetSharedData] KEY : " + key + " | " + value);
                     return value;
                 }
                 return default;
             }
             catch { return default; }
         }
-
         public static string GetHexColorcode(int r, int g, int b)
         {
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-
         public static void WarpIntoVehicle<T>(this IPlayer player, IVehicle veh, int seat)
         {
             player.Emit("Player:WarpIntoVehicle", veh, seat);
@@ -68,14 +71,13 @@ namespace VenoXV.Core
         }
         public static void SetVnXName<T>(this IPlayer player, string Name)
         {
-            player.SetData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
+            player.vnxSetElementData<object>(Reallife.Globals.EntityData.PLAYER_NAME, Name);
             player.SetStreamSyncedMetaData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
         }
         public static string GetVnXName<T>(this IPlayer player)
         {
             return player.vnxGetElementData<string>(Reallife.Globals.EntityData.PLAYER_NAME);
         }
-
         public static IPlayer GetPlayerFromName(string name)
         {
             IPlayer player = null;
@@ -101,7 +103,6 @@ namespace VenoXV.Core
             }
             catch { }
         }
-
         public static void SetWeaponAmmo(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
@@ -110,7 +111,6 @@ namespace VenoXV.Core
             }
             catch { }
         }
-
         public static void SendChatMessageToAll(string text)
         {
             try
@@ -122,7 +122,6 @@ namespace VenoXV.Core
             }
             catch { }
         }
-
         public static void SetClothes(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
@@ -139,20 +138,16 @@ namespace VenoXV.Core
             try { element.Emit("HeadShape:Load", JsonConvert.SerializeObject(modellist)); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetCustomization", ex); }
         }
-
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
-
         public static void SetPlayerVisible(IPlayer element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
             catch { }
         }
-
-
         public static void CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
         {
             try
@@ -186,21 +181,6 @@ namespace VenoXV.Core
                 //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
-        }
-
-
-        [Command("getlabels")]
-        public static void GetAllLabelss(IPlayer player)
-        {
-            Core.Debug.OutputDebugString("Started");
-            /*foreach(DynamicTextLabel label in TextLabelStreamer.GetAllDynamicTextLabels())
-            {
-                Debug.OutputDebugString("________________________");
-                Debug.OutputDebugString("Name : " + label.Text);
-                Debug.OutputDebugString("Position : " + label.Position);
-                Debug.OutputDebugString("________________________");
-            }*/
-            Core.Debug.OutputDebugString("Stopped");
         }
     }
 }

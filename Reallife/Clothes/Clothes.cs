@@ -47,7 +47,7 @@ namespace VenoXV.Reallife.Clothes
                     player.Position = new Position(-158.886f, -296.9503f, 39.73328f);
                     dxLibary.VnX.SetElementFrozen(player, true);
                     player.Rotation = new Rotation(0f, 0f, 160f);
-                    Core.VnX.vnxSetSharedData(player, "HideHUD", 1);
+                    player.vnxSetSharedElementData<object>( "HideHUD", 1);
                     anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.Dimension = dim;
                     player.Emit("showClothesMenu", "Klamottenshop ", 1);
@@ -62,7 +62,7 @@ namespace VenoXV.Reallife.Clothes
         {
             try
             {
-                Core.VnX.vnxSetSharedData(player, "HideHUD", 0);
+                player.vnxSetSharedElementData<object>( "HideHUD", 0);
                 player.Dimension = 0;
                 anzeigen.Usefull.VnX.UpdateHUD(player);
                 anzeigen.Usefull.VnX.ResetDiscordData(player);

@@ -119,9 +119,9 @@ namespace VenoXV.Reallife.Vehicles
                         int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
                         if (playerMoney >= FAGGIO_COSTS)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
-                            Core.VnX.vnxSetSharedData(player, HAVE_PLAYER_RENTED_VEHICLE, 1);
-                            Core.VnX.vnxSetSharedData(player, CURRENT_VEHICLE_RENT, 0);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
+                            player.vnxSetSharedElementData<object>( HAVE_PLAYER_RENTED_VEHICLE, 1);
+                            player.vnxSetSharedElementData<object>( CURRENT_VEHICLE_RENT, 0);
                             GetNearestRentalsSpawn(player, true);
                             //VnX.CreateCTimer(player, "VnX_Rentals", 60000);
                         }
@@ -135,9 +135,9 @@ namespace VenoXV.Reallife.Vehicles
                         int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= PANTO_COSTS)
                         {
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
-                            Core.VnX.vnxSetSharedData(player, HAVE_PLAYER_RENTED_VEHICLE, 1);
-                            Core.VnX.vnxSetSharedData(player, CURRENT_VEHICLE_RENT, 1);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
+                            player.vnxSetSharedElementData<object>( HAVE_PLAYER_RENTED_VEHICLE, 1);
+                            player.vnxSetSharedElementData<object>( CURRENT_VEHICLE_RENT, 1);
                             GetNearestRentalsSpawn(player, false);
                             //VnX.CreateCTimer(player, "VnX_Rentals", 60000);
                         }
@@ -167,7 +167,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= FAGGIO_COSTS)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
                         player.Emit("VnX_UpdateRent", player);
                     }
                     else
@@ -179,7 +179,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= PANTO_COSTS)
                     {
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
+                        player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
                         player.Emit("VnX_UpdateRent", player);
                     }
                     else
@@ -202,7 +202,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_RENTED) == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
                     {
-                        Core.VnX.vnxSetSharedData(player, HAVE_PLAYER_RENTED_VEHICLE, 0);
+                        player.vnxSetSharedElementData<object>( HAVE_PLAYER_RENTED_VEHICLE, 0);
                         Vehicle.Remove();
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255)+"[VenoX Rental] : " + RageAPI.GetHexColorcode(255, 255, 255)+"Dein Mietverhältnis wurde beendet!");
                     }

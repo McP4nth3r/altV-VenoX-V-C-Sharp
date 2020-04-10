@@ -32,6 +32,9 @@ import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 
+
+
+import * as hud3 from '/VenoXV_Client/Globals/Anzeigen/hud/third/index.js';
 /*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);

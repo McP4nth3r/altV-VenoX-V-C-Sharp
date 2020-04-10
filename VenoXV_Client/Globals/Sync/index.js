@@ -58,3 +58,64 @@ alt.everyTick(() => {
         Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
     }
 });
+
+let muted = true;
+export function OnVoiceKeyDown(key) {
+    if (key == 0x4D) {
+        muted = false;
+        alt.emitServer('Voice:ChangeState', muted);
+    }
+}
+
+export function OnVoiceKeyUp(key) {
+    if (key == 0x4D) {
+        muted = true;
+        alt.emitServer('Voice:ChangeState', muted);
+    }
+}
+
+
+
+
+function loadModel(model) {
+    if (!game.isModelValid(model)) { return; }
+
+    if (!game.isModelInCdimage(model)) { return; }
+
+    if (game.hasModelLoaded(model)) { return; }
+
+    game.requestModel(model);
+    alt.log('[' + model + ']' + '[' + alt.hash(model) + ']' + 'Model successful fixed');
+
+    let interval = alt.setInterval(() => {
+        if (game.hasModelLoaded(model)) {
+            alt.clearInterval(interval);
+        }
+    }, 5);
+}
+
+let ModelCounter = 0;
+let ModelList = {};
+ModelList[ModelCounter] = "s_f_y_cop_01";
+ModelList[ModelCounter++] = "ig_ramp_gang";
+ModelList[ModelCounter++] = "s_m_y_swat_01";
+ModelList[ModelCounter++] = "s_f_y_stripper_01";
+ModelList[ModelCounter++] = "mp_m_fibsec_01";
+ModelList[ModelCounter++] = "ig_claypain";
+ModelList[ModelCounter++] = "s_m_m_movalien_01";
+ModelList[ModelCounter++] = "u_m_y_zombie_01";
+ModelList[ModelCounter++] = "g_m_y_lost_03";
+ModelList[ModelCounter++] = "mp_m_execpa_01";
+ModelList[ModelCounter++] = "csb_mweather";
+ModelList[ModelCounter++] = "s_m_y_marine_03";
+ModelList[ModelCounter++] = "g_m_m_chicold_01";
+function LoadModelsOnStart() {
+    alt.log('Called Model Loading');
+    alt.setTimeout(() => {
+        for (var models in ModelList) {
+            loadModel(ModelList[models]);
+        };
+    }, 2000);
+}
+LoadModelsOnStart();
+

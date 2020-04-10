@@ -35,7 +35,7 @@ namespace VenoXV.Reallife.advertise
                             RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
                             dxLibary.VnX.DrawNotification(player, "info", "Du hast " + FINAL_AD_COSTS + " $ für deine Werbung Gezahlt!");
                         }
                         else { dxLibary.VnX.DrawNotification(player, "info", "Du hast nicht genug Geld!"); }

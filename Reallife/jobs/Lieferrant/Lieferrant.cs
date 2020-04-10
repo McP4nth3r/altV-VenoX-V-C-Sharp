@@ -3,11 +3,8 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.dxLibary;
 using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.vnx_stored_files;
 
 namespace VenoXV.Reallife.jobs.Lieferrant
 {
@@ -35,39 +32,39 @@ namespace VenoXV.Reallife.jobs.Lieferrant
             try
             {
                 // Die punkte abfragen!
-                player.SetData("JOB_STAGE_TRANSPORTER_STARTED", 1);
+                player.vnxSetElementData<object>("JOB_STAGE_TRANSPORTER_STARTED", 1);
                 dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();
                 Position Destination = AbgabepunkteLVLONE[random.Next(1, 8)];
 
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-               dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
 
                 //player.SendChatMessage("Die koordinaten sind : " + Destination);
                 anzeigen.Usefull.VnX.CreateCarGhostMode(player, 255, 102, 7500);
-                IVehicle Lieferjob_VEHICLE_1 = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Rumpo2, new Position(859.674f, -2363.216f, 30), new Rotation(0,0,355));
+                IVehicle Lieferjob_VEHICLE_1 = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Rumpo2, new Position(859.674f, -2363.216f, 30), new Rotation(0, 0, 355));
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Lieferjob_VEHICLE_1, -1);
                 Lieferjob_VEHICLE_1.EngineOn = true;
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_MODEL, "Rumpo2");
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_FACTION, 0);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PLATE, "VenoX");
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PRICE, 0);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PARKING, 0);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_PARKED, 0);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_MODEL, "Rumpo2");
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_FACTION, 0);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_PLATE, "VenoX");
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_PRICE, 0);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_PARKING, 0);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_VEHICLE_1, "gas", 100);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
-                Lieferjob_VEHICLE_1.SetData(EntityData.VEHICLE_NOT_SAVED, true);
+                Lieferjob_VEHICLE_1.vnxSetSharedElementData<object>("kms", 0);
+                Lieferjob_VEHICLE_1.vnxSetSharedElementData<object>("gas", 100);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
+                Lieferjob_VEHICLE_1.vnxSetElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
                 dxLibary.VnX.SetIVehicleElementFrozen(Lieferjob_VEHICLE_1, player, false);
                 Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
@@ -86,12 +83,12 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLONE[random.Next(1, 8)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                   dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                     dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
-                    player.SetData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 1);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 1);
 
                     return;
                 }
@@ -100,12 +97,12 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLTWO[random.Next(1, 8)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                   dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                     dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
-                    player.SetData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 2);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 2);
                     return;
                 }
                 else if (stage == 3)
@@ -113,12 +110,12 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                     Random random = new Random();
                     Position Destination = AbgabepunkteLVLTHREE[random.Next(1, 5)];
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                    JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                   dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                    dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                     dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
-                    player.SetData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 3);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 3);
                     return;
                 }
             }
@@ -156,47 +153,47 @@ namespace VenoXV.Reallife.jobs.Lieferrant
             {
                 // Die punkte abfragen!
                 dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
-                player.SetData("JOB_STAGE_TRANSPORTER_STARTED", 2);
+                player.vnxSetElementData<object>("JOB_STAGE_TRANSPORTER_STARTED", 2);
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();
                 Position Destination = AbgabepunkteLVLTWO[random.Next(1, 8)];
 
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-               dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
 
 
-                IVehicle Lieferjob_IVehicle = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Mule, new Position(832.9737f, -2361.342f, 30), new Rotation(0,0,355));
+                IVehicle Lieferjob_IVehicle = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Mule, new Position(832.9737f, -2361.342f, 30), new Rotation(0, 0, 355));
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Lieferjob_IVehicle, -1);
                 anzeigen.Usefull.VnX.CreateCarGhostMode(player, 255, 102, 7500);
                 //Lieferjob_Vehicle.EngineOn = true;
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_MODEL, "Mule");
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_FACTION, 0);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PRICE, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKING, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKED, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_MODEL, "Mule");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FACTION, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PLATE, "VenoX");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PRICE, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKING, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
-                Core.VnX.IVehicleSetSharedBoolData(Lieferjob_IVehicle, EntityData.VEHICLE_NOT_SAVED, true);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>("kms", 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>("gas", 100);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
                 Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
             }
             catch
-            { 
+            {
 
             }
-        }       
-        
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////STAGE 3/////////////////////////////////////////////////////
 
@@ -219,39 +216,39 @@ namespace VenoXV.Reallife.jobs.Lieferrant
             {
                 // Die punkte abfragen!
                 dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
-                player.SetData("JOB_STAGE_TRANSPORTER_STARTED", 3);
+                player.vnxSetElementData<object>("JOB_STAGE_TRANSPORTER_STARTED", 3);
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();
                 Position Destination = AbgabepunkteLVLTHREE[random.Next(1, 5)];
 
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 2f);
-               dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
+                dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
-                JoB_Allround.JobAbgabeMarker.SetData(EntityData.PLAYER_IS_JOB_COL, true);
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData<object>(EntityData.PLAYER_IS_JOB_COL, true);
 
 
-                IVehicle Lieferjob_IVehicle = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(897.5522f, -2363.071f, 30.72711f), new Rotation(0,0,270));
+                IVehicle Lieferjob_IVehicle = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(897.5522f, -2363.071f, 30.72711f), new Rotation(0, 0, 270));
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Lieferjob_IVehicle, -1);
                 anzeigen.Usefull.VnX.CreateCarGhostMode(player, 255, 102, 7500);
 
                 //Lieferjob_Vehicle.EngineOn = true;
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_MODEL, "Mule");
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_FACTION, 0);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_PLATE, "VenoX");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PRICE, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKING, 0);
-                Core.VnX.IVehicleSetSharedINTData(Lieferjob_IVehicle, EntityData.VEHICLE_PARKED, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_MODEL, "Mule");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FACTION, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PLATE, "VenoX");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PRICE, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKING, 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_PARKED, 0);
 
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "kms", 0);
-                Core.VnX.VehiclevnxSetSharedData(Lieferjob_IVehicle, "gas", 100);
-                Core.VnX.IVehicleSetSharedStringData(Lieferjob_IVehicle, EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
-                Core.VnX.IVehicleSetSharedBoolData(Lieferjob_IVehicle, EntityData.VEHICLE_NOT_SAVED, true);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>("kms", 0);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>("gas", 100);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
+                Lieferjob_IVehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
 
                 Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
             }

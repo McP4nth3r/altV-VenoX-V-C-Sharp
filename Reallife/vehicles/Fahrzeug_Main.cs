@@ -25,7 +25,7 @@ namespace VenoXV.Reallife.Vehicles
                         return;
                     }
                     player.Emit("showIVehicleMenu");
-                    player.SetData("HideHUD", 1);
+                    player.vnxSetElementData<object>("HideHUD", 1);
                 }
                 else
                 {
@@ -41,7 +41,7 @@ namespace VenoXV.Reallife.Vehicles
                     else
                     {
                         player.Emit("showIVehicleMenu");
-                        player.SetData("HideHUD", 1);
+                        player.vnxSetElementData<object>("HideHUD", 1);
                     }
                     // Player.SendChatMessage("Du bist in keinem Fahrzeug! ");
                 }
@@ -61,7 +61,7 @@ namespace VenoXV.Reallife.Vehicles
                 else
                 {
                     player.Emit("showIVehicleMenu");
-                    player.SetData("HideHUD", 1);
+                    player.vnxSetElementData<object>("HideHUD", 1);
                 }
             }
             catch { }
@@ -71,7 +71,7 @@ namespace VenoXV.Reallife.Vehicles
         //[AltV.Net.ClientEvent("ResetIVehicleTimer")]
         public static void ResetIVehicleAktionsTimer(IPlayer player)
         {
-            player.SetData("vehinfos_done_cmd", false);
+            player.vnxSetElementData<object>("vehinfos_done_cmd", false);
         }
 
         [Command("vehinfos")]
@@ -125,7 +125,7 @@ namespace VenoXV.Reallife.Vehicles
 
                     }
                 }
-                player.SetData("vehinfos_done_cmd", true);
+                player.vnxSetElementData<object>("vehinfos_done_cmd", true);
                 player.SendChatMessage("---------------------------------------");
             }
             catch { }
@@ -169,7 +169,7 @@ namespace VenoXV.Reallife.Vehicles
                         }
                     }
                 }
-                //Player.SetData("HideHUD", 0);
+                //player.vnxSetElementData<object>("HideHUD", 0);
             }
             catch { }
         }
@@ -189,9 +189,9 @@ namespace VenoXV.Reallife.Vehicles
                         Vehicle.position = player.Vehicle.Position;
                         Vehicle.rotation = player.Vehicle.Rotation;
                         Vehicle.id = player.Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
-                        Core.VnX.IVehicleSetSharedPositionData(player.Vehicle, EntityData.VEHICLE_POSITION, Vehicle.position);
+                        player.Vehicle.vnxSetSharedElementData<object>(EntityData.VEHICLE_POSITION, Vehicle.position);
                         player.Vehicle.SetSyncedMetaData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
-                        player.Vehicle.SetData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
+                        player.Vehicle.vnxSetElementData<object>(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
                         // Update the IVehicle's position into the database
                         Database.UpdateIVehiclePosition(Vehicle);
                         player.SendChatMessage("~g~Du hast dein Fahrzeug hier geparkt.");
@@ -205,7 +205,7 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     player.SendChatMessage("~r~Dafür musst du im Fahrzeug sitzen!");
                 }
-                player.SetData("HideHUD", 0);
+                player.vnxSetElementData<object>("HideHUD", 0);
             }
             catch { }
         }
@@ -230,7 +230,7 @@ namespace VenoXV.Reallife.Vehicles
                             localIVehicle.Repair();
                             localIVehicle.Position = localVehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
                             localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                            Player.SetData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
                             Core.VnX.VehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
                             Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
@@ -260,7 +260,7 @@ namespace VenoXV.Reallife.Vehicles
                                 localIVehicle.Repair();
                                 localIVehicle.Position = localVehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
                                 localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                                Core.VnX.vnxSetSharedData(Player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                                player.vnxSetSharedElementData<object>( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
                                 Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                             }
                             else
@@ -274,7 +274,7 @@ namespace VenoXV.Reallife.Vehicles
                         }
                     }
                 }
-                Player.SetData("HideHUD", 0);
+                player.vnxSetElementData<object>("HideHUD", 0);
             }
             catch { }
         }
@@ -296,8 +296,8 @@ namespace VenoXV.Reallife.Vehicles
                             IVehicle.Position = Vehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
                             IVehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
                             Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_DIMENSION);
-                            Core.VnX.VehiclevnxSetSharedData(Vehicle,"VEHICLE_HEALTH_SERVER", 1000);
-                            Core.VnX.vnxSetSharedData(player, Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                            Vehicle.vnxSetSharedElementData<object>("VEHICLE_HEALTH_SERVER", 1000);
+                            player.vnxSetSharedElementData<object>( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
                             player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
                         else
@@ -338,7 +338,7 @@ namespace VenoXV.Reallife.Vehicles
                         player.SendChatMessage( "{0096c8}Tunings: ");
                     }
 
-                    Player.SetData("HideHUD", 0);
+                    player.vnxSetElementData<object>("HideHUD", 0);
                 }
             }
             catch { }
@@ -404,7 +404,7 @@ namespace VenoXV.Reallife.Vehicles
                         }
                     }
 
-                    Player.SetData("HideHUD", 0);
+                    player.vnxSetElementData<object>("HideHUD", 0);
                 }
             }
             catch { }
@@ -415,7 +415,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                player.SetData("HideHUD", 0);
+                player.vnxSetElementData<object>("HideHUD", 0);
             }
             catch { }
         }

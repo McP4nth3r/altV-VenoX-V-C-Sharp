@@ -1,7 +1,5 @@
 ﻿using AltV.Net;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VenoXV.Core
 {
@@ -21,8 +19,8 @@ namespace VenoXV.Core
         public static void CatchExceptions(string FunctionName, Exception ex)
         {
             if (!DEBUG_MODE_ENABLED) { return; }
-            Console.WriteLine("[EXCEPTION "+ FunctionName+ "] " + ex.Message);
-            Console.WriteLine("[EXCEPTION "+ FunctionName+ "] " + ex.StackTrace);
+            Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.Message);
+            Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
         }
     }
 }

@@ -207,7 +207,7 @@ namespace VenoXV.Reallife.business
                     int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
 
 
-                    player.SetData(EntityData.PLAYER_MONEY, playerMoney - price);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_MONEY, playerMoney - price);
 
                     Main.UndressClothes(playerId, clothesModel.type, clothesModel.slot);
 

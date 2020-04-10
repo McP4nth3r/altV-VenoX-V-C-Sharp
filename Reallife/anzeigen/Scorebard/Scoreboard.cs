@@ -236,7 +236,8 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 string playerping = Spieler.Ping.ToString();
                 SpielerListe.FID = -2;
 
-                SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                //SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                SpielerListe.SpielerName = Spieler?.Name;
                 SpielerListe.Spielzeit = "-";
                 SpielerListe.SpielzeitTactics = "-";
                 SpielerListe.SozialerStatus = "Lobby";
@@ -269,17 +270,17 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 foreach (IPlayer Spieler in Alt.GetAllPlayers())
                 {
                     SpielerListe = new ScoreboardModel();
-                    if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
+                    switch (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE))
                     {
-                        DrawTacticScoreboard(Spieler);
-                    }
-                    else if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
-                    {
-                        DrawReallifeScoreboard(Spieler);
-                    }
-                    else if (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_NONE)
-                    {
-                        DrawLobbyScoreboard(Spieler);
+                        case VenoXV.Globals.EntityData.GAMEMODE_TACTICS:
+                            DrawTacticScoreboard(Spieler);
+                            break;
+                        case VenoXV.Globals.EntityData.GAMEMODE_REALLIFE:
+                            DrawReallifeScoreboard(Spieler);
+                            break;
+                        case VenoXV.Globals.EntityData.GAMEMODE_NONE:
+                            DrawLobbyScoreboard(Spieler);
+                            break;
                     }
                     SpielerLi.Add(SpielerListe);
                 }

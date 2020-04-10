@@ -1,8 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
 using VenoXV.Reallife.model;
 
@@ -11,7 +9,7 @@ namespace VenoXV.Globals
     public class Functions : IScript
     {
         public static List<BlipModel> BlipList = new List<BlipModel>();
-        
+
         public static bool IstargetInSameLobby(IPlayer player, IPlayer target)
         {
             try

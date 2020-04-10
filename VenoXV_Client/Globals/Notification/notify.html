@@ -16,6 +16,9 @@
 				document.getElementById('audio_hitsound').currentTime = 0;
 				document.getElementById('audio_hitsound').play();
 			});
+			alt.on('Notify:BloodScreen', () => {
+				showBloodscreen();
+			});
 			alt.on("Notify:Create", (e, v) => {
 				if (counter == 0) {
 					if (e == 0) {
@@ -194,6 +197,7 @@
 
 <body onload="loadSoundTablesNotify()">
 	<div class="all">
+		<img id="blood_in_vnx" src="files/images/bloodscreen.png"></img>
 		<div class="content d-none" id="showinfo">
 			<center>
 				<div class="content_header_text" id="header_value"></div>
@@ -296,4 +300,28 @@
 
 		<audio id="audio_hitsound" src="./files/audio/hit.wav" class="d-none" controls="controls"></audio>
 	</div>
+
+	<script>
+		let bloodscreen = $("#blood_in_vnx");
+		let bloodscreenTimeout;
+
+		function showBloodscreen() {
+			if (bloodscreenTimeout) {
+				clearTimeout(bloodscreenTimeout);
+				let dom = bloodscreen.get()[0];
+				dom.style.animation = "none";
+				dom.offsetHeight;
+				dom.style.animation = "fadeout_blood 2.5s";
+			} else {
+				bloodscreen.css({
+					"display": "block",
+					"animation": "fadeout_blood 2.5s"
+				});
+			}
+			bloodscreenTimeout = setTimeout(function () {
+				bloodscreen.css("display", "none");
+				bloodscreenTimeout = null;
+			}, 2500);
+		}
+	</script>
 </body>

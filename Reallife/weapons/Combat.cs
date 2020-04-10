@@ -121,7 +121,7 @@ namespace VenoXV.Reallife.weapons
                             if (WeaponHash == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == BONE_HEAD)
                             {
                                 target.Health = 0;
-                                target.SetData("PLAYER_GOT_HITTED", true);
+                                target.vnxSetElementData<object>("PLAYER_GOT_HITTED", true);
                                 Core.VnX.SetDelayedBoolSharedData(target, "PLAYER_GOT_HITTED", false, 30000);
                                 player.Emit("log_dmg_ped", target, currentWeapon, 200);
                                 if (target.Health <= 0)
@@ -172,7 +172,7 @@ namespace VenoXV.Reallife.weapons
                                         gangwar.Allround.ProcessKill(player, target);
                                     }
                                     player.Emit("log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
-                                    target.SetData("PLAYER_GOT_HITTED", true);
+                                    target.vnxSetElementData<object>("PLAYER_GOT_HITTED", true);
                                     Core.VnX.SetDelayedBoolSharedData(target, "PLAYER_GOT_HITTED", false, 30000);
                                 }
                                 Core.VnX.UpdateHUDArmorHealth(target);

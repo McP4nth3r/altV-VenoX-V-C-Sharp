@@ -34,7 +34,7 @@ namespace VenoXV.Reallife.jobs
                         || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>()
                         )
                         {
-                            player.SetData(EntityData.PLAYER_IS_IN_JOB, false);
+                            player.vnxSetElementData<object>(EntityData.PLAYER_IS_IN_JOB, false);
                             dxLibary.VnX.DestroyRadarElement(player, "Blip");
                             dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Job beendet!");
@@ -96,21 +96,21 @@ namespace VenoXV.Reallife.jobs
                                 AltV.Net.Alt.RemoveColShape(shape);
                                 int stage = player.vnxGetElementData<int>("JOB_STAGE_TRANSPORTER_STARTED");
                                 Lieferrant.Lieferrant.TriggerToNextJobMarker(player, stage);
-                                player.SetData("JOB_MARKER_ABGEGEBEN", true);
+                                player.vnxSetElementData<object>("JOB_MARKER_ABGEGEBEN", true);
                                 Core.VnX.SetDelayedBoolSharedData(player, "JOB_MARKER_ABGEGEBEN", false, 3000);
                                 if (stage == 1)
                                 {
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 85);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 85);
                                     player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 85 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 else if (stage == 2)
                                 {
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 265);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 265);
                                     player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 265 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 else if (stage == 3)
                                 {
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 425);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 425);
                                     player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,200,255) + " 425 $ " + RageAPI.GetHexColorcode(255,255,255) + "Bekommen.");
                                 }
                                 return;
@@ -118,17 +118,17 @@ namespace VenoXV.Reallife.jobs
                             else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT)
                             {
                                 int JOB_STAGE = player.vnxGetElementData<int>("JOB_STAGE_LVL_AIRPORT");
-                                player.SetData("JOB_MARKER_ABGEGEBEN", true);
+                                player.vnxSetElementData<object>("JOB_MARKER_ABGEGEBEN", true);
                                 Core.VnX.SetDelayedBoolSharedData(player, "JOB_MARKER_ABGEGEBEN", false, 3000);
                                 if (JOB_STAGE == 1)
                                 {
                                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 350);
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 2 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 350 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 2);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 2);
                                    // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }
@@ -137,10 +137,10 @@ namespace VenoXV.Reallife.jobs
                                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 450);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 450);
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 4 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 450 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 4);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 4);
                                    // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }
@@ -149,10 +149,10 @@ namespace VenoXV.Reallife.jobs
                                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     AltV.Net.Alt.RemoveColShape(shape);
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 575);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + 575);
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Danke! Die Passagiere sind sicher gelandet! Du erhältst 6 Punkte.");
                                     player.SendChatMessage( "Auftrag abgeschlossen! Du erhälst " + RageAPI.GetHexColorcode(0,200,255) + " 575 " + RageAPI.GetHexColorcode(255,255,255) + "$!");
-                                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 6);
+                                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_AIRPORTJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL) + 6);
                                    // player.WarpOutOfVehicle<bool>();
                                     return;
                                 }

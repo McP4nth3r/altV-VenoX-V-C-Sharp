@@ -179,10 +179,10 @@ namespace VenoXV.Reallife.Fun
                         AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                         Allround.ChangeAktionsState(true);
                         IColShape Kokaintruck_Col_Abgabe = Alt.CreateColShapeSphere(new Position(2536.999f, 2578.391f, 0), 3f);
-                        Kokaintruck_Col_Abgabe.SetData("AKTION_COL", true);
+                        Kokaintruck_Col_Abgabe.vnxSetElementData<object>("AKTION_COL", true);
                         RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
                         player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
-                        Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, playermoney - kokskosten);
+                        player.vnxSetSharedElementData<object>(EntityData.PLAYER_MONEY, playermoney - kokskosten);
 
                         IVehicle Kokaintruckveh = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0));
                         //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Kokaintruckveh, -1);
@@ -192,8 +192,8 @@ namespace VenoXV.Reallife.Fun
                         Kokaintruckveh.EngineOn = true;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_MODEL, "Kokaintruck");
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
-                        Core.VnX.VehiclevnxSetSharedData(Kokaintruckveh, "kms", 0);
-                        Core.VnX.VehiclevnxSetSharedData(Kokaintruckveh, "gas", 100);
+                        Kokaintruckveh.vnxSetSharedElementData<object>("kms", 0);
+                        Kokaintruckveh.vnxSetSharedElementData<object>("gas", 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_NOT_SAVED, true);
                         foreach (IPlayer target in Alt.GetAllPlayers())

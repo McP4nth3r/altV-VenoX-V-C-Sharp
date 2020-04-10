@@ -4,7 +4,6 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
-using VenoXV.Reallife.anzeigen.Usefull;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
@@ -53,7 +52,7 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public void Update(IPlayer player)
         {
-           // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
+            // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
@@ -66,11 +65,11 @@ namespace VenoXV.Reallife.gangwar.v2
                 //ToDo Create Marker NAPI.Marker.CreateMarker(3, this.TK, new Position(0, 0, 0), new Position(0, 0, 0), 0.75f, new Rgba(200, 200, 200, 150), true, 0);
 
                 RageAPI.CreateTextLabel("TK", new Position(this.TK.X, this.TK.Y, this.TK.Z + 0.13f), 20.0f, 2f, 4, new int[] { 0, 150, 200, 255 });
-                this.TKIColShape.SetData(gangwar.v2.GangwarManager.TKType, true);
+                this.TKIColShape.vnxSetElementData<object>(gangwar.v2.GangwarManager.TKType, true);
 
                 /* GANGWAR GEBIET */
                 this.AreaIColShape = Alt.CreateColShapeSphere(this.Position, this.Radius);
-                this.AreaIColShape.SetData(gangwar.v2.GangwarManager.AreaType, true);
+                this.AreaIColShape.vnxSetElementData<object>(gangwar.v2.GangwarManager.AreaType, true);
             }
             catch { }
         }
@@ -118,7 +117,7 @@ namespace VenoXV.Reallife.gangwar.v2
         {
             return DateTime.Now - this.Cooldown;
         }
-        
+
         public void Inform(IPlayer player)
         {
             string Gang_Rgba_Chat = factions.FactionChat.GetFactionRgba(this.IDOwner);
@@ -129,9 +128,9 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public Rgba GangwarIVehicleRgbas(int factionId)
         {
-            switch(factionId)
+            switch (factionId)
             {
-                case Constants.FACTION_COSANOSTRA: return new Rgba(80, 80, 80,255);
+                case Constants.FACTION_COSANOSTRA: return new Rgba(80, 80, 80, 255);
                 case Constants.FACTION_YAKUZA: return new Rgba(100, 0, 0, 255);
                 case Constants.FACTION_MS13: return new Rgba(225, 225, 0, 255);
                 case Constants.FACTION_SAMCRO: return new Rgba(100, 50, 100, 255);
@@ -155,20 +154,20 @@ namespace VenoXV.Reallife.gangwar.v2
                 foreach (var veh in this.IVehicles)
                 {
                     veh.EngineOn = true;
-                    veh.SetData(EntityData.VEHICLE_MODEL, "burrito3");
-                    veh.SetData(EntityData.VEHICLE_FACTION, 0);
-                    veh.SetData(EntityData.VEHICLE_OWNER, "GANGWAR");
-                    veh.SetData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    veh.SetData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    veh.SetData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    veh.SetData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    veh.SetData(EntityData.VEHICLE_PRICE, 0);
-                    veh.SetData(EntityData.VEHICLE_PARKING, 0);
-                    veh.SetData(EntityData.VEHICLE_PARKED, 0);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_MODEL, "burrito3");
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_FACTION, 0);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_OWNER, "GANGWAR");
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_PRICE, 0);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_PARKING, 0);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_PARKED, 0);
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
-                    Core.VnX.VehiclevnxSetSharedData(veh, "kms", 0);
-                    Core.VnX.VehiclevnxSetSharedData(veh, "gas", 100);
-                    veh.SetData(EntityData.VEHICLE_NOT_SAVED, true);
+                    veh.vnxSetSharedElementData<object>("kms", 0);
+                    veh.vnxSetSharedElementData<object>("gas", 100);
+                    veh.vnxSetElementData<object>(EntityData.VEHICLE_NOT_SAVED, true);
                     veh.Dimension = GangwarManager.GW_DIM;
                 }
             }

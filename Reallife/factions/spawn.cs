@@ -28,7 +28,7 @@ namespace VenoXV.Reallife.factions
                 AntiCheat_Allround.SetTimeOutHealth(player, 1000);
 
                 player.Spawn(player.Position);
-                player.SetData(EntityData.PLAYER_KILLED, 0);
+                player.vnxSetElementData<object>(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
                 {
                     player.SendChatMessage( "------------" + RageAPI.GetHexColorcode(0,200,255) + " EVENT INFORMATION" + RageAPI.GetHexColorcode(255,255,255) + "------------");
@@ -36,10 +36,10 @@ namespace VenoXV.Reallife.factions
                     player.SendChatMessage( "Abgesehen davon gibt es " + RageAPI.GetHexColorcode(0,150,200) + "125.000$ " + RageAPI.GetHexColorcode(255,255,255) + " + FREE VIP UPGRADE bei unserem Quest System.");
                     player.SendChatMessage( "Du willst neue Freunde finden? Dann trete heute noch einer " + RageAPI.GetHexColorcode(0,150,200) + "Fraktion " + RageAPI.GetHexColorcode(255,255,255) + "bei!");
                     player.SendChatMessage( "------------" + RageAPI.GetHexColorcode(0,200,255) + " EVENT INFORMATION" + RageAPI.GetHexColorcode(255,255,255) + "------------");
-                    Core.VnX.vnxSetSharedData(player, "EVENTINFOGOTVNX", 1);
+                    player.vnxSetSharedElementData<object>( "EVENTINFOGOTVNX", 1);
                     Core.VnX.SetDelayedINTSharedData(player, "EVENTINFOGOTVNX", 0, 2000);
                 }*/
-                Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_HUNGER, 100);
+                player.vnxSetSharedElementData<object>( EntityData.PLAYER_HUNGER, 100);
                 AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 player.Emit("start_screen_fx", "RaceTurbo", 2000, false);
                 dxLibary.VnX.CreateDiscordUpdate(player, "Spawnt auf VenoX", "VenoX - Reallife");
@@ -59,10 +59,10 @@ namespace VenoXV.Reallife.factions
                     {
                         player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du bist noch " + PrisonTime + " Minuten im Prison!");
                         player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund : " + Grund);
-                        player.SetData(EntityData.PLAYER_PRISON_TIME, PrisonTime);
-                        player.SetData(EntityData.PLAYER_PRISON_GRUND, Grund);
-                        player.SetData(EntityData.PLAYER_PRISON_VONADMIN, AdminVon);
-                        player.SetData(EntityData.PLAYER_PRISON_ErstelltVon, ErstelltAm);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_PRISON_TIME, PrisonTime);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_PRISON_GRUND, Grund);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_PRISON_VONADMIN, AdminVon);
+                        player.vnxSetElementData<object>(EntityData.PLAYER_PRISON_ErstelltVon, ErstelltAm);
                         player.Dimension = 0;
                         player.Position = new Position(1651.441f, 2569.83f, 45.56486f);
                         anzeigen.Usefull.VnX.RemoveAllWeapons(player);
@@ -261,7 +261,7 @@ namespace VenoXV.Reallife.factions
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;
                     player.Position = Constants.JAIL_SPAWNS[random.Next(3)];
-                    player.SetData(EntityData.PLAYER_HANDCUFFED, false);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_HANDCUFFED, false);
                     player.Emit("toggleHandcuffed", false);
                     return;
                 }
@@ -354,8 +354,8 @@ namespace VenoXV.Reallife.factions
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                                 player.Position = Main.GetHouseIplExit(house.ipl);
                                 player.Dimension = house.id;
-                                player.SetData(EntityData.PLAYER_IPL, house.ipl);
-                                player.SetData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
+                                player.vnxSetElementData<object>(EntityData.PLAYER_IPL, house.ipl);
+                                player.vnxSetElementData<object>(EntityData.PLAYER_HOUSE_ENTERED, house.id);
                             }
                         }
                     }

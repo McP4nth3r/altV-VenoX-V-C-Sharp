@@ -18,6 +18,11 @@ alt.onServer('Globals:PlayHitsound', () => {
     VnXTM = Date.now() / 1000;
 });
 
+alt.onServer('Globals:ShowBloodScreen', () => {
+    browser_1.emit('Notify:BloodScreen');
+    alt.log("Bloodscreen got called");
+});
+
 
 var VnXTM = 0;
 export function RenderHitMarker() {

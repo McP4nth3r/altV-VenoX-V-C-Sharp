@@ -34,7 +34,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                     if (type == "SWT")
                     {
                         LSPD_COL = Alt.CreateColShapeSphere(new Position(479.4737f, -1020.995f, 27.74058f), 2f);
-                        LSPD_COL.SetData("WT_COL_FACTION", Constants.FACTION_POLICE);
+                        LSPD_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_POLICE);
                         //LSPD_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(479.4737f, -1020.995f, 27.74058f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
                         CURRENT_WEAPONTRUCK = "Staatswaffentruck";
                     }
@@ -42,27 +42,27 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                     {
                         CURRENT_WEAPONTRUCK = "Waffentruck";
                         MAFIA_COL = Alt.CreateColShapeSphere(new Position(-1045.836f, 209.3303f, 63.32611f), 2f);
-                        MAFIA_COL.SetData("WT_COL_FACTION", Constants.FACTION_COSANOSTRA);
+                        MAFIA_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_COSANOSTRA);
                         //LCN_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-1045.836f, 209.3303f, 63.32611f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                         YAKUZA_COL = Alt.CreateColShapeSphere(new Position(-1463.687f, 886.5746f, 183.0481f), 2f);
-                        YAKUZA_COL.SetData("WT_COL_FACTION", Constants.FACTION_YAKUZA);
+                        YAKUZA_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_YAKUZA);
                         //YAKUZA_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-1463.687, 886.5746, 183.0481), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                         VATOSLOCOS_COL = Alt.CreateColShapeSphere(new Position(890.6336f, -1079.333f, 30.53848f), 2f);
-                        VATOSLOCOS_COL.SetData("WT_COL_FACTION", Constants.FACTION_MS13);
+                        VATOSLOCOS_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_MS13);
                         //VL_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(890.6336f, -1079.333f, 30.53848f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                         AOD_COL = Alt.CreateColShapeSphere(new Position(533.7743f, -179.3259f, 54.38534f), 2f);
-                        AOD_COL.SetData("WT_COL_FACTION", Constants.FACTION_SAMCRO);
+                        AOD_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_SAMCRO);
                         //AOD_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(533.7743f, -179.3259f, 54.38534f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                         BALLAS_COL = Alt.CreateColShapeSphere(new Position(271.0188f, -2091.159f, 16.44794f), 2f);
-                        BALLAS_COL.SetData("WT_COL_FACTION", Constants.FACTION_BALLAS);
+                        BALLAS_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_BALLAS);
                         //BALLAS_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(271.0188f, -2091.159f, 16.44794f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                         COMPTON_COL = Alt.CreateColShapeSphere(new Position(103.1415f, -1939.005f, 20.80372f), 2f);
-                        COMPTON_COL.SetData("WT_COL_FACTION", Constants.FACTION_GROVE);
+                        COMPTON_COL.vnxSetElementData<object>("WT_COL_FACTION", Constants.FACTION_GROVE);
                         //COMPTON_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(103.1415f, -1939.005f, 20.80372f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
                     }

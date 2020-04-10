@@ -16,56 +16,56 @@ namespace VenoXV.Reallife.factions
         {
             /*
             IColShape fkassencolLSPD = Alt.CreateColShapeSphere(new Position(452.5833f, -982.6306f, 30.68959f), 1);
-            fkassencolLSPD.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_POLICE);
+            fkassencolLSPD.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_POLICE);
             //////////////////////////////      
             IColShape fkassencolLCN = Alt.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_COSANOSTRA));
-            fkassencolLCN.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
+            fkassencolLCN.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(40, 40, 40), true, fkassencolLCN.Dimension);
             //////////////////////////////      
             ///
             /// //////////////////////////////      
             IColShape fkassencolYAKUZA = Alt.CreateColShapeSphere(new Position(345.3037f, -995.8774f, 1, 0.3f, Constants.FACTION_YAKUZA));
-            fkassencolYAKUZA.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
+            fkassencolYAKUZA.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(345.3037f, -995.8774f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fkassencolYAKUZA.Dimension);
             //////////////////////////////
             ///
 
             IColShape fkassencolBallas = Alt.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_BALLAS));
-            fkassencolBallas.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            fkassencolBallas.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(138, 43, 226), true, fkassencolBallas.Dimension);
             //////////////////////////////
             IColShape fkassencolCompton = Alt.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_GROVE));
-            fkassencolCompton.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
+            fkassencolCompton.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(0, 152, 0), true, fkassencolCompton.Dimension);
             //////////////////////////////      
             ///
             ////////////////////////////////
             IColShape fkassencolMS13 = Alt.CreateColShapeSphere(new Position(-1287.002f, 456.257f, 1, 0.3f, Constants.FACTION_MS13));
-            fkassencolMS13.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
+            fkassencolMS13.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(-1287.002f, 456.257f, 90.29469f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolMS13.Dimension);
             //////////////////////////////            
             /////////////////////////////////// 
             IColShape fkassencolSAMCRO = Alt.CreateColShapeSphere(new Position(971.9218f, -98.68291f, 1, 0.3f, Constants.FACTION_SAMCRO));
-            fkassencolSAMCRO.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            fkassencolSAMCRO.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(971.9218f, -98.68291f, 74.84641f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolSAMCRO.Dimension);
             //////////////////////////////     */
 
 
             ///////////////////////////////////
             IColShape fkassencolNEWS = Alt.CreateColShapeSphere(new Position(-537.0566f, -886.5463f, 25.20651f), 2);
-            fkassencolNEWS.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fkassencolNEWS.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
             Core.RageAPI.CreateTextLabel("News - Kasse", new Position(-537.0566f, -886.5463f, 25.20651f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 });
             //////////////////////////////      
             //////////////////////////////////////
             IColShape fskincolNEWS = Alt.CreateColShapeSphere(new Position(-575.1335f, -939.9796f, 23.8616f), 2);
-            fskincolNEWS.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
-            fskincolNEWS.SetData("NEUTRALMARKER", true);
+            fskincolNEWS.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fskincolNEWS.vnxSetElementData<object>("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(-575.1335f, -939.9796f, 23.8616f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 }, fskincolNEWS.Dimension);
             //////////////////////////////               
             /////////////////////////////////////////
             IColShape fskincolMEDIC = Alt.CreateColShapeSphere(new Position(326.3686f, -559.8064f, 28.74379f), 2);
-            fskincolMEDIC.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
-            fskincolMEDIC.SetData("NEUTRALMARKER", true);
+            fskincolMEDIC.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
+            fskincolMEDIC.vnxSetElementData<object>("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(326.3686f, -559.8064f, 28.74379f), 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolMEDIC.Dimension);
             //////////////////////////////            
 
@@ -76,41 +76,41 @@ namespace VenoXV.Reallife.factions
             /*
             //////////////////////////////      
             IColShape fskincolLCN = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_COSANOSTRA));
-            fskincolLCN.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
-            fskincolLCN.SetData("GANGSKINMARKER", true);
+            fskincolLCN.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
+            fskincolLCN.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(40, 40, 40), true, fkassencolLCN.Dimension);
             //////////////////////////////       
             ///
             /// //////////////////////////////      
             IColShape fskincolYAKUZA = Alt.CreateColShapeSphere(new Position(344.0552f, -1003.21f, 1, 0.3f, Constants.FACTION_YAKUZA));
-            fskincolYAKUZA.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
-            fskincolYAKUZA.SetData("GANGSKINMARKER", true);
+            fskincolYAKUZA.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
+            fskincolYAKUZA.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(344.0552f, -1003.21f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fskincolYAKUZA.Dimension);
            
             //////////////////////////////
             IColShape fskincolBallas = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_BALLAS));
-            fskincolBallas.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
-            fskincolBallas.SetData("GANGSKINMARKER", true);
+            fskincolBallas.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            fskincolBallas.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(138, 43, 226), true, fkassencolBallas.Dimension);
             //////////////////////////////
             IColShape fskincolCompton = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_GROVE));
-            fskincolCompton.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
-            fskincolCompton.SetData("GANGSKINMARKER", true);
+            fskincolCompton.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
+            fskincolCompton.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(0, 152, 0), true, fkassencolCompton.Dimension);
             //////////////////////////////      
 
 
             ////////////////////////////////
             IColShape fskincolMS13 = Alt.CreateColShapeSphere(new Position(-1285.856f, 446.7924f, 1, 0.3f, Constants.FACTION_MS13));
-            fskincolMS13.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
-            fskincolMS13.SetData("GANGSKINMARKER", true);
+            fskincolMS13.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
+            fskincolMS13.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(-1285.856f, 446.7924f, 97.89468f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolMS13.Dimension);
             ////////////////////////////// 
             ///
             /// ////////////////////////////////
             IColShape fskincolSAMCRO = Alt.CreateColShapeSphere(new Position(983.1344f, -98.7942f, 1, 0.3f, Constants.FACTION_SAMCRO));
-            fskincolSAMCRO.SetData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
-            fskincolSAMCRO.SetData("GANGSKINMARKER", true);
+            fskincolSAMCRO.vnxSetElementData<object>(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            fskincolSAMCRO.vnxSetElementData<object>("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(983.1344, -98.7942, 74.84556), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fskincolSAMCRO.Dimension);
             //////////////////////////////*/
 
@@ -311,7 +311,7 @@ namespace VenoXV.Reallife.factions
                         else
                         {
                             finalwertmoney = fkasse.money + money;
-                            Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - money);
+                            player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - money);
                         }
                     }
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.GetVnXName<string>() + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats ins Depot gelegt!");
@@ -354,7 +354,7 @@ namespace VenoXV.Reallife.factions
                     int finalwertkoks = fkasse.koks - koks;
                     int finalwertmats = fkasse.mats - mats;
                     player.Emit("destroyFkassenWindow");
-                    Core.VnX.vnxSetSharedData(player, EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + money);
+                    player.vnxSetSharedElementData<object>( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + money);
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.GetVnXName<string>() + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.GetVnXName<string>() + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats aus dem Depot genommen!");
