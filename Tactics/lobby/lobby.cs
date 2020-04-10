@@ -55,18 +55,18 @@ namespace VenoXV.Tactics.Lobby
         }
         private static void InitializePlayerSavedData(IPlayer player)
         {
-            player.SetData(EntityData.PLAYER_CURRENT_STREAK, 0); // ToDo : Load by Database.
+            player.vnxSetElementData<object>(EntityData.PLAYER_CURRENT_STREAK, 0); // ToDo : Load by Database.
         }
         private static void InitializePlayerData(IPlayer player)
         {
-            player.SetData(EntityData.PLAYER_JOINED_TACTICS, true);
-            player.SetData(EntityData.PLAYER_DAMAGE_DONE, 0);
-            player.SetData(EntityData.PLAYER_KILLED_PLAYERS, 0);
-            player.SetData(EntityData.PLAYER_LEFT_ROUND, false);
-            player.SetData(EntityData.PLAYER_DISCONNECTED_ROUND, false);
-            player.SetData(EntityData.PLAYER_IS_DEAD, false);
-            player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, false);
-            player.SetData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
+            player.vnxSetElementData<object>(EntityData.PLAYER_JOINED_TACTICS, true);
+            player.vnxSetElementData<object>(EntityData.PLAYER_DAMAGE_DONE, 0);
+            player.vnxSetElementData<object>(EntityData.PLAYER_KILLED_PLAYERS, 0);
+            player.vnxSetElementData<object>(EntityData.PLAYER_LEFT_ROUND, false);
+            player.vnxSetElementData<object>(EntityData.PLAYER_DISCONNECTED_ROUND, false);
+            player.vnxSetElementData<object>(EntityData.PLAYER_IS_DEAD, false);
+            player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNED_TACTICS, false);
+            player.vnxSetElementData<object>(EntityData.PLAYER_CURRENT_TEAM, "NULL");
             player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
             RageAPI.SetPlayerVisible(player, true);
         }
@@ -154,8 +154,8 @@ namespace VenoXV.Tactics.Lobby
                     Vector3 Spawnpunkt = CurrentMap.Team_B_Spawnpoints[randomspawnpoint];
                     player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_B_Skin);
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
-                    player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
-                    player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNED_TACTICS, true);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
@@ -166,8 +166,8 @@ namespace VenoXV.Tactics.Lobby
                     Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
                     player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_A_Skin);
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
-                    player.SetData(EntityData.PLAYER_SPAWNED_TACTICS, true);
-                    player.SetData(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_SPAWNED_TACTICS, true);
+                    player.vnxSetElementData<object>(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
@@ -188,7 +188,6 @@ namespace VenoXV.Tactics.Lobby
                 TacticVehicleList.Add(vehicle);
             }
         }
-
         public static void PutPlayerInTeam(IPlayer player)
         {
             try
@@ -233,8 +232,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch { }
         }
-
-
         public static void StartNewTacticRound()
         {
             try
@@ -266,12 +263,11 @@ namespace VenoXV.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
-
         public static void OnPlayerDisconnect(IPlayer player, string type, string reason)
         {
             try
             {
-                player.SetData(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
+                player.vnxSetElementData<object>(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
@@ -306,7 +302,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch { }
         }
-
         public static void OnSelectedTacticsGM(IPlayer player)
         {
             try
@@ -337,7 +332,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedTacticsGM", ex); }
         }
-
         public static void SyncTime()
         {
             try
@@ -353,7 +347,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch { }
         }
-
         public static void SyncStats()
         {
             try
@@ -368,7 +361,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch { }
         }
-
         public static void SyncPlayerStats()
         {
             try
@@ -401,8 +393,6 @@ namespace VenoXV.Tactics.Lobby
             }
             catch { }
         }
-
-
         public static void OnUpdate()
         {
             try
