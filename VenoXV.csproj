@@ -14,8 +14,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="internationalization\**" />
+    <Compile Remove="[Globals]\Models\**" />
     <EmbeddedResource Remove="internationalization\**" />
+    <EmbeddedResource Remove="[Globals]\Models\**" />
     <None Remove="internationalization\**" />
+    <None Remove="[Globals]\Models\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AltV.Net" Version="1.29.0" />
@@ -41,8 +44,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Globals\Models\" />
   </ItemGroup>
 </Project>
