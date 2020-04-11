@@ -332,7 +332,7 @@ export function RenderHUDs() {
 		if (isGW) { drawGW(); }
 
 		let waffe = game.getSelectedPedWeapon(player.scriptID);
-		let ammo = game.getAmmoInClip(player.scriptID, waffe);
+		let ammo = "" + game.getAmmoInPedWeapon(player.scriptID, waffe);
 		var weapon = GetWeaponData(waffe, "Name");
 		if (weapon == "Tazer" || weapon == "Schlagstock" || weapon == "Taschenlampe") { ammo = "-" };
 		if (weapon != "unbewaffnet" && weapon != undefined) {
