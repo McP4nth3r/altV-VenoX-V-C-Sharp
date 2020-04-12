@@ -36,14 +36,16 @@ namespace VenoXV.Reallife.gangwar.v2
         public List<GangwarArea> GangwarAreas { get; set; }
         public GangwarArea currentArea { get; set; }
         public int attacksCount { get; set; }
-        public DateTime resetTime; 
+        public DateTime resetTime;
+        public static bool DatabaseConnectionCreated = false;
 
-        public GangwarManager() {
+        public GangwarManager()
+        {
             currentArea = null;
             GangwarAreas = new List<GangwarArea>();
             resetTime = DateTime.Today.AddDays(1);
             attacksCount = 0;
-            fetchAreas();
+            if (DatabaseConnectionCreated) { fetchAreas(); }
         }
 
         public void fetchAreas()
@@ -98,7 +100,7 @@ namespace VenoXV.Reallife.gangwar.v2
             try
             {
                 //if (this.currentArea != null)
-                    //this.currentArea.GetCurrentRound().ProcessDamage(source, target.vnxGetElementData<int>( damage);
+                //this.currentArea.GetCurrentRound().ProcessDamage(source, target.vnxGetElementData<int>( damage);
             }
             catch { }
         }
