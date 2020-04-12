@@ -1,23 +1,18 @@
-﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
+﻿using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Core;
 
 namespace VenoXV.Tactics.Globals
 {
-    public class Functions : IScript
+    public class Functions
     {
         public static void SendTacticRoundMessage(string text)
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (IPlayer players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        players.SendChatMessage(text);
-                    }
+                    players?.SendChatMessage(text);
                 }
             }
             catch { }
