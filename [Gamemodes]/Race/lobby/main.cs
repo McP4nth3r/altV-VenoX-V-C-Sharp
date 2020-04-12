@@ -28,11 +28,22 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static DateTime RACE_WILL_END = DateTime.Now;
         public static MapModel LastMap = new MapModel();
         public static MapModel CurrentMap;
-        private static void StartNewRound()
+
+        private static void DeleteAllRaceVehicles()
+        {
+            foreach (VehicleModel vehClass in RaceVehicles)
+            {
+                if (vehClass.vehicle.Exists) { vehClass.vehicle.Remove(); }
+            }
+            RaceVehicles = new List<VehicleModel>();
+        }
+        public static void StartNewRound()
         {
             try
             {
+                Core.Debug.OutputDebugString("called");
                 GetNewMap();
+                DeleteAllRaceVehicles();
                 RACE_PLAYERS_IN_ROUND = 0;
                 RACE_PLAYERS_RACING = 0;
                 int counter = 0;
@@ -58,6 +69,9 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     RACE_PLAYERS_RACING++;
                 }
                 RACE_ROUND_IS_RUNNING = true;
+                RACE_STARTED = DateTime.Now;
+                RACE_WILL_END = DateTime.Now.AddMinutes(RACE_ROUND_MINUTES);
+                TIME_TO_JOIN = DateTime.Now.AddSeconds(RACE_JOIN_TIME);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartNewRaceRound", ex); }
         }
@@ -80,7 +94,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now.AddSeconds(RACE_JOIN_TIME)) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!"); return; }
+                if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now.AddSeconds(RACE_JOIN_TIME)) { Reallife.dxLibary.VnX.SetElementFrozen(player, true); player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!"); return; }
                 StartNewRound();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PutPlayerInRound", ex); }
@@ -91,6 +105,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 //if (RACE_PLAYERS_JOINED == 1) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "[Race] : Momentan ist keiner in der Race-Lobby :(... Gedulde dich bis jemand joint..."); return; }
                 PutPlayerInRound(player);
+                Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(0, 200, 0) + player.GetVnXName<string>() + " hat die Race runde betreten.");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedRaceGM", ex); }
         }
@@ -98,6 +113,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
+                if (VenoXV.Globals.Main.RacePlayers.Count == 0) return;
                 if (RACE_ROUND_IS_RUNNING && RACE_WILL_END <= DateTime.Now)
                 {
                     RACE_NEXT_ROUND_WILL_START = DateTime.Now.AddSeconds(RACE_ROUND_WILL_START_IN);
@@ -105,10 +121,6 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 }
                 if (!RACE_ROUND_IS_RUNNING && RACE_NEXT_ROUND_WILL_START <= DateTime.Now)
                 {
-                    RACE_ROUND_IS_RUNNING = true;
-                    RACE_STARTED = DateTime.Now;
-                    RACE_WILL_END = DateTime.Now.AddMinutes(RACE_ROUND_MINUTES);
-                    TIME_TO_JOIN = DateTime.Now.AddSeconds(RACE_JOIN_TIME);
                     StartNewRound();
                 }
             }
