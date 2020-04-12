@@ -36,7 +36,7 @@ namespace VenoXV.Reallife.database
             string pass = "0Ux1k^x8k30vDx2*1g0dOt9@";
             string db = "VenoXV_Security";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
-
+            GangwarManager.DatabaseConnectionCreated = true;
             // Business loading
             //Business businessClass = new Business();
             //businessClass.LoadDatabaseBusiness();
@@ -45,16 +45,11 @@ namespace VenoXV.Reallife.database
             House houseClass = new House();
             houseClass.LoadDatabaseHouses();
 
-            // Furniture loading
-            Furniture furnitureClass = new Furniture();
-            furnitureClass.LoadDatabaseFurniture();
-
             // Tunning loading
             Main.tunningList = LoadAllTunning();
 
             // IVehicle loading
-            Vehicles.Vehicles veh = new Vehicles.Vehicles();
-            veh.LoadDatabaseVehicles();
+            Vehicles.Vehicles.LoadDatabaseVehicles();
 
             // Item loading
             //Inventory.LoadDatabaseItems();
@@ -65,7 +60,9 @@ namespace VenoXV.Reallife.database
 
             // Tattoos loading
             Main.tattooList = LoadAllTattoos();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Database Connection = OK.");
+            Console.ResetColor();
         }
 
 
@@ -1663,10 +1660,13 @@ namespace VenoXV.Reallife.database
                     {
                         while (reader.Read())
                         {
-                            GangwarModel area = new GangwarModel(reader);
-                            if (area.aktiv == 1)
+                            if (reader.HasRows)
                             {
-                                gwList.Add(area);
+                                GangwarModel area = new GangwarModel(reader);
+                                if (area.aktiv == 1)
+                                {
+                                    gwList.Add(area);
+                                }
                             }
                         }
                     }
@@ -1989,7 +1989,7 @@ namespace VenoXV.Reallife.database
                             TunningModel tunning = new TunningModel();
                             {
                                 tunning.id = reader.GetInt32("id");
-                                tunning.IVehicle = reader.GetInt32("IVehicle");
+                                tunning.IVehicle = reader.GetInt32("Vehicle");
                                 tunning.slot = reader.GetInt32("slot");
                                 tunning.component = reader.GetInt32("component");
                             }
@@ -2580,132 +2580,6 @@ namespace VenoXV.Reallife.database
                 }
             }
         }
-
-        public static List<FurnitureModel> LoadAllFurniture()
-        {
-            try
-            {
-                List<FurnitureModel> furnitureList = new List<FurnitureModel>();
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM furniture";
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            FurnitureModel furniture = new FurnitureModel();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
-                            float rot = reader.GetFloat("rotation");
-
-                            furniture.id = reader.GetInt32("id");
-                            furniture.hash = reader.GetUInt32("hash");
-                            furniture.house = reader.GetUInt32("house");
-                            furniture.position = new Position(posX, posY, posZ);
-                            furniture.rotation = new Rotation(0.0f, 0.0f, rot);
-
-                            furnitureList.Add(furniture);
-                        }
-                    }
-                }
-
-                return furnitureList;
-            }
-            catch { return null; }
-        }
-
-        public static List<PoliceControlModel> LoadAllPoliceControls()
-        {
-            try
-            {
-                List<PoliceControlModel> policeControlList = new List<PoliceControlModel>();
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM controls";
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            PoliceControlModel policeControl = new PoliceControlModel();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
-                            float rot = reader.GetFloat("rotation");
-
-                            policeControl.id = reader.GetInt32("id");
-                            policeControl.name = reader.GetString("Name");
-                            policeControl.item = reader.GetInt32("item");
-                            policeControl.position = new Position(posX, posY, posZ);
-                            policeControl.rotation = new Rotation(0.0f, 0.0f, rot);
-
-                            policeControlList.Add(policeControl);
-                        }
-                    }
-                }
-
-                return policeControlList;
-            }
-            catch { return null; }
-        }
-
-
-
-
-
-        public static void RenamePoliceControl(string sourceName, string targetName)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "UPDATE controls SET name = @targetName WHERE name = @sourceName";
-                    command.Parameters.AddWithValue("@targetName", targetName);
-                    command.Parameters.AddWithValue("@sourceName", sourceName);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RenamePoliceControl] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RenamePoliceControl] " + ex.StackTrace);
-                }
-            }
-        }
-
-        public static void DeletePoliceControl(string name)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "DELETE FROM controls WHERE name = @name";
-                    command.Parameters.AddWithValue("@name", name);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION DeletePoliceControl] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION DeletePoliceControl] " + ex.StackTrace);
-                }
-            }
-        }
-
 
         public static List<ClothesModel> LoadAllClothes()
         {
