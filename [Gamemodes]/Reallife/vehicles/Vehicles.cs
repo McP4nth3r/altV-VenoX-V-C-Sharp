@@ -19,11 +19,9 @@ namespace VenoXV.Reallife.Vehicles
         private static Dictionary<int, Timer> IVehicleRespawnTimerList = new Dictionary<int, Timer>();
         public static string INFO_VEHICLE_TURNED_ON = "Motor Angeschaltet!";
         public static string INFO_VEHICLE_TURNED_OFF = "Motor Ausgeschaltet!";
-        public void LoadDatabaseVehicles()
+        public static void LoadDatabaseVehicles()
         {
             List<VehicleModel> IVehicleList = Database.LoadAllVehicles();
-
-
             foreach (VehicleModel vehModel in IVehicleList)
             {
                 // Create the IVehicle ingame
@@ -622,6 +620,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
+                if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) != VenoXV.Globals.EntityData.GAMEMODE_REALLIFE) { return; }
                 if (player.IsInVehicle)
                 {
                     if (player.Vehicle.EngineOn)
