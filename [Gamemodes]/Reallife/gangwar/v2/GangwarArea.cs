@@ -165,8 +165,8 @@ namespace VenoXV.Reallife.gangwar.v2
                     veh.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
                     veh.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
-                    veh.vnxSetStreamSharedElementData("kms", 0);
-                    veh.vnxSetStreamSharedElementData("gas", 100);
+                    veh.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                    veh.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                     veh.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                     veh.Dimension = GangwarManager.GW_DIM;
                 }
