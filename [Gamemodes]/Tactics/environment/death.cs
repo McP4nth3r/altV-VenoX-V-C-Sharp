@@ -73,7 +73,7 @@ namespace VenoXV.Tactics.environment
                     }
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
-                    player.Spawn(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
+                    player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
                     RageAPI.SetPlayerVisible(player, false);
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllWeapons();
