@@ -27,7 +27,7 @@ namespace VenoXV.Reallife.factions
             {
                 AntiCheat_Allround.SetTimeOutHealth(player, 1000);
 
-                player.Spawn(player.Position);
+                player.SpawnPlayer(player.Position);
                 player.vnxSetElementData(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
                 {

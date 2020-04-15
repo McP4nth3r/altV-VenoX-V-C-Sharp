@@ -116,7 +116,7 @@ namespace VenoXV.Reallife.factions
                                 Anti_Cheat.AntiCheat_Allround.SetTimeOutHealth(target,1000);
                                 player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
                                 target.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
-                                //NAPI.Player.SpawnPlayer(target.vnxGetElementData<int>( target.Position;
+                                //NAPI.player.SpawnPlayerPlayer(target.vnxGetElementData<int>( target.Position;
                                 target.Emit("destroyKrankenhausTimer");
                                 target.Emit("VnX_DestroyIPlayerSideTimer_KH");
 

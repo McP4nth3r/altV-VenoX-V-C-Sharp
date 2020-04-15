@@ -1,18 +1,15 @@
-﻿using AltV.Net.Elements.Entities;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV.Reallife.admin;
 using VenoXV.Anti_Cheat;
-using VenoXV.Reallife.anzeigen.Usefull;
+using VenoXV.Core;
+using VenoXV.Reallife.admin;
 using VenoXV.Reallife.character;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
 using VenoXV.Reallife.model;
-using VenoXV.Core;
-using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
-using AltV.Net.Data;
 
 namespace VenoXV.Reallife.factions
 {
@@ -54,10 +51,10 @@ namespace VenoXV.Reallife.factions
 
 
         public static Position LSPD_FGUNS_COL = new Position(451.5455f, -993.3593f, 30.6896f);
-        public static IColShape LSPDCOL_FGUNS = Alt.CreateColShapeSphere( LSPD_FGUNS_COL,2f );
+        public static IColShape LSPDCOL_FGUNS = Alt.CreateColShapeSphere(LSPD_FGUNS_COL, 2f);
 
         public static Position FBI_FGUNS_COL = new Position(136.1328f, -761.8464f, 45.75203f);
-        public static IColShape FBICOL_FGUNS = Alt.CreateColShapeSphere(  FBI_FGUNS_COL, 1.5f);
+        public static IColShape FBICOL_FGUNS = Alt.CreateColShapeSphere(FBI_FGUNS_COL, 1.5f);
 
 
         public static Position BAD_INTERIOR_FGUNS_COL = new Position(256.6112f, -996.761f, -99.00867f);
@@ -68,11 +65,11 @@ namespace VenoXV.Reallife.factions
         public static IColShape BAD_INTERIOR2_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR2_FGUNS_COL, 1.5f);
         public static IColShape BAD_INTERIOR3_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR3_FGUNS_COL, 1.5f);
         public static IColShape BAD_INTERIOR4_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR4_FGUNS_COL, 1.5f);
-        
+
 
         public static void OnResourceStart()
         {
-            
+
             BAD_INTERIOR3_FGUNS.Dimension = Constants.FACTION_SAMCRO;
             BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_MS13;
             //ToDo: ClientSide erstellen NAPI.
@@ -105,7 +102,7 @@ namespace VenoXV.Reallife.factions
 
             RageAPI.CreateTextLabel("Rollin Height´s Eingang", Ballas_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 });
             RageAPI.CreateTextLabel("Rollin Height´s Ausgang", Ballas_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 }, Constants.FACTION_BALLAS);
-            RageAPI.CreateTextLabel("Danke für Alles" + "\n_______________\n" + "For Palma", new Position(276.7415f, -2066.709f, 17.17801f), 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255}, 0);
+            RageAPI.CreateTextLabel("Danke für Alles" + "\n_______________\n" + "For Palma", new Position(276.7415f, -2066.709f, 17.17801f), 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 }, 0);
 
 
             RageAPI.CreateTextLabel("Compton Family´s Eingang", Compton_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 });
@@ -139,42 +136,6 @@ namespace VenoXV.Reallife.factions
             try
             {
                 if (shape == LSPDCOL_FGUNS)
-                {
-                    if(isStateFaction(player))
-                    {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
-                        player.Emit("showStateWeaponWindow",
-
-                        "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
-
-                        "Tazer [" + fweapon.weapon_tazer + "/" + Constants.STUNGUN_MAX_LAGER + "]",
-
-                        "Pistol [" + fweapon.weapon_pistol + "/" + Constants.PISTOL_MAX_LAGER + "]",
-
-                        "Pistol 50 [" + fweapon.weapon_pistol50 + "/" + Constants.PISTOL50_MAX_LAGER + "]",
-
-                        "Shotgun [" + fweapon.weapon_pumpshotgun + "/" + Constants.SHOTGUN_MAX_LAGER + "]",
-
-                        "Einsatz PDW[" + fweapon.weapon_combatpdw + "/" + Constants.COMBATPDW_MAX_LAGER + "]",
-
-                        "Karabiner [" + fweapon.weapon_carbinerifle + "/" + Constants.KARABINER_MAX_LAGER + "]",
-
-                        "Advancedrifle[" + fweapon.weapon_advancedrifle + "/" + Constants.ADVANCEDRIFLE_MAX_LAGER + "]",
-
-                        "Sniper [" + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + "]",
-
-                        "<br>Pistolen Magazin : " + fweapon.weapon_pistol_ammo+
-                        "<br>Pistol50 Magazin : " + fweapon.weapon_pistol50_ammo +
-                        "<br>Shotgun Magazin : " + fweapon.weapon_pumpshotgun_ammo +
-                        "<br>PDW Magazin : " + fweapon.weapon_combatpdw_ammo +
-                        "<br>Karabiner Magazin : " + fweapon.weapon_carbinerifle_ammo +
-                        "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
-                        "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
-
-                        player.vnxGetElementData<int>(EntityData.PLAYER_RANK));
-                    }
-                }
-                else if(shape == FBICOL_FGUNS)
                 {
                     if (isStateFaction(player))
                     {
@@ -210,7 +171,43 @@ namespace VenoXV.Reallife.factions
                         player.vnxGetElementData<int>(EntityData.PLAYER_RANK));
                     }
                 }
-                else if(shape.vnxGetElementData<bool>("isWeaponSelectShape") == true)
+                else if (shape == FBICOL_FGUNS)
+                {
+                    if (isStateFaction(player))
+                    {
+                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
+                        player.Emit("showStateWeaponWindow",
+
+                        "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
+
+                        "Tazer [" + fweapon.weapon_tazer + "/" + Constants.STUNGUN_MAX_LAGER + "]",
+
+                        "Pistol [" + fweapon.weapon_pistol + "/" + Constants.PISTOL_MAX_LAGER + "]",
+
+                        "Pistol 50 [" + fweapon.weapon_pistol50 + "/" + Constants.PISTOL50_MAX_LAGER + "]",
+
+                        "Shotgun [" + fweapon.weapon_pumpshotgun + "/" + Constants.SHOTGUN_MAX_LAGER + "]",
+
+                        "Einsatz PDW[" + fweapon.weapon_combatpdw + "/" + Constants.COMBATPDW_MAX_LAGER + "]",
+
+                        "Karabiner [" + fweapon.weapon_carbinerifle + "/" + Constants.KARABINER_MAX_LAGER + "]",
+
+                        "Advancedrifle[" + fweapon.weapon_advancedrifle + "/" + Constants.ADVANCEDRIFLE_MAX_LAGER + "]",
+
+                        "Sniper [" + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + "]",
+
+                        "<br>Pistolen Magazin : " + fweapon.weapon_pistol_ammo +
+                        "<br>Pistol50 Magazin : " + fweapon.weapon_pistol50_ammo +
+                        "<br>Shotgun Magazin : " + fweapon.weapon_pumpshotgun_ammo +
+                        "<br>PDW Magazin : " + fweapon.weapon_combatpdw_ammo +
+                        "<br>Karabiner Magazin : " + fweapon.weapon_carbinerifle_ammo +
+                        "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
+                        "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
+
+                        player.vnxGetElementData<int>(EntityData.PLAYER_RANK));
+                    }
+                }
+                else if (shape.vnxGetElementData<bool>("isWeaponSelectShape") == true)
                 {
                     if (isBadFaction(player))
                     {
@@ -315,7 +312,7 @@ namespace VenoXV.Reallife.factions
             try
             {
                 int VEHICLE_Fraktion = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION);
-                if (VEHICLE_Fraktion == Constants.FACTION_COSANOSTRA || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_MS13|| VEHICLE_Fraktion == Constants.FACTION_SAMCRO|| VEHICLE_Fraktion == Constants.FACTION_BALLAS|| VEHICLE_Fraktion == Constants.FACTION_GROVE)
+                if (VEHICLE_Fraktion == Constants.FACTION_COSANOSTRA || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_MS13 || VEHICLE_Fraktion == Constants.FACTION_SAMCRO || VEHICLE_Fraktion == Constants.FACTION_BALLAS || VEHICLE_Fraktion == Constants.FACTION_GROVE)
                 {
                     return true;
                 }
@@ -345,7 +342,7 @@ namespace VenoXV.Reallife.factions
             }
             catch
             {
-            return false;
+                return false;
             }
         }
 
@@ -390,13 +387,13 @@ namespace VenoXV.Reallife.factions
                     // Eingang
                     if (LCN_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if(player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
                             dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false,3000);
+                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.Position = LCN_Teleport_Base_Exit;
                         player.Dimension = Constants.FACTION_COSANOSTRA;
@@ -742,11 +739,11 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Zivizeit Abgelaufen. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Zivizeit Abgelaufen. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                 }
                 else
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) +"Zivizeit läuft noch. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Zivizeit läuft noch. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                 }
             }
             catch { }
@@ -759,7 +756,7 @@ namespace VenoXV.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != Constants.FACTION_NONE)
                 {
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),player.GetVnXName<string>() + " hat die Fraktion verlassen...");
+                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.GetVnXName<string>() + " hat die Fraktion verlassen...");
                     player.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NONE);
                     anzeigen.Usefull.VnX.OnFactionChange(player);
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
@@ -787,12 +784,12 @@ namespace VenoXV.Reallife.factions
                             target.vnxSetElementData(EntityData.PLAYER_FACTION, player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                             target.vnxSetElementData(EntityData.PLAYER_RANK, 0);
                             anzeigen.Usefull.VnX.OnFactionChange(target);
-                           target.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) + "Du hast den Spieler " + target.GetVnXName<string>() + " in deine Fraktion aufgenommen!");
+                            target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast den Spieler " + target.GetVnXName<string>() + " in deine Fraktion aufgenommen!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Der Spieler " + target.GetVnXName<string>() + " hat noch eine Zivizeit am laufen. [" + target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Spieler " + target.GetVnXName<string>() + " hat noch eine Zivizeit am laufen. [" + target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
                         }
                     }
                     else
@@ -819,7 +816,7 @@ namespace VenoXV.Reallife.factions
                     if (target == null) { return; }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
                     {
-                        if (target.GetVnXName<string>() ==player.GetVnXName<string>())
+                        if (target.GetVnXName<string>() == player.GetVnXName<string>())
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
                             return;
@@ -831,8 +828,8 @@ namespace VenoXV.Reallife.factions
                             target.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
                             anzeigen.Usefull.VnX.OnFactionChange(target);
                             player.vnxSetElementData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
-                            target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast den Spieler " + target.GetVnXName<string>() + " aus deiner Fraktion entfernt!");
+                            target.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast den Spieler " + target.GetVnXName<string>() + " aus deiner Fraktion entfernt!");
                         }
                         else
                         {
@@ -892,14 +889,14 @@ namespace VenoXV.Reallife.factions
                     }
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_RANK) < number)
                     {
-                        target.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Glückwunsch, du wurdest soeben von " +player.GetVnXName<string>() + " zum " + rankString + " befördert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Glückwunsch, du wurdest soeben von " + player.GetVnXName<string>() + " zum " + rankString + " befördert!");
 
                     }
                     else
                     {
-                        target.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Du wurdest soeben von " +player.GetVnXName<string>() + " zum " + rankString + " degradiert!");
+                        target.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben von " + player.GetVnXName<string>() + " zum " + rankString + " degradiert!");
                     }
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"Du hast " + target.GetVnXName<string>() + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.GetVnXName<string>() + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
                     target.vnxSetElementData(EntityData.PLAYER_RANK, number);
 
                 }
@@ -908,7 +905,7 @@ namespace VenoXV.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht befugt!");
                 }
             }
-            catch 
+            catch
             {
             }
         }
@@ -952,7 +949,7 @@ namespace VenoXV.Reallife.factions
                         {
                             player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_BAD, 1);
                         }
-                        else if(isNeutralFaction(player))
+                        else if (isNeutralFaction(player))
                         {
                             player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_NEUTRAL, 1);
                         }
@@ -960,7 +957,7 @@ namespace VenoXV.Reallife.factions
                 }
                 else
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0) 
+                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
                     }
@@ -975,7 +972,8 @@ namespace VenoXV.Reallife.factions
 
                     //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                     player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                                                player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                    player.SpawnPlayer(player.Position);
+                    player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);
                     Customization.ApplyPlayerTattoos(player);
@@ -1035,7 +1033,7 @@ namespace VenoXV.Reallife.factions
                     weapons.Weapons.GivePlayerWeaponItems(player);
                 }
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
         }
 
         [ClientEvent("goSWATServer")]
@@ -1044,7 +1042,7 @@ namespace VenoXV.Reallife.factions
             try
             {
                 AntiCheat_Allround.SetTimeOutHealth(player, 5000);
-                player.Model = Alt.Hash("Swat01SMY");
+                player.SetPlayerSkin(Alt.Hash("Swat01SMY"));
                 player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 1);
                 weapons.Weapons.GivePlayerWeaponItems(player);
             }
@@ -1075,7 +1073,8 @@ namespace VenoXV.Reallife.factions
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
 
                     player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                    player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                    player.SpawnPlayer(player.Position);
+                    player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);
                     Customization.ApplyPlayerTattoos(player);

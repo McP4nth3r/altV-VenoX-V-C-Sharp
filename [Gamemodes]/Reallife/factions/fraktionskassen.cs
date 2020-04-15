@@ -73,47 +73,47 @@ namespace VenoXV.Reallife.factions
 
 
 
-            /*
+
             //////////////////////////////      
-            IColShape fskincolLCN = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_COSANOSTRA));
+            IColShape fskincolLCN = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
+            fskincolLCN.Dimension = Constants.FACTION_COSANOSTRA;
             fskincolLCN.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
             fskincolLCN.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(40, 40, 40), true, fkassencolLCN.Dimension);
+            RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_COSANOSTRA);
+
             //////////////////////////////       
-            ///
+            /*
             /// //////////////////////////////      
             IColShape fskincolYAKUZA = Alt.CreateColShapeSphere(new Position(344.0552f, -1003.21f, 1, 0.3f, Constants.FACTION_YAKUZA));
             fskincolYAKUZA.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
             fskincolYAKUZA.vnxSetElementData("GANGSKINMARKER", true);
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(344.0552f, -1003.21f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fskincolYAKUZA.Dimension);
            
-            //////////////////////////////
-            IColShape fskincolBallas = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_BALLAS));
+            */
+
+            IColShape fskincolBallas = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
+            fskincolBallas.Dimension = Constants.FACTION_BALLAS;
             fskincolBallas.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
             fskincolBallas.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(138, 43, 226), true, fkassencolBallas.Dimension);
-            //////////////////////////////
-            IColShape fskincolCompton = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, 1, 0.3f, Constants.FACTION_GROVE));
+            RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, Constants.FACTION_BALLAS);
+
+            IColShape fskincolCompton = Alt.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
+            fskincolCompton.Dimension = Constants.FACTION_GROVE;
             fskincolCompton.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
             fskincolCompton.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20.0f, 0.75f, 4, new Rgba(0, 152, 0), true, fkassencolCompton.Dimension);
-            //////////////////////////////      
+            RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_GROVE);
 
-
-            ////////////////////////////////
-            IColShape fskincolMS13 = Alt.CreateColShapeSphere(new Position(-1285.856f, 446.7924f, 1, 0.3f, Constants.FACTION_MS13));
+            IColShape fskincolMS13 = Alt.CreateColShapeSphere(new Position(-1285.856f, 446.7924f, 97.89468f), 0.3f);
+            fskincolMS13.Dimension = Constants.FACTION_MS13;
             fskincolMS13.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
             fskincolMS13.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(-1285.856f, 446.7924f, 97.89468f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolMS13.Dimension);
-            ////////////////////////////// 
-            ///
-            /// ////////////////////////////////
-            IColShape fskincolSAMCRO = Alt.CreateColShapeSphere(new Position(983.1344f, -98.7942f, 1, 0.3f, Constants.FACTION_SAMCRO));
+            RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_MS13);
+
+            IColShape fskincolSAMCRO = Alt.CreateColShapeSphere(new Position(983.1344f, -98.7942f, 74.84556f), 0.3f);
+            fskincolSAMCRO.Dimension = Constants.FACTION_SAMCRO;
             fskincolSAMCRO.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
             fskincolSAMCRO.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(983.1344, -98.7942, 74.84556), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fskincolSAMCRO.Dimension);
-            //////////////////////////////*/
-
+            RageAPI.CreateTextLabel("Gang - Skin", new Position(983.1344f, -98.7942f, 74.84556f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_SAMCRO);
         }
 
 
@@ -311,7 +311,7 @@ namespace VenoXV.Reallife.factions
                         else
                         {
                             finalwertmoney = fkasse.money + money;
-                            player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - money);
+                            player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - money);
                         }
                     }
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.GetVnXName<string>() + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats ins Depot gelegt!");
@@ -354,7 +354,7 @@ namespace VenoXV.Reallife.factions
                     int finalwertkoks = fkasse.koks - koks;
                     int finalwertmats = fkasse.mats - mats;
                     player.Emit("destroyFkassenWindow");
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + money);
+                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + money);
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.GetVnXName<string>() + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.GetVnXName<string>() + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats aus dem Depot genommen!");
