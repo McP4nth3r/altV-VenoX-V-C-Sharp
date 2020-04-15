@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using System;
 using VenoXV.Core;
@@ -11,20 +12,17 @@ using VenoXV.Reallife.vnx_stored_files;
 
 namespace VenoXV.Reallife
 {
-    namespace My.Package
+    internal class VenoXResource : AsyncResource
     {
-        internal class MyResource : Resource
+        public override void OnStart()
         {
-            public override void OnStart()
-            {
-                VenoXV.Globals.Main.OnResourceStart();
-                //Console.WriteLine("Started");
-            }
+            VenoXV.Globals.Main.OnResourceStart();
+            //Console.WriteLine("Started");
+        }
 
-            public override void OnStop()
-            {
-                //Console.WriteLine("Stopped");
-            }
+        public override void OnStop()
+        {
+            //Console.WriteLine("Stopped");
         }
     }
     public class Preload : IScript
@@ -123,7 +121,7 @@ namespace VenoXV.Reallife
             try
             {
                 //----------------------------------------------------------------------------------------------------------------------//
-                player.Model = Alt.Hash("Strperf01SMM");
+                player.SetPlayerSkin(Alt.Hash("Strperf01SMM"));
                 //ToDo : Alpha einstellen.
                 Login.InitializePlayerData(player);
 
@@ -161,7 +159,7 @@ namespace VenoXV.Reallife
                 {
                     //----------------------------------------------------------------------------------------------------------------------//
                     Core.Debug.OutputDebugString("Found Character Ban by serial");
-                    player.Model = Alt.Hash("Strperf01SMM");
+                    player.SetPlayerSkin(Alt.Hash("Strperf01SMM"));
                     Login.InitializePlayerData(player);
 
                     if (Database.FindCharacterBanBySerial(player.HardwareIdHash.ToString()))
@@ -214,7 +212,8 @@ namespace VenoXV.Reallife
                         if (character != null && character.realName != null)
                         {
                             player.vnxSetElementData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
-                            player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                            player.SpawnPlayer(player.Position);
+                            player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
                             Login.LoadCharacterData(player, character);
                             player.vnxSetStreamSharedElementData("HideHUD", 1);
                             anzeigen.Usefull.VnX.UpdateHUD(player);
@@ -280,7 +279,8 @@ namespace VenoXV.Reallife
                         {
                             //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                             player.vnxSetElementData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
-                            player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                            player.SpawnPlayer(player.Position);
+                            player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
 
                             Login.LoadCharacterData(player, character);
                             player.vnxSetStreamSharedElementData("HideHUD", 1);
