@@ -1,7 +1,6 @@
 ﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using MySql.Data.MySqlClient;
-using System;
+using System.Numerics;
 using VenoXV.Reallife.Globals;
 
 namespace VenoXV.Reallife.model
@@ -33,11 +32,13 @@ namespace VenoXV.Reallife.model
 
         }
 
-        public VehicleModel(string _model, string owner, string plate, Position position, Position rotation, int RgbaType, string firstRgba, string secondRgba, int pearlescent, int Dimension, int faction, int engine, int locked, int price, int parking,
-            int parked, float gas, float kms)
-        {
-            this.model = model;
-        }
+
+
+        /// <summary>
+        /// Converts a roll pitch yaw vector to a rotation vector.
+        /// </summary>
+        /// <param name="d">A vector where X=Roll, Y=Pitch, Z=Yaw</param>
+        /// <returns>A rotation vector with rx, ry and rz used to rotate the TCP of UR10</returns>
 
         public VehicleModel(MySqlDataReader reader)
         {
@@ -71,8 +72,8 @@ namespace VenoXV.Reallife.model
             this.gas = reader.GetFloat("gas");
             this.kms = reader.GetFloat("kms");
             this.position = new Position(posX, posY, posZ);
-            this.rotation = new Rotation(0.0f, 0.0f, rotation);
+            this.rotation = new Vector3(0, 0, (float)(System.Math.PI / 180) * rotation);
         }
-           
+
     }
 }
