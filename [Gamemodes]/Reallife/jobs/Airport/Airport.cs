@@ -63,8 +63,8 @@ namespace VenoXV.Reallife.jobs.Airport
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData("kms", 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData("gas", 100);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
@@ -111,8 +111,8 @@ namespace VenoXV.Reallife.jobs.Airport
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData("kms", 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData("gas", 100);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
@@ -152,8 +152,8 @@ namespace VenoXV.Reallife.jobs.Airport
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData("kms", 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData("gas", 100);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
                     Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);

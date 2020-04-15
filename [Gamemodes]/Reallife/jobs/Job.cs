@@ -320,7 +320,7 @@ namespace VenoXV.Reallife.jobs
 
                     //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                     player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                                                player.Model = character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                                                player.SetPlayerSkin(character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                     Customization.ApplyPlayerClothes(player);
                     Customization.ApplyPlayerTattoos(player);

@@ -61,8 +61,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Lieferjob_VEHICLE_1.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
                 Lieferjob_VEHICLE_1.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
 
-                Lieferjob_VEHICLE_1.vnxSetStreamSharedElementData("kms", 0);
-                Lieferjob_VEHICLE_1.vnxSetStreamSharedElementData("gas", 100);
+                Lieferjob_VEHICLE_1.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                Lieferjob_VEHICLE_1.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 Lieferjob_VEHICLE_1.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Lieferjob_VEHICLE_1.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
 
@@ -181,8 +181,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKING, 0);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKED, 0);
 
-                Lieferjob_IVehicle.vnxSetStreamSharedElementData("kms", 0);
-                Lieferjob_IVehicle.vnxSetStreamSharedElementData("gas", 100);
+                Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
 
@@ -245,8 +245,8 @@ namespace VenoXV.Reallife.jobs.Lieferrant
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKING, 0);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKED, 0);
 
-                Lieferjob_IVehicle.vnxSetStreamSharedElementData("kms", 0);
-                Lieferjob_IVehicle.vnxSetStreamSharedElementData("gas", 100);
+                Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_JOB, Constants.JOB_CITY_TRANSPORT);
                 Lieferjob_IVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
 
