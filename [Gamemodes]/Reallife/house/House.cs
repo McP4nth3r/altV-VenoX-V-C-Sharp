@@ -17,7 +17,7 @@ namespace VenoXV.Reallife.house
     {
         public static List<HouseModel> houseList;
 
-        public void LoadDatabaseHouses()
+        public static void LoadDatabaseHouses()
         {
             houseList = Database.LoadAllHouses();
             foreach (HouseModel houseModel in houseList)
@@ -117,7 +117,7 @@ namespace VenoXV.Reallife.house
                     {
                         int bank = player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - house.price;
                         string labelText = GetHouseLabelText(house);
-                        player.vnxSetStreamSharedElementData( EntityData.PLAYER_BANK, bank);
+                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_BANK, bank);
                         logfile.WriteLogs("house", player.GetVnXName<string>() + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
                         house.status = Constants.HOUSE_STATE_NONE;
                         house.owner = player.GetVnXName<string>();
@@ -389,7 +389,7 @@ namespace VenoXV.Reallife.house
                         {
                             int money = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - house.rental;
                             player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, house.id);
-                            player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, money);
+                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, money);
                             //house.tenants--;
 
                             /*if (house.tenants == 0)
