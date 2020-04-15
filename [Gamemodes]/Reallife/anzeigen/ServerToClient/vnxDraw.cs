@@ -7,9 +7,6 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using VenoXV.Reallife.vnx_stored_files;
 
 namespace VenoXV.Reallife.dxLibary
@@ -111,7 +108,7 @@ namespace VenoXV.Reallife.dxLibary
 
         public static void DrawCustomZielBlip(IPlayer player, string name, Position position, float scale, int blipID, int blipRgba, int Dimension, int r, int g, int b, int a)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r,g,b,a);
+            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r, g, b, a);
         }
 
         public static void DrawZielBlipTable(IPlayer player, string TableName, string name, Position position, int blipID, int blipRgba, int Dimension, int destroyedinms)
@@ -120,10 +117,10 @@ namespace VenoXV.Reallife.dxLibary
         }
         public static void DrawWaypoint(IPlayer player, float x, float y)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnXSetWaypoint", x,y);
+            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnXSetWaypoint", x, y);
         }
 
-        public static void DrawInputWindow(IPlayer player, string headertext, string boxtext,  string buttontext)
+        public static void DrawInputWindow(IPlayer player, string headertext, string boxtext, string buttontext)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createInputWindow", headertext, boxtext, buttontext);
         }
@@ -144,20 +141,19 @@ namespace VenoXV.Reallife.dxLibary
             { zeit = 300000; }
             else if (zeit == 1)
             { zeit = 60000; }
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnX_LoadIPlayerSideTimer",player, timername, zeit);
+            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnX_LoadIPlayerSideTimer", player, timername, zeit);
         }
         public static void SetElementFrozen(IPlayer player, bool state)
         {
-            
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "FreezePlayerPLAYER_VnX", state);
+            AltV.Net.Alt.Server.TriggerClientEvent(player, "Player:Freeze", state);
         }
         public static void SetIVehicleElementFrozen(IVehicle Vehicle, IPlayer sender, bool state)
         {
             if (Vehicle != null)
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(sender, "FreezeVEHICLEPLAYER_VnX", Vehicle, state);
+                AltV.Net.Alt.Server.TriggerClientEvent(sender, "Vehicle:Freeze", Vehicle, state);
             }
-        }       
+        }
         public static void SetDelayedIVehicleElementFrozen(IVehicle Vehicle, IPlayer sender, bool state, int TimeInMS)
         {
             if (Vehicle != null)
