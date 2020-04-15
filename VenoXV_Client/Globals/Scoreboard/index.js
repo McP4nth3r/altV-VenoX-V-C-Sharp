@@ -58,6 +58,7 @@ alt.onServer('ScoreBoard_Allow', () => {
 
 export function KeyDown(key) {
 	if (key == 0x59) {
+		if (!CurrentBrowserPath) { return; }
 		if (GetCursorStatus() == false) {
 			if (removed == false) {
 				game.displayHud(false);
@@ -72,6 +73,7 @@ export function KeyDown(key) {
 
 export function KeyUp(key) {
 	if (key == 0x59) {
+		if (!CurrentBrowserPath) { return; }
 		if (removed == true) {
 			game.displayHud(true);
 			CurrentBrowser.emit("Scoreboard:Hide");
