@@ -38,7 +38,7 @@ function returnRGB(player) {
 		}
 		else {
 			hp = Math.abs(hp - 0.01);
-			return [(215 - hp) * 2.35 / 2, (hp * 2.35), 0];
+			return [(245 - hp) * 2.35 / 2, (hp * 2.35), 0];
 		}
 	}
 	return;
@@ -106,8 +106,8 @@ export function DrawNametags() {
 						}
 
 						if (game.hasStreamedTextureDictLoaded("Commonmenu")) {
-							game.drawSprite("Commonmenu", "shop_new_star", screenPos[1], screenPos[2] - 0.010, 0.0625, 0.06315, 0, 255, 255, 255, 255);
-							DrawText(player.getStreamSyncedMeta("PLAYER_WANTEDS").toString(), [screenPos[1] - 0.001, screenPos[2] + 0.030], [0.30, 0.30], 4, [255, 255, 255, 255], true, true);
+							game.drawSprite("Commonmenu", "shop_new_star", screenPos[1], screenPos[2] - 0.020, 0.0625, 0.06315, 0, 255, 255, 255, 255);
+							DrawText(player.getStreamSyncedMeta("PLAYER_WANTEDS").toString(), [screenPos[1] - 0.002, screenPos[2] + 0.030], [0.30, 0.30], 4, [255, 255, 255, 255], true, true);
 						}
 					}
 					//alt.log("[DISTANCE ZUM SPIELER] : " + distance);
