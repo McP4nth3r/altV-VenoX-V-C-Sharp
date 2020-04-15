@@ -26,26 +26,35 @@
                 document.getElementById('kontosend2').innerHTML = u2;
                 document.getElementById('kontosend3').innerHTML = u3;
             });
-            alt.on("LoadMoneyStorage", (money) => { document.getElementById('info_back').innerHTML = money + " $"; });
-        }
+            alt.on("Bank:LoadMoneyStorage", (money) => { document.getElementById('info_back').innerHTML = money + " $"; });
+            function money_button_pressed(btn) {
+                let e = document.getElementById('betrag').value;
+                alt.emit('atm_money_button_triggered', btn, e);
+            }
 
+
+            function atm_money_send() {
+                let e = document.getElementById('to').value;
+                let v = document.getElementById('ammount').value;
+                let v2 = document.getElementById('because').value;
+                alt.emit('atm_send_money', e, v, v2);
+            }
+        }
     </script>
 
 </head>
 
 
 <body>
-
     <div class="all">
         <div class="back"></div>
-
         <div class="text_head">VenoX City Bank</div>
-        <div class="close" onclick="mp.trigger('closeATM')">X</div>
+        <div class="close" onclick="alt.emit('closeATM')">X</div>
         <img src="images/logo.png" id="logo_image">
         <div class="image_back"></div>
 
         <input type="radio" id="infos" name="radio-group" checked>
-        <label for="infos" onclick="mp.trigger('atm_load_money_storage');">Kontoinformationen</label>
+        <label for="infos" onclick="alt.emit('atm_load_money_storage');">Kontoinformationen</label>
 
         <section id="infos1">
             <div class="option">Kontoinformationen</div>
@@ -88,7 +97,5 @@
             <div class="in" onclick="money_button_pressed('einzahlen')">Einzahlen</div>
             <div class="out" onclick="money_button_pressed('auszahlen')">Auszahlen</div>
         </section>
-
-
     </div>
 </body>

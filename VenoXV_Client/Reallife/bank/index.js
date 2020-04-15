@@ -13,44 +13,32 @@ alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
 	ATM_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Reallife/bank/main.html");
 	ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
 	ATM_BROWSER.focus();
+	ATM_BROWSER.on('closeATM', () => {
+		if (ATM_BROWSER != null) {
+			ATM_BROWSER.destroy();
+			ATM_BROWSER = null;
+		}
+		ShowCursor(false);
+		game.freezeEntityPosition(alt.Player.local.scriptID, false);
+	});
+
+	ATM_BROWSER.on('atm_money_button_triggered', (btn, e) => {
+		alt.emitServer('ATM_MONEY_BUTTON_TRIGGER', btn, e);
+	});
+
+	ATM_BROWSER.on('atm_send_money', (e, v, v2) => {
+		alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
+	});
+	ATM_BROWSER.on('atm_load_money_storage', () => {
+		let money = alt.Player.local.getSyncedMeta("PLAYER_BANK");
+		ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
+	});
 	ShowCursor(true);
 });
 
 
-alt.onServer('closeATM', () => {
-	if (ATM_BROWSER != null) {
-		ATM_BROWSER.destroy();
-		ATM_BROWSER = null;
-	}
-	ShowCursor(false);
-	game.freezeEntityPosition(alt.Player.local.scriptID, false);
-});
-
-alt.onServer('atm_load_money_storage', () => {
-	let money = alt.Player.local.getSyncedMeta("PLAYER_BANK_CLIENT");
-	ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
-});
-
-alt.onServer('atm_money_button_triggered', (btn, e) => {
-	alt.emitServer('ATM_MONEY_BUTTON_TRIGGER', btn, e);
-});
-
-alt.onServer('atm_send_money', (e, v, v2) => {
-	alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
-});
-
-function money_button_pressed(btn) {
-	let e = document.getElementById('betrag').value;
-	alt.emit('atm_money_button_triggered', btn, e);
-}
 
 
-function atm_money_send() {
-	let e = document.getElementById('to').value;
-	let v = document.getElementById('ammount').value;
-	let v2 = document.getElementById('because').value;
-	alt.emit('atm_send_money', e, v, v2);
-}
 
 var ATMCount = 0;
 
