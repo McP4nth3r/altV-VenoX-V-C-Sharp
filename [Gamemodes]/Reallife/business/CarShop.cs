@@ -121,14 +121,16 @@ namespace VenoXV.Reallife.business
             Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new int[] { 255, 255, 255, 255 });
 
 
-            BlipModel blip = new BlipModel();
-            blip.Name = "Autohändler";
-            blip.posX = -56.88f;
-            blip.posY = -1097.12f;
-            blip.posZ = 26.52f;
-            blip.Sprite = 225;
-            blip.Color = 0;
-            blip.ShortRange = false;
+            BlipModel blip = new BlipModel
+            {
+                Name = "Autohändler",
+                posX = -56.88f,
+                posY = -1097.12f,
+                posZ = 26.52f,
+                Sprite = 225,
+                Color = 0,
+                ShortRange = false
+            };
             VenoXV.Globals.Functions.BlipList.Add(blip);
             // Motorcycle dealer creation
             /*motorbikeShopTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("/" + "CSHOP", new Position(286.76f, -1148.36f, 29.29f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153));
@@ -248,8 +250,8 @@ namespace VenoXV.Reallife.business
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, 500);
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
 
-                        Vehicle.vnxSetStreamSharedElementData("kms", 0);
-                        Vehicle.vnxSetStreamSharedElementData("gas", 100);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
@@ -266,8 +268,8 @@ namespace VenoXV.Reallife.business
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
 
-                        Vehicle.vnxSetStreamSharedElementData("kms", 0);
-                        Vehicle.vnxSetStreamSharedElementData("gas", 100);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
@@ -281,15 +283,15 @@ namespace VenoXV.Reallife.business
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
                         Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
 
-                        Vehicle.vnxSetStreamSharedElementData("kms", 0);
-                        Vehicle.vnxSetStreamSharedElementData("gas", 100);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
                 }
 
-                Vehicle.vnxSetStreamSharedElementData("kms", 0);
-                Vehicle.vnxSetStreamSharedElementData("gas", 100);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_TESTING, true);
                 Vehicle.Dimension = 1200;
                 player.Dimension = 1200;
