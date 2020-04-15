@@ -1,10 +1,12 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using VenoXV.Core;
 using VenoXV.Reallife.gangwar.v2;
 using VenoXV.Reallife.Globals;
@@ -18,51 +20,44 @@ namespace VenoXV.Reallife.database
 
         private static string connectionString;
 
-        public static void OnResourceStart()
+        public static async void OnResourceStart()
         {
             // Set the encoding
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            // Create the database connection string
-            /*
-                <setting name="host" value="51.68.181.55"/>
-                <setting name="username" value="venox_ingame"/>
-                <setting name="password" value="G#l7wz27"/>
-                <setting name="database" value="venox_ingame"/> 
-            */
-            //string host = "127.0.0.1";
             string host = "5.180.66.146";
             string user = "VenoXV_Security";
             string pass = "0Ux1k^x8k30vDx2*1g0dOt9@";
             string db = "VenoXV_Security";
             connectionString = "SERVER=" + host + "; DATABASE=" + db + "; UID=" + user + "; PASSWORD=" + pass + "; SSLMODE=none;";
             GangwarManager.DatabaseConnectionCreated = true;
-            // Business loading
-            //Business businessClass = new Business();
-            //businessClass.LoadDatabaseBusiness();
+            await Task.Run(async () =>
+            {
+                await AltAsync.Do(() =>
+                {
+                    // House loading
+                    House.LoadDatabaseHouses();
 
-            // House loading
-            House houseClass = new House();
-            houseClass.LoadDatabaseHouses();
+                    // Tunning loading
+                    Main.tunningList = LoadAllTunning();
 
-            // Tunning loading
-            Main.tunningList = LoadAllTunning();
+                    // IVehicle loading
+                    Vehicles.Vehicles.LoadDatabaseVehicles();
 
-            // IVehicle loading
-            Vehicles.Vehicles.LoadDatabaseVehicles();
+                    // Item loading
+                    //Inventory.LoadDatabaseItems();
+                    anzeigen.Inventar.Main.CurrentOfflineItemList = LoadAllItems();
 
-            // Item loading
-            //Inventory.LoadDatabaseItems();
-            anzeigen.Inventar.Main.CurrentOfflineItemList = LoadAllItems();
+                    // Clothes loading
+                    Main.clothesList = LoadAllClothes();
 
-            // Clothes loading
-            Main.clothesList = LoadAllClothes();
-
-            // Tattoos loading
-            Main.tattooList = LoadAllTattoos();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Database Connection = OK.");
-            Console.ResetColor();
+                    // Tattoos loading
+                    Main.tattooList = LoadAllTattoos();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Database Connection = OK.");
+                    Console.ResetColor();
+                });
+            });
         }
 
 
