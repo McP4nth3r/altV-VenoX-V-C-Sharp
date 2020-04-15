@@ -175,7 +175,7 @@ namespace VenoXV.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("ParkIVehicleServer")]
+        [ClientEvent("ParkVehicleServer")]
         public void ParkLocalIVehicle(IPlayer player)
         {
             try
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.Vehicles
                         Vehicle.rotation = player.Vehicle.Rotation;
                         Vehicle.id = player.Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
                         player.Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_POSITION, Vehicle.position);
-                        player.Vehicle.SetSyncedMetaData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
+                        player.Vehicle.vnxSetSharedElementData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
                         player.Vehicle.vnxSetElementData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
                         // Update the IVehicle's position into the database
                         Database.UpdateIVehiclePosition(Vehicle);
