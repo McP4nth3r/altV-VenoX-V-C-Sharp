@@ -31,8 +31,8 @@ export function RenderTacho() {
 		/*Get vehicle infos*/
 		let vel = alt.Player.local.vehicle.speed * 3.6;
 		let rpm = alt.Player.local.vehicle.rpm * 1000;
-		gas = alt.Player.local.vehicle.getSyncedMeta('VEHICLE_GAS_CLIENT');
-		kmS = alt.Player.local.vehicle.getSyncedMeta('VEHICLE_KMS_CLIENT');
+		gas = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_GAS');
+		kmS = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_KMS');
 		//alt.log(gas + " | " + kmS);
 		speedo.emit('Tacho:Update', vel, rpm, gas, kmS);
 	}
