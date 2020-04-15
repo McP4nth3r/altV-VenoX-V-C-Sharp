@@ -74,6 +74,16 @@ export function OnVoiceKeyUp(key) {
     }
 }
 
+alt.on("gameEntityCreate", entity => {
+    if (entity.hasStreamSyncedMeta('VEHICLE_FROZEN')) {
+        game.freezeEntityPosition(entity.scriptID, entity.getStreamSyncedMeta('VEHICLE_FROZEN'));
+    }
+    if (entity.hasStreamSyncedMeta('VEHICLE_GODMODE')) {
+        game.setEntityInvincible(entity.scriptID, entity.getStreamSyncedMeta('VEHICLE_GODMODE'));
+    }
+});
+
+
 
 
 
@@ -118,4 +128,3 @@ function LoadModelsOnStart() {
     }, 2000);
 }
 LoadModelsOnStart();
-
