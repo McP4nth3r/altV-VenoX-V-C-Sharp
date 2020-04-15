@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VenoXV.Reallife.Globals
+﻿namespace VenoXV.Reallife.Globals
 {
     public class EntityData
     {
@@ -200,6 +198,8 @@ namespace VenoXV.Reallife.Globals
         public const string VEHICLE_MODDED = "VEHICLE_MODDED";
         public const string VEHICLE_GAS = "VEHICLE_GAS";
         public const string VEHICLE_KMS = "VEHICLE_KMS";
+        public const string VEHICLE_FROZEN = "VEHICLE_FROZEN";
+        public const string VEHICLE_GODMODE = "VEHICLE_GODMODE";
         public const string VEHICLE_TESTING = "VEHICLE_TESTING";
         public const string VEHICLE_JOB = "VEHICLE_JOB";
         public const string VEHICLE_RENTED = "VEHICLE_RENTED";
