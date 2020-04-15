@@ -19,8 +19,10 @@ namespace VenoXV.Core
         public static void CatchExceptions(string FunctionName, Exception ex)
         {
             if (!DEBUG_MODE_ENABLED) { return; }
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.Message);
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
+            Console.ResetColor();
         }
     }
 }
