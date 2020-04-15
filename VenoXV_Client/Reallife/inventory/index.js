@@ -20,7 +20,8 @@ InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
 
 export function OnInventoryKeyPressed(key) {
     if (key == 0x49) {
-        if (!InventoryOpen) { if (!GetCursorStatus()) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); } }
+        if (GetCursorStatus() && !InventoryOpen) { return; }
+        if (!InventoryOpen) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); }
         else { ShowCursor(false); InventoryBrowser.emit("Inventory:Close"); }
         InventoryOpen = !InventoryOpen;
     }
