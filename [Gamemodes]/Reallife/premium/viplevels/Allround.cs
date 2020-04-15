@@ -188,7 +188,7 @@ namespace VenoXV.Reallife.premium.viplevels
                             return;
                         }
                         player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
-                        Vehicle.vnxSetStreamSharedElementData( "gas", 100);
+                        Vehicle.vnxSetStreamSharedElementData( EntityData.VEHICLE_GAS, 100);
                         dxLibary.VnX.DrawNotification(player, "info", "Du hast dein Auto voll getankt!");
                     }
                 }
