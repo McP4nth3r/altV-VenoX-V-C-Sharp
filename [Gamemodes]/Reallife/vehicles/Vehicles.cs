@@ -140,11 +140,10 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         if (Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == fraktionsID)
                         {
-                            Rotation rot = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
                             Vehicle.Position = Vehicle.vnxGetElementData<Position>(EntityData.VEHICLE_POSITION);
-                            Vehicle.Rotation = new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180));
-                            Vehicle.vnxSetStreamSharedElementData("kms", 0);
-                            Vehicle.vnxSetStreamSharedElementData("gas", 100);
+                            Vehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
+                            Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                            Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                             Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
                             dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
                             Core.Debug.OutputDebugString("FACTION CAR : RESPAWNED!");
@@ -209,7 +208,7 @@ namespace VenoXV.Reallife.Vehicles
                                 if (Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) == FahrzeugID)
                                 {
                                     Vehicle.vnxSetElementData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
-                                    Vehicle.SetSyncedMetaData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
+                                    vehicle.vnxSetSharedElementData(EntityData.VEHICLE_OWNER,player.GetVnXName<string>());
                                     player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.GetVnXName<string>() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                    target.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.GetVnXName<string>() + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
                                     player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
@@ -243,7 +242,7 @@ namespace VenoXV.Reallife.Vehicles
                     if (player.IsInVehicle)
                     {
                         IVehicle Vehicle = player.Vehicle;
-                        float Gas = Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT");
+                        float Gas = Vehicle.vnxGetSharedData<float>(EntityData.VEHICLE_GAS);
                         float kostenberechnung = 100f - Gas;
                         kostenWindow = (int)kostenberechnung * 15;
                         dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
@@ -371,7 +370,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    Vehicle.vnxSetStreamSharedElementData("gas", value);
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, value);
                     dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, false);
                 }
             }
@@ -386,7 +385,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    float Gas = Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT");
+                    float Gas = Vehicle.vnxGetSharedData<float>(EntityData.VEHICLE_GAS);
                     float kostenberechnung = 100f - Gas;
                     int kosten = (int)kostenberechnung * 15;
                     if (kosten == 0)
@@ -446,7 +445,7 @@ namespace VenoXV.Reallife.Vehicles
                         else
                         {
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - kosten);
-                            player.Emit("Fill_Car_Accepted", Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT") + value, 2000);
+                            player.Emit("Fill_Car_Accepted", Vehicle.vnxGetSharedData<float>(EntityData.VEHICLE_GAS) + value, 2000);
                             player.Emit("destroyGasWindow");
                         }
                     }
@@ -502,47 +501,17 @@ namespace VenoXV.Reallife.Vehicles
             try
             {
                 IVehicle Vehicle = null;
-                if (vehModel.RgbaType == Constants.VEHICLE_Rgba_TYPE_PREDEFINED)
-                {
-                    string[] firstRgba = vehModel.firstRgba.Split(',');
-                    string[] secondRgba = vehModel.secondRgba.Split(',');
-                    if (IsModVehicleName(vehModel.model))
-                    {
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
-                        Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                        Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                    }
-                    else
-                    {
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, vehModel.rotation);
-                        Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                        Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                    }
-                }
-                else
-                {
-                    string[] firstRgba = vehModel.firstRgba.Split(',');
-                    string[] secondRgba = vehModel.secondRgba.Split(',');
-                    if (IsModVehicleName(vehModel.model))
-                    {
-                        Rotation rot = vehModel.rotation;
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
-                        Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                        Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                    }
-                    else
-                    {
-                        Rotation rot = vehModel.rotation;
-                        Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(FirstCharToUpper(vehModel.model)), vehModel.position, new Rotation(rot.Roll, rot.Pitch, (float)(Math.PI * rot.Yaw / 180)));
-                        Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                        Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                    }
-                    Vehicle.NumberplateText = vehModel.plate == string.Empty ? "LS " + (1000 + vehModel.id) : vehModel.plate;
-                    Vehicle.EngineOn = false;
-                    Vehicle.Dimension = vehModel.dimension;
-                    Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                    Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                }
+                string[] firstRgba = vehModel.firstRgba.Split(',');
+                string[] secondRgba = vehModel.secondRgba.Split(',');
+                Vehicle = Alt.CreateVehicle((AltV.Net.Enums.VehicleModel)Alt.Hash(vehModel.model), vehModel.position, vehModel.rotation);
+                if (Vehicle == null) { return; }
+                Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
+                Vehicle.NumberplateText = vehModel.plate == string.Empty ? "LS " + (1000 + vehModel.id) : vehModel.plate;
+                Vehicle.EngineOn = false;
+                Vehicle.Dimension = vehModel.dimension;
+                Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
 
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, vehModel.id);
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_MODEL, vehModel.model);
@@ -560,9 +529,13 @@ namespace VenoXV.Reallife.Vehicles
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKING, vehModel.parking);
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKED, vehModel.parked);
                 Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_MODDED, false); // Alles nicht gemoddete Fahrzeuge aus der DB!
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_FROZEN, true);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GODMODE, true);
                 Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
-                Vehicle.vnxSetStreamSharedElementData("gas", vehModel.gas);
-                Vehicle.vnxSetStreamSharedElementData("kms", vehModel.kms);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, vehModel.gas);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, vehModel.kms);
+
+
                 // Set IVehicle's tunning
                 Tunning.AddTunningToIVehicle(Vehicle);
                 Vehicle.ManualEngineControl = false;
@@ -578,12 +551,7 @@ namespace VenoXV.Reallife.Vehicles
                     //ToDo Fix it                     Vehicle.Locked = true;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION CreateIngameVehicle] " + ex.Message);
-                Console.WriteLine("[EXCEPTION CreateIngameVehicle] " + ex.StackTrace);
-                Console.WriteLine(vehModel.firstRgba + " | " + vehModel.secondRgba);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateIngameVehicle", ex); }
         }
 
 
@@ -597,9 +565,9 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     IVehicle Vehicle = player.Vehicle;
                     float kms = Vehicle.vnxGetSharedData<float>("VEHICLE_KMSPLAYER");
-                    float gas = Vehicle.vnxGetSharedData<float>("VEHICLE_GAS_CLIENT");
-                    Vehicle.vnxSetStreamSharedElementData("gas", gas);
-                    Vehicle.vnxSetStreamSharedElementData("kms", kms);
+                    float gas = Vehicle.vnxGetSharedData<float>(EntityData.VEHICLE_GAS);
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, gas);
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, kms);
                 }
             }
             catch { }
@@ -631,7 +599,7 @@ namespace VenoXV.Reallife.Vehicles
                             player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
                             if (gas < 0)
                             {
-                                player.Vehicle.vnxSetStreamSharedElementData("gas", 0);
+                                player.Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 0);
                             }
                             return;
                         }
@@ -647,7 +615,7 @@ namespace VenoXV.Reallife.Vehicles
                         {
                             Verbrauch = speed / 100;
                         }
-                        player.Vehicle.vnxSetStreamSharedElementData("gas", gas - Verbrauch);
+                        player.Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, gas - Verbrauch);
                     }
                 }
             }
@@ -661,30 +629,30 @@ namespace VenoXV.Reallife.Vehicles
                 if (State)
                 {
                     int rest = (Convert.ToInt32(distance) * 3);
-                    int tank = Convert.ToInt32(vehicle.vnxGetElementData<float>("VEHICLE_GAS_CLIENT"));
+                    int tank = Convert.ToInt32(vehicle.vnxGetElementData<float>(EntityData.VEHICLE_GAS));
                     int newtank = (tank - rest);
                     if (newtank < 0)
                     {
                         vehicle.EngineOn = false;
                         dxLibary.VnX.DrawNotification(player, "error", "Achtung Tank ist leer!");
-                        vehicle.SetSyncedMetaData("VEHICLE_GAS_CLIENT", 0);
+                        vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 0);
                         //player.call('Tacho_Benzin_Fix', [player]);
                     }
                     else if (newtank < 16 && newtank > 14)
                     {
                         dxLibary.VnX.DrawNotification(player, "warning", "Achtung Tank bald leer!");
-                        vehicle.SetSyncedMetaData("VEHICLE_GAS_CLIENT", newtank);
+                        vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, newtank);
                         //player.call('Tacho_Benzin_Fix', [player]);
                     }
                     else
                     {
-                        vehicle.SetSyncedMetaData("VEHICLE_GAS_CLIENT", newtank);
+                        vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, newtank);
                     }
 
                 }
                 else
                 {
-                    vehicle.SetSyncedMetaData("VEHICLE_GAS_CLIENT", 20);
+                    vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 20);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Tank", ex); }
@@ -695,7 +663,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                if (player.Seat == 0)
+                if (Vehicle.Driver == player)
                 {
                     if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_MOTOR) == true)
                     {
@@ -705,23 +673,20 @@ namespace VenoXV.Reallife.Vehicles
                     {
                         Vehicle.EngineOn = false;
                     }
-
-                    /*if(Vehicle.vnxGetElementData("VEHICLE_HEALTH_SERVER") == null)
+                    if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_GODMODE) == true)
                     {
-                        Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
-                    }
-                    player.Emit("set_bodyhealth", (int)Vehicle.vnxGetElementData("VEHICLE_HEALTH_SERVER"));*/
-                    dxLibary.VnX.DrawNotification(player, "info", "Drücke K um den Motor zu starten.");
-                    /*AltV.Net.Enums.VehicleModel veh = NAPI.Util.IVehicleNameToModel(Vehicle.Model.ToString());
-                    if (NAPI.Vehicle.GetIVehicleClass(veh) == 8)
-                    {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN) != 1)
+                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GODMODE, false);
+                        foreach (IPlayer players in VenoXV.Globals.Main.ReallifePlayers)
                         {
-                            player.WarpOutOfVehicle<bool>();
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Motorradschein");
-                            return;
+                            players.Emit("Vehicle:Godmode", Vehicle, false);
                         }
-                    }*/
+                    }
+                    Vehicle.SetStreamSyncedMetaData(EntityData.VEHICLE_FROZEN, false);
+                    dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, false);
+
+
+                    dxLibary.VnX.DrawNotification(player, "info", "Drücke K um den Motor zu starten.");
+
                     if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_TESTING) == true)
                     {
                         if (player.vnxGetElementData<bool>(EntityData.PLAYER_TESTING_VEHICLE) == true)
@@ -755,8 +720,8 @@ namespace VenoXV.Reallife.Vehicles
                         {
                             float kmss = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_KMS);
                             float gass = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_GAS);
-                            Vehicle.vnxSetStreamSharedElementData("gas", gass);
-                            Vehicle.vnxSetStreamSharedElementData("kms", kmss);
+                            Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, gass);
+                            Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, kmss);
                             return;
                         }
                         int vehFaction = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION);
@@ -827,8 +792,8 @@ namespace VenoXV.Reallife.Vehicles
 
                     float kms = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_KMS);
                     float gas = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_GAS);
-                    Vehicle.vnxSetStreamSharedElementData("gas", gas);
-                    Vehicle.vnxSetStreamSharedElementData("kms", kms);
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, gas);
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, kms);
                     player.Emit("initializeSpeedometer", kms, gas, Vehicle.EngineOn);
                 }
             }
@@ -973,8 +938,8 @@ namespace VenoXV.Reallife.Vehicles
             try
             {
                 // Update kms and gas
-                Vehicle.vnxSetStreamSharedElementData("kms", kms);
-                Vehicle.vnxSetStreamSharedElementData("gas", gas);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, kms);
+                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, gas);
             }
             catch { }
         }
