@@ -6,12 +6,68 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 using VenoXV.Reallife.model;
 
 namespace VenoXV.Core
 {
     public static class RageAPI
     {
+        public static void SpawnPlayer(this IPlayer element, Vector3 pos, uint DelayInMS = 0)
+        {
+            try
+            {
+                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
+                {
+                    element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
+                    element.Spawn(pos, DelayInMS);
+                }
+                else
+                {
+                    element.Position = pos;
+                }
+            }
+            catch { }
+        }
+        public static void DespawnPlayer(this IPlayer element)
+        {
+            try
+            {
+                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
+                {
+                    element.vnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
+                    element.Despawn();
+                }
+            }
+            catch { }
+        }
+        public static void SetPlayerSkin(this IPlayer element, uint SkinHash)
+        {
+            try
+            {
+                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
+                {
+                    if (element.vnxGetElementData<uint>("RAGEAPI:PlayerSkin") != SkinHash)
+                    {
+                        element.vnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", SkinHash);
+                        element.Model = SkinHash;
+                    }
+                }
+            }
+            catch { }
+        }
+        public static uint GetPlayerSkin(this IPlayer element)
+        {
+            try
+            {
+                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
+                {
+                    return element.Model;
+                }
+                return (uint)AltV.Net.Enums.PedModel.Natalia;
+            }
+            catch { return (uint)AltV.Net.Enums.PedModel.Natalia; }
+        }
         public static T vnxGetElementData<T>(this IBaseObject element, string key)
         {
             try
@@ -181,6 +237,14 @@ namespace VenoXV.Core
                 //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
+        }
+        public static float ToRadians(float val)
+        {
+            return (float)(System.Math.PI / 180) * val;
+        }
+        public static float ToDegrees(float val)
+        {
+            return (float)(val * (180 / System.Math.PI));
         }
     }
 }
