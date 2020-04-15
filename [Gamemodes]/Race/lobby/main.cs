@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     if (counter > CurrentMap.PlayerSpawnPoints.Count) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Die Runde ist leider voll... bitte gedulde dich"); }
                     Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[counter];
                     Vector3 Rotation = CurrentMap.PlayerRotation;
-                    player.Spawn(Spawnpoint);
+                    player.SpawnPlayer(Spawnpoint);
                     IVehicle vehicle = Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
                     VehicleModel vehClass = new VehicleModel()
                     {
