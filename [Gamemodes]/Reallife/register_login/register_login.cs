@@ -43,6 +43,7 @@ namespace VenoXV.Reallife.register_login
             try
             {
                 // Spawn pos 2
+                player.SpawnPlayer(player.Position);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 player.Position = new Position(152.26f, -1004.47f, -99.00f);
                 player.Dimension = player.Id;
@@ -262,7 +263,6 @@ namespace VenoXV.Reallife.register_login
                 player.Dimension = 0;
                 //ToDo : ZwischenLösung Finden! player.Transparency = 0;
                 player.Emit("FreezePlayerPLAYER_VnX", true);
-
                 if (cevent == 1)
                 {
                     Position StartPosition = new Position(411.4904f, -956.7184f, 50);
@@ -551,6 +551,7 @@ namespace VenoXV.Reallife.register_login
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
                 player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
                 RootCore.Sync.LoadAllTextLabels(player);
+                CreateGasBlips(player);
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID) <= 0)
                 {
                     return;
@@ -645,8 +646,9 @@ namespace VenoXV.Reallife.register_login
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
                             if (character != null && character.realName != null)
                             {
+                                player.SpawnPlayer(player.Position);
                                 player.vnxSetElementData(Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
-                                player.Model = character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01");
+                                player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01"));
                                 Login.LoadCharacterData(player, character);
                                 player.vnxSetStreamSharedElementData("HideHUD", 1);
                                 anzeigen.Usefull.VnX.UpdateHUD(player);
