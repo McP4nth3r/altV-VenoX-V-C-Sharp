@@ -22,15 +22,12 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 			loginbrowser.destroy();
 			loginbrowser = null;
 		}
-		loginbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/login/login.html");
+		loginbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/login/main.html");
 		alt.gameControlsEnabled(false);
-		loginbrowser.on("loginReady", () => {
-			alt.setTimeout(() => {
-				loginbrowser.emit("LoginLoad", name, changelogs);
-				ShowCursor(true);
-				loginbrowser.focus();
-			}, 500);
-		});
+		alt.setTimeout(() => {
+			ShowCursor(true);
+			loginbrowser.focus();
+		}, 500);
 		loginbrowser.on('request_player_login', (n, p) => {
 			alt.emitServer("loginAccount", n, p);
 		});
@@ -42,7 +39,7 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 	}, 3000);
 });
 
-const statNames = ["SP0_STAMINAï»¿", "SP0_STRENGTH", "SP0_LUNG_CAPACITY", "SP0_WHEELIE_ABILITY", "SP0_FLYING_ABILITY", "SP0_SHOOTING_ABILITY", "SP0_STEALTH_ABILITY"];
+const statNames = ["SP0_STAMINAï»¿", "SP0_STRENGTH", "SP0_LUNG_CAPACITY", "SP0_WHEELIE_ABILITY", "SP0_FLYING_ABILITY", "SP0_SHOOTING_ABILITY"];
 // maybe playerReady can be used instead, haven't tested
 function OnPlayerSpawnLoad() {
 	for (const stat of statNames) game.statSetInt(statNames, 100, false);

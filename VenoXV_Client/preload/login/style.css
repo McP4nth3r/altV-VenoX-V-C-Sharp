@@ -1,0 +1,625 @@
+/*----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------*/
+
+@font-face { font-family: 'drugs';
+	src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+	src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }
+
+body{
+-ms-user-select: None; 
+-moz-user-select: None; 
+-webkit-user-select: None; 
+overflow: hidden;
+}
+
+.background_main{
+position: absolute;
+color: red;
+left: 0vw;
+top: 0vw;
+width: 100%;
+height: 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: 50% 50%;
+filter: blur(3px);
+-webkit-filter: blur(3px);
+}
+
+/* Login Register Main */
+.login_main{
+animation-name: OpacityFrame;
+animation-duration: 1s;
+z-index: 0;
+}
+
+
+/* Login Register Buttonbar Main	*/
+
+.login_main_bar{
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 3vw;
+background-color: rgba(0,0,0,0.8);
+border-top: 0.10vw solid rgb(0,150,200);
+animation-name: OpacityFrame;
+animation-duration: 3s;
+}
+
+
+.button_login{
+position: absolute;
+left: 82vw;
+top: 0.7vw;
+width: 7vw;
+padding: 0.3vw 0.3vw;
+background-color: rgba(0,0,0,0.6);
+text-align: center;
+border-radius: 0.3vw;
+font-size: 1vw;
+color: white;
+font-family: drugs;
+z-index: 1;
+}
+.button_login:hover{
+position: absolute;
+background-color: rgba(0,150,200,0.6);
+color: white;
+}
+
+.button_register{
+position: absolute;
+left: 90vw;
+top: 0.7vw;
+width: 7vw;
+font-size: 1vw;
+padding: 0.3vw 0.3vw;
+background-color: rgba(0,0,0,0.6);
+text-align: center;
+border-radius: 0.3vw;
+color: white;
+font-family: drugs;
+z-index: 1;
+}
+.button_register:hover{
+position: absolute;
+background-color: rgba(0,150,200,0.6);
+color: white;
+}
+
+
+.login_button_send{
+position: absolute;
+left: 10%;
+top: 80%;
+width: 12vw;
+font-size: 0.8vw;
+padding: 0.2vw 0.3vw;
+background-color: rgba(0,0,0,0.6);
+text-align: center;
+border-radius: 0.3vw;
+color: white;
+font-family: drugs;
+}
+.login_button_send:hover{
+position: absolute;
+background-color: rgba(0,150,200,0.6);
+color: white;
+}
+
+
+
+/* /////////////////////////////////////////////////////////////// */
+
+/* Login */
+.login_window_main{
+position: absolute;
+left: 82vw;
+top: 3.5vw;
+width: 15.5vw;
+height: 10vw;
+background-color: rgb(0,0,0,0.6);
+border-radius: 0.3vw;
+animation-name: OnClickedLoginRegisterButton;
+animation-duration: 1s;
+}
+
+.login_window_header{
+position: absolute;
+width: 100%;
+color: rgb(225,225,225);
+font-family: drugs;
+text-align: center;
+font-size: 1vw;
+padding: 0.3vw 0.0vw;
+background-color: rgba(0,0,0,0.7);
+border-top-left-radius:  0.3vw;
+border-top-right-radius:  0.3vw;
+border-top: 0.15vw solid rgb(0,150,200);
+}
+.login_window_close{
+position: absolute;
+left: 92%;
+font-family: cursive;
+top: 3.5%;
+font-size: 1vw;
+color: rgb(225,225,225);
+
+}
+.login_window_close:hover{color: rgb(225,0,0);}
+
+/* Username eingabe Feld */
+.name_box {
+position: absolute;
+top: 30%;
+left: 52%;
+width: 10vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.name_box::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.name_box:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
+.login_image_username{
+position: absolute;
+left: 5%;
+top: 30%;
+width: 2vw;
+height: 1.5vw;
+z-index: 1;
+}
+
+/* Passwort eingabe Feld */
+.pw_box {
+position: absolute;
+top: 60%;
+left: 52%;
+width: 10vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.pw_box::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.pw_box:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
+
+.login_image_password{
+position: absolute;
+left: 7%;
+top: 64%;
+width: 1.5vw;
+height: 1vw;
+z-index: 1;
+}
+
+
+
+/* /////////////////////////////////////////////////////////////// */
+
+/* Register Window */
+.register_window_main{
+position: absolute;
+left: 82vw;
+top: 3.5vw;
+width: 15.5vw;
+height: 10vw;
+background-color: rgb(0,0,0,0.6);
+border-radius: 0.3vw;
+animation-name: OnClickedLoginRegisterButton;
+animation-duration: 1s;
+}
+.register_window_header{
+position: absolute;
+width: 100%;
+color: rgb(225,225,225);
+font-family: drugs;
+text-align: center;
+font-size: 1vw;
+padding: 0.3vw 0.0vw;
+background-color: rgba(0,0,0,0.7);
+border-top-left-radius:  0.3vw;
+border-top-right-radius:  0.3vw;
+border-top: 0.15vw solid rgb(0,150,200);
+}
+
+.register_username {
+position: absolute;
+top: 30%;
+left: 52%;
+width: 10vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.register_username::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.register_username:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
+
+/* Passwort eingabe Feld */
+.register_password {
+position: absolute;
+top: 50%;
+left: 52%;
+width: 10vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.register_password::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.register_password:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
+
+.gender_select_button_male{
+position: absolute;
+left: 55%;
+width: 3.5vw;
+color:white;
+top: 70%;
+font-family: drugs;
+padding: 0.3vw;
+background: rgb(0,0,0,0.6);
+}
+.gender_select_button_male:hover{
+background: rgb(0,150,200,0.6);
+}
+
+.register_window_close{
+position: absolute;
+left: 92%;
+font-family: cursive;
+top: 3.5%;
+font-size: 1vw;
+color: rgb(225,225,225);
+
+}
+.register_window_close:hover{color: rgb(225,0,0);}
+
+/* /////////////////////////////////////////////////////////////// */
+
+/* Changelogs */
+.changelog_main{
+position: absolute;
+left: 1vw;
+top: 15vw;
+width: 20vw;
+height: 25vw;
+background-color: rgba(0,0,0,0.6);
+border-radius: 0.3vw;
+animation-name: OnChangelogLoadedEffect;
+animation-duration: 1.5s;
+}
+
+.changelog_header{
+position: absolute;
+width: 98%;
+font-size: 1vw;
+text-align: center;
+color: white;  
+font-family: drugs;
+padding: 0.2vw;
+background-color: rgba(0,0,0,0.6);
+border-top-left-radius:  0.3vw;
+border-top-right-radius:  0.3vw;
+border-top: 0.2vw solid rgb(0,150,200);
+}
+
+.changelog_container{
+position: absolute;
+top: 1.7vw;
+width: 100%;
+height: 93.3%;
+font-size: 0.8vw;
+color: rgb(150,150,150);
+text-align: center;
+font-family:cursive;
+background-color: rgb(0,0,0,0.4);
+border-bottom-left-radius:  0.3vw;
+border-bottom-right-radius:  0.3vw;
+}
+
+
+/* /////////////////////////////////////////////////////////////// */
+
+
+/* Taskbar */
+
+.taskbar_help{
+position: absolute;
+left: 0;
+top: 97vh;
+width: 100%;
+height: 1.7vw;
+background-color: rgba(0,0,0,0.8);
+border-top: 0.1vw solid rgb(0,0,0,0.9);
+z-index: 0;
+}
+
+.task_privacypolicy{
+position: absolute;
+left: 0.5%;
+padding: 0.3vw;
+height: 0.7vw;
+top: 10%;
+background-color: rgba(0,0,0,0.8);
+color: white;
+font-family: drugs;
+font-size: 0.7vw;
+border-radius: 0.3vw;
+}
+
+.task_privacypolicy:hover{
+background-color: rgba(0,150,200,0.6);
+}
+
+.task_information{
+position: absolute;
+left: 8%;
+padding: 0.3vw;
+height: 0.7vw;
+top: 10%;
+background-color: rgba(0,0,0,0.8);
+color: white;
+font-family: drugs;
+font-size: 0.7vw;
+border-radius: 0.3vw;
+}
+
+.task_information:hover{
+background-color: rgba(0,150,200,0.6);
+}
+
+.task_help{
+position: absolute;
+left: 12.15%;
+padding: 0.3vw;
+height: 0.7vw;
+top: 10%;
+background-color: rgba(0,0,0,0.8);
+color: white;
+font-family: drugs;
+font-size: 0.7vw;
+border-radius: 0.3vw;
+z-index: 10;
+}
+
+.task_help:hover{
+background-color: rgba(0,150,200,0.6);
+}
+
+.task_music{
+position: absolute;
+left: 14.15%;
+padding: 0.3vw;
+height: 0.7vw;
+top: 10%;
+background-color: rgba(0,0,0,0.8);
+color: white;
+font-family: drugs;
+font-size: 0.7vw;
+border-radius: 0.3vw;
+z-index: 10;
+}
+
+.task_music:hover{
+background-color: rgba(0,150,200,0.6);
+}
+
+
+/* /////////////////////////////////////////////////////////////// */
+
+.window_privacypolicy{
+position: absolute;
+left: 50%;
+transform: translate(-50%);
+top: 30vh;
+width: 40vw;
+height: 20vw;
+background-color: rgba(0,0,0,0.6);
+border-top-left-radius: 0.3vw;
+border-top-right-radius: 0.3vw;
+border-bottom-left-radius: 0.3vw;
+}
+.window_privacypolicy_header{
+position: absolute;
+width: 98.5%;
+color: white;
+text-align: center;
+font-family: drugs;
+border-top: 0.15vw solid rgb(0,200,255);
+padding: 0.3vw;
+font-size: 1vw;
+background-color: rgba(0,0,0,0.6);
+border-top-left-radius: 0.3vw;
+border-top-right-radius: 0.3vw;
+}
+.window_privacypolicy_text{
+position: absolute;
+left:1%;
+width: 99%;
+top: 1.9vw;
+font-size: 0.8vw;
+color: white;
+font-family:monospace;
+height: 18.10vw;
+background-color: rgba(0,0,0,0.0);
+border-bottom-left-radius: 0.3vw;
+border-bottom-right-radius: 0.3vw;
+overflow: auto !important;
+}
+.privacypolicy_close{
+position: absolute;
+left: 97%;
+font-family: cursive;
+top: 1.5%;
+font-size: 1vw;
+color: rgb(225,225,225);
+
+}
+.privacypolicy_close:hover{color: rgb(225,0,0);}
+
+/* /////////////////////////////////////////////////////////////// */
+
+/* Global Classes */
+.Button_Active{
+background-color: rgba(0,0,0,0.9);
+-webkit-box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+-moz-box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+}
+.Button_Active:hover{
+background-color: rgba(0,0,0,0.9);
+-webkit-box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+-moz-box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
+
+}
+
+::-webkit-scrollbar {
+width: 0.50vw;
+}
+
+::-webkit-scrollbar-track {
+background-color: rgba(0, 50, 80, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+background: rgba(0, 105, 145, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: rgba(0, 150, 200, 1); 
+}
+
+
+/* KeyFrame */
+@keyframes OnChangelogLoadedEffect {
+0%{
+position: absolute;
+left: -10vw;
+opacity:0;
+}
+
+50%{
+position: absolute;
+left: 5vw;
+opacity:0.5;
+}
+100%{
+position: absolute;
+left: 1vw;
+opacity:1;
+}
+}
+@keyframes OnClickedLoginRegisterButton {
+0%{
+position: absolute;
+top: -5vw;
+opacity:0;
+}
+
+50%{
+position: absolute;
+top: 4.5vw;
+opacity:1;
+}
+100%{
+position: absolute;
+top: 3.5vw;
+opacity:1;
+}
+}
+@keyframes OnLoadFrame {
+from {
+filter: blur(0px);
+-webkit-filter: blur(0px);
+}
+to {
+filter: blur(3px);
+-webkit-filter: blur(3px);
+}
+}
+@keyframes OpacityFrame {
+from {
+
+opacity: 0.0;
+}
+to {
+opacity: 1;
+
+}
+}
+
+.d-none {
+display: none !important
+}
