@@ -8,6 +8,7 @@ import alt from 'alt-client';
 import * as game from "natives";
 
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
+import * as Chat from '/VenoXV_Client/Globals/Chat/index.js';
 import * as ServerLibary from '/VenoXV_Client/Globals/VnX-Lib/index.js';
 import * as CameraLib from '/VenoXV_Client/Globals/VnX-Lib/camera.js';
 import * as EventLib from '/VenoXV_Client/Globals/VnX-Lib/events.js';
@@ -31,7 +32,7 @@ import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/in
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
-
+import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
 
 
 import * as hud3 from '/VenoXV_Client/Globals/Anzeigen/hud/third/index.js';
