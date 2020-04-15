@@ -66,7 +66,6 @@ namespace VenoXV.Tactics.Lobby
             player.vnxSetElementData(EntityData.PLAYER_DISCONNECTED_ROUND, false);
             player.vnxSetElementData(EntityData.PLAYER_IS_DEAD, false);
             player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, false);
-            player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
             player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
             RageAPI.SetPlayerVisible(player, true);
         }
@@ -152,7 +151,8 @@ namespace VenoXV.Tactics.Lobby
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Vector3 Spawnpunkt = CurrentMap.Team_B_Spawnpoints[randomspawnpoint];
-                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_B_Skin);
+                    player.SpawnPlayer(Spawnpunkt);
+                    player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_B_Skin));
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
@@ -164,7 +164,7 @@ namespace VenoXV.Tactics.Lobby
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
-                    player.Spawn(Spawnpunkt); player.Model = Alt.Hash(CurrentMap.Team_A_Skin);
+                    player.SpawnPlayer(Spawnpunkt); player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_A_Skin));
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, true);
                     player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
@@ -201,15 +201,15 @@ namespace VenoXV.Tactics.Lobby
                     {
                         MEMBER_COUNT_BFAC += 1;
                         MEMBER_COUNT_MAX_BFAC += 1;
-                        InitializePlayerData(player);
                         SpawnPlayerOnPoint(player, EntityData.BFAC_NAME);
+                        InitializePlayerData(player);
                     }
                     else
                     {
                         MEMBER_COUNT_COPS += 1;
                         MEMBER_COUNT_MAX_COPS += 1;
-                        InitializePlayerData(player);
                         SpawnPlayerOnPoint(player, EntityData.COPS_NAME);
+                        InitializePlayerData(player);
                     }
                 }
                 else
@@ -218,15 +218,15 @@ namespace VenoXV.Tactics.Lobby
                     {
                         MEMBER_COUNT_COPS += 1;
                         MEMBER_COUNT_MAX_COPS += 1;
-                        InitializePlayerData(player);
                         SpawnPlayerOnPoint(player, EntityData.COPS_NAME);
+                        InitializePlayerData(player);
                     }
                     else
                     {
                         MEMBER_COUNT_BFAC += 1;
                         MEMBER_COUNT_MAX_BFAC += 1;
-                        InitializePlayerData(player);
                         SpawnPlayerOnPoint(player, EntityData.BFAC_NAME);
+                        InitializePlayerData(player);
                     }
                 }
             }
@@ -253,7 +253,7 @@ namespace VenoXV.Tactics.Lobby
                         AntiCheat_Allround.SetTimeOutHealth(players, 3000);
                         players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
                         players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
-                        players.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
+                        //InitializePlayerData(players);
                         PutPlayerInTeam(players);
                         SyncTime();
                         SyncPlayerStats();
@@ -309,17 +309,17 @@ namespace VenoXV.Tactics.Lobby
                 //AntiCheat_Allround.SetTimeOutHealth(player, 3000);
                 //AntiCheat_Allround.StartTimerTeleport(player);
                 InitializePlayerSavedData(player);
+                player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
                 if (TACTICMANAGER__ROUND_ISRUNNING && TACTICMANAGER_ROUND_TIMETOJOIN < DateTime.Now)
                 {
                     if (MEMBER_COUNT_MAX_BFAC == 0 || MEMBER_COUNT_MAX_COPS == 0)
                     {
-                        player.Spawn(player.Position);
                         StartNewTacticRound();
                     }
                     else
                     {
                         // To Do : Cam event erstellen.
-                        player.Despawn();
+                        player.DespawnPlayer();
                         Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllWeapons();
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
