@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System;
 using VenoXV.Core;
 using VenoXV.Reallife.database;
 using VenoXV.Reallife.Globals;
@@ -74,11 +75,12 @@ namespace VenoXV.Reallife.bank
             }
         }
 
-        //[AltV.Net.ClientEvent("ATM_MONEY_SEND_TO")]
-        public static void SendToPlayerMoney_ATM(IPlayer player, string name, int value, string reason)
+        [ClientEvent("ATM_MONEY_SEND_TO")]
+        public static void SendToPlayerMoney_ATM(IPlayer player, string name, string svalue, string reason)
         {
             try
             {
+                int value = Int32.Parse(svalue);
                 if (value < 0)
                 {
                     return;
