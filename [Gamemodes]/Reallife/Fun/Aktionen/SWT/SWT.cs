@@ -117,8 +117,8 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 SWT_TRUCK.EngineOn = true;
                 SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_MODEL, "SWT");
                 SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_PLATE, "SWT");
-                SWT_TRUCK.vnxSetStreamSharedElementData("kms", 0);
-                SWT_TRUCK.vnxSetStreamSharedElementData("gas", 100);
+                SWT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                SWT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 SWT_TRUCK.NumberplateText = "VenoX";
                 SWT_TRUCK.vnxSetElementData("AKTIONS_FAHRZEUG", true);
                 SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);

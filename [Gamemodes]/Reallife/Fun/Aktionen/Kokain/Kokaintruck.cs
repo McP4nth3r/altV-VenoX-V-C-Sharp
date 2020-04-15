@@ -192,8 +192,8 @@ namespace VenoXV.Reallife.Fun
                         Kokaintruckveh.EngineOn = true;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_MODEL, "Kokaintruck");
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
-                        Kokaintruckveh.vnxSetStreamSharedElementData("kms", 0);
-                        Kokaintruckveh.vnxSetStreamSharedElementData("gas", 100);
+                        Kokaintruckveh.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                        Kokaintruckveh.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_NOT_SAVED, true);
                         foreach (IPlayer target in Alt.GetAllPlayers())
