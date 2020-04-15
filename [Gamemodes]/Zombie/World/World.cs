@@ -36,7 +36,7 @@ namespace VenoXV.Zombie.World
             try
             {
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
-                //NAPI.Player.SpawnPlayer(player, PLAYER_SPAWN_NOOBSPAWN);
+                //NAPI.player.SpawnPlayerPlayer(player, PLAYER_SPAWN_NOOBSPAWN);
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 player.Emit("Zombie:OnResourceStart");
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
