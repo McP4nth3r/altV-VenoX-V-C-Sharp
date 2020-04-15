@@ -135,7 +135,7 @@ namespace VenoXV.Globals
             {
                 Reallife.Globals.Main.OnUpdate();
                 Tactics.Globals.Main.OnUpdate();
-                _Gamemodes_.Race.Globals.Main.OnUpdate();
+                _Gamemodes_.Race.Globals.main.OnUpdate();
                 //Zombie.globals.Main.OnUpdate();
                 //SevenTowers.globals.Main.OnUpdate();
             }
