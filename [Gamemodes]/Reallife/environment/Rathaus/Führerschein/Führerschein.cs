@@ -98,8 +98,8 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.EngineOn = !PruefungsAuto.EngineOn;
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_MODEL, "PruefungsAuto");
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_PLATE, "PruefungsAuto"); ;
-                PruefungsAuto.vnxSetStreamSharedElementData( "kms", 0);
-                PruefungsAuto.vnxSetStreamSharedElementData( "gas", 100);
+                PruefungsAuto.vnxSetStreamSharedElementData( EntityData.VEHICLE_KMS, 0);
+                PruefungsAuto.vnxSetStreamSharedElementData( EntityData.VEHICLE_GAS, 100);
                 PruefungsAuto.NumberplateText = "VenoX";
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                 PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO", true);

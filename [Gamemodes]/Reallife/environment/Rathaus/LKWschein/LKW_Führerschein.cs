@@ -85,8 +85,8 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.EngineOn = !PruefungsAuto.EngineOn;
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_MODEL, "PruefungsAuto");
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_PLATE, "PruefungsAuto"); ;
-                PruefungsAuto.vnxSetStreamSharedElementData("kms", 0);
-                PruefungsAuto.vnxSetStreamSharedElementData("gas", 100);
+                PruefungsAuto.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                PruefungsAuto.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
                 PruefungsAuto.NumberplateText = "VenoX";
                 PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
                 PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO", true);
@@ -188,6 +188,14 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
         {
             try
             {
+                if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_GODMODE) == false)
+                {
+                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GODMODE, true);
+                    foreach (IPlayer players in VenoXV.Globals.Main.ReallifePlayers)
+                    {
+                        players.Emit("Vehicle:Godmode", Vehicle, true);
+                    }
+                }
                 if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName<string>() && player.vnxGetElementData<int>("Marker_Pruefung") >= 0 && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "LKW")
                 {
                     player.vnxSetElementData("Marker_Pruefung", 0);
