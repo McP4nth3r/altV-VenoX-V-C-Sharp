@@ -671,8 +671,8 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_JOB, Job);
 
                 // KM & Gas load and Safe.
-                CreatedVehicle.vnxSetStreamSharedElementData("kms", 0);
-                CreatedVehicle.vnxSetStreamSharedElementData("gas", 100);
+                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
+                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
 
                 CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
                 CreatedVehicle.NumberplateText = NumberplateText;
