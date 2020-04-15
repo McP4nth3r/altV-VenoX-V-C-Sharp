@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 using VenoXV.Reallife.character;
@@ -64,6 +65,52 @@ namespace VenoXV.Reallife.admin
                 return true;
             }
             return false;
+        }
+
+        public static int TestCounter = 0;
+        [Command("tpaltv")]
+        public static void TeleportPlayerToBullshitCoords(IPlayer player)
+        {
+            foreach (IPlayer players in Alt.GetAllPlayers())
+            {
+                players.RemoveAllWeapons();
+                switch (TestCounter)
+                {
+                    case 0:
+                        players.Position = new Vector3(-1000.9978f, -3408.6858f, 13.828613f);
+                        players.SetPlayerSkin(Alt.Hash("csb_mweather"));
+                        players.Dimension = -10;
+                        Alt.Server.TriggerClientEvent(players, "FreezePlayerPLAYER_VnX", true);
+                        break;
+                    case 1:
+                        players.Position = new Vector3(473.44617f, 6596.136f, 24.713501f);
+                        players.SetPlayerSkin(Alt.Hash("ig_claypain"));
+                        Alt.Server.TriggerClientEvent(players, "FreezePlayerPLAYER_VnX", true);
+                        players.Dimension = -10;
+                        break;
+                }
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.PumpShotgun, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.SMG, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.CombatPDW, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.CarbineRifle, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.AssaultRifle, 800);
+                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.Musket, 800);
+                players.Health = 200;
+                players.Armor = 100;
+                players.Emit("LoadTacticUI", "test", "Test2", 255, 255, 0, 200, 0, 200);
+                players.Emit("Tactics:LoadTimer", (int)180);
+                //float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
+                //int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
+                //Debug.OutputDebugString("Damage Done : " + DamageDone); 
+                //Debug.OutputDebugString("Kills Done : " + KillsDone); 
+                //players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
+                //SyncTime();
+                //SyncPlayerStats();
+                //SyncStats();
+            }
+            if (TestCounter == 0) { TestCounter++; }
+            else { TestCounter--; }
         }
 
         [Command("admins")]
@@ -250,7 +297,8 @@ namespace VenoXV.Reallife.admin
                         {
                             //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
                             player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                            player.Model = character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
+                            player.SpawnPlayer(player.Position);
+                            player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
                             Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
                             Customization.ApplyPlayerClothes(player);
                             Customization.ApplyPlayerTattoos(player);
@@ -1361,14 +1409,15 @@ namespace VenoXV.Reallife.admin
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
-        [Command("vnxGetElementData")]
+        [Command("vnxgetelementdata")]
         public static void GetElementDataAdmin(IPlayer player, string target_name, string element)
         {
             IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_STELLVP)
             {
-                player.SendChatMessage("[vnxGetElementData(" + element + ") = " + target.vnxGetElementData<int>(element));
+                player.SendChatMessage("[vnxGetElementData(" + element + ") = " + target.vnxGetElementData<object>(element));
+                player.SendChatMessage(target.GetVnXName<string>());
             }
         }
 
@@ -1580,30 +1629,32 @@ namespace VenoXV.Reallife.admin
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                 {
-                    VehicleModel IVehicle = new VehicleModel();
-                    // Basic data for IVehicle creation
-                    IVehicle.model = VehicleModel;
-                    IVehicle.faction = FID;
-                    IVehicle.position = player.Position;
-                    IVehicle.rotation = player.Rotation;
-                    IVehicle.dimension = player.Dimension;
-                    IVehicle.RgbaType = Constants.VEHICLE_Rgba_TYPE_CUSTOM;
-                    IVehicle.firstRgba = R + "," + G + "," + B;
-                    IVehicle.secondRgba = R2 + "," + G2 + "," + B2;
-                    IVehicle.pearlescent = 0;
-                    IVehicle.owner = IVehicleOwner;
-                    IVehicle.plate = string.Empty;
-                    IVehicle.price = IVehiclePreis;
-                    IVehicle.parking = 0;
-                    IVehicle.parked = 0;
-                    IVehicle.gas = IVehicleLiter;
-                    IVehicle.kms = 0.0f;
+                    VehicleModel IVehicle = new VehicleModel
+                    {
+                        // Basic data for IVehicle creation
+                        model = VehicleModel,
+                        faction = FID,
+                        position = player.Position,
+                        rotation = player.Rotation,
+                        dimension = player.Dimension,
+                        RgbaType = Constants.VEHICLE_Rgba_TYPE_CUSTOM,
+                        firstRgba = R + "," + G + "," + B,
+                        secondRgba = R2 + "," + G2 + "," + B2,
+                        pearlescent = 0,
+                        owner = IVehicleOwner,
+                        plate = string.Empty,
+                        price = IVehiclePreis,
+                        parking = 0,
+                        parked = 0,
+                        gas = IVehicleLiter,
+                        kms = 0.0f
+                    };
 
                     // Create the IVehicle
                     Vehicles.Vehicles.CreateVehicle(player, IVehicle, true);
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnAdminVehicle", ex); }
         }
 
 
