@@ -4,7 +4,7 @@ using System.Text;
 using System.Data;
 using MySql.Data.MySqlClient;
 
-namespace VenoXV.Reallife.database
+namespace VenoXV._Gamemodes_.Reallife.database
 {
     class Storage
     {

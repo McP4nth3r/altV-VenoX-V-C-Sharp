@@ -1,7 +1,7 @@
 ﻿using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 
-namespace VenoXV.Reallife.model
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class FurnitureModel
     {

@@ -6,8 +6,9 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives"
-import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
 import { interpolateCamera, destroyCamera } from '../../Globals/VnX-Lib/camera';
+import { ShowCursor } from '../../Globals/VnX-Lib';
+import { LoadChat } from '../../Globals/Chat';
 
 let loginbrowser = null;
 let Login_Timer_Load = undefined;
@@ -24,13 +25,21 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 		}
 		loginbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/login/main.html");
 		alt.gameControlsEnabled(false);
+		ShowCursor(true);
 		alt.setTimeout(() => {
+			ShowCursor(false);
 			ShowCursor(true);
 			loginbrowser.focus();
-		}, 500);
+		}, 1000);
+		loginbrowser.focus();
 		loginbrowser.on('request_player_login', (n, p) => {
 			alt.emitServer("loginAccount", n, p);
 		});
+		loginbrowser.on('Register:First', (username, email, password, password_retype, GenderSelected) => {
+			alt.emitServer("Account:Register", username, email, password, password_retype, GenderSelected, true);
+			alt.log('Emitted to the Server : ' + username + " | " + email + " | " + password + " | " + password_retype + " | " + GenderSelected);
+		});
+		game.setEntityHeading(localplayer.scriptID, 60);
 		game.freezeEntityPosition(localplayer.scriptID, true);
 		game.displayRadar(false);
 		game.displayHud(false);
@@ -69,6 +78,9 @@ alt.onServer('DestroyLoginWindow', () => {
 		OnPlayerSpawnLoad();
 		ShowCursor(false);
 		destroyCamera();
+		game.displayRadar(true);
+		game.displayHud(true);
+		LoadChat();
 	}
 	if (Login_Timer_Load != undefined) {
 		alt.clearInterval(Login_Timer_Load);
@@ -80,7 +92,16 @@ alt.onServer('showLoginError', () => {
 });
 
 alt.onServer("SetCamera_Event_Login", (StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber) => {
-	interpolateCamera(StartPosition.x, StartPosition.y, StartPosition.z, StartRotation.z, Fov, EndPosition.x, EndPosition.y, EndPosition.z, EndRotation.z, 0, time);
+	game.displayRadar(false);
+	game.displayHud(false);
+	interpolateCamera(StartPosition.x, StartPosition.y, StartPosition.z, StartRotation.x, StartRotation.y, StartRotation.z, Fov, EndPosition.x, EndPosition.y, EndPosition.z, EndRotation.x, EndRotation.y, EndRotation.z, Fov, time);
+});
+
+
+alt.onServer("DestroyCamera_Event", () => {
+	destroyCamera();
+	game.displayRadar(true);
+	game.displayHud(true);
 });
 
 function VnX_LoadCamera_Event() {

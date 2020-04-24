@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.model;
 
 namespace VenoXV.Core
 {
@@ -21,6 +21,7 @@ namespace VenoXV.Core
                 {
                     element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
                     element.Spawn(pos, DelayInMS);
+                    element.Emit("Player:Spawn");
                 }
                 else
                 {
@@ -125,14 +126,14 @@ namespace VenoXV.Core
         {
             player.Emit("Player:WarpOutOfVehicle");
         }
-        public static void SetVnXName<T>(this IPlayer player, string Name)
+        public static void SetVnXName(this IPlayer player, string Name)
         {
-            player.vnxSetElementData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
-            player.SetStreamSyncedMetaData(Reallife.Globals.EntityData.PLAYER_NAME, Name);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_NAME, Name);
+            player.SetStreamSyncedMetaData(Globals.EntityData.PLAYER_NAME, Name);
         }
-        public static string GetVnXName<T>(this IPlayer player)
+        public static string GetVnXName(this IPlayer player)
         {
-            return player.vnxGetElementData<string>(Reallife.Globals.EntityData.PLAYER_NAME);
+            return player.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME);
         }
         public static IPlayer GetPlayerFromName(string name)
         {
@@ -142,7 +143,7 @@ namespace VenoXV.Core
                 name = name.ToLower();
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
-                    if (players.GetVnXName<bool>().ToLower() == name)
+                    if (players.GetVnXName().ToLower() == name)
                     {
                         player = players;
                     }
@@ -178,14 +179,21 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetClothes(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void SetClothes(this IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
         }
-        public static void SetCustomization(IPlayer element, SkinModel model)
+        public static void SetProp(this IPlayer element, int propID, int drawableID, int textureID)
+        {
+            if (propID < 0 || textureID < 0) { return; }
+            Core.Debug.OutputDebugString("Stuff : " + propID + " | " + drawableID + " | " + textureID);
+            try { element.Emit("Prop:Load", propID, drawableID, textureID); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
+        }
+        public static void SetCustomization(this IPlayer element, SkinModel model)
         {
             List<SkinModel> modellist = new List<SkinModel>
             {
@@ -199,9 +207,14 @@ namespace VenoXV.Core
             try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
-        public static void SetPlayerVisible(IPlayer element, bool trueOrFalse)
+        public static void SetPlayerVisible(this IPlayer element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
+            catch { }
+        }
+        public static void SetPlayerAlpha(this IPlayer element, int alpha)
+        {
+            try { element.Emit("Player:Alpha", alpha); }
             catch { }
         }
         public static void CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
@@ -223,16 +236,8 @@ namespace VenoXV.Core
                     ColorB = color[2],
                     ColorA = color[3]
                 };
-                if (Reallife.Globals.Main.LabelList.Count < 50) { Reallife.Globals.Main.LabelList.Add(label); }
-                else if (Reallife.Globals.Main.LabelList1.Count < 50) { Reallife.Globals.Main.LabelList1.Add(label); }
-                else if (Reallife.Globals.Main.LabelList2.Count < 50) { Reallife.Globals.Main.LabelList2.Add(label); }
-                else if (Reallife.Globals.Main.LabelList3.Count < 50) { Reallife.Globals.Main.LabelList3.Add(label); }
-                else if (Reallife.Globals.Main.LabelList4.Count < 50) { Reallife.Globals.Main.LabelList4.Add(label); }
-                else if (Reallife.Globals.Main.LabelList5.Count < 50) { Reallife.Globals.Main.LabelList5.Add(label); }
-                else if (Reallife.Globals.Main.LabelList6.Count < 50) { Reallife.Globals.Main.LabelList6.Add(label); }
-                else if (Reallife.Globals.Main.LabelList7.Count < 50) { Reallife.Globals.Main.LabelList7.Add(label); }
-                else if (Reallife.Globals.Main.LabelList8.Count < 50) { Reallife.Globals.Main.LabelList8.Add(label); }
-                else if (Reallife.Globals.Main.LabelList9.Count < 50) { Reallife.Globals.Main.LabelList9.Add(label); }
+
+                _Gamemodes_.Reallife.Globals.Main.LabelList.Add(label);
                 //DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
                 //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }

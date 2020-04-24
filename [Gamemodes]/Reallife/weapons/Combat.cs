@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.weapons
+namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Combat : IScript
     {
@@ -83,7 +83,7 @@ namespace VenoXV.Reallife.weapons
                 // DEBUG - DEV
                 /*
                 NAPI.Chat.SendChatMessageToAll("Hitbone : " + hitBone);
-                NAPI.Chat.SendChatMessageToAll("target : " + target.GetVnXName<string>());
+                NAPI.Chat.SendChatMessageToAll("target : " + target.GetVnXName());
                 NAPI.Chat.SendChatMessageToAll("currentWeapon : " + currentWeapon);*/
                 /*
                 if (target != null) // If Target is a Real Player Niggah

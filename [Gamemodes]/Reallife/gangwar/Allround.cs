@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.gangwar.v2;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.gangwar.v2;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.gangwar
+namespace VenoXV._Gamemodes_.Reallife.gangwar
 {
     public class Allround : IScript
     {
@@ -68,7 +68,7 @@ namespace VenoXV.Reallife.gangwar
                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != area.IDOwner)
                                 {
                                     // Is the player's rank above the minimum rank?
-                                    if (player.vnxGetElementData<int>(EntityData.PLAYER_RANK) >= GangwarManager.MIN_RANK_ATTACK)
+                                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= GangwarManager.MIN_RANK_ATTACK)
                                     {
                                         // Has the Defeneder Faction enough ppl online?
                                         if (_gangwarManager.GetFactionCount(area.IDOwner) >= GangwarManager.MIN_COUNT_PLAYER)
@@ -84,7 +84,7 @@ namespace VenoXV.Reallife.gangwar
 
                                                 // Notify all player about this event
                                                 RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Ein Gangwar wird vorbereitet!");
-                                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName<string>() + " hat einen Gangwar gegen " + factions.Faction.GetPlayerFactionName(_gangwarManager.currentArea.GetCurrentRound().DefenderId) + " gestartet!");
+                                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName() + " hat einen Gangwar gegen " + factions.Faction.GetPlayerFactionName(_gangwarManager.currentArea.GetCurrentRound().DefenderId) + " gestartet!");
                                                 return;
                                             }
                                             else { RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
@@ -110,7 +110,7 @@ namespace VenoXV.Reallife.gangwar
                                 || (!GangwarManager.AttackerCountMore && attCount < _gangwarManager.GetFactionCount(_gangwarManager.currentArea.IDOwner)))
                             {
                                 _gangwarManager.currentArea.AddPlayer(player);
-                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName<string>() + " nimmt nun am Gangwar teil.");
+                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName() + " nimmt nun am Gangwar teil.");
                                 return;
 
                             } else { dxLibary.VnX.DrawNotification(player, "error", "Ihr seid schon genug Angreifer!"); }
@@ -150,8 +150,8 @@ namespace VenoXV.Reallife.gangwar
                                     if (DateTime.Now <= _gangwarManager.currentArea.GetCurrentRound().DefenderMaxTime)
                                     {
                                         _gangwarManager.currentArea.AddPlayer(player);
-                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().DefenderId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName<string>() + " nimmt nun am Gangwar teil.");
-                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(150,0,0) +player.GetVnXName<string>() + " nimmt nun am Gangwar teil.");
+                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().DefenderId, RageAPI.GetHexColorcode(0,200,0) +player.GetVnXName() + " nimmt nun am Gangwar teil.");
+                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(150,0,0) +player.GetVnXName() + " nimmt nun am Gangwar teil.");
 
                                     }
                                     else { dxLibary.VnX.DrawNotification(player, "error", "Du bist leider zu spaet zum GW!"); }

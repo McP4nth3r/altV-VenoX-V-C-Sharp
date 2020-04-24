@@ -71,8 +71,8 @@ namespace VenoXV.Globals
                    () => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 600),
                    new IdProvider()
                 );*/
-                Reallife.Globals.Main.OnResourceStart();
-                Tactics.Globals.Main.OnResourceStart();
+                _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
+                _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
                 SevenTowers.Lobby.Main.OnResourceStart();
                 // DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(469.8354f, -985.0742f, 33.89248f), 0, true, new Rgba(255, 255, 255, 255));
             }
@@ -88,8 +88,8 @@ namespace VenoXV.Globals
             {
                 IPlayer player = entity as IPlayer;
                 if (player == null) return;
-                if (state) { Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
-                else { Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
+                if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
+                else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
             }
             catch { }
         }
@@ -99,17 +99,18 @@ namespace VenoXV.Globals
         {
             try
             {
+                player.DespawnPlayer();
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
                 {
-                    if (killer == null) { killer = RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(Tactics.Globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
+                    if (killer == null) { killer = RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(_Gamemodes_.Tactics.Globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
                     if (Functions.IstargetInSameLobby(player, killer))
                     {
-                        Tactics.environment.Death.OnPlayerDeath(player, killer);
+                        _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
                     }
                     else
                     {
-                        Core.Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName<string>());
-                        Core.RageAPI.SendChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName<string>());
+                        Core.Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName());
+                        Core.RageAPI.SendChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName());
                     }
                     return;
                 }
@@ -117,7 +118,7 @@ namespace VenoXV.Globals
                 {
                     if (killer == null || Functions.IstargetInSameLobby(player, killer))
                     {
-                        VenoXV.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                        VenoXV._Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
                     }
                 }
                 else
@@ -133,8 +134,8 @@ namespace VenoXV.Globals
         {
             try
             {
-                Reallife.Globals.Main.OnUpdate();
-                Tactics.Globals.Main.OnUpdate();
+                _Gamemodes_.Reallife.Globals.Main.OnUpdate();
+                _Gamemodes_.Tactics.Globals.Main.OnUpdate();
                 _Gamemodes_.Race.Globals.main.OnUpdate();
                 //Zombie.globals.Main.OnUpdate();
                 //SevenTowers.globals.Main.OnUpdate();
@@ -148,8 +149,8 @@ namespace VenoXV.Globals
             try
             {
                 string type = string.Empty;
-                Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
-                Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
+                _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
+                _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
             }
             catch { }
@@ -163,7 +164,7 @@ namespace VenoXV.Globals
                 AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
                 if (target != null && source != null)
                 {
-                    Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
+                    _Gamemodes_.Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
                 }
             }
             catch { }

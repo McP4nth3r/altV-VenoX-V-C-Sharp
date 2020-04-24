@@ -6,20 +6,29 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
-let InventoryOpen = false;
-let InventoryBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/inventory/main.html");
 
-InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
-    switch (Btn) {
-        case 'use':
-            alt.emitServer('Inventory:Use', Hash);
-        case 'remove':
-            alt.emitServer('Inventory:Remove', Hash);
-    }
-});
+let InventoryCreated = false;
+let InventoryOpen = false;
+let InventoryBrowser;
+export function CreateInventory() {
+    if (InventoryCreated) { return; }
+    InventoryBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/inventory/main.html");
+    InventoryCreated = true;
+
+    InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
+        switch (Btn) {
+            case 'use':
+                alt.emitServer('Inventory:Use', Hash);
+            case 'remove':
+                alt.emitServer('Inventory:Remove', Hash);
+        }
+    });
+}
+
 
 export function OnInventoryKeyPressed(key) {
     if (key == 0x49) {
+        if (!InventoryCreated) { return; }
         if (GetCursorStatus() && !InventoryOpen) { return; }
         if (!InventoryOpen) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); }
         else { ShowCursor(false); InventoryBrowser.emit("Inventory:Close"); }
@@ -123,6 +132,7 @@ function GetCompleteItemInfo(ItemName, Amount) {
 
 
 alt.onServer('Inventory:Update', (InventoryJson) => {
+    if (!InventoryCreated) { return; }
     let InventoryItems = JSON.parse(InventoryJson);
     for (let i = 0; i < InventoryItems.length; i++) {
         let data = InventoryItems[i];
@@ -132,5 +142,6 @@ alt.onServer('Inventory:Update', (InventoryJson) => {
 });
 
 alt.onServer('Inventory:RemoveAll', () => {
+    if (!InventoryCreated) { return; }
     InventoryBrowser.emit('Inventory:RemoveAll', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
 });

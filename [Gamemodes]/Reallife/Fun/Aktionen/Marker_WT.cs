@@ -3,9 +3,9 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.Fun.Aktionen.SWT
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 {
     public class Marker_WT : IScript
     {

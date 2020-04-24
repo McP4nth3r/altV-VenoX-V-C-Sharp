@@ -6,11 +6,11 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Threading.Tasks;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Fun.Aktionen.Kokain
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
 {
     public class KokainSell : IScript
     {
@@ -44,7 +44,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Kokain
         {
             try
             {
-                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
+                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
                 if(KOKS != null)
                 {
                     if(value > 0)
@@ -53,7 +53,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Kokain
                         {
                             int koksverkauf = value * 30;
                             player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,150,200) + value + "g " + RageAPI.GetHexColorcode(255, 255,255) + " Kokain für " + RageAPI.GetHexColorcode(0,150,200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255,255) + "verkauft.");
-                            player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + koksverkauf);
+                            player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + koksverkauf);
                             dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
                             KOKS.amount -= value;
                                 // Update the amount into the database

@@ -4,11 +4,11 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Timers;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Fun.Aktionen.SWT
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 {
     public class SWT : IScript
     {
@@ -115,13 +115,13 @@ namespace VenoXV.Reallife.Fun.Aktionen.SWT
                 Marker_WT.CreateFactionWTEnter(false, "SWT");
                 SWT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(1813.723f, 3685.898f, 33.84286f), new Rotation(0, 0, 115));
                 SWT_TRUCK.EngineOn = true;
-                SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_MODEL, "SWT");
-                SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_PLATE, "SWT");
-                SWT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                SWT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "SWT");
+                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "SWT");
+                SWT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                SWT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                 SWT_TRUCK.NumberplateText = "VenoX";
                 SWT_TRUCK.vnxSetElementData("AKTIONS_FAHRZEUG", true);
-                SWT_TRUCK.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
 
                 SWT_TRUCK.vnxSetElementData("nightstick", nightstick_final_value);
                 SWT_TRUCK.vnxSetElementData("stungun", stungun_final_value);

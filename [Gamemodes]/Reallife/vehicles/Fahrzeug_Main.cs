@@ -4,11 +4,11 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Vehicles
+namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
     public class Fahrzeug_Main : IScript
     {
@@ -87,40 +87,40 @@ namespace VenoXV.Reallife.Vehicles
                 player.SendChatMessage("---------------Fahrzeuge---------------");
                 foreach (IVehicle veh in Alt.GetAllVehicles())
                 {
-                    if (veh != null && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                    if (veh != null && veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                     {
                         Random random = new Random();
                         int cevent = random.Next(1, 5);
                         string Model = veh.Model.ToString().ToLower();
                         if (Model == "" || Model.ToString() == null)
                         {
-                            Model = veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL);
+                            Model = veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
                         }
                         if (cevent == 1)
                         {
 
                             dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(EntityData.VEHICLE_ID));
+                            player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
                         }
                         else if (cevent == 2)
                         {
                             dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(EntityData.VEHICLE_ID));
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
                         }
                         else if (cevent == 3)
                         {
                             dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 175) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(EntityData.VEHICLE_ID));
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 175) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
                         }
                         else if (cevent == 4)
                         {
                             dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 5, player.Dimension, 30000);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 140, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(EntityData.VEHICLE_ID));
+                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 140, 0) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
                         }
                         else if (cevent == 5)
                         {
                             dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 7, player.Dimension, 30000);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(165, 0, 165) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(EntityData.VEHICLE_ID));
+                            player.SendChatMessage(RageAPI.GetHexColorcode(165, 0, 165) + "Fahrzeug Name : " + veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL) + " - Slot : " + veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
                         }
 
                     }
@@ -139,7 +139,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                     {
                         //IVehicle.Locked = !IVehicle.Locked;
                         //player.SendChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
@@ -158,7 +158,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                        if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                         {
                             //IVehicle.Locked = !IVehicle.Locked;
                             //player.SendChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
@@ -184,14 +184,14 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     IVehicle localVehicle = player.Vehicle;
                     VehicleModel Vehicle = new VehicleModel();
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                    if (localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                     {
                         Vehicle.position = player.Vehicle.Position;
                         Vehicle.rotation = player.Vehicle.Rotation;
-                        Vehicle.id = player.Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
-                        player.Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_POSITION, Vehicle.position);
-                        player.Vehicle.vnxSetSharedElementData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
-                        player.Vehicle.vnxSetElementData(EntityData.VEHICLE_ROTATION, Vehicle.rotation);
+                        Vehicle.id = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
+                        player.Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_POSITION, Vehicle.position);
+                        player.Vehicle.vnxSetSharedElementData(VenoXV.Globals.EntityData.VEHICLE_ROTATION, Vehicle.rotation);
+                        player.Vehicle.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_ROTATION, Vehicle.rotation);
                         // Update the IVehicle's position into the database
                         Database.UpdateIVehiclePosition(Vehicle);
                         player.SendChatMessage("~g~Du hast dein Fahrzeug hier geparkt.");
@@ -218,9 +218,9 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle localVehicle = player.Vehicle;
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                    if (localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) ==player.GetVnXName())
                     {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
+                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
                         {
                             if (localVehicle.Occupants.Count > 0)
                             {
@@ -228,9 +228,9 @@ namespace VenoXV.Reallife.Vehicles
                                 return;
                             }
                             localIVehicle.Repair();
-                            localIVehicle.Position = localVehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
-                            localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                            player.vnxSetElementData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                            localIVehicle.Position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
+                            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                             Core.VnX.VehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
                             Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
@@ -253,14 +253,14 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                        if (localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) ==player.GetVnXName())
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
+                            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
                             {
                                 localIVehicle.Repair();
-                                localIVehicle.Position = localVehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
-                                localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                                player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                                localIVehicle.Position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                                localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
+                                player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                                 Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                             }
                             else
@@ -288,16 +288,16 @@ namespace VenoXV.Reallife.Vehicles
                 IVehicle Vehicle = IVehicles.GetVehicleById(FahrzeugSlot);
                 if (Vehicle != null)
                 {
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) ==player.GetVnXName())
                     {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 200)
+                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
                         {
                             IVehicle.Repair();
-                            IVehicle.Position = Vehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
-                            IVehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                            Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_DIMENSION);
+                            IVehicle.Position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            IVehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
+                            Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_DIMENSION);
                             Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
-                            player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 200);
+                            player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                             player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
                         else
@@ -322,7 +322,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle localIVehicle = player.Vehicle;
-                    player.SendChatMessage( "{0096c8}Fahrzeug Modell: " + localVehicle.Model.ToString() + ", Besitzer: " + localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
+                    player.SendChatMessage( "{0096c8}Fahrzeug Modell: " + localVehicle.Model.ToString() + ", Besitzer: " + localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER));
                     player.SendChatMessage( "{0096c8}Tunings: ");
                 }
                 else
@@ -334,7 +334,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        player.SendChatMessage( "{0096c8}Fahrzeug Modell: " + localVehicle.Model.ToString() + ", Besitzer: " + localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER));
+                        player.SendChatMessage( "{0096c8}Fahrzeug Modell: " + localVehicle.Model.ToString() + ", Besitzer: " + localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER));
                         player.SendChatMessage( "{0096c8}Tunings: ");
                     }
 
@@ -353,7 +353,7 @@ namespace VenoXV.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     IVehicle localIVehicle = player.Vehicle;
-                    if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                    if (localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) ==player.GetVnXName())
                     {
                         if (localVehicle.vnxGetElementData("HandbremseAngezogen") == false)
                         {
@@ -383,7 +383,7 @@ namespace VenoXV.Reallife.Vehicles
                     }
                     else
                     {
-                        if (localVehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) ==player.GetVnXName<string>())
+                        if (localVehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) ==player.GetVnXName())
                         {
                             if (localVehicle.vnxGetElementData("HandbremseAngezogen") == false)
                             {

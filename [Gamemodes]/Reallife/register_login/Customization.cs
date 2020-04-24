@@ -1,13 +1,11 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using System;
-using AltV.Net;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 
-namespace VenoXV.Reallife.character
+namespace VenoXV._Gamemodes_.Reallife.character
 {
     public class Customization : IScript
     {
@@ -18,14 +16,14 @@ namespace VenoXV.Reallife.character
                 Core.RageAPI.SetClothes(player, 2, skinModel.hairModel, 0);
                 Core.RageAPI.SetCustomization(player, skinModel);
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerCustomization", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerCustomization", ex); }
         }
 
         public static void ApplyPlayerClothes(IPlayer player)
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 foreach (ClothesModel clothes in Main.clothesList)
                 {
                     if (clothes.player == playerId && clothes.dressed)
@@ -43,7 +41,7 @@ namespace VenoXV.Reallife.character
                     }
                 }
             }
-            catch(Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
         }
 
         public static void ApplyPlayerTattoos(IPlayer player)
@@ -51,7 +49,7 @@ namespace VenoXV.Reallife.character
             try
             {
                 // Get the tattoos from the player
-                /*int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                /*int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 List<TattooModel> playerTattoos = Main.tattooList.Where(t => t.player == playerId).ToList();
 
                 foreach (TattooModel tattoo in playerTattoos)

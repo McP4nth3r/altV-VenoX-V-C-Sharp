@@ -63,6 +63,7 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 
 export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true) {
     try {
+        return;
         const [bol, _x, _y] = game.getScreenCoordFromWorldCoord(x, y, z);
         const camCord = game.getFinalRenderedCamCoord();
         const dist = game.getDistanceBetweenCoords(camCord.x, camCord.y, camCord.z, x, y, z, 1)

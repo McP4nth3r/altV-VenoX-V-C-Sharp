@@ -1,7 +1,7 @@
 ﻿using AltV.Net.Data;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Club
+namespace VenoXV._Gamemodes_.Reallife.Club
 {
     public class RussianClub
     {

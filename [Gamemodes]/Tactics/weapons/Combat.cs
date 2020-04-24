@@ -2,10 +2,10 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV.Core;
-using VenoXV.Tactics.Globals;
 
-namespace VenoXV.Tactics.weapons
+namespace VenoXV._Gamemodes_.Tactics.weapons
 {
     public class Combat : IScript
     {
@@ -87,8 +87,8 @@ namespace VenoXV.Tactics.weapons
             try
             {
                 if (target == player) { return; }
-                if (player.GetVnXName<string>() == target.GetVnXName<string>()) { return; }
-                target.vnxSetElementData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName<string>());
+                if (player.GetVnXName() == target.GetVnXName()) { return; }
+                target.vnxSetElementData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName());
                 if (target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM))
                 {
                     return;

@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
 {
     public class Shoprob : IScript
     {
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.Shoprob
                                     player.vnxSetElementData(PLAYER_ROB_STARTED, false);
                                     factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200,0,0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
                                     player.SendChatMessage(RageAPI.GetHexColorcode(175,0,0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
-                                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + SHOP_ROB_MONEY);
+                                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + SHOP_ROB_MONEY);
                                 }
                                 else
                                 {

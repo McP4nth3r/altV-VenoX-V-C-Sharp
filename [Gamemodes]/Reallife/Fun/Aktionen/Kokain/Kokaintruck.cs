@@ -6,11 +6,11 @@ using System;
 using System.Timers;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Fun
+namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Kokaintruck : IScript
     {
@@ -68,7 +68,7 @@ namespace VenoXV.Reallife.Fun
                             if (player.Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                             {
                                 int koksimfahrzeug = player.Vehicle.vnxGetElementData<int>(EntityData.PLAYER_KOKS);
-                                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
+                                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
                                 if (KOKS == null) // WEED
                                 {
                                     KOKS = new ItemModel();
@@ -76,7 +76,7 @@ namespace VenoXV.Reallife.Fun
                                     KOKS.dimension = 0;
                                     KOKS.position = new Position(0.0f, 0.0f, 0.0f);
                                     KOKS.hash = Constants.ITEM_HASH_KOKS;
-                                    KOKS.ownerIdentifier = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                                    KOKS.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                                     KOKS.ITEM_ART = "Drogen";
                                     KOKS.objectHandle = null;
 
@@ -164,7 +164,7 @@ namespace VenoXV.Reallife.Fun
                     }
                     else
                     {
-                        int playermoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
+                        int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                         int kokskosten = koks * 15;
                         if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f)
                         {
@@ -182,7 +182,7 @@ namespace VenoXV.Reallife.Fun
                         Kokaintruck_Col_Abgabe.vnxSetElementData("AKTION_COL", true);
                         RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
                         player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, playermoney - kokskosten);
+                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - kokskosten);
 
                         IVehicle Kokaintruckveh = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0));
                         //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Kokaintruckveh, -1);
@@ -190,12 +190,12 @@ namespace VenoXV.Reallife.Fun
                         Kokaintruckveh.SetSyncedMetaData("AKTIONS_FAHRZEUG", true);
 
                         Kokaintruckveh.EngineOn = true;
-                        Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_MODEL, "Kokaintruck");
-                        Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
-                        Kokaintruckveh.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                        Kokaintruckveh.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "Kokaintruck");
+                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
+                        Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                        Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
-                        Kokaintruckveh.SetSyncedMetaData(EntityData.VEHICLE_NOT_SAVED, true);
+                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                         foreach (IPlayer target in Alt.GetAllPlayers())
                         {
                             if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))

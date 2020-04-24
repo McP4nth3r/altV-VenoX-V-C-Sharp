@@ -4,10 +4,10 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.factions;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.gangwar.v2
+namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
     public class GangwarRound
     {
@@ -226,7 +226,7 @@ namespace VenoXV.Reallife.gangwar.v2
                                     if (TKCounter > 0)
                                     {
                                         TKCounter = 0;
-                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.GetVnXName<string>() + " hat den TK beesetzt!", AttackerId);
+                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.GetVnXName() + " hat den TK beesetzt!", AttackerId);
                                     }
                                     break;
                                 }
@@ -402,11 +402,11 @@ namespace VenoXV.Reallife.gangwar.v2
                 {
                     playerEntry._player.Emit("gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
 
-                    int playerMoney = playerEntry._player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
+                    int playerMoney = playerEntry._player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
                     playerEntry._player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
 
-                    playerEntry._player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, playerMoney + earnings);
+                    playerEntry._player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney + earnings);
 
                     if (!playerEntry._isRespawned)
                     {

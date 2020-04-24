@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.factions
+namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Fraktionswaffenlager : IScript
     {

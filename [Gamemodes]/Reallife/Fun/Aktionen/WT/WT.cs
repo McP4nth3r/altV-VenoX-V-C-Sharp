@@ -3,13 +3,13 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Timers;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Globals_.EntityDatas;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Fun.Aktionen.SWT;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.Fun.Aktionen.WT
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
 {
     public class WT : IScript
     {
@@ -31,7 +31,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 {
                     return;
                 }
-                Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(Globals.EntityData.PLAYER_FACTION));
                 if (fkasse.money < totalcost)
                 {
                     dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
@@ -39,7 +39,7 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 }
                 Allround.ChangeAktionsState(true);
 
-                Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), fkasse.money - totalcost, fkasse.weed, fkasse.koks, fkasse.mats);
+                Database.SetFactionStats(player.vnxGetElementData<int>(Globals.EntityData.PLAYER_FACTION), fkasse.money - totalcost, fkasse.weed, fkasse.koks, fkasse.mats);
 
                 int baseball_final_value = baseball;
                 int pistol_final_value = pistol;
@@ -73,35 +73,35 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
 
                 int molotov_final_value = molotov;
 
-                if (baseball_final_value > Constants.BASEBALL_MAX_LAGER) { baseball_final_value = Constants.BASEBALL_MAX_LAGER; }
+                if (baseball_final_value > Globals.Constants.BASEBALL_MAX_LAGER) { baseball_final_value = Globals.Constants.BASEBALL_MAX_LAGER; }
 
-                if (pistol_final_value > Constants.PISTOL_MAX_LAGER) { pistol_final_value = Constants.PISTOL_MAX_LAGER; }
-                if (pistol_ammo_final_value > Constants.PISTOL_AMMO_MAX_LAGER) { pistol_ammo_final_value = Constants.PISTOL_AMMO_MAX_LAGER; }
+                if (pistol_final_value > Globals.Constants.PISTOL_MAX_LAGER) { pistol_final_value = Globals.Constants.PISTOL_MAX_LAGER; }
+                if (pistol_ammo_final_value > Globals.Constants.PISTOL_AMMO_MAX_LAGER) { pistol_ammo_final_value = Globals.Constants.PISTOL_AMMO_MAX_LAGER; }
 
-                if (pistol50_final_value > Constants.PISTOL50_MAX_LAGER) { pistol50_final_value = Constants.PISTOL50_MAX_LAGER; }
-                if (pistol50_ammo_final_value > Constants.PISTOL50_AMMO_MAX_LAGER) { pistol50_ammo_final_value = Constants.PISTOL50_AMMO_MAX_LAGER; }
+                if (pistol50_final_value > Globals.Constants.PISTOL50_MAX_LAGER) { pistol50_final_value = Globals.Constants.PISTOL50_MAX_LAGER; }
+                if (pistol50_ammo_final_value > Globals.Constants.PISTOL50_AMMO_MAX_LAGER) { pistol50_ammo_final_value = Globals.Constants.PISTOL50_AMMO_MAX_LAGER; }
 
-                if (revolver_final_value > Constants.REVOLVER_MAX_LAGER) { revolver_final_value = Constants.REVOLVER_MAX_LAGER; }
-                if (revolver_ammo_final_value > Constants.REVOLVER_AMMO_MAX_LAGER) { revolver_ammo_final_value = Constants.REVOLVER_AMMO_MAX_LAGER; }
+                if (revolver_final_value > Globals.Constants.REVOLVER_MAX_LAGER) { revolver_final_value = Globals.Constants.REVOLVER_MAX_LAGER; }
+                if (revolver_ammo_final_value > Globals.Constants.REVOLVER_AMMO_MAX_LAGER) { revolver_ammo_final_value = Globals.Constants.REVOLVER_AMMO_MAX_LAGER; }
 
-                if (mp5_final_value > Constants.SHOTGUN_MAX_LAGER) { mp5_final_value = Constants.SHOTGUN_MAX_LAGER; }
-                if (mp5_ammo_final_value > Constants.SHOTGUN_AMMO_MAX_LAGER) { mp5_ammo_final_value = Constants.SHOTGUN_AMMO_MAX_LAGER; }
+                if (mp5_final_value > Globals.Constants.SHOTGUN_MAX_LAGER) { mp5_final_value = Globals.Constants.SHOTGUN_MAX_LAGER; }
+                if (mp5_ammo_final_value > Globals.Constants.SHOTGUN_AMMO_MAX_LAGER) { mp5_ammo_final_value = Globals.Constants.SHOTGUN_AMMO_MAX_LAGER; }
 
-                if (ak47_final_value > Constants.AK47_MAX_LAGER) { ak47_final_value = Constants.AK47_MAX_LAGER; }
-                if (ak47_ammo_final_value > Constants.AK47_AMMO_MAX_LAGER) { ak47_ammo_final_value = Constants.AK47_AMMO_MAX_LAGER; }
+                if (ak47_final_value > Globals.Constants.AK47_MAX_LAGER) { ak47_final_value = Globals.Constants.AK47_MAX_LAGER; }
+                if (ak47_ammo_final_value > Globals.Constants.AK47_AMMO_MAX_LAGER) { ak47_ammo_final_value = Globals.Constants.AK47_AMMO_MAX_LAGER; }
 
-                if (rifle_final_value > Constants.KARABINER_MAX_LAGER) { rifle_final_value = Constants.KARABINER_MAX_LAGER; }
-                if (rifle_ammo_final_value > Constants.KARABINER_AMMO_MAX_LAGER) { rifle_ammo_final_value = Constants.KARABINER_AMMO_MAX_LAGER; }
+                if (rifle_final_value > Globals.Constants.KARABINER_MAX_LAGER) { rifle_final_value = Globals.Constants.KARABINER_MAX_LAGER; }
+                if (rifle_ammo_final_value > Globals.Constants.KARABINER_AMMO_MAX_LAGER) { rifle_ammo_final_value = Globals.Constants.KARABINER_AMMO_MAX_LAGER; }
 
 
 
-                if (sniperrifle_final_value > Constants.SNIPER_MAX_LAGER) { sniperrifle_final_value = Constants.SNIPER_MAX_LAGER; }
-                if (sniperrifle_ammo_final_value > Constants.SNIPER_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Constants.SNIPER_AMMO_MAX_LAGER; }
+                if (sniperrifle_final_value > Globals.Constants.SNIPER_MAX_LAGER) { sniperrifle_final_value = Globals.Constants.SNIPER_MAX_LAGER; }
+                if (sniperrifle_ammo_final_value > Globals.Constants.SNIPER_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Globals.Constants.SNIPER_AMMO_MAX_LAGER; }
 
-                if (rpg_final_value > Constants.RPG_MAX_LAGER) { sniperrifle_final_value = Constants.RPG_MAX_LAGER; }
-                if (rpg_ammo_final_value > Constants.RPG_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Constants.RPG_AMMO_MAX_LAGER; }
+                if (rpg_final_value > Globals.Constants.RPG_MAX_LAGER) { sniperrifle_final_value = Globals.Constants.RPG_MAX_LAGER; }
+                if (rpg_ammo_final_value > Globals.Constants.RPG_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Globals.Constants.RPG_AMMO_MAX_LAGER; }
 
-                if (molotov_final_value > Constants.TRAENENGAS_MAX_LAGER) { molotov_final_value = Constants.TRAENENGAS_MAX_LAGER; }
+                if (molotov_final_value > Globals.Constants.TRAENENGAS_MAX_LAGER) { molotov_final_value = _Gamemodes_.Reallife.Globals.Constants.TRAENENGAS_MAX_LAGER; }
 
 
                 /*player.SendChatMessage("baseball : " + baseball);
@@ -130,13 +130,13 @@ namespace VenoXV.Reallife.Fun.Aktionen.WT
                 Marker_WT.CreateFactionWTEnter(false, "WT");
                 WT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(2861.777f, 1519.65f, 24.56755f), new Rotation(0, 0, 70f));
                 WT_TRUCK.EngineOn = true;
-                WT_TRUCK.vnxSetElementData(EntityData.VEHICLE_MODEL, "WT");
-                WT_TRUCK.vnxSetElementData(EntityData.VEHICLE_PLATE, "WT");
-                WT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                WT_TRUCK.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                WT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "WT");
+                WT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "WT");
+                WT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                WT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                 WT_TRUCK.NumberplateText = "VenoX";
                 WT_TRUCK.vnxSetElementData("AKTIONS_FAHRZEUG", true);
-                WT_TRUCK.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                WT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
 
                 WT_TRUCK.vnxSetElementData(EntityData.WEAPON_BASEBALL, baseball_final_value);
                 WT_TRUCK.vnxSetElementData(EntityData.WEAPON_PISTOL, pistol_final_value);

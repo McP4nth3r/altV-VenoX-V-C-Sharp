@@ -4,9 +4,9 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.premium.vnxcase
+namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
 {
     public class VenoXCases : IScript
     {

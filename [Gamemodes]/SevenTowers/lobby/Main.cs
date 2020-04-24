@@ -160,8 +160,8 @@ namespace VenoXV.SevenTowers.Lobby
                         SevenTowersVehicles.Add(vehicle);
                         SevenTowerSpawns.Remove(Spawns.Key);
                         SevenTowerSpawns.Add(Spawns.Key, true);
-                        vehicle.vnxSetStreamSharedElementData(Reallife.Globals.EntityData.VEHICLE_KMS, 0);
-                        vehicle.vnxSetStreamSharedElementData(Reallife.Globals.EntityData.VEHICLE_GAS, 100);
+                        vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                        vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                     }
                 }
             }

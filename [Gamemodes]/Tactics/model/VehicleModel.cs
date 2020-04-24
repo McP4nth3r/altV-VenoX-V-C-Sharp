@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace VenoXV.Tactics.model
+namespace VenoXV._Gamemodes_.Tactics.model
 {
     public class VehicleModel
     {

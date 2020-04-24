@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.advertise
+namespace VenoXV._Gamemodes_.Reallife.advertise
 {
     public class Werbung : IScript
     {
@@ -20,22 +20,22 @@ namespace VenoXV.Reallife.advertise
         [Command("ad",  true)]
         public static void CreateAD(IPlayer player, string text)
         {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED) >= MINDEST_SPIELZEIT_)
+            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= MINDEST_SPIELZEIT_)
             {
                 if (ADS_ACTIVATED)
                 {
                     if (WERBUNG_COOLDOWN <= DateTime.Now)
                     {
                         int FINAL_AD_COSTS = text.Length * AD_COSTS;
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
+                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
                         {
                             RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
                             RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " [Werbung] : " + RageAPI.GetHexColorcode(255,255,255) + text);
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " Von : " + RageAPI.GetHexColorcode(255,255,255) +player.GetVnXName<string>() + " | " + RageAPI.GetHexColorcode(0,200,255) + " Handy : " + RageAPI.GetHexColorcode(255,255,255) + "V.2.0.0 INCOMING");
+                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " Von : " + RageAPI.GetHexColorcode(255,255,255) +player.GetVnXName() + " | " + RageAPI.GetHexColorcode(0,200,255) + " Handy : " + RageAPI.GetHexColorcode(255,255,255) + "V.2.0.0 INCOMING");
                             RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0,200,255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
-                            player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
+                            player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
                             dxLibary.VnX.DrawNotification(player, "info", "Du hast " + FINAL_AD_COSTS + " $ für deine Werbung Gezahlt!");
                         }
                         else { dxLibary.VnX.DrawNotification(player, "info", "Du hast nicht genug Geld!"); }

@@ -12,8 +12,184 @@
     -ms-user-select: None; 
     -moz-user-select: None; 
     -webkit-user-select: None; 
+    overflow: hidden;
 }
 
+
+
+.background {	
+	position: absolute;
+	left: 0vw;
+	top: 0vw;
+	height: 100%;
+	width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.rec_text {
+	position: absolute;
+	top: 25%;
+	width: 100%;
+	height: 2.5vw;
+	color: white;
+	font-size: 2.5vw;
+	text-align: center;
+	font-family: arial;
+  -webkit-text-stroke-width: 0.08vw;
+  -webkit-text-stroke-color: black;		 
+}
+.rec_userinfo {
+	position: absolute;
+	top: 3vw;
+	text-align: center;
+	width: 100%;
+	font-size: 0.8vw;
+	font-family: drugs;
+    -webkit-text-stroke-width: 0.00vw;
+    text-shadow:  1px  1px 1px black,
+                  1px -1px 1px black,
+                 -1px  1px 1px black,
+                 -1px -1px 1px black;
+}
+
+
+.rec_0 {
+	position: absolute;
+	left: 10vw;
+    top: 3vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/Zombie.jpg");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_0:hover {transform: scale(1.1);}
+.rec_1 {
+	position: absolute;
+	left: 40vw;
+	top: 14vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/Reallife.jpg");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_1:hover {transform: scale(1.1);}
+.rec_2 {
+	position: absolute;
+	left: 70vw;
+    top: 3vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/Tactics.jpg");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_2:hover {transform: scale(1.1);}
+.rec_3 {
+	position: absolute;
+	left: 10vw;
+	top: 14vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/Race.jpg");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_3:hover {transform: scale(1.1);}
+.rec_4 {
+	position: absolute;
+	left: 40vw;
+    top: 3vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/locked.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_4:hover {transform: scale(1.1);}
+.rec_5 {
+	position: absolute;
+	left: 70vw;
+	top: 14vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/locked.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_5:hover {transform: scale(1.1);}
+.rec_6 {
+	position: absolute;
+	left: 10vw;
+	top: 25vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/locked.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_6:hover {transform: scale(1.1);}
+.rec_7 {
+	position: absolute;
+	left: 40vw;
+	top: 25vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/locked.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_7:hover {transform: scale(1.1);}
+.rec_8 {
+	position: absolute;
+	left: 70vw;
+	top: 25vw;
+	height: 10vw;
+	width: 20.5vw;
+	background-image: url("./files/images/locked.png");
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+	outline-style: solid;
+	outline-color: white;
+	animation: Contentmove 1s linear; 
+}
+.rec_8:hover {transform: scale(1.1);}
 
 @keyframes Contentmove{
 
@@ -26,300 +202,37 @@
         opacity:1;
     }
 }
+@keyframes AddBlur{
 
+    0%{
+    filter: blur(1px);
+    -webkit-filter: blur(1px);
+    }
 
+    100%{
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+    }
+}
+@keyframes RemoveBlur{
 
+    0%{
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+    }
 
-.background {	
-	position: absolute;
-	left: 0vw;
-	top: 0vw;
-	height: 100%;
-	width: 100%;
-	background-image: url("./files/images/bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+    100%{
+        filter: blur(0px);
+        -webkit-filter: blur(0px);
+    }
 }
 
-
-
-.rec_0 {
-	position: absolute;
-	left: 10vw;
-	top: 7.5vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/Zombie.jpg");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
+.blurin{
+    animation: AddBlur 1s infinite;
 }
-
-
-.rec_0_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	    text-shadow:  1px  1px 1px black,
-                  1px -1px 1px black,
-                 -1px  1px 1px black,
-                 -1px -1px 1px black;
-				 
-				 
+.blurout{
+    animation: RemoveBlur 1s infinite;
 }
-.rec_0_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-.rec_0:hover {transform: scale(1.1);}
-
-.rec_1 {
-	position: absolute;
-	left: 40vw;
-	top: 7.5vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/Reallife.jpg");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
-}
-
-.rec_1_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	    text-shadow:  1px  1px 1px black,
-                  1px -1px 1px black,
-                 -1px  1px 1px black,
-                 -1px -1px 1px black;
-}
-.rec_1_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-.rec_1:hover {transform: scale(1.1);}
-
-
-
-.rec_2 {
-	position: absolute;
-	left: 70vw;
-	top: 7.5vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/Tactics.jpg");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
-}
-.rec_2_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	text-shadow:  1px  1px 1px black,
-			  1px -1px 1px black,
-			 -1px  1px 1px black,
-			 -1px -1px 1px black;
-}
-.rec_2_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-
-.rec_2:hover {transform: scale(1.1);}
-
-
-
-
-
-
-.rec_3 {
-	position: absolute;
-	left: 10vw;
-	top: 20vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/locked.png");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
-}
-
-
-.rec_3_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	    text-shadow:  1px  1px 1px black,
-                  1px -1px 1px black,
-                 -1px  1px 1px black,
-                 -1px -1px 1px black;
-				 
-				 
-}
-.rec_3_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-.rec_3:hover {transform: scale(1.1);}
-
-
-
-
-.rec_4 {
-	position: absolute;
-	left: 40vw;
-	top: 20vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/locked.png");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
-}
-
-.rec_4_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	    text-shadow:  1px  1px 1px black,
-                  1px -1px 1px black,
-                 -1px  1px 1px black,
-                 -1px -1px 1px black;
-}
-.rec_4_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-.rec_4:hover {transform: scale(1.1);}
-
-
-
-.rec_5 {
-	position: absolute;
-	left: 70vw;
-	top: 20vw;
-	height: 10vw;
-	width: 20vw;
-	background-image: url("./files/images/locked.png");
-	background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-	outline-style: solid;
-	outline-color: white;
-	animation: Contentmove 1s linear; 
-}
-.rec_5_text {
-	position: absolute;
-	top: 6.5vw;
-	width: 20vw;
-	height: 2.5vw;
-	color: white;
-	font-size: 1.5vw;
-	text-align: center;
-	background-color: rgba(10,10,10,0.80);
-	border-top: 0.20vw solid rgb(0, 150, 200);
-	border-bottom: 0.20vw solid rgb(0, 150, 200);
-	font-family: hangover;
-	text-shadow:  1px  1px 1px black,
-			  1px -1px 1px black,
-			 -1px  1px 1px black,
-			 -1px -1px 1px black;
-}
-.rec_5_userinfo {
-	position: absolute;
-	top: 1.5vw;
-	text-align: center;
-	width: 20vw;
-	font-size: 1vw;
-	font-family: hangover;
-}
-
-.rec_5:hover {transform: scale(1.1);}
-
-
-
-
-
-
-
 .d-none {	
 	display: none;
 }

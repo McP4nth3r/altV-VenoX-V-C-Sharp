@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
-using VenoXV.Tactics.model;
+using VenoXV._Gamemodes_.Tactics.model;
 
-namespace VenoXV.Tactics.maps
+namespace VenoXV._Gamemodes_.Tactics.maps
 {
     public class Main
     {
@@ -229,7 +229,34 @@ namespace VenoXV.Tactics.maps
                     {AltV.Net.Enums.WeaponModel.CarbineRifle},
                 },
             },
-
+            new RoundModel
+            {
+                Map_Name = "Pissgebiet",
+                Team_A_Name = "Yakuza",
+                Team_A_Skin = "u_m_y_burgerdrug_01",
+                Team_A_WinnerText = "Die Yakuza gewinnt die Runde.",
+                Team_A_Color = new int[] { 125, 0, 0 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(-2892.91f, -7.8197784f, 7.947998f),
+                    new Vector3(-2891.7231f, -7.8857155f, 7.947998f),
+                    new Vector3(-2890.378f, -8.360439f, 7.947998f),
+                    new Vector3( -2891.789f, -9.83736f, 7.947998f),
+                },
+                Team_B_Name = "Vagos",
+                Team_B_Skin = "u_m_y_mani",
+                Team_B_WinnerText = "Die Vagos gewinnt die Runde.",
+                Team_B_Color = new int[] { 200, 200, 0 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(-2923.622f, 54.105495f, 11.031494f),
+                    new Vector3(-2924.8088f, 54.474724f, 11.031494f),
+                    new Vector3(-2924.0176f, 55.345055f, 11.031494f),
+                    new Vector3(-2925.4946f, 55.964836f, 11.031494f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+            },
         };
     }
 }

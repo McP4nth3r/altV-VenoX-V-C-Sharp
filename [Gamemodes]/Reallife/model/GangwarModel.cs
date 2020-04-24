@@ -2,9 +2,9 @@
 using AltV.Net.Elements.Entities;
 using MySql.Data.MySqlClient;
 using System;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.model
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class GangwarModel
     {

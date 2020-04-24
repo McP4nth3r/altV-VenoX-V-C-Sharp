@@ -86,7 +86,6 @@ C:\altv-server_DEBUG\resources\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtime
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\altv-server_DEBUG\resources\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csproj.CopyComplete
-C:\altv-server_DEBUG\resources\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csprojAssemblyReference.cache
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.deps.json
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.dll
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\Core\Lib\netcoreapp3.1\VenoXV.pdb
@@ -122,3 +121,4 @@ D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csproj.CopyComplete
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.dll
 D:\[VenoX]\[VenoX - V]\Backup\22.03.2020\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.pdb
+C:\altv-server_DEBUG\resources\VenoXReallife_AltV\obj\Debug\netcoreapp3.1\VenoXV.csprojAssemblyReference.cache

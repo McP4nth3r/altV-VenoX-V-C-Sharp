@@ -13,6 +13,7 @@ import * as ServerLibary from '/VenoXV_Client/Globals/VnX-Lib/index.js';
 import * as CameraLib from '/VenoXV_Client/Globals/VnX-Lib/camera.js';
 import * as EventLib from '/VenoXV_Client/Globals/VnX-Lib/events.js';
 import * as Nametags from '/VenoXV_Client/Globals/Anzeigen/nametags/nametags.js';
+import * as CharCreator from '/VenoXV_Client/Globals/Charcreator/index.js';
 import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
 import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
@@ -33,6 +34,7 @@ import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
+import * as RaceGM from '/VenoXV_Client/Race/index.js';
 
 
 import * as hud3 from '/VenoXV_Client/Globals/Anzeigen/hud/third/index.js';
@@ -169,3 +171,4 @@ game.requestIpl('RC12B_HospitalInterior');
 game.requestIpl('canyonriver01');
 game.requestIpl('CanyonRvrShallow');
 game.requestIpl('CS3_05_water_grp1');
+

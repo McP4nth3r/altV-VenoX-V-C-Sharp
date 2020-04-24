@@ -1,7 +1,7 @@
 ﻿using AltV.Net.Elements.Entities;
 using System.IO;
 using System.Text;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
@@ -9,7 +9,7 @@ using System.Linq;
 using System;
 using AltV.Net;
 
-namespace VenoXV.Reallife.vnx_stored_files
+namespace VenoXV._Gamemodes_.Reallife.vnx_stored_files
 {
     public class logfile : IScript
     {

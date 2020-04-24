@@ -7,9 +7,9 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.vnx_stored_files;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 
-namespace VenoXV.Reallife.dxLibary
+namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
     public class VnX : IScript
     {

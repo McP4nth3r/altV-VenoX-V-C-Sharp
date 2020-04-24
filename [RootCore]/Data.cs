@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
 namespace VenoXV.Core
 {
@@ -8,8 +8,8 @@ namespace VenoXV.Core
     public class VnX : IScript
     {
         public static object Usefull { get; internal set; }
-        public static string PLAYER_MONEY = EntityData.PLAYER_MONEY;
-        public static string PLAYER_BANKMONEY = EntityData.PLAYER_BANK;
+        public static string PLAYER_MONEY = VenoXV.Globals.EntityData.PLAYER_MONEY;
+        public static string PLAYER_BANKMONEY = VenoXV.Globals.EntityData.PLAYER_BANK;
 
 
         public static void UpdateHUDArmorHealth(IPlayer player)

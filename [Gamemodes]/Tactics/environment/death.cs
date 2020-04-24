@@ -3,10 +3,10 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV.Core;
-using VenoXV.Tactics.Globals;
 
-namespace VenoXV.Tactics.environment
+namespace VenoXV._Gamemodes_.Tactics.environment
 {
     public class Death : IScript
     {
@@ -27,26 +27,25 @@ namespace VenoXV.Tactics.environment
                         switch (killer.vnxGetElementData<int>(EntityData.PLAYER_CURRENT_STREAK))
                         {
                             case 3:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName<string>() + " hat einen Tripple-Kill erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Tripple-Kill erzielt!!");
                                 break;
                             case 5:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName<string>() + " hat einen Penta-Kill Streak erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Penta-Kill Streak erzielt!!");
                                 break;
                             case 7:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName<string>() + " hat einen Ultimate-Kill Streak erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Ultimate-Kill Streak erzielt!!");
                                 break;
                         }
-
                         killer.vnxSetElementData(EntityData.PLAYER_KILLED_PLAYERS, killer.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS) + 1);
                         killer.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, killer.vnxGetElementData<int>(EntityData.PLAYER_CURRENT_STREAK) + 1);
-                        killer.vnxSetElementData(Reallife.Globals.EntityData.PLAYER_TACTIC_KILLS, killer.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_TACTIC_KILLS) + 1);
+                        killer.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS, killer.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS) + 1);
                     }
 
 
-                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.GetVnXName<string>() + " hat " + player.GetVnXName<string>() + " getötet!");
+                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.GetVnXName() + " hat " + player.GetVnXName() + " getötet!");
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, false);
                     player.vnxSetElementData(EntityData.PLAYER_IS_DEAD, true);
-                    player.vnxSetElementData(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE) + 1);
+                    player.vnxSetElementData(EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_TODE) + 1);
 
                     if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
                     {
@@ -71,11 +70,12 @@ namespace VenoXV.Tactics.environment
                         Core.Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
                         Core.RageAPI.SendChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
                     }
+                    player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
-                    player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
                     RageAPI.SetPlayerVisible(player, false);
-                    Reallife.dxLibary.VnX.SetElementFrozen(player, true);
+                    player.Emit("Tactics:OnDeath");
+                    _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllWeapons();
                 }
             }

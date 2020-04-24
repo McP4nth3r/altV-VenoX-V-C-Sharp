@@ -9,11 +9,11 @@ import { ShowCursor } from '../../../../Globals/VnX-Lib';
 import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 
 let duty_browser = null;
-alt.onServer('showDutyWindow', (e) => {
+alt.onServer('showDutyWindow', (e, pname) => {
     duty_browser = new alt.WebView("http://resource/VenoXV_Client/Reallife/factions/state/duty/main.html");
-    duty_browser.emit("Duty:Load", e, alt.Player.local.getSyncedMeta("PLAYER_NAME"));
     duty_browser.focus();
     ShowCursor(true);
+    duty_browser.emit("Duty:Load", e, pname);
 
     duty_browser.on('ButtonPressed', (button) => {
         switch (button) {

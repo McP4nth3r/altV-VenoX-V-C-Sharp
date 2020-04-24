@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
 
-namespace VenoXV.Reallife.Environment.Gzone
+namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
 {
     public class Zone : IScript
     {

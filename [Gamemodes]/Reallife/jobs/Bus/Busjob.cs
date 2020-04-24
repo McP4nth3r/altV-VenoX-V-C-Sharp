@@ -4,11 +4,9 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.jobs;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.jobs.Bus
+namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 {
     public class Busjob : IScript
     {
@@ -57,7 +55,7 @@ namespace VenoXV.Reallife.jobs.Bus
             }
             catch { }
         }
-         
+
         public static void StartBusJob(IPlayer player, int value)
         {
             try
@@ -71,12 +69,12 @@ namespace VenoXV.Reallife.jobs.Bus
                 JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
                 dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
+                JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                 JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
                 Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
-                if (value == 1) {anzeigen.Usefull.VnX.CreateRandomIVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
-                else if (value == 2) {anzeigen.Usefull.VnX.CreateRandomIVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
-                else if(value == 3) {anzeigen.Usefull.VnX.CreateRandomIVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0,255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
+                if (value == 1) { VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
+                else if (value == 2) { VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
+                else if (value == 3) { VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
                 else
                 {
                     dxLibary.VnX.DrawNotification(player, "error", "Du hast nichts ausgewählt!");
@@ -95,9 +93,9 @@ namespace VenoXV.Reallife.jobs.Bus
 
                     if (CurrentBosStation == INITIALIZE_MAX_BUSSTATIONS) // WENN DER SPIELER MAXIMALE RUNDEN ERREICHT
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Du hast eine Runde Erfolgreich absolviert :)");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
-                        player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + BUSJOB_ROUND_BONUS);
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du hast eine Runde Erfolgreich absolviert :)");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
+                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + BUSJOB_ROUND_BONUS);
                         player.vnxSetElementData(BUSJOB_LEVEL, 0);
                     }
                     else
@@ -110,9 +108,9 @@ namespace VenoXV.Reallife.jobs.Bus
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER,player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + BUSJOB_LEVEL_ONE_MONEY);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + BUSJOB_LEVEL_ONE_MONEY);
                     dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true);
                     dxLibary.VnX.SetDelayedIVehicleElementFrozen(player.Vehicle, player, false, 5000);
                     player.vnxSetElementData(EntityData.PLAYER_BUSJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL) + 1);

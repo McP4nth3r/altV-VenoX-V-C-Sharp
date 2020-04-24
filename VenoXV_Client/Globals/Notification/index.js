@@ -20,7 +20,7 @@ alt.onServer('Globals:PlayHitsound', () => {
 
 alt.onServer('Globals:ShowBloodScreen', () => {
     browser_1.emit('Notify:BloodScreen');
-    alt.log("Bloodscreen got called");
+    //alt.log("Bloodscreen got called");
 });
 
 

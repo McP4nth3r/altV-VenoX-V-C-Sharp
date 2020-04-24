@@ -5,13 +5,14 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.factions;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.anzeigen.Usefull
+namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 {
     public class VnX : IScript
     {
@@ -20,7 +21,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             try
             {
                 player.RemoveAllWeapons();
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 foreach (ItemModel waffen in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
                     if (waffen.ITEM_ART == Constants.ITEM_ART_WAFFE && waffen.ownerIdentifier == playerId)
@@ -42,7 +43,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllWeapons();
 
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
 
                 ItemModel Switchblade = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SWITCHBLADE);
                 ItemModel Nightstick = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_NIGHTSTICK);
@@ -257,8 +258,8 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (playerquest == QUEST_VENOXRENTALS)
                     {
-                        int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, playerMoney + QUEST_MONEY_VENOXRENTALS);
+                        int playerMoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney + QUEST_MONEY_VENOXRENTALS);
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, 1);
                     }
                 }
@@ -267,7 +268,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_STADTHALLE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_STADTHALLE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_STADTHALLE);
                     }
                 }
 
@@ -276,7 +277,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_PERSO)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_PERSO);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_PERSO);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOSCHEIN)
@@ -284,7 +285,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_AUTOSCHEIN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOSCHEIN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOSCHEIN);
                     }
                 }
                 else if (QUESTDONE == QUEST_ATM_EINZAHLEN)
@@ -292,7 +293,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_ATM_EINZAHLEN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_ATM_EINZAHLEN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_ATM_EINZAHLEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GAS_SNACK)
@@ -300,7 +301,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GAS_SNACK)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GAS_SNACK);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GAS_SNACK);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOKAUFEN)
@@ -308,7 +309,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_AUTOKAUFEN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOKAUFEN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOKAUFEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET100K)
@@ -316,7 +317,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GET100K)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET100K);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GET100K);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETWEAPONLICENSE)
@@ -324,7 +325,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GETWEAPONLICENSE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETWEAPONLICENSE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GETWEAPONLICENSE);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETADVANCEDRIFLE)
@@ -332,7 +333,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GETADVANCEDRIFLE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
                     }
                 }
                 else if (QUESTDONE == QUEST_START_SHOPROB)
@@ -340,7 +341,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_START_SHOPROB)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET225)
@@ -348,7 +349,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GET225)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) + QUEST_MONEY_GET225);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GET225);
                     }
                 }
             }
@@ -372,11 +373,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
                 {
-                    name = "[VnX]" + player.GetVnXName<string>();
+                    name = "[VnX]" + player.GetVnXName();
                 }
                 else
                 {
-                    name = player.GetVnXName<string>();
+                    name = player.GetVnXName();
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD) == 0)
                 {
@@ -388,10 +389,10 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                 {
-                    player.Emit("UpdateHUD", name, "Zivilist", player.vnxGetElementData<string>(EntityData.PLAYER_STATUS), player.vnxGetElementData<int>(EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), Constants.FACTION_NONE, player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
+                    player.Emit("UpdateHUD", name, "Zivilist", player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS), player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), Constants.FACTION_NONE, player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
                     return;
                 }
-                player.Emit("UpdateHUD", name, Faction.GetPlayerFactionName((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), Faction.GetPlayerFactionRank(player), player.vnxGetElementData<int>(EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
+                player.Emit("UpdateHUD", name, Faction.GetPlayerFactionName((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), Faction.GetPlayerFactionRank(player), player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
 
             }
             catch { }
@@ -432,11 +433,11 @@ namespace VenoXV.Reallife.anzeigen.Usefull
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.GetVnXName<string>() + " : " + text);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.GetVnXName() + " : " + text);
                     }
                 }
-                //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName<string>() + " : " + text);
-                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.GetVnXName<string>() + "] : " + text);
+                //player.SendChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName() + " : " + text);
+                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.GetVnXName() + "] : " + text);
             }
             catch { }
         }
@@ -455,7 +456,7 @@ namespace VenoXV.Reallife.anzeigen.Usefull
             }
             else
             {
-                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(EntityData.PLAYER_STATUS));
+                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS));
             }
         }
 
@@ -498,86 +499,87 @@ namespace VenoXV.Reallife.anzeigen.Usefull
         {
             try
             {
-                PlayerModel character = new PlayerModel();
+                PlayerModel character = new PlayerModel
+                {
+                    position = player.Position,
+                    rotation = (int)player.Rotation.Yaw,
+                    health = player.Health,
+                    armor = player.Armor,
+                    id = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID),
+                    phone = player.vnxGetElementData<int>(EntityData.PLAYER_PHONE),
 
-                character.position = player.Position;
-                character.rotation = (int)player.Rotation.Yaw;
-                character.health = player.Health;
-                character.armor = player.Armor;
-                character.id = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-                character.phone = player.vnxGetElementData<int>(EntityData.PLAYER_PHONE);
-
-                character.killed = player.vnxGetElementData<int>(EntityData.PLAYER_KILLED);
-                character.faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
-                character.zivizeit = player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT);
-                character.job = player.vnxGetElementData<string>(EntityData.PLAYER_JOB);
-                character.LIEFERJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL);
-                character.AIRPORTJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL);
-                character.BUSJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL);
-                character.rank = player.vnxGetElementData<int>(EntityData.PLAYER_RANK);
-                character.houseRent = player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE);
-                character.houseEntered = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED);
-                character.businessEntered = player.vnxGetElementData<int>(EntityData.PLAYER_BUSINESS_ENTERED);
+                    killed = player.vnxGetElementData<int>(EntityData.PLAYER_KILLED),
+                    faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),
+                    zivizeit = player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT),
+                    job = player.vnxGetElementData<string>(EntityData.PLAYER_JOB),
+                    LIEFERJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL),
+                    AIRPORTJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL),
+                    BUSJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL),
+                    rank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK),
+                    houseRent = player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE),
+                    houseEntered = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED),
+                    businessEntered = player.vnxGetElementData<int>(EntityData.PLAYER_BUSINESS_ENTERED),
 
 
-                character.Personalausweis = player.vnxGetElementData<int>(EntityData.PLAYER_PERSONALAUSWEIS);
-                character.Autofuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN);
-                character.Motorradfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN);
-                character.LKWfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN);
-                character.Helikopterfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN);
-                character.FlugscheinKlasseA = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN);
-                character.FlugscheinKlasseB = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN);
-                character.Motorbootschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN);
-                character.Angelschein = player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN);
-                character.Waffenschein = player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN);
-                character.adventskalender = player.vnxGetElementData<int>(EntityData.PLAYER_ADVENTSKALENEDER);
+                    Personalausweis = player.vnxGetElementData<int>(EntityData.PLAYER_PERSONALAUSWEIS),
+                    Autofuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN),
+                    Motorradfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN),
+                    LKWfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN),
+                    Helikopterfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN),
+                    FlugscheinKlasseA = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN),
+                    FlugscheinKlasseB = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN),
+                    Motorbootschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN),
+                    Angelschein = player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN),
+                    Waffenschein = player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN),
+                    adventskalender = player.vnxGetElementData<int>(EntityData.PLAYER_ADVENTSKALENEDER),
 
-                character.played = player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
-                character.spawn = player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT);
-                character.money = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
-                character.bank = player.vnxGetElementData<int>(EntityData.PLAYER_BANK);
-                character.quests = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS);
-                character.wanteds = player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS);
-                character.knastzeit = player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT);
-                character.kaution = player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION);
-                character.REALLIFE_HUD = player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD);
-                character.atm = player.vnxGetElementData<string>("settings_atm");
-                character.haus = player.vnxGetElementData<string>("settings_haus");
-                character.tacho = player.vnxGetElementData<string>("settings_tacho");
-                character.quest_anzeigen = player.vnxGetElementData<string>("settings_quest");
-                character.reporter = player.vnxGetElementData<string>("settings_reporter");
-                character.globalchat = player.vnxGetElementData<string>("settings_globalchat");
-                character.SocialState = player.vnxGetElementData<string>(EntityData.PLAYER_STATUS);
-                // Tactics 
-                character.tactic_kills = player.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_KILLS);
-                character.tactic_tode = player.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_TODE);
+                    played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED),
+                    spawn = player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT),
+                    money = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY),
+                    bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK),
+                    quests = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS),
+                    wanteds = player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS),
+                    knastzeit = player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT),
+                    kaution = player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION),
+                    REALLIFE_HUD = player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD),
+                    atm = player.vnxGetElementData<string>("settings_atm"),
+                    haus = player.vnxGetElementData<string>("settings_haus"),
+                    tacho = player.vnxGetElementData<string>("settings_tacho"),
+                    quest_anzeigen = player.vnxGetElementData<string>("settings_quest"),
+                    reporter = player.vnxGetElementData<string>("settings_reporter"),
+                    globalchat = player.vnxGetElementData<string>("settings_globalchat"),
+                    SocialState = player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS),
+                    // Tactics 
+                    tactic_kills = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS),
+                    tactic_tode = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE),
 
-                // Zombie
-                character.zombie_tode = player.vnxGetElementData<int>(EntityData.PLAYER_ZOMBIE_TODE);
-                character.zombie_kills = player.vnxGetElementData<int>(EntityData.PLAYER_ZOMBIE_KILLS);
-                character.zombie_player_kills = player.vnxGetElementData<int>(EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED);
+                    // Zombie
+                    zombie_tode = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_TODE),
+                    zombie_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS),
+                    zombie_player_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED)
+                };
 
 
                 Database.SaveCharacterInformation(character);
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) > 0)
+                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) > 0)
                 {
-                    player.vnxSetElementData(EntityData.PLAYER_PRISON_TIME, player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) - 1);
+                    player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) - 1);
 
-                    int UID = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
-                    int PRISON_TIME = player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME);
-                    string PRISON_STRING = player.vnxGetElementData<string>(EntityData.PLAYER_PRISON_GRUND);
-                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.GetVnXName<string>());
-                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.GetVnXName<string>());
+                    int UID = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    int PRISON_TIME = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME);
+                    string PRISON_STRING = player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_PRISON_GRUND);
+                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.GetVnXName());
+                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.GetVnXName());
 
-                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.GetVnXName<string>());
+                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.GetVnXName());
 
                     Database.UpdatePlayerPrisonTime(UID, PRISON_TIME, PRISON_REASON, PRISON_FROMADMIN, PRISON_DATETIME);
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_PRISON_TIME) == 0)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) == 0)
                     {
                         player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(player);
-                        Database.RemoveOldPrison(player.GetVnXName<string>());
+                        Database.RemoveOldPrison(player.GetVnXName());
                     }
                 }
             }
@@ -592,28 +594,28 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) != null)
+                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) != null)
                     {
-                        if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_TESTING) != true && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == 0 && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true && Vehicle.Dimension == 0)
+                        if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_TESTING) != true && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == 0 && Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) != true && Vehicle.Dimension == 0)
                         {
                             VehicleModel VehicleModel = new VehicleModel();
-                            VehicleModel.id = Convert.ToInt32(Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID));
-                            VehicleModel.model = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_MODEL);
-                            VehicleModel.position = Vehicle.vnxGetElementData<Position>(EntityData.VEHICLE_OWNER);
-                            VehicleModel.rotation = Vehicle.vnxGetElementData<Rotation>(EntityData.VEHICLE_ROTATION);
-                            VehicleModel.dimension = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_DIMENSION);
-                            VehicleModel.RgbaType = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_Rgba_TYPE);
-                            VehicleModel.firstRgba = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_FIRST_Rgba);
-                            VehicleModel.secondRgba = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_SECOND_Rgba);
-                            VehicleModel.pearlescent = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PEARLESCENT_Rgba);
-                            VehicleModel.faction = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION);
-                            VehicleModel.plate = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_PLATE);
-                            VehicleModel.owner = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER);
-                            VehicleModel.price = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PRICE);
-                            VehicleModel.parking = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PARKING);
-                            VehicleModel.parked = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PARKED);
-                            VehicleModel.gas = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_GAS);
-                            VehicleModel.kms = Vehicle.vnxGetElementData<float>(EntityData.VEHICLE_KMS);
+                            VehicleModel.id = Convert.ToInt32(Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
+                            VehicleModel.model = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
+                            VehicleModel.position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            VehicleModel.rotation = Vehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
+                            VehicleModel.dimension = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_DIMENSION);
+                            VehicleModel.RgbaType = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE);
+                            VehicleModel.firstRgba = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba);
+                            VehicleModel.secondRgba = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba);
+                            VehicleModel.pearlescent = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba);
+                            VehicleModel.faction = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
+                            VehicleModel.plate = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
+                            VehicleModel.owner = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            VehicleModel.price = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PRICE);
+                            VehicleModel.parking = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PARKING);
+                            VehicleModel.parked = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PARKED);
+                            VehicleModel.gas = Vehicle.vnxGetElementData<float>(VenoXV.Globals.EntityData.VEHICLE_GAS);
+                            VehicleModel.kms = Vehicle.vnxGetElementData<float>(VenoXV.Globals.EntityData.VEHICLE_KMS);
 
                             // Add IVehicle into the list
                             IVehicleList.Add(VehicleModel);
@@ -631,54 +633,6 @@ namespace VenoXV.Reallife.anzeigen.Usefull
 
 
 
-        /// <param name="player">The Owner of the IVehicle.</param>
-        /// <param name="vehName">IVehicle Hash ( See GTA Network Wiki )</param>
-        /// <param name="coord">Position Where the Car should spawn</param>
-        /// <param name="rot">Simple Float of Rotation</param>
-        /// <param name="primaryC">Primary Rgba of the IVehicle</param>
-        /// <param name="secondC">Secondary Rgba of the IVehicle</param>
-        /// <param name="WarpPlayerIntoVeh">Should the Owner warped into the IVehicle?</param>
-        /// <param name="isRentedIVehicle">Is it a Rented IVehicle?</param>
-        /// <param name="Job">IVehicle Job?</param>
-        /// <param name="NumberplateText">Numberlpate of the IVehicle</param>
-        public static void CreateRandomIVehicle(IPlayer player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
-        {
-            try
-            {
 
-                IVehicle CreatedVehicle = Alt.CreateVehicle((uint)vehName.GetHashCode(), coord, new Rotation(0, 0, (float)rot));
-                if (WarpPlayerIntoVeh == true)
-                {
-                    //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, CreatedIVehicle, -1); 
-                }
-
-                CreatedVehicle.PrimaryColorRgb = new Rgba(primaryC.R, primaryC.G, primaryC.B, 255);
-                CreatedVehicle.SecondaryColorRgb = new Rgba(secondC.R, secondC.G, secondC.B, 255);
-                // EntityData Load & Save
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, 9999);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_MODEL, CreatedVehicle.Model.ToString());
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_FACTION, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PLATE, "VenoX");
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_FIRST_Rgba, primaryC.R + "," + primaryC.G + "," + primaryC.B);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_SECOND_Rgba, secondC.R + "," + secondC.G + "," + secondC.B);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PRICE, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKING, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_PARKED, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_RENTED, isRentedIVehicle);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_JOB, Job);
-
-                // KM & Gas load and Safe.
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-
-                CreatedVehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
-                CreatedVehicle.NumberplateText = NumberplateText;
-                CreatedVehicle.EngineOn = true;
-            }
-            catch { }
-        }
     }
 }

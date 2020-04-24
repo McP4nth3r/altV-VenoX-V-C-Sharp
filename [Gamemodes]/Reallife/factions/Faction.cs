@@ -1,21 +1,21 @@
 ﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.model;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.chat;
-using VenoXV.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.chat;
+using VenoXV._Gamemodes_.Reallife.database;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
 using System;
-using VenoXV.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
 using AltV.Net;
 using VenoXV.Core;
 using AltV.Net.Resources.Chat.Api;
 using AltV.Net.Data;
 
-namespace VenoXV.Reallife.factions
+namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Faction : IScript
     {
@@ -154,7 +154,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -172,7 +172,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (Allround.isStateFaction(target) || target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -190,7 +190,7 @@ namespace VenoXV.Reallife.factions
                 {
                     if (Allround.isBadFaction(target))
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName<string>() + " : " + text);
+                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -268,12 +268,12 @@ namespace VenoXV.Reallife.factions
             {
                 string rankString = string.Empty;
                 int faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
-                int rank = player.vnxGetElementData<int>(EntityData.PLAYER_RANK);
+                int rank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
                 foreach (FactionModel factionModel in Constants.FACTION_RANK_LIST)
                 {
                     if (factionModel.faction == faction && factionModel.rank == rank)
                     {
-                        rankString = player.vnxGetElementData<int>(EntityData.PLAYER_SEX) == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
+                        rankString = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
                         break;
                     }
                 }

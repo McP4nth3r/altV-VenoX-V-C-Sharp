@@ -15,7 +15,6 @@ body{
 -webkit-user-select: None; 
 overflow: hidden;
 }
-
 .background_main{
 position: absolute;
 color: red;
@@ -112,8 +111,6 @@ position: absolute;
 background-color: rgba(0,150,200,0.6);
 color: white;
 }
-
-
 
 /* /////////////////////////////////////////////////////////////// */
 
@@ -241,7 +238,7 @@ position: absolute;
 left: 82vw;
 top: 3.5vw;
 width: 15.5vw;
-height: 10vw;
+height: 14.5vw;
 background-color: rgb(0,0,0,0.6);
 border-radius: 0.3vw;
 animation-name: OnClickedLoginRegisterButton;
@@ -263,9 +260,9 @@ border-top: 0.15vw solid rgb(0,150,200);
 
 .register_username {
 position: absolute;
-top: 30%;
+top: 17%;
 left: 52%;
-width: 10vw;
+width: 13vw;
 height: 1.5vw;
 text-align: center;
 display: block;
@@ -290,12 +287,41 @@ outline: 0vw;
 box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
 }
 
+/* E-Mail Feld */
+.register_email {
+position: absolute;
+top: 29%;
+left: 52%;
+width: 13vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.register_email::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.register_email:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
 /* Passwort eingabe Feld */
 .register_password {
 position: absolute;
-top: 50%;
+top: 41%;
 left: 52%;
-width: 10vw;
+width: 13vw;
 height: 1.5vw;
 text-align: center;
 display: block;
@@ -320,19 +346,101 @@ outline: 0vw;
 box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
 }
 
-.gender_select_button_male{
+/* Passwort wiederholen Feld */
+.register_password_retype {
 position: absolute;
-left: 55%;
-width: 3.5vw;
-color:white;
-top: 70%;
-font-family: drugs;
-padding: 0.3vw;
-background: rgb(0,0,0,0.6);
+top: 53%;
+left: 52%;
+width: 13vw;
+height: 1.5vw;
+text-align: center;
+display: block;
+font-size: 0.6vw;
+line-height: 1.5;
+color: white;
+background-color: rgb(0, 0, 0,0.6);
+border: 0.5px solid rgba(0,105,145);
+border-radius: .25rem;
+transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+transform: translate(-50%);
+}
+.register_password_retype::-ms-expand {
+background-color: transparent;
+border: 0vw;
+}
+.register_password_retype:focus {
+color: white;
+background-color: rgba(40, 40, 40, 0.9);
+border-color: rgb(0, 200, 255);
+outline: 0vw;
+box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+}
+
+.gender_select_button_male{
+    position: absolute;
+    left: 21%;
+    width: 4vw;
+    color:white;
+    top: 67%;
+    font-family: drugs;
+    padding: 0.3vw;
+    text-align: center;
+    background: rgb(0,0,0,0.6);
 }
 .gender_select_button_male:hover{
 background: rgb(0,150,200,0.6);
 }
+
+.window_register_selected_male{
+    position: absolute;
+    left: 30%;
+    top: 67%;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+
+.gender_select_button_female{
+position: absolute;
+left: 53%;
+width: 4vw;
+color:white;
+top: 67%;
+text-align: center;
+font-family: drugs;
+padding: 0.3vw;
+background: rgb(0,0,0,0.6);
+}
+.gender_select_button_female:hover{
+background: rgb(0,150,200,0.6);
+}
+
+.window_register_selected_female{
+    position: absolute;
+    left: 63%;
+    top: 67%;
+    width: 1.5vw;
+    height: 1.5vw;
+    z-index: 1;
+}
+
+.gender_select_button_first{
+position: absolute;
+left: 11%;
+width: 12vw;
+color:white;
+top: 82%;
+text-align: center;
+font-family: drugs;
+padding: 0.3vw;
+background: rgb(0,0,0,0.6);
+border-top: 0.1vw solid rgb(0,150,200);
+}
+.gender_select_button_first:hover{
+background: rgb(0,0,0,0.8);
+border-top: 0.1vw solid rgb(0,200,255);
+}
+
 
 .register_window_close{
 position: absolute;
@@ -475,6 +583,24 @@ z-index: 10;
 background-color: rgba(0,150,200,0.6);
 }
 
+.task_languages{
+position: absolute;
+left: 20.7%;
+padding: 0.3vw;
+height: 0.7vw;
+top: 10%;
+background-color: rgba(0,0,0,0.8);
+color: white;
+font-family: drugs;
+font-size: 0.7vw;
+border-radius: 0.3vw;
+z-index: 10;
+}
+
+.task_languages:hover{
+background-color: rgba(0,150,200,0.6);
+}
+
 
 /* /////////////////////////////////////////////////////////////// */
 
@@ -544,19 +670,15 @@ background-color: rgba(0,0,0,0.9);
 box-shadow:inset 0px 0px 0px 0.5px rgb(0,200,255);
 
 }
-
 ::-webkit-scrollbar {
 width: 0.50vw;
 }
-
 ::-webkit-scrollbar-track {
 background-color: rgba(0, 50, 80, 0.25);
 }
-
 ::-webkit-scrollbar-thumb {
 background: rgba(0, 105, 145, 1);
 }
-
 ::-webkit-scrollbar-thumb:hover {
 background: rgba(0, 150, 200, 1); 
 }

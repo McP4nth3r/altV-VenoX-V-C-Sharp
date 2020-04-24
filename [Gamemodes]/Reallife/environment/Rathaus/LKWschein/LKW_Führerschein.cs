@@ -5,9 +5,9 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
+namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 {
     public class LKW_Führerschein : IScript
     {
@@ -83,14 +83,14 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
 
 
                 PruefungsAuto.EngineOn = !PruefungsAuto.EngineOn;
-                PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_MODEL, "PruefungsAuto");
-                PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_PLATE, "PruefungsAuto"); ;
-                PruefungsAuto.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                PruefungsAuto.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                PruefungsAuto.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "PruefungsAuto");
+                PruefungsAuto.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "PruefungsAuto"); ;
+                PruefungsAuto.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                PruefungsAuto.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                 PruefungsAuto.NumberplateText = "VenoX";
-                PruefungsAuto.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                PruefungsAuto.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                 PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO", true);
-                PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO_BESITZER", player.GetVnXName<string>());
+                PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO_BESITZER", player.GetVnXName());
                 Core.VnX.SetDelayedData(player, new string[] { "Marker_Pruefung", "0", "string", "1400" });
                 Core.VnX.SetDelayedData(player, new string[] { "PLAYER_DRIVINGSCHOOL", "true", "bool", "1400" });
 
@@ -101,7 +101,7 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 LKW_Führerschein_Abgabe_Marker.Dimension = player.Dimension;
                 dxLibary.VnX.DrawZielBlip(player, "Checkpoint [ Führerschein ]", Pruefungs_Marker_LKW[1], 611, 3, player.Dimension);
                 dxLibary.VnX.DrawWaypoint(player, Pruefungs_Marker_LKW[1].X, Pruefungs_Marker_LKW[1].Y);
-                LKW_Führerschein_Abgabe_Marker.vnxSetElementData("Name", player.GetVnXName<string>());
+                LKW_Führerschein_Abgabe_Marker.vnxSetElementData("Name", player.GetVnXName());
             }
             catch
             {
@@ -118,13 +118,13 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                 {
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                     player.vnxSetElementData("Marker_Pruefung", 0);
-                    if (LKW_Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.GetVnXName<string>())
+                    if (LKW_Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.GetVnXName())
                     {
                         AltV.Net.Alt.RemoveColShape(LKW_Führerschein_Abgabe_Marker);
                     }
                     dxLibary.VnX.DrawNotification(player, "info", "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
                     player.vnxSetElementData(EntityData.PLAYER_LKW_FÜHRERSCHEIN, 1);
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 16750);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 16750);
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     player.vnxSetElementData("PLAYER_DRIVINGSCHOOL", false);
                     player.Vehicle.Remove();
@@ -139,7 +139,7 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                     Position Destination = Pruefungs_Marker_LKW[Abgegeben + 1];
                     LKW_Führerschein_Abgabe_Marker = Alt.CreateColShapeSphere(Destination, 2f);
                     LKW_Führerschein_Abgabe_Marker.Dimension = player.Dimension;
-                    LKW_Führerschein_Abgabe_Marker.vnxSetElementData("Name", player.GetVnXName<string>());
+                    LKW_Führerschein_Abgabe_Marker.vnxSetElementData("Name", player.GetVnXName());
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                     dxLibary.VnX.DrawZielBlip(player, "Checkpoint [ Führerschein ]", Destination, 611, 3, player.Dimension);
                 }
@@ -156,14 +156,14 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
         {
             try
             {
-                if (shape.vnxGetElementData<string>("Name") != player.GetVnXName<string>())
+                if (shape.vnxGetElementData<string>("Name") != player.GetVnXName())
                 {
                     return;
                 }
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && player.vnxGetElementData<int>("Marker_Pruefung") != 31 && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName<string>() && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "LKW")
+                    if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && player.vnxGetElementData<int>("Marker_Pruefung") != 31 && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName() && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "LKW")
                     {
                         player.vnxSetElementData("Marker_Pruefung", player.vnxGetElementData<int>("Marker_Pruefung") + 1);
                         int counter = player.vnxGetElementData<int>("Marker_Pruefung");
@@ -188,15 +188,15 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
         {
             try
             {
-                if (Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_GODMODE) == false)
+                if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_GODMODE) == false)
                 {
-                    Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GODMODE, true);
+                    Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GODMODE, true);
                     foreach (IPlayer players in VenoXV.Globals.Main.ReallifePlayers)
                     {
                         players.Emit("Vehicle:Godmode", Vehicle, true);
                     }
                 }
-                if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName<string>() && player.vnxGetElementData<int>("Marker_Pruefung") >= 0 && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "LKW")
+                if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName() && player.vnxGetElementData<int>("Marker_Pruefung") >= 0 && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "LKW")
                 {
                     player.vnxSetElementData("Marker_Pruefung", 0);
                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
@@ -210,7 +210,7 @@ namespace VenoXV.Reallife.Environment.Rathaus.Führerschein
                     player.Emit("Destroy_Rathaus_License_Ped");
                     player.vnxSetElementData("PRUEFUNGS_NAME", false);
                     Vehicle.Remove();
-                    if (LKW_Führerschein_Abgabe_Marker != null && LKW_Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.GetVnXName<string>())
+                    if (LKW_Führerschein_Abgabe_Marker != null && LKW_Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.GetVnXName())
                     {
                         AltV.Net.Alt.RemoveColShape(LKW_Führerschein_Abgabe_Marker);
                     }

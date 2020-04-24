@@ -1,9 +1,9 @@
 ﻿using AltV.Net.Data;
 using MySql.Data.MySqlClient;
 using System.Numerics;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.model
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class VehicleModel
     {

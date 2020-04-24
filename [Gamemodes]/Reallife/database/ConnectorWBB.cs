@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VenoXV.Reallife.Woltlab
+namespace VenoXV._Gamemodes_.Reallife.Woltlab
 {
     public class Program : IScript
     {

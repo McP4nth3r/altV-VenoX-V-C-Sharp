@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VenoXV.Reallife.business;
+using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Vehicles
+namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
     public class Tunning : IScript
     {
@@ -53,12 +53,12 @@ namespace VenoXV.Reallife.Vehicles
                     if (player.IsInVehicle)
                     {
                         IVehicle Vehicle = player.Vehicle;
-                        if (Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) > Constants.FACTION_NONE)
+                        if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) > Constants.FACTION_NONE)
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
-                        else if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) !=player.GetVnXName<string>())
+                        else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) !=player.GetVnXName())
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
@@ -73,7 +73,7 @@ namespace VenoXV.Reallife.Vehicles
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst kein Miet-fahrzeug Tunen!");
                             return;
                         }
-                        else if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true || Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) == true)
+                        else if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true || Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) == true)
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du kannst dieses Fahrzeug nicht Tunen!");
                             return;
@@ -119,7 +119,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             /*foreach (TunningModel tunning in Main.tunningList)
             {
-                if (Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID) == tunning.IVehicle)
+                if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) == tunning.IVehicle)
                 {
                     IVehicle.SetMod(tunning.slot, tunning.component);
                 }
@@ -166,7 +166,7 @@ namespace VenoXV.Reallife.Vehicles
         {
             try
             {
-                int IVehicleId = player.Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
+                int IVehicleId = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
 
                 for (int i = 0; i < 49; i++)
                 {
@@ -285,8 +285,8 @@ namespace VenoXV.Reallife.Vehicles
             {
                 
                 // Get the IVehicle's id
-                int IVehicleId = player.Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int IVehicleId = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 TunningModel Tunning = Main.GetIVehicleTuningBySlot();
                 if (Tunning != null && Tunning.slot == slot)
                 {

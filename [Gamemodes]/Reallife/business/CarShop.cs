@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.business
+namespace VenoXV._Gamemodes_.Reallife.business
 {
     public class CarShop : IScript
     {
@@ -89,7 +89,7 @@ namespace VenoXV.Reallife.business
                     vehmodel.plate = string.Empty;
                     vehmodel.position = spawns[i];
                     vehmodel.rotation = new Rotation(0.0f, 0.0f, 0.0f);
-                    vehmodel.owner = player.GetVnXName<string>();
+                    vehmodel.owner = player.GetVnXName();
                     vehmodel.RgbaType = Constants.VEHICLE_Rgba_TYPE_CUSTOM;
                     vehmodel.firstRgba = firstRgba;
                     vehmodel.secondRgba = secondRgba;
@@ -187,7 +187,7 @@ namespace VenoXV.Reallife.business
                 AltV.Net.Enums.VehicleModel VehicleModel = (AltV.Net.Enums.VehicleModel)uint.Parse(hash);
                 int IVehiclePrice = GetIVehiclePrice(VehicleModel);
 
-                if (IVehiclePrice > 0 && player.vnxGetElementData<int>(EntityData.PLAYER_BANK) >= IVehiclePrice)
+                if (IVehiclePrice > 0 && player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) >= IVehiclePrice)
                 {
                     switch (carShop)
                     {
@@ -224,7 +224,7 @@ namespace VenoXV.Reallife.business
                 {
                     foreach (IVehicle veh in Alt.GetAllVehicles())
                     {
-                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                        if (veh.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && veh.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                         {
                             player.vnxSetElementData("FAHRZEUG_AM_TESTEN", false);
                             veh.Remove();
@@ -247,12 +247,12 @@ namespace VenoXV.Reallife.business
 
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba1[0])), Convert.ToByte(int.Parse(firstRgba1[1])), Convert.ToByte(int.Parse(firstRgba1[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba1[0])), Convert.ToByte(int.Parse(secondRgba1[1])), Convert.ToByte(int.Parse(secondRgba1[2])), 255);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, 500);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
 
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
 
@@ -264,12 +264,12 @@ namespace VenoXV.Reallife.business
                         string[] secondRgba2 = secondRgba.Split(',');
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba2[0])), Convert.ToByte(int.Parse(firstRgba2[1])), Convert.ToByte(int.Parse(firstRgba2[2])), 255);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, 500);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
 
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
@@ -279,20 +279,20 @@ namespace VenoXV.Reallife.business
                         string[] secondRgba3 = secondRgba.Split(',');
                         Vehicle.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba3[0])), Convert.ToByte(int.Parse(firstRgba3[1])), Convert.ToByte(int.Parse(firstRgba3[2])), 255);
                         Vehicle.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba3[0])), Convert.ToByte(int.Parse(secondRgba3[1])), Convert.ToByte(int.Parse(secondRgba3[2])), 255);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_ID, 500);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_ID, 500);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
 
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                        Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                         Vehicle.vnxSetStreamSharedElementData("TEST_FAHRZEUG", true);
                         Core.VnX.SetDelayedBoolSharedData(player, "FAHRZEUG_AM_TESTEN", true, 1500);
                         break;
                 }
 
-                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_TESTING, true);
+                Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_TESTING, true);
                 Vehicle.Dimension = 1200;
                 player.Dimension = 1200;
                 player.vnxSetElementData(EntityData.PLAYER_TESTING_VEHICLE, Vehicle);

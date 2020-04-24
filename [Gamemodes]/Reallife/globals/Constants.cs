@@ -1,8 +1,8 @@
 ﻿using AltV.Net.Data;
 using System.Collections.Generic;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Globals
+namespace VenoXV._Gamemodes_.Reallife.Globals
 {
     public class Constants
     {

@@ -48,6 +48,10 @@ alt.onServer('Player:Freeze', (bool) => {
     catch{ }
 });
 
+alt.onServer('Player:Spawn', () => {
+    game.displayHud(true);
+});
+
 alt.onServer('Vehicle:Freeze', (veh, bool) => {
     try {
         game.freezeEntityPosition(veh.scriptID, bool);
@@ -96,6 +100,15 @@ alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
         if (clothesdrawable < 0 || clothestexture < 0) { return; }
         game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
         alt.log("Clothes Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
+    }
+    catch{ }
+});
+
+alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
+    try {
+        if (clothesdrawable < 0 || clothestexture < 0) { return; }
+        game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true);
+        alt.log("Prop Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
     }
     catch{ }
 });
@@ -179,6 +192,9 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
         for (var facef in faceFeatures) {
             game.setPedFaceFeature(LocalPlayer.scriptID, faceFeatures[facef], 1.0);
         }
+        game.setPedHeadBlendData(LocalPlayer.scriptID, firstHeadShape, secondHeadShape, 0, firstSkinTone, secondSkinTone, 0, headMix, skinMix, 0);
+        game.setPedEyeColor(LocalPlayer.scriptID, eyesColor);
+        game.setPedHairColor(LocalPlayer.scriptID, firstHairColor, secondHairColor);
         for (let i = 0; i < 11; i++) {
             switch (i) {
                 case 0:
@@ -198,7 +214,6 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
                     game.setPedHeadOverlay(LocalPlayer.scriptID, i, HeadoverlayDataFirst, 1);
                     game.setPedHeadOverlayColor(LocalPlayer.scriptID, i, 1, HeadoverlayDataSecond, 0);
                     break;
-
                 case 3:
                     HeadoverlayDataFirst = ageingModel;
                     HeadoverlayDataSecond = 0;
@@ -245,9 +260,6 @@ alt.onServer("HeadShape:Load", (HeadShapeJson) => {
                     break;
             }
         }
-        game.setPedHeadBlendData(LocalPlayer.scriptID, firstHeadShape, secondHeadShape, 0, firstSkinTone, secondSkinTone, 0, headMix, skinMix, 0);
-        game.setPedEyeColor(LocalPlayer.scriptID, eyesColor);
-        game.setPedHairColor(LocalPlayer.scriptID, firstHairColor, secondHairColor);
         alt.log("HeadShape:Loaded");
     }
     catch{ }
@@ -266,7 +278,13 @@ alt.onServer('Sync:CreateNPC', (PedJson) => {
 alt.onServer('Player:Visible', (bool) => {
     try {
         game.setEntityVisible(LocalPlayer.scriptID, bool, 0);
-        alt.log("Invisible = " + bool);
+    }
+    catch{ }
+});
+
+alt.onServer('Player:Alpha', (alpha) => {
+    try {
+        game.setEntityAlpha(Entity.scriptID, alpha, true);
     }
     catch{ }
 });

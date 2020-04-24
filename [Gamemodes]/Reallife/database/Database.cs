@@ -7,13 +7,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using VenoXV._Gamemodes_.Reallife.gangwar.v2;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.house;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
-using VenoXV.Reallife.gangwar.v2;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.house;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.database
+namespace VenoXV._Gamemodes_.Reallife.database
 {
     public class Database : IScript
     {
@@ -330,7 +331,7 @@ namespace VenoXV.Reallife.database
             catch { }
         }
 
-        public static void RegisterAccount(string nickname, string SocialClub, string serial, string email, string password, string geschlecht)
+        public static void RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht)
         {
             try
             {
@@ -338,10 +339,11 @@ namespace VenoXV.Reallife.database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, serial, email, passwort, Geschlecht ) VALUES(@SpielerName, @SpielerSocial, @serial, @email, SHA2(@passwort, '256'), @Geschlecht)";
+                    command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, passwort, Geschlecht ) VALUES(@SpielerName, @SpielerSocial, @serial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht)";
                     command.Parameters.AddWithValue("@SpielerName", nickname);
                     command.Parameters.AddWithValue("@SpielerSocial", SocialClub);
-                    command.Parameters.AddWithValue("@serial", serial);
+                    command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
+                    command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
                     command.Parameters.AddWithValue("@email", email);
                     command.Parameters.AddWithValue("@passwort", password);
                     command.Parameters.AddWithValue("@Geschlecht", geschlecht);
@@ -464,9 +466,9 @@ namespace VenoXV.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "INSERT INTO users (UID, SpielerName, sex, socialName) VALUES (@UID, @playerName, @playerSex, @socialName)";
-                    command.Parameters.AddWithValue("@playerName", player.GetVnXName<string>());
+                    command.Parameters.AddWithValue("@playerName", player.GetVnXName());
                     command.Parameters.AddWithValue("@UID", UID);
-                    command.Parameters.AddWithValue("@playerSex", (int)player.vnxGetElementData<int>(EntityData.PLAYER_SEX));
+                    command.Parameters.AddWithValue("@playerSex", (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX));
                     command.Parameters.AddWithValue("@socialName", player.SocialClubId.ToString());
                     command.ExecuteNonQuery();
 
@@ -608,33 +610,6 @@ namespace VenoXV.Reallife.database
             catch (Exception ex) { Core.Debug.CatchExceptions("DB:GETCHARACTERSKIN", ex); return null; }
         }
 
-        public static void UpdateCharacterHair(int playerId, SkinModel skin)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE skins SET hairModel = @hairModel, firstHairColor = @firstHairColor, secondHairColor = @secondHairColor, beardModel = @beardModel, ";
-                    command.CommandText += "beardColor = @beardColor, eyebrowsModel = @eyebrowsModel, eyebrowsColor = @eyebrowsColor WHERE characterId = @playerId LIMIT 1";
-                    command.Parameters.AddWithValue("@hairModel", skin.hairModel);
-                    command.Parameters.AddWithValue("@firstHairColor", skin.firstHairColor);
-                    command.Parameters.AddWithValue("@secondHairColor", skin.secondHairColor);
-                    command.Parameters.AddWithValue("@beardModel", skin.beardModel);
-                    command.Parameters.AddWithValue("@beardColor", skin.beardColor);
-                    command.Parameters.AddWithValue("@eyebrowsModel", skin.eyebrowsModel);
-                    command.Parameters.AddWithValue("@eyebrowsColor", skin.eyebrowsColor);
-                    command.Parameters.AddWithValue("@playerId", playerId);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateCharacterHair] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateCharacterHair] " + ex.StackTrace);
-                }
-            }
-        }
 
         public static PlayerModel LoadCharacterInformationById(int characterId)
         {
@@ -813,29 +788,6 @@ namespace VenoXV.Reallife.database
 
 
 
-        public static void UpdateLastBantime(string socialName)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE accounts SET banzeit = @banzeit ,banreason = @banreason, status = @status WHERE socialName = @socialName";
-                    command.Parameters.AddWithValue("@banzeit", DateTime.Now);
-                    command.Parameters.AddWithValue("@status", "1");
-                    command.Parameters.AddWithValue("@banreason", " ");
-                    command.Parameters.AddWithValue("@socialName", socialName);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateLastBantime] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateLastBantime] " + ex.StackTrace);
-                }
-            }
-        }
-
 
 
         public static bool FindAccount(string name)
@@ -885,7 +837,7 @@ namespace VenoXV.Reallife.database
             catch { return false; }
         }
 
-        public static bool FindAccountBySerial(string serial)
+        public static bool FindAccountByHardwareIdHash(string HardwareIdHash)
         {
             try
             {
@@ -895,13 +847,11 @@ namespace VenoXV.Reallife.database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT serial FROM spieler WHERE serial = @serial LIMIT 1";
-                    command.Parameters.AddWithValue("@serial", serial);
+                    command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdHash = @HardwareIdHash LIMIT 1";
+                    command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    found = reader.HasRows;
                 }
 
                 return found;
@@ -909,6 +859,27 @@ namespace VenoXV.Reallife.database
             catch { return false; }
         }
 
+        public static bool FindAccountByHardwareIdExHash(string HardwareIdExHash)
+        {
+            try
+            {
+                bool found = false;
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdExHash = @HardwareIdExHash LIMIT 1";
+                    command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
+
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    found = reader.HasRows;
+                }
+
+                return found;
+            }
+            catch { return false; }
+        }
 
 
         public static bool FindCharacter(string name)
@@ -924,10 +895,8 @@ namespace VenoXV.Reallife.database
                     command.CommandText = "SELECT UID FROM users WHERE socialName = @socialName LIMIT 1";
                     command.Parameters.AddWithValue("@socialName", name);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    found = reader.HasRows;
                 }
 
                 return found;
@@ -1349,6 +1318,31 @@ namespace VenoXV.Reallife.database
                         {
                             reader.Read();
                             return reader.GetString("serial");
+                        }
+                    }
+                }
+                return "ERROR";
+            }
+            catch { return "ERROR"; }
+        }
+
+        public static string GetAccountNameByHardwareId(string HardwareId)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT HardwareId FROM spieler WHERE HardwareId = @HardwareId LIMIT 1";
+                    command.Parameters.AddWithValue("@HardwareId", HardwareId);
+
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
+                            return reader.GetString("HardwareId");
                         }
                     }
                 }

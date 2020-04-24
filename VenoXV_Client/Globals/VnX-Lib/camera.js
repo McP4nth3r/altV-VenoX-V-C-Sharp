@@ -9,7 +9,7 @@ import * as native from "natives"
 let camera = null;
 let interpolCam = null;
 
-export function interpolateCamera(pos1X, pos1Y, pos1Z, rot1, fov, pos2X, pos2Y, pos2Z, rot2, fov2, duration) {
+export function interpolateCamera(pos1X, pos1Y, pos1Z, rot1X, rot1Y, rot1Z, fov, pos2X, pos2Y, pos2Z, rot2X, rot2Y, rot2Z, fov2, duration) {
 
     if (camera != null || interpolCam != null) {
         native.renderScriptCams(false, false, 0, true, false);
@@ -24,13 +24,13 @@ export function interpolateCamera(pos1X, pos1Y, pos1Z, rot1, fov, pos2X, pos2Y, 
 
     native.setHdArea(pos1X, pos1Y, pos1Z, 30);
 
-    camera = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos1X, pos1Y, pos1Z, -fov, 0, rot1, 80.0, false, 2);
-    interpolCam = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos2X, pos2Y, pos2Z, -fov2, 0, rot2, 30.0, false, 2);
+    camera = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos1X, pos1Y, pos1Z, rot1X, rot1Y, rot1Z, fov, false, 2);
+    interpolCam = native.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", pos2X, pos2Y, pos2Z, rot2X, rot2Y, rot2Z, fov2, false, 2);
     native.setCamActive(camera, true);
     //native.setCamActive(interpolCam, true);
     native.setCamActiveWithInterp(interpolCam, camera, duration, 1, 1);
     native.renderScriptCams(true, false, 0, false, false);
-    //alt.log(pos1X + " | " + pos1Y + " | " + pos1Z + " | " + rot1 + " | " + fov + " | " + pos2X + " | " + pos2Y + " | " + pos2Z + " | " + rot2 + " | " + fov2 + " | " + duration);
+    alt.log(pos1X + " | " + pos1Y + " | " + pos1Z + " | " + rot1X + " | " + rot1Y + " | " + rot1Z + " | " + fov + " | " + pos2X + " | " + pos2Y + " | " + pos2Z + " | " + rot2X + " | " + rot2Y + " | " + rot2Z + " | " + fov2 + " | " + duration);
 }
 
 alt.onServer('destroyCamera', () => {

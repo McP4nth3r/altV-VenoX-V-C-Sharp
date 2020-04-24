@@ -5,10 +5,10 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.gangwar.v2
+namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
 
     public class GangwarArea
@@ -52,7 +52,7 @@ namespace VenoXV.Reallife.gangwar.v2
 
         public void Update(IPlayer player)
         {
-            // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName<string>() + " )");
+            // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
@@ -154,20 +154,20 @@ namespace VenoXV.Reallife.gangwar.v2
                 foreach (var veh in this.IVehicles)
                 {
                     veh.EngineOn = true;
-                    veh.vnxSetElementData(EntityData.VEHICLE_MODEL, "burrito3");
-                    veh.vnxSetElementData(EntityData.VEHICLE_FACTION, 0);
-                    veh.vnxSetElementData(EntityData.VEHICLE_OWNER, "GANGWAR");
-                    veh.vnxSetElementData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    veh.vnxSetElementData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    veh.vnxSetElementData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    veh.vnxSetElementData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    veh.vnxSetElementData(EntityData.VEHICLE_PRICE, 0);
-                    veh.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
-                    veh.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "burrito3");
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FACTION, 0);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, "GANGWAR");
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PRICE, 0);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKING, 0);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKED, 0);
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
-                    veh.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                    veh.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                    veh.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                    veh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                    veh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                     veh.Dimension = GangwarManager.GW_DIM;
                 }
             }

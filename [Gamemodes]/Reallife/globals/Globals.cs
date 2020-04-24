@@ -7,16 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using VenoXV._Gamemodes_.Reallife.business;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.house;
+using VenoXV._Gamemodes_.Reallife.jobs;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
-using VenoXV.Reallife.business;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.factions;
-using VenoXV.Reallife.house;
-using VenoXV.Reallife.jobs;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.Globals
+namespace VenoXV._Gamemodes_.Reallife.Globals
 {
     public class Main : IScript
     {
@@ -24,15 +25,6 @@ namespace VenoXV.Reallife.Globals
         public static List<TattooModel> tattooList;
         public static List<TunningModel> tunningList;
         public static List<LabelModel> LabelList = new List<LabelModel>();
-        public static List<LabelModel> LabelList1 = new List<LabelModel>();
-        public static List<LabelModel> LabelList2 = new List<LabelModel>();
-        public static List<LabelModel> LabelList3 = new List<LabelModel>();
-        public static List<LabelModel> LabelList4 = new List<LabelModel>();
-        public static List<LabelModel> LabelList5 = new List<LabelModel>();
-        public static List<LabelModel> LabelList6 = new List<LabelModel>();
-        public static List<LabelModel> LabelList7 = new List<LabelModel>();
-        public static List<LabelModel> LabelList8 = new List<LabelModel>();
-        public static List<LabelModel> LabelList9 = new List<LabelModel>();
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
@@ -200,14 +192,14 @@ namespace VenoXV.Reallife.Globals
             {
                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
-                    int played = player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                    int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                     if (played > 0 && played % 60 == 0)
                     {
 
                         // Generate the payday
                         GeneratePlayerPayday(player);
                     }
-                    player.vnxSetElementData(EntityData.PLAYER_PLAYED, played + 1);
+                    player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) > 0)
                     {
@@ -261,12 +253,12 @@ namespace VenoXV.Reallife.Globals
         {
             try
             {
-                int played = player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                 if (played > 0 && played % 60 == 0)
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.vnxSetElementData(EntityData.PLAYER_PLAYED, played + 1);
+                player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
 
                 anzeigen.Usefull.VnX.SavePlayerDatas(player);
             }
@@ -281,12 +273,12 @@ namespace VenoXV.Reallife.Globals
         {
             try
             {
-                int played = player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                 if (played > 0 && played % 60 == 0)
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.vnxSetElementData(EntityData.PLAYER_PLAYED, played + 1);
+                player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
 
 
                 anzeigen.Usefull.VnX.SavePlayerDatas(player);
@@ -341,7 +333,7 @@ namespace VenoXV.Reallife.Globals
         {
             return elementdata switch
             {
-                EntityData.PLAYER_MONEY => true,
+                VenoXV.Globals.EntityData.PLAYER_MONEY => true,
                 EntityData.PLAYER_ADMIN_RANK => true,
                 _ => false,
             };
@@ -387,11 +379,11 @@ namespace VenoXV.Reallife.Globals
             try
             {
                 int total = 0;
-                int bank = player.vnxGetElementData<int>(EntityData.PLAYER_BANK);
-                int playerRank = player.vnxGetElementData<int>(EntityData.PLAYER_RANK);
+                int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK);
+                int playerRank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
                 int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
                 player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                PlayerModel VipL = Database.GetPlayerVIP((int)player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                PlayerModel VipL = Database.GetPlayerVIP((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
                 {
@@ -435,10 +427,10 @@ namespace VenoXV.Reallife.Globals
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>() && Vehicle.vnxGetElementData<bool>(EntityData.VEHICLE_NOT_SAVED) != true)
+                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName() && Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) != true)
                     {
 
-                        int IVehicleTaxes = (int)Math.Round((int)Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_PRICE) * Constants.TAXES_IVehicle);
+                        int IVehicleTaxes = (int)Math.Round((int)Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PRICE) * Constants.TAXES_IVehicle);
                         int IVehicleTaxes_ = 0;
                         if (VipL.Vip_BisZum > DateTime.Now)
                         {
@@ -465,9 +457,9 @@ namespace VenoXV.Reallife.Globals
                             }
                         }
 
-                        int IVehicleId = Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_ID);
-                        string VehicleModel = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_MODEL);
-                        string IVehiclePlate = Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_PLATE) == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_PLATE);
+                        int IVehicleId = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
+                        string VehicleModel = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
+                        string IVehiclePlate = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE) == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " VIP Fahrzeugsteuer Abzug : " + RageAPI.GetHexColorcode(255, 255, 255) + +IVehicleTaxes_ + "$");
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Fahrzeugsteuer : " + RageAPI.GetHexColorcode(255, 255, 255) + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
                         total -= IVehicleTaxes;
@@ -479,7 +471,7 @@ namespace VenoXV.Reallife.Globals
                     // House taxes
                     foreach (HouseModel house in House.houseList)
                     {
-                        if (house.owner == player.GetVnXName<string>())
+                        if (house.owner == player.GetVnXName())
                         {
                             int houseTaxes = (int)Math.Round((int)house.price * Constants.TAXES_HOUSE);
                             player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Immobiliensteuer :  " + RageAPI.GetHexColorcode(255, 255, 255) + house.name + ": -" + houseTaxes + "$");
@@ -538,11 +530,11 @@ namespace VenoXV.Reallife.Globals
 
                 if (total < 0)
                 {
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) - Math.Abs(total));
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - Math.Abs(total));
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_BANK, player.vnxGetElementData<int>(EntityData.PLAYER_BANK) + total);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + total);
                 }
             }
             catch (Exception ex)
@@ -745,10 +737,10 @@ namespace VenoXV.Reallife.Globals
                 {
                     foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                     {
-                        if (Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>() && Vehicle.vnxGetElementData<int>(EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
+                        if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName() && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
-                            Vehicle.vnxSetStreamSharedElementData(EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
+                            Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
                             /* ToDo : Fix if (Vehicle.Occupants.Count > 0)
                              {
                                  var playersInCar = NAPI.Vehicle.GetIVehicleOccupants(Vehicle);
@@ -766,10 +758,10 @@ namespace VenoXV.Reallife.Globals
                         {
                             if (
                             //LieferrantenJobIVehicle
-                            Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
+                            Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
                             //Airport ToDo
-                            || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
-                            || Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>()
+                            || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
+                            || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
                             )
                             {
                                 if (Vehicle != null)
@@ -778,14 +770,14 @@ namespace VenoXV.Reallife.Globals
                                 }
                                 if (JoB_Allround.JobAbgabeMarker != null)
                                 {
-                                    if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.GetVnXName<string>())
+                                    if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.GetVnXName())
                                     {
                                         AltV.Net.Alt.RemoveColShape(JoB_Allround.JobAbgabeMarker);
                                     }
                                 }
                             }
                         }
-                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(EntityData.VEHICLE_OWNER) == player.GetVnXName<string>())
+                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
                         {
                             Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
                         }
@@ -845,7 +837,7 @@ namespace VenoXV.Reallife.Globals
                     {
                         if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
-                            player.Emit("showATM", player.vnxGetElementData<int>(EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
+                            player.Emit("showATM", player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
                             return;
                         }
                     }
@@ -931,7 +923,7 @@ namespace VenoXV.Reallife.Globals
             {
                 IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                int targetId = target.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int targetId = target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 List<TattooModel> playerTattooList = tattooList.Where(t => t.player == targetId).ToList();
                 player.Emit("updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), target);
             }
@@ -952,7 +944,7 @@ namespace VenoXV.Reallife.Globals
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 if (playerId > 0)
                 {
                     ItemModel Item = Main.GetPlayerItemModelFromHash(playerId, ItemHash);
@@ -1114,7 +1106,7 @@ namespace VenoXV.Reallife.Globals
          public void ComplementCommand(IPlayer player, string type, string action)
          {
              ClothesModel clothes = null;
-             int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+             int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
 
              if (action.ToLower() == "tragen" || action.ToLower() == "Anziehen")
              {
@@ -1253,7 +1245,7 @@ namespace VenoXV.Reallife.Globals
                              }
                              else
                              {
-                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
+                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
                                  {
                                      player.SetAccessories(Constants.ACCESSORY_HATS, 57, 0);
                                  }
@@ -1294,7 +1286,7 @@ namespace VenoXV.Reallife.Globals
                              }
                              else
                              {
-                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
+                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
                                  {
                                      player.SetAccessories(Constants.ACCESSORY_GLASSES, 5, 0);
                                  }
@@ -1335,7 +1327,7 @@ namespace VenoXV.Reallife.Globals
                              }
                              else
                              {
-                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
+                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
                                  {
                                      player.SetAccessories(Constants.ACCESSORY_EARS, 12, 0);
                                  }

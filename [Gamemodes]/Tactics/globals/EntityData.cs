@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 
-namespace VenoXV.Tactics.Globals
+namespace VenoXV._Gamemodes_.Tactics.Globals
 {
     public class EntityData : IScript
     {
@@ -17,6 +17,9 @@ namespace VenoXV.Tactics.Globals
         public static string PLAYER_DISCONNECTED_ROUND = "PLAYER_DISCONNECTED_ROUND";
         public static string PLAYER_CURRENT_STREAK = "PLAYER_CURRENT_STREAK";
 
+
+        public const string PLAYER_TACTIC_KILLS = "PLAYER_TACTIC_KILLS";
+        public const string PLAYER_TACTIC_TODE = "PLAYER_TACTIC_TODE";
 
         // STATIC STRINGS
         public static string BFAC_NAME = "Grove Street";

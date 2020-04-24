@@ -1,6 +1,8 @@
 ﻿using AltV.Net.Elements.Entities;
 using Newtonsoft.Json;
-using VenoXV.Reallife.Globals;
+using System;
+using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
 namespace VenoXV.RootCore
 {
@@ -8,16 +10,18 @@ namespace VenoXV.RootCore
     {
         public static void LoadAllTextLabels(IPlayer player)
         {
-            if (Main.LabelList.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList1.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList2.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList3.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList4.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList5.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList6.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList7.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList8.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
-            if (Main.LabelList9.Count > 0) { player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); }
+            var json = JsonConvert.SerializeObject(Main.LabelList);
+            var list = new List<string>();
+            for (int i = 0; i < json.Length; i += 5000)
+                list.Add(json.Substring(i, Math.Min(5000, json.Length - i)));
+
+            for (int i = 0; i < list.Count; ++i)
+                player.Emit("Sync:LoadTextLabels", list[i], i, list.Count);
+
+            /*if (Main.LabelList.Count > 0)
+            { 
+                player.Emit("Sync:LoadTextLabels", JsonConvert.SerializeObject(Main.LabelList)); 
+            }*/
         }
     }
 }

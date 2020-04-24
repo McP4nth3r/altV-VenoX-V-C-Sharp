@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VenoXV.Reallife.Globals
+namespace VenoXV._Gamemodes_.Reallife.Globals
 {
     public class Messages
     {

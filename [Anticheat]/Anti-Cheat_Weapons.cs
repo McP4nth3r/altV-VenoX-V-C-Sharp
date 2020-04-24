@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.vnx_stored_files;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 
 namespace VenoXV.Anti_Cheat
 {
@@ -41,9 +41,9 @@ namespace VenoXV.Anti_Cheat
                 {
                     if (player.Health != 0)
                     {
-                        logfile.WriteAntiCheatLogs("weapon", "[ANTI-CHEAT][" + Banhash + "] : " +player.GetVnXName<string>() + " |Position Now : " + player.Position + " | Currentweapon : " + player.CurrentWeapon);
-                        Database.AddPlayerPermaBan(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash);
-                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0)+ player.GetVnXName<string>() + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
+                        logfile.WriteAntiCheatLogs("weapon", "[ANTI-CHEAT][" + Banhash + "] : " +player.GetVnXName() + " |Position Now : " + player.Position + " | Currentweapon : " + player.CurrentWeapon);
+                        Database.AddPlayerPermaBan(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash);
+                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0)+ player.GetVnXName() + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
                         player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
                     }
                 }

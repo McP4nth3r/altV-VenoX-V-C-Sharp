@@ -3,8 +3,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
 
 namespace VenoXV.Zombie.World
@@ -24,8 +22,20 @@ namespace VenoXV.Zombie.World
         {
             try
             {
-                player.SendChatMessage( "Willkommen im VenoX ~r~Zombie + " + RageAPI.GetHexColorcode(255,255,255) + "Modus");
-                player.SendChatMessage( "Kämpfe um dein Überleben!");
+                player.SendChatMessage("Willkommen im VenoX ~r~Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
+                player.SendChatMessage("Kämpfe um dein Überleben!");
+            }
+            catch { }
+        }
+
+        public static void InitializePlayerData(IPlayer player)
+        {
+            try
+            {
+                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS, 0);
+                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, 0);
+                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_TODE, 0);
+
             }
             catch { }
         }
@@ -49,7 +59,7 @@ namespace VenoXV.Zombie.World
 
         public static void OnUpdate()
         {
-            if(TIME_TO_SPAWN_ZOMBIES <= DateTime.Now)
+            if (TIME_TO_SPAWN_ZOMBIES <= DateTime.Now)
             {
                 TIME_TO_SPAWN_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_ZOMBIES);
                 for (var i = 0; i <= ZOMBIE_AMMOUNT_EACH_SPAWN; i++)

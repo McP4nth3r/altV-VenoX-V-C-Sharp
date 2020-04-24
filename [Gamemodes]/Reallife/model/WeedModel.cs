@@ -1,7 +1,7 @@
 ﻿using AltV.Net.Data;
 using System;
 
-namespace VenoXV.Reallife.model
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class WeedModel
     {

@@ -5,11 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.admin
+namespace VenoXV._Gamemodes_.Reallife.admin
 {
     public class TicketSystem : IScript
     {
@@ -29,12 +29,12 @@ namespace VenoXV.Reallife.admin
                 }
 
                 AdminTickets ticket = new AdminTickets();
-                ticket.playerName =player.GetVnXName<string>();
+                ticket.playerName =player.GetVnXName();
                 ticket.Betreff = betreff;
                 ticket.Frage = text;
                 ticket.id = Database.AddNewAdminTicket(ticket);
                 player.Emit("Destroy_Ticket_Window");
-                Admin.sendAdminInformation(player.GetVnXName<string>() + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
+                Admin.sendAdminInformation(player.GetVnXName() + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
                 player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
                 player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
             }

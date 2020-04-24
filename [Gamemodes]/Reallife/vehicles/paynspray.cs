@@ -11,10 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Vehicles
+namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
     public class paynspray : IScript
     {
@@ -77,10 +77,10 @@ namespace VenoXV.Reallife.Vehicles
                 {
                     if (player.IsInVehicle && player.VehicleSeat == -1)
                     {
-                        int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) >= 180)
+                        int playerMoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 180)
                         {
-                            player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, playerMoney - 180);
+                            player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - 180);
                             var paynsprayfahrzeug = player.Vehicle;
                             player.SendChatMessage( "~g~Fahrzeug Repariert! [180 $]", true);
                             NAPI.Vehicle.RepairIVehicle(paynsprayfahrzeug);

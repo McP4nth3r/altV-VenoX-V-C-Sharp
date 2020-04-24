@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 
-namespace VenoXV.Reallife.model
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class HouseIplModel
     {

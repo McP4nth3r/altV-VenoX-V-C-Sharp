@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VenoXV.Tactics.lobby
+namespace VenoXV._Gamemodes_.Tactics.lobby
 {
     public class Anticheat_Weapon : IScript
     {

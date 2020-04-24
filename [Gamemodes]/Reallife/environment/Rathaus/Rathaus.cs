@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
-namespace VenoXV.Reallife.Environment.Rathaus
+namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
 {
     public class Rathaus : IScript
     {
@@ -67,18 +67,18 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Personalausweis!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 450)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 450)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 450);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
                     player.vnxSetElementData(EntityData.PLAYER_PERSONALAUSWEIS, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Personalausweis erhalten!");
                 }
                 else if (button == "Auto")
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 10500)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 10500)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
@@ -87,7 +87,7 @@ namespace VenoXV.Reallife.Environment.Rathaus
                 }
                 else if (button == "Bike")
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 8750)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 8750)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
@@ -96,7 +96,7 @@ namespace VenoXV.Reallife.Environment.Rathaus
                 }
                 else if (button == "LKW")
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 16750)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 16750)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
@@ -111,12 +111,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Flugschein A!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 28250)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 28250)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 28250);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 28250);
                     player.vnxSetElementData(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Flugschein A erhalten!");
                 }
@@ -132,12 +132,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Flugschein B!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 37625)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 37625)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 37625);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 37625);
                     player.vnxSetElementData(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Flugschein B erhalten!");
                 }
@@ -148,12 +148,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Helikopterschein!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 25438)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 25438)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 25438);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 25438);
                     player.vnxSetElementData(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Helikopterschein erhalten!");
                 }
@@ -164,12 +164,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Bootsschein!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 5220)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 5220)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 5220);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 5220);
                     player.vnxSetElementData(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Bootsschein erhalten!");
                 }
@@ -180,12 +180,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Angelschein!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 1150)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 1150)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 1150);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 1150);
                     player.vnxSetElementData(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Angelschein erhalten!");
                 }
@@ -197,17 +197,17 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits einen Waffenschein!");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) < 21250)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 21250)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    if(player.vnxGetElementData<int>(EntityData.PLAYER_PLAYED) < 3 * 60)
+                    if(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) < 3 * 60)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Erst ab 3 Spielstunden möglich.");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(EntityData.PLAYER_MONEY) - 21250);
+                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 21250);
                     player.vnxSetElementData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 1);
                     player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"------------WAFFENSCHEIN INFORMATION------------");
                     player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +" Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
@@ -236,7 +236,7 @@ namespace VenoXV.Reallife.Environment.Rathaus
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") ==player.GetVnXName<string>() && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
+                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") ==player.GetVnXName() && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
                     {
                         player.vnxSetElementData("Marker_Pruefung", 0);
                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
@@ -259,12 +259,12 @@ namespace VenoXV.Reallife.Environment.Rathaus
                         Vehicle.Remove();
                         IColShape FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
                         IColShape FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
-                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") ==player.GetVnXName<string>())
+                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") ==player.GetVnXName())
                         {
                             AltV.Net.Alt.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
                             return;
                         }
-                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") ==player.GetVnXName<string>())
+                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") ==player.GetVnXName())
                         {
                             AltV.Net.Alt.RemoveColShape(FührerscheinCol);
                             return;

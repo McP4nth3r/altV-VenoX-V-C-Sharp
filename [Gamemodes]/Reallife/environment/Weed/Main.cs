@@ -5,10 +5,10 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.environment.Weed
+namespace VenoXV._Gamemodes_.Reallife.environment.Weed
 {
     public class Main : IScript
     {
@@ -51,7 +51,7 @@ namespace VenoXV.Reallife.environment.Weed
             {
                 WeedModel weed = new WeedModel
                 {
-                    CreatedBy = RageAPI.GetVnXName<string>(player),
+                    CreatedBy = RageAPI.GetVnXName(player),
                     Name = "Hanfpflanze",
                     Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z),
                     Rotation = player.Rotation,

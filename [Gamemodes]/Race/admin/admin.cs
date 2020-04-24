@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
 namespace VenoXV._Gamemodes_.Race.admin
 {
@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Race.admin
         [Command("skipcurrentrace")]
         public static void SkipRound(IPlayer player)
         {
-            Core.Debug.OutputDebugString("Called with : " + player.GetVnXName<string>());
+            Core.Debug.OutputDebugString("Called with : " + player.GetVnXName());
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
             {
                 Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + " hat das Rennen übersprungen!");

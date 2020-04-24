@@ -3,11 +3,11 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.gangwar.v2
+namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
     public class GangwarManager : IScript
     {

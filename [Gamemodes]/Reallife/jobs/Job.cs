@@ -1,18 +1,13 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
-using System.Collections.Generic;
-using VenoXV.Reallife.character;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.jobs.Lieferrant;
-using VenoXV.Reallife.weapons;
-using AltV.Net;
+﻿using AltV.Net;
 using AltV.Net.Data;
-using VenoXV.Core;
+using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV.Core;
 
-namespace VenoXV.Reallife.jobs
+namespace VenoXV._Gamemodes_.Reallife.jobs
 {
     public class Job : IScript
     {
@@ -23,7 +18,53 @@ namespace VenoXV.Reallife.jobs
         public static IColShape LSPDDuty = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(459.297f, -990.9312f, 30.6896f), 1.5f);
         public static IColShape FBIDuty = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
 
-        
+        [Command("setclothes")]
+        public static void GiveIPlayerTestClothes(IPlayer player, int clothesslot, int clothesdrawable, int clothestexture)
+        {
+            player.SetClothes(clothesslot, clothesdrawable, clothestexture);
+            player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
+        }
+        [Command("setprop")]
+        public static void GiveIPlayerTestProp(IPlayer player, int clothesslot, int clothesdrawable, int clothestexture)
+        {
+            player.SetProp(clothesslot, clothesdrawable, clothestexture);
+            player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
+        }
+
+        [Command("setcopclothes")]
+        public static void GiveTargetCopClothes(IPlayer player, string target_name)
+        {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
+            target.SetClothes(6, 24, 0);
+            target.SetClothes(4, 33, 0);
+            target.SetClothes(9, 7, 1);
+            target.SetClothes(11, 50, 0);
+            target.SetProp(0, 144, 0);
+            target.SetClothes(3, 4, 0);
+            target.SetClothes(8, 15, 0);
+        }
+
+        [Command("setbadclothes")]
+        public static void GiveTargetBadClothes(IPlayer player, string target_name)
+        {
+            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            if (target == null) { return; }
+            target.SetClothes(4, 19, 0);
+            target.SetClothes(1, 95, 0);
+            target.SetClothes(3, 0, 0);
+            target.SetClothes(8, 15, 0);
+            target.SetClothes(7, 0, 0);
+            target.SetClothes(6, 25, 0);
+            target.SetClothes(11, 18, 0);
+        }
+
+        [Command("givepweapon")]
+        public static void GivePlayerWeapons(IPlayer player, string weaponname)
+        {
+            player.GivePlayerWeapon((AltV.Net.Enums.WeaponModel)Alt.Hash(weaponname), 500);
+        }
+
         public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
         {
             try
@@ -37,7 +78,7 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (job == "Arbeitslos")
                     {
-                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " + player.GetVnXName() + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -49,14 +90,14 @@ namespace VenoXV.Reallife.jobs
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
                     {
 
-                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.");
+                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.GetVnXName());
                     }
                 }
                 else if (shape == FBIDuty)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_FBI)
                     {
-                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.");
+                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.GetVnXName());
                     }
                 }
                 else if (shape == AIRPORT_JOB_Col)
@@ -67,13 +108,13 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " + player.GetVnXName() + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
                         dxLibary.VnX.DrawNotification(player, "info", "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
-                }                
+                }
                 else if (shape == BUS_JOB_Col)
                 {
                     if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_BUS)
@@ -82,7 +123,7 @@ namespace VenoXV.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " +player.GetVnXName<string>() + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " + player.GetVnXName() + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -123,7 +164,7 @@ namespace VenoXV.Reallife.jobs
                 player.vnxSetElementData(EntityData.PLAYER_JOB, Constants.JOB_AIRPORT);
                 dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL));
             }
-            else if(windowname == "VenoX Busdepot")
+            else if (windowname == "VenoX Busdepot")
             {
                 player.vnxSetElementData(EntityData.PLAYER_JOB, Constants.JOB_BUS);
                 dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL));
@@ -236,7 +277,7 @@ namespace VenoXV.Reallife.jobs
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen LKW - Führerschein!");
                         }
-                    }                   
+                    }
                     if (button == "button2")
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN) == 1)
@@ -248,7 +289,7 @@ namespace VenoXV.Reallife.jobs
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen LKW - Führerschein!");
                         }
-                    }                    
+                    }
                     if (button == "button3")
                     {
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN) == 1)
@@ -268,7 +309,7 @@ namespace VenoXV.Reallife.jobs
                     dxLibary.VnX.DrawNotification(player, "error", "du bist bei keinem Job");
                 }
             }
-            catch {}
+            catch { }
         }
 
 
@@ -287,7 +328,7 @@ namespace VenoXV.Reallife.jobs
             try
             {
 
-                
+
                 foreach (JobPickModel job in jobList)
                 {
                     RageAPI.CreateTextLabel("Job", job.position, 10.0f, 0.5f, 4, new int[] { 0, 150, 200, 255 }, 0);
@@ -298,14 +339,14 @@ namespace VenoXV.Reallife.jobs
             catch { }
 
         }
-        
-        
+
+
         /*
         [Command(Messages.COM_DUTY)]
         public void DutyCommand(IPlayer player)
         {
             // We get the sex, job and faction from the player
-            int playerSex = player.vnxGetElementData<int>(EntityData.PLAYER_SEX);
+            int playerSex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
             int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
 
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0  
@@ -315,10 +356,10 @@ namespace VenoXV.Reallife.jobs
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
             {
                     // Load selected character
-                    PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
-                    SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID));
+                    PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                    SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
 
-                    //ToDo : Fix & find another Way! player.GetVnXName<string>() = character.realName;
+                    //ToDo : Fix & find another Way! player.GetVnXName() = character.realName;
                     player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.SetPlayerSkin(character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);

@@ -4,12 +4,12 @@ using AltV.Net.Elements.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
-using VenoXV.Reallife.factions;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
 
-namespace VenoXV.Reallife.anzeigen.Scorebard
+namespace VenoXV._Gamemodes_.Reallife.anzeigen.Scorebard
 {
     public class Scoreboard : IScript
     {
@@ -36,9 +36,9 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 int TOTALPLAYERS = 0;
                 int Spielzeit = 0;
                 int Fraktion = 0;
-                if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED) >= 0)
+                if (Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= 0)
                 {
-                    Spielzeit = Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                    Spielzeit = Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                 }
                 if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) >= 0)
                 {
@@ -58,11 +58,11 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 }
                 string playerping = Spieler.Ping.ToString();
                 int FraktionsID = Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
-                string viplevel = Spieler.vnxGetElementData<string>(EntityData.PLAYER_VIP_LEVEL);
+                string viplevel = Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL);
                 if (Spieler.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false && Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
                 {
                     SpielerListe.FID = -1;
-                    SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                    SpielerListe.SpielerName = Spieler.GetVnXName();
                     SpielerListe.Spielzeit = "-";
                     SpielerListe.SpielzeitTactics = "-";
                     SpielerListe.VIP = "-";
@@ -97,11 +97,11 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     if (viplevel == "TOP DONATOR") { viplevel = "Top Donator"; }
                     if (viplevel == "UltimateRed") { viplevel = "Ultimate RED"; }
                     SpielerListe.FID = FraktionsID;
-                    SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                    SpielerListe.SpielerName = Spieler.GetVnXName();
                     SpielerListe.Spielzeit = label;
                     SpielerListe.SpielzeitTactics = "-";
                     SpielerListe.VIP = viplevel;
-                    SpielerListe.SozialerStatus = Spieler.vnxGetElementData<string>(EntityData.PLAYER_STATUS);
+                    SpielerListe.SozialerStatus = Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS);
                     SpielerListe.SozialerStatusTactics = "Reallife";
                     SpielerListe.kills = "-";
                     SpielerListe.tode = "-";
@@ -164,12 +164,12 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 int G = 255;
                 int B = 255;
 
-                int kills = Spieler.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_KILLS);
-                int tode = Spieler.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_TODE);
+                int kills = Spieler.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS);
+                int tode = Spieler.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE);
 
-                if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED) >= 0)
+                if (Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= 0)
                 {
-                    Spielzeit = Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                    Spielzeit = Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                 }
                 TimeSpan spielzeittab = TimeSpan.FromMinutes(Spielzeit);
                 string label = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
@@ -192,9 +192,9 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                     G = Tactics.Globals.EntityData.BFAC_Color.G;
                     B = Tactics.Globals.EntityData.BFAC_Color.B;
                 }
-                SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                SpielerListe.SpielerName = Spieler.GetVnXName();
                 SpielerListe.SpielzeitTactics = label;
-                SpielerListe.SozialerStatusTactics = Spieler.vnxGetElementData<string>(EntityData.PLAYER_STATUS);
+                SpielerListe.SozialerStatusTactics = Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS);
                 SpielerListe.Spielzeit = "-";
                 SpielerListe.SozialerStatus = "Tactics";
                 SpielerListe.Fraktion = "-";
@@ -226,9 +226,9 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 int G = 150;
                 int B = 150;
 
-                if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED) >= 0)
+                if (Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= 0)
                 {
-                    Spielzeit = Spieler.vnxGetElementData<int>(EntityData.PLAYER_PLAYED);
+                    Spielzeit = Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
                 }
                 TimeSpan spielzeittab = TimeSpan.FromMinutes(Spielzeit);
                 string label = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
@@ -236,7 +236,7 @@ namespace VenoXV.Reallife.anzeigen.Scorebard
                 string playerping = Spieler.Ping.ToString();
                 SpielerListe.FID = -2;
 
-                //SpielerListe.SpielerName = Spieler.GetVnXName<string>();
+                //SpielerListe.SpielerName = Spieler.GetVnXName();
                 SpielerListe.SpielerName = Spieler?.Name;
                 SpielerListe.Spielzeit = "-";
                 SpielerListe.SpielzeitTactics = "-";

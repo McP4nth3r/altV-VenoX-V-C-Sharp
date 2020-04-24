@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.database;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.house;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.house;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Settings
+namespace VenoXV._Gamemodes_.Reallife.Settings
 {
     public class VnX : IScript
     {
@@ -269,7 +269,7 @@ namespace VenoXV.Reallife.Settings
                 {
                     foreach (HouseModel house in House.houseList)
                     {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.GetVnXName<string>() == house.owner)
+                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.GetVnXName() == house.owner)
                         {
                             player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "House");
                             player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Haus!");

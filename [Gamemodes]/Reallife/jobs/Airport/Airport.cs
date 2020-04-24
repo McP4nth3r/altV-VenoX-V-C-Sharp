@@ -4,10 +4,10 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.Globals;
 
 
-namespace VenoXV.Reallife.jobs.Airport
+namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
 {
     public class Airport : IScript
     {
@@ -43,7 +43,7 @@ namespace VenoXV.Reallife.jobs.Airport
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5.5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe [ Airport Job]", Destination, 7, 611, 75, randomjobdim, 0, 150, 200, 255);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
 
 
@@ -51,22 +51,22 @@ namespace VenoXV.Reallife.jobs.Airport
                     //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Airportjob_Plane, -1);
 
                     Airportjob_Plane.EngineOn = true;
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_MODEL, "Dodo");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FACTION, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PLATE, "VenoX");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PRICE, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "Dodo");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FACTION, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "VenoX");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PRICE, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKING, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
 
                     player.Dimension = randomjobdim;
@@ -91,7 +91,7 @@ namespace VenoXV.Reallife.jobs.Airport
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5.5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe [ Airport Job]", Destination, 7, 611, 75, randomjobdim, 0, 150, 200, 255);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
 
 
@@ -99,22 +99,22 @@ namespace VenoXV.Reallife.jobs.Airport
                     //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Airportjob_Plane, -1);
 
                     Airportjob_Plane.EngineOn = true;
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_MODEL, "Shamal");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FACTION, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PLATE, "VenoX");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PRICE, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "Shamal");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FACTION, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "VenoX");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PRICE, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKING, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
                     player.Dimension = randomjobdim;
                     Airportjob_Plane.Dimension = randomjobdim;
@@ -132,7 +132,7 @@ namespace VenoXV.Reallife.jobs.Airport
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 7.5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe [ Airport Job]", Destination, 14, 611, 75, randomjobdim, 0, 150, 200, 255);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName<string>());
+                    JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
 
 
@@ -140,22 +140,22 @@ namespace VenoXV.Reallife.jobs.Airport
                     //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Airportjob_Plane, -1);
 
                     Airportjob_Plane.EngineOn = true;
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_MODEL, "Jet");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FACTION, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PLATE, "VenoX");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_OWNER, player.GetVnXName<string>());
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PRICE, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKING, 0);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_PARKED, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "Jet");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FACTION, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "VenoX");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, player.GetVnXName());
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PRICE, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKING, 0);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKED, 0);
 
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_KMS, 0);
-                    Airportjob_Plane.vnxSetStreamSharedElementData(EntityData.VEHICLE_GAS, 100);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
-                    Airportjob_Plane.vnxSetElementData(EntityData.VEHICLE_NOT_SAVED, true);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
+                    Airportjob_Plane.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_JOB, Constants.JOB_AIRPORT);
+                    Airportjob_Plane.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
                     Core.VnX.SetDelayedBoolSharedData(player, EntityData.PLAYER_IS_IN_JOB, true, 1500);
 
                     player.Dimension = randomjobdim;

@@ -1,14 +1,14 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 
-namespace VenoXV.Tactics.Globals
+namespace VenoXV._Gamemodes_.Tactics.Globals
 {
     public class Main : IScript
     {
 
         public static void OnResourceStart()
         {
-            VenoXV.Tactics.weapons.Combat.OnResourceStart();
+            _Gamemodes_.Tactics.weapons.Combat.OnResourceStart();
         }
 
         public static void OnUpdate()

@@ -4,12 +4,12 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using VenoXV._Gamemodes_.Tactics.Globals;
+using VenoXV._Gamemodes_.Tactics.model;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
-using VenoXV.Tactics.Globals;
-using VenoXV.Tactics.model;
 
-namespace VenoXV.Tactics.Lobby
+namespace VenoXV._Gamemodes_.Tactics.Lobby
 {
     public class Main : IScript
     {
@@ -173,7 +173,7 @@ namespace VenoXV.Tactics.Lobby
                     player.Armor = 100;
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                Reallife.dxLibary.VnX.SetElementFrozen(player, false);
+                _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, false);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
@@ -267,12 +267,12 @@ namespace VenoXV.Tactics.Lobby
         {
             try
             {
-                player.vnxSetElementData(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
+                player.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
                 foreach (IPlayer players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName<string>() + " ist Disconnected!");
+                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " ist Disconnected!");
                     }
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
@@ -320,7 +320,7 @@ namespace VenoXV.Tactics.Lobby
                     {
                         // To Do : Cam event erstellen.
                         player.DespawnPlayer();
-                        Reallife.dxLibary.VnX.SetElementFrozen(player, true);
+                        _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllWeapons();
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }

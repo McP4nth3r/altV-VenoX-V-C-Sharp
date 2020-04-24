@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using VenoXV.Core;
 
-namespace VenoXV.Reallife.Fun
+namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Allround : IScript
     {

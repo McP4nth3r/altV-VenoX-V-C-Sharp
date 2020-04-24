@@ -4,13 +4,13 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.anzeigen;
+using VenoXV._Gamemodes_.Reallife.anzeigen;
 using VenoXV.Core;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.Clothes
+namespace VenoXV._Gamemodes_.Reallife.Clothes
 {
     public class Clothes : IScript
     {

@@ -3,11 +3,11 @@ using AltV.Net.Elements.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using VenoXV.Core;
-using VenoXV.Reallife.character;
-using VenoXV.Reallife.Globals;
-using VenoXV.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.character;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 
-namespace VenoXV.Reallife.business
+namespace VenoXV._Gamemodes_.Reallife.business
 {
     public class Business : IScript
     {
@@ -145,7 +145,7 @@ namespace VenoXV.Reallife.business
         {
             try
             {
-                int sex = player.vnxGetElementData<int>(EntityData.PLAYER_SEX);
+                int sex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
                 List<BusinessClothesModel> clothesList = GetBusinessClothesFromSlotType(sex, type, slot);
                 if (clothesList.Count > 0)
                 {
@@ -161,7 +161,7 @@ namespace VenoXV.Reallife.business
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 ClothesModel clothes = Globals.Main.GetDressedClothesInSlot(playerId, type, slot);
 
                 if (clothes != null)
@@ -196,18 +196,18 @@ namespace VenoXV.Reallife.business
             try
             {
                 /*ClothesModel clothesModel = NAPI.Util.FromJson<ClothesModel>(clothesJson);
-                int sex = player.vnxGetElementData<int>(EntityData.PLAYER_SEX);
+                int sex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
                 int products = GetClothesProductsPrice(clothesModel.id, sex, clothesModel.type, clothesModel.slot);
                 int price = (products * 1);
 
-                int playerMoney = player.vnxGetElementData<int>(EntityData.PLAYER_MONEY);
+                int playerMoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
 
                 if (playerMoney >= price)
                 {
-                    int playerId = player.vnxGetElementData<int>(EntityData.PLAYER_SQL_ID);
+                    int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
 
 
-                    player.vnxSetElementData(EntityData.PLAYER_MONEY, playerMoney - price);
+                    player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - price);
 
                     Main.UndressClothes(playerId, clothesModel.type, clothesModel.slot);
 
@@ -219,7 +219,7 @@ namespace VenoXV.Reallife.business
 
                     player.SendChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                     dxLibary.VnX.DrawNotification(player, "info", "Transaktion in Höhe von " + price + "$ abgeschlossen!");
-                    vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName<string>() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
+                    vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }
                 else
                 {

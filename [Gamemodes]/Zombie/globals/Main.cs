@@ -1,10 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using VenoXV.Core;
-using VenoXV.Reallife.Globals;
 
 namespace VenoXV.Zombie.globals
 {
@@ -21,8 +18,8 @@ namespace VenoXV.Zombie.globals
         {
             try
             {
-                player.vnxSetElementData(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS, player.vnxGetElementData<int>(Reallife.Globals.EntityData.PLAYER_ZOMBIE_KILLS) + 1);
-                Console.WriteLine(player.GetVnXName<string>() + " hat einen Zombie Getötet!");
+                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS, player.vnxGetElementData<int>(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS) + 1);
+                Console.WriteLine(player.GetVnXName() + " hat einen Zombie Getötet!");
             }
             catch { }
         }

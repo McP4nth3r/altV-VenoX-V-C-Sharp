@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VenoXV.Reallife.Fun.Aktionen
+namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen
 {
     public class Bankrob : IScript
     {

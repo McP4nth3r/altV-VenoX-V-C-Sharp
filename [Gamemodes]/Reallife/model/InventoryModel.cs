@@ -1,4 +1,4 @@
-﻿namespace VenoXV.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class InventoryModel
     {

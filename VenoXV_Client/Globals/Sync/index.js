@@ -12,8 +12,20 @@ let LabelListCounter = 0;
 
 let LabelListNearLocal = {};
 let LabelListNearLocalCounter = 0;
-alt.onServer('Sync:LoadTextLabels', (LabelJson) => {
-    let LabelItems = JSON.parse(LabelJson);
+
+let textLabelStrArray = [];
+alt.onServer('Sync:LoadTextLabels', (json, counter, maxcount) => {
+    textLabelStrArray[counter] = json;
+    for (let i = 0; i < maxcount; ++i) {
+        if (typeof (textLabelStrArray[i]) === "undefined") {
+            return;
+        }
+    }
+    let fullJson = "";
+    for (let i = 0; i < maxcount; ++i) {
+        fullJson += textLabelStrArray[i];
+    }
+    let LabelItems = JSON.parse(fullJson);
     for (let i = 0; i < LabelItems.length; i++) {
         let data = LabelItems[i];
         LabelList[LabelListCounter] = {
@@ -28,7 +40,7 @@ alt.onServer('Sync:LoadTextLabels', (LabelJson) => {
         }
         LabelListCounter++;
     }
-})
+});
 
 alt.setInterval(() => {
     LabelListNearLocal = {};

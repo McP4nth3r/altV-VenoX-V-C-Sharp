@@ -9,6 +9,7 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import * as dxClass from '../Globals/VnX-Lib/dxClass';
 import { ShowCursor } from '../Globals/VnX-Lib';
+import { CreateInventory } from '../Reallife/inventory';
 
 
 function test() {
@@ -36,8 +37,8 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser = null;
 	}
 	preloadbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/main.html");
-	preloadbrowser.focus();
 	ShowCursor(true);
+	preloadbrowser.focus();
 	preloadbrowser.on('load_selected_gm', (v) => {
 		if (preloadbrowser != null) {
 			preloadbrowser.destroy();
@@ -45,6 +46,7 @@ alt.onServer('preload_gm_list', () => {
 		}
 		if (v == 0) {
 			//eval(`import "./Reallife/VenoXV/index.js"`);
+			CreateInventory();
 		}
 		else if (v == 1) {
 			////eval(`import "./Zombie/VenoXV/index.js"`);	
@@ -62,7 +64,7 @@ alt.onServer('preload_gm_list', () => {
 
 
 alt.onServer('LoadReallifeGamemodeRemote', () => {
-	//eval(`import "./Reallife/VenoXV/index.js"`);
+	CreateInventory();
 });
 
 alt.onServer('LoadPreloadUserInfo', (z, r, t) => {

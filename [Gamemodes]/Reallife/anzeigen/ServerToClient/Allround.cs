@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VenoXV.Reallife.vnx_stored_files;
-using VenoXV.Reallife.dxLibary;
-using VenoXV.Reallife.Vehicles;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._Gamemodes_.Reallife.dxLibary;
+using VenoXV._Gamemodes_.Reallife.Vehicles;
 using AltV.Net;
 
-namespace VenoXV.Reallife.dxLibary
+namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
     public class VnXDraw_Allround : IScript
     {
