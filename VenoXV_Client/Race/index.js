@@ -1,0 +1,89 @@
+//----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//
+
+import alt from 'alt-client';
+import * as game from "natives";
+import { DrawText } from '../Globals/VnX-Lib';
+
+let RACE_TIMER = null;
+let RACE_COUNTDOWN = null;
+let RACE_PLAYER_COUNTER = 1;
+let RACE_PLAYERS = {};
+/*
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Solid_Snake";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Sheby";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "LastAttacker";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Uno87";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Forces";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Folienkleber";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Bonus";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Heron";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Slade";
+RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "LuisSnake";
+*/
+
+
+alt.everyTick(() => {
+    if (!RACE_TIMER) { return };
+    game.drawRect(0.93, 0.5, 0.1, 0.3, 0, 0, 0, 200);
+    game.drawRect(0.93, 0.365, 0.1, 0.03, 0, 0, 0, 180);
+    game.drawRect(0.93, 0.349, 0.1, 0.003, 0, 150, 200, 255);
+    DrawText("Race-Info", [0.93, 0.350], [0.5, 0.5], 1, [255, 255, 255, 255], true, true);
+    DrawText("5 / 10", [0.95, 0.01], [0.8, 0.8], 1, [0, 200, 255, 255], true, true);
+    DrawText("Timer : " + RACE_COUNTDOWN, [0.5, 0.1], [0.5, 0.5], 1, [255, 255, 255, 255], true, true);
+
+    if (!game.hasStreamedTextureDictLoaded("hunting")) {
+        game.requestStreamedTextureDict("hunting", true);
+    }
+    if (game.hasStreamedTextureDictLoaded("hunting")) {
+        game.drawSprite("hunting", "hunting_gold_128", 0.89, 0.390, 0.015, 0.015, 0, 255, 255, 255, 255);
+        game.drawSprite("hunting", "hunting_silver_128", 0.89, 0.415, 0.015, 0.015, 0, 255, 255, 255, 255);
+        game.drawSprite("hunting", "hunting_bronze_128", 0.89, 0.443, 0.015, 0.015, 0, 255, 255, 255, 255);
+    }
+    let counter = 0;
+    for (var player in RACE_PLAYERS) {
+        DrawText(player + ") " + RACE_PLAYERS[player], [0.93, 0.378 + counter], [0.4, 0.4], 1, [0, 200, 255, 255], true, true);
+        counter += 0.0270;
+    }
+});
+
+alt.onServer('Race:FillPlayerList', (playerlist) => {
+    RACE_PLAYERS = {};
+    RACE_PLAYER_COUNTER = 1;
+    let json = JSON.parse(playerlist);
+    alt.log('json ' + playerlist);
+    alt.log('json2 ' + json);
+    for (let i = 0; i < json.length; i++) {
+        let data_player = json[i];
+        RACE_PLAYERS[RACE_PLAYER_COUNTER++] = data_player.Name;
+        alt.log('data_player.Name ' + data_player.Name);
+    }
+    alt.log('called Fillplayerlist');
+});
+
+alt.onServer('Race:StartTimer', (timer) => {
+    startTimer(timer);
+});
+
+
+function startTimer(duration) {
+    var timer = duration, minutes, seconds;
+    if (RACE_TIMER != null) { alt.clearInterval(RACE_TIMER); }
+    RACE_TIMER = alt.setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        RACE_COUNTDOWN = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
