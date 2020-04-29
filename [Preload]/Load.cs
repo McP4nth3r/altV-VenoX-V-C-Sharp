@@ -99,7 +99,7 @@ namespace VenoXV._Preload_
                 Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring);
                 _ = Program.CreateForumUser(player.GetVnXName(), email, password);
                 player.Emit("DestroyLoginWindow");
-                player.Emit("CharCreator:Start");
+                player.Emit("CharCreator:Start", geschlecht);
                 player.vnxSetStreamSharedElementData("PLAYER_LOGGED_IN", 1);
 
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);

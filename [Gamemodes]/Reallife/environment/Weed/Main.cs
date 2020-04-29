@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                 {
                     CreatedBy = RageAPI.GetVnXName(player),
                     Name = "Hanfpflanze",
-                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z),
+                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z - 0.5f),
                     Rotation = player.Rotation,
                     Created = DateTime.Now,
                     Value = 15,

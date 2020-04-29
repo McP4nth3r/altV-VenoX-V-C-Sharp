@@ -101,6 +101,14 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetStreamSharedElementData", ex); }
         }
+        public static void Repair(this IVehicle element)
+        {
+            try
+            {
+                foreach (IPlayer player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
+        }
         public static T vnxGetSharedData<T>(this IEntity element, string key)
         {
             try

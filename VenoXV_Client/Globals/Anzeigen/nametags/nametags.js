@@ -61,7 +61,6 @@ function isBadFaction(player) {
 }
 
 export function DrawNametags() {
-	return;
 	let players = alt.Player.all;
 	/*let graphics = mp.game.graphics;
 	let screenRes = graphics.getScreenResolution(0, 0);

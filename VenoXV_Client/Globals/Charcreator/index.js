@@ -10,11 +10,12 @@ import { ShowCursor } from '../VnX-Lib';
 
 let CharCreator;
 let loginCamera;
+let charcreatorPedHandle;
+let charcreatorModelHash;
 
-
-alt.onServer('CharCreator:Start', () => {
+alt.onServer('CharCreator:Start', (gender = 1) => {
     if (CharCreator) { return; }
-    let charcreatorPedHandle = alt.Player.local.scriptID;
+    spawnCreatorPed(gender);
     CharCreator = new alt.WebView("http://resource/VenoXV_Client/Globals/Charcreator/cef/charselector/index.html");
     CharCreator.focus();
     ShowCursor(true);
@@ -41,6 +42,7 @@ alt.onServer('CharCreator:Start', () => {
 
 
         CharCreator.on("Client:Charcreator:UpdateHeadOverlays", (headoverlaysarray) => {
+            alt.log('Called Update HeadOverlays + ' + headoverlaysarray);
             let headoverlays = JSON.parse(headoverlaysarray);
             game.setPedHeadOverlayColor(charcreatorPedHandle, 1, 1, parseInt(headoverlays[2][1]), 1);
             game.setPedHeadOverlayColor(charcreatorPedHandle, 2, 1, parseInt(headoverlays[2][2]), 1);
@@ -64,6 +66,7 @@ alt.onServer('CharCreator:Start', () => {
         });
 
         CharCreator.on("Client:Charcreator:UpdateFaceFeature", (facefeaturesdata) => {
+            alt.log('Called Update facefeaturesdata + ' + facefeaturesdata);
             let facefeatures = JSON.parse(facefeaturesdata);
 
             for (let i = 0; i < 20; i++) {
@@ -91,6 +94,9 @@ alt.onServer('CharCreator:Start', () => {
 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function setClothes(entity, compId, draw, tex) {
+    game.setPedComponentVariation(entity, compId, draw, tex, 0);
+}
 
 function updateLoginCam(posX, posY, posZ, rotX, rotY, rotZ, fov) {
     if (loginCamera == null) return;
@@ -101,21 +107,34 @@ function updateLoginCam(posX, posY, posZ, rotX, rotY, rotZ, fov) {
     game.renderScriptCams(true, false, 0, true, false);
 }
 
-
-function openCharCreator(gender) {
-    if (CharCreator == null || gender == undefined) return;
-    alt.emitServer("Server:Charcreator:prepare");
-    alt.setTimeout(() => {
-        spawnCreatorPed(gender);
-        createLoginCam(402.85, -999, -98.4, 358);
-        fadeScreenIn(1000);
-        CharCreator.emit("CEF:Charcreator:openCreator");
-    }, 1500);
-}
-
 function createLoginCam(x, y, z, rot) {
     if (loginCamera != null) game.destroyCam(loginCamera, true);
     loginCamera = game.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", x, y, z, 0, 0, rot, 50, true, 2);
     game.setCamActive(loginCamera, true);
     game.renderScriptCams(true, false, 0, true, false);
+}
+
+
+function spawnCreatorPed(gender) { //gender (0 - male | 1 - female)
+    if (gender == 0) charcreatorModelHash = game.getHashKey('mp_m_freemode_01');
+    else if (gender == 1) charcreatorModelHash = game.getHashKey('mp_f_freemode_01');
+    else return;
+    game.requestModel(charcreatorModelHash);
+    let interval = alt.setInterval(() => {
+        if (game.hasModelLoaded(charcreatorModelHash)) {
+            alt.clearInterval(interval);
+            charcreatorPedHandle = game.createPed(4, charcreatorModelHash, 402.778, -996.9758, -100.01465, 0, false, true);
+            game.setEntityHeading(charcreatorPedHandle, 180.0);
+            game.setEntityInvincible(charcreatorPedHandle, true);
+            game.disablePedPainAudio(charcreatorPedHandle, true);
+            game.freezeEntityPosition(charcreatorPedHandle, true);
+            game.taskSetBlockingOfNonTemporaryEvents(charcreatorPedHandle, true);
+
+
+            setClothes(charcreatorPedHandle, 11, 15, 0);
+            if (gender == 0) setClothes(charcreatorPedHandle, 8, 57, 0);
+            else if (gender == 1) setClothes(charcreatorPedHandle, 8, 3, 0);
+            setClothes(charcreatorPedHandle, 3, 15, 0);
+        }
+    }, 0);
 }

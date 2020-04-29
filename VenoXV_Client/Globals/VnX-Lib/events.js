@@ -49,7 +49,10 @@ alt.onServer('Player:Freeze', (bool) => {
 });
 
 alt.onServer('Player:Spawn', () => {
-    game.displayHud(true);
+    try {
+        game.displayHud(true);
+    }
+    catch{ }
 });
 
 alt.onServer('Vehicle:Freeze', (veh, bool) => {
@@ -59,9 +62,17 @@ alt.onServer('Vehicle:Freeze', (veh, bool) => {
     catch{ }
 });
 alt.onServer('Vehicle:Godmode', (veh, bool) => {
-    game.setEntityInvincible(veh.scriptID, bool);
+    try {
+        game.setEntityInvincible(veh.scriptID, bool);
+    }
+    catch{ }
 });
-
+alt.onServer('Vehicle:Repair', (veh) => {
+    try {
+        game.setVehicleFixed(veh.scriptID);
+    }
+    catch{ }
+});
 
 alt.onServer("movecamtocurrentpos_client", () => {
     try {
@@ -364,13 +375,19 @@ alt.onServer('delay_element_data', (e, v, type, ms) => {
 
 let CameraCreated = false;
 alt.onServer('Player:CreateCameraMovement', (pos1X, pos1Y, pos1Z, rot1, pos2X, pos2Y, pos2Z, rot2, duration) => {
-    if (CameraCreated) { destroyCamera(); }
-    interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
-    CameraCreated = true;
+    try {
+        if (CameraCreated) { destroyCamera(); }
+        interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
+        CameraCreated = true;
+    }
+    catch{ }
 });
 
 alt.onServer('Player:DestroyCamera', () => {
-    if (CameraCreated) { destroyCamera(); }
+    try {
+        if (CameraCreated) { destroyCamera(); }
+    }
+    catch{ }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -413,7 +430,10 @@ alt.everyTick(() => {
 });
 
 alt.setInterval(() => {
-    game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
+    try {
+        game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
+    }
+    catch{ }
 }, 1000)
 
 

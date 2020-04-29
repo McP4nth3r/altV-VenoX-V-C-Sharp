@@ -316,6 +316,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         OnMinuteSpentZombieGM(player);
                     }
+                    player.SetDateTime(DateTime.Now);
                     SyncWeather(player);
                 }
                 Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();

@@ -26,7 +26,7 @@ alt.onServer('Weed:Create', (WeedJson) => {
     let WeedItems = JSON.parse(WeedJson);
     for (let i = 0; i < WeedItems.length; i++) {
         let data = WeedItems[i];
-        CurrentWeedPlants[CurrentWeedCounter++] = game.createObject(alt.hash("prop_weed_01"), data.Position.X, data.Position.Y, data.Position.Z - 0.5, false, false, false);//;
+        CurrentWeedPlants[CurrentWeedCounter++] = game.createObject(alt.hash("prop_weed_01"), data.Position.X, data.Position.Y, data.Position.Z, false, false, false);//;
     }
 });
 

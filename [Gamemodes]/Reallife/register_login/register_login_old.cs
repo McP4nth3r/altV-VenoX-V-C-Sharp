@@ -47,6 +47,79 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             return false;
         }*/
 
+        [Command("tuneveh")]
+        public void TuneVehicle(IPlayer player, string aktion, int tuningindex = 0, int r = 255, int g = 255, int b = 255, int color1 = 0, int color2 = 0)
+        {
+            try
+            {
+                aktion = aktion.ToLower();
+                if (!player.IsInVehicle) { return; }
+                IVehicle veh = player.Vehicle;
+
+                veh.ModKit = 1;
+                switch (aktion)
+                {
+                    case "neon":
+                        veh.SetNeonActive(true, true, true, true);
+                        veh.NeonColor = new Rgba((byte)r, (byte)g, (byte)b, 255);
+                        break;
+                    case "repair":
+                        veh.Repair();
+                        break;
+                    case "color1rgb":
+                        veh.PrimaryColorRgb = new Rgba((byte)r, (byte)g, (byte)b, 255);
+                        break;
+                    case "color2rgb":
+                        veh.SecondaryColorRgb = new Rgba((byte)r, (byte)g, (byte)b, 255);
+                        break;
+                    case "color1":
+                        veh.PrimaryColor = (byte)color1;
+                        break;
+                    case "color2":
+                        veh.SecondaryColor = (byte)color2;
+                        break;
+                    case "dirtlevel":
+                        veh.DirtLevel = (byte)tuningindex;
+                        break;
+                    case "armor":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Armor, (byte)tuningindex);
+                        break;
+                    case "window":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.WindowTint, (byte)tuningindex);
+                        break;
+                    case "spoiler":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Spoilers, (byte)tuningindex);
+                        break;
+                    case "xenon":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Xenon, (byte)tuningindex);
+                        break;
+                    case "engine":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Engine, (byte)tuningindex);
+                        break;
+                    case "brakes":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Brakes, (byte)tuningindex);
+                        break;
+                    case "platec":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Plate, (byte)tuningindex);
+                        break;
+                    case "hood":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Hood, (byte)tuningindex);
+                        break;
+                    case "turbo":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Turbo, (byte)tuningindex);
+                        break;
+                    case "wheels":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Spoilers, (byte)tuningindex);
+                        break;
+                    case "roof":
+                        veh.SetMod(AltV.Net.Enums.VehicleModType.Roof, (byte)tuningindex);
+                        break;
+                }
+                Core.Debug.OutputDebugString("Aktion : " + aktion + " called : tuningindex :  " + tuningindex);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("tuneveh", ex); }
+        }
+
 
         //[AltV.Net.ClientEvent("HelpButtonPressed_Login")]
         public void SendAllAdminsLoginHelpNotify(IPlayer player)
