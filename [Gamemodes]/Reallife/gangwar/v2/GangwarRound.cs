@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public class PlayerEntry
         {
-            public IPlayer _player;
+            public PlayerModel _player;
             public float _totalDamage;
             public int _totalKills;
             public bool _isInTK;
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             public bool _isKilled;
             public bool _isLeft;
 
-            public PlayerEntry(IPlayer player)
+            public PlayerEntry(PlayerModel player)
             {
                 _player = player;
                 _totalDamage = 0.0f;
@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.TKCooldown = time;
         }
 
-        public void Inform(IPlayer player)
+        public void Inform(PlayerModel player)
         {
             //player.SendChatMessage("[GW-ROUND] " + StartTime + " started; " + StopTime + " stopped; State: " + CurrentState + "; Count: " + PlayerList.Count);
         }
@@ -143,12 +143,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return "999 / 999"; }
         }
 
-        public void ProcessDamage(IPlayer source, IPlayer IPlayer, float damage)
+        public void ProcessDamage(PlayerModel source, PlayerModel Player, float damage)
         {
             try
             {
                 var sourceEntry = this.GetPlayerEntry(source);
-                var IPlayerEntry = this.GetPlayerEntry(IPlayer);
+                var IPlayerEntry = this.GetPlayerEntry(Player);
                 if (sourceEntry != null && IPlayerEntry != null)
                 {
                     // If source and target has different factions
@@ -163,12 +163,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(IPlayer source, IPlayer IPlayer)
+        public void ProcessKill(PlayerModel source, PlayerModel Player)
         {
             try
             {
                 var sourceEntry = this.GetPlayerEntry(source);
-                var IPlayerEntry = this.GetPlayerEntry(IPlayer);
+                var IPlayerEntry = this.GetPlayerEntry(Player);
                 if (sourceEntry != null && IPlayerEntry != null)
                 {
                     if (!IPlayerEntry._isLeft || !IPlayerEntry._isKilled)
@@ -182,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                         // Respawn target
                         IPlayerEntry._isRespawned = true;
-                        factions.Spawn.spawnplayer_on_spawnpoint(IPlayer);
+                        factions.Spawn.spawnplayer_on_spawnpoint(Player);
                     }
                 }
             }
@@ -281,7 +281,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 225, 0) + "Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
         }
 
-        public void AddPlayer(IPlayer player)
+        public void AddPlayer(PlayerModel player)
         {
             try
             {
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncTime(IPlayer player)
+        public void SyncTime(PlayerModel player)
         {
             try
             {
@@ -338,7 +338,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncStats(IPlayer player, PlayerEntry playerEntry)
+        public void SyncStats(PlayerModel player, PlayerEntry playerEntry)
         {
             try
             {
@@ -350,7 +350,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public PlayerEntry GetPlayerEntry(IPlayer player)
+        public PlayerEntry GetPlayerEntry(PlayerModel player)
         {
             try
             {
@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return null; }
         }
 
-        public bool isPlayerJoined(IPlayer player)
+        public bool isPlayerJoined(PlayerModel player)
         {
             try
             {

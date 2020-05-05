@@ -16,17 +16,17 @@ namespace VenoXV._Preload_
 {
     public class Load : IScript
     {
-        public static void InitializePlayerData(IPlayer player)
+        public static void InitializePlayerData(PlayerModel player)
         {
             // Spawn pos 2
-            player.SpawnPlayer(player.Position);
+            player.SpawnPlayer(player.position);
             Position rotation = new Position(0.0f, 0.0f, 0.0f);
-            player.Position = new Position(152.26f, -1004.47f, -99.00f);
+            player.position = new Position(152.26f, -1004.47f, -99.00f);
             player.Dimension = player.Id;
             player.Health = 100;
             player.Armor = 0;
 
-            player.RemoveAllWeapons();
+            player.RemoveAllPlayerWeapons();
             player.SetVnXName("Random-Player");
             player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SEX, 0);
             player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, 0);
@@ -48,7 +48,7 @@ namespace VenoXV._Preload_
             player.vnxSetStreamSharedElementData("SocialState_NAMETAG", "VenoX");
         }
 
-        public static void LoadPlayerData(IPlayer player, PlayerModel character)
+        public static void LoadPlayerData(PlayerModel player, PlayerModel character)
         {
             player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SEX, character.sex);
             player.vnxSetElementData(EntityData.PLAYER_NAME, character.realName);
@@ -63,7 +63,7 @@ namespace VenoXV._Preload_
             player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SQL_ID, character.id);
         }
 
-        private static bool PlayerHaveAlreadyAccount(IPlayer player)
+        private static bool PlayerHaveAlreadyAccount(PlayerModel player)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace VenoXV._Preload_
         }
 
         [ClientEvent("Account:Register")]
-        public static void OnRegisterCall(IPlayer player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
+        public static void OnRegisterCall(PlayerModel player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace VenoXV._Preload_
         }
 
 
-        public static void ChangeCharacterSexEvent(IPlayer player, int sex)
+        public static void ChangeCharacterSexEvent(PlayerModel player, int sex)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace VenoXV._Preload_
         }
 
         [ClientEvent("loginAccount")]
-        public void LoginAccountEvent(IPlayer player, string username, string password)
+        public void LoginAccountEvent(PlayerModel player, string username, string password)
         {
             try
             {
@@ -167,11 +167,11 @@ namespace VenoXV._Preload_
                             {
                                 return;
                             }
-                            PlayerModel character = Database.LoadCharacterInformationById(player_uid);
+                            PlayerModel character = Database.LoadCharacterInformationById(player, player_uid);
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
                             if (character != null && character.realName != null)
                             {
-                                player.SpawnPlayer(player.Position);
+                                player.SpawnPlayer(player.position);
                                 player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
                                 player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01"));
                                 VenoXV._Preload_.Load.LoadPlayerData(player, character);

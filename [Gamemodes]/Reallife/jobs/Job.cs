@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.jobs
@@ -12,29 +13,29 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
     public class Job : IScript
     {
         //Cols 
-        public static IColShape CITY_TRANSPORT_Col = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(864.2459f, -2312.139f, 30), 2);
-        public static IColShape AIRPORT_JOB_Col = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(-1047.312f, -2744.564f, 21.3594f), 2);
-        public static IColShape BUS_JOB_Col = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(438.2896f, -626.1547f, 28.70835f), 2);
-        public static IColShape LSPDDuty = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(459.297f, -990.9312f, 30.6896f), 1.5f);
-        public static IColShape FBIDuty = Alt.CreateColShapeSphere(new AltV.Net.Data.Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
+        public static IColShape CITY_TRANSPORT_Col = Alt.CreateColShapeSphere(new Position(864.2459f, -2312.139f, 30), 2);
+        public static IColShape AIRPORT_JOB_Col = Alt.CreateColShapeSphere(new Position(-1047.312f, -2744.564f, 21.3594f), 2);
+        public static IColShape BUS_JOB_Col = Alt.CreateColShapeSphere(new Position(438.2896f, -626.1547f, 28.70835f), 2);
+        public static IColShape LSPDDuty = Alt.CreateColShapeSphere(new Position(459.297f, -990.9312f, 30.6896f), 1.5f);
+        public static IColShape FBIDuty = Alt.CreateColShapeSphere(new Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
 
         [Command("setclothes")]
-        public static void GiveIPlayerTestClothes(IPlayer player, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void GiveIPlayerTestClothes(PlayerModel player, int clothesslot, int clothesdrawable, int clothestexture)
         {
             player.SetClothes(clothesslot, clothesdrawable, clothestexture);
             player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
         }
         [Command("setprop")]
-        public static void GiveIPlayerTestProp(IPlayer player, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void GiveIPlayerTestProp(PlayerModel player, int clothesslot, int clothesdrawable, int clothestexture)
         {
             player.SetProp(clothesslot, clothesdrawable, clothestexture);
             player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
         }
 
         [Command("setcopclothes")]
-        public static void GiveTargetCopClothes(IPlayer player, string target_name)
+        public static void GiveTargetCopClothes(PlayerModel player, string target_name)
         {
-            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            PlayerModel target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             target.SetClothes(6, 24, 0);
             target.SetClothes(4, 33, 0);
@@ -46,9 +47,9 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         [Command("setbadclothes")]
-        public static void GiveTargetBadClothes(IPlayer player, string target_name)
+        public static void GiveTargetBadClothes(PlayerModel player, string target_name)
         {
-            IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+            PlayerModel target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             target.SetClothes(4, 19, 0);
             target.SetClothes(1, 95, 0);
@@ -60,12 +61,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         [Command("givepweapon")]
-        public static void GivePlayerWeapons(IPlayer player, string weaponname)
+        public static void GivePlayerWeapons(PlayerModel player, string weaponname)
         {
             player.GivePlayerWeapon((AltV.Net.Enums.WeaponModel)Alt.Hash(weaponname), 500);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -137,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
 
         [Command("quitjob")]
-        public static void QuitJob_Server(IPlayer player)
+        public static void QuitJob_Server(PlayerModel player)
         {
             try
             {
@@ -151,7 +152,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         //[AltV.Net.ClientEvent("accept_job_server")]
-        public void Accept_job(IPlayer player, string windowname)
+        public void Accept_job(PlayerModel player, string windowname)
         {
             if (windowname == "Venox City Transport")
             {
@@ -171,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
         }
         //[AltV.Net.ClientEvent("job_window_1_button")]
-        public void trigger_job_window_1_buttons(IPlayer player, string button)
+        public void trigger_job_window_1_buttons(PlayerModel player, string button)
         {
             try
             {
@@ -343,7 +344,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
         /*
         [Command(Messages.COM_DUTY)]
-        public void DutyCommand(IPlayer player)
+        public void DutyCommand(PlayerModel player)
         {
             // We get the sex, job and faction from the player
             int playerSex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);

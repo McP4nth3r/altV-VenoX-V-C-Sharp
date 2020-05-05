@@ -4,12 +4,17 @@ using AltV.Net.Elements.Entities;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.register_login;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV.Preload
 {
     internal class VenoXResource : AsyncResource
     {
+        public override IEntityFactory<IPlayer> GetPlayerFactory()
+        {
+            return new MyPlayerFactory();
+        }
         public override void OnStart()
         {
             VenoXV.Globals.Main.OnResourceStart();
@@ -25,7 +30,7 @@ namespace VenoXV.Preload
     {
 
         [ClientEvent("Load_selected_gm_server")]
-        public static void Load_selected_gm_server(IPlayer player, int value)
+        public static void Load_selected_gm_server(PlayerModel player, int value)
         {
             switch (value)
             {
@@ -67,14 +72,14 @@ namespace VenoXV.Preload
 
 
 
-        public static void GetAllPlayersInAllGamemodes(IPlayer player)
+        public static void GetAllPlayersInAllGamemodes(PlayerModel player)
         {
             try
             {
                 int ZombiePlayers = 0;
                 int ReallifePlayers = 0;
                 int TacticsPlayers = 0;
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_REALLIFE) { ReallifePlayers += 1; }
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }
@@ -86,7 +91,7 @@ namespace VenoXV.Preload
         }
 
         [ScriptEvent(ScriptEventType.PlayerConnect)]
-        public void PlayerConnect(IPlayer player, string reason)
+        public void PlayerConnect(PlayerModel player, string reason)
         {
             try
             {
@@ -102,7 +107,7 @@ namespace VenoXV.Preload
 
 
         [ClientEvent("TriggerClientsideVehicle")]
-        public static void GetTriggeredVehicle(IPlayer player, IVehicle veh)
+        public static void GetTriggeredVehicle(PlayerModel player, IVehicle veh)
         {
             try
             {

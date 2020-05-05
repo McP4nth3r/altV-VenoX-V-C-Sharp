@@ -2,10 +2,9 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
-
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
@@ -14,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
         public static IColShape EmergencyReviveCol = Alt.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -52,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
             }
         }
-        public static void DestroyEmergencyDeathNotify(IPlayer player)
+        public static void DestroyEmergencyDeathNotify(PlayerModel player)
         {
             try
             {
@@ -60,13 +59,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                        medics.Emit("Destroy_MedicBlips",player.GetVnXName());
+                        medics.Emit("Destroy_MedicBlips", player.GetVnXName());
                     }
                 }
             }
             catch { }
         }
-        public static void CreateEmergencyDeathNotify(IPlayer player, int time)
+        public static void CreateEmergencyDeathNotify(PlayerModel player, int time)
         {
             try
             {
@@ -74,8 +73,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                        medics.Emit("ShowMedicBlips",player.GetVnXName(), player.Position);
-                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,150,200) + player.GetVnXName() + " ist gestorben! Zeit bis zum Respawn : " + time);
+                        medics.Emit("ShowMedicBlips", player.GetVnXName(), player.position);
+                        medics.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.GetVnXName() + " ist gestorben! Zeit bis zum Respawn : " + time);
                     }
                 }
             }
@@ -84,25 +83,25 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         //[AltV.Net.ClientEvent("DestroyForAllMedicBlip")]
-        public void DestroyMedicBlipAfterSpawn(IPlayer player)
+        public void DestroyMedicBlipAfterSpawn(PlayerModel player)
         {
             foreach (IPlayer medics in Alt.GetAllPlayers())
             {
                 if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                 {
-                    medics.Emit("Destroy_MedicBlips",player.GetVnXName());
-                    medics.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.GetVnXName() + " ist Respawned!");
+                    medics.Emit("Destroy_MedicBlips", player.GetVnXName());
+                    medics.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.GetVnXName() + " ist Respawned!");
                 }
             }
         }
 
 
         [Command("heal")]
-        public void HealIPlayerMedic(IPlayer player, string target_name)
+        public void HealIPlayerMedic(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {
@@ -111,12 +110,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         IVehicle Vehicle = player.Vehicle;
                         if (Vehicle != null || Vehicle.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                         {
-                            if (player.Position.Distance(target.Position) < 7)
+                            if (player.position.Distance(target.position) < 7)
                             {
-                                Anti_Cheat.AntiCheat_Allround.SetTimeOutHealth(target,1000);
+                                Anti_Cheat.AntiCheat_Allround.SetTimeOutHealth(target, 1000);
                                 player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
                                 target.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
-                                //NAPI.player.SpawnPlayerPlayer(target.vnxGetElementData<int>( target.Position;
+                                //NAPI.player.SpawnPlayerPlayer(target.vnxGetElementData<int>( target.position;
                                 target.Emit("destroyKrankenhausTimer");
                                 target.Emit("VnX_DestroyIPlayerSideTimer_KH");
 
@@ -124,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                                 {
                                     if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                                     {
-                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0,125,0)+ player.GetVnXName() + " hat "+target.GetVnXName() + " aufgesammelt!");
+                                        medics.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + player.GetVnXName() + " hat " + target.GetVnXName() + " aufgesammelt!");
                                         medics.Emit("Destroy_MedicBlips", target.GetVnXName());
                                     }
                                 }
@@ -152,6 +151,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
             }
         }
-            
+
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Race.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Race.Lobby
@@ -52,12 +53,11 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 RACE_PLAYERS_RACING = 0;
                 PlayerModelList = new List<PlayerModel>();
                 int counter = 0;
-                foreach (IPlayer player in VenoXV.Globals.Main.RacePlayers)
+                foreach (PlayerModel player in VenoXV.Globals.Main.RacePlayers)
                 {
-                    PlayerModel playerClass = new PlayerModel { Name = player.GetVnXName() };
                     PlayerModelList = new List<PlayerModel>();
                 }
-                foreach (IPlayer player in VenoXV.Globals.Main.RacePlayers)
+                foreach (PlayerModel player in VenoXV.Globals.Main.RacePlayers)
                 {
                     if (counter > CurrentMap.PlayerSpawnPoints.Count) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Die Runde ist leider voll... bitte gedulde dich"); }
                     Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[counter];
@@ -100,13 +100,13 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("GetNewMap", ex); }
         }
-        private static void PutPlayerInRound(IPlayer player)
+        private static void PutPlayerInRound(PlayerModel player)
         {
             try
             {
                 if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now.AddSeconds(RACE_JOIN_TIME))
                 {
-                    player.Position = new Vector3(CurrentMap.PlayerSpawnPoints[0].X, CurrentMap.PlayerSpawnPoints[0].Y, CurrentMap.PlayerSpawnPoints[0].Z - 30f);
+                    player.position = new Vector3(CurrentMap.PlayerSpawnPoints[0].X, CurrentMap.PlayerSpawnPoints[0].Y, CurrentMap.PlayerSpawnPoints[0].Z - 30f);
                     VenoXV._Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!");
                     return;
@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PutPlayerInRound", ex); }
         }
-        public static void OnSelectedRaceGM(IPlayer player)
+        public static void OnSelectedRaceGM(PlayerModel player)
         {
             try
             {

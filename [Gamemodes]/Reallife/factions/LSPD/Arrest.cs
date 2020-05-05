@@ -3,11 +3,12 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Anti_Cheat;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Anti_Cheat;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
 {
@@ -17,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
         public const int KostenProWanted = 350;
 
         [Command("bail")]
-        public static void BailPayPlayer(IPlayer player)
+        public static void BailPayPlayer(PlayerModel player)
         {
             try
             {
@@ -34,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kaution);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                            player.Position = new Position(427.5651f, -981.0995f, 30.71008f);
+                            player.position = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
@@ -48,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - kaution);
                             AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
-                            player.Position = new Position(427.5651f, -981.0995f, 30.71008f);
+                            player.position = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
@@ -64,7 +65,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
             catch { }
         }
         [Command("bailinfo")]
-        public static void BailInfoPlayer(IPlayer player)
+        public static void BailInfoPlayer(PlayerModel player)
         {
             try
             {
@@ -83,7 +84,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
             catch { }
         }
         [Command("jailtime")]
-        public static void GetPlayerJailTime(IPlayer player)
+        public static void GetPlayerJailTime(PlayerModel player)
         {
             try
             {
@@ -96,20 +97,20 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
         }
 
         [Command("tie")]
-        public static void TiePlayerinIVehicle(IPlayer player, string target_name)
+        public static void TiePlayerinIVehicle(PlayerModel player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                    PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Staatsfraktionist im Dienst!");
                         return;
                     }
-                    if (player.Position.Distance(target.Position) > 2.5f)
+                    if (player.position.Distance(target.position) > 2.5f)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
                         return;
@@ -172,19 +173,19 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
 
 
         [Command("grab")]
-        public static void GrabPlayer(IPlayer player, string target_name)
+        public static void GrabPlayer(PlayerModel player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                    PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.IsInVehicle)
                     {
                         if (target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED))
                         {
-                            if (player.Position.Distance(target.Position) > 2.5f)
+                            if (player.position.Distance(target.position) > 2.5f)
                             {
                                 dxLibary.VnX.DrawNotification(player, "error", "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
                                 return;
@@ -202,14 +203,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
 
 
         [Command("arrest", true)]
-        public void ArrestPlayerCMD(IPlayer player, string target_name, string kaution)
+        public void ArrestPlayerCMD(PlayerModel player, string target_name, string kaution)
         {
             try
             {
-                IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 Position arrestpositioncar = new Position(479.1359f, -1021.734f, 28.00093f);
-                if (player.Position.Distance(arrestpositioncar) < 3.5f)
+                if (player.position.Distance(arrestpositioncar) < 3.5f)
                 {
                     if (Allround.isStateFaction(player) == false)
                     {
@@ -230,7 +231,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                         }
                         else
                         {
-                            if (target.Position.Distance(arrestpositioncar) < 3.5f)
+                            if (target.position.Distance(arrestpositioncar) < 3.5f)
                             {
                                 IVehicle Vehicle = target.Vehicle;
                                 if (Allround.isStateIVehicle(Vehicle))
@@ -251,7 +252,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                                         Random random = new Random();
                                         int dim = random.Next(1, 9999);
                                         target.Dimension = dim;
-                                        target.Position = Constants.JAIL_SPAWNS[random.Next(3)];
+                                        target.position = Constants.JAIL_SPAWNS[random.Next(3)];
                                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
                                         target.Emit("toggleHandcuffed", false);
                                     }
@@ -269,7 +270,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                                         Random random = new Random();
                                         int dim = random.Next(1, 9999);
                                         target.Dimension = dim;
-                                        target.Position = Constants.JAIL_SPAWNS[random.Next(3)];
+                                        target.position = Constants.JAIL_SPAWNS[random.Next(3)];
                                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
                                         target.Emit("toggleHandcuffed", false);
                                     }
@@ -294,7 +295,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
         }
 
         public static IColShape stellenIColShape = Alt.CreateColShapeSphere(new Position(441.0676f, -981.1415f, 30.68959f), 1);
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -308,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
 
 
         [ClientEvent("Stellen_Server_Event")]
-        public void Stellen_server_event(IPlayer player)
+        public void Stellen_server_event(PlayerModel player)
         {
             try
             {
@@ -329,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;
-                    player.Position = Constants.JAIL_SPAWNS[random.Next(3)];
+                    player.position = Constants.JAIL_SPAWNS[random.Next(3)];
                 }
             }
             catch

@@ -3,10 +3,11 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
@@ -120,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
         [Command("fstate")]
         //GetFactionStats
-        public void Fstatefunc(IPlayer player)
+        public void Fstatefunc(PlayerModel player)
         {
             try
             {
@@ -145,7 +146,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -192,7 +193,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         //[AltV.Net.ClientEvent("StoreFactionDatasServer")]
-        public void StoreFactionDatas(IPlayer player, int money, int mats, int koks, int weed, string state)
+        public void StoreFactionDatas(PlayerModel player, int money, int mats, int koks, int weed, string state)
         {
             try
             {

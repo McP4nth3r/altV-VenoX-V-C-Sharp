@@ -12,7 +12,7 @@ namespace VenoXV._Globals_
     {
 
         public static List<CameraModel> CurrentPlayerCameras = new List<CameraModel>();
-        private static int GetCameraCount(IPlayer player)
+        private static int GetCameraCount(PlayerModel player)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("createcam1")]
-        public static void CreateEasyCameraMovement(IPlayer player, double x, double y, double z, double rot_start, double rot_stop, int duration)
+        public static void CreateEasyCameraMovement(PlayerModel player, double x, double y, double z, double rot_start, double rot_stop, int duration)
         {
             int ID = GetCameraCount(player);
             if (ID > 3)
@@ -38,7 +38,7 @@ namespace VenoXV._Globals_
             CameraModel PlayerCamera = new CameraModel
             {
                 CameraCreator = player.GetVnXName(),
-                StartPosition = player.Position,
+                StartPosition = player.position,
                 StartRotation = new Vector3(0, 0, (float)rot_start),
                 EndPosition = new Vector3((float)x, (float)y, (float)z),
                 EndRotation = new Vector3(0, 0, (float)rot_stop),
@@ -46,17 +46,17 @@ namespace VenoXV._Globals_
                 ID = ID
             };
             //CurrentPlayerCameras.Add(PlayerCamera);
-            player.Emit("Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
+            player.Emit("Player:CreateCameraMovement", player.position.X, player.position.Y, player.position.Z, rot_start, x, y, z, rot_stop, duration);
         }
         [Command("stopcam")]
-        public static void StopCurrentCamera(IPlayer player)
+        public static void StopCurrentCamera(PlayerModel player)
         {
             player?.Emit("Player:DestroyCamera");
         }
 
 
         [Command("deletallcams")]
-        public static void DeleteAllCams(IPlayer player)
+        public static void DeleteAllCams(PlayerModel player)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -69,7 +69,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("deletecam")]
-        public static void DeletePlayerCameras(IPlayer player, int ID)
+        public static void DeletePlayerCameras(PlayerModel player, int ID)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -82,7 +82,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("getallcams")]
-        public static void GetAllPlayerCams(IPlayer player)
+        public static void GetAllPlayerCams(PlayerModel player)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -94,7 +94,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("playcam")]
-        public static void PlayCamByID(IPlayer player, int ID)
+        public static void PlayCamByID(PlayerModel player, int ID)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {

@@ -4,13 +4,14 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.chat
 {
     public class Chat : IScript
     {
-        public static void SendMessageToNearbyPlayers(IPlayer player, string message, int type, float range, bool excludePlayer = false)
+        public static void SendMessageToNearbyPlayers(PlayerModel player, string message, int type, float range, bool excludePlayer = false)
         {
             try
             {
@@ -31,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                     {
                         if (player != target || (player == target && !excludePlayer))
                         {
-                            float distance = player.Position.Distance(target.Position);
+                            float distance = player.position.Distance(target.Position);
 
                             if (distance <= range)
                             {
@@ -98,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
 
         //[ServerEvent(Event.ChatMessage)]
         [ClientEvent("chat:message")]
-        public void OnChatMessage(IPlayer player, string message)
+        public void OnChatMessage(PlayerModel player, string message)
         {
             try
             {
@@ -128,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("say", true)]
-        public void DecirCommand(IPlayer player, string message)
+        public void DecirCommand(PlayerModel player, string message)
         {
             try
             {
@@ -146,7 +147,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("s", true)]
-        public void GritarCommand(IPlayer player, string message)
+        public void GritarCommand(PlayerModel player, string message)
         {
             try
             {
@@ -164,7 +165,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("l", true)]
-        public void SusurrarCommand(IPlayer player, string message)
+        public void SusurrarCommand(PlayerModel player, string message)
         {
             try
             {

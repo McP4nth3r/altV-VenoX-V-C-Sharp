@@ -4,9 +4,10 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
@@ -50,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             Alt.EmitAllClients("gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
-        public void Update(IPlayer player)
+        public void Update(PlayerModel player)
         {
             // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
@@ -118,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             return DateTime.Now - this.Cooldown;
         }
 
-        public void Inform(IPlayer player)
+        public void Inform(PlayerModel player)
         {
             string Gang_Rgba_Chat = factions.FactionChat.GetFactionRgba(this.IDOwner);
             player.SendChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
@@ -207,7 +208,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.GetCurrentRound().Stop();
         }
 
-        public void Attack(IPlayer player)
+        public void Attack(PlayerModel player)
         {
             try
             {
@@ -223,7 +224,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void AddPlayer(IPlayer player)
+        public void AddPlayer(PlayerModel player)
         {
             try
             {

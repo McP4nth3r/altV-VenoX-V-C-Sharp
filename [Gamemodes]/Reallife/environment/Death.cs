@@ -1,19 +1,19 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment
 {
     public class Death : IScript
     {
 
-        public static void CreateKrankenhausTimer(IPlayer player)
+        public static void CreateKrankenhausTimer(PlayerModel player)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         }
 
 
-        public static void OnPlayerDeath(IPlayer player, IPlayer killer, uint weapon)
+        public static void OnPlayerDeath(PlayerModel player, PlayerModel killer, uint weapon)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
 
 
         //[AltV.Net.ClientEvent("OnDeath_DMG")]
-        public static void OnDeath_DMG(IPlayer killer, IPlayer player)
+        public static void OnDeath_DMG(PlayerModel killer, PlayerModel player)
         {
             try
             {
@@ -113,11 +113,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         }
 
         //[AltV.Net.ClientEvent("log_damage_veh")]
-        public static void Log_Damage_veh(IPlayer player, string target_name, string weapon, string dmg)
+        public static void Log_Damage_veh(PlayerModel player, string target_name, string weapon, string dmg)
         {
             try
             {
-                IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 logfile.WriteLogs("damage", player.GetVnXName() + " hat das Fahrzeug von " + target.GetVnXName() + "[" + target.Vehicle.Model.ToString() + "] mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }
@@ -128,11 +128,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         }
 
         //[AltV.Net.ClientEvent("log_damage_ped")]
-        public static void Log_Damage_ped(IPlayer player, string target_name, string weapon, string dmg)
+        public static void Log_Damage_ped(PlayerModel player, string target_name, string weapon, string dmg)
         {
             try
             {
-                IPlayer target = RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 logfile.WriteLogs("damage", player.GetVnXName() + " hat den Spieler " + target.GetVnXName() + " mit der Waffe " + weapon + " Gehittet! Damage : " + dmg);
             }

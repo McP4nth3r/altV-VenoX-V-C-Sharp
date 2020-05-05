@@ -3,8 +3,9 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 {
@@ -27,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_first_start(IPlayer player)
+        public static void lieferjob_first_start(PlayerModel player)
         {
             try
             {
@@ -74,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
             }
         }
 
-        public static void TriggerToNextJobMarker(IPlayer player, int stage)
+        public static void TriggerToNextJobMarker(PlayerModel player, int stage)
         {
             try
             {
@@ -147,7 +148,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_Second_start(IPlayer player)
+        public static void lieferjob_Second_start(PlayerModel player)
         {
             try
             {
@@ -210,7 +211,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_THIRD_start(IPlayer player)
+        public static void lieferjob_THIRD_start(PlayerModel player)
         {
             try
             {

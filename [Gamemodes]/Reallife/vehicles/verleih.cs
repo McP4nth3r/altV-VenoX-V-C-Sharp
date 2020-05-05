@@ -7,9 +7,10 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
@@ -74,11 +75,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
         /// <param name="player">Player who´s the Owner</param>
         /// <param name="Roller">Is it A Roller? If No it should be a Panto.</param>
-        public static void GetNearestRentalsSpawn(IPlayer player, bool Roller)
+        public static void GetNearestRentalsSpawn(PlayerModel player, bool Roller)
         {
             try
             {
-                if (player.Position.Distance(NOOBSPAWN_RENTALS) <= 5)
+                if (player.position.Distance(NOOBSPAWN_RENTALS) <= 5)
                 {
                     if (Roller)
                     {
@@ -89,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(-2283.869f, 407.4549f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                 }
-                else if (player.Position.Distance(LSPD_RENTALS) <= 5)
+                else if (player.position.Distance(LSPD_RENTALS) <= 5)
                 {
                     if (Roller)
                     {
@@ -105,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //Function will be called by Lib.
-        public static void GivePlayerRentedIVehicle(IPlayer player, int value)
+        public static void GivePlayerRentedIVehicle(PlayerModel player, int value)
         {
             try
             {
@@ -155,7 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [Command("updaterent")]
-        public void Update_VenoX_Rentals(IPlayer player)
+        public void Update_VenoX_Rentals(PlayerModel player)
         {
             try
             {
@@ -191,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("Destroy_Verleih_Rentals")]
-        public void destroy_Fahrzeug_verleih(IPlayer player)
+        public void destroy_Fahrzeug_verleih(PlayerModel player)
         {
             try
             {
@@ -209,7 +210,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [Command("stoprent")]
-        public void stop_Fahrzeug_Verleih(IPlayer player)
+        public void stop_Fahrzeug_Verleih(PlayerModel player)
         {
             try
             {
@@ -225,7 +226,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {

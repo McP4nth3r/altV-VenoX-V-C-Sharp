@@ -1,29 +1,20 @@
-﻿using AltV.Net.Elements.Entities;
-using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.chat;
-using VenoXV._Gamemodes_.Reallife.database;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using System.Text;
-using System.Linq;
-using System;
-using VenoXV._Gamemodes_.Reallife.dxLibary;
-using AltV.Net;
-using VenoXV.Core;
+﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using AltV.Net.Data;
+using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Faction : IScript
     {
-     
 
 
 
-        public static void CreateFactionBaseBlip(IPlayer player)
+
+        public static void CreateFactionBaseBlip(PlayerModel player)
         {
             if (Allround.isBadFaction(player) == false)
             {
@@ -66,12 +57,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [INFO] : " + RageAPI.GetHexColorcode(255,255,255) + text);
+                        target.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
                     }
                 }
             }
             catch
-            { 
+            {
             }
         }
         public static void CreateCustomFactionInformation(int FID, string text)
@@ -86,23 +77,23 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage( text);
+                        target.SendChatMessage(text);
                     }
                 }
             }
             catch
-            { 
+            {
             }
         }
         public static void CreateStateFactionInformation(string text)
         {
             try
             {
-                foreach (IPlayer target in Alt.GetAllPlayers())
+                foreach (PlayerModel target in Alt.GetAllPlayers())
                 {
                     if (Allround.isStateFaction(target))
                     {
-                       target.SendChatMessage(RageAPI.GetHexColorcode(150,0,0) + text);
+                        target.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + text);
                     }
                 }
             }
@@ -114,11 +105,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (IPlayer target in Alt.GetAllPlayers())
+                foreach (PlayerModel target in Alt.GetAllPlayers())
                 {
                     if (Allround.isStateFaction(target))
                     {
-                       target.SendChatMessage( text);
+                        target.SendChatMessage(text);
                     }
                 }
             }
@@ -130,11 +121,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (IPlayer target in Alt.GetAllPlayers())
+                foreach (PlayerModel target in Alt.GetAllPlayers())
                 {
                     if (Allround.isBadFaction(target) && target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == UID)
                     {
-                       target.SendChatMessage( text);
+                        target.SendChatMessage(text);
                     }
                 }
             }
@@ -142,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
             }
         }
-        public static void CreateFactionMessage(int FID, string text, string Rgba, IPlayer player)
+        public static void CreateFactionMessage(int FID, string text, string Rgba, PlayerModel player)
         {
             try
             {
@@ -154,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == FID)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
+                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -164,15 +155,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static void CreateStateMessage(string text, string Rgba, IPlayer player)
+        public static void CreateStateMessage(string text, string Rgba, PlayerModel player)
         {
             try
             {
-                foreach (IPlayer target in Alt.GetAllPlayers())
+                foreach (PlayerModel target in Alt.GetAllPlayers())
                 {
                     if (Allround.isStateFaction(target) || target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
+                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -182,15 +173,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static void CreateBadMessage(string text, string Rgba, IPlayer player)
+        public static void CreateBadMessage(string text, string Rgba, PlayerModel player)
         {
             try
             {
-                foreach (IPlayer target in Alt.GetAllPlayers())
+                foreach (PlayerModel target in Alt.GetAllPlayers())
                 {
                     if (Allround.isBadFaction(target))
                     {
-                       target.SendChatMessage( Rgba + GetPlayerFactionRank(player) + " | " +player.GetVnXName() + " : " + text);
+                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " : " + text);
                     }
                 }
             }
@@ -202,7 +193,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         public static string GetPlayerFactionName(int FID)
         {
             string fraktionsname = string.Empty;
-            if(FID == 0)
+            if (FID == 0)
             {
                 fraktionsname = Constants.FACTION_NONE_NAME;
             }
@@ -262,7 +253,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static string GetPlayerFactionRank(IPlayer player)
+        public static string GetPlayerFactionRank(PlayerModel player)
         {
             try
             {

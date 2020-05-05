@@ -8,29 +8,31 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV.Core
 {
     public static class RageAPI
     {
-        public static void SpawnPlayer(this IPlayer element, Vector3 pos, uint DelayInMS = 0)
+        public static void SpawnPlayer(this PlayerModel element, Vector3 pos, uint DelayInMS = 0)
         {
             try
             {
                 if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
                 {
                     element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
+                    element.position = pos;
                     element.Spawn(pos, DelayInMS);
                     element.Emit("Player:Spawn");
                 }
                 else
                 {
-                    element.Position = pos;
+                    element.position = pos;
                 }
             }
             catch { }
         }
-        public static void DespawnPlayer(this IPlayer element)
+        public static void DespawnPlayer(this PlayerModel element)
         {
             try
             {
@@ -42,7 +44,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetPlayerSkin(this IPlayer element, uint SkinHash)
+        public static void SetPlayerSkin(this PlayerModel element, uint SkinHash)
         {
             try
             {
@@ -57,7 +59,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static uint GetPlayerSkin(this IPlayer element)
+        public static uint GetPlayerSkin(this PlayerModel element)
         {
             try
             {
@@ -105,7 +107,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (IPlayer player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
+                foreach (PlayerModel player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -126,30 +128,30 @@ namespace VenoXV.Core
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-        public static void WarpIntoVehicle<T>(this IPlayer player, IVehicle veh, int seat)
+        public static void WarpIntoVehicle<T>(this PlayerModel player, IVehicle veh, int seat)
         {
             player.Emit("Player:WarpIntoVehicle", veh, seat);
         }
-        public static void WarpOutOfVehicle<T>(this IPlayer player)
+        public static void WarpOutOfVehicle<T>(this PlayerModel player)
         {
             player.Emit("Player:WarpOutOfVehicle");
         }
-        public static void SetVnXName(this IPlayer player, string Name)
+        public static void SetVnXName(this PlayerModel player, string Name)
         {
             player.vnxSetElementData(Globals.EntityData.PLAYER_NAME, Name);
             player.SetStreamSyncedMetaData(Globals.EntityData.PLAYER_NAME, Name);
         }
-        public static string GetVnXName(this IPlayer player)
+        public static string GetVnXName(this PlayerModel player)
         {
             return player.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME);
         }
-        public static IPlayer GetPlayerFromName(string name)
+        public static PlayerModel GetPlayerFromName(string name)
         {
-            IPlayer player = null;
+            PlayerModel player = null;
             try
             {
                 name = name.ToLower();
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.GetVnXName().ToLower() == name)
                     {
@@ -160,19 +162,37 @@ namespace VenoXV.Core
             }
             catch { return player; }
         }
-        public static void GivePlayerWeapon(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void GivePlayerWeapon(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
             {
+                Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
                 player.GiveWeapon(weapon, ammo, false);
             }
             catch { }
         }
-        public static void SetWeaponAmmo(this IPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void RemovePlayerWeapon(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon)
         {
             try
             {
-                player.GiveWeapon(weapon, ammo, false);
+                Alt.Emit("GlobalSystems:RemovePlayerWeapon", player, (uint)weapon);
+            }
+            catch { }
+        }
+        public static void RemoveAllPlayerWeapons(this PlayerModel player)
+        {
+            try
+            {
+                Alt.Emit("GlobalSystems:RemoveAllPlayerWeapons", player);
+                //player.GiveWeapon(weapon, ammo, false);
+            }
+            catch { }
+        }
+        public static void SetWeaponAmmo(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        {
+            try
+            {
+                player.SetWeaponAmmo(weapon, (byte)ammo);
             }
             catch { }
         }
@@ -180,28 +200,28 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     players.SendChatMessage(text);
                 }
             }
             catch { }
         }
-        public static void SetClothes(this IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void SetClothes(this PlayerModel element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
         }
-        public static void SetProp(this IPlayer element, int propID, int drawableID, int textureID)
+        public static void SetProp(this PlayerModel element, int propID, int drawableID, int textureID)
         {
             if (propID < 0 || textureID < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + propID + " | " + drawableID + " | " + textureID);
             try { element.Emit("Prop:Load", propID, drawableID, textureID); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
         }
-        public static void SetCustomization(this IPlayer element, SkinModel model)
+        public static void SetCustomization(this PlayerModel element, SkinModel model)
         {
             List<SkinModel> modellist = new List<SkinModel>
             {
@@ -215,12 +235,12 @@ namespace VenoXV.Core
             try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
-        public static void SetPlayerVisible(this IPlayer element, bool trueOrFalse)
+        public static void SetPlayerVisible(this PlayerModel element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
             catch { }
         }
-        public static void SetPlayerAlpha(this IPlayer element, int alpha)
+        public static void SetPlayerAlpha(this PlayerModel element, int alpha)
         {
             try { element.Emit("Player:Alpha", alpha); }
             catch { }

@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
 {
@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
     {
         public static List<ItemModel> CurrentOnlineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Online sind.
         public static List<ItemModel> CurrentOfflineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Offline sind.
-        public static void LoadPlayerItems(IPlayer player)
+        public static void LoadPlayerItems(PlayerModel player)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void UnloadPlayerItems(IPlayer player)
+        public static void UnloadPlayerItems(PlayerModel player)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void RemoveAllItems(IPlayer player)
+        public static void RemoveAllItems(PlayerModel player)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static List<InventoryModel> GetPlayerInventory(IPlayer player)
+        public static List<InventoryModel> GetPlayerInventory(PlayerModel player)
         {
             try
             {
@@ -76,11 +76,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { return new List<InventoryModel>(); }
         }
-        public static void OnPlayerDisconnect(IPlayer player, string type, string reason) { UnloadPlayerItems(player); }
-        public static void OnPlayerConnect(IPlayer player) { LoadPlayerItems(player); }
+        public static void OnPlayerDisconnect(PlayerModel player, string type, string reason) { UnloadPlayerItems(player); }
+        public static void OnPlayerConnect(PlayerModel player) { LoadPlayerItems(player); }
 
         [ClientEvent("Inventory:Use")]
-        public static void OnInventoryUseButtonClicked(IPlayer player, string ClickedHash)
+        public static void OnInventoryUseButtonClicked(PlayerModel player, string ClickedHash)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         }
 
 
-        public static void UseItem(IPlayer player, string ItemHash)
+        public static void UseItem(PlayerModel player, string ItemHash)
         {
             switch (ItemHash)
             {

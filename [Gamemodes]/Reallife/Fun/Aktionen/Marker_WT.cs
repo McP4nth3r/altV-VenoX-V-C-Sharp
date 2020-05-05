@@ -2,8 +2,9 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 {
@@ -82,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                     AltV.Net.Alt.RemoveColShape(BALLAS_COL);
                     //BALLAS_COL.Remove();
                     AltV.Net.Alt.RemoveColShape(COMPTON_COL);
-                   // COMPTON_COL.Remove();
+                    // COMPTON_COL.Remove();
                 }
             }
             catch (Exception ex)
@@ -128,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -144,8 +145,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                             {
                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > 0)
                                 {
-                                    factions.Faction.CreateFactionMessage((int)shape.vnxGetElementData<int>("WT_COL_FACTION"), " hat den " + CURRENT_WEAPONTRUCK + " Erfolgreich in eurer Base abgegeben!",RageAPI.GetHexColorcode(0,150,200)+"", player);
-                                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175,0,0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
+                                    factions.Faction.CreateFactionMessage((int)shape.vnxGetElementData<int>("WT_COL_FACTION"), " hat den " + CURRENT_WEAPONTRUCK + " Erfolgreich in eurer Base abgegeben!", RageAPI.GetHexColorcode(0, 150, 200) + "", player);
+                                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
                                     if (CURRENT_WEAPONTRUCK == "Staatswaffentruck")
                                     {
                                         SWT.FinishSWT(player, Vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
@@ -161,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                                         AltV.Net.Alt.RemoveColShape(BALLAS_COL);
                                         AltV.Net.Alt.RemoveColShape(COMPTON_COL);
                                     }
-                                   // player.WarpOutOfVehicle<bool>();
+                                    // player.WarpOutOfVehicle<bool>();
                                     AltV.Net.Alt.RemoveVehicle(Vehicle);
                                 }
                             }

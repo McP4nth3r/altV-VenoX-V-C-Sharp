@@ -1,30 +1,30 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV.Anti_Cheat
 {
     public class AntiCheat_Allround : IScript
     {
-        public static void SetTimeOutTeleport(IPlayer player, int value)
+        public static void SetTimeOutTeleport(PlayerModel player, int value)
         {
             player.Emit("FreezeTPTimer", value);
         }
 
-        public static void SetTimeOutHealth(IPlayer player, int value)
+        public static void SetTimeOutHealth(PlayerModel player, int value)
         {
             player.Emit("FreezeHealthTimer", value);
         }
 
-        public static void StartTimerTeleport(IPlayer player)
+        public static void StartTimerTeleport(PlayerModel player)
         {
             player.Emit("StartTPTimer");
         }
 
-        public static void StopTimerTeleport(IPlayer player)
+        public static void StopTimerTeleport(PlayerModel player)
         {
             player.Emit("StopTPTimer");
         }
@@ -73,7 +73,7 @@ namespace VenoXV.Anti_Cheat
         }
 
 
-        public static void Create_Anticheat_Peds(IPlayer player)
+        public static void Create_Anticheat_Peds(PlayerModel player)
         {
             try
             {
@@ -104,14 +104,14 @@ namespace VenoXV.Anti_Cheat
         }
 
         /* [Command("createacped")]
-         public static void CreateACPED(IPlayer player)
+         public static void CreateACPED(PlayerModel player)
          {
-             foreach (IPlayer players in Alt.GetAllPlayers())
+             foreach (PlayerModel players in Alt.GetAllPlayers())
              {
                  Create_Anticheat_Peds(players);
              }
          }*/
-        public static void Anticheat_time_ban(IPlayer player, int time, string Banhash)
+        public static void Anticheat_time_ban(PlayerModel player, int time, string Banhash)
         {
             try
             {

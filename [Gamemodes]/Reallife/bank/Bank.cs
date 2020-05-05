@@ -1,10 +1,10 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.bank
 {
@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
     {
 
         //[AltV.Net.ClientEvent("ATM_MONEY_BUTTON_TRIGGER")]
-        public static void ATM_BUTTON_TRIGGERED(IPlayer player, string button, int value)
+        public static void ATM_BUTTON_TRIGGERED(PlayerModel player, string button, int value)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
         }
 
         [ClientEvent("ATM_MONEY_SEND_TO")]
-        public static void SendToPlayerMoney_ATM(IPlayer player, string name, string svalue, string reason)
+        public static void SendToPlayerMoney_ATM(PlayerModel player, string name, string svalue, string reason)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     if (charakterexestiert)
                     {
                         string SpielerNameNormal = Database.GetAccountSpielerName(Database.GetCharakterSocialName(name));
-                        IPlayer target = RageAPI.GetPlayerFromName(SpielerNameNormal);
+                        PlayerModel target = RageAPI.GetPlayerFromName(SpielerNameNormal);
                         if (target == null || target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) != true)
                         {
                             dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht Online!");

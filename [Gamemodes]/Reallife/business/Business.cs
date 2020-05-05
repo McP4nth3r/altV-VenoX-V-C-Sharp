@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.business
 {
@@ -32,17 +32,17 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return null; }
         }
 
-        public static BusinessModel GetClosestBusiness(IPlayer player, float distance = 2.0f)
+        public static BusinessModel GetClosestBusiness(PlayerModel player, float distance = 2.0f)
         {
             try
             {
                 BusinessModel business = null;
                 foreach (BusinessModel businessModel in businessList)
                 {
-                    if (player.Position.Distance(businessModel.position) < distance)
+                    if (player.position.Distance(businessModel.position) < distance)
                     {
                         business = businessModel;
-                        distance = player.Position.Distance(business.position);
+                        distance = player.position.Distance(business.position);
                     }
                 }
                 return business;
@@ -141,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         //[AltV.Net.ClientEvent("getClothesByType")]
-        public void GetClothesByTypeEvent(IPlayer player, int type, int slot)
+        public void GetClothesByTypeEvent(PlayerModel player, int type, int slot)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("dressEquipedClothes")]
-        public void DressEquipedClothesEvent(IPlayer player, int type, int slot)
+        public void DressEquipedClothesEvent(PlayerModel player, int type, int slot)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("clothesItemSelected")]
-        public void ClothesItemSelectedEvent(IPlayer player, string clothesJson)
+        public void ClothesItemSelectedEvent(PlayerModel player, string clothesJson)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("loadCharacterClothes")]
-        public void LoadCharacterClothesEvent(IPlayer player)
+        public void LoadCharacterClothesEvent(PlayerModel player)
         {
             try
             {

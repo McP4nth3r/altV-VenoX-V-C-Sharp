@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.environment.Weed
@@ -33,9 +33,9 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         {
             try
             {
-                foreach (IPlayer player in VenoXV.Globals.Main.ReallifePlayers)
+                foreach (PlayerModel player in VenoXV.Globals.Main.ReallifePlayers)
                 {
-                    if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
+                    if (player.position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
                     {
                         player.Emit("Weed:Create", JsonConvert.SerializeObject(weed));
                     }
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         }
 
         [Command("createweedplants")]
-        public static void CreateWeedPlants(IPlayer player, int count)
+        public static void CreateWeedPlants(PlayerModel player, int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                 {
                     CreatedBy = RageAPI.GetVnXName(player),
                     Name = "Hanfpflanze",
-                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z - 0.5f),
+                    Position = new Position(player.position.X + (i / 2), player.position.Y + (i / 2), player.position.Z - 0.5f),
                     Rotation = player.Rotation,
                     Created = DateTime.Now,
                     Value = 15,
@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         public static void OnUpdate()
         {
             if (NextUpdate > DateTime.Now) { return; }
-            foreach (IPlayer player in VenoXV.Globals.Main.ReallifePlayers)
+            foreach (PlayerModel player in VenoXV.Globals.Main.ReallifePlayers)
             {
                 player.Emit("Weed:Destroy");
                 List<WeedModel> NearestWeedPlants = new List<WeedModel>();
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                 List<WeedModel> NearestWeedPlants10 = new List<WeedModel>();
                 foreach (WeedModel weed in WeedList)
                 {
-                    if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
+                    if (player.position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
                     {
                         if (NearestWeedPlants.Count < MAX_LIST_SIZE) { NearestWeedPlants.Add(weed); }
                         else if (NearestWeedPlants1.Count < MAX_LIST_SIZE) { NearestWeedPlants1.Add(weed); }

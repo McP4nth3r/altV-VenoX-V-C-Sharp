@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.SevenTowers.globals;
 
@@ -77,7 +78,7 @@ namespace VenoXV.SevenTowers.Lobby
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private static void InitializePlayerData(IPlayer player)
+        private static void InitializePlayerData(PlayerModel player)
         {
             try
             {
@@ -103,7 +104,7 @@ namespace VenoXV.SevenTowers.Lobby
             return true;
         }
 
-        public static void PutPlayerSpectate(IPlayer player)
+        public static void PutPlayerSpectate(PlayerModel player)
         {
             player.SendChatMessage("Du bist zuschauer!");
         }
@@ -112,7 +113,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                foreach (IPlayer player in SevenTowersPlayers)
+                foreach (PlayerModel player in SevenTowersPlayers)
                 {
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
@@ -132,7 +133,7 @@ namespace VenoXV.SevenTowers.Lobby
                 {
                     Alt.RemoveVehicle(veh);
                 }
-                foreach (IPlayer player in SevenTowersPlayers)
+                foreach (PlayerModel player in SevenTowersPlayers)
                 {
                     //if (player.IsInVehicle) { Reallife.dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true); return; }
                     //Reallife.dxLibary.VnX.SetElementFrozen(player, true);
@@ -144,7 +145,7 @@ namespace VenoXV.SevenTowers.Lobby
             }
         }
 
-        public static void SpawnPlayerInRound(IPlayer player)
+        public static void SpawnPlayerInRound(PlayerModel player)
         {
             try
             {
@@ -153,7 +154,7 @@ namespace VenoXV.SevenTowers.Lobby
                     if (!Spawns.Value && !player.vnxGetElementData<bool>(EntityData.PLAYER_SPAWNED)) // Wenn Spawn nicht Belegt
                     {
                         IVehicle vehicle = Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Key, new Rotation(0, 0, 0));
-                        player.Position = Spawns.Key;
+                        player.position = Spawns.Key;
 
                         player.vnxSetElementData(EntityData.PLAYER_SPAWNED, true);
                         player.WarpIntoVehicle<bool>(vehicle, -1);
@@ -170,7 +171,7 @@ namespace VenoXV.SevenTowers.Lobby
                 Debug.CatchExceptions("SpawnPlayerInRound", ex);
             }
         }
-        public static void PutPlayerInRound(IPlayer player)
+        public static void PutPlayerInRound(PlayerModel player)
         {
             try
             {
@@ -185,7 +186,7 @@ namespace VenoXV.SevenTowers.Lobby
         }
 
 
-        public static void JoinedSevenTowers(IPlayer player)
+        public static void JoinedSevenTowers(PlayerModel player)
         {
             try
             {

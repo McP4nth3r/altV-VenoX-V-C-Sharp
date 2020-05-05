@@ -8,6 +8,7 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
@@ -17,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         public const string WINDOW = "Window";
         public const string WINDOW_SELECTION = "WindowSelection";
         public const string WINDOW_INPUT = "WINDOW_INPUT";
-        public static void DestroyWindow(IPlayer player, string window)
+        public static void DestroyWindow(PlayerModel player, string window)
         {
             if (window == "Job1")
             {
@@ -41,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
             }
         }
 
-        public static void DestroyRadarElement(IPlayer player, string element)
+        public static void DestroyRadarElement(PlayerModel player, string element)
         {
             if (element == "Blip")
             {
@@ -57,7 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
                 logfile.WriteLogs("libLogs", "[ERROR] : dieser Fehler verursacht das ein Blip oder ein Radar Wegpunkt nicht gelöscht werden konnte!");
             }
         }
-        public static void DrawNotification(IPlayer player, string type, string message)
+        public static void DrawNotification(PlayerModel player, string type, string message)
         {
             int triggerWert = 0;
             if (type == "info")
@@ -80,52 +81,52 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         }
 
 
-        public static void DrawWindow(IPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2)
+        public static void DrawWindow(PlayerModel player, string headertext, string boxtext, string buttontext1, string buttontext2)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createVnXSAWindow", headertext, boxtext, buttontext1, buttontext2);
         }
 
         // Job Windows ( Job 1 = 3 Buttons , Job LvL Anzeige, Text Header , Text Info , Job description 1-3 ) 
-        public static void DrawJobWindow(IPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2, string buttontext3, string button1desc, string button2desc, string button3desc, string joblvlinfo)
+        public static void DrawJobWindow(PlayerModel player, string headertext, string boxtext, string buttontext1, string buttontext2, string buttontext3, string button1desc, string button2desc, string button3desc, string joblvlinfo)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createJobWindow1", headertext, boxtext, buttontext1, buttontext2, buttontext3, button1desc, button2desc, button3desc, joblvlinfo);
         }
 
-        public static void DrawWindowSelection(IPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2)
+        public static void DrawWindowSelection(PlayerModel player, string headertext, string boxtext, string buttontext1, string buttontext2)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createVnXSAWindowSelection", headertext, boxtext, buttontext1, buttontext2);
         }
 
-        public static void DrawBlip(IPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
+        public static void DrawBlip(PlayerModel player, string name, Position position, int blipID, int blipRgba, int Dimension)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlip", name, position, blipID, blipRgba, Dimension);
         }
 
-        public static void DrawZielBlip(IPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
+        public static void DrawZielBlip(PlayerModel player, string name, Position position, int blipID, int blipRgba, int Dimension)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlipWaypoint", name, position, blipID, blipRgba, Dimension);
         }
 
-        public static void DrawCustomZielBlip(IPlayer player, string name, Position position, float scale, int blipID, int blipRgba, int Dimension, int r, int g, int b, int a)
+        public static void DrawCustomZielBlip(PlayerModel player, string name, Position position, float scale, int blipID, int blipRgba, int Dimension, int r, int g, int b, int a)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r, g, b, a);
         }
 
-        public static void DrawZielBlipTable(IPlayer player, string TableName, string name, Position position, int blipID, int blipRgba, int Dimension, int destroyedinms)
+        public static void DrawZielBlipTable(PlayerModel player, string TableName, string name, Position position, int blipID, int blipRgba, int Dimension, int destroyedinms)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlipWaypoint_Table", TableName, name, position, blipID, blipRgba, Dimension, destroyedinms);
         }
-        public static void DrawWaypoint(IPlayer player, float x, float y)
+        public static void DrawWaypoint(PlayerModel player, float x, float y)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "VnXSetWaypoint", x, y);
         }
 
-        public static void DrawInputWindow(IPlayer player, string headertext, string boxtext, string buttontext)
+        public static void DrawInputWindow(PlayerModel player, string headertext, string boxtext, string buttontext)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createInputWindow", headertext, boxtext, buttontext);
         }
 
-        public static void CreateCTimer(IPlayer player, string timername, int zeit)
+        public static void CreateCTimer(PlayerModel player, string timername, int zeit)
         {
             if (zeit == 60)
             {
@@ -143,7 +144,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
             { zeit = 60000; }
             AltV.Net.Alt.Server.TriggerClientEvent(player, "VnX_LoadIPlayerSideTimer", player, timername, zeit);
         }
-        public static void SetElementFrozen(IPlayer player, bool state)
+        public static void SetElementFrozen(PlayerModel player, bool state)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "Player:Freeze", state);
         }
@@ -161,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
                 AltV.Net.Alt.Server.TriggerClientEvent(sender, "FreezeVEHICLE_DelayedPLAYER_VnX", Vehicle, state, TimeInMS);
             }
         }
-        public static void CreateDiscordUpdate(IPlayer player, string top, string main)
+        public static void CreateDiscordUpdate(PlayerModel player, string top, string main)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "discord_update", top, main);
         }

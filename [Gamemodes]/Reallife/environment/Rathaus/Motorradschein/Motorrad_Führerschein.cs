@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
@@ -59,7 +60,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 
 
 
-        public static void Start_Motorrad_Führerschein(IPlayer player)
+        public static void Start_Motorrad_Führerschein(PlayerModel player)
         {
             try
             {
@@ -117,7 +118,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 
 
 
-        public static void TriggerToNextPruefungsMarker(IPlayer player, int counter)
+        public static void TriggerToNextPruefungsMarker(PlayerModel player, int counter)
         {
             try
             {
@@ -135,7 +136,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     player.vnxSetElementData("PLAYER_DRIVINGSCHOOL", false);
                     player.Vehicle.Remove();
-                    player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
+                    player.position = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = 0;
                     return;
                 }
@@ -157,7 +158,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -189,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
         }
 
         [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
-        public void OnPlayerExitIVehicle(IVehicle Vehicle, IPlayer player, byte seat)
+        public void OnPlayerExitIVehicle(IVehicle Vehicle, PlayerModel player, byte seat)
         {
             try
             {
@@ -197,9 +198,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 {
                     player.vnxSetElementData("Marker_Pruefung", 0);
                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                    dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
+                    dxLibary.VnX.DrawWaypoint(player, player.position.X, player.position.Y);
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                    player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
+                    player.position = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = 0;
                     player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);

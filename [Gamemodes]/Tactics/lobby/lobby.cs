@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
@@ -53,11 +54,11 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             if (LastMap == CurrentMap) { GetNewMap(); return; }
             LastMap = CurrentMap;
         }
-        private static void InitializePlayerSavedData(IPlayer player)
+        private static void InitializePlayerSavedData(PlayerModel player)
         {
             player.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, 0); // ToDo : Load by Database.
         }
-        private static void InitializePlayerData(IPlayer player)
+        private static void InitializePlayerData(PlayerModel player)
         {
             player.vnxSetElementData(EntityData.PLAYER_JOINED_TACTICS, true);
             player.vnxSetElementData(EntityData.PLAYER_DAMAGE_DONE, 0);
@@ -84,11 +85,11 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void GivePlayerTacticWeapons(IPlayer player)
+        public static void GivePlayerTacticWeapons(PlayerModel player)
         {
             try
             {
-                player.RemoveAllWeapons();
+                player.RemoveAllPlayerWeapons();
                 if (CurrentMap.Custom_Weapon_Map)
                 {
                     foreach (AltV.Net.Enums.WeaponModel weapon in CurrentMap.Custom_Weapons)
@@ -141,7 +142,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void SpawnPlayerOnPoint(IPlayer player, string Fac)
+        public static void SpawnPlayerOnPoint(PlayerModel player, string Fac)
         {
             try
             {
@@ -149,7 +150,6 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 int randomspawnpoint = random.Next(0, CurrentMap.Team_A_Spawnpoints.Count); // Count Spawnpoints
                 if (Fac == EntityData.BFAC_NAME)
                 {
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Vector3 Spawnpunkt = CurrentMap.Team_B_Spawnpoints[randomspawnpoint];
                     player.SpawnPlayer(Spawnpunkt);
                     player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_B_Skin));
@@ -162,7 +162,6 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 }
                 else if (Fac == EntityData.COPS_NAME)
                 {
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                     Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
                     player.SpawnPlayer(Spawnpunkt); player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_A_Skin));
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
@@ -188,7 +187,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 TacticVehicleList.Add(vehicle);
             }
         }
-        public static void PutPlayerInTeam(IPlayer player)
+        public static void PutPlayerInTeam(PlayerModel player)
         {
             try
             {
@@ -246,7 +245,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 CreateRandomRound();
                 SpawnMapVehicles();
                 // To Do : wenn runde gestartet ist = nicht machen !
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -263,12 +262,12 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
-        public static void OnPlayerDisconnect(IPlayer player, string type, string reason)
+        public static void OnPlayerDisconnect(PlayerModel player, string type, string reason)
         {
             try
             {
                 player.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -302,7 +301,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void OnSelectedTacticsGM(IPlayer player)
+        public static void OnSelectedTacticsGM(PlayerModel player)
         {
             try
             {
@@ -321,7 +320,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         // To Do : Cam event erstellen.
                         player.DespawnPlayer();
                         _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
-                        player.RemoveAllWeapons();
+                        player.RemoveAllPlayerWeapons();
                         player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
                 }
@@ -336,7 +335,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -351,7 +350,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -365,7 +364,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -383,7 +382,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {

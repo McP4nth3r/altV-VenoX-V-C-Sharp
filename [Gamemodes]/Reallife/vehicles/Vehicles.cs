@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
@@ -47,7 +48,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("Load_VEHICLE_Storage_Datas")]
-        public void EnterAsPassenger(IPlayer player)
+        public void EnterAsPassenger(PlayerModel player)
         {
             try
             {
@@ -62,13 +63,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
         //[AltV.Net.ClientEvent("showresult_clicked")]
-        public void showResult_Clicked(IPlayer player, IVehicle Objekt)
+        public void showResult_Clicked(PlayerModel player, IVehicle Objekt)
         {
             player.SendChatMessage("Dein Objekt ist : " + Objekt);
         }
 
         /*[Command("fpark")]
-        public static void FactionCarPark(IPlayer player)
+        public static void FactionCarPark(PlayerModel player)
         {
             int facId = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
             if (facId > 0)
@@ -86,7 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     VehicleModel IVehicle = new VehicleModel();
                     if (veh.GetSharedData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == facId)
                     {
-                        IVehicle.position = veh.Position;
+                        IVehicle.position = veh.position;
                         IVehicle.rotation = veh.Rotation;
                         IVehicle.id = veh.GetSharedData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
 
@@ -128,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         [Command("frespawn")]
-        public void Factioncarrespawn(IPlayer player)
+        public void Factioncarrespawn(PlayerModel player)
         {
             try
             {
@@ -164,11 +165,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         [Command("sellcarto")]
-        public static void SellCarTo(IPlayer player, string target_name, int FahrzeugID, int Preis)
+        public static void SellCarTo(PlayerModel player, string target_name, int FahrzeugID, int Preis)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 IVehicle Vehicle = Vehicles.GetVehicleById(FahrzeugID);
                 if (Vehicle != null)
@@ -191,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
         /*
         [Command("buycar")]
-        public static void BuyCarTo(IPlayer player, int FahrzeugID)
+        public static void BuyCarTo(PlayerModel player, int FahrzeugID)
         {
             try
             {
@@ -232,7 +233,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         */
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -260,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("Buy_Snack_Server")]
-        public void Give_Snack_Func(IPlayer player)
+        public void Give_Snack_Func(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 6)
             {
@@ -303,7 +304,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("Buy_Kanister_Server")]
-        public void Give_Kanister_Func(IPlayer player)
+        public void Give_Kanister_Func(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 450)
             {
@@ -348,7 +349,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("Close_Gas_Window")]
-        public void Close_Gas_Window(IPlayer player)
+        public void Close_Gas_Window(PlayerModel player)
         {
             try
             {
@@ -363,7 +364,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("Fill_Car_Done")]
-        public static void FilLCar_Done(IPlayer player, int value)
+        public static void FilLCar_Done(PlayerModel player, int value)
         {
             try
             {
@@ -378,7 +379,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("Fill_Car")]
-        public void Fill_Gas_Car(IPlayer player)
+        public void Fill_Gas_Car(PlayerModel player)
         {
             try
             {
@@ -413,7 +414,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("Fill_Gas_Liter")]
-        public void Fill_Car_Liter(IPlayer player, int value)
+        public void Fill_Car_Liter(PlayerModel player, int value)
         {
             try
             {
@@ -457,7 +458,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch { }
         }
-        public static void CreateVehicle(IPlayer player, VehicleModel vehModel, bool adminCreated)
+        public static void CreateVehicle(PlayerModel player, VehicleModel vehModel, bool adminCreated)
         {
             try
             {
@@ -557,7 +558,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("UpdateTacho_Server")]
-        public void UpdateTacho_Server(IPlayer player)
+        public void UpdateTacho_Server(PlayerModel player)
         {
             try
             {
@@ -584,7 +585,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static float Verbrauch = 0;
 
         [ClientEvent("Tacho:CalculateTank")]
-        public static void CalculateVehicleTank(IPlayer player, float speed)
+        public static void CalculateVehicleTank(PlayerModel player, float speed)
         {
             try
             {
@@ -621,7 +622,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CalculateVehicleTank", ex); }
         }
-        public static void Tank(IPlayer player, float distance, bool state, IVehicle vehicle)
+        public static void Tank(PlayerModel player, float distance, bool state, IVehicle vehicle)
         {
             try
             {
@@ -659,7 +660,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
-        public void OnPlayerEnterVehicle(IVehicle Vehicle, IPlayer player, byte seat)
+        public void OnPlayerEnterVehicle(IVehicle Vehicle, PlayerModel player, byte seat)
         {
             try
             {
@@ -676,7 +677,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_GODMODE) == true)
                     {
                         Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GODMODE, false);
-                        foreach (IPlayer players in VenoXV.Globals.Main.ReallifePlayers)
+                        foreach (PlayerModel players in VenoXV.Globals.Main.ReallifePlayers)
                         {
                             players.Emit("Vehicle:Godmode", Vehicle, false);
                         }
@@ -805,7 +806,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         ////[ServerEvent(Event.PlayerExitIVehicle)]
-        public void OnPlayerExitIVehicle(IVehicle Vehicle, IPlayer player, byte seat)
+        public void OnPlayerExitIVehicle(IVehicle Vehicle, PlayerModel player, byte seat)
         {
             try
             {
@@ -817,7 +818,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                     Vehicle.Remove();
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
-                    player.Position = new Position(-51.54087f, -1076.941f, 26.94754f);
+                    player.position = new Position(-51.54087f, -1076.941f, 26.94754f);
                     player.Dimension = 0;
                     return;
                 }
@@ -839,7 +840,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
         */
         //[AltV.Net.ClientEvent("stopPlayerCar")]
-        public void StopPlayerCarEvent(IPlayer player)
+        public void StopPlayerCarEvent(PlayerModel player)
         {
             try
             {
@@ -855,7 +856,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("engineOnEventKey")]
-        public void EngineOnEventKeyEvent(IPlayer player)
+        public void EngineOnEventKeyEvent(PlayerModel player)
         {
             try
             {
@@ -933,7 +934,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("saveIVehicleConsumes")]
-        public void SaveIVehicleConsumesEvent(IPlayer player, IVehicle Vehicle, float kms, float gas)
+        public void SaveIVehicleConsumesEvent(PlayerModel player, IVehicle Vehicle, float kms, float gas)
         {
             try
             {
@@ -948,7 +949,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
         /*
         [Command(Messages.COM_HOOD)]
-        public void HoodCommand(IPlayer player)
+        public void HoodCommand(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {

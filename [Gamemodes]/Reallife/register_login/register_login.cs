@@ -11,21 +11,21 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 {
     public class Main : IScript
     {
-        public static void InitializePlayerData(IPlayer player)
+        public static void InitializePlayerData(PlayerModel player)
         {
             try
             {
                 // Spawn pos 2
-                player.SpawnPlayer(player.Position);
+                player.SpawnPlayer(player.position);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
-                player.Position = new Position(152.26f, -1004.47f, -99.00f);
+                player.position = new Position(152.26f, -1004.47f, -99.00f);
                 player.Dimension = player.Id;
 
                 player.Health = 100;
                 player.Armor = 0;
 
                 // Clear weapons 
-                player.RemoveAllWeapons();
+                player.RemoveAllPlayerWeapons();
 
                 // Initialize shared entity data
                 player.SetVnXName("Random-Player");
@@ -84,7 +84,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             catch { }
         }
 
-        public static void LoadCharacterData(IPlayer player, PlayerModel character)
+        public static void LoadCharacterData(PlayerModel player, PlayerModel character)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         }
 
         [ClientEvent("Register:First")]
-        public static void OnFirstStepRegister(IPlayer player, string username, string email, string password, string password_retype, int GenderSelected)
+        public static void OnFirstStepRegister(PlayerModel player, string username, string email, string password, string password_retype, int GenderSelected)
         {
             //int Sex = int.Parse(GenderSelected);
             Core.Debug.OutputDebugString("Register : " + username + " | " + email + " | " + password + " | " + password_retype + " | " + GenderSelected);

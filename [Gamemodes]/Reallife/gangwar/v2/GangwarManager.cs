@@ -2,10 +2,11 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
@@ -105,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(IPlayer source, IPlayer target)
+        public void ProcessKill(PlayerModel source, PlayerModel target)
         {
             try
             {
@@ -115,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void UpdateData(IPlayer player)
+        public void UpdateData(PlayerModel player)
         {
             try
             {

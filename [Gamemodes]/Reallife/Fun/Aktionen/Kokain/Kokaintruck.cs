@@ -4,11 +4,12 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Timers;
-using VenoXV.Anti_Cheat;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Anti_Cheat;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun
 {
@@ -43,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -97,7 +98,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 player.Vehicle.Remove();
                                 AltV.Net.Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                                foreach (IPlayer target in Alt.GetAllPlayers())
+                                foreach (PlayerModel target in Alt.GetAllPlayers())
                                 {
                                     if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
                                     {
@@ -125,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static IVehicle Kokaintruckveh { get; set; }
 
         [Command("kokaintruck")]
-        public void StartKokaintruck(IPlayer player, int koks)
+        public void StartKokaintruck(PlayerModel player, int koks)
         {
             try
             {
@@ -136,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 if (factions.Allround.isBadFaction(player))
                 {
                     int cops = 0;
-                    foreach (IPlayer Spieler in Alt.GetAllPlayers())
+                    foreach (PlayerModel Spieler in Alt.GetAllPlayers())
                     {
                         if (factions.Allround.isStateFaction(Spieler))
                         {
@@ -166,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     {
                         int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                         int kokskosten = koks * 15;
-                        if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f)
+                        if (player.position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f)
                         {
                             player.SendChatMessage("[Kokaintruck] : Du bist hier Falsch...");
                             return;
@@ -196,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
-                        foreach (IPlayer target in Alt.GetAllPlayers())
+                        foreach (PlayerModel target in Alt.GetAllPlayers())
                         {
                             if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
                             {

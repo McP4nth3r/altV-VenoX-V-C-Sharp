@@ -3,20 +3,18 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
-using VenoXV._Gamemodes_.Reallife.dxLibary;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Fraktionswaffenlager : IScript
     {
         [Command("fweapons")]
-        public void FWeapons_CMD(IPlayer player)
+        public void FWeapons_CMD(PlayerModel player)
         {
             try
             {
@@ -52,13 +50,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 Console.WriteLine("[EXCEPTION FWeapons_CMD] " + ex.StackTrace);
             }
         }
-        
 
-        
+
+
         public static IColShape SWT_COL = Alt.CreateColShapeSphere(new Position(1853.666f, 3688.104f, 34f), 1);
         public static IColShape WT_COL = Alt.CreateColShapeSphere(new Position(2853.49f, 1502.488f, 24.72436f), 1);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -136,8 +134,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         "Magazin[" + Constants.RIFLE_AMMO_LAGER + "$]",
 
                         "Sniper [" + Constants.SNIPER_LAGER + "$]",
-                        "Magazin [" + Constants.SNIPER_AMMO_LAGER + "$]",      
-                        
+                        "Magazin [" + Constants.SNIPER_AMMO_LAGER + "$]",
+
                         "RPG [" + Constants.RPG_LAGER + "$]",
                         "Schuss [" + Constants.RPG_AMMO_LAGER + "$]",
 
@@ -156,11 +154,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         "MP5 = " + fweapon.weapon_mp5 + "/" + Constants.MP5_MAX_LAGER + " || Magazin = " + fweapon.weapon_mp5_ammo + "/" + Constants.MP5_AMMO_MAX_LAGER,
 
                         "Ak - 47 = " + fweapon.weapon_assaultrifle + "/" + Constants.AK47_MAX_LAGER + " || Magazin = " + fweapon.weapon_assaultrifle_ammo + "/" + Constants.AK47_AMMO_MAX_LAGER,
-                        
+
                         "Rifle = " + fweapon.weapon_rifle + "/" + Constants.RIFLE_MAX_LAGER + " || Magazin = " + fweapon.weapon_rifle_ammo + "/" + Constants.RIFLE_AMMO_MAX_LAGER,
 
                         "Sniper = " + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + " || Magazin = " + fweapon.weapon_sniperrifle_ammo + "/" + Constants.SNIPER_AMMO_MAX_LAGER,
-                        
+
                         "RPG = " + fweapon.weapon_rpg + "/" + Constants.RPG_MAX_LAGER + " || Magazin = " + fweapon.weapon_rpg_ammo + "/" + Constants.RPG_MAX_LAGER,
 
                         "Molotov = " + fweapon.weapon_molotov + "/" + Constants.MOLOTOV_MAX_LAGER,

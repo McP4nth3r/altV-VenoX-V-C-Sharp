@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
@@ -26,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
         }
 
         //[AltV.Net.ClientEvent("Buy_Item_Ammo_S")]
-        public void BuyWeaponAmmuAmmunation(IPlayer player, string item)
+        public void BuyWeaponAmmuAmmunation(PlayerModel player, string item)
         {
             try
             {
@@ -172,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
 
         //[AltV.Net.ClientEvent("Buy_Item_S")]
-        public void BuyWeaponAmmunation(IPlayer player, string item)
+        public void BuyWeaponAmmunation(PlayerModel player, string item)
         {
             try
             {
@@ -381,7 +382,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
         public static IColShape AmmunationCOL = Alt.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {

@@ -1,14 +1,14 @@
-﻿using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV.RootCore
 {
     public class Sync
     {
-        public static void LoadAllTextLabels(IPlayer player)
+        public static void LoadAllTextLabels(PlayerModel player)
         {
             var json = JsonConvert.SerializeObject(Main.LabelList);
             var list = new List<string>();

@@ -1,8 +1,8 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV.Zombie.World
@@ -18,7 +18,7 @@ namespace VenoXV.Zombie.World
 
 
 
-        public static void SendPlayerWelcomeNotify(IPlayer player)
+        public static void SendPlayerWelcomeNotify(PlayerModel player)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace VenoXV.Zombie.World
             catch { }
         }
 
-        public static void InitializePlayerData(IPlayer player)
+        public static void InitializePlayerData(PlayerModel player)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace VenoXV.Zombie.World
         }
 
 
-        public static void OnSelectedZombieGM(IPlayer player)
+        public static void OnSelectedZombieGM(PlayerModel player)
         {
             try
             {

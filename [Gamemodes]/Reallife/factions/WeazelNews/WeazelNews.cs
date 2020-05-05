@@ -1,19 +1,20 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
 {
     public class WeazelNews : IScript
     {
         [Command("requestlive")]
-        public void SendIPlayerLiveOffer(IPlayer player, string target_name)
+        public void SendIPlayerLiveOffer(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                 {
@@ -39,11 +40,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("acceptlive")]
-        public void AcceptLiveOffcer(IPlayer player, string target_name)
+        public void AcceptLiveOffcer(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.GetVnXName())
                 {
@@ -66,7 +67,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("live", true)]
-        public void SendLiveMessage(IPlayer player, string text)
+        public void SendLiveMessage(PlayerModel player, string text)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("endlive")]
-        public void EndLiveReporter(IPlayer player)
+        public void EndLiveReporter(PlayerModel player)
         {
             try
             {
@@ -100,7 +101,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 {
                     string targetName = player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON");
                     //RageAPI.SendChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
-                    IPlayer target = RageAPI.GetPlayerFromName(targetName);
+                    PlayerModel target = RageAPI.GetPlayerFromName(targetName);
                     player.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     foreach (IPlayer targetsingame in Alt.GetAllPlayers())

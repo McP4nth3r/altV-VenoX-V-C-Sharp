@@ -5,13 +5,13 @@
 //----------------------------------//
 using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
@@ -21,13 +21,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
     {
 
         //[AltV.Net.ClientEvent("SpawnPlayer_On_Spawnpoint")]
-        public static void spawnplayer_on_spawnpoint(IPlayer player)
+        public static void spawnplayer_on_spawnpoint(PlayerModel player)
         {
             try
             {
                 AntiCheat_Allround.SetTimeOutHealth(player, 1000);
 
-                player.SpawnPlayer(player.Position);
+                player.SpawnPlayer(player.position);
                 player.vnxSetElementData(EntityData.PLAYER_KILLED, 0);
                 /*if (player.vnxGetElementData("EVENTINFOGOTVNX") != 1)
                 {
@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 player.Emit("VnX:ShowChat", true);
                 /*if (player.vnxGetElementData<bool>("ACCOUNT_VORHANDEN") == false)
                 {
-                    player.Position = new Position(152.26f, -1004.47f, -99.00f);
+                    player.position = new Position(152.26f, -1004.47f, -99.00f);
                     return;
                 }*/
                 if (Database.FindCharakterPrison(player.GetVnXName()))
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_VONADMIN, AdminVon);
                         player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_ErstelltVon, ErstelltAm);
                         player.Dimension = 0;
-                        player.Position = new Position(1651.441f, 2569.83f, 45.56486f);
+                        player.position = new Position(1651.441f, 2569.83f, 45.56486f);
                         anzeigen.Usefull.VnX.RemoveAllWeapons(player);
                         return;
                     }
@@ -260,7 +260,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;
-                    player.Position = Constants.JAIL_SPAWNS[random.Next(3)];
+                    player.position = Constants.JAIL_SPAWNS[random.Next(3)];
                     player.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
                     player.Emit("toggleHandcuffed", false);
                     return;
@@ -268,15 +268,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "noobspawn")
                 {
                     // Noob Spawn
-                    player.Position = new Position(-2286.745f, 356.3762f, 175.317f);
+                    player.position = new Position(-2286.745f, 356.3762f, 175.317f);
                 }
                 else if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "Rathaus")
                 {
-                    player.Position = new Position(-533.1649f, -211.0938f, 37.64977f);
+                    player.position = new Position(-533.1649f, -211.0938f, 37.64977f);
                 }
                 else if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "Wuerfelpark")
                 {
-                    player.Position = new Position(180.3914f, -923.7885f, 30.68681f);
+                    player.position = new Position(180.3914f, -923.7885f, 30.68681f);
                 }
                 else
                 {
@@ -290,51 +290,51 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
                         {
                             //LSPD Spawn
-                            player.Position = new Position(469.8354f, -985.0742f, 33.89248f);
+                            player.position = new Position(469.8354f, -985.0742f, 33.89248f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_COSANOSTRA)
                         {
                             //Mafia Spawn
-                            player.Position = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.position = new Position(266.2531f, -1007.264f, -101.0095f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_YAKUZA)
                         {
-                            player.Position = new Position(339.3727f, -997.0941f, -99.19626f);
+                            player.position = new Position(339.3727f, -997.0941f, -99.19626f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_TERRORCLOSED)
                         {
-                            player.Position = new Position(469.8354f, -985.0742f, 33.89248f);
+                            player.position = new Position(469.8354f, -985.0742f, 33.89248f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                         {
-                            player.Position = new Position(-562.649f, -920.7836f, 23.87799f);
+                            player.position = new Position(-562.649f, -920.7836f, 23.87799f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_FBI)
                         {
-                            player.Position = new Position(139.1606f, -762.1356f, 45.75201f);
+                            player.position = new Position(139.1606f, -762.1356f, 45.75201f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_MS13)
                         {
-                            player.Position = new Position(-1283.504f, 432.7738f, 97.52215f);
+                            player.position = new Position(-1283.504f, 432.7738f, 97.52215f);
                             player.Dimension = Constants.FACTION_MS13;
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_SAMCRO)
                         {
-                            player.Position = new Position(982.0083f, -100.8747f, 74.84512f);
+                            player.position = new Position(982.0083f, -100.8747f, 74.84512f);
                             //player.Dimension = Constants.FACTION_SAMCRO;
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                         {
                             player.Dimension = Constants.FACTION_NONE;
-                            player.Position = new Position(319.5905f, -560.0225f, 28.74378f);
+                            player.position = new Position(319.5905f, -560.0225f, 28.74378f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_BALLAS)
                         {
-                            player.Position = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.position = new Position(266.2531f, -1007.264f, -101.0095f);
                         }
                         else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_GROVE)
                         {
-                            player.Position = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.position = new Position(266.2531f, -1007.264f, -101.0095f);
                         }
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "HOTELLS")
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName() == house.owner)
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
-                                player.Position = Main.GetHouseIplExit(house.ipl);
+                                player.position = Main.GetHouseIplExit(house.ipl);
                                 player.Dimension = house.id;
                                 player.vnxSetElementData(EntityData.PLAYER_IPL, house.ipl);
                                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, house.id);

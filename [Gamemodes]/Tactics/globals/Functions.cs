@@ -1,6 +1,6 @@
-﻿using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
+﻿using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                foreach (IPlayer players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (PlayerModel players in VenoXV.Globals.Main.TacticsPlayers)
                 {
                     players?.SendChatMessage(text);
                 }
@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
             Lobby.Main.SyncEndTacticRound(text);
         }
 
-        public static void InitializePlayerData(IPlayer player)
+        public static void InitializePlayerData(PlayerModel player)
         {
             try
             {

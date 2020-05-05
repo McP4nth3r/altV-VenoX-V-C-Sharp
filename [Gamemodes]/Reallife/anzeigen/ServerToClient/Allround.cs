@@ -1,11 +1,7 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
-using VenoXV._Gamemodes_.Reallife.dxLibary;
+﻿using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.Vehicles;
-using AltV.Net;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
@@ -13,7 +9,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
     {
 
         //[AltV.Net.ClientEvent("clicked_button_server")]
-        public void Clicked_button_server(IPlayer player, string headertext, string button)
+        public void Clicked_button_server(PlayerModel player, string headertext, string button)
         {
             if (headertext == "VenoX Rentals")
             {
@@ -35,9 +31,9 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         }
 
         //[AltV.Net.ClientEvent("submit_button_input_server")]
-        public void Input_submit_button(IPlayer player, string headertext, int value)
+        public void Input_submit_button(PlayerModel player, string headertext, int value)
         {
-            if(headertext == "Kokain Dealer")
+            if (headertext == "Kokain Dealer")
             {
                 Fun.Aktionen.Kokain.KokainSell.SellKokain(player, value);
             }

@@ -3,6 +3,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Tactics.Globals;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.weapons
@@ -82,7 +83,7 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
         }
 
 
-        public static void OnHittedEntity(IPlayer player, IPlayer target, AltV.Net.Enums.WeaponModel WeaponModel, AltV.Net.Data.BodyPart hitBone)
+        public static void OnHittedEntity(PlayerModel player, PlayerModel target, AltV.Net.Enums.WeaponModel WeaponModel, AltV.Net.Data.BodyPart hitBone)
         {
             try
             {

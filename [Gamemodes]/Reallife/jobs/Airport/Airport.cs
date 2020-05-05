@@ -3,9 +3,9 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
-
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
 {
@@ -22,7 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void Airport_job_start(IPlayer player, int stage)
+        public static void Airport_job_start(PlayerModel player, int stage)
         {
             try
             {

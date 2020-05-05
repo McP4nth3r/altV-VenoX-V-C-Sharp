@@ -3,17 +3,18 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
     public class Fahrzeug_Main : IScript
     {
         [Command("car")]
-        public void showIVehicleMenu(IPlayer player)
+        public void showIVehicleMenu(PlayerModel player)
         {
             try
             {
@@ -50,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("showIVehicleMenu")]
-        public static void showIVehicleMenuClicked(IPlayer player, IVehicle Vehicle)
+        public static void showIVehicleMenuClicked(PlayerModel player, IVehicle Vehicle)
         {
             try
             {
@@ -69,13 +70,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("ResetIVehicleTimer")]
-        public static void ResetIVehicleAktionsTimer(IPlayer player)
+        public static void ResetIVehicleAktionsTimer(PlayerModel player)
         {
             player.vnxSetElementData("vehinfos_done_cmd", false);
         }
 
         [Command("vehinfos")]
-        public void IVehiclelist(IPlayer player)
+        public void IVehiclelist(PlayerModel player)
         {
             try
             {
@@ -132,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("LockIVehicleServer")]
-        public void LockLocalIVehicle(IPlayer player)
+        public void LockLocalIVehicle(PlayerModel player)
         {
             try
             {
@@ -176,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         [ClientEvent("ParkVehicleServer")]
-        public void ParkLocalIVehicle(IPlayer player)
+        public void ParkLocalIVehicle(PlayerModel player)
         {
             try
             {
@@ -211,7 +212,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
         /*
         //[AltV.Net.ClientEvent("RespawnPrivIVehicleServer")]
-        public void RespawnLocalIVehicle(IPlayer player)
+        public void RespawnLocalIVehicle(PlayerModel player)
         {
             try
             {
@@ -228,7 +229,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                 return;
                             }
                             localIVehicle.Repair();
-                            localIVehicle.Position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            localIVehicle.position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                             localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
                             player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                             Core.VnX.VehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
@@ -258,7 +259,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
                             {
                                 localIVehicle.Repair();
-                                localIVehicle.Position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                                localIVehicle.position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                                 localIVehicle.Rotation = localVehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
                                 player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                                 Player.SendChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
@@ -281,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         [Command("towveh")]
-        public static void TowVehServer(IPlayer player, int FahrzeugSlot)
+        public static void TowVehServer(PlayerModel player, int FahrzeugSlot)
         {
             try
             {
@@ -293,7 +294,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
                         {
                             IVehicle.Repair();
-                            IVehicle.Position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                            IVehicle.position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                             IVehicle.Rotation = Vehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
                             Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_DIMENSION);
                             Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
@@ -315,7 +316,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("ShowIVehicleInformation")]
-        public void InformationsWindowIVehicle(IPlayer Player)
+        public void InformationsWindowIVehicle(PlayerModel player)
         {
             try
             {
@@ -346,7 +347,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("HandBreakIVehicleServerside")]
-        public void HandbremsenFunktionServer(IPlayer Player)
+        public void HandbremsenFunktionServer(PlayerModel player)
         {
             try
             {
@@ -411,7 +412,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("setquestbackagain")]
-        public void justALittleAnzeigeFehlerFixDiesDas(IPlayer player)
+        public void justALittleAnzeigeFehlerFixDiesDas(PlayerModel player)
         {
             try
             {

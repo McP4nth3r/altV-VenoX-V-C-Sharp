@@ -26,14 +26,14 @@ namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
         }
 
         /*[Command("gotovipshop")]
-        public void blabla(IPlayer player)
+        public void blabla(PlayerModel player)
         {
             Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
-            player.Position = new Position(-311.2075f, -278.3156f, 31.5f);
+            player.position = new Position(-311.2075f, -278.3156f, 31.5f);
         }*/
 
         /*//[ServerEvent(Event.PlayerEnterIColShape)]
-        public void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             if (shape == col)
             {

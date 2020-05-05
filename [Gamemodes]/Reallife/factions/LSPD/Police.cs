@@ -9,23 +9,24 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Police : IScript
     {
         [Command("zeigen")]
-        public static void ShowToPlayerLicense(IPlayer player, string target_name)
+        public static void ShowToPlayerLicense(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.Position.Distance(target.Position) < 5)
+                if (player.position.Distance(target.position) < 5)
                 {
                     string Lizenzen = "";
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Führerschein  [ ✔ ]"; }
@@ -71,13 +72,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         [Command("frisk")]
-        public static void FriskPlayer(IPlayer player, string target_name)
+        public static void FriskPlayer(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.Position.Distance(target.Position) < 5)
+                if (player.position.Distance(target.position) < 5)
                 {
                     string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.GetVnXName() + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
@@ -114,17 +115,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         [Command("takeillegal")]
-        public static void Takeillegal(IPlayer player, string target_name)
+        public static void Takeillegal(PlayerModel player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                    PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                     {
-                        if (player.Position.Distance(target.Position) < 5)
+                        if (player.position.Distance(target.position) < 5)
                         {
                             string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.GetVnXName() + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
@@ -174,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         //[AltV.Net.ClientEvent("triggerStateWeaponWindowBtn_S")]
-        public static void GivePlayerStateFactionWeapon(IPlayer player, string button)
+        public static void GivePlayerStateFactionWeapon(PlayerModel player, string button)
         {
             try
             {
@@ -521,7 +522,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                                 {
                                     Database.RemoveItem(AdvancedRifle.id);
                                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(AdvancedRifle);
-                                    player.RemoveWeapon(AltV.Net.Enums.WeaponModel.AdvancedRifle);
+                                    player.RemovePlayerWeapon(AltV.Net.Enums.WeaponModel.AdvancedRifle);
                                 }
                                 KARABINER.id = Database.AddNewItem(KARABINER);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Add(KARABINER);
@@ -570,7 +571,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                                 {
                                     Database.RemoveItem(Karabiner.id);
                                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Karabiner);
-                                    player.RemoveWeapon(AltV.Net.Enums.WeaponModel.CarbineRifle);
+                                    player.RemovePlayerWeapon(AltV.Net.Enums.WeaponModel.CarbineRifle);
                                 }
                                 ADVANCEDRIFLE.id = Database.AddNewItem(ADVANCEDRIFLE);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Add(ADVANCEDRIFLE);
@@ -660,7 +661,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         //[AltV.Net.ClientEvent("triggerBadWeaponWindowBtn_S")]
-        public static void GivePlayerBadFactionWeapon(IPlayer player, string button)
+        public static void GivePlayerBadFactionWeapon(PlayerModel player, string button)
         {
             try
             {
@@ -1163,7 +1164,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
         /*
         [Command("barricade")]
-        public void PutCommand(IPlayer player, string item)
+        public void PutCommand(PlayerModel player, string item)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {
@@ -1182,25 +1183,25 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     switch (item.ToLower())
                     {
                         case Messages.ARG_CONE:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_CONE, player.Position, player.Rotation);
+                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_CONE, player.position, player.Rotation);
                             policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
                             policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_CONE, policeControl.position, policeControl.rotation);
                             policeControlList.Add(policeControl);
                             break;
                         case Messages.ARG_BEACON:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BEACON, player.Position, player.Rotation);
+                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BEACON, player.position, player.Rotation);
                             policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
                             policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_BEACON, policeControl.position, policeControl.rotation);
                             policeControlList.Add(policeControl);
                             break;
                         case Messages.ARG_BARRIER:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BARRIER, player.Position, player.Rotation);
+                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BARRIER, player.position, player.Rotation);
                             policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
                             policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_BARRIER, policeControl.position, policeControl.rotation);
                             policeControlList.Add(policeControl);
                             break;
                         case "nagelband":
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_SPIKES, player.Position, player.Rotation);
+                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_SPIKES, player.position, player.Rotation);
                             policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
                             policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_SPIKES, policeControl.position, policeControl.rotation);
                             policeControlList.Add(policeControl);
@@ -1218,7 +1219,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
         
         [Command(Messages.COM_REMOVE, Messages.GEN_POLICE_REMOVE_COMMAND)]
-        public void RemoveCommand(IPlayer player, string item)
+        public void RemoveCommand(PlayerModel player, string item)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {
@@ -1254,7 +1255,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         */
 
         [Command("ausknasten")]
-        public void RemovePlayerFromKnast(IPlayer player, string target_name)
+        public void RemovePlayerFromKnast(PlayerModel player, string target_name)
         {
             try
             {
@@ -1263,7 +1264,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 3)
                 {
@@ -1271,7 +1272,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
-                        target.Position = new Position(427.5651f, -981.0995f, 30.71008f);
+                        target.position = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;
                         target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 105, 145) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat " + target.GetVnXName() + " ausgeknastet.");
@@ -1288,7 +1289,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         [Command("suspect", true)]
-        public void GivePlayerStars_LongVersion(IPlayer player, string target_name, string action)
+        public void GivePlayerStars_LongVersion(PlayerModel player, string target_name, string action)
         {
             try
             {
@@ -1298,7 +1299,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         [Command("su", true)]
-        public void GivePlayerStars(IPlayer player, string target_name, string action)
+        public void GivePlayerStars(PlayerModel player, string target_name, string action)
         {
             try
             {
@@ -1307,7 +1308,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     player.SendChatMessage("Du bist kein Staatsfraktionist!");
                     return;
                 }
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
@@ -1531,7 +1532,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    foreach (IPlayer targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
+                    foreach (PlayerModel targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
@@ -1550,7 +1551,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             catch { }
         }
         [Command("clear", true)]
-        public void Clearuserwanteds(IPlayer player, string target_name)
+        public void Clearuserwanteds(PlayerModel player, string target_name)
         {
             try
             {
@@ -1559,7 +1560,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)

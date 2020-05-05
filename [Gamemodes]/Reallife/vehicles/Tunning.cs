@@ -2,17 +2,12 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VenoXV._Gamemodes_.Reallife.business;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
-using VenoXV._Gamemodes_.Reallife.dxLibary;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
@@ -41,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -80,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         player.Emit("Remote_Speedo_Hide", true);
                         player.vnxSetStreamSharedElementData("HideHUD", 1);
-                        IVehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
+                        IVehicle.position = new Position(-337.9052f, -136.9406f, 38.58294f);
                         IVehicle.Rotation = new Position(0, 0, 300);
                         dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
                         VnX.CreateDiscordUpdate(player, "Am Auto Schrauben", "VenoX Reallife Tuning");
@@ -94,7 +89,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("CloseTuning")]
-        public static void CloseTunningWindow(IPlayer player)
+        public static void CloseTunningWindow(PlayerModel player)
         {
             try
             {
@@ -115,20 +110,20 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
         public static void AddTunningToIVehicle(IVehicle Vehicle)
         {
-        try
-        {
-            /*foreach (TunningModel tunning in Main.tunningList)
+            try
             {
-                if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) == tunning.IVehicle)
+                /*foreach (TunningModel tunning in Main.tunningList)
                 {
-                    IVehicle.SetMod(tunning.slot, tunning.component);
-                }
-            }*/
-        }
-        catch { }
+                    if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) == tunning.IVehicle)
+                    {
+                        IVehicle.SetMod(tunning.slot, tunning.component);
+                    }
+                }*/
+            }
+            catch { }
         }
         private int GetIVehicleTunningComponent(int IVehicleId, int slot)
-            {
+        {
             try
             {
                 // Get the component on the specified slot
@@ -143,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("modifyIVehicle")]
-        public void ModifyIVehicleEvent(IPlayer player, int slot, int component)
+        public void ModifyIVehicleEvent(PlayerModel player, int slot, int component)
         {
             try
             {
@@ -158,11 +153,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     //player.Vehicle.RemoveMod(slot);
                 }
             }
-            catch {  }
+            catch { }
         }
 
         //[AltV.Net.ClientEvent("cancelIVehicleModification")]
-        public void CancelIVehicleModificationEvent(IPlayer player)
+        public void CancelIVehicleModificationEvent(PlayerModel player)
         {
             try
             {
@@ -174,7 +169,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     int component = GetIVehicleTunningComponent(IVehicleId, i);
 
                     // Remove or add the tunning part
-                   // player.Vehicle.SetMod(i, component);
+                    // player.Vehicle.SetMod(i, component);
                 }
             }
             catch { }
@@ -183,7 +178,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static int GetTuningCosts(int slot, int modold)
         {
             int mod = modold / 3;
-            if(slot == 0)
+            if (slot == 0)
             {
                 return 2500;
             }
@@ -279,29 +274,29 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("confirmIVehicleModification")]
-        public void ConfirmIVehicleModificationEvent(IPlayer player, int slot, int mod)
+        public void ConfirmIVehicleModificationEvent(PlayerModel player, int slot, int mod)
         {
             try
             {
-                
+
                 // Get the IVehicle's id
                 int IVehicleId = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
                 int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 TunningModel Tunning = Main.GetIVehicleTuningBySlot();
                 if (Tunning != null && Tunning.slot == slot)
                 {
-                        Database.RemoveTunning(IVehicleId, slot);
-                        Main.tunningList.Remove(Tunning);
-                        player.SendChatMessage("Dein Altes Tuning wurde gelöscht!.");
-                        TunningModel tunningModel = new TunningModel();
-                        {
-                            tunningModel.slot = slot;
-                            tunningModel.component = mod;
-                            tunningModel.IVehicle = IVehicleId;
-                        }
-                        tunningModel.id = Database.AddTunning(tunningModel);
-                        Main.tunningList.Add(tunningModel);
-                        dxLibary.VnX.DrawNotification(player, "info", "Tunning Erfolgreich gekauft!");
+                    Database.RemoveTunning(IVehicleId, slot);
+                    Main.tunningList.Remove(Tunning);
+                    player.SendChatMessage("Dein Altes Tuning wurde gelöscht!.");
+                    TunningModel tunningModel = new TunningModel();
+                    {
+                        tunningModel.slot = slot;
+                        tunningModel.component = mod;
+                        tunningModel.IVehicle = IVehicleId;
+                    }
+                    tunningModel.id = Database.AddTunning(tunningModel);
+                    Main.tunningList.Add(tunningModel);
+                    dxLibary.VnX.DrawNotification(player, "info", "Tunning Erfolgreich gekauft!");
                 }
                 else
                 {

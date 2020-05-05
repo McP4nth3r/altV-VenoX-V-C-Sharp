@@ -1,15 +1,14 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
-using VenoXV.Core;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Weapons : IScript
     {
-        public static void GivePlayerWeaponItems(IPlayer player)
+        public static void GivePlayerWeaponItems(PlayerModel player)
         {
             try
             {
@@ -39,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
 
         /*[ScriptEvent(ScriptEventType.PlayerWeap)]
-        public void OnPlayerWeaponSwitch(IPlayer player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel WeaponModel)
+        public void OnPlayerWeaponSwitch(PlayerModel player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel WeaponModel)
         {
             try
             {
@@ -67,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                             {
                                 Database.RemoveItem(Snowball.id);
                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Snowball);
-                                player.RemoveWeapon( oldWeapon);
+                                player.RemovePlayerWeapon( oldWeapon);
                             }
                         }
                     }
@@ -381,7 +380,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
 
         //[AltV.Net.ClientEvent("WeaponFiredToServer")]
-        public void OnWeaponFire(IPlayer player, string weapon, string ammo)
+        public void OnWeaponFire(PlayerModel player, string weapon, string ammo)
         {
             try {
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) != EntityData.GAMEMODE_REALLIFE)

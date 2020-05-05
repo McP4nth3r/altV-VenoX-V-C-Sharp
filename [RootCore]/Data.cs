@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV.Core
 {
@@ -12,7 +11,7 @@ namespace VenoXV.Core
         public static string PLAYER_BANKMONEY = VenoXV.Globals.EntityData.PLAYER_BANK;
 
 
-        public static void UpdateHUDArmorHealth(IPlayer player)
+        public static void UpdateHUDArmorHealth(PlayerModel player)
         {
             try
             {
@@ -26,7 +25,7 @@ namespace VenoXV.Core
         /// </summary>
         /// <param name="player">Der Spieler wird Definiert.</param>
         /// <param name="args">[0] = Element Name, [1] = value für die Element Data, [2] Type der Value, [3] = TimeInMS (TimeOut-JS-CS)</param>
-        public static void SetDelayedData(IPlayer player, string[] args)
+        public static void SetDelayedData(PlayerModel player, string[] args)
         {
             try
             {
@@ -34,7 +33,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetDelayedBoolSharedData(IPlayer player, string element, bool value, int TimeInMS)
+        public static void SetDelayedBoolSharedData(PlayerModel player, string element, bool value, int TimeInMS)
         {
             try
             {
@@ -42,7 +41,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetDelayedINTSharedData(IPlayer player, string element, int value, int TimeInMS)
+        public static void SetDelayedINTSharedData(PlayerModel player, string element, int value, int TimeInMS)
         {
             try
             {

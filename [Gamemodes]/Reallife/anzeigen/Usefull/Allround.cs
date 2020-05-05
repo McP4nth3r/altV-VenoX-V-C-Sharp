@@ -16,11 +16,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 {
     public class VnX : IScript
     {
-        public static void RemoveAllWeapons(IPlayer player)
+        public static void RemoveAllWeapons(PlayerModel player)
         {
             try
             {
-                player.RemoveAllWeapons();
+                player.RemoveAllPlayerWeapons();
                 int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 foreach (ItemModel waffen in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
@@ -37,11 +37,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void RemoveAllBadGWWeapons(IPlayer player)
+        public static void RemoveAllBadGWWeapons(PlayerModel player)
         {
             try
             {
-                player.RemoveAllWeapons();
+                player.RemoveAllPlayerWeapons();
 
                 int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
 
@@ -97,16 +97,16 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void onWantedChange(IPlayer player)
+        public static void onWantedChange(PlayerModel player)
         {
             player.Emit("UpdateStars", (int)player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"));
         }
-        public static void OnFactionChange(IPlayer player)
+        public static void OnFactionChange(PlayerModel player)
         {
             player.Emit("UpdateFaction", Faction.GetPlayerFactionName((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), Faction.GetPlayerFactionRank(player), (int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
         }
 
-        public static void CreateCarGhostMode(IPlayer player, int playeralpha, int IVehiclealpha, int timervalue)
+        public static void CreateCarGhostMode(PlayerModel player, int playeralpha, int IVehiclealpha, int timervalue)
         {
             player.Emit("VnX_CreateGhostModeTimer", playeralpha, IVehiclealpha, timervalue);
         }
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         public const int QUEST_GETADVANCEDRIFLE = 9;
         public const int QUEST_START_SHOPROB = 10;
         public const int QUEST_GET225 = 11;
-        public static string GetQuestContainerText(IPlayer player)
+        public static string GetQuestContainerText(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_VENOXRENTALS)
             {
@@ -192,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         public const int QUEST_MONEY_GETADVANCEDRIFLE = 15000;
         public const int QUEST_MONEY_START_SHOPROB = 4500;
         public const int QUEST_MONEY_GET225 = 10000; //125K event Iggno
-        public static string GetQuestWinText(IPlayer player)
+        public static string GetQuestWinText(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) == QUEST_VENOXRENTALS)
             {
@@ -246,7 +246,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
 
 
-        public static void UpdateQuestLVL(IPlayer player, int QUESTDONE)
+        public static void UpdateQuestLVL(PlayerModel player, int QUESTDONE)
         {
             try
             {
@@ -357,7 +357,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
 
         [Command("updatehud")]
-        public static void UpdateHUD(IPlayer player)
+        public static void UpdateHUD(PlayerModel player)
         {
             try
             {
@@ -402,7 +402,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         [Command("resethud")]
-        public static void ResetHUD(IPlayer player)
+        public static void ResetHUD(PlayerModel player)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 0);
             UpdateHUD(player);
@@ -410,7 +410,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         //[AltV.Net.ClientEvent("onIPlayerClicked")]
-        /*public static void onIPlayerClicked(IPlayer player, Entity objekt)
+        /*public static void onIPlayerClicked(PlayerModel player, Entity objekt)
         {
             player.SendChatMessage("Du hast auf ein : " + objekt + " geklickt! ");
         }
@@ -425,13 +425,13 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         [Command("me")]
-        public static void SendMessageNearPlayers(IPlayer player, string text)
+        public static void SendMessageNearPlayers(PlayerModel player, string text)
         {
             try
             {
-                foreach (IPlayer players in Alt.GetAllPlayers())
+                foreach (PlayerModel players in Alt.GetAllPlayers())
                 {
-                    if (player.Position.Distance(players.Position) < 5)
+                    if (player.position.Distance(players.position) < 5)
                     {
                         players.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.GetVnXName() + " : " + text);
                     }
@@ -442,13 +442,13 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             catch { }
         }
 
-        public static void SpectatePlayer(IPlayer player, string target_name, int einsfürfalse)
+        public static void SpectatePlayer(PlayerModel player, string target_name, int einsfürfalse)
         {
             // player.Emit("VnX_Start_S", Target, einsfürfalse);
         }
 
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
-        public static void CreateTypingEffect(IPlayer player, bool state)
+        public static void CreateTypingEffect(PlayerModel player, bool state)
         {
             if (state == true)
             {
@@ -460,7 +460,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void ResetDiscordData(IPlayer player)
+        public static void ResetDiscordData(PlayerModel player)
         {
             if (Allround.isStateFaction(player))
             {
@@ -481,7 +481,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         //[AltV.Net.ClientEvent("VnX_PutPlayerInRandomDim")]
-        public static void PutPlayerInRandomDim(IPlayer player)
+        public static void PutPlayerInRandomDim(PlayerModel player)
         {
             try
             {
@@ -495,72 +495,69 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
 
 
-        public static void SavePlayerDatas(IPlayer player)
+        public static void SavePlayerDatas(PlayerModel player)
         {
             try
             {
-                PlayerModel character = new PlayerModel
-                {
-                    position = player.Position,
-                    rotation = (int)player.Rotation.Yaw,
-                    health = player.Health,
-                    armor = player.Armor,
-                    id = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID),
-                    phone = player.vnxGetElementData<int>(EntityData.PLAYER_PHONE),
+                player.position = player.Position;
+                player.rotation = (int)player.Rotation.Yaw;
+                player.health = player.Health;
+                player.armor = player.Armor;
+                player.id = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                player.phone = player.vnxGetElementData<int>(EntityData.PLAYER_PHONE);
 
-                    killed = player.vnxGetElementData<int>(EntityData.PLAYER_KILLED),
-                    faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION),
-                    zivizeit = player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT),
-                    job = player.vnxGetElementData<string>(EntityData.PLAYER_JOB),
-                    LIEFERJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL),
-                    AIRPORTJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL),
-                    BUSJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL),
-                    rank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK),
-                    houseRent = player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE),
-                    houseEntered = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED),
-                    businessEntered = player.vnxGetElementData<int>(EntityData.PLAYER_BUSINESS_ENTERED),
+                player.killed = player.vnxGetElementData<int>(EntityData.PLAYER_KILLED);
+                player.faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                player.zivizeit = player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT);
+                player.job = player.vnxGetElementData<string>(EntityData.PLAYER_JOB);
+                player.LIEFERJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL);
+                player.AIRPORTJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL);
+                player.BUSJOB_LEVEL = player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL);
+                player.rank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
+                player.houseRent = player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE);
+                player.houseEntered = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED);
+                player.businessEntered = player.vnxGetElementData<int>(EntityData.PLAYER_BUSINESS_ENTERED);
 
 
-                    Personalausweis = player.vnxGetElementData<int>(EntityData.PLAYER_PERSONALAUSWEIS),
-                    Autofuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN),
-                    Motorradfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN),
-                    LKWfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN),
-                    Helikopterfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN),
-                    FlugscheinKlasseA = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN),
-                    FlugscheinKlasseB = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN),
-                    Motorbootschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN),
-                    Angelschein = player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN),
-                    Waffenschein = player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN),
-                    adventskalender = player.vnxGetElementData<int>(EntityData.PLAYER_ADVENTSKALENEDER),
+                player.Personalausweis = player.vnxGetElementData<int>(EntityData.PLAYER_PERSONALAUSWEIS);
+                player.Autofuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN);
+                player.Motorradfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN);
+                player.LKWfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN);
+                player.Helikopterfuehrerschein = player.vnxGetElementData<int>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN);
+                player.FlugscheinKlasseA = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN);
+                player.FlugscheinKlasseB = player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN);
+                player.Motorbootschein = player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN);
+                player.Angelschein = player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN);
+                player.Waffenschein = player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN);
+                player.adventskalender = player.vnxGetElementData<int>(EntityData.PLAYER_ADVENTSKALENEDER);
 
-                    played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED),
-                    spawn = player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT),
-                    money = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY),
-                    bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK),
-                    quests = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS),
-                    wanteds = player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS),
-                    knastzeit = player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT),
-                    kaution = player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION),
-                    REALLIFE_HUD = player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD),
-                    atm = player.vnxGetElementData<string>("settings_atm"),
-                    haus = player.vnxGetElementData<string>("settings_haus"),
-                    tacho = player.vnxGetElementData<string>("settings_tacho"),
-                    quest_anzeigen = player.vnxGetElementData<string>("settings_quest"),
-                    reporter = player.vnxGetElementData<string>("settings_reporter"),
-                    globalchat = player.vnxGetElementData<string>("settings_globalchat"),
-                    SocialState = player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS),
-                    // Tactics 
-                    tactic_kills = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS),
-                    tactic_tode = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE),
+                player.played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
+                player.spawn = player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT);
+                player.money = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                player.bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK);
+                player.quests = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS);
+                player.wanteds = player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS);
+                player.knastzeit = player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT);
+                player.kaution = player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION);
+                player.REALLIFE_HUD = player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD);
+                player.atm = player.vnxGetElementData<string>("settings_atm");
+                player.haus = player.vnxGetElementData<string>("settings_haus");
+                player.tacho = player.vnxGetElementData<string>("settings_tacho");
+                player.quest_anzeigen = player.vnxGetElementData<string>("settings_quest");
+                player.reporter = player.vnxGetElementData<string>("settings_reporter");
+                player.globalchat = player.vnxGetElementData<string>("settings_globalchat");
+                player.SocialState = player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS);
+                // Tactics 
+                player.tactic_kills = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS);
+                player.tactic_tode = player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE);
 
-                    // Zombie
-                    zombie_tode = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_TODE),
-                    zombie_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS),
-                    zombie_player_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED)
-                };
+                // Zombie
+                player.zombie_tode = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_TODE);
+                player.zombie_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS);
+                player.zombie_player_kills = player.vnxGetElementData<int>(Zombie.Globals.EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED);
 
 
-                Database.SaveCharacterInformation(character);
+                Database.SaveCharacterInformation(player);
                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) > 0)
                 {
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) - 1);

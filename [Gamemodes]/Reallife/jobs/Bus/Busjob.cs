@@ -1,10 +1,10 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 {
@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch { }
         }
 
-        public static void StartBusJob(IPlayer player, int value)
+        public static void StartBusJob(PlayerModel player, int value)
         {
             try
             {   // Die punkte abfragen!
@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch { }
         }
 
-        public static void TriggerToNextMarker(IPlayer player)
+        public static void TriggerToNextMarker(PlayerModel player)
         {
             try
             {

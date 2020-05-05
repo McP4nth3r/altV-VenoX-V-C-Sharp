@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.admin
@@ -9,7 +9,7 @@ namespace VenoXV._Gamemodes_.Tactics.admin
     public class Main : IScript
     {
         [Command("skipround")]
-        public static void SkipRound(IPlayer player)
+        public static void SkipRound(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
             {

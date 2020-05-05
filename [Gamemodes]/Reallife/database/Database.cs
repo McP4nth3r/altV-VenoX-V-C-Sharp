@@ -457,7 +457,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
         }
 
 
-        public static int CreateCharacter(IPlayer player, int UID, SkinModel skin)
+        public static int CreateCharacter(PlayerModel player, int UID, SkinModel skin)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -611,12 +611,10 @@ namespace VenoXV._Gamemodes_.Reallife.database
         }
 
 
-        public static PlayerModel LoadCharacterInformationById(int characterId)
+        public static PlayerModel LoadCharacterInformationById(PlayerModel character, int characterId)
         {
             try
             {
-                PlayerModel character = new PlayerModel();
-
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
@@ -1376,10 +1374,9 @@ namespace VenoXV._Gamemodes_.Reallife.database
             catch { return "ERROR"; }
         }
 
-        public static PlayerModel GetPlayerVIP(int UID)
+        public static PlayerModel GetPlayerVIP(PlayerModel spieler, int UID)
         {
 
-            PlayerModel spieler = new PlayerModel();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try

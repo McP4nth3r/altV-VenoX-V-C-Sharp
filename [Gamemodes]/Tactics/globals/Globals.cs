@@ -1,5 +1,5 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
 {
@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
             catch { }
         }
 
-        public static void OnPlayerDisconnect(IPlayer player, string type, string reason)
+        public static void OnPlayerDisconnect(PlayerModel player, string type, string reason)
         {
             try
             {

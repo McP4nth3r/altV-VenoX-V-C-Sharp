@@ -1,14 +1,11 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV.Core;
-using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Settings
 {
@@ -16,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
     {
 
         [Command("settings")]
-        public static void LoadSettingsWindow(IPlayer player)
+        public static void LoadSettingsWindow(PlayerModel player)
         {
             try
             {
@@ -26,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
-        public static void LoadSettingsData(IPlayer player)
+        public static void LoadSettingsData(PlayerModel player)
         {
             try
             {
@@ -37,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
                 if (player.vnxGetElementData<string>("settings_quest") == "ja")
                 {
-                    player.vnxSetStreamSharedElementData( "settings_quest", "ja");
+                    player.vnxSetStreamSharedElementData("settings_quest", "ja");
                 }
                 if (player.vnxGetElementData<string>("settings_haus") == "ja")
                 {
@@ -58,16 +55,16 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 }
                 if (player.vnxGetElementData<string>("settings_tacho") == "ja")
                 {
-                    player.vnxSetStreamSharedElementData( "settings_tacho", "ja");
+                    player.vnxSetStreamSharedElementData("settings_tacho", "ja");
                 }
                 if (player.vnxGetElementData<string>("settings_reporter") == "ja")
                 {
-                    player.vnxSetStreamSharedElementData( "settings_reporter", "ja");
+                    player.vnxSetStreamSharedElementData("settings_reporter", "ja");
                 }
 
                 if (player.vnxGetElementData<string>("settings_globalchat") == "ja")
                 {
-                    player.vnxSetStreamSharedElementData( "settings_globalchat", "ja");
+                    player.vnxSetStreamSharedElementData("settings_globalchat", "ja");
                 }
             }
             catch { }
@@ -77,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("ATM_STATE_CHANGE_SERVER")]
-        public void ATM_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void ATM_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
@@ -85,26 +82,26 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
 
                     player.Emit("ShowATMBlips");
-                    player.vnxSetStreamSharedElementData( "settings_atm", "ja");
+                    player.vnxSetStreamSharedElementData("settings_atm", "ja");
                 }
                 else
                 {
 
                     player.Emit("Destroy_ATMBlips");
-                    player.vnxSetStreamSharedElementData( "settings_atm", "nein");
+                    player.vnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
             catch { }
         }
 
         //[AltV.Net.ClientEvent("HAUS_STATE_CHANGE_SERVER")]
-        public void HAUS_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void HAUS_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
                 if (state == true)
                 {
-                    player.vnxSetStreamSharedElementData( "settings_haus", "ja");
+                    player.vnxSetStreamSharedElementData("settings_haus", "ja");
                     if (House.houseList != null)
                     {
                         foreach (HouseModel house in House.houseList)
@@ -123,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 else
                 {
                     player.Emit("getTableShit");
-                    player.vnxSetStreamSharedElementData( "settings_haus", "nein");
+                    player.vnxSetStreamSharedElementData("settings_haus", "nein");
                     //foreach (HouseModel house in House.houseList)
                     // {
                     player.Emit("Destroy_HouseBlips");
@@ -135,17 +132,17 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("TACHO_STATE_CHANGE_SERVER")]
-        public void TACHO_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void TACHO_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
                 if (state == true)
                 {
-                    player.vnxSetStreamSharedElementData( "settings_tacho", "ja");
+                    player.vnxSetStreamSharedElementData("settings_tacho", "ja");
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData( "settings_tacho", "nein");
+                    player.vnxSetStreamSharedElementData("settings_tacho", "nein");
                 }
             }
             catch { }
@@ -154,17 +151,17 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("QUEST_STATE_CHANGE_SERVER")]
-        public void QUEST_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void QUEST_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
                 if (state == true)
                 {
-                    player.vnxSetStreamSharedElementData( "settings_quest", "ja");
+                    player.vnxSetStreamSharedElementData("settings_quest", "ja");
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData( "settings_quest", "nein");
+                    player.vnxSetStreamSharedElementData("settings_quest", "nein");
                 }
                 anzeigen.Usefull.VnX.UpdateHUD(player);
             }
@@ -173,15 +170,15 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("HUD_STATE_CHANGE_SERVER")]
-        public void HUD_STATE_CHANGE_SERVER(IPlayer player, int state)
+        public void HUD_STATE_CHANGE_SERVER(PlayerModel player, int state)
         {
             try
             {
-                if(state == 0)
+                if (state == 0)
                 {
                     player.vnxSetElementData(EntityData.PLAYER_REALLIFE_HUD, 0);
-                }                
-                else if(state == 1)
+                }
+                else if (state == 1)
                 {
                     player.vnxSetElementData(EntityData.PLAYER_REALLIFE_HUD, 1);
                 }
@@ -198,34 +195,34 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("REPORTER_STATE_CHANGE_SERVER")]
-        public void REPORTER_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void REPORTER_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
                 if (state == true)
                 {
-                    player.vnxSetStreamSharedElementData( "settings_reporter", "ja");
+                    player.vnxSetStreamSharedElementData("settings_reporter", "ja");
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData( "settings_reporter", "nein");
+                    player.vnxSetStreamSharedElementData("settings_reporter", "nein");
                 }
             }
             catch { }
         }
 
         //[AltV.Net.ClientEvent("GLOBALCHAT_STATE_CHANGE_SERVER")]
-        public void GLOBALCHAT_STATE_CHANGE_SERVER(IPlayer player, bool state)
+        public void GLOBALCHAT_STATE_CHANGE_SERVER(PlayerModel player, bool state)
         {
             try
             {
                 if (state == true)
                 {
-                    player.vnxSetStreamSharedElementData( "settings_globalchat", "ja");
+                    player.vnxSetStreamSharedElementData("settings_globalchat", "ja");
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData( "settings_globalchat", "nein");
+                    player.vnxSetStreamSharedElementData("settings_globalchat", "nein");
                 }
             }
             catch { }
@@ -233,24 +230,24 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("onClickedSpawn")]
-        public void ChangePlayerSpawnpoint(IPlayer player, string spawn)
+        public void ChangePlayerSpawnpoint(PlayerModel player, string spawn)
         {
             try
             {
                 if (spawn == "Noobspawn")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Noobspawn!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
                 }
                 else if (spawn == "Rathaus")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Rathaus");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Rathaus!");
-                }                
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Rathaus!");
+                }
                 else if (spawn == "Wuerfelpark")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Wuerfelpark");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Würfelpark!");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Würfelpark!");
                 }
                 else if (spawn == "Basis")
                 {
@@ -258,21 +255,21 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     if (playerFaction > 0)
                     {
                         player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Basis");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Basis!");
+                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis!");
                     }
                     else
                     {
-                        player.SendChatMessage( Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
+                        player.SendChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
                     }
                 }
                 else if (spawn == "Haus")
                 {
                     foreach (HouseModel house in House.houseList)
                     {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 ||player.GetVnXName() == house.owner)
+                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName() == house.owner)
                         {
                             player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "House");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0,200,255) + " [Settings] : " + RageAPI.GetHexColorcode(255,255,255) + "Spawnpoint gesetzt auf Haus!");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Haus!");
                         }
                     }
                 }

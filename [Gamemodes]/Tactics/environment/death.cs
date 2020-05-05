@@ -1,9 +1,9 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Tactics.Globals;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.environment
@@ -11,11 +11,11 @@ namespace VenoXV._Gamemodes_.Tactics.environment
     public class Death : IScript
     {
         [Command("tpos")]
-        public static void GetTacticSpawnpoint(IPlayer player)
+        public static void GetTacticSpawnpoint(PlayerModel player)
         {
-            Core.Debug.OutputDebugString("TPOS : " + player.Position.X + "f, " + player.Position.Y + "f, " + player.Position.Z + "f");
+            Core.Debug.OutputDebugString("TPOS : " + player.position.X + "f, " + player.position.Y + "f, " + player.position.Z + "f");
         }
-        public static void OnPlayerDeath(IPlayer player, IPlayer killer)
+        public static void OnPlayerDeath(PlayerModel player, PlayerModel killer)
         {
             try
             {
@@ -70,13 +70,13 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         Core.Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
                         Core.RageAPI.SendChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
                     }
-                    player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
+                    player.SpawnPlayer(new Position(player.position.X, player.position.Y, player.position.Z + 50));
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);
                     player.Emit("Tactics:OnDeath");
                     _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
-                    player.RemoveAllWeapons();
+                    player.RemoveAllPlayerWeapons();
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions("OnPlayerDeath", ex); }

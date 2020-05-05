@@ -1,10 +1,6 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using VenoXV.Core;
-using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.weapons
 {
@@ -75,11 +71,11 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
 
         //[AltV.Net.ClientEvent("OnHittedEntity")]
-        public static void OnHittedEntity(IPlayer player, string target_name, string currentWeapon, string hitBone)
+        public static void OnHittedEntity(PlayerModel player, string target_name, string currentWeapon, string hitBone)
         {
             try
             {
-                
+
                 // DEBUG - DEV
                 /*
                 NAPI.Chat.SendChatMessageToAll("Hitbone : " + hitBone);

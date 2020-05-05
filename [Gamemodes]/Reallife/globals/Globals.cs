@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { return new Position(0, 0, 0); }
         }
 
-        public static IVehicle GetClosestIVehicle(IPlayer player, float distance = 3.5f)
+        public static IVehicle GetClosestIVehicle(PlayerModel player, float distance = 3.5f)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 foreach (IVehicle veh in Alt.GetAllVehicles())
                 {
                     Position vehPos = veh.Position;
-                    float distanceIVehicleToPlayer = player.Position.Distance(vehPos);
+                    float distanceIVehicleToPlayer = player.position.Distance(vehPos);
 
                     if (distanceIVehicleToPlayer < distance && player.Dimension == veh.Dimension)
                     {
@@ -94,7 +94,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             environment.Weed.Main.OnUpdate();
         }
 
-        public static void OnPlayerExitIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerExitIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                IPlayer player = entity as IPlayer;
+                PlayerModel player = entity as PlayerModel;
                 CarShop.OnPlayerEnterIColShape(shape, player);
                 Clothes.Clothes.OnPlayerEnterIColShape(shape, player);
                 Environment.ammunation.ammunation.OnPlayerEnterIColShape(shape, player);
@@ -140,7 +140,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
 
-        public static void SyncWeather(IPlayer player)
+        public static void SyncWeather(PlayerModel player)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void OnMinuteSpentReallifeGM(IPlayer player)
+        public static void OnMinuteSpentReallifeGM(PlayerModel player)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) == 0)
                         {
                             AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                            player.Position = new Position(427.5651f, -981.0995f, 30.71008f);
+                            player.position = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
@@ -249,7 +249,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
         }
 
-        public static void OnMinuteSpentTacticGM(IPlayer player)
+        public static void OnMinuteSpentTacticGM(PlayerModel player)
         {
             try
             {
@@ -269,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
         }
 
-        public static void OnMinuteSpentZombieGM(IPlayer player)
+        public static void OnMinuteSpentZombieGM(PlayerModel player)
         {
             try
             {
@@ -302,7 +302,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 }
-                foreach (IPlayer player in Alt.GetAllPlayers())
+                foreach (PlayerModel player in Alt.GetAllPlayers())
                 {
                     if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
                     {
@@ -341,7 +341,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_INT")]
-        public static void Store_Delayed_ElementData_INT(IPlayer player, string elementdata, int value)
+        public static void Store_Delayed_ElementData_INT(PlayerModel player, string elementdata, int value)
         {
             try
             {
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_STRING")]
-        public static void Store_Delayed_ElementData_INT(IPlayer player, string elementdata, string value)
+        public static void Store_Delayed_ElementData_INT(PlayerModel player, string elementdata, string value)
         {
             try
             {
@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_BOOL")]
-        public static void Store_Delayed_ElementData_BOOL(IPlayer player, string elementdata, bool value)
+        public static void Store_Delayed_ElementData_BOOL(PlayerModel player, string elementdata, bool value)
         {
             try
             {
@@ -375,7 +375,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void GeneratePlayerPayday(IPlayer player)
+        public static void GeneratePlayerPayday(PlayerModel player)
         {
             try
             {
@@ -384,7 +384,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 int playerRank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
                 int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
                 player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                PlayerModel VipL = Database.GetPlayerVIP((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                PlayerModel VipL = Database.GetPlayerVIP(player, (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
                 {
@@ -726,7 +726,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-        public static void OnPlayerDisconnected(IPlayer player, string type, string reason)
+        public static void OnPlayerDisconnected(PlayerModel player, string type, string reason)
         {
             try
             {
@@ -784,7 +784,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         }
 
                     }
-                    foreach (IPlayer players in Alt.GetAllPlayers())
+                    foreach (PlayerModel players in Alt.GetAllPlayers())
                     {
                         if (players.Dimension == Constants.VEHICLE_OFFLINE_DIM)
                         {
@@ -805,7 +805,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
         //[AltV.Net.ClientEvent("checkPlayerEventKey")]
         [ClientEvent("checkPlayerEventKey")]
-        public void CheckPlayerEventKeyEvent(IPlayer player)
+        public void CheckPlayerEventKeyEvent(PlayerModel player)
         {
             try
             {
@@ -819,16 +819,16 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     // Check if the player's in any interior
                     foreach (InteriorModel interior in Constants.INTERIOR_LIST)
                     {
-                        if (player.Position.Distance(interior.entrancePosition) < 1.5f)
+                        if (player.position.Distance(interior.entrancePosition) < 1.5f)
                         {
                             AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
-                            player.Position = interior.exitPosition;
+                            player.position = interior.exitPosition;
                             return;
                         }
-                        else if (player.Position.Distance(interior.exitPosition) < 1.5f)
+                        else if (player.position.Distance(interior.exitPosition) < 1.5f)
                         {
                             AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
-                            player.Position = interior.entrancePosition;
+                            player.position = interior.entrancePosition;
                             return;
                         }
                     }
@@ -836,7 +836,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     // Check if the player's close to an ATM
                     for (int i = 0; i < Constants.ATM_LIST.Count; i++)
                     {
-                        if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
+                        if (player.position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
                             player.Emit("showATM", player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
                             return;
@@ -849,7 +849,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         foreach (HouseModel house in House.houseList)
                         {
-                            if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                            if (player.position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 8000);
                                 if (!House.HasPlayerHouseKeys(player, house) && house.locked)
@@ -859,7 +859,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 else
                                 {
 
-                                    player.Position = GetHouseIplExit(house.ipl);
+                                    player.position = GetHouseIplExit(house.ipl);
                                     player.Dimension = house.id;
 
                                     player.vnxSetElementData(EntityData.PLAYER_IPL, house.ipl);
@@ -871,13 +871,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 1250);
                                 Position exitPosition = House.GetHouseExitPoint(house.ipl);
-                                if (player.Position.Distance(exitPosition) < 2.5f)
+                                if (player.position.Distance(exitPosition) < 2.5f)
                                 {
                                     /*if (!House.HasPlayerHouseKeys(player, house) && house.locked)
                                     {
                                         player.SendChatMessage(Constants.Rgba_ERROR + "Das Haus ist abgeschlossen!");
                                     }*/
-                                    player.Position = house.position;
+                                    player.position = house.position;
                                     player.Dimension = 0;
                                     player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                                     /*
@@ -904,7 +904,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         //[AltV.Net.ClientEvent("reset_drug_state")]
-        public static void ResetDrugState(IPlayer player, int drug)
+        public static void ResetDrugState(PlayerModel player, int drug)
         {
             try
             {
@@ -918,11 +918,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         //[AltV.Net.ClientEvent("getPlayerTattoos")]
-        public void GetPlayerTattoosEvent(IPlayer player, string target_name)
+        public void GetPlayerTattoosEvent(PlayerModel player, string target_name)
         {
             try
             {
-                IPlayer target = Core.RageAPI.GetPlayerFromName(target_name);
+                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 int targetId = target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 List<TattooModel> playerTattooList = tattooList.Where(t => t.player == targetId).ToList();
@@ -941,7 +941,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         /// <param name="ItemHash">Item - Hash in Constants.cs</param>
         /// <param name="ItemArt">Waffe, Magazin,Fallschirm, Business, NUTZ_ITEM, Drogen</param>
         /// <param name="ItemAmount">Item Anzahl! Sollte der Spieler das Item besitzen , so wird es Addiert!</param>
-        public static void GivePlayerItem(IPlayer player, string ItemHash, string ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
+        public static void GivePlayerItem(PlayerModel player, string ItemHash, string ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
         {
             try
             {
@@ -1086,7 +1086,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
         /*
         [Command("inventory")]
-        public void InventoryCommand(IPlayer player)
+        public void InventoryCommand(PlayerModel player)
         {
             if (GetPlayerInventoryTotal(player) > 0)
             {
@@ -1104,7 +1104,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         /* [Command("klamotten")]
-         public void ComplementCommand(IPlayer player, string type, string action)
+         public void ComplementCommand(PlayerModel player, string type, string action)
          {
              ClothesModel clothes = null;
              int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);

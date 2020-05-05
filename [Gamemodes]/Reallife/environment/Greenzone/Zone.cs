@@ -1,9 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
@@ -12,7 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
     {
         public static Position LSPD_COL_POS = new Position(399.868f, -998.4932f, 29.45414f);
         public static IColShape LSPD_Col = Alt.CreateColShapeSphere(LSPD_COL_POS, 50);
-        public static void CreateGreenzone(IPlayer player)
+        public static void CreateGreenzone(PlayerModel player)
         {
             try
             {
@@ -20,29 +18,29 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             }
             catch { }
         }
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
-            if(shape == LSPD_Col)
+            if (shape == LSPD_Col)
             {
                 player.Emit("Greenzone:ChangeStatus", true);
                 if (player.vnxGetElementData<string>("settings_quest") == "ja")
                 {
-                    player.vnxSetStreamSharedElementData( "settings_quest", "nein");
+                    player.vnxSetStreamSharedElementData("settings_quest", "nein");
                     anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", true);
                 }
             }
         }
 
-        public static void OnPlayerExitIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerExitIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
                 if (shape == LSPD_Col)
                 {
-                    if(player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
+                    if (player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
                     {
-                        player.vnxSetStreamSharedElementData( "settings_quest", "ja");
+                        player.vnxSetStreamSharedElementData("settings_quest", "ja");
                         anzeigen.Usefull.VnX.UpdateHUD(player);
                         player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
                     }

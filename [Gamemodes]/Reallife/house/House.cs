@@ -1,15 +1,15 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.house
 {
@@ -42,15 +42,15 @@ namespace VenoXV._Gamemodes_.Reallife.house
             return house;
         }
 
-        public static HouseModel GetClosestHouse(IPlayer player, float distance = 1.5f)
+        public static HouseModel GetClosestHouse(PlayerModel player, float distance = 1.5f)
         {
             HouseModel house = null;
             foreach (HouseModel houseModel in houseList)
             {
-                if (player.Position.Distance(houseModel.position) < distance)
+                if (player.position.Distance(houseModel.position) < distance)
                 {
                     house = houseModel;
-                    distance = player.Position.Distance(houseModel.position);
+                    distance = player.position.Distance(houseModel.position);
                 }
             }
             return house;
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return new Position(0, 0, 0); }
         }
 
-        public static bool HasPlayerHouseKeys(IPlayer player, HouseModel house)
+        public static bool HasPlayerHouseKeys(PlayerModel player, HouseModel house)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return ""; }
         }
 
-        public static void BuyHouseS(IPlayer player, HouseModel house)
+        public static void BuyHouseS(PlayerModel player, HouseModel house)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("buyhouse")]
-        public void BuyHouseIPlayer(IPlayer player)
+        public void BuyHouseIPlayer(PlayerModel player)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
                     }
-                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                     {
                         BuyHouseS(player, house);
                         return;
@@ -161,7 +161,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         /*[Command("sellhouse")]
-        public static void SellHouseIPlayer(IPlayer player)
+        public static void SellHouseIPlayer(PlayerModel player)
         {
             // Get all the houses
             foreach (HouseModel house in houseList)
@@ -199,14 +199,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("hlock")]
-        public void HouseLockIPlayer(IPlayer player)
+        public void HouseLockIPlayer(PlayerModel player)
         {
             try
             {
                 // Get all the houses
                 foreach (HouseModel house in houseList)
                 {
-                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                     {
                         if (house.owner == player.GetVnXName())
                         {
@@ -230,7 +230,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         [Command("houseinfos")]
-        public void GetHouseInfos(IPlayer player)
+        public void GetHouseInfos(PlayerModel player)
         {
             try
             {
@@ -257,7 +257,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         //[AltV.Net.ClientEvent("getPlayerPurchasedClothes")]
-        public void GetPlayerPurchasedClothesEvent(IPlayer player, int type, int slot)
+        public void GetPlayerPurchasedClothesEvent(PlayerModel player, int type, int slot)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         //[AltV.Net.ClientEvent("wardrobeClothesItemSelected")]
-        public void WardrobeClothesItemSelectedEvent(IPlayer player, int clothesId)
+        public void WardrobeClothesItemSelectedEvent(PlayerModel player, int clothesId)
         {
             try
             {
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("setrent")]
-        public void RentableCommand(IPlayer player, int amount = 0)
+        public void RentableCommand(PlayerModel player, int amount = 0)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == 0)
             {
@@ -369,11 +369,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("renthouse")]
-        public void RentCommand(IPlayer player)
+        public void RentCommand(PlayerModel player)
         {
             foreach (HouseModel house in houseList)
             {
-                if (player.Position.Distance(house.position) <= 1.5 && player.Dimension == house.Dimension)
+                if (player.position.Distance(house.position) <= 1.5 && player.Dimension == house.Dimension)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == 0)
                     {
@@ -420,7 +420,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
         [Command("unrenthouse")]
 
-        public static void UnrentFromHaus(IPlayer player)
+        public static void UnrentFromHaus(PlayerModel player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
             {

@@ -1,8 +1,5 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Tactics.lobby
 {
@@ -13,14 +10,14 @@ namespace VenoXV._Gamemodes_.Tactics.lobby
         {
             try
             {
-                if(weapon == AltV.Net.Enums.WeaponModel.HeavyRevolver) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.SMG) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.CarbineRifle) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.AssaultRifle) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.CombatPDW) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.Musket) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.PumpShotgun) { return true; }
-                else if(weapon == AltV.Net.Enums.WeaponModel.SniperRifle) { return true; }
+                if (weapon == AltV.Net.Enums.WeaponModel.HeavyRevolver) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.SMG) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.CarbineRifle) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.AssaultRifle) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.CombatPDW) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.Musket) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.PumpShotgun) { return true; }
+                else if (weapon == AltV.Net.Enums.WeaponModel.SniperRifle) { return true; }
                 else
                 {
                     return false;
@@ -29,7 +26,7 @@ namespace VenoXV._Gamemodes_.Tactics.lobby
             catch { return false; }
         }
 
-        public static void LoadTacticsAnticheat(IPlayer player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel weapon)
+        public static void LoadTacticsAnticheat(PlayerModel player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel weapon)
         {
             try
             {

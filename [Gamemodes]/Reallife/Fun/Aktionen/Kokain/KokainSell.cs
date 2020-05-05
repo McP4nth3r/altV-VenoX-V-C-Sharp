@@ -4,11 +4,11 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Threading.Tasks;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
 {
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -40,29 +40,29 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             }
             catch { }
         }
-        public static void SellKokain(IPlayer player, int value)
+        public static void SellKokain(PlayerModel player, int value)
         {
             try
             {
                 ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
-                if(KOKS != null)
+                if (KOKS != null)
                 {
-                    if(value > 0)
+                    if (value > 0)
                     {
-                        if(value <= KOKS.amount)
+                        if (value <= KOKS.amount)
                         {
                             int koksverkauf = value * 30;
-                            player.SendChatMessage( "Du hast " + RageAPI.GetHexColorcode(0,150,200) + value + "g " + RageAPI.GetHexColorcode(255, 255,255) + " Kokain für " + RageAPI.GetHexColorcode(0,150,200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255,255) + "verkauft.");
-                            player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + koksverkauf);
+                            player.SendChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
+                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + koksverkauf);
                             dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
                             KOKS.amount -= value;
-                                // Update the amount into the database
-                                Database.UpdateItem(KOKS);
+                            // Update the amount into the database
+                            Database.UpdateItem(KOKS);
                             if (KOKS.amount == 0)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.id);
-                               anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
+                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                             }
                         }
                         else

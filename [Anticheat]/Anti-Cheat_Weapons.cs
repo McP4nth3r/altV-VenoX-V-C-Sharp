@@ -1,12 +1,8 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.database;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV.Anti_Cheat
 {
@@ -33,7 +29,7 @@ namespace VenoXV.Anti_Cheat
         public const string ANTICHEAT_AK47_HASH = "0x0015";
         public const string ANTICHEAT_MP5_HASH = "0x0016";
         public const string ANTICHEAT_MINISMG_HASH = "0x0017";
-        public static void anticheat_permanent_ban(IPlayer player, string Banhash)
+        public static void anticheat_permanent_ban(PlayerModel player, string Banhash)
         {
             try
             {
@@ -41,9 +37,9 @@ namespace VenoXV.Anti_Cheat
                 {
                     if (player.Health != 0)
                     {
-                        logfile.WriteAntiCheatLogs("weapon", "[ANTI-CHEAT][" + Banhash + "] : " +player.GetVnXName() + " |Position Now : " + player.Position + " | Currentweapon : " + player.CurrentWeapon);
+                        logfile.WriteAntiCheatLogs("weapon", "[ANTI-CHEAT][" + Banhash + "] : " + player.GetVnXName() + " |Position Now : " + player.position + " | Currentweapon : " + player.CurrentWeapon);
                         Database.AddPlayerPermaBan(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash);
-                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255,0,0)+ player.GetVnXName() + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
+                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255, 0, 0) + player.GetVnXName() + " wurde von [VenoX Anti-Cheat Shield] Permanent gebannt! Grund : # " + Banhash);
                         player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
                     }
                 }

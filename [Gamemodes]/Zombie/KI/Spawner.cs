@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Globals;
 
@@ -14,9 +14,9 @@ namespace VenoXV.Zombie.KI
         public static Position ZOMBIESPAWN;
 
 
-        public static void TriggerForEveryoneInLobby(IPlayer player, Position coord)
+        public static void TriggerForEveryoneInLobby(PlayerModel player, Position coord)
         {
-            foreach (IPlayer players in Alt.GetAllPlayers())
+            foreach (PlayerModel players in Alt.GetAllPlayers())
             {
                 if (players.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_ZOMBIE)
                 {
@@ -29,7 +29,7 @@ namespace VenoXV.Zombie.KI
 
         public static void SpawnZombiesArroundPlayers()
         {
-            foreach (IPlayer player in Alt.GetAllPlayers())
+            foreach (PlayerModel player in Alt.GetAllPlayers())
             {
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_ZOMBIE)
                 {
@@ -37,26 +37,26 @@ namespace VenoXV.Zombie.KI
                     {
                         X_ADD = 2;
                         Y_ADD = 2;
-                        ZOMBIESPAWN = new Position(player.Position.X + X_ADD, player.Position.Y + Y_ADD, player.Position.Z);
+                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y + Y_ADD, player.position.Z);
                     }
                     else if (RANDOM_COUNTER == 1)
                     {
                         X_ADD = 4;
                         Y_ADD = -4;
-                        ZOMBIESPAWN = new Position(player.Position.X + X_ADD, player.Position.Y - Y_ADD, player.Position.Z);
+                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y - Y_ADD, player.position.Z);
 
                     }
                     else if (RANDOM_COUNTER == 2)
                     {
                         X_ADD = 10;
                         Y_ADD = -2;
-                        ZOMBIESPAWN = new Position(player.Position.X + X_ADD, player.Position.Y - Y_ADD, player.Position.Z);
+                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y - Y_ADD, player.position.Z);
                     }
                     else if (RANDOM_COUNTER == 4)
                     {
                         X_ADD = 17;
                         Y_ADD = 7;
-                        ZOMBIESPAWN = new Position(player.Position.X + X_ADD, player.Position.Y + Y_ADD, player.Position.Z);
+                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y + Y_ADD, player.position.Z);
 
                     }
                     else
@@ -64,13 +64,13 @@ namespace VenoXV.Zombie.KI
                         RANDOM_COUNTER = 0;
                         X_ADD = -10;
                         Y_ADD = -10;
-                        ZOMBIESPAWN = new Position(player.Position.X - X_ADD, player.Position.Y - Y_ADD, player.Position.Z);
+                        ZOMBIESPAWN = new Position(player.position.X - X_ADD, player.position.Y - Y_ADD, player.position.Z);
 
                     }
 
                     TriggerForEveryoneInLobby(player, ZOMBIESPAWN);
 
-                    //player.SendChatMessage( "Zombie Spawned" + player.Position.X + X_ADD + " || " +  player.Position.Y + Y_ADD + " || " + player.Position.Z);
+                    //player.SendChatMessage( "Zombie Spawned" + player.position.X + X_ADD + " || " +  player.position.Y + Y_ADD + " || " + player.position.Z);
 
                     RANDOM_COUNTER += 1;
                 }

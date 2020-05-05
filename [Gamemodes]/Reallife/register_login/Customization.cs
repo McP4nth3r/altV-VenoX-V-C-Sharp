@@ -1,15 +1,15 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.character
 {
     public class Customization : IScript
     {
-        public static void ApplyPlayerCustomization(IPlayer player, SkinModel skinModel, int sex)
+        public static void ApplyPlayerCustomization(PlayerModel player, SkinModel skinModel, int sex)
         {
             try
             {
@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerCustomization", ex); }
         }
 
-        public static void ApplyPlayerClothes(IPlayer player)
+        public static void ApplyPlayerClothes(PlayerModel player)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
         }
 
-        public static void ApplyPlayerTattoos(IPlayer player)
+        public static void ApplyPlayerTattoos(PlayerModel player)
         {
             try
             {

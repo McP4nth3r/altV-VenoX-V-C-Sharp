@@ -2,12 +2,9 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV.Core;
-using VenoXV._Gamemodes_.Reallife.dxLibary;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
 {
@@ -18,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         //public static Marker RathausMarkerImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-546.1301, -202.6208, 38.30002), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         //public static Marker RathausMarkerEingang = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-545.3177f, -203.7145f, 38.2151f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IPlayer player)
+        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
         {
             try
             {
@@ -50,12 +47,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             }
             catch
             {
-                
+
             }
         }
 
         //[AltV.Net.ClientEvent("On_Clicked_Button_Rathaus")]
-        public static void OnClickedButton_Rathaus(IPlayer player, string button)
+        public static void OnClickedButton_Rathaus(PlayerModel player, string button)
         {
             try
             {
@@ -72,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
                     player.vnxSetElementData(EntityData.PLAYER_PERSONALAUSWEIS, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Personalausweis erhalten!");
                 }
@@ -116,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 28250);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 28250);
                     player.vnxSetElementData(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Flugschein A erhalten!");
                 }
@@ -137,7 +134,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 37625);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 37625);
                     player.vnxSetElementData(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Flugschein B erhalten!");
                 }
@@ -153,7 +150,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 25438);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 25438);
                     player.vnxSetElementData(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Helikopterschein erhalten!");
                 }
@@ -169,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 5220);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 5220);
                     player.vnxSetElementData(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Bootsschein erhalten!");
                 }
@@ -185,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 1150);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 1150);
                     player.vnxSetElementData(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, 1);
                     dxLibary.VnX.DrawNotification(player, "info", "[Rathaus] : Angelschein erhalten!");
                 }
@@ -202,23 +199,23 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
                         return;
                     }
-                    if(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) < 3 * 60)
+                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) < 3 * 60)
                     {
                         dxLibary.VnX.DrawNotification(player, "error", "Erst ab 3 Spielstunden möglich.");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 21250);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 21250);
                     player.vnxSetElementData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 1);
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"------------WAFFENSCHEIN INFORMATION------------");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +" Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +" Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,150,0) +"Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0,175,0) +"------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
                 }
                 else
                 {
-                    player.SendChatMessage( Constants.Rgba_ERROR + "Du hast nichts ausgewählt!");
+                    player.SendChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt!");
                 }
             }
             catch
@@ -229,22 +226,22 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
 
 
         //[AltV.Net.ClientEvent("CancelDrivingSchool")]
-        public static void CancelDrivingSchhol(IPlayer player, int speed)
+        public static void CancelDrivingSchhol(PlayerModel player, int speed)
         {
             try
             {
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") ==player.GetVnXName() && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
+                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName() && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
                     {
                         player.vnxSetElementData("Marker_Pruefung", 0);
                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                        dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
+                        dxLibary.VnX.DrawWaypoint(player, player.position.X, player.position.Y);
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                        player.Position = new Position(-542.6733f, -208.2215f, 37.64983f);
+                        player.position = new Position(-542.6733f, -208.2215f, 37.64983f);
                         player.Dimension = 0;
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255,0,0)+ "Du bist zu schnell gefahren! Km/h : " + speed);
+                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
                         player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                         player.Emit("Destroy_Rathaus_License_Ped");
                         if (player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")
@@ -259,12 +256,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         Vehicle.Remove();
                         IColShape FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
                         IColShape FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
-                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") ==player.GetVnXName())
+                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") == player.GetVnXName())
                         {
                             AltV.Net.Alt.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
                             return;
                         }
-                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") ==player.GetVnXName())
+                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") == player.GetVnXName())
                         {
                             AltV.Net.Alt.RemoveColShape(FührerscheinCol);
                             return;

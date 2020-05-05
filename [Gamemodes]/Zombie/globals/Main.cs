@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV.Zombie.globals
@@ -14,7 +14,7 @@ namespace VenoXV.Zombie.globals
         }
 
         //[AltV.Net.ClientEvent("OnZombieKill")]
-        public static void OnZombieKill(IPlayer player)
+        public static void OnZombieKill(PlayerModel player)
         {
             try
             {

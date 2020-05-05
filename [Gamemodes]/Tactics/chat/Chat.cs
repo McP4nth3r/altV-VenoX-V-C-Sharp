@@ -1,15 +1,15 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.chat
 {
     public class Chat : IScript
     {
-        public static void OnChatMessage(IPlayer player, string message)
+        public static void OnChatMessage(PlayerModel player, string message)
         {
-            foreach (IPlayer players in Alt.GetAllPlayers())
+            foreach (PlayerModel players in Alt.GetAllPlayers())
             {
                 if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                 {

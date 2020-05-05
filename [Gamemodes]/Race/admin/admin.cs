@@ -1,8 +1,8 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Race.admin
 {
@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Race.admin
     {
 
         [Command("skipcurrentrace")]
-        public static void SkipRound(IPlayer player)
+        public static void SkipRound(PlayerModel player)
         {
             Core.Debug.OutputDebugString("Called with : " + player.GetVnXName());
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)

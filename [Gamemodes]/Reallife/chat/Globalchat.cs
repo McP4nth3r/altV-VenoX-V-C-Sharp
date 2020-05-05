@@ -1,9 +1,9 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using VenoXV.Core;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.chat
 {
@@ -12,8 +12,8 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         public static string Global_Admin_Status = "Angeschaltet";
 
 
-        [Command("global",  true)]
-        public static void SendGlobalMessage(IPlayer player, string text)
+        [Command("global", true)]
+        public static void SendGlobalMessage(PlayerModel player, string text)
         {
             try
             {
@@ -36,16 +36,16 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                             {
                                 if (pl_adminlvl > 0)
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255)+ "[GLOBAL]" + Clantag +player.GetVnXName() + " : " + text);
+                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + Clantag + player.GetVnXName() + " : " + text);
                                 }
                                 else
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255,255,255) +player.GetVnXName() + " : " + text);
+                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " : " + text);
                                 }
                             }
                             //}
                         }
-                        vnx_stored_files.logfile.WriteLogs("globalchat","[" +player.GetVnXName() + "] : " + text);
+                        vnx_stored_files.logfile.WriteLogs("globalchat", "[" + player.GetVnXName() + "] : " + text);
 
                     }
                     else
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 }
                 else
                 {
-                    player.SendChatMessage( "Der Globalchat ist augeschaltet!");
+                    player.SendChatMessage("Der Globalchat ist augeschaltet!");
                 }
             }
             catch
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("global_aus")]
-        public void setGlobal_status_on(IPlayer player)
+        public void setGlobal_status_on(PlayerModel player)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                     Global_Admin_Status = "Ausgeschaltet";
                     foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" +player.GetVnXName() + " hat den Globalchat augeschaltet!");
+                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat augeschaltet!");
                     }
                 }
             }
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("global_an")]
-        public void setGlobal_status_off(IPlayer player)
+        public void setGlobal_status_off(PlayerModel player)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                     Global_Admin_Status = "Angeschaltet";
                     foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" +player.GetVnXName() + " hat den Globalchat angeschaltet!");
+                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat angeschaltet!");
                     }
                 }
             }

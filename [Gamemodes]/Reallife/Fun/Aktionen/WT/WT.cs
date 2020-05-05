@@ -7,6 +7,7 @@ using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_.EntityDatas;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
@@ -19,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
 
 
         //[AltV.Net.ClientEvent("Start_WT_Server")]
-        public static void Start_WT_Server(IPlayer player, int baseball, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int revolver, int revolver_ammo, int mp5, int mp5_ammo, int ak47, int ak47_ammo, int rifle, int rifle_ammo, int sniperrifle, int sniperrifle_ammo, int rpg, int rpg_ammo, int molotov, int totalcost)
+        public static void Start_WT_Server(PlayerModel player, int baseball, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int revolver, int revolver_ammo, int mp5, int mp5_ammo, int ak47, int ak47_ammo, int rifle, int rifle_ammo, int sniperrifle, int sniperrifle_ammo, int rpg, int rpg_ammo, int molotov, int totalcost)
         {
             try
             {
@@ -185,7 +186,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
             }
         }
 
-        public static void FinishWT(IPlayer player, IVehicle WT_TRUCK, int FID)
+        public static void FinishWT(PlayerModel player, IVehicle WT_TRUCK, int FID)
         {
             try
             {

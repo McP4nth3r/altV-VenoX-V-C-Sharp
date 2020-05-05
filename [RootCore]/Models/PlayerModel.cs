@@ -1,15 +1,24 @@
-﻿using AltV.Net.Data;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
 using System;
+using System.Numerics;
 
 namespace VenoXV._RootCore_.Models
 {
-    public class PlayerModel
+    public class PlayerModel : Player
     {
 
         public int id { get; set; }
         public string realName { get; set; }
         public int adminRank { get; set; }
-        public Position position { get; set; }
+
+        private Vector3 Pos { get; set; }
+        public Position position
+        {
+            get { return Pos; }
+            set { Pos = value; Alt.Emit("GlobalSystems:PlayerPosition", this, value); Core.Debug.OutputDebugString("Called Pos " + value); }
+        }
         public int rotation { get; set; }
         public int money { get; set; }
         public int bank { get; set; }
@@ -76,5 +85,25 @@ namespace VenoXV._RootCore_.Models
         public int zombie_kills { get; set; }
         public int zombie_player_kills { get; set; }
         public int zombie_tode { get; set; }
+
+        public PlayerModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+        {
+            try
+            {
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+        }
+    }
+
+    public class MyPlayerFactory : IEntityFactory<IPlayer>
+    {
+        public IPlayer Create(IntPtr playerPointer, ushort id)
+        {
+            try
+            {
+                return new PlayerModel(playerPointer, id);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
+        }
     }
 }

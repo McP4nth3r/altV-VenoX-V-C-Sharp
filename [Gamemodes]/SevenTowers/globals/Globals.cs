@@ -1,14 +1,12 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using VenoXV._RootCore_.Models;
 
 namespace VenoXV.SevenTowers.globals
 {
     public class Main : IScript
     {
-        public static void OnPlayerDisconnect(IPlayer player)
+        public static void OnPlayerDisconnect(PlayerModel player)
         {
             try
             {

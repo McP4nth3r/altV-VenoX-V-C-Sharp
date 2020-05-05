@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV.Globals
@@ -15,7 +16,7 @@ namespace VenoXV.Globals
         public static List<IPlayer> RacePlayers = new List<IPlayer>();
 
 
-        public static void AddPlayerIntoGamemodeList(IPlayer player, string Gamemode)
+        public static void AddPlayerIntoGamemodeList(PlayerModel player, string Gamemode)
         {
             try
             {
@@ -37,7 +38,7 @@ namespace VenoXV.Globals
             }
             catch (Exception ex) { Debug.CatchExceptions("AddPlayerIntoGamemodeList", ex); }
         }
-        public static void RemovePlayerFromGamemodeList(IPlayer player)
+        public static void RemovePlayerFromGamemodeList(PlayerModel player)
         {
             try
             {
@@ -82,11 +83,11 @@ namespace VenoXV.Globals
 
 
         [ScriptEvent(ScriptEventType.ColShape)]
-        public static void OnColShape(IColShape shape, AltV.Net.Elements.Entities.IEntity entity, bool state)
+        public static void OnColShape(IColShape shape, IEntity entity, bool state)
         {
             try
             {
-                IPlayer player = entity as IPlayer;
+                PlayerModel player = entity as PlayerModel;
                 if (player == null) return;
                 if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
@@ -95,7 +96,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
-        public static void OnPlayerDeath(IPlayer player, IPlayer killer, uint reason)
+        public static void OnPlayerDeath(PlayerModel player, PlayerModel killer, uint reason)
         {
             try
             {
@@ -144,7 +145,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public void OnPlayerDisconnected(IPlayer player, string reason)
+        public void OnPlayerDisconnected(PlayerModel player, string reason)
         {
             try
             {
@@ -157,7 +158,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.WeaponDamage)]
-        public static void WeaponDamage(IPlayer source, IPlayer target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
+        public static void WeaponDamage(PlayerModel source, PlayerModel target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
         {
             try
             {
