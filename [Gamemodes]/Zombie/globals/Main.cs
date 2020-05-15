@@ -13,8 +13,8 @@ namespace VenoXV.Zombie.globals
             World.Main.OnUpdate();
         }
 
-        //[AltV.Net.ClientEvent("OnZombieKill")]
-        public static void OnZombieKill(PlayerModel player)
+        [ClientEvent("OnZombieKill")]
+        public static void OnZombieKill(Client player)
         {
             try
             {
