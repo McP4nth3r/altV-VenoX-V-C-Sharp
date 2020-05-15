@@ -1,80 +1,77 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 using VenoXV.Globals;
 
 namespace VenoXV.Zombie.KI
 {
     public class Spawner : IScript
     {
-        public static int RANDOM_COUNTER = 0;
-        public static int X_ADD = 0;
-        public static int Y_ADD = 0;
-        public static Position ZOMBIESPAWN;
-
-
-        public static void TriggerForEveryoneInLobby(PlayerModel player, Position coord)
+        private static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
+        private static int CurrentZombieCounter = 0;
+        private static void AddNearbyZombiesIntoList()
         {
-            foreach (PlayerModel players in Alt.GetAllPlayers())
+            foreach (Client player in Main.ZombiePlayers)
             {
-                if (players.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_ZOMBIE)
+                ZombieModel zombieClass = new ZombieModel
                 {
-                    players.Emit("Zombie:SpawnKI", "u_m_y_zombie_01", coord, player);
+                    ID = CurrentZombieCounter++,
+                    SkinName = "u_m_y_zombie_01",
+                    IsDead = false,
+                    Position = new Vector3(player.Position.X + 3, player.Position.Y + 3, player.Position.Z),
+                    TargetEntity = null
+                };
+                CurrentZombies.Add(zombieClass);
+            }
+        }
+        private static void SpawnZombiesArroundPlayers()
+        {
+            foreach (Client player in Main.ZombiePlayers)
+            {
+                foreach (ZombieModel zombieClass in CurrentZombies)
+                {
+                    if (player.Position.Distance(zombieClass.Position) <= 50 && zombieClass.TargetEntity == null)
+                    {
+                        zombieClass.TargetEntity = player;
+                        player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.Position, player);
+                    }
+                }
+            }
+        }
+        private static void CheckTargetEntityForZombies()
+        {
+            foreach (ZombieModel zombieClass in CurrentZombies)
+            {
+                if (zombieClass.TargetEntity == null)
+                {
+                    CurrentZombies.Remove(zombieClass);
+                }
+            }
+        }
+        public static void SpawnZombiesForEveryPlayer()
+        {
+            AddNearbyZombiesIntoList();
+            SpawnZombiesArroundPlayers();
+        }
+
+        public static void DestroyZombieById(int Id)
+        {
+            foreach (ZombieModel zombies in CurrentZombies.ToList())
+            {
+                if (zombies.ID == Id)
+                {
+                    foreach (Client players in Main.ZombiePlayers)
+                    {
+                        players.Emit("Zombies:DeleteZombieById", Id);
+                    }
+                    CurrentZombies.Remove(zombies);
+                    CurrentZombieCounter--;
                 }
             }
         }
 
-
-
-        public static void SpawnZombiesArroundPlayers()
-        {
-            foreach (PlayerModel player in Alt.GetAllPlayers())
-            {
-                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_ZOMBIE)
-                {
-                    if (RANDOM_COUNTER == 0)
-                    {
-                        X_ADD = 2;
-                        Y_ADD = 2;
-                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y + Y_ADD, player.position.Z);
-                    }
-                    else if (RANDOM_COUNTER == 1)
-                    {
-                        X_ADD = 4;
-                        Y_ADD = -4;
-                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y - Y_ADD, player.position.Z);
-
-                    }
-                    else if (RANDOM_COUNTER == 2)
-                    {
-                        X_ADD = 10;
-                        Y_ADD = -2;
-                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y - Y_ADD, player.position.Z);
-                    }
-                    else if (RANDOM_COUNTER == 4)
-                    {
-                        X_ADD = 17;
-                        Y_ADD = 7;
-                        ZOMBIESPAWN = new Position(player.position.X + X_ADD, player.position.Y + Y_ADD, player.position.Z);
-
-                    }
-                    else
-                    {
-                        RANDOM_COUNTER = 0;
-                        X_ADD = -10;
-                        Y_ADD = -10;
-                        ZOMBIESPAWN = new Position(player.position.X - X_ADD, player.position.Y - Y_ADD, player.position.Z);
-
-                    }
-
-                    TriggerForEveryoneInLobby(player, ZOMBIESPAWN);
-
-                    //player.SendChatMessage( "Zombie Spawned" + player.position.X + X_ADD + " || " +  player.position.Y + Y_ADD + " || " + player.position.Z);
-
-                    RANDOM_COUNTER += 1;
-                }
-            }
-        }
     }
 }
