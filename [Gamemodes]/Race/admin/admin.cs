@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Race.admin
     {
 
         [Command("skipcurrentrace")]
-        public static void SkipRound(PlayerModel player)
+        public static void SkipRound(Client player)
         {
             Core.Debug.OutputDebugString("Called with : " + player.GetVnXName());
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)

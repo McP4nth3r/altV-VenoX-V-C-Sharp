@@ -1,5 +1,5 @@
-﻿using AltV.Net.Resources.Chat.Api;
-using VenoXV._RootCore_.Models;
+﻿using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Race.Globals
 {
@@ -9,9 +9,9 @@ namespace VenoXV._Gamemodes_.Race.Globals
         {
             try
             {
-                foreach (PlayerModel players in VenoXV.Globals.Main.RacePlayers)
+                foreach (Client players in VenoXV.Globals.Main.RacePlayers)
                 {
-                    players?.SendChatMessage(text);
+                    players?.SendTranslatedChatMessage(text);
                 }
             }
             catch { }

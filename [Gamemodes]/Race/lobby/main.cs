@@ -30,7 +30,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static DateTime RACE_WILL_END = DateTime.Now;
         public static MapModel LastMap = new MapModel();
         public static MapModel CurrentMap;
-        public static List<PlayerModel> PlayerModelList;
+        public static List<Client> PlayerModelList;
         private static void DeleteAllRaceVehicles()
         {
             try
@@ -51,15 +51,15 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 DeleteAllRaceVehicles();
                 RACE_PLAYERS_IN_ROUND = 0;
                 RACE_PLAYERS_RACING = 0;
-                PlayerModelList = new List<PlayerModel>();
+                PlayerModelList = new List<Client>();
                 int counter = 0;
-                foreach (PlayerModel player in VenoXV.Globals.Main.RacePlayers)
+                foreach (Client player in VenoXV.Globals.Main.RacePlayers)
                 {
-                    PlayerModelList = new List<PlayerModel>();
+                    PlayerModelList = new List<Client>();
                 }
-                foreach (PlayerModel player in VenoXV.Globals.Main.RacePlayers)
+                foreach (Client player in VenoXV.Globals.Main.RacePlayers)
                 {
-                    if (counter > CurrentMap.PlayerSpawnPoints.Count) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Die Runde ist leider voll... bitte gedulde dich"); }
+                    if (counter > CurrentMap.PlayerSpawnPoints.Count) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Die Runde ist leider voll... bitte gedulde dich"); }
                     Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[counter];
                     Vector3 Rotation = CurrentMap.PlayerRotation;
                     player.SpawnPlayer(Spawnpoint);
@@ -100,26 +100,26 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("GetNewMap", ex); }
         }
-        private static void PutPlayerInRound(PlayerModel player)
+        private static void PutPlayerInRound(Client player)
         {
             try
             {
                 if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now.AddSeconds(RACE_JOIN_TIME))
                 {
-                    player.position = new Vector3(CurrentMap.PlayerSpawnPoints[0].X, CurrentMap.PlayerSpawnPoints[0].Y, CurrentMap.PlayerSpawnPoints[0].Z - 30f);
+                    player.SetPosition = new Vector3(CurrentMap.PlayerSpawnPoints[0].X, CurrentMap.PlayerSpawnPoints[0].Y, CurrentMap.PlayerSpawnPoints[0].Z - 30f);
                     VenoXV._Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
-                    player.SendChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!");
+                    player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!");
                     return;
                 }
                 StartNewRound();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PutPlayerInRound", ex); }
         }
-        public static void OnSelectedRaceGM(PlayerModel player)
+        public static void OnSelectedRaceGM(Client player)
         {
             try
             {
-                //if (RACE_PLAYERS_JOINED == 1) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "[Race] : Momentan ist keiner in der Race-Lobby :(... Gedulde dich bis jemand joint..."); return; }
+                //if (RACE_PLAYERS_JOINED == 1) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "[Race] : Momentan ist keiner in der Race-Lobby :(... Gedulde dich bis jemand joint..."); return; }
                 PutPlayerInRound(player);
                 Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(0, 200, 0) + player.GetVnXName() + " hat die Race runde betreten.");
             }
