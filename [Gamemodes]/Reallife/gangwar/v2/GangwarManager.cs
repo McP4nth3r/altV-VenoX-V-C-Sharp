@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(PlayerModel source, PlayerModel target)
+        public void ProcessKill(Client source, Client target)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void UpdateData(PlayerModel player)
+        public void UpdateData(Client player)
         {
             try
             {

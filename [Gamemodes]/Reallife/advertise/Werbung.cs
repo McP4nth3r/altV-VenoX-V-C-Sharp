@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
         public static int AD_COSTS = 5;
 
         [Command("ad", true)]
-        public static void CreateAD(PlayerModel player, string text)
+        public static void CreateAD(Client player, string text)
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= MINDEST_SPIELZEIT_)
             {
@@ -26,10 +26,10 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
                         int FINAL_AD_COSTS = text.Length * AD_COSTS;
                         if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
                         {
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " [Werbung] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " Von : " + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " | " + RageAPI.GetHexColorcode(0, 200, 255) + " Handy : " + RageAPI.GetHexColorcode(255, 255, 255) + "V.2.0.0 INCOMING");
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " [Werbung] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " Von : " + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " | " + RageAPI.GetHexColorcode(0, 200, 255) + " Handy : " + RageAPI.GetHexColorcode(255, 255, 255) + "V.2.0.0 INCOMING");
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
                         }
                         else { dxLibary.VnX.DrawNotification(player, "info", "Du hast nicht genug Geld!"); }
                     }
-                    else { player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Nächste AD Möglich : " + WERBUNG_COOLDOWN); }
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Nächste AD Möglich : " + WERBUNG_COOLDOWN); }
                 }
                 else { dxLibary.VnX.DrawNotification(player, "error", "Das AD-System wurde von einem Moderator deaktiviert!"); }
             }
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
         }
 
         [Command("werbung", true)]
-        public static void CreateWerbung(PlayerModel player, string text)
+        public static void CreateWerbung(Client player, string text)
         {
             CreateAD(player, text);
         }

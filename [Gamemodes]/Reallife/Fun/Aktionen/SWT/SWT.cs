@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 
 
         //[AltV.Net.ClientEvent("Start_SWT_Server")]
-        public static void Start_SWT_Server(PlayerModel player, int nightstick, int stungun, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int pumpshotgun, int pumpshotgun_ammo, int combatpdw, int combatpdw_ammo, int carbinerifle, int carbinerifle_ammo, int advancedrifle, int advancedrifle_ammo, int sniperrifle, int sniperrifle_ammo, int smokegrenade, int totalcost)
+        public static void Start_SWT_Server(Client player, int nightstick, int stungun, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int pumpshotgun, int pumpshotgun_ammo, int combatpdw, int combatpdw_ammo, int carbinerifle, int carbinerifle_ammo, int advancedrifle, int advancedrifle_ammo, int sniperrifle, int sniperrifle_ammo, int smokegrenade, int totalcost)
         {
             try
             {
@@ -95,23 +95,23 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 if (smokegrenade_final_value > Constants.TRAENENGAS_MAX_LAGER) { smokegrenade_final_value = Constants.TRAENENGAS_MAX_LAGER; }
 
 
-                /*player.SendChatMessage("nightstick : " + nightstick);
-                player.SendChatMessage("stungun : " + stungun);
-                player.SendChatMessage("pistol : " + pistol);
-                player.SendChatMessage("pistol_ammo : " + pistol_ammo);
-                player.SendChatMessage("pistol50 : " + pistol50);
-                player.SendChatMessage("pistol50_ammo : " + pistol50_ammo);
-                player.SendChatMessage("pumpshotgun : " + pumpshotgun);
-                player.SendChatMessage("pumpshotgun_ammo : " + pumpshotgun_ammo);
-                player.SendChatMessage("combatpdw : " + combatpdw);
-                player.SendChatMessage("combatpdw_ammo : " + combatpdw_ammo);
-                player.SendChatMessage("carbinerifle : " + carbinerifle);
-                player.SendChatMessage("carbinerifle_ammo : " + carbinerifle_ammo);
-                player.SendChatMessage("advancedrifle : " + advancedrifle);
-                player.SendChatMessage("advancedrifle_ammo : " + advancedrifle_ammo);
-                player.SendChatMessage("sniperrifle : " + sniperrifle);
-                player.SendChatMessage("sniperrifle_ammo : " + sniperrifle_ammo);
-                player.SendChatMessage("smokegrenade : " + smokegrenade);*/
+                /*player.SendTranslatedChatMessage("nightstick : " + nightstick);
+                player.SendTranslatedChatMessage("stungun : " + stungun);
+                player.SendTranslatedChatMessage("pistol : " + pistol);
+                player.SendTranslatedChatMessage("pistol_ammo : " + pistol_ammo);
+                player.SendTranslatedChatMessage("pistol50 : " + pistol50);
+                player.SendTranslatedChatMessage("pistol50_ammo : " + pistol50_ammo);
+                player.SendTranslatedChatMessage("pumpshotgun : " + pumpshotgun);
+                player.SendTranslatedChatMessage("pumpshotgun_ammo : " + pumpshotgun_ammo);
+                player.SendTranslatedChatMessage("combatpdw : " + combatpdw);
+                player.SendTranslatedChatMessage("combatpdw_ammo : " + combatpdw_ammo);
+                player.SendTranslatedChatMessage("carbinerifle : " + carbinerifle);
+                player.SendTranslatedChatMessage("carbinerifle_ammo : " + carbinerifle_ammo);
+                player.SendTranslatedChatMessage("advancedrifle : " + advancedrifle);
+                player.SendTranslatedChatMessage("advancedrifle_ammo : " + advancedrifle_ammo);
+                player.SendTranslatedChatMessage("sniperrifle : " + sniperrifle);
+                player.SendTranslatedChatMessage("sniperrifle_ammo : " + sniperrifle_ammo);
+                player.SendTranslatedChatMessage("smokegrenade : " + smokegrenade);*/
 
                 Marker_WT.CreateFactionWTEnter(false, "SWT");
                 SWT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(1813.723f, 3685.898f, 33.84286f), new Rotation(0, 0, 115));
@@ -149,7 +149,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 SWTTimer.Interval = 20 * 60000;
                 SWTTimer.Enabled = true;
 
-                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 175, 0) + "[Staat] : Ein Staatswaffentruck wurde beladen!");
+                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 175, 0) + "[Staat] : Ein Staatswaffentruck wurde beladen!");
             }
             catch
             {
@@ -164,14 +164,14 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Der Staatswaffentruck wurde wegen Zeitüberschreitung zerstört!");
 
                     SWT_TRUCK.Remove();
                 }
             }
         }
 
-        public static void FinishSWT(PlayerModel player, IVehicle SWT_TRUCK, int FID)
+        public static void FinishSWT(Client player, IVehicle SWT_TRUCK, int FID)
         {
             try
             {

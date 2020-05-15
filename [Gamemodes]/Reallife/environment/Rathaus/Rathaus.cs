@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         //public static Marker RathausMarkerImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-546.1301, -202.6208, 38.30002), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         //public static Marker RathausMarkerEingang = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-545.3177f, -203.7145f, 38.2151f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         }
 
         //[AltV.Net.ClientEvent("On_Clicked_Button_Rathaus")]
-        public static void OnClickedButton_Rathaus(PlayerModel player, string button)
+        public static void OnClickedButton_Rathaus(Client player, string button)
         {
             try
             {
@@ -206,16 +206,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     }
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 21250);
                     player.vnxSetElementData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 1);
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
                 }
                 else
                 {
-                    player.SendChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt!");
+                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt!");
                 }
             }
             catch
@@ -226,7 +226,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
 
 
         //[AltV.Net.ClientEvent("CancelDrivingSchool")]
-        public static void CancelDrivingSchhol(PlayerModel player, int speed)
+        public static void CancelDrivingSchhol(Client player, int speed)
         {
             try
             {
@@ -237,11 +237,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     {
                         player.vnxSetElementData("Marker_Pruefung", 0);
                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                        dxLibary.VnX.DrawWaypoint(player, player.position.X, player.position.Y);
+                        dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                        player.position = new Position(-542.6733f, -208.2215f, 37.64983f);
+                        player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                         player.Dimension = 0;
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
                         player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                         player.Emit("Destroy_Rathaus_License_Ped");
                         if (player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")

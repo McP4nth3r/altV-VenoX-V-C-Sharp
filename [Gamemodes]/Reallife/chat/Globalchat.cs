@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
 
 
         [Command("global", true)]
-        public static void SendGlobalMessage(PlayerModel player, string text)
+        public static void SendGlobalMessage(Client player, string text)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                             dxLibary.VnX.DrawNotification(player, "error", "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
                             return;
                         }
-                        foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
+                        foreach (Client onlinespieler in Alt.GetAllPlayers())
                         {
                             //if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) > 6000)
                             //{
@@ -36,11 +36,11 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                             {
                                 if (pl_adminlvl > 0)
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + Clantag + player.GetVnXName() + " : " + text);
+                                    onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + Clantag + player.GetVnXName() + " : " + text);
                                 }
                                 else
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " : " + text);
+                                    onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " : " + text);
                                 }
                             }
                             //}
@@ -50,12 +50,12 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                     }
                     else
                     {
-                        player.SendChatMessage("Du hast nicht genug Spielstunden ( Mind. 30 ) !");
+                        player.SendTranslatedChatMessage("Du hast nicht genug Spielstunden ( Mind. 30 ) !");
                     }
                 }
                 else
                 {
-                    player.SendChatMessage("Der Globalchat ist augeschaltet!");
+                    player.SendTranslatedChatMessage("Der Globalchat ist augeschaltet!");
                 }
             }
             catch
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("global_aus")]
-        public void setGlobal_status_on(PlayerModel player)
+        public void setGlobal_status_on(Client player)
         {
             try
             {
@@ -72,9 +72,9 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 {
                     if (Global_Admin_Status == "Ausgeschaltet") { dxLibary.VnX.DrawNotification(player, "error", "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Ausgeschaltet";
-                    foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
+                    foreach (Client onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat augeschaltet!");
+                        onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat augeschaltet!");
                     }
                 }
             }
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         }
 
         [Command("global_an")]
-        public void setGlobal_status_off(PlayerModel player)
+        public void setGlobal_status_off(Client player)
         {
             try
             {
@@ -90,9 +90,9 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 {
                     if (Global_Admin_Status == "Angeschaltet") { dxLibary.VnX.DrawNotification(player, "error", "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Angeschaltet";
-                    foreach (IPlayer onlinespieler in Alt.GetAllPlayers())
+                    foreach (Client onlinespieler in Alt.GetAllPlayers())
                     {
-                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat angeschaltet!");
+                        onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" + player.GetVnXName() + " hat den Globalchat angeschaltet!");
                     }
                 }
             }

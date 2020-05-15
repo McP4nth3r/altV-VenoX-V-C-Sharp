@@ -7,7 +7,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
     public class Constants
     {
         // Gamemode version
-        public const string GM_VERSION = "v1.1.2";
+        public const string GM_VERSION = "v1.1.3";
 
 
         // Sex

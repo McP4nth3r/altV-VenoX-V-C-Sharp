@@ -32,17 +32,17 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return null; }
         }
 
-        public static BusinessModel GetClosestBusiness(PlayerModel player, float distance = 2.0f)
+        public static BusinessModel GetClosestBusiness(Client player, float distance = 2.0f)
         {
             try
             {
                 BusinessModel business = null;
                 foreach (BusinessModel businessModel in businessList)
                 {
-                    if (player.position.Distance(businessModel.position) < distance)
+                    if (player.Position.Distance(businessModel.position) < distance)
                     {
                         business = businessModel;
-                        distance = player.position.Distance(business.position);
+                        distance = player.Position.Distance(business.position);
                     }
                 }
                 return business;
@@ -141,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         //[AltV.Net.ClientEvent("getClothesByType")]
-        public void GetClothesByTypeEvent(PlayerModel player, int type, int slot)
+        public void GetClothesByTypeEvent(Client player, int type, int slot)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("dressEquipedClothes")]
-        public void DressEquipedClothesEvent(PlayerModel player, int type, int slot)
+        public void DressEquipedClothesEvent(Client player, int type, int slot)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("clothesItemSelected")]
-        public void ClothesItemSelectedEvent(PlayerModel player, string clothesJson)
+        public void ClothesItemSelectedEvent(Client player, string clothesJson)
         {
             try
             {
@@ -217,7 +217,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     clothesModel.id = Database.AddClothes(clothesModel);
                     Main.clothesList.Add(clothesModel);
 
-                    player.SendChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
+                    player.SendTranslatedChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                     dxLibary.VnX.DrawNotification(player, "info", "Transaktion in Höhe von " + price + "$ abgeschlossen!");
                     vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }
@@ -230,7 +230,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("loadCharacterClothes")]
-        public void LoadCharacterClothesEvent(PlayerModel player)
+        public void LoadCharacterClothesEvent(Client player)
         {
             try
             {

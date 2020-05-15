@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
     {
         public static List<ItemModel> CurrentOnlineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Online sind.
         public static List<ItemModel> CurrentOfflineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Offline sind.
-        public static void LoadPlayerItems(PlayerModel player)
+        public static void LoadPlayerItems(Client player)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void UnloadPlayerItems(PlayerModel player)
+        public static void UnloadPlayerItems(Client player)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void RemoveAllItems(PlayerModel player)
+        public static void RemoveAllItems(Client player)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static List<InventoryModel> GetPlayerInventory(PlayerModel player)
+        public static List<InventoryModel> GetPlayerInventory(Client player)
         {
             try
             {
@@ -76,11 +76,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { return new List<InventoryModel>(); }
         }
-        public static void OnPlayerDisconnect(PlayerModel player, string type, string reason) { UnloadPlayerItems(player); }
-        public static void OnPlayerConnect(PlayerModel player) { LoadPlayerItems(player); }
+        public static void OnPlayerDisconnect(Client player, string type, string reason) { UnloadPlayerItems(player); }
+        public static void OnPlayerConnect(Client player) { LoadPlayerItems(player); }
 
         [ClientEvent("Inventory:Use")]
-        public static void OnInventoryUseButtonClicked(PlayerModel player, string ClickedHash)
+        public static void OnInventoryUseButtonClicked(Client player, string ClickedHash)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         }
 
 
-        public static void UseItem(PlayerModel player, string ItemHash)
+        public static void UseItem(Client player, string ItemHash)
         {
             switch (ItemHash)
             {
@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 case Constants.ITEM_HASH_KOKS:
                     break;
                 default:
-                    player.SendChatMessage("Dein ItemHash : " + ItemHash);
+                    player.SendTranslatedChatMessage("Dein ItemHash : " + ItemHash);
                     break;
             }
         }

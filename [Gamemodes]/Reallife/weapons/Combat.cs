@@ -71,16 +71,16 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
 
         //[AltV.Net.ClientEvent("OnHittedEntity")]
-        public static void OnHittedEntity(PlayerModel player, string target_name, string currentWeapon, string hitBone)
+        public static void OnHittedEntity(Client player, string target_name, string currentWeapon, string hitBone)
         {
             try
             {
 
                 // DEBUG - DEV
                 /*
-                NAPI.Chat.SendChatMessageToAll("Hitbone : " + hitBone);
-                NAPI.Chat.SendChatMessageToAll("target : " + target.GetVnXName());
-                NAPI.Chat.SendChatMessageToAll("currentWeapon : " + currentWeapon);*/
+                NAPI.Chat.SendTranslatedChatMessageToAll("Hitbone : " + hitBone);
+                NAPI.Chat.SendTranslatedChatMessageToAll("target : " + target.GetVnXName());
+                NAPI.Chat.SendTranslatedChatMessageToAll("currentWeapon : " + currentWeapon);*/
                 /*
                 if (target != null) // If Target is a Real Player Niggah
                 {
@@ -139,7 +139,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                                 target.Emit("set_bodyhealth", veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the Target Lower.
                                 Environment.Death.Log_Damage_veh(player, target, currentWeapon.ToString(), veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - vehdamage + );
                                 veh.SetSyncedMetaData("VEHICLE_HEALTH_SERVER", veh.vnxGetSharedData<int>("VEHICLE_HEALTH_SERVER") - vehdamage);
-                                // NAPI.Chat.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
+                                // NAPI.Chat.SendTranslatedChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
                             }
                             else
                             {

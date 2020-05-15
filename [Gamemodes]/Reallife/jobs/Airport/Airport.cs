@@ -22,7 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void Airport_job_start(PlayerModel player, int stage)
+        public static void Airport_job_start(Client player, int stage)
         {
             try
             {

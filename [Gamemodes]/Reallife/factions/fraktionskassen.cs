@@ -121,22 +121,22 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
         [Command("fstate")]
         //GetFactionStats
-        public void Fstatefunc(PlayerModel player)
+        public void Fstatefunc(Client player)
         {
             try
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
                 {
-                    player.SendChatMessage("Du bist in keiner Fraktion!");
+                    player.SendTranslatedChatMessage("Du bist in keiner Fraktion!");
                 }
                 else
                 {
-                    player.SendChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    player.SendTranslatedChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                     Fraktions_Kassen fkasse = Database.GetFactionStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                    player.SendChatMessage("Fraktions Koks : " + fkasse.koks);
-                    player.SendChatMessage("Fraktions Mats : " + fkasse.mats);
-                    player.SendChatMessage("Fraktions Money : " + fkasse.money);
-                    player.SendChatMessage("Fraktions Weed : " + fkasse.weed);
+                    player.SendTranslatedChatMessage("Fraktions Koks : " + fkasse.koks);
+                    player.SendTranslatedChatMessage("Fraktions Mats : " + fkasse.mats);
+                    player.SendTranslatedChatMessage("Fraktions Money : " + fkasse.money);
+                    player.SendTranslatedChatMessage("Fraktions Weed : " + fkasse.weed);
                 }
             }
             catch (Exception ex)
@@ -146,7 +146,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -193,7 +193,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         //[AltV.Net.ClientEvent("StoreFactionDatasServer")]
-        public void StoreFactionDatas(PlayerModel player, int money, int mats, int koks, int weed, string state)
+        public void StoreFactionDatas(Client player, int money, int mats, int koks, int weed, string state)
         {
             try
             {
@@ -218,7 +218,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         {
                             if (weed > WEED.amount)
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Weed!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Weed!");
                                 return;
                             }
                             else
@@ -238,7 +238,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Weed!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Weed!");
                             return;
                         }
                     }
@@ -249,7 +249,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         {
                             if (koks > KOKS.amount)
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Kokain!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Kokain!");
                                 return;
                             }
                             else
@@ -269,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Kokain!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Kokain!");
                             return;
                         }
                     }
@@ -279,7 +279,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         {
                             if (mats > MATS.amount)
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Mats!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Mats!");
                                 return;
                             }
                             else
@@ -298,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Mats!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Mats!");
                             return;
                         }
                     }
@@ -306,7 +306,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (money > player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY))
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                             return;
                         }
                         else
@@ -332,22 +332,22 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                     if (fkasse.weed < weed)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Weed in der Kasse!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Weed in der Kasse!");
                         return;
                     }
                     if (fkasse.koks < koks)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Kokain in der Kasse!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Kokain in der Kasse!");
                         return;
                     }
                     if (fkasse.mats < mats)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Mats in der Kasse!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Mats in der Kasse!");
                         return;
                     }
                     if (fkasse.money < money)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Geld in der Kasse!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Geld in der Kasse!");
                         return;
                     }
                     int finalwertmoney = fkasse.money - money;

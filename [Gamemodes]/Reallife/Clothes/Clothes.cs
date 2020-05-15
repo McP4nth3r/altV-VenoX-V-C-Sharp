@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                    player.position = new Position(-158.886f, -296.9503f, 39.73328f);
+                    player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
                     dxLibary.VnX.SetElementFrozen(player, true);
                     player.Rotation = new Rotation(0f, 0f, 160f);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         }
 
         //[AltV.Net.ClientEvent("CloseClotheShop")]
-        public void CloseClotheShop(PlayerModel player)
+        public void CloseClotheShop(Client player)
         {
             try
             {

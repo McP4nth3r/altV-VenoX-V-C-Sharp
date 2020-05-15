@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch { }
         }
 
-        public static void StartBusJob(PlayerModel player, int value)
+        public static void StartBusJob(Client player, int value)
         {
             try
             {   // Die punkte abfragen!
@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch { }
         }
 
-        public static void TriggerToNextMarker(PlayerModel player)
+        public static void TriggerToNextMarker(Client player)
         {
             try
             {
@@ -93,8 +93,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 
                     if (CurrentBosStation == INITIALIZE_MAX_BUSSTATIONS) // WENN DER SPIELER MAXIMALE RUNDEN ERREICHT
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du hast eine Runde Erfolgreich absolviert :)");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du hast eine Runde Erfolgreich absolviert :)");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + BUSJOB_ROUND_BONUS);
                         player.vnxSetElementData(BUSJOB_LEVEL, 0);
                     }

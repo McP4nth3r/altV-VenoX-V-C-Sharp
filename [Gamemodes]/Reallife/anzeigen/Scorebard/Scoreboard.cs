@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Scorebard
         public static ScoreboardModel SpielerListe;
         public static Rgba OtherLobbyColor = new Rgba(180, 180, 180, 255);
 
-        public static void DrawReallifeScoreboard(PlayerModel Spieler)
+        public static void DrawReallifeScoreboard(Client Spieler)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Scorebard
             catch { }
         }
 
-        public static void DrawTacticScoreboard(PlayerModel Spieler)
+        public static void DrawTacticScoreboard(Client Spieler)
         {
             try
             {
@@ -268,7 +268,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Scorebard
             try
             {
                 SpielerLi = new List<ScoreboardModel>();
-                foreach (PlayerModel Spieler in Alt.GetAllPlayers())
+                foreach (Client Spieler in Alt.GetAllPlayers())
                 {
                     SpielerListe = new ScoreboardModel();
                     switch (Spieler.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE))
@@ -294,7 +294,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Scorebard
             try
             {
                 List<ScoreboardModel> AlleSpieler = GetAllPlayersScoreboard();
-                foreach (PlayerModel player in Alt.GetAllPlayers())
+                foreach (Client player in Alt.GetAllPlayers())
                 {
                     player.Emit("UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler));
                 }

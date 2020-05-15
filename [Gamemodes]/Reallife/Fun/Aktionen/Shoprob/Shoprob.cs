@@ -99,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
 
 
 
-        public static void CreateShopRobPedsIPlayer(PlayerModel player)
+        public static void CreateShopRobPedsIPlayer(Client player)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             catch { }
         }
 
-        public static void OnShopRobClickServer(PlayerModel player)
+        public static void OnShopRobClickServer(Client player)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (PlayerModel player in Alt.GetAllPlayers())
+                foreach (Client player in Alt.GetAllPlayers())
                 {
                     foreach (IColShape col in ShopIColShapes)
                     {
@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                             int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                             if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
                             {
-                                if (player.Health >= 0 && player.position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) < 7)
+                                if (player.Health >= 0 && player.Position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) < 7)
                                 {
                                     //Blip RobbedBlip = ShopBlips[CURRENT_ID];
                                     //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
@@ -188,7 +188,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                     col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
                                     player.vnxSetElementData(PLAYER_ROB_STARTED, false);
                                     factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
-                                    player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
+                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
                                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + SHOP_ROB_MONEY);
                                 }
                                 else
@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                     col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
 
                                     player.vnxSetElementData(PLAYER_ROB_STARTED, false);
-                                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
                                     factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                                 }
                             }
@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                             int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
                             if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
                             {
-                                if (player.Health <= 0 || player.position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) > 7)
+                                if (player.Health <= 0 || player.Position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) > 7)
                                 {
                                     //Blip RobbedBlip = ShopBlips[CURRENT_ID];
                                     //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
@@ -225,7 +225,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                     col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
 
                                     player.vnxSetElementData(PLAYER_ROB_STARTED, false);
-                                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
                                     factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                                 }
                             }
@@ -236,7 +236,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             catch { }
         }
 
-        public static void OnPlayerDisconnected(PlayerModel player, string type, string reason)
+        public static void OnPlayerDisconnected(Client player, string type, string reason)
         {
             try
             {
@@ -284,7 +284,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         }
 
         //[AltV.Net.ClientEvent("OnShopWindowBTNClickServer")]
-        public static void OnShopWindowBTNClickServer(PlayerModel player, int value)
+        public static void OnShopWindowBTNClickServer(Client player, int value)
         {
             try
             {

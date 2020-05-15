@@ -14,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
     public class Fraktionswaffenlager : IScript
     {
         [Command("fweapons")]
-        public void FWeapons_CMD(PlayerModel player)
+        public void FWeapons_CMD(Client player)
         {
             try
             {
@@ -24,24 +24,24 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    player.SendChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    player.SendTranslatedChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                    player.SendChatMessage("weapon_knuckle : " + fweapon.weapon_knuckle);
-                    player.SendChatMessage("weapon_nightstick : " + fweapon.weapon_nightstick);
-                    player.SendChatMessage("weapon_stungun : " + fweapon.weapon_tazer);
-                    player.SendChatMessage("weapon_pistol50 : " + fweapon.weapon_pistol50);
-                    player.SendChatMessage("weapon_revolver : " + fweapon.weapon_revolver);
-                    player.SendChatMessage("weapon_pistol : " + fweapon.weapon_pistol);
-                    player.SendChatMessage("weapon_pumpshotgun : " + fweapon.weapon_pumpshotgun);
-                    player.SendChatMessage("weapon_combatpdw : " + fweapon.weapon_combatpdw);
-                    player.SendChatMessage("weapon_assaultrifle : " + fweapon.weapon_assaultrifle);
-                    player.SendChatMessage("weapon_advancedrifle : " + fweapon.weapon_advancedrifle);
-                    player.SendChatMessage("weapon_gusenberg : " + fweapon.weapon_gusenberg);
-                    player.SendChatMessage("weapon_sniperrifle : " + fweapon.weapon_sniperrifle);
-                    player.SendChatMessage("weapon_rpg : " + fweapon.weapon_rpg);
-                    player.SendChatMessage("weapon_molotov : " + fweapon.weapon_molotov);
-                    player.SendChatMessage("weapon_smokegrenade : " + fweapon.weapon_smokegrenade);
-                    player.SendChatMessage("weapon_bzgas : " + fweapon.weapon_bzgas);
+                    player.SendTranslatedChatMessage("weapon_knuckle : " + fweapon.weapon_knuckle);
+                    player.SendTranslatedChatMessage("weapon_nightstick : " + fweapon.weapon_nightstick);
+                    player.SendTranslatedChatMessage("weapon_stungun : " + fweapon.weapon_tazer);
+                    player.SendTranslatedChatMessage("weapon_pistol50 : " + fweapon.weapon_pistol50);
+                    player.SendTranslatedChatMessage("weapon_revolver : " + fweapon.weapon_revolver);
+                    player.SendTranslatedChatMessage("weapon_pistol : " + fweapon.weapon_pistol);
+                    player.SendTranslatedChatMessage("weapon_pumpshotgun : " + fweapon.weapon_pumpshotgun);
+                    player.SendTranslatedChatMessage("weapon_combatpdw : " + fweapon.weapon_combatpdw);
+                    player.SendTranslatedChatMessage("weapon_assaultrifle : " + fweapon.weapon_assaultrifle);
+                    player.SendTranslatedChatMessage("weapon_advancedrifle : " + fweapon.weapon_advancedrifle);
+                    player.SendTranslatedChatMessage("weapon_gusenberg : " + fweapon.weapon_gusenberg);
+                    player.SendTranslatedChatMessage("weapon_sniperrifle : " + fweapon.weapon_sniperrifle);
+                    player.SendTranslatedChatMessage("weapon_rpg : " + fweapon.weapon_rpg);
+                    player.SendTranslatedChatMessage("weapon_molotov : " + fweapon.weapon_molotov);
+                    player.SendTranslatedChatMessage("weapon_smokegrenade : " + fweapon.weapon_smokegrenade);
+                    player.SendTranslatedChatMessage("weapon_bzgas : " + fweapon.weapon_bzgas);
                 }
             }
             catch (Exception ex)
@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         public static IColShape SWT_COL = Alt.CreateColShapeSphere(new Position(1853.666f, 3688.104f, 34f), 1);
         public static IColShape WT_COL = Alt.CreateColShapeSphere(new Position(2853.49f, 1502.488f, 24.72436f), 1);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {

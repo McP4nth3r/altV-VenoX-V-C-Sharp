@@ -47,13 +47,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void Update()
         {
-            //RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea");
+            //RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea");
             Alt.EmitAllClients("gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
-        public void Update(PlayerModel player)
+        public void Update(Client player)
         {
-            // RageAPI.SendChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName() + " )");
+            // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName() + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
@@ -119,12 +119,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             return DateTime.Now - this.Cooldown;
         }
 
-        public void Inform(PlayerModel player)
+        public void Inform(Client player)
         {
             string Gang_Rgba_Chat = factions.FactionChat.GetFactionRgba(this.IDOwner);
-            player.SendChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
-            player.SendChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetPlayerFactionName(this.IDOwner));
-            player.SendChatMessage(Gang_Rgba_Chat + "Nächster Attack möglich: " + this.Cooldown);
+            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
+            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetPlayerFactionName(this.IDOwner));
+            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Nächster Attack möglich: " + this.Cooldown);
         }
 
         public Rgba GangwarIVehicleRgbas(int factionId)
@@ -208,7 +208,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.GetCurrentRound().Stop();
         }
 
-        public void Attack(PlayerModel player)
+        public void Attack(Client player)
         {
             try
             {
@@ -224,7 +224,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void AddPlayer(PlayerModel player)
+        public void AddPlayer(Client player)
         {
             try
             {

@@ -42,15 +42,15 @@ namespace VenoXV._Gamemodes_.Reallife.house
             return house;
         }
 
-        public static HouseModel GetClosestHouse(PlayerModel player, float distance = 1.5f)
+        public static HouseModel GetClosestHouse(Client player, float distance = 1.5f)
         {
             HouseModel house = null;
             foreach (HouseModel houseModel in houseList)
             {
-                if (player.position.Distance(houseModel.position) < distance)
+                if (player.Position.Distance(houseModel.position) < distance)
                 {
                     house = houseModel;
-                    distance = player.position.Distance(houseModel.position);
+                    distance = player.Position.Distance(houseModel.position);
                 }
             }
             return house;
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return new Position(0, 0, 0); }
         }
 
-        public static bool HasPlayerHouseKeys(PlayerModel player, HouseModel house)
+        public static bool HasPlayerHouseKeys(Client player, HouseModel house)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return ""; }
         }
 
-        public static void BuyHouseS(PlayerModel player, HouseModel house)
+        public static void BuyHouseS(Client player, HouseModel house)
         {
             try
             {
@@ -125,11 +125,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         //house.houseLabel.Text = GetHouseLabelText(house);
                         // Update the house
                         Database.UpdateHouse(house);
-                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
                     }
                     else
                     {
-                        player.SendChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld!");
+                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld!");
                     }
                 }
             }
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("buyhouse")]
-        public void BuyHouseIPlayer(PlayerModel player)
+        public void BuyHouseIPlayer(Client player)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
                     }
-                    if (player.position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                     {
                         BuyHouseS(player, house);
                         return;
@@ -181,15 +181,15 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         //house.houseLabel.Text = GetHouseLabelText(house);
 
                         Database.UpdateHouse(house);
-                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Haus für " + moneyget + " verkauft!");
+                        player.SendTranslatedChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Haus für " + moneyget + " verkauft!");
                         player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + moneyget);
                         return;
                     }
                     else
                     {
                         int moneyget = house.price / 2;
-                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Möchtest du dein Haus verkaufen für " + moneyget + " $ ?");
-                        player.SendChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Bestätige dies mit /sellhouse.");
+                        player.SendTranslatedChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Möchtest du dein Haus verkaufen für " + moneyget + " $ ?");
+                        player.SendTranslatedChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Bestätige dies mit /sellhouse.");
                         player.vnxSetElementData("SELL_HOUSE_REQUESTED", true);
                     }
                 }
@@ -199,14 +199,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("hlock")]
-        public void HouseLockIPlayer(PlayerModel player)
+        public void HouseLockIPlayer(Client player)
         {
             try
             {
                 // Get all the houses
                 foreach (HouseModel house in houseList)
                 {
-                    if (player.position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                     {
                         if (house.owner == player.GetVnXName())
                         {
@@ -220,7 +220,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                             {
                                 house.locked = true;
                             }
-                            player.SendChatMessage("Haus " + State);
+                            player.SendTranslatedChatMessage("Haus " + State);
                         }
                         return;
                     }
@@ -230,7 +230,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         [Command("houseinfos")]
-        public void GetHouseInfos(PlayerModel player)
+        public void GetHouseInfos(Client player)
         {
             try
             {
@@ -241,12 +241,12 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     if (house.owner == player.GetVnXName())
                     {
                         if (house.locked == true) { status = "Abgeschlossen"; }
-                        player.SendChatMessage("__________________________________________");
-                        player.SendChatMessage("HAUS : " + house.name);
-                        player.SendChatMessage("HAUS ID : " + house.id);
-                        player.SendChatMessage("HAUS status : " + status);
-                        player.SendChatMessage("HAUS Miete  : " + house.rental + " $");
-                        player.SendChatMessage("__________________________________________");
+                        player.SendTranslatedChatMessage("__________________________________________");
+                        player.SendTranslatedChatMessage("HAUS : " + house.name);
+                        player.SendTranslatedChatMessage("HAUS ID : " + house.id);
+                        player.SendTranslatedChatMessage("HAUS status : " + status);
+                        player.SendTranslatedChatMessage("HAUS Miete  : " + house.rental + " $");
+                        player.SendTranslatedChatMessage("__________________________________________");
                     }
                 }
             }
@@ -257,7 +257,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         //[AltV.Net.ClientEvent("getPlayerPurchasedClothes")]
-        public void GetPlayerPurchasedClothesEvent(PlayerModel player, int type, int slot)
+        public void GetPlayerPurchasedClothesEvent(Client player, int type, int slot)
         {
             try
             {
@@ -275,14 +275,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 }
                 else
                 {
-                    player.SendChatMessage(Constants.Rgba_ERROR + "Keine Klamotten im Klamottenschrank");
+                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Keine Klamotten im Klamottenschrank");
                 }
             }
             catch { }
         }
 
         //[AltV.Net.ClientEvent("wardrobeClothesItemSelected")]
-        public void WardrobeClothesItemSelectedEvent(PlayerModel player, int clothesId)
+        public void WardrobeClothesItemSelectedEvent(Client player, int clothesId)
         {
             try
             {
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("setrent")]
-        public void RentableCommand(PlayerModel player, int amount = 0)
+        public void RentableCommand(Client player, int amount = 0)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == 0)
             {
@@ -369,11 +369,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("renthouse")]
-        public void RentCommand(PlayerModel player)
+        public void RentCommand(Client player)
         {
             foreach (HouseModel house in houseList)
             {
-                if (player.position.Distance(house.position) <= 1.5 && player.Dimension == house.Dimension)
+                if (player.Position.Distance(house.position) <= 1.5 && player.Dimension == house.Dimension)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == 0)
                     {
@@ -420,17 +420,17 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
         [Command("unrenthouse")]
 
-        public static void UnrentFromHaus(PlayerModel player)
+        public static void UnrentFromHaus(Client player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
             {
                 player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, 0);
-                //player.SendChatMessage(RageAPI.GetHexColorcode(0,200,0) + "DEBUG RENT");
+                //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "DEBUG RENT");
             }
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) != 0)
             {
                 player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, 0);
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast dich Erfolgreich ausgemietet!");
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast dich Erfolgreich ausgemietet!");
                 //Database.KickTenantsOut(house.id);
             }
         }

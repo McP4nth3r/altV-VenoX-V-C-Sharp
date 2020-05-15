@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
     {
 
         [Command("settings")]
-        public static void LoadSettingsWindow(PlayerModel player)
+        public static void LoadSettingsWindow(Client player)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
-        public static void LoadSettingsData(PlayerModel player)
+        public static void LoadSettingsData(Client player)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("ATM_STATE_CHANGE_SERVER")]
-        public void ATM_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void ATM_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -95,7 +95,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("HAUS_STATE_CHANGE_SERVER")]
-        public void HAUS_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void HAUS_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("TACHO_STATE_CHANGE_SERVER")]
-        public void TACHO_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void TACHO_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("QUEST_STATE_CHANGE_SERVER")]
-        public void QUEST_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void QUEST_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -170,7 +170,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("HUD_STATE_CHANGE_SERVER")]
-        public void HUD_STATE_CHANGE_SERVER(PlayerModel player, int state)
+        public void HUD_STATE_CHANGE_SERVER(Client player, int state)
         {
             try
             {
@@ -195,7 +195,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("REPORTER_STATE_CHANGE_SERVER")]
-        public void REPORTER_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void REPORTER_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -212,7 +212,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("GLOBALCHAT_STATE_CHANGE_SERVER")]
-        public void GLOBALCHAT_STATE_CHANGE_SERVER(PlayerModel player, bool state)
+        public void GLOBALCHAT_STATE_CHANGE_SERVER(Client player, bool state)
         {
             try
             {
@@ -230,24 +230,24 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("onClickedSpawn")]
-        public void ChangePlayerSpawnpoint(PlayerModel player, string spawn)
+        public void ChangePlayerSpawnpoint(Client player, string spawn)
         {
             try
             {
                 if (spawn == "Noobspawn")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
                 }
                 else if (spawn == "Rathaus")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Rathaus");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Rathaus!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Rathaus!");
                 }
                 else if (spawn == "Wuerfelpark")
                 {
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Wuerfelpark");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Würfelpark!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Würfelpark!");
                 }
                 else if (spawn == "Basis")
                 {
@@ -255,11 +255,11 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     if (playerFaction > 0)
                     {
                         player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Basis");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis!");
                     }
                     else
                     {
-                        player.SendChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
+                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
                     }
                 }
                 else if (spawn == "Haus")
@@ -269,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName() == house.owner)
                         {
                             player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "House");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Haus!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Haus!");
                         }
                     }
                 }

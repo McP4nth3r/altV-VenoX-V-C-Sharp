@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
         }
 
         //[AltV.Net.ClientEvent("Buy_Item_Ammo_S")]
-        public void BuyWeaponAmmuAmmunation(PlayerModel player, string item)
+        public void BuyWeaponAmmuAmmunation(Client player, string item)
         {
             try
             {
@@ -42,16 +42,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOL_AMMO, Constants.ITEM_ART_MAGAZIN, 12, true);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 90);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Pistolen Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Pistolen Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
                 else if (item == "Pistole 50 Magazin")
@@ -63,16 +63,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOL_AMMO, Constants.ITEM_ART_MAGAZIN, 9, true);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 165);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Pistolen 50. Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Pistolen 50. Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
                 else if (item == "Revolver Magazin")
@@ -84,16 +84,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOL_AMMO, Constants.ITEM_ART_MAGAZIN, 9, true);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 220);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Revolver Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Revolver Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
                 else if (item == "Shotgun Magazin")
@@ -106,17 +106,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 100);
                             Shotgun.amount = Shotgun.amount + 6;
                             player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.PumpShotgun, Shotgun.amount);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein paar " + RageAPI.GetHexColorcode(0, 200, 255) + " Schrotkugeln " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein paar " + RageAPI.GetHexColorcode(0, 200, 255) + " Schrotkugeln " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                             Database.UpdateItem(Shotgun);
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
                 else if (item == "PDW Magazin")
@@ -129,17 +129,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 450);
                             PDW.amount = PDW.amount + 30;
                             player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.CombatPDW, PDW.amount);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " PDW Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " PDW Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                             Database.UpdateItem(PDW);
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
                 else if (item == "Rifle Magazin")
@@ -152,17 +152,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 535);
                             Rifle.amount = Rifle.amount + 30;
                             player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.AdvancedRifle, Rifle.amount);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Rifle Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " Rifle Magazin " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                             Database.UpdateItem(Rifle);
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Kauf dir erst eine Pistole!");
                     }
                 }
             }
@@ -173,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
 
         //[AltV.Net.ClientEvent("Buy_Item_S")]
-        public void BuyWeaponAmmunation(PlayerModel player, string item)
+        public void BuyWeaponAmmunation(Client player, string item)
         {
             try
             {
@@ -190,12 +190,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast bereits eine " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item);
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast bereits eine " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item);
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                     }
                 }
                 else if (item == "Messer")
@@ -207,16 +207,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SWITCHBLADE, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 200);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits ein Messer!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits ein Messer!");
                     }
                 }
                 else if (item == "Fallschirm")
@@ -228,16 +228,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_ART_FALLSCHIRM, Constants.ITEM_ART_FALLSCHIRM, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 925);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Fallschirm!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Fallschirm!");
                     }
                 }
                 else if (item == "Pistole")
@@ -249,16 +249,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 265);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Pistole!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Pistole!");
                     }
                 }
                 else if (item == "Pistole50")
@@ -270,16 +270,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE50, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 385);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Pistole 50 !");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Pistole 50 !");
                     }
                 }
                 else if (item == "Revolver")
@@ -291,16 +291,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_REVOLVER, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 400);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Revolver!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Revolver!");
                     }
                 }
                 else if (item == "Shotgun")
@@ -312,16 +312,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SHOTGUN, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 600);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Shotgun!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine Shotgun!");
                     }
                 }
                 else if (item == "PDW")
@@ -333,16 +333,16 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_PDW, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 800);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine PDW!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits eine PDW!");
                     }
                 }
                 else if (item == "Rifle")
@@ -354,24 +354,24 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         {
                             VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_RIFLE, Constants.ITEM_ART_WAFFE, 1, false);
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 950);
-                            player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
                             anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
 
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
                         anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
-                        player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits ein Gewehr!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits ein Gewehr!");
                     }
                 }
                 else
                 {
-                    player.SendChatMessage("[Venox - Debug Module 1.0] : Ammunation Button konnte nicht geladen werden! Info # :" + item);
+                    player.SendTranslatedChatMessage("[Venox - Debug Module 1.0] : Ammunation Button konnte nicht geladen werden! Info # :" + item);
                 }
             }
             catch
@@ -382,7 +382,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
         public static IColShape AmmunationCOL = Alt.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -390,7 +390,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN) != 1)
                     {
-                        player.SendChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
+                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
                         return;
                     }
                     player.Emit("ShowAmmunation_C");

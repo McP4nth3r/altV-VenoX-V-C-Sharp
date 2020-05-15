@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public class PlayerEntry
         {
-            public PlayerModel _player;
+            public Client _player;
             public float _totalDamage;
             public int _totalKills;
             public bool _isInTK;
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             public bool _isKilled;
             public bool _isLeft;
 
-            public PlayerEntry(PlayerModel player)
+            public PlayerEntry(Client player)
             {
                 _player = player;
                 _totalDamage = 0.0f;
@@ -70,9 +70,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.TKCooldown = time;
         }
 
-        public void Inform(PlayerModel player)
+        public void Inform(Client player)
         {
-            //player.SendChatMessage("[GW-ROUND] " + StartTime + " started; " + StopTime + " stopped; State: " + CurrentState + "; Count: " + PlayerList.Count);
+            //player.SendTranslatedChatMessage("[GW-ROUND] " + StartTime + " started; " + StopTime + " stopped; State: " + CurrentState + "; Count: " + PlayerList.Count);
         }
 
         public void Stop()
@@ -107,11 +107,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
                 else
                 {
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
                 }
             }
             catch { }
@@ -143,7 +143,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return "999 / 999"; }
         }
 
-        public void ProcessDamage(PlayerModel source, PlayerModel Player, float damage)
+        public void ProcessDamage(Client source, Client Player, float damage)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(PlayerModel source, PlayerModel Player)
+        public void ProcessKill(Client source, Client Player)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     if (DateTime.Now >= this.PreparingCD)
                     {
                         // Prepare Time is over
-                        //RageAPI.SendChatMessageToAll("UPDATE");
+                        //RageAPI.SendTranslatedChatMessageToAll("UPDATE");
                         CurrentState = RoundStates.RUNNING;
                         this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
                         informDefender();
@@ -281,7 +281,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 225, 0) + "Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
         }
 
-        public void AddPlayer(PlayerModel player)
+        public void AddPlayer(Client player)
         {
             try
             {
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncTime(PlayerModel player)
+        public void SyncTime(Client player)
         {
             try
             {
@@ -338,7 +338,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncStats(PlayerModel player, PlayerEntry playerEntry)
+        public void SyncStats(Client player, PlayerEntry playerEntry)
         {
             try
             {
@@ -350,7 +350,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public PlayerEntry GetPlayerEntry(PlayerModel player)
+        public PlayerEntry GetPlayerEntry(Client player)
         {
             try
             {
@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return null; }
         }
 
-        public bool isPlayerJoined(PlayerModel player)
+        public bool isPlayerJoined(Client player)
         {
             try
             {
@@ -404,7 +404,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                     int playerMoney = playerEntry._player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
-                    playerEntry._player.SendChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
+                    playerEntry._player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
 
                     playerEntry._player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney + earnings);
 

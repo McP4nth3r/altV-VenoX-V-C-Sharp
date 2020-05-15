@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
     public class TicketSystem : IScript
     {
         //[AltV.Net.ClientEvent("requestNewTicket")]
-        public void CreateNewTicket(PlayerModel player, string betreff, string text)
+        public void CreateNewTicket(Client player, string betreff, string text)
         {
             try
             {
@@ -32,8 +32,8 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 ticket.id = Database.AddNewAdminTicket(ticket);
                 player.Emit("Destroy_Ticket_Window");
                 Admin.sendAdminInformation(player.GetVnXName() + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
             }
             catch { }
         }

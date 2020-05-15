@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("CloseTuning")]
-        public static void CloseTunningWindow(PlayerModel player)
+        public static void CloseTunningWindow(Client player)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("modifyIVehicle")]
-        public void ModifyIVehicleEvent(PlayerModel player, int slot, int component)
+        public void ModifyIVehicleEvent(Client player, int slot, int component)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("cancelIVehicleModification")]
-        public void CancelIVehicleModificationEvent(PlayerModel player)
+        public void CancelIVehicleModificationEvent(Client player)
         {
             try
             {
@@ -274,7 +274,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("confirmIVehicleModification")]
-        public void ConfirmIVehicleModificationEvent(PlayerModel player, int slot, int mod)
+        public void ConfirmIVehicleModificationEvent(Client player, int slot, int mod)
         {
             try
             {
@@ -287,7 +287,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     Database.RemoveTunning(IVehicleId, slot);
                     Main.tunningList.Remove(Tunning);
-                    player.SendChatMessage("Dein Altes Tuning wurde gelöscht!.");
+                    player.SendTranslatedChatMessage("Dein Altes Tuning wurde gelöscht!.");
                     TunningModel tunningModel = new TunningModel();
                     {
                         tunningModel.slot = slot;

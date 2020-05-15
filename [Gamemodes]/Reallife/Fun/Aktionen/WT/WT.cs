@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
 
 
         //[AltV.Net.ClientEvent("Start_WT_Server")]
-        public static void Start_WT_Server(PlayerModel player, int baseball, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int revolver, int revolver_ammo, int mp5, int mp5_ammo, int ak47, int ak47_ammo, int rifle, int rifle_ammo, int sniperrifle, int sniperrifle_ammo, int rpg, int rpg_ammo, int molotov, int totalcost)
+        public static void Start_WT_Server(Client player, int baseball, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int revolver, int revolver_ammo, int mp5, int mp5_ammo, int ak47, int ak47_ammo, int rifle, int rifle_ammo, int sniperrifle, int sniperrifle_ammo, int rpg, int rpg_ammo, int molotov, int totalcost)
         {
             try
             {
@@ -105,23 +105,23 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
                 if (molotov_final_value > Globals.Constants.TRAENENGAS_MAX_LAGER) { molotov_final_value = _Gamemodes_.Reallife.Globals.Constants.TRAENENGAS_MAX_LAGER; }
 
 
-                /*player.SendChatMessage("baseball : " + baseball);
-                player.SendChatMessage("stungun : " + stungun);
-                player.SendChatMessage("pistol : " + pistol);
-                player.SendChatMessage("pistol_ammo : " + pistol_ammo);
-                player.SendChatMessage("pistol50 : " + pistol50);
-                player.SendChatMessage("pistol50_ammo : " + pistol50_ammo);
-                player.SendChatMessage("mp5 : " + mp5);
-                player.SendChatMessage("mp5_ammo : " + mp5_ammo);
-                player.SendChatMessage("ak47 : " + ak47);
-                player.SendChatMessage("ak47_ammo : " + ak47_ammo);
-                player.SendChatMessage("rifle : " + rifle);
-                player.SendChatMessage("rifle_ammo : " + rifle_ammo);
-                player.SendChatMessage("advancedrifle : " + advancedrifle);
-                player.SendChatMessage("advancedrifle_ammo : " + advancedrifle_ammo);
-                player.SendChatMessage("sniperrifle : " + sniperrifle);
-                player.SendChatMessage("sniperrifle_ammo : " + sniperrifle_ammo);
-                player.SendChatMessage("smokegrenade : " + smokegrenade);*/
+                /*player.SendTranslatedChatMessage("baseball : " + baseball);
+                player.SendTranslatedChatMessage("stungun : " + stungun);
+                player.SendTranslatedChatMessage("pistol : " + pistol);
+                player.SendTranslatedChatMessage("pistol_ammo : " + pistol_ammo);
+                player.SendTranslatedChatMessage("pistol50 : " + pistol50);
+                player.SendTranslatedChatMessage("pistol50_ammo : " + pistol50_ammo);
+                player.SendTranslatedChatMessage("mp5 : " + mp5);
+                player.SendTranslatedChatMessage("mp5_ammo : " + mp5_ammo);
+                player.SendTranslatedChatMessage("ak47 : " + ak47);
+                player.SendTranslatedChatMessage("ak47_ammo : " + ak47_ammo);
+                player.SendTranslatedChatMessage("rifle : " + rifle);
+                player.SendTranslatedChatMessage("rifle_ammo : " + rifle_ammo);
+                player.SendTranslatedChatMessage("advancedrifle : " + advancedrifle);
+                player.SendTranslatedChatMessage("advancedrifle_ammo : " + advancedrifle_ammo);
+                player.SendTranslatedChatMessage("sniperrifle : " + sniperrifle);
+                player.SendTranslatedChatMessage("sniperrifle_ammo : " + sniperrifle_ammo);
+                player.SendTranslatedChatMessage("smokegrenade : " + smokegrenade);*/
 
 
 
@@ -165,7 +165,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
                 WTTimer.Interval = 20 * 60000;
                 WTTimer.Enabled = true;
 
-                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal]: Ein Waffentruck wurde beladen!");
+                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal]: Ein Waffentruck wurde beladen!");
             }
             catch
             {
@@ -180,13 +180,13 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.WT
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 175, 175) + "Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 175, 175) + "Der Waffentruck wurde wegen Zeitüberschreitung zerstört!");
                     WT_TRUCK.Remove();
                 }
             }
         }
 
-        public static void FinishWT(PlayerModel player, IVehicle WT_TRUCK, int FID)
+        public static void FinishWT(Client player, IVehicle WT_TRUCK, int FID)
         {
             try
             {

@@ -19,6 +19,7 @@
         public const string PLAYER_TACHO_ANZEIGEN = "PLAYER_TACHO_ANZEIGEN";
         public const string PLAYER_QUEST_ANZEIGEN = "PLAYER_QUEST_ANZEIGEN";
         public const string PLAYER_REPORTER_ANZEIGEN = "PLAYER_REPORTER_ANZEIGEN";
+        public const string PLAYER_GLOBALCHAT_ANZEIGEN = "PLAYER_GLOBALCHAT_ANZEIGEN";
 
 
 
@@ -57,7 +58,6 @@
         public const string PLAYER_BUSJOB_LEVEL = "PLAYER_BUSJOB_LEVEL";
 
 
-        public const string PLAYER_PHONE = "PLAYER_PHONE";
         public const string PLAYER_SKIN_MODEL = "PLAYER_SKIN_MODEL";
         public const string PLAYER_HOUSE_ENTERED = "PLAYER_HOUSE_ENTERED";
         public const string PLAYER_BUSINESS_ENTERED = "PLAYER_BUSINESS_ENTERED";
@@ -114,5 +114,6 @@
         public const string PLAYER_BLIPS_SHOPS = "PLAYER_BLIPS_SHOPS";
         public const string PLAYER_BLIPS_ATM = "PLAYER_BLIPS_ATM";
         public const string PLAYER_IPL = "PLAYER_IPL";
+        public const string PLAYER_FACTION_RANK = "PLAYER_FACTION_RANK";
     }
 }

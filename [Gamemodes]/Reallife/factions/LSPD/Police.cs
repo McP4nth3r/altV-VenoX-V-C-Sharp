@@ -20,13 +20,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
     public class Police : IScript
     {
         [Command("zeigen")]
-        public static void ShowToPlayerLicense(PlayerModel player, string target_name)
+        public static void ShowToPlayerLicense(Client player, string target_name)
         {
             try
             {
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.position.Distance(target.position) < 5)
+                if (player.Position.Distance(target.Position) < 5)
                 {
                     string Lizenzen = "";
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Führerschein  [ ✔ ]"; }
@@ -57,8 +57,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     else { Lizenzen = Lizenzen + " Angelschein  [ ✘ ]"; }
 
 
-                    player.SendChatMessage("Du hast " + target.GetVnXName() + " deine Lizenzen gezeigt!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 200) + "Vorhandene Lizenzen von " + player.GetVnXName() + " : " + RageAPI.GetHexColorcode(200, 200, 0) + " Lizenzen");
+                    player.SendTranslatedChatMessage("Du hast " + target.GetVnXName() + " deine Lizenzen gezeigt!");
+                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 200) + "Vorhandene Lizenzen von " + player.GetVnXName() + " : " + RageAPI.GetHexColorcode(200, 200, 0) + " Lizenzen");
                 }
                 else
                 {
@@ -72,13 +72,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         [Command("frisk")]
-        public static void FriskPlayer(PlayerModel player, string target_name)
+        public static void FriskPlayer(Client player, string target_name)
         {
             try
             {
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.position.Distance(target.position) < 5)
+                if (player.Position.Distance(target.Position) < 5)
                 {
                     string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.GetVnXName() + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
@@ -101,8 +101,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         mats = MATS.amount;
                     }
 
-                    player.SendChatMessage(inventory + "Materials: " + mats + " Stk, Kokain: " + kokain + "g , Drogen: " + weed + "g");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " hat dich durchsucht!");
+                    player.SendTranslatedChatMessage(inventory + "Materials: " + mats + " Stk, Kokain: " + kokain + "g , Drogen: " + weed + "g");
+                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " hat dich durchsucht!");
                 }
                 else
                 {
@@ -115,17 +115,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         [Command("takeillegal")]
-        public static void Takeillegal(PlayerModel player, string target_name)
+        public static void Takeillegal(Client player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                    Client target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                     {
-                        if (player.position.Distance(target.position) < 5)
+                        if (player.Position.Distance(target.Position) < 5)
                         {
                             string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.GetVnXName() + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
@@ -151,8 +151,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
                             }
 
-                            target.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " hat dir deine Illegalen Gegenstaende abgenommen!");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast " + target.GetVnXName() + " seine Illegalen Gegenstaende abgenommen!");
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " hat dir deine Illegalen Gegenstaende abgenommen!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast " + target.GetVnXName() + " seine Illegalen Gegenstaende abgenommen!");
                         }
                         else
                         {
@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         //[AltV.Net.ClientEvent("triggerStateWeaponWindowBtn_S")]
-        public static void GivePlayerStateFactionWeapon(PlayerModel player, string button)
+        public static void GivePlayerStateFactionWeapon(Client player, string button)
         {
             try
             {
@@ -248,12 +248,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Schlagstock!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Schlagstock!");
                         }
                     }
 
@@ -282,12 +282,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Tazer!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Tazer!");
                         }
                     }
                     if (button == "Pistol")
@@ -314,7 +314,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                     }
@@ -377,7 +377,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
@@ -411,7 +411,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                     }
@@ -440,7 +440,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -455,7 +455,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -482,7 +482,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -497,7 +497,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -532,7 +532,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -547,7 +547,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -581,7 +581,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -596,7 +596,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -624,7 +624,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -639,7 +639,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -661,7 +661,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         //[AltV.Net.ClientEvent("triggerBadWeaponWindowBtn_S")]
-        public static void GivePlayerBadFactionWeapon(PlayerModel player, string button)
+        public static void GivePlayerBadFactionWeapon(Client player, string button)
         {
             try
             {
@@ -742,12 +742,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Baseball-Schläger!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Baseball-Schläger!");
                         }
                     }
 
@@ -775,7 +775,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
@@ -809,7 +809,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                     }
@@ -838,7 +838,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
@@ -872,7 +872,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                     }
@@ -900,7 +900,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                         else
@@ -934,7 +934,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
                             }
                         }
                     }
@@ -963,7 +963,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -978,7 +978,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -1005,7 +1005,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -1020,7 +1020,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -1047,7 +1047,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -1062,7 +1062,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -1089,7 +1089,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -1104,7 +1104,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -1132,7 +1132,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
                             }
                         }
                         else
@@ -1147,7 +1147,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
                             }
                         }
                     }
@@ -1207,13 +1207,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             policeControlList.Add(policeControl);
                             break;
                         default:
-                            player.SendChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_PUT_COMMAND);
+                            player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_PUT_COMMAND);
                             break;
                     }
                 }
                 else
                 {
-                    player.SendChatMessage(Constants.Rgba_ERROR + Messages.ERR_PLAYER_NOT_POLICE_FACTION);
+                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_PLAYER_NOT_POLICE_FACTION);
                 }
             }
         }
@@ -1247,7 +1247,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         RemoveClosestPoliceControlItem(player, Constants.POLICE_DEPLOYABLE_SPIKES);
                         break;
                     default:
-                        player.SendChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_REMOVE_COMMAND);
+                        player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_REMOVE_COMMAND);
                         break;
                 }
             }
@@ -1255,7 +1255,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         */
 
         [Command("ausknasten")]
-        public void RemovePlayerFromKnast(PlayerModel player, string target_name)
+        public void RemovePlayerFromKnast(Client player, string target_name)
         {
             try
             {
@@ -1264,7 +1264,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 3)
                 {
@@ -1272,10 +1272,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
-                        target.position = new Position(427.5651f, -981.0995f, 30.71008f);
+                        target.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;
-                        target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 105, 145) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat " + target.GetVnXName() + " ausgeknastet.");
+                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                        RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 105, 145) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat " + target.GetVnXName() + " ausgeknastet.");
                     }
                 }
                 else
@@ -1289,7 +1289,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         [Command("suspect", true)]
-        public void GivePlayerStars_LongVersion(PlayerModel player, string target_name, string action)
+        public void GivePlayerStars_LongVersion(Client player, string target_name, string action)
         {
             try
             {
@@ -1299,16 +1299,16 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         [Command("su", true)]
-        public void GivePlayerStars(PlayerModel player, string target_name, string action)
+        public void GivePlayerStars(Client player, string target_name, string action)
         {
             try
             {
                 if (Allround.isStateFaction(player) == false)
                 {
-                    player.SendChatMessage("Du bist kein Staatsfraktionist!");
+                    player.SendTranslatedChatMessage("Du bist kein Staatsfraktionist!");
                     return;
                 }
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
@@ -1316,7 +1316,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     action = action.ToLower();
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 6 || target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 6)
                     {
-                        player.SendChatMessage("{007d00}Der Spieler hat bereits 6 Wanteds!");
+                        player.SendTranslatedChatMessage("{007d00}Der Spieler hat bereits 6 Wanteds!");
                         return;
                     }
                     int SpielerWanteds = target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS);
@@ -1363,7 +1363,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
                             break;
                         default:
-                            player.SendChatMessage("Falsches Wantedkürzel");
+                            player.SendTranslatedChatMessage("Falsches Wantedkürzel");
                             break;
 
                     }
@@ -1405,7 +1405,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         else if (action == "koks1") { wantedgrund = "Koksinbesitz (10 - 49g)"; }
                         else if (action == "mats1") { wantedgrund = "Matsbesitz (10 - 49Stk.)"; }
 
-                        target.SendChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
                     }
                     /////////////////////////////// 2 STAR /////////////////////////////// 
                     /////////////////////////////// 2 STAR /////////////////////////////// 
@@ -1449,7 +1449,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         else if (action == "mats2") { wantedgrund = "Matsbesitz (50 - 149Stk.)"; }
 
 
-                        target.SendChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
 
 
                     }
@@ -1486,7 +1486,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         else if (action == "koks3") { wantedgrund = "Koksinbesitz (150g und mehr)"; }
                         else if (action == "mats3") { wantedgrund = "Matsbesitz (150 Stk. und mehr)"; }
 
-                        target.SendChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
                     }
 
                     /////////////////////////////// 4 STAR /////////////////////////////// 
@@ -1506,7 +1506,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         if (action == "br") { wantedgrund = "Bankraub"; }
                         else if (action == "geisel") { wantedgrund = "Geiselnahme"; }
 
-                        target.SendChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
                     }
                     /////////////////////////////// 6 STAR /////////////////////////////// 
                     else if (
@@ -1525,18 +1525,18 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         if (action == "fib") { wantedgrund = "Einbruch beim FIB"; }
                         else if (action == "pd") { wantedgrund = "Einbruch beim LSPD"; }
 
-                        target.SendChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    foreach (PlayerModel targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
+                    foreach (Client targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
-                            targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat das Fahndungslevel von " + target.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                            targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat das Fahndungslevel von " + target.GetVnXName() + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
 
                         }
                     }
@@ -1545,13 +1545,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + target.GetVnXName() + " ist grade am Connecten....");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + target.GetVnXName() + " ist grade am Connecten....");
                 }
             }
             catch { }
         }
         [Command("clear", true)]
-        public void Clearuserwanteds(PlayerModel player, string target_name)
+        public void Clearuserwanteds(Client player, string target_name)
         {
             try
             {
@@ -1560,34 +1560,34 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
                 if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
                     {
-                        player.SendChatMessage("{007d00}Der Spieler hat keine Wanteds!");
+                        player.SendTranslatedChatMessage("{007d00}Der Spieler hat keine Wanteds!");
 
                     }
                     else
                     {
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
-                        target.SendChatMessage("{007d00}Officer " + player.GetVnXName() + " hat deine Akte Gelöscht!");
+                        target.SendTranslatedChatMessage("{007d00}Officer " + player.GetVnXName() + " hat deine Akte Gelöscht!");
                         anzeigen.Usefull.VnX.onWantedChange(target);
 
-                        foreach (IPlayer targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
+                        foreach (Client targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_FACTION)))
                         {
                             if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 1)
                             {
-                                targetsingame.SendChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat die Akte von " + target.GetVnXName() + " Gelöscht!");
+                                targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat die Akte von " + target.GetVnXName() + " Gelöscht!");
                             }
                         }
                     }
                 }
                 else
                 {
-                    player.SendChatMessage(target.GetVnXName() + " ist grade am Connecten...");
+                    player.SendTranslatedChatMessage(target.GetVnXName() + " ist grade am Connecten...");
                 }
             }
             catch { }

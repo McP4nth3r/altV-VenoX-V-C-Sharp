@@ -75,11 +75,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
         /// <param name="player">Player who´s the Owner</param>
         /// <param name="Roller">Is it A Roller? If No it should be a Panto.</param>
-        public static void GetNearestRentalsSpawn(PlayerModel player, bool Roller)
+        public static void GetNearestRentalsSpawn(Client player, bool Roller)
         {
             try
             {
-                if (player.position.Distance(NOOBSPAWN_RENTALS) <= 5)
+                if (player.Position.Distance(NOOBSPAWN_RENTALS) <= 5)
                 {
                     if (Roller)
                     {
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(-2283.869f, 407.4549f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                 }
-                else if (player.position.Distance(LSPD_RENTALS) <= 5)
+                else if (player.Position.Distance(LSPD_RENTALS) <= 5)
                 {
                     if (Roller)
                     {
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //Function will be called by Lib.
-        public static void GivePlayerRentedIVehicle(PlayerModel player, int value)
+        public static void GivePlayerRentedIVehicle(Client player, int value)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         else
                         {
-                            player.SendChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld! ");
+                            player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld! ");
                         }
                     }
                     else
@@ -141,22 +141,22 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         else
                         {
-                            player.SendChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld!");
+                            player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld!");
                         }
                     }
 
                 }
                 else
                 {
-                    player.SendChatMessage("Du hast bereits ein Fahrzeug ausgeliehen!");
-                    player.SendChatMessage("Warte bis dein Fahrzeug abläuft oder benutze /stoprent !");
+                    player.SendTranslatedChatMessage("Du hast bereits ein Fahrzeug ausgeliehen!");
+                    player.SendTranslatedChatMessage("Warte bis dein Fahrzeug abläuft oder benutze /stoprent !");
                 }
             }
             catch { }
         }
 
         [Command("updaterent")]
-        public void Update_VenoX_Rentals(PlayerModel player)
+        public void Update_VenoX_Rentals(Client player)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("Destroy_Verleih_Rentals")]
-        public void destroy_Fahrzeug_verleih(PlayerModel player)
+        public void destroy_Fahrzeug_verleih(Client player)
         {
             try
             {
@@ -202,7 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         player.vnxSetStreamSharedElementData(HAVE_PLAYER_RENTED_VEHICLE, 0);
                         Vehicle.Remove();
-                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VenoX Rental] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Mietverhältnis wurde beendet!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VenoX Rental] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Mietverhältnis wurde beendet!");
                     }
                 }
             }
@@ -210,7 +210,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [Command("stoprent")]
-        public void stop_Fahrzeug_Verleih(PlayerModel player)
+        public void stop_Fahrzeug_Verleih(Client player)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {

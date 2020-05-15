@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             VenoXV.Globals.Functions.BlipList.Add(blip);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             }
             catch { }
         }
-        public static void SellKokain(PlayerModel player, int value)
+        public static void SellKokain(Client player, int value)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                         if (value <= KOKS.amount)
                         {
                             int koksverkauf = value * 30;
-                            player.SendChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
+                            player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + koksverkauf);
                             dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
                             KOKS.amount -= value;

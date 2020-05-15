@@ -10,11 +10,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
     public class WeazelNews : IScript
     {
         [Command("requestlive")]
-        public void SendIPlayerLiveOffer(PlayerModel player, string target_name)
+        public void SendIPlayerLiveOffer(Client player, string target_name)
         {
             try
             {
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                 {
@@ -23,9 +23,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                         dxLibary.VnX.DrawNotification(player, "error", "Du kannst keinen Arbeitskollegen Interviewn.");
                         return;
                     }*/
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.GetVnXName() + " eine Anfrage geschickt!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat dir eine Live Anfrage gesendet!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Nutze /acceptlive " + player.GetVnXName() + " um Live zu gehen");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.GetVnXName() + " eine Anfrage geschickt!");
+                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat dir eine Live Anfrage gesendet!");
+                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Nutze /acceptlive " + player.GetVnXName() + " um Live zu gehen");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", player.GetVnXName());
                     player.vnxSetElementData("LIVE_ANFrAGE_GESENDET_AN", target.GetVnXName());
                 }
@@ -40,19 +40,19 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("acceptlive")]
-        public void AcceptLiveOffcer(PlayerModel player, string target_name)
+        public void AcceptLiveOffcer(Client player, string target_name)
         {
             try
             {
-                PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+                Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.GetVnXName())
                 {
                     player.vnxSetStreamSharedElementData("settings_reporter", "ja");
                     target.vnxSetStreamSharedElementData("settings_reporter", "ja");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Du bist nun Live mit " + target.GetVnXName() + "!");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Nutze /live [Text] um das Interview durchzuführen!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + player.GetVnXName() + " hat deine Live Anfrage Bestätigt! Ihr seid nun Live! Nutze /live [Text] um ein Interview durchzuführen!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Du bist nun Live mit " + target.GetVnXName() + "!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + "Nutze /live [Text] um das Interview durchzuführen!");
+                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 175, 0) + player.GetVnXName() + " hat deine Live Anfrage Bestätigt! Ihr seid nun Live! Nutze /live [Text] um ein Interview durchzuführen!");
                     player.vnxSetElementData("PLAYER_IS_LIVE", "TRUE");
                     target.vnxSetElementData("PLAYER_IS_LIVE", "TRUE");
                 }
@@ -67,17 +67,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("live", true)]
-        public void SendLiveMessage(PlayerModel player, string text)
+        public void SendLiveMessage(Client player, string text)
         {
             try
             {
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
-                    foreach (IPlayer targetsingame in Alt.GetAllPlayers())
+                    foreach (Client targetsingame in Alt.GetAllPlayers())
                     {
                         if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
                         {
-                            targetsingame.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " : " + text);
+                            targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " : " + text);
                         }
                     }
                 }
@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
         }
 
         [Command("endlive")]
-        public void EndLiveReporter(PlayerModel player)
+        public void EndLiveReporter(Client player)
         {
             try
             {
@@ -100,15 +100,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
                     string targetName = player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON");
-                    //RageAPI.SendChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
-                    PlayerModel target = RageAPI.GetPlayerFromName(targetName);
+                    //RageAPI.SendTranslatedChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
+                    Client target = RageAPI.GetPlayerFromName(targetName);
                     player.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
-                    foreach (IPlayer targetsingame in Alt.GetAllPlayers())
+                    foreach (Client targetsingame in Alt.GetAllPlayers())
                     {
                         if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
                         {
-                            targetsingame.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat das Live interview beendet.");
+                            targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.GetVnXName() + " hat das Live interview beendet.");
                         }
                     }
                 }

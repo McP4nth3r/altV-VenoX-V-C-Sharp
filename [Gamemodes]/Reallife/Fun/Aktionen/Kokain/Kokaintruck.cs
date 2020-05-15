@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -52,12 +52,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 {
                     if (factions.Allround.isBadFaction(player))
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Jo... Willst du dir paar gramm Kokain dazu verdienen?");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "nutze /kokaintruck [Zahl] um einen Kokaintruck zu starten! Maximal 1000 G");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Jo... Willst du dir paar gramm Kokain dazu verdienen?");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "nutze /kokaintruck [Zahl] um einen Kokaintruck zu starten! Maximal 1000 G");
                     }
                     else
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Bist du in einer Gang? Nein? Dann verzieh dich.");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Bist du in einer Gang? Nein? Dann verzieh dich.");
                     }
                 }
                 else if (shape.vnxGetElementData<bool>("AKTION_COL") == true)
@@ -93,12 +93,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 }
                                 Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                                 Allround.ChangeAktionsState(false);
-                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
+                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
                                 player.WarpOutOfVehicle<bool>();
                                 player.Vehicle.Remove();
                                 AltV.Net.Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                                foreach (PlayerModel target in Alt.GetAllPlayers())
+                                foreach (Client target in Alt.GetAllPlayers())
                                 {
                                     if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
                                     {
@@ -108,12 +108,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                             }
                             else
                             {
-                                player.SendChatMessage("Du bist nicht im Kokaintruck!");
+                                player.SendTranslatedChatMessage("Du bist nicht im Kokaintruck!");
                             }
                         }
                         else
                         {
-                            player.SendChatMessage("Du bist nicht im Kokaintruck!");
+                            player.SendTranslatedChatMessage("Du bist nicht im Kokaintruck!");
                         }
                     }
                 }
@@ -126,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static IVehicle Kokaintruckveh { get; set; }
 
         [Command("kokaintruck")]
-        public void StartKokaintruck(PlayerModel player, int koks)
+        public void StartKokaintruck(Client player, int koks)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 if (factions.Allround.isBadFaction(player))
                 {
                     int cops = 0;
-                    foreach (PlayerModel Spieler in Alt.GetAllPlayers())
+                    foreach (Client Spieler in Alt.GetAllPlayers())
                     {
                         if (factions.Allround.isStateFaction(Spieler))
                         {
@@ -160,29 +160,29 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     }
                     else if (koks > 1000)
                     {
-                        player.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "Maximal nur 1000 G möglich!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "Maximal nur 1000 G möglich!");
                         return;
                     }
                     else
                     {
                         int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                         int kokskosten = koks * 15;
-                        if (player.position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f)
+                        if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f)
                         {
-                            player.SendChatMessage("[Kokaintruck] : Du bist hier Falsch...");
+                            player.SendTranslatedChatMessage("[Kokaintruck] : Du bist hier Falsch...");
                             return;
                         }
                         if (playermoney < kokskosten)
                         {
-                            player.SendChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du hast nicht genug geld! für " + koks + " G Kokain brauchst du " + kokskosten + " $");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du hast nicht genug geld! für " + koks + " G Kokain brauchst du " + kokskosten + " $");
                             return;
                         }
                         AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                         Allround.ChangeAktionsState(true);
                         IColShape Kokaintruck_Col_Abgabe = Alt.CreateColShapeSphere(new Position(2536.999f, 2578.391f, 0), 3f);
                         Kokaintruck_Col_Abgabe.vnxSetElementData("AKTION_COL", true);
-                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
-                        player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
+                        RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - kokskosten);
 
                         IVehicle Kokaintruckveh = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0));
@@ -197,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
-                        foreach (PlayerModel target in Alt.GetAllPlayers())
+                        foreach (Client target in Alt.GetAllPlayers())
                         {
                             if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
                             {
@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 }
                 else
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[Kokaintruck] : Du bist kein Mitglied einer Bösen Fraktion!");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[Kokaintruck] : Du bist kein Mitglied einer Bösen Fraktion!");
                 }
             }
             catch (Exception ex)
@@ -233,7 +233,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 {
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
-                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 0) + "Der Kokaintruck wurde wegen Zeitüberschreitung zerstört!");
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 0) + "Der Kokaintruck wurde wegen Zeitüberschreitung zerstört!");
                     Kokaintruckveh.Remove();
                 }
             }

@@ -8,7 +8,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Weapons : IScript
     {
-        public static void GivePlayerWeaponItems(PlayerModel player)
+        public static void GivePlayerWeaponItems(Client player)
         {
             try
             {
@@ -389,8 +389,8 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                 }
                 int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 ItemModel Pistoleold = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
-                //player.SendChatMessage("Dein Alter wert war : " + Pistoleold.amount);
-                // player.SendChatMessage("Dein Alter wert war : " + weapon);
+                //player.SendTranslatedChatMessage("Dein Alter wert war : " + Pistoleold.amount);
+                // player.SendTranslatedChatMessage("Dein Alter wert war : " + weapon);
 
                 AltV.Net.Enums.WeaponModel WeaponModel = NAPI.Util.WeaponNameToModel(weapon);
                 if (weapon == "Pistol") { WeaponModel = AltV.Net.Enums.WeaponModel.Pistol; }
@@ -704,12 +704,12 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                             }
                             else
                             {
-                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             }
                         }
                         if (weapon != "unbewaffnet" || AltV.Net.Enums.WeaponModel != AltV.Net.Enums.WeaponModel.Fist || AltV.Net.Enums.WeaponModel != 0
                         {
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + " " + weapon + " | " + AltV.Net.Enums.WeaponModel);
                             Anti_Cheat_Weapons.anticheat_permanent_ban(player, "0x047_" + AltV.Net.Enums.WeaponModel);
                             return;
                         }

@@ -82,17 +82,17 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         {
                             player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - 180);
                             var paynsprayfahrzeug = player.Vehicle;
-                            player.SendChatMessage( "~g~Fahrzeug Repariert! [180 $]", true);
+                            player.SendTranslatedChatMessage( "~g~Fahrzeug Repariert! [180 $]", true);
                             NAPI.Vehicle.RepairIVehicle(paynsprayfahrzeug);
                         }
                         else
                         {
-                            player.SendChatMessage( "~r~Du hast nicht genug Geld!", true);
+                            player.SendTranslatedChatMessage( "~r~Du hast nicht genug Geld!", true);
                         }
                     }
                     else
                     {
-                        player.SendChatMessage( "~r~Du bist in keinem Fahrzeug!", false);
+                        player.SendTranslatedChatMessage( "~r~Du bist in keinem Fahrzeug!", false);
                     }
                 }*/
             }

@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
     {
         public static Position LSPD_COL_POS = new Position(399.868f, -998.4932f, 29.45414f);
         public static IColShape LSPD_Col = Alt.CreateColShapeSphere(LSPD_COL_POS, 50);
-        public static void CreateGreenzone(PlayerModel player)
+        public static void CreateGreenzone(Client player)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             }
             catch { }
         }
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             if (shape == LSPD_Col)
             {
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             }
         }
 
-        public static void OnPlayerExitIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerExitIColShape(IColShape shape, Client player)
         {
             try
             {

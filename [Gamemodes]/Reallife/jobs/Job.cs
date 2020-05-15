@@ -20,22 +20,22 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static IColShape FBIDuty = Alt.CreateColShapeSphere(new Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
 
         [Command("setclothes")]
-        public static void GiveIPlayerTestClothes(PlayerModel player, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void GiveIPlayerTestClothes(Client player, int clothesslot, int clothesdrawable, int clothestexture)
         {
             player.SetClothes(clothesslot, clothesdrawable, clothestexture);
-            player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
+            player.SendTranslatedChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
         }
         [Command("setprop")]
-        public static void GiveIPlayerTestProp(PlayerModel player, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void GiveIPlayerTestProp(Client player, int clothesslot, int clothesdrawable, int clothestexture)
         {
             player.SetProp(clothesslot, clothesdrawable, clothestexture);
-            player.SendChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
+            player.SendTranslatedChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
         }
 
         [Command("setcopclothes")]
-        public static void GiveTargetCopClothes(PlayerModel player, string target_name)
+        public static void GiveTargetCopClothes(Client player, string target_name)
         {
-            PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+            Client target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             target.SetClothes(6, 24, 0);
             target.SetClothes(4, 33, 0);
@@ -47,9 +47,9 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         [Command("setbadclothes")]
-        public static void GiveTargetBadClothes(PlayerModel player, string target_name)
+        public static void GiveTargetBadClothes(Client player, string target_name)
         {
-            PlayerModel target = RageAPI.GetPlayerFromName(target_name);
+            Client target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             target.SetClothes(4, 19, 0);
             target.SetClothes(1, 95, 0);
@@ -61,12 +61,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         [Command("givepweapon")]
-        public static void GivePlayerWeapons(PlayerModel player, string weaponname)
+        public static void GivePlayerWeapons(Client player, string weaponname)
         {
             player.GivePlayerWeapon((AltV.Net.Enums.WeaponModel)Alt.Hash(weaponname), 500);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
 
         [Command("quitjob")]
-        public static void QuitJob_Server(PlayerModel player)
+        public static void QuitJob_Server(Client player)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         //[AltV.Net.ClientEvent("accept_job_server")]
-        public void Accept_job(PlayerModel player, string windowname)
+        public void Accept_job(Client player, string windowname)
         {
             if (windowname == "Venox City Transport")
             {
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
         }
         //[AltV.Net.ClientEvent("job_window_1_button")]
-        public void trigger_job_window_1_buttons(PlayerModel player, string button)
+        public void trigger_job_window_1_buttons(Client player, string button)
         {
             try
             {
@@ -391,7 +391,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
                 Weapons.GivePlayerWeaponItems(player);
                 // Notification sent to the player
-                player.SendChatMessage(Messages.INF_PLAYER_ON_DUTY);
+                player.SendTranslatedChatMessage(Messages.INF_PLAYER_ON_DUTY);
             }
         }*/
     }

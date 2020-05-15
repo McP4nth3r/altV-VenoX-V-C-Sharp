@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -457,7 +456,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
         }
 
 
-        public static int CreateCharacter(PlayerModel player, int UID, SkinModel skin)
+        public static int CreateCharacter(Client player, int UID, SkinModel skin)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -611,7 +610,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
         }
 
 
-        public static PlayerModel LoadCharacterInformationById(PlayerModel character, int characterId)
+        public static Client LoadCharacterInformationById(Client character, int characterId)
         {
             try
             {
@@ -622,75 +621,67 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     command.CommandText = "SELECT * FROM users WHERE UID = @UID LIMIT 1";
                     command.Parameters.AddWithValue("@UID", characterId);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
-                            float rot = reader.GetFloat("rotation");
+                        reader.Read();
+                        float posX = reader.GetFloat("posX");
+                        float posY = reader.GetFloat("posY");
+                        float posZ = reader.GetFloat("posZ");
+                        float rot = reader.GetFloat("rotation");
 
-                            character.id = reader.GetInt32("UID");
-                            character.realName = reader.GetString("SpielerName");
-                            character.adminRank = reader.GetInt32("adminRank");
-                            character.spawn = reader.GetString("spawn");
-                            character.knastzeit = reader.GetInt32("knastzeit");
-                            character.faction = reader.GetInt32("faction");
-                            character.zivizeit = reader.GetDateTime("zivizeit");
-                            character.position = new Position(posX, posY, posZ);
-                            character.rotation = (int)rot;
-                            character.money = reader.GetInt32("money");
-                            character.bank = reader.GetInt32("bank");
-                            character.SocialState = reader.GetString("SocialState");
-                            character.health = reader.GetInt32("health");
-                            character.armor = reader.GetInt32("armor");
-                            character.age = reader.GetInt32("age");
-                            character.sex = reader.GetInt32("sex");
-                            character.job = reader.GetString("job");
-                            character.LIEFERJOB_LEVEL = reader.GetInt32("LIEFERJOB_LEVEL");
-                            character.AIRPORTJOB_LEVEL = reader.GetInt32("AIRPORTJOB_LEVEL");
-                            character.BUSJOB_LEVEL = reader.GetInt32("BUSJOB_LEVEL");
-                            character.rank = reader.GetInt32("rank");
-                            character.phone = reader.GetInt32("phone");
-                            character.killed = reader.GetInt32("killed");
-                            character.houseRent = reader.GetInt32("houseRent");
-                            character.houseEntered = reader.GetInt32("houseEntered");
-                            character.businessEntered = reader.GetInt32("businessEntered");
+                        character.UID = reader.GetInt32("UID");
+                        character.Username = reader.GetString("SpielerName");
+                        character.AdminRank = reader.GetInt32("adminRank");
+                        character.Reallife.SpawnLocation = reader.GetString("spawn");
+                        character.Reallife.Knastzeit = reader.GetInt32("knastzeit");
+                        character.Reallife.Faction = reader.GetInt32("faction");
+                        character.Reallife.Zivizeit = reader.GetDateTime("zivizeit");
+                        character.SetPosition = new Position(posX, posY, posZ);
+                        character.Reallife.Money = reader.GetInt32("money");
+                        character.Reallife.Bank = reader.GetInt32("bank");
+                        character.Reallife.SocialState = reader.GetString("SocialState");
+                        character.Sex = reader.GetInt32("sex");
+                        character.Reallife.REALLIFE_JOB = reader.GetString("job");
+                        character.Reallife.LIEFERJOB_LEVEL = reader.GetInt32("LIEFERJOB_LEVEL");
+                        character.Reallife.AIRPORTJOB_LEVEL = reader.GetInt32("AIRPORTJOB_LEVEL");
+                        character.Reallife.BUSJOB_LEVEL = reader.GetInt32("BUSJOB_LEVEL");
+                        character.Reallife.FactionRank = reader.GetInt32("rank");
+                        character.Dead = reader.GetInt32("killed");
+                        character.Reallife.HouseRent = reader.GetInt32("houseRent");
+                        character.Reallife.HouseEntered = reader.GetInt32("houseEntered");
+                        character.Reallife.BusinessEntered = reader.GetInt32("businessEntered");
 
-                            character.Personalausweis = reader.GetInt32("Personalausweis");
-                            character.Autofuehrerschein = reader.GetInt32("Autofuehrerschein");
-                            character.Motorradfuehrerschein = reader.GetInt32("Motorradfuehrerschein");
-                            character.LKWfuehrerschein = reader.GetInt32("LKWfuehrerschein");
-                            character.Helikopterfuehrerschein = reader.GetInt32("Helikopterfuehrerschein");
-                            character.FlugscheinKlasseA = reader.GetInt32("FlugscheinKlasseA");
-                            character.FlugscheinKlasseB = reader.GetInt32("FlugscheinKlasseB");
-                            character.Motorbootschein = reader.GetInt32("Motorbootschein");
-                            character.Angelschein = reader.GetInt32("Angelschein");
-                            character.Waffenschein = reader.GetInt32("Waffenschein");
+                        character.Reallife.Personalausweis = reader.GetInt32("Personalausweis");
+                        character.Reallife.Autofuehrerschein = reader.GetInt32("Autofuehrerschein");
+                        character.Reallife.Motorradfuehrerschein = reader.GetInt32("Motorradfuehrerschein");
+                        character.Reallife.LKWfuehrerschein = reader.GetInt32("LKWfuehrerschein");
+                        character.Reallife.Helikopterfuehrerschein = reader.GetInt32("Helikopterfuehrerschein");
+                        character.Reallife.FlugscheinKlasseA = reader.GetInt32("FlugscheinKlasseA");
+                        character.Reallife.FlugscheinKlasseB = reader.GetInt32("FlugscheinKlasseB");
+                        character.Reallife.Motorbootschein = reader.GetInt32("Motorbootschein");
+                        character.Reallife.Angelschein = reader.GetInt32("Angelschein");
+                        character.Reallife.Waffenschein = reader.GetInt32("Waffenschein");
 
-                            character.status = reader.GetInt32("status");
-                            character.played = reader.GetInt32("played");
-                            character.quests = reader.GetInt32("quests");
-                            character.wanteds = reader.GetInt32("wanteds");
-                            character.kaution = reader.GetInt32("kaution");
-                            character.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
-                            character.atm = reader.GetString("atm_anzeigen");
-                            character.haus = reader.GetString("haus_anzeigen");
-                            character.tacho = reader.GetString("tacho_anzeigen");
-                            character.quest_anzeigen = reader.GetString("quest_anzeigen");
-                            character.reporter = reader.GetString("reporter_anzeigen");
-                            character.globalchat = reader.GetString("globalchat_anzeigen");
-                            character.tactic_kills = reader.GetInt32("tactic_kills");
-                            character.tactic_tode = reader.GetInt32("tactic_tode");
+                        character.Played = reader.GetInt32("played");
+                        character.Reallife.Quests = reader.GetInt32("quests");
+                        character.Reallife.Wanteds = reader.GetInt32("wanteds");
+                        character.Reallife.Kaution = reader.GetInt32("kaution");
+                        character.Reallife.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
+                        character.Reallife.ShowATM = reader.GetString("atm_anzeigen");
+                        character.Reallife.ShowHouse = reader.GetString("haus_anzeigen");
+                        character.Reallife.ShowTacho = reader.GetString("tacho_anzeigen");
+                        character.Reallife.Quest_anzeigen = reader.GetString("quest_anzeigen");
+                        character.Reallife.Reporter = reader.GetString("reporter_anzeigen");
+                        character.Globalchat = reader.GetString("globalchat_anzeigen");
+                        character.Tactics.Tactic_kills = reader.GetInt32("tactic_kills");
+                        character.Tactics.Tactic_tode = reader.GetInt32("tactic_tode");
 
-                            character.zombie_tode = reader.GetInt32("zombie_tode");
-                            character.zombie_kills = reader.GetInt32("zombie_kills");
-                            character.zombie_player_kills = reader.GetInt32("zombie_player_kills");
+                        character.Zombies.Zombie_tode = reader.GetInt32("zombie_tode");
+                        character.Zombies.Zombie_kills = reader.GetInt32("zombie_kills");
+                        character.Zombies.Zombie_player_kills = reader.GetInt32("zombie_player_kills");
 
-                            character.adventskalender = reader.GetInt32("Adventskalender");
-                        }
+                        character.Reallife.Adventskalender = reader.GetInt32("Adventskalender");
                     }
                 }
 
@@ -700,7 +691,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
         }
 
 
-        public static void SaveCharacterInformation(PlayerModel player)
+        public static void SaveCharacterInformation(Client player)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -710,67 +701,65 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "UPDATE users SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, money = @money, bank = @bank, SocialState = @SocialState, health = @health, armor = @armor, spawn  = @spawn, quests = @quests, wanteds = @wanteds, ";
                     command.CommandText += "knastzeit = @knastzeit, kaution = @kaution, REALLIFE_HUD = @REALLIFE_HUD, atm_anzeigen = @atm_anzeigen, haus_anzeigen = @haus_anzeigen, tacho_anzeigen = @tacho_anzeigen, quest_anzeigen = @quest_anzeigen, reporter_anzeigen = @reporter_anzeigen, globalchat_anzeigen = @globalchat_anzeigen, killed = @killed,";
-                    command.CommandText += "faction = @faction, zivizeit = @zivizeit, job = @job, LIEFERJOB_LEVEL = @LIEFERJOB_LEVEL, AIRPORTJOB_LEVEL = @AIRPORTJOB_LEVEL, BUSJOB_LEVEL = @BUSJOB_LEVEL, rank = @rank, phone = @phone, houseRent = @houseRent, ";
+                    command.CommandText += "faction = @faction, zivizeit = @zivizeit, job = @job, LIEFERJOB_LEVEL = @LIEFERJOB_LEVEL, AIRPORTJOB_LEVEL = @AIRPORTJOB_LEVEL, BUSJOB_LEVEL = @BUSJOB_LEVEL, rank = @rank, houseRent = @houseRent, ";
                     command.CommandText += "houseEntered = @houseEntered, businessEntered = @businessEntered, Personalausweis = @Personalausweis, Autofuehrerschein = @Autofuehrerschein,";
                     command.CommandText += "Motorradfuehrerschein = @Motorradfuehrerschein, LKWfuehrerschein = @LKWfuehrerschein, Helikopterfuehrerschein = @Helikopterfuehrerschein, FlugscheinKlasseA = @FlugscheinKlasseA, FlugscheinKlasseB = @FlugscheinKlasseB, Motorbootschein = @Motorbootschein, Angelschein = @Angelschein, Waffenschein = @Waffenschein,";
                     command.CommandText += "tactic_kills = @tactic_kills, tactic_tode = @tactic_tode, Adventskalender = @Adventskalender, zombie_kills = @zombie_kills, zombie_tode = @zombie_tode, zombie_player_kills = @zombie_player_kills, ";
 
-
                     command.CommandText += "played = @played WHERE UID = @playerId LIMIT 1";
-                    command.Parameters.AddWithValue("@posX", player.position.X);
-                    command.Parameters.AddWithValue("@posY", player.position.Y);
-                    command.Parameters.AddWithValue("@posZ", player.position.Z);
-                    command.Parameters.AddWithValue("@rotation", player.rotation);
-                    command.Parameters.AddWithValue("@money", player.money);
-                    command.Parameters.AddWithValue("@bank", player.bank);
-                    command.Parameters.AddWithValue("@SocialState", player.SocialState);
-                    command.Parameters.AddWithValue("@health", player.health);
-                    command.Parameters.AddWithValue("@armor", player.armor);
-                    command.Parameters.AddWithValue("@killed", player.killed);
-                    command.Parameters.AddWithValue("@faction", player.faction);
-                    command.Parameters.AddWithValue("@zivizeit", player.zivizeit);
-                    command.Parameters.AddWithValue("@job", player.job);
-                    command.Parameters.AddWithValue("@LIEFERJOB_LEVEL", player.LIEFERJOB_LEVEL);
-                    command.Parameters.AddWithValue("@AIRPORTJOB_LEVEL", player.AIRPORTJOB_LEVEL);
-                    command.Parameters.AddWithValue("@BUSJOB_LEVEL", player.BUSJOB_LEVEL);
-                    command.Parameters.AddWithValue("@rank", player.rank);
-                    command.Parameters.AddWithValue("@phone", player.phone);
-                    command.Parameters.AddWithValue("@houseRent", player.houseRent);
-                    command.Parameters.AddWithValue("@houseEntered", player.houseEntered);
-                    command.Parameters.AddWithValue("@businessEntered", player.businessEntered);
+                    command.Parameters.AddWithValue("@posX", player.Position.X);
+                    command.Parameters.AddWithValue("@posY", player.Position.Y);
+                    command.Parameters.AddWithValue("@posZ", player.Position.Z);
+                    command.Parameters.AddWithValue("@rotation", player.Rotation.Yaw);
+                    command.Parameters.AddWithValue("@money", player.Reallife.Money);
+                    command.Parameters.AddWithValue("@bank", player.Reallife.Bank);
+                    command.Parameters.AddWithValue("@SocialState", player.Reallife.SocialState);
+                    command.Parameters.AddWithValue("@health", player.Health);
+                    command.Parameters.AddWithValue("@armor", player.Armor);
+                    command.Parameters.AddWithValue("@killed", player.Dead);
+                    command.Parameters.AddWithValue("@faction", player.Reallife.Faction);
+                    command.Parameters.AddWithValue("@zivizeit", player.Reallife.Zivizeit);
+                    command.Parameters.AddWithValue("@job", player.Reallife.REALLIFE_JOB);
+                    command.Parameters.AddWithValue("@LIEFERJOB_LEVEL", player.Reallife.LIEFERJOB_LEVEL);
+                    command.Parameters.AddWithValue("@AIRPORTJOB_LEVEL", player.Reallife.AIRPORTJOB_LEVEL);
+                    command.Parameters.AddWithValue("@BUSJOB_LEVEL", player.Reallife.BUSJOB_LEVEL);
+                    command.Parameters.AddWithValue("@rank", player.Reallife.FactionRank);
+                    command.Parameters.AddWithValue("@houseRent", player.Reallife.HouseRent);
+                    command.Parameters.AddWithValue("@houseEntered", player.Reallife.HouseEntered);
+                    command.Parameters.AddWithValue("@businessEntered", player.Reallife.BusinessEntered);
 
-                    command.Parameters.AddWithValue("@Personalausweis", player.Personalausweis);
-                    command.Parameters.AddWithValue("@Autofuehrerschein", player.Autofuehrerschein);
-                    command.Parameters.AddWithValue("@Motorradfuehrerschein", player.Motorradfuehrerschein);
-                    command.Parameters.AddWithValue("@LKWfuehrerschein", player.LKWfuehrerschein);
-                    command.Parameters.AddWithValue("@Helikopterfuehrerschein", player.Helikopterfuehrerschein);
-                    command.Parameters.AddWithValue("@FlugscheinKlasseA", player.FlugscheinKlasseA);
-                    command.Parameters.AddWithValue("@FlugscheinKlasseB", player.FlugscheinKlasseB);
-                    command.Parameters.AddWithValue("@Motorbootschein", player.Motorbootschein);
-                    command.Parameters.AddWithValue("@Angelschein", player.Angelschein);
-                    command.Parameters.AddWithValue("@Waffenschein", player.Waffenschein);
+                    command.Parameters.AddWithValue("@Personalausweis", player.Reallife.Personalausweis);
+                    command.Parameters.AddWithValue("@Autofuehrerschein", player.Reallife.Autofuehrerschein);
+                    command.Parameters.AddWithValue("@Motorradfuehrerschein", player.Reallife.Motorradfuehrerschein);
+                    command.Parameters.AddWithValue("@LKWfuehrerschein", player.Reallife.LKWfuehrerschein);
+                    command.Parameters.AddWithValue("@Helikopterfuehrerschein", player.Reallife.Helikopterfuehrerschein);
+                    command.Parameters.AddWithValue("@FlugscheinKlasseA", player.Reallife.FlugscheinKlasseA);
+                    command.Parameters.AddWithValue("@FlugscheinKlasseB", player.Reallife.FlugscheinKlasseB);
+                    command.Parameters.AddWithValue("@Motorbootschein", player.Reallife.Motorbootschein);
+                    command.Parameters.AddWithValue("@Angelschein", player.Reallife.Angelschein);
+                    command.Parameters.AddWithValue("@Waffenschein", player.Reallife.Waffenschein);
 
 
-                    command.Parameters.AddWithValue("@played", player.played);
-                    command.Parameters.AddWithValue("@playerId", player.id);
-                    command.Parameters.AddWithValue("@spawn", player.spawn);
-                    command.Parameters.AddWithValue("@quests", player.quests);
-                    command.Parameters.AddWithValue("@wanteds", player.wanteds);
-                    command.Parameters.AddWithValue("@knastzeit", player.knastzeit);
-                    command.Parameters.AddWithValue("@kaution", player.kaution);
-                    command.Parameters.AddWithValue("@REALLIFE_HUD", player.REALLIFE_HUD);
-                    command.Parameters.AddWithValue("@atm_anzeigen", player.atm);
-                    command.Parameters.AddWithValue("@haus_anzeigen", player.haus);
-                    command.Parameters.AddWithValue("@tacho_anzeigen", player.tacho);
-                    command.Parameters.AddWithValue("@quest_anzeigen", player.quest_anzeigen);
-                    command.Parameters.AddWithValue("@reporter_anzeigen", player.reporter);
-                    command.Parameters.AddWithValue("@globalchat_anzeigen", player.globalchat);
-                    command.Parameters.AddWithValue("@tactic_kills", player.tactic_kills);
-                    command.Parameters.AddWithValue("@tactic_tode", player.tactic_tode);
-                    command.Parameters.AddWithValue("@Adventskalender", player.adventskalender);
-                    command.Parameters.AddWithValue("@zombie_kills", player.zombie_kills);
-                    command.Parameters.AddWithValue("@zombie_tode", player.zombie_tode);
-                    command.Parameters.AddWithValue("@zombie_player_kills", player.zombie_player_kills);
+                    command.Parameters.AddWithValue("@played", player.Played);
+                    command.Parameters.AddWithValue("@playerId", player.UID);
+                    command.Parameters.AddWithValue("@spawn", player.Reallife.SpawnLocation);
+                    command.Parameters.AddWithValue("@quests", player.Reallife.Quests);
+                    command.Parameters.AddWithValue("@wanteds", player.Reallife.Wanteds);
+                    command.Parameters.AddWithValue("@knastzeit", player.Reallife.Knastzeit);
+                    command.Parameters.AddWithValue("@kaution", player.Reallife.Kaution);
+                    command.Parameters.AddWithValue("@REALLIFE_HUD", player.Reallife.REALLIFE_HUD);
+                    command.Parameters.AddWithValue("@atm_anzeigen", player.Reallife.ShowATM);
+                    command.Parameters.AddWithValue("@haus_anzeigen", player.Reallife.ShowHouse);
+                    command.Parameters.AddWithValue("@tacho_anzeigen", player.Reallife.ShowTacho);
+                    command.Parameters.AddWithValue("@quest_anzeigen", player.Reallife.Quest_anzeigen);
+                    command.Parameters.AddWithValue("@reporter_anzeigen", player.Reallife.Reporter);
+                    command.Parameters.AddWithValue("@globalchat_anzeigen", player.Globalchat);
+                    command.Parameters.AddWithValue("@tactic_kills", player.Tactics.Tactic_kills);
+                    command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Tactic_tode);
+                    command.Parameters.AddWithValue("@Adventskalender", player.Reallife.Adventskalender);
+                    command.Parameters.AddWithValue("@zombie_kills", player.Zombies.Zombie_kills);
+                    command.Parameters.AddWithValue("@zombie_tode", player.Zombies);
+                    command.Parameters.AddWithValue("@zombie_player_kills", player.Zombies.Zombie_player_kills);
 
 
 
@@ -1374,7 +1363,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
             catch { return "ERROR"; }
         }
 
-        public static PlayerModel GetPlayerVIP(PlayerModel spieler, int UID)
+        public static Client GetPlayerVIP(Client spieler, int UID)
         {
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -1749,7 +1738,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET RgbaType = @RgbaType, firstRgba = @firstRgba, ";
+                    command.CommandText = "UPDATE Vehicles SET RgbaType = @RgbaType, firstRgba = @firstRgba, ";
                     command.CommandText += "secondRgba = @secondRgba, pearlescent = @pearlescent WHERE id = @vehId LIMIT 1";
                     command.Parameters.AddWithValue("@RgbaType", IVehicle.RgbaType);
                     command.Parameters.AddWithValue("@firstRgba", IVehicle.firstRgba);
@@ -1776,7 +1765,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation WHERE id = @vehId LIMIT 1";
+                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation WHERE id = @vehId LIMIT 1";
                     command.Parameters.AddWithValue("@posX", IVehicle.position.X);
                     command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
                     command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
@@ -1802,7 +1791,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
+                    command.CommandText = "UPDATE Vehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
                     command.Parameters.AddWithValue("@value", value);
                     command.Parameters.AddWithValue("@vehId", IVehicleId);
 
@@ -1825,7 +1814,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
+                    command.CommandText = "UPDATE Vehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
                     command.Parameters.AddWithValue("@value", value);
                     command.Parameters.AddWithValue("@vehId", IVehicleId);
 
@@ -1848,7 +1837,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE IVehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, RgbaType = @RgbaType, ";
+                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, RgbaType = @RgbaType, ";
                     command.CommandText += "firstRgba = @firstRgba, secondRgba = @secondRgba, pearlescent = @pearlescent, dimension = @dimension, ";
                     command.CommandText += "engine = @engine, locked = @locked, faction = @faction, owner = @owner, plate = @plate, price = @price, ";
                     command.CommandText += "parking = @parking, parkedTime = @parkedTime, gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
@@ -2207,7 +2196,6 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
                     command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
                     command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
-
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -2424,29 +2412,27 @@ namespace VenoXV._Gamemodes_.Reallife.database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT * FROM houses";
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            HouseModel house = new HouseModel();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
+                        HouseModel house = new HouseModel();
+                        float posX = reader.GetFloat("posX");
+                        float posY = reader.GetFloat("posY");
+                        float posZ = reader.GetFloat("posZ");
 
-                            house.id = reader.GetInt32("id");
-                            house.ipl = reader.GetString("ipl");
-                            house.name = reader.GetString("Name");
-                            house.position = new Position(posX, posY, posZ);
-                            house.Dimension = reader.GetInt32("dimension");
-                            house.price = reader.GetInt32("price");
-                            house.owner = reader.GetString("owner");
-                            house.status = reader.GetInt32("status");
-                            house.tenants = reader.GetInt32("tenants");
-                            house.rental = reader.GetInt32("rental");
-                            house.locked = reader.GetBoolean("locked");
+                        house.id = reader.GetInt32("id");
+                        house.ipl = reader.GetString("ipl");
+                        house.name = reader.GetString("Name");
+                        house.position = new Position(posX, posY, posZ);
+                        house.Dimension = reader.GetInt32("dimension");
+                        house.price = reader.GetInt32("price");
+                        house.owner = reader.GetString("owner");
+                        house.status = reader.GetInt32("status");
+                        house.tenants = reader.GetInt32("tenants");
+                        house.rental = reader.GetInt32("rental");
+                        house.locked = reader.GetBoolean("locked");
 
-                            houseList.Add(house);
-                        }
+                        houseList.Add(house);
                     }
                 }
 

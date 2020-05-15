@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_first_start(PlayerModel player)
+        public static void lieferjob_first_start(Client player)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
                 JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.GetVnXName());
                 JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
 
-                //player.SendChatMessage("Die koordinaten sind : " + Destination);
+                //player.SendTranslatedChatMessage("Die koordinaten sind : " + Destination);
                 anzeigen.Usefull.VnX.CreateCarGhostMode(player, 255, 102, 7500);
                 IVehicle Lieferjob_VEHICLE_1 = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Rumpo2, new Position(859.674f, -2363.216f, 30), new Rotation(0, 0, 355));
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Lieferjob_VEHICLE_1, -1);
@@ -75,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
             }
         }
 
-        public static void TriggerToNextJobMarker(PlayerModel player, int stage)
+        public static void TriggerToNextJobMarker(Client player, int stage)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_Second_start(PlayerModel player)
+        public static void lieferjob_Second_start(Client player)
         {
             try
             {
@@ -211,7 +211,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
 
 
         //  /coord -1037.697 -1397.189 5
-        public static void lieferjob_THIRD_start(PlayerModel player)
+        public static void lieferjob_THIRD_start(Client player)
         {
             try
             {

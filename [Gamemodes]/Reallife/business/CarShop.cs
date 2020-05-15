@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,12 +17,12 @@ namespace VenoXV._Gamemodes_.Reallife.business
         public static IColShape carShopTextLabel; // Eig Text label!
 
 
-        private int GetClosestCarShop(PlayerModel player, float distance = 2.0f)
+        private int GetClosestCarShop(Client player, float distance = 2.0f)
         {
             try
             {
                 int carShop = -1;
-                if (player.position.Distance(carShopTextLabel.Position) < distance)
+                if (player.Position.Distance(carShopTextLabel.Position) < distance)
                 {
                     carShop = 0;
                 }
@@ -78,7 +77,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return ""; }
         }
 
-        private bool SpawnPurchasedIVehicle(PlayerModel player, List<Position> spawns, AltV.Net.Enums.VehicleModel VehicleModel, int IVehiclePrice, string firstRgba, string secondRgba)
+        private bool SpawnPurchasedIVehicle(Client player, List<Position> spawns, AltV.Net.Enums.VehicleModel VehicleModel, int IVehiclePrice, string firstRgba, string secondRgba)
         {
             try
             {
@@ -153,7 +152,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
         public static IColShape CARSHOP = Alt.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, PlayerModel player)
+        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
         {
             try
             {
@@ -180,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("purchaseIVehicle")]
-        public void PurchaseIVehicleEvent(PlayerModel player, string hash, string firstRgba, string secondRgba)
+        public void PurchaseIVehicleEvent(Client player, string hash, string firstRgba, string secondRgba)
         {
             try
             {
@@ -217,7 +216,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("testIVehicle")]
-        public void TestIVehicleEvent(PlayerModel player, string hash, string firstRgba, string secondRgba)
+        public void TestIVehicleEvent(Client player, string hash, string firstRgba, string secondRgba)
         {
             try
             {
@@ -229,9 +228,9 @@ namespace VenoXV._Gamemodes_.Reallife.business
                         {
                             player.vnxSetElementData("FAHRZEUG_AM_TESTEN", false);
                             veh.Remove();
-                            player.SendChatMessage(RageAPI.GetHexColorcode(225, 0, 0) + "[VenoX Motorsport Shop] :  " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(225, 0, 0) + "[VenoX Motorsport Shop] :  " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
                             Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                            player.position = new Position(-51.54087f, -1076.941f, 26.94754f);
+                            player.SetPosition = new Position(-51.54087f, -1076.941f, 26.94754f);
                             player.Dimension = 0;
                         }
                     }
@@ -308,7 +307,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         //[AltV.Net.ClientEvent("showhudagain")]
-        public void ShowHUDAgain(PlayerModel player)
+        public void ShowHUDAgain(Client player)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 0);
             anzeigen.Usefull.VnX.UpdateHUD(player);
