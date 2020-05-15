@@ -45,7 +45,7 @@ body {
   position: absolute;
   top: 5px;
   left: 5px;
-  width: 23.5vw;
+  width: 30.5vw;
   height: 13vw;
   padding: 15px;
   opacity: 1;
@@ -140,7 +140,7 @@ body {
 		font-family: robot;
 	}
 	.chatbox {
-		width: 26.5vw;
+		width: 33.5vw;
 		height: 13vw;
 	}
 	.msginput input {

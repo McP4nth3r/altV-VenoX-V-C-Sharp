@@ -103,7 +103,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     try {
         let blip = new alt.PointBlip(pos[0], pos[1], pos[2]);
-        blip.alpha = 10;
+        blip.alpha = 255;
         blip.sprite = sprite;
         blip.color = color;
         blip.shortRange = shortrange;

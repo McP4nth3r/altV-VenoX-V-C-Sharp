@@ -14,25 +14,33 @@ namespace VenoXV.Core
 {
     public static class RageAPI
     {
-        public static void SpawnPlayer(this PlayerModel element, Vector3 pos, uint DelayInMS = 0)
+        public static void SendTranslatedChatMessage(this Client element, string msg)
+        {
+            try
+            {
+                _Language_.Main.SendTranslatedChatMessage(element, msg);
+            }
+            catch { }
+        }
+        public static void SpawnPlayer(this Client element, Vector3 pos, uint DelayInMS = 0)
         {
             try
             {
                 if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
                 {
                     element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
-                    element.position = pos;
+                    element.SetPosition = pos;
                     element.Spawn(pos, DelayInMS);
                     element.Emit("Player:Spawn");
                 }
                 else
                 {
-                    element.position = pos;
+                    element.SetPosition = pos;
                 }
             }
             catch { }
         }
-        public static void DespawnPlayer(this PlayerModel element)
+        public static void DespawnPlayer(this Client element)
         {
             try
             {
@@ -44,7 +52,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetPlayerSkin(this PlayerModel element, uint SkinHash)
+        public static void SetPlayerSkin(this Client element, uint SkinHash)
         {
             try
             {
@@ -59,7 +67,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static uint GetPlayerSkin(this PlayerModel element)
+        public static uint GetPlayerSkin(this Client element)
         {
             try
             {
@@ -107,7 +115,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (PlayerModel player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
+                foreach (Client player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -128,30 +136,30 @@ namespace VenoXV.Core
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-        public static void WarpIntoVehicle<T>(this PlayerModel player, IVehicle veh, int seat)
+        public static void WarpIntoVehicle<T>(this Client player, IVehicle veh, int seat)
         {
             player.Emit("Player:WarpIntoVehicle", veh, seat);
         }
-        public static void WarpOutOfVehicle<T>(this PlayerModel player)
+        public static void WarpOutOfVehicle<T>(this Client player)
         {
             player.Emit("Player:WarpOutOfVehicle");
         }
-        public static void SetVnXName(this PlayerModel player, string Name)
+        public static void SetVnXName(this Client player, string Name)
         {
             player.vnxSetElementData(Globals.EntityData.PLAYER_NAME, Name);
             player.SetStreamSyncedMetaData(Globals.EntityData.PLAYER_NAME, Name);
         }
-        public static string GetVnXName(this PlayerModel player)
+        public static string GetVnXName(this Client player)
         {
             return player.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME);
         }
-        public static PlayerModel GetPlayerFromName(string name)
+        public static Client GetPlayerFromName(string name)
         {
-            PlayerModel player = null;
+            Client player = null;
             try
             {
                 name = name.ToLower();
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.GetVnXName().ToLower() == name)
                     {
@@ -162,7 +170,7 @@ namespace VenoXV.Core
             }
             catch { return player; }
         }
-        public static void GivePlayerWeapon(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void GivePlayerWeapon(this Client player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
             {
@@ -171,7 +179,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void RemovePlayerWeapon(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon)
+        public static void RemovePlayerWeapon(this Client player, AltV.Net.Enums.WeaponModel weapon)
         {
             try
             {
@@ -179,7 +187,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void RemoveAllPlayerWeapons(this PlayerModel player)
+        public static void RemoveAllPlayerWeapons(this Client player)
         {
             try
             {
@@ -188,7 +196,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetWeaponAmmo(this PlayerModel player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void SetWeaponAmmo(this Client player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
             {
@@ -196,32 +204,32 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SendChatMessageToAll(string text)
+        public static void SendTranslatedChatMessageToAll(string text)
         {
             try
             {
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     players.SendChatMessage(text);
                 }
             }
             catch { }
         }
-        public static void SetClothes(this PlayerModel element, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void SetClothes(this Client element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
         }
-        public static void SetProp(this PlayerModel element, int propID, int drawableID, int textureID)
+        public static void SetProp(this Client element, int propID, int drawableID, int textureID)
         {
             if (propID < 0 || textureID < 0) { return; }
             Core.Debug.OutputDebugString("Stuff : " + propID + " | " + drawableID + " | " + textureID);
             try { element.Emit("Prop:Load", propID, drawableID, textureID); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
         }
-        public static void SetCustomization(this PlayerModel element, SkinModel model)
+        public static void SetCustomization(this Client element, SkinModel model)
         {
             List<SkinModel> modellist = new List<SkinModel>
             {
@@ -235,12 +243,12 @@ namespace VenoXV.Core
             try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
-        public static void SetPlayerVisible(this PlayerModel element, bool trueOrFalse)
+        public static void SetPlayerVisible(this Client element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
             catch { }
         }
-        public static void SetPlayerAlpha(this PlayerModel element, int alpha)
+        public static void SetPlayerAlpha(this Client element, int alpha)
         {
             try { element.Emit("Player:Alpha", alpha); }
             catch { }

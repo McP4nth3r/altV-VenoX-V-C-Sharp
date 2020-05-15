@@ -9,22 +9,22 @@ namespace VenoXV.Anti_Cheat
 {
     public class AntiCheat_Allround : IScript
     {
-        public static void SetTimeOutTeleport(PlayerModel player, int value)
+        public static void SetTimeOutTeleport(Client player, int value)
         {
             player.Emit("FreezeTPTimer", value);
         }
 
-        public static void SetTimeOutHealth(PlayerModel player, int value)
+        public static void SetTimeOutHealth(Client player, int value)
         {
             player.Emit("FreezeHealthTimer", value);
         }
 
-        public static void StartTimerTeleport(PlayerModel player)
+        public static void StartTimerTeleport(Client player)
         {
             player.Emit("StartTPTimer");
         }
 
-        public static void StopTimerTeleport(PlayerModel player)
+        public static void StopTimerTeleport(Client player)
         {
             player.Emit("StopTPTimer");
         }
@@ -73,11 +73,11 @@ namespace VenoXV.Anti_Cheat
         }
 
 
-        public static void Create_Anticheat_Peds(PlayerModel player)
+        public static void Create_Anticheat_Peds(Client player)
         {
             try
             {
-                player.SendChatMessage("AC:LOADED");
+                player.SendTranslatedChatMessage("AC:LOADED");
                 int counter = 0;
                 for (var i = 0; i <= 4; i++)
                 {
@@ -111,12 +111,12 @@ namespace VenoXV.Anti_Cheat
                  Create_Anticheat_Peds(players);
              }
          }*/
-        public static void Anticheat_time_ban(PlayerModel player, int time, string Banhash)
+        public static void Anticheat_time_ban(Client player, int time, string Banhash)
         {
             try
             {
                 Database.AddPlayerTimeBan((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), player.SocialClubId.ToString().ToString(), player.HardwareIdHash.ToString(), Banhash, "ANTI_CHEAT_" + Banhash, DateTime.Now.AddHours(time), DateTime.Now);
-                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(255, 0, 0) + player.GetVnXName() + " wurde von [VenoX Anti-Cheat Shield] für " + time + " Stunden gebannt! Grund : # " + Banhash);
+                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(255, 0, 0) + player.GetVnXName() + " wurde von [VenoX Anti-Cheat Shield] für " + time + " Stunden gebannt! Grund : # " + Banhash);
                 player.Kick("~r~Grund : " + " [ANTI-CHEAT] Weapon # " + Banhash);
             }
             catch { }

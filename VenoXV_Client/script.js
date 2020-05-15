@@ -35,14 +35,22 @@ import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
-
+import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 
 import * as hud3 from '/VenoXV_Client/Globals/Anzeigen/hud/third/index.js';
-/*
+alt.setStat('stamina', 100);
+alt.setStat('strength', 100);
+alt.setStat('lung_capacity', 100);
+alt.setStat('wheelie_ability', 100);
+alt.setStat('flying_ability', 100);
+alt.setStat('shooting_ability', 100);
+alt.setStat('stealth_ability', 100);
+
+
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
-*/
+
 
 game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
 game.startAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE');

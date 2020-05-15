@@ -8,7 +8,7 @@ namespace VenoXV.RootCore
 {
     public class Sync
     {
-        public static void LoadAllTextLabels(PlayerModel player)
+        public static void LoadAllTextLabels(Client player)
         {
             var json = JsonConvert.SerializeObject(Main.LabelList);
             var list = new List<string>();

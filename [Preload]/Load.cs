@@ -1,7 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.admin;
 using VenoXV._Gamemodes_.Reallife.character;
@@ -16,28 +14,28 @@ namespace VenoXV._Preload_
 {
     public class Load : IScript
     {
-        public static void InitializePlayerData(PlayerModel player)
+        public static void InitializePlayerData(Client player)
         {
             // Spawn pos 2
-            player.SpawnPlayer(player.position);
+            player.SpawnPlayer(player.Position);
             Position rotation = new Position(0.0f, 0.0f, 0.0f);
-            player.position = new Position(152.26f, -1004.47f, -99.00f);
+            player.SetPosition = new Position(152.26f, -1004.47f, -99.00f);
             player.Dimension = player.Id;
             player.Health = 100;
             player.Armor = 0;
 
             player.RemoveAllPlayerWeapons();
             player.SetVnXName("Random-Player");
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SEX, 0);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, 0);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_BANK, 3500);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_SEX, 0);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_MONEY, 0);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_BANK, 3500);
             player.vnxSetElementData(EntityData.PLAYER_NAME, string.Empty);
             player.vnxSetElementData(EntityData.PLAYER_HEALTH, 100);
             player.vnxSetElementData(EntityData.PLAYER_ARMOR, 0);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "-");
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, 0);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_VIP_LEVEL, "-");
+            player.vnxSetElementData(Globals.EntityData.PLAYER_RANK, 0);
 
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, 0);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_PLAYED, 0);
             player.vnxSetStreamSharedElementData("settings_atm", "ja");
             player.vnxSetStreamSharedElementData("settings_haus", "ja");
             player.vnxSetStreamSharedElementData("settings_tacho", "ja");
@@ -48,22 +46,19 @@ namespace VenoXV._Preload_
             player.vnxSetStreamSharedElementData("SocialState_NAMETAG", "VenoX");
         }
 
-        public static void LoadPlayerData(PlayerModel player, PlayerModel character)
+        public static void LoadPlayerData(Client player, Client character)
         {
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SEX, character.sex);
-            player.vnxSetElementData(EntityData.PLAYER_NAME, character.realName);
-            player.vnxSetElementData(EntityData.PLAYER_HEALTH, character.health);
-            player.vnxSetElementData(EntityData.PLAYER_ARMOR, character.armor);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, character.rank);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, character.played);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_STATUS, character.status);
-            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, character.bank);
-            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_STATUS, character.SocialState);
-            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, character.money);
-            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SQL_ID, character.id);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_SEX, character.Sex);
+            player.vnxSetElementData(EntityData.PLAYER_NAME, character.Username);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_RANK, character.Reallife.FactionRank);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_PLAYED, character.Played);
+            player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, character.Reallife.Bank);
+            player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, character.Reallife.SocialState);
+            player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_MONEY, character.Reallife.Money);
+            player.vnxSetElementData(Globals.EntityData.PLAYER_SQL_ID, character.UID);
         }
 
-        private static bool PlayerHaveAlreadyAccount(PlayerModel player)
+        private static bool PlayerHaveAlreadyAccount(Client player)
         {
             try
             {
@@ -76,7 +71,7 @@ namespace VenoXV._Preload_
         }
 
         [ClientEvent("Account:Register")]
-        public static void OnRegisterCall(PlayerModel player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
+        public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
         {
             try
             {
@@ -114,7 +109,7 @@ namespace VenoXV._Preload_
         }
 
 
-        public static void ChangeCharacterSexEvent(PlayerModel player, int sex)
+        public static void ChangeCharacterSexEvent(Client player, int sex)
         {
             try
             {
@@ -137,7 +132,7 @@ namespace VenoXV._Preload_
         }
 
         [ClientEvent("loginAccount")]
-        public void LoginAccountEvent(PlayerModel player, string username, string password)
+        public void LoginAccountEvent(Client player, string username, string password)
         {
             try
             {
@@ -147,7 +142,7 @@ namespace VenoXV._Preload_
                     player.SetVnXName(username);
                     if (username.ToLower() != player.GetVnXName().ToLower())
                     {
-                        player.SendChatMessage("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
+                        player.SendTranslatedChatMessage("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
                         player.Kick("Bitte änder in den Alt:V Einstellungen deinen Benutzernamen!");
                         return;
                     }
@@ -167,20 +162,19 @@ namespace VenoXV._Preload_
                             {
                                 return;
                             }
-                            PlayerModel character = Database.LoadCharacterInformationById(player, player_uid);
+                            Client character = Database.LoadCharacterInformationById(player, player_uid);
                             SkinModel skinModel = Database.GetCharacterSkin(player_uid);
-                            if (character != null && character.realName != null)
+                            if (character != null && character.Username != null)
                             {
-                                player.SpawnPlayer(player.position);
+                                player.SpawnPlayer(player.Position);
                                 player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SKIN_MODEL, skinModel);
-                                player.SetPlayerSkin(character.sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01"));
-                                VenoXV._Preload_.Load.LoadPlayerData(player, character);
-                                _Gamemodes_.Reallife.register_login.Main.LoadCharacterData(player, character);
+                                player.SetPlayerSkin(character.Sex == 0 ? Alt.Hash("mp_m_freemode_01") : Alt.Hash("mp_f_freemode_01"));
+                                LoadPlayerData(player, character);
                                 player.vnxSetStreamSharedElementData("HideHUD", 1);
 
                                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.UpdateHUD(player);
                                 Customization.ApplyPlayerClothes(player);
-                                Customization.ApplyPlayerCustomization(player, skinModel, character.sex);
+                                Customization.ApplyPlayerCustomization(player, skinModel, character.Sex);
                                 Customization.ApplyPlayerTattoos(player);
 
                                 foreach (var Tankstellen in _Gamemodes_.Reallife.Globals.Constants.AUTO_ZAPF_LIST_BLIPS)

@@ -56,6 +56,7 @@ namespace VenoXV.Globals
         public const string PLAYER_RANK = "PLAYER_RANK";
         public const string PLAYER_PLAYED = "PLAYER_PLAYED";
         public const string PLAYER_STATUS = "PLAYER_SOCIALSTATE";
+        public const string PLAYER_DEAD = "PLAYER_DEAD";
 
 
         public const string VEHICLE_ID = "VEHICLE_ID";

@@ -13,7 +13,7 @@ namespace VenoXV.Globals
     {
         public static List<BlipModel> BlipList = new List<BlipModel>();
 
-        public static bool IstargetInSameLobby(PlayerModel player, IPlayer target)
+        public static bool IstargetInSameLobby(Client player, IPlayer target)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace VenoXV.Globals
         /// <param name="isRentedIVehicle">Is it a Rented IVehicle?</param>
         /// <param name="Job">IVehicle Job?</param>
         /// <param name="NumberplateText">Numberlpate of the IVehicle</param>
-        public static IVehicle CreateVehicle(PlayerModel player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
+        public static IVehicle CreateVehicle(Client player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
         {
             try
             {

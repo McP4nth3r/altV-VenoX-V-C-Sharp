@@ -16,7 +16,7 @@ namespace VenoXV.Globals
         public static List<IPlayer> RacePlayers = new List<IPlayer>();
 
 
-        public static void AddPlayerIntoGamemodeList(PlayerModel player, string Gamemode)
+        public static void AddPlayerIntoGamemodeList(Client player, string Gamemode)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace VenoXV.Globals
             }
             catch (Exception ex) { Debug.CatchExceptions("AddPlayerIntoGamemodeList", ex); }
         }
-        public static void RemovePlayerFromGamemodeList(PlayerModel player)
+        public static void RemovePlayerFromGamemodeList(Client player)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                PlayerModel player = entity as PlayerModel;
+                Client player = entity as Client;
                 if (player == null) return;
                 if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
@@ -96,7 +96,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
-        public static void OnPlayerDeath(PlayerModel player, PlayerModel killer, uint reason)
+        public static void OnPlayerDeath(Client player, Client killer, uint reason)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace VenoXV.Globals
                     else
                     {
                         Core.Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName());
-                        Core.RageAPI.SendChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName());
+                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.GetVnXName());
                     }
                     return;
                 }
@@ -125,7 +125,7 @@ namespace VenoXV.Globals
                 else
                 {
                     Core.Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
-                    Core.RageAPI.SendChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
+                    Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnDeath", ex); }
@@ -138,14 +138,14 @@ namespace VenoXV.Globals
                 _Gamemodes_.Reallife.Globals.Main.OnUpdate();
                 _Gamemodes_.Tactics.Globals.Main.OnUpdate();
                 _Gamemodes_.Race.Globals.main.OnUpdate();
-                //Zombie.globals.Main.OnUpdate();
+                Zombie.globals.Main.OnUpdate();
                 //SevenTowers.globals.Main.OnUpdate();
             }
             catch { }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public void OnPlayerDisconnected(PlayerModel player, string reason)
+        public void OnPlayerDisconnected(Client player, string reason)
         {
             try
             {
@@ -158,7 +158,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.WeaponDamage)]
-        public static void WeaponDamage(PlayerModel source, PlayerModel target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
+        public static void WeaponDamage(Client source, Client target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
         {
             try
             {
