@@ -6,7 +6,7 @@ namespace VenoXV.SevenTowers.globals
 {
     public class Main : IScript
     {
-        public static void OnPlayerDisconnect(PlayerModel player)
+        public static void OnPlayerDisconnect(Client player)
         {
             try
             {
