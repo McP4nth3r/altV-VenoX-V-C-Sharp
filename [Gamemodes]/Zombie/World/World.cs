@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -12,23 +11,24 @@ namespace VenoXV.Zombie.World
         public static Position PLAYER_SPAWN_NOOBSPAWN = new Position(-2132.323f, 2821.959f, 34.84159f); // Noobspawn
         public static int TIME_INTERVAL_ZOMBIES = 10; // Zeit in sekunden wie oft Zombies spawnen sollten.
         public static int ZOMBIE_AMMOUNT_EACH_SPAWN = 2; // Zombies die Pro Spawn-Function Aufruf spawnen sollen.
-
+        public static int TIME_INTERVAL_DELETE_ZOMBIES = 5;
         // ENTITYDATAS & TIMER
         public static DateTime TIME_TO_SPAWN_ZOMBIES = DateTime.Now;
+        public static DateTime TIME_TO_DELETE_ZOMBIES = DateTime.Now;
 
 
 
-        public static void SendPlayerWelcomeNotify(PlayerModel player)
+        public static void SendPlayerWelcomeNotify(Client player)
         {
             try
             {
-                player.SendChatMessage("Willkommen im VenoX ~r~Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
-                player.SendChatMessage("Kämpfe um dein Überleben!");
+                player.SendTranslatedChatMessage("Willkommen im VenoX " + Core.RageAPI.GetHexColorcode(255, 0, 0) + " Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
+                player.SendTranslatedChatMessage("Kämpfe um dein Überleben!");
             }
             catch { }
         }
 
-        public static void InitializePlayerData(PlayerModel player)
+        public static void InitializePlayerData(Client player)
         {
             try
             {
@@ -41,20 +41,19 @@ namespace VenoXV.Zombie.World
         }
 
 
-        public static void OnSelectedZombieGM(PlayerModel player)
+        public static void OnSelectedZombieGM(Client player)
         {
             try
             {
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
-                //NAPI.player.SpawnPlayerPlayer(player, PLAYER_SPAWN_NOOBSPAWN);
-                //ToDo : ZwischenLösung Finden! player.Transparency = 255;
+                player.SpawnPlayer(PLAYER_SPAWN_NOOBSPAWN);
                 player.Emit("Zombie:OnResourceStart");
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 999);
                 SendPlayerWelcomeNotify(player);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedZombieGM", ex); }
         }
 
         public static void OnUpdate()
@@ -62,9 +61,20 @@ namespace VenoXV.Zombie.World
             if (TIME_TO_SPAWN_ZOMBIES <= DateTime.Now)
             {
                 TIME_TO_SPAWN_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_ZOMBIES);
-                for (var i = 0; i <= ZOMBIE_AMMOUNT_EACH_SPAWN; i++)
+                for (var i = 0; i < ZOMBIE_AMMOUNT_EACH_SPAWN; i++)
                 {
-                    KI.Spawner.SpawnZombiesArroundPlayers();
+                    KI.Spawner.SpawnZombiesForEveryPlayer();
+                }
+            }
+            if (TIME_TO_DELETE_ZOMBIES <= DateTime.Now)
+            {
+                TIME_TO_DELETE_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_DELETE_ZOMBIES);
+                if (_Gamemodes_.Zombie.Globals.Events.KilledZombieIds.Count > 0)
+                {
+                    foreach (int Id in _Gamemodes_.Zombie.Globals.Events.KilledZombieIds)
+                    {
+                        KI.Spawner.DestroyZombieById(Id);
+                    }
                 }
             }
         }
