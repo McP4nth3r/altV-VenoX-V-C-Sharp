@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
         }
 
 
-        public static void OnHittedEntity(PlayerModel player, PlayerModel target, AltV.Net.Enums.WeaponModel WeaponModel, AltV.Net.Data.BodyPart hitBone)
+        public static void OnHittedEntity(Client player, Client target, AltV.Net.Enums.WeaponModel WeaponModel, AltV.Net.Data.BodyPart hitBone)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
                      float vehdamage = Damage * 2;
                      target.Emit("set_bodyhealth", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the target Lower.
                      VenoXV.VnX.VehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
-                    // RageAPI.SendChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
+                    // RageAPI.SendTranslatedChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
                 }
                 else
                 {

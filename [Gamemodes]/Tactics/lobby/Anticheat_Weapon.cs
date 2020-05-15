@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Tactics.lobby
             catch { return false; }
         }
 
-        public static void LoadTacticsAnticheat(PlayerModel player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel weapon)
+        public static void LoadTacticsAnticheat(Client player, AltV.Net.Enums.WeaponModel oldWeapon, AltV.Net.Enums.WeaponModel weapon)
         {
             try
             {

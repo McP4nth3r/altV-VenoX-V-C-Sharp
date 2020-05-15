@@ -54,11 +54,11 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             if (LastMap == CurrentMap) { GetNewMap(); return; }
             LastMap = CurrentMap;
         }
-        private static void InitializePlayerSavedData(PlayerModel player)
+        private static void InitializePlayerSavedData(Client player)
         {
             player.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, 0); // ToDo : Load by Database.
         }
-        private static void InitializePlayerData(PlayerModel player)
+        private static void InitializePlayerData(Client player)
         {
             player.vnxSetElementData(EntityData.PLAYER_JOINED_TACTICS, true);
             player.vnxSetElementData(EntityData.PLAYER_DAMAGE_DONE, 0);
@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void GivePlayerTacticWeapons(PlayerModel player)
+        public static void GivePlayerTacticWeapons(Client player)
         {
             try
             {
@@ -96,37 +96,37 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     {
                         RageAPI.GivePlayerWeapon(player, weapon, 400);
                     }
-                    player.SendChatMessage("[Tactics] : Only " + CurrentMap.Custom_Weapon_Mode_Name + " Modus!");
+                    player.SendTranslatedChatMessage("[Tactics] : Only " + CurrentMap.Custom_Weapon_Mode_Name + " Modus!");
                     return;
                 }
                 switch (RandomRound)
                 {
                     case 0:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
-                        player.SendChatMessage("[Tactics] : Only Revolver Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only Revolver Modus!");
                         break;
                     case 1:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 800);
-                        player.SendChatMessage("[Tactics] : Only SMG Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only SMG Modus!");
                         break;
                     case 2:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 800);
-                        player.SendChatMessage("[Tactics] : Only Shotgun Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only Shotgun Modus!");
                         break;
                     case 3:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 800);
-                        player.SendChatMessage("[Tactics] : Only Sniper Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only Sniper Modus!");
                         break;
                     case 4:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 800);
                         player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.RPG, 2);
-                        player.SendChatMessage("[Tactics] : Only RPG Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only RPG Modus!");
                         break;
                     case 5:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Minigun, 1000);
                         player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Minigun, 5000);
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Switchblade, 1);
-                        player.SendChatMessage("[Tactics] : Only Minigun Modus!");
+                        player.SendTranslatedChatMessage("[Tactics] : Only Minigun Modus!");
                         break;
                     default:
                         RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
@@ -142,7 +142,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void SpawnPlayerOnPoint(PlayerModel player, string Fac)
+        public static void SpawnPlayerOnPoint(Client player, string Fac)
         {
             try
             {
@@ -187,7 +187,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 TacticVehicleList.Add(vehicle);
             }
         }
-        public static void PutPlayerInTeam(PlayerModel player)
+        public static void PutPlayerInTeam(Client player)
         {
             try
             {
@@ -245,13 +245,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 CreateRandomRound();
                 SpawnMapVehicles();
                 // To Do : wenn runde gestartet ist = nicht machen !
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
                         AntiCheat_Allround.SetTimeOutHealth(players, 3000);
-                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                        players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
+                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
+                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
                         //InitializePlayerData(players);
                         PutPlayerInTeam(players);
                         SyncTime();
@@ -262,16 +262,16 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
-        public static void OnPlayerDisconnect(PlayerModel player, string type, string reason)
+        public static void OnPlayerDisconnect(Client player, string type, string reason)
         {
             try
             {
                 player.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " ist Disconnected!");
+                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.GetVnXName() + " ist Disconnected!");
                     }
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
@@ -301,7 +301,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void OnSelectedTacticsGM(PlayerModel player)
+        public static void OnSelectedTacticsGM(Client player)
         {
             try
             {
@@ -321,7 +321,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         player.DespawnPlayer();
                         _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllPlayerWeapons();
-                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
                 }
                 else
@@ -335,7 +335,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -350,7 +350,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -382,7 +382,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (PlayerModel players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                     {
@@ -401,7 +401,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     if (TACTICMANAGER_ROUND_START_AFTER_LOADING <= DateTime.Now)
                     {
                         TACTICMANAGER__ROUND_ISRUNNING = false;
-                        // RageAPI.SendChatMessageToAll("RUNDE BEENDET.");
+                        // RageAPI.SendTranslatedChatMessageToAll("RUNDE BEENDET.");
                         StartNewTacticRound();
                     }
                 }

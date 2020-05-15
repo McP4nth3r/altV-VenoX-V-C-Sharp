@@ -11,11 +11,11 @@ namespace VenoXV._Gamemodes_.Tactics.environment
     public class Death : IScript
     {
         [Command("tpos")]
-        public static void GetTacticSpawnpoint(PlayerModel player)
+        public static void GetTacticSpawnpoint(Client player)
         {
-            Core.Debug.OutputDebugString("TPOS : " + player.position.X + "f, " + player.position.Y + "f, " + player.position.Z + "f");
+            Core.Debug.OutputDebugString("TPOS : " + player.Position.X + "f, " + player.Position.Y + "f, " + player.Position.Z + "f");
         }
-        public static void OnPlayerDeath(PlayerModel player, PlayerModel killer)
+        public static void OnPlayerDeath(Client player, Client killer)
         {
             try
             {
@@ -68,9 +68,9 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     else
                     {
                         Core.Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
-                        Core.RageAPI.SendChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
+                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
                     }
-                    player.SpawnPlayer(new Position(player.position.X, player.position.Y, player.position.Z + 50));
+                    player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);

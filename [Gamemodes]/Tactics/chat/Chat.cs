@@ -7,13 +7,13 @@ namespace VenoXV._Gamemodes_.Tactics.chat
 {
     public class Chat : IScript
     {
-        public static void OnChatMessage(PlayerModel player, string message)
+        public static void OnChatMessage(Client player, string message)
         {
-            foreach (PlayerModel players in Alt.GetAllPlayers())
+            foreach (Client players in Alt.GetAllPlayers())
             {
                 if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
                 {
-                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.GetVnXName() + " : " + message);
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.GetVnXName() + " : " + message);
                 }
             }
         }

@@ -9,7 +9,7 @@ namespace VenoXV._Gamemodes_.Tactics.admin
     public class Main : IScript
     {
         [Command("skipround")]
-        public static void SkipRound(PlayerModel player)
+        public static void SkipRound(Client player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
             {

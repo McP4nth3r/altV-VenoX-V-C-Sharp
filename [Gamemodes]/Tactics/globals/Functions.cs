@@ -11,9 +11,9 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                foreach (PlayerModel players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    players?.SendChatMessage(text);
+                    players?.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
             Lobby.Main.SyncEndTacticRound(text);
         }
 
-        public static void InitializePlayerData(PlayerModel player)
+        public static void InitializePlayerData(Client player)
         {
             try
             {
