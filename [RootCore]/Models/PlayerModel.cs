@@ -42,12 +42,6 @@ namespace VenoXV._RootCore_.Models
         public int Knastzeit { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT, value); } }
         public int Kaution { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION, value); } }
         public int Adventskalender { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER, value); } }
-        public string ShowATM { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
-        public string ShowHouse { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
-        public string ShowTacho { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
-        public string Quest_anzeigen { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
-        public string Reporter { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
-
         public Reallife(Player player)
         {
             try
@@ -86,9 +80,6 @@ namespace VenoXV._RootCore_.Models
                 Wanteds = 0;
                 Knastzeit = 0;
                 Kaution = 0;
-                ShowATM = "ja";
-                ShowHouse = "ja";
-                ShowTacho = "ja";
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }
@@ -136,18 +127,45 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }
     }
+    public class Settings
+    {
+        private Player Player;
+        public bool ShowGlobalChat { get; set; }
+        public string ShowATM { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
+        public string ShowHouse { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
+        public string ShowSpeedo { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
+        public string ShowQuests { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
+        public string ShowReporter { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
+
+        public Settings(Player player)
+        {
+            try
+            {
+                Player = player;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+        }
+    }
     public class Client : Player
     {
+        //Main
         public int UID { get; set; }
         public string Username { get; set; }
         public int AdminRank { get; set; }
         public int Language { get; set; }
+
+        // Gamemode Classes
         public Reallife Reallife { get; }
         public Zombies Zombies { get; }
         public Tactics Tactics { get; }
         public SevenTowers SevenTowers { get; }
         public Race Race { get; }
-        public Position SetPosition { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
+
+
+        // Settings - Classes
+        public Settings Settings { get; }
+        public Position SetPosition
+        { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
         public int Sex { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_SEX); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_SEX, value); } }
         public int Gamemode { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, value); } }
         public int Dead { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_DEAD); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_DEAD, value); } }
@@ -161,6 +179,7 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
+                Settings = new Settings(this);
                 Reallife = new Reallife(this);
                 Tactics = new Tactics(this);
                 Zombies = new Zombies(this);
