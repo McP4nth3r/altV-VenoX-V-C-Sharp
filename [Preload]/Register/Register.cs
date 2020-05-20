@@ -14,11 +14,9 @@ namespace VenoXV._Preload_.Register
 
         public static List<AccountModel> AccountList;
 
-
         public static bool PlayerHaveAlreadyAccount(Client playerClass)
         {
             bool state = false;
-
             return state;
         }
 
@@ -38,16 +36,11 @@ namespace VenoXV._Preload_.Register
         {
             try
             {
-                // Set the model of the player
-                //NAPI.Player.SetPlayerSkin(player, sex == 0 ? PedHash.FreemodeMale01 : PedHash.FreemodeFemale01);
                 player.SetPlayerSkin(sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
-                // Remove player's clothes
                 player.SetClothes(11, 15, 0);
                 player.SetClothes(3, 15, 0);
                 player.SetClothes(8, 15, 0);
-
-                // Save sex entity shared data
-                player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_SEX, sex);
+                player.Sex = sex;
             }
             catch (Exception ex)
             {
@@ -55,7 +48,6 @@ namespace VenoXV._Preload_.Register
                 Console.WriteLine("[EXCEPTION ChangeCharacterSexEvent] " + ex.StackTrace);
             }
         }
-
 
         [ClientEvent("Account:Register")]
         public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
@@ -71,7 +63,9 @@ namespace VenoXV._Preload_.Register
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == "1") { sex = 1; geschlechtalsstring = "Weiblich"; }
+                Core.Debug.OutputDebugString("SEX" + geschlecht);
                 Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring);
+                Database.CreateCharacter(player, player.UID);
                 _ = Program.CreateForumUser(nickname, email, password);
                 player.Emit("DestroyLoginWindow");
                 player.Emit("CharCreator:Start", sex);
