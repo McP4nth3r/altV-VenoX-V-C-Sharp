@@ -74,13 +74,16 @@ alt.onServer('Vehicle:Repair', (veh) => {
     catch{ }
 });
 
+let CalledToSpawn = false;
 alt.onServer("movecamtocurrentpos_client", () => {
     try {
         moveFromToAir(alt.Player.local, 'up', 1, false);
         FreezeClient(true);
 
         alt.setTimeout(() => {
+            if (CalledToSpawn) { return; }
             alt.emitServer('load_data_login');
+            CalledToSpawn = true;
             ShowCursor(false);
         }, 6000);
 
@@ -88,6 +91,9 @@ alt.onServer("movecamtocurrentpos_client", () => {
             moveFromToAir(alt.Player.local, 'down');
             alt.setTimeout(() => {
                 FreezeClient(false);
+                alt.setTimeout(() => {
+                    CalledToSpawn = false;
+                }, 5000);
             }, 8000);
         }, 8000);
     }
