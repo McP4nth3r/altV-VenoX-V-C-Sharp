@@ -84,10 +84,9 @@ alt.onServer('CharCreator:Start', (gender = 1) => {
             else updateLoginCam(402.85, -999, -98.4, 0, 0, 358, 50);
         });
 
-        CharCreator.on("Client:Charcreator:CreateCharacter", (firstname, lastname, birthdate, gender, isCrimeFlagged, facefeaturesarray, headblendsdataarray, headoverlaysarray) => {
-            if (firstname.length <= 2 || lastname.length <= 2) return;
+        CharCreator.on("Client:Charcreator:CreateCharacter", (facefeaturesarray, headblendsdataarray, headoverlaysarray) => {
             alt.log(`JS Gender: ${gender}`);
-            alt.emitServer("Server:Charcreator:CreateCharacter", `${firstname} ${lastname}`, birthdate, parseInt(gender), isCrimeFlagged, facefeaturesarray, headblendsdataarray, headoverlaysarray);
+            alt.emitServer("CharCreator:Create", facefeaturesarray, headblendsdataarray, headoverlaysarray);
         });
     }, 1500);
 
@@ -116,6 +115,7 @@ function createLoginCam(x, y, z, rot) {
 
 
 function spawnCreatorPed(gender) { //gender (0 - male | 1 - female)
+    alt.log("Called CreatorPed! " + gender);
     if (gender == 0) charcreatorModelHash = game.getHashKey('mp_m_freemode_01');
     else if (gender == 1) charcreatorModelHash = game.getHashKey('mp_f_freemode_01');
     else return;

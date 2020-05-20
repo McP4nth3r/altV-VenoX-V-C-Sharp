@@ -76,7 +76,7 @@ div#charcreator-chesthairBox>div.container>p>i,
 div#charcreator-lipsBox>div.container>p>i,
 div#charcreator-eyeBox>div.container>p>i {
     float: right;
-    background: #e1e2e6;
+    background: rgb(0,200,255);
     padding: 4px;
     padding-left: 8px;
     color: #ffffff;
@@ -388,6 +388,8 @@ div#charcreatorMainBox>div#charcreatorCategoryBox {
     background: #101010f2;
     text-align: center;
     border-radius: 6px;
+    background: rgba(0,0,0,0.8);
+    border-top: solid 0.15vw rgb(0,150,200);
     box-shadow: 1px 4px 22px rgba(25, 25, 25, 0.8) !important;
     padding-bottom: 12px;
     left: 3vw;
@@ -435,7 +437,7 @@ div.creatorBox>div.container>form>input {
 
 div.creatorBox>div.container>form>output {
     display: inline-block;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 105, 145, 0.5);
     font-family: PEL;
     font-weight: bold;
     color: #d2d2d2;
@@ -455,7 +457,7 @@ div.creatorBox>div.container>form>input::-webkit-slider-thumb {
     appearance: none;
     width: 18px;
     height: 20px;
-    background: linear-gradient(to right, #0c0c0c 50%, #ffffff 100%) !important;
+    background: rgb(0,200,255);
     cursor: pointer;
     border-radius: 2px;
 }
@@ -464,8 +466,7 @@ div#charcreatorMainBox>div#charcreatorCategoryBox>hr,
 div.creatorBox>hr {
     border-top: none !important;
     border: 1px solid transparent !important;
-    border-image: linear-gradient(to right, #000000 0%, #ffffff 100%) !important;
-    border-image-slice: 1 !important;
+    background: rgb(255,255,255);
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
@@ -489,10 +490,8 @@ div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li {
 
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li.active {
     opacity: 1 !important;
-    border: 1px solid transparent !important;
-    border-image: linear-gradient(to right, #0a0a0a 0%, #ffffff 100%) !important;
-    border-image-slice: 1 !important;
-    background: linear-gradient(to right, #030303 0%, #ffffff 100%) !important;
+    box-shadow: inset 0 -0.10vw 0 rgb(0,150,200);
+
 }
 
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li:hover {
