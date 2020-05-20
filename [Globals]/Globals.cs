@@ -67,15 +67,9 @@ namespace VenoXV.Globals
         {
             try
             {
-                /*AltEntitySync.Init(1, 100,
-                   repository => new ServerEventNetworkLayer(repository),
-                   () => new LimitedGrid3(50_000, 50_000, 100, 10_000, 10_000, 600),
-                   new IdProvider()
-                );*/
                 _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
                 _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
                 SevenTowers.Lobby.Main.OnResourceStart();
-                // DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(469.8354f, -985.0742f, 33.89248f), 0, true, new Rgba(255, 255, 255, 255));
             }
             catch (Exception ex) { Debug.CatchExceptions("OnResourceStart", ex); }
         }
