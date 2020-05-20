@@ -5,7 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -356,56 +356,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             catch { }
         }
 
-        [Command("updatehud")]
-        public static void UpdateHUD(Client player)
-        {
-            try
-            {
-                string name = string.Empty;
-                int oldquest = 0;
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) - 1 == -1)
-                {
-                    oldquest = 0;
-                }
-                else
-                {
-                    oldquest = player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS) - 1;
-                }
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    name = "[VnX]" + player.GetVnXName();
-                }
-                else
-                {
-                    name = player.GetVnXName();
-                }
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD) == 0)
-                {
-                    player.Emit("UpdateHealth", player.Armor, player.Health);
-                }
-                else
-                {
-                    Console.WriteLine("HUD : " + player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
-                }
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
-                {
-                    player.Emit("UpdateHUD", name, "Zivilist", player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS), player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), Constants.FACTION_NONE, player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
-                    return;
-                }
-                player.Emit("UpdateHUD", name, Faction.GetPlayerFactionName((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), Faction.GetPlayerFactionRank(player), player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY).ToString("#,##0") + " $ ", player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"), player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.vnxGetElementData<string>("settings_quest"), oldquest, player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS), GetQuestContainerText(player), GetQuestWinText(player));
-
-            }
-            catch { }
-        }
-
-
-
 
         [Command("resethud")]
         public static void ResetHUD(Client player)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 0);
-            UpdateHUD(player);
         }
 
 

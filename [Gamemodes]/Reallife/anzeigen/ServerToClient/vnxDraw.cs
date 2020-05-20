@@ -58,27 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
                 logfile.WriteLogs("libLogs", "[ERROR] : dieser Fehler verursacht das ein Blip oder ein Radar Wegpunkt nicht gelöscht werden konnte!");
             }
         }
-        public static void DrawNotification(Client player, string type, string message)
-        {
-            int triggerWert = 0;
-            if (type == "info")
-            {
-                triggerWert = 0;
-            }
-            else if (type == "warning")
-            {
-                triggerWert = 1;
-            }
-            else if (type == "error")
-            {
-                triggerWert = 2;
-            }
-            else
-            {
-                triggerWert = 0;
-            }
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "createVnXLiteNotify", triggerWert, message);
-        }
+
 
 
         public static void DrawWindow(Client player, string headertext, string boxtext, string buttontext1, string buttontext2)
