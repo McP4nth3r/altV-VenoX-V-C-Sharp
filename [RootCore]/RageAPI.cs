@@ -20,7 +20,7 @@ namespace VenoXV.Core
             {
                 _Language_.Main.SendTranslatedChatMessage(element, msg);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
         }
         public static void SpawnPlayer(this Client element, Vector3 pos, uint DelayInMS = 0)
         {
