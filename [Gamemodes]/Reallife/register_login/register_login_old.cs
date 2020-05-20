@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -316,46 +315,23 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false)
-                {
-                    if (player.vnxGetElementData<bool>("SPIELER_BAN_ABGELAUFEN") == true)
-                    {
-                        player.SendTranslatedChatMessage("~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
-                        player.SendTranslatedChatMessage("~r~Du bist nun Entbannt, verhalte dich in Zukunft besser!");
-                    }
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
-                    player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
-                    player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
-                    player.SendTranslatedChatMessage("Forum : www.VenoX-Reallife.com");
-                    player.SendTranslatedChatMessage("Controlpanel : cp.venox-reallife.com");
-                    player.SendTranslatedChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
-
-                    premium.viplevels.VIPLEVELS.SendVIPNotify(player);
-                    //ToDo : Fix & find another Way! player.GetVnXName() = player.vnxGetElementData(EntityData.PLAYER_NAME);
-                    //player.Rotation = player.vnxGetElementData<int>(EntityData.PLAYER_SPAWN_ROT);
-                    //player.Health = player.vnxGetElementData<int>(EntityData.PLAYER_HEALTH);
-                    //player.Armor = player.vnxGetElementData<int>(EntityData.PLAYER_ARMOR);
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY));
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT));
-                    player.vnxSetStreamSharedElementData("PLAYER_QUESTSPLAYER", player.vnxGetElementData<int>(EntityData.PLAYER_QUESTS));
-                    Spawn.spawnplayer_on_spawnpoint(player);
-                    Settings.VnX.LoadSettingsData(player);
-                    player.vnxSetStreamSharedElementData("HideHUD", 0);
-                    AntiCheat_Allround.StartTimerTeleport(player);
-                    Faction.CreateFactionBaseBlip(player);
-                    Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
-                    // Toggle connection flag
-                    player.vnxSetElementData(EntityData.PLAYER_PLAYING, true);
-                    player.SetSyncedMetaData("PLAYER_LOGGED_IN", true);
-                    //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                    Environment.Gzone.Zone.CreateGreenzone(player);
-                    gangwar.Allround._gangwarManager.UpdateData(player);
-                    CreateGasBlips(player);
-
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_HUNGER, 100);
-                    //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                }
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
+                player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
+                player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
+                player.SendTranslatedChatMessage("Forum : www.VenoX-Reallife.com");
+                player.SendTranslatedChatMessage("Controlpanel : cp.venox-reallife.com");
+                player.SendTranslatedChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
+                premium.viplevels.VIPLEVELS.SendVIPNotify(player);
+                Spawn.spawnplayer_on_spawnpoint(player);
+                Settings.VnX.LoadSettingsData(player);
+                player.vnxSetStreamSharedElementData("HideHUD", 0);
+                AntiCheat_Allround.StartTimerTeleport(player);
+                Faction.CreateFactionBaseBlip(player);
+                Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
+                Environment.Gzone.Zone.CreateGreenzone(player);
+                gangwar.Allround._gangwarManager.UpdateData(player);
+                CreateGasBlips(player);
             }
             catch { }
         }
@@ -365,6 +341,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
+                _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
                 List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
 
@@ -372,12 +349,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
                 RootCore.Sync.LoadAllTextLabels(player);
                 CreateGasBlips(player);
-                /*if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID) <= 0)
-                {
-                    //return;
-                }
-                else
-                {*/
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {
                     string owner = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
@@ -434,81 +405,11 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
 
-
         public static void CreateGasBlips(Client player)
         {
             foreach (var Tankstellen in Constants.AUTO_ZAPF_LIST_BLIPS)
             {
                 player.Emit("ShowTankstellenBlips", Tankstellen);
-            }
-        }
-
-        [ClientEvent("createCharacter")]
-        public void CreateCharacterEvent(Client player, string skinJson)
-        {
-            try
-            {
-                bool hasCharakter = Database.FindCharacter(player.SocialClubId.ToString());
-                if (!hasCharakter)
-                {
-                    //SkinModel skinModel = NAPI.Util.FromJson<SkinModel>(skinJson);
-                    SkinModel skinModel = JsonConvert.DeserializeObject<SkinModel>(skinJson);
-
-                    // Apply the skin to the character
-                    player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                    Customization.ApplyPlayerCustomization(player, skinModel, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX));
-                    int UID = Database.GetAccountUID(player.SocialClubId.ToString());
-                    int playerId = Database.CreateCharacter(player, UID, skinModel);
-
-                    if (playerId > 0)
-                    {
-                        Client character = Database.LoadCharacterInformationById(player, playerId);
-                        player.Dimension = 0;
-                        player.Emit("characterCreatedSuccessfully");
-                        Spawn.spawnplayer_on_spawnpoint(player);
-                        Settings.VnX.LoadSettingsData(player);
-                        player.vnxSetStreamSharedElementData("HideHUD", 0);
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, 0);
-                        player.vnxSetStreamSharedElementData("PLAYER_QUESTSPLAYER", 0);
-                        CreateGasBlips(player);
-                        AntiCheat_Allround.StartTimerTeleport(player);
-                        dxLibary.VnX.SetElementFrozen(player, false);
-                        player.vnxSetElementData(EntityData.PLAYER_PLAYING, true);
-                        player.Emit("Reallife:LoadHUD", 0);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION CreateCharacterEvent] " + ex.Message);
-                Console.WriteLine("[EXCEPTION CreateCharacterEvent] " + ex.StackTrace);
-            }
-        }
-
-
-
-        [Command("gethash")]
-        public static void GetHash(Client player, string hash)
-        {
-            Core.Debug.OutputDebugString("[" + hash + "] : " + Alt.Hash(hash));
-        }
-
-        [ClientEvent("setCharacterIntoCreator")]
-        public void SetCharacterIntoCreatorEvent(Client player)
-        {
-            try
-            {
-                // Set player's position
-                player.SetPlayerAlpha(255);
-                player.SetPlayerVisible(true);
-                player.Rotation = new Rotation(0.0f, 0.0f, 180.0f);
-                player.SpawnPlayer(new Position(152.3787f, -1000.644f, -99f));
-                player.SetPlayerSkin(Alt.Hash("mp_m_freemode_01"));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.Message);
-                Console.WriteLine("[EXCEPTION SetCharacterIntoCreatorEvent] " + ex.StackTrace);
             }
         }
 

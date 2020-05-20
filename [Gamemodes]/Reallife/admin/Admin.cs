@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
@@ -254,66 +253,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
         /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
 
-        [Command("aduty")]
-        public static void GoADuty(Client player)
-        {
-            try
-            {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_ON_DUTY) != 1)
-                    {
-                        // Set Clothes
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(0, -1, -10);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(1, 0, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(2, -1, -1);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(3, 96, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(4, 77, 3);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(5, 0, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(6, 55, 3);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(7, 0, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(8, 15, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(9, 0, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(10, 0, 0);
-                        //ToDo Sie Clientseitig Laden! : player.SetClothes(11, 178, 3);
-                        //ToDo Sie Clientseitig Laden! :NAPI.Player.SetPlayerAccessory(player, 0, 91, 3);
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_ADMIN_ON_DUTY, 1);
-
-                        // Weapon Ban Fix 
-                        player.RemoveAllPlayerWeapons();
-
-                        RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName() + " ist nun Admin - Duty.");
-                    }
-                    else
-                    {
-                        // Remove 
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_ADMIN_ON_DUTY, 0);
-
-                        // Restore old skin
-                        int sqlid = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-                        Client character = Database.LoadCharacterInformationById(player, sqlid);
-                        SkinModel skinModel = Database.GetCharacterSkin(sqlid);
-                        if (character != null && character.Username != null)
-                        {
-                            //ToDo : Fix & find another Way! player.GetVnXName() = character.realName;
-                            player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
-                            player.SpawnPlayer(player.Position);
-                            player.SetPlayerSkin(character.Sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
-                            Customization.ApplyPlayerCustomization(player, skinModel, character.Sex);
-                            Customization.ApplyPlayerClothes(player);
-                            Customization.ApplyPlayerTattoos(player);
-
-                            // Weapon ban Fix
-                            weapons.Weapons.GivePlayerWeaponItems(player);
-                            RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.GetVnXName() + " ist nun nicht mehr im Admin - Duty.");
-
-                        }
-                    }
-                }
-                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Seit wann bist du ein VenoX Mitglied?"); }
-            }
-            catch { }
-        }
 
         [Command("goto", true)]
         public void TpCommand(Client player, string target_name)
