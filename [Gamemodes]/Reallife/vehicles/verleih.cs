@@ -170,7 +170,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                     }
                 }
                 else if (player.vnxGetElementData<int>(CURRENT_VEHICLE_RENT) == 1)
@@ -182,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                     }
                 }
             }
@@ -220,7 +220,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "VenoX Rental : <br>Du hast bei uns kein Fahrzeug gemietet!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "VenoX Rental : <br>Du hast bei uns kein Fahrzeug gemietet!");
                 }
             }
             catch { }

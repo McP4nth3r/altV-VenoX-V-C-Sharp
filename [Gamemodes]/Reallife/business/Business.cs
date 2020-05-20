@@ -218,12 +218,12 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     Main.clothesList.Add(clothesModel);
 
                     player.SendTranslatedChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
-                    dxLibary.VnX.DrawNotification(player, "info", "Transaktion in Höhe von " + price + "$ abgeschlossen!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Transaktion in Höhe von " + price + "$ abgeschlossen!");
                     vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                 }*/
             }
             catch { }

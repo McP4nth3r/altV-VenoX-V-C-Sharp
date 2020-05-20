@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (player.vnxGetElementData<bool>("vehinfos_done_cmd") == true)
                 {
-                    dxLibary.VnX.DrawNotification(player, "info", "Nur alle 30 Sekunden möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Nur alle 30 Sekunden möglich!");
                     return;
                 }
                 player.SendTranslatedChatMessage("---------------Fahrzeuge---------------");

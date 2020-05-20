@@ -112,7 +112,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keiner Staats/Neutralen Fraktion!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Staats/Neutralen Fraktion!");
                 }
             }
             catch (Exception ex)
@@ -138,12 +138,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Erst ab Rank 2!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 2!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keiner Bösen Fraktion!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Bösen Fraktion!");
                 }
             }
             catch (Exception ex)

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) != 5)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Seit wann bist du Leader deiner Fraktion?");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Seit wann bist du Leader deiner Fraktion?");
                     return;
                 }
 
@@ -185,7 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             target.vnxSetStreamSharedElementData(FahrzeugID.ToString(), Preis);
                         }
                     }
-                    else { dxLibary.VnX.DrawNotification(player, "error", "Das Fahrzeug gehört dir nicht!"); }
+                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug gehört dir nicht!"); }
                 }
             }
             catch { }
@@ -218,13 +218,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                     vnx_stored_files.logfile.WriteLogs("IVehicle",player.GetVnXName() + " hat das Fahrzeug von " + target.GetVnXName() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                 }
                             }
-                            else { dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!"); }
+                            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!"); }
                         }
-                        else { dxLibary.VnX.DrawNotification(player, "error", "Spieler ist nicht Online!"); }
+                        else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Spieler ist nicht Online!"); }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Anfrage bekommen für die Fahrzeug ID " + FahrzeugID);
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Anfrage bekommen für die Fahrzeug ID " + FahrzeugID);
                     }
                 }
             }
@@ -288,7 +288,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (Snack.amount == 150)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast die Maximale anzahl an Snack´s schon erreicht!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast die Maximale anzahl an Snack´s schon erreicht!");
                         return;
                     }
                     Snack.amount = Snack.amount + 1;
@@ -298,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             else
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
             }
         }
 
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (Kanister.amount == 10)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast die Maximale anzahl an Kannister schon erreicht!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast die Maximale anzahl an Kannister schon erreicht!");
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
                         player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                         return;
@@ -344,7 +344,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             else
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
             }
         }
 
@@ -391,12 +391,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     int kosten = (int)kostenberechnung * 15;
                     if (kosten == 0)
                     {
-                        dxLibary.VnX.DrawNotification(player, "info", "Du musst noch nicht Tanken.");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
                         return;
                     }
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < kosten)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kosten);
@@ -406,7 +406,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du sitzt in keinem Fahrzeug!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du sitzt in keinem Fahrzeug!");
                 }
             }
             catch { }
@@ -426,12 +426,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         int kosten = value * 15;
                         if (kosten == 0)
                         {
-                            dxLibary.VnX.DrawNotification(player, "info", "Du musst noch nicht Tanken.");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
                             return;
                         }
                         if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < kosten)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                             return;
                         }
 
@@ -453,7 +453,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du sitzt in keinem Fahrzeug!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du sitzt in keinem Fahrzeug!");
                 }
             }
             catch { }
@@ -635,13 +635,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (newtank < 0)
                     {
                         vehicle.EngineOn = false;
-                        dxLibary.VnX.DrawNotification(player, "error", "Achtung Tank ist leer!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Achtung Tank ist leer!");
                         vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 0);
                         //player.call('Tacho_Benzin_Fix', [player]);
                     }
                     else if (newtank < 16 && newtank > 14)
                     {
-                        dxLibary.VnX.DrawNotification(player, "warning", "Achtung Tank bald leer!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Achtung Tank bald leer!");
                         vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, newtank);
                         //player.call('Tacho_Benzin_Fix', [player]);
                     }
@@ -686,7 +686,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, false);
 
 
-                    dxLibary.VnX.DrawNotification(player, "info", "Drücke K um den Motor zu starten.");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Drücke K um den Motor zu starten.");
 
                     if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_TESTING) == true)
                     {
@@ -712,7 +712,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                             {
                                 player.WarpOutOfVehicle<bool>();
-                                dxLibary.VnX.DrawNotification(player, "error", "Du bist in keiner Fraktion!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                                 return;
                             }
                             return;
@@ -739,7 +739,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                     {
                                         // player.WarpOutOfVehicle<bool>();
                                         player.WarpOutOfVehicle<bool>();
-                                        dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Polizist im Dienst!");
+                                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Polizist im Dienst!");
                                         return;
                                     }
                                 }
@@ -752,7 +752,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                     {
                                         // player.WarpOutOfVehicle<bool>();
                                         player.WarpOutOfVehicle<bool>();
-                                        dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Gang-Skin an!");
+                                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Gang-Skin an!");
                                         return;
                                     }
                                 }
@@ -765,7 +765,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                     {
                                         // player.WarpOutOfVehicle<bool>();
                                         player.WarpOutOfVehicle<bool>();
-                                        dxLibary.VnX.DrawNotification(player, "error", "Du hast keinen Fraktion´s-Skin an!");
+                                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Fraktion´s-Skin an!");
                                         return;
                                     }
                                 }
@@ -774,19 +774,19 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
                             {
                                 player.WarpOutOfVehicle<bool>();
-                                dxLibary.VnX.DrawNotification(player, "error", "Du bist kein teil des Admin - Teams!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein teil des Admin - Teams!");
                                 return;
                             }
                             else if (vehFaction > 0 && playerFaction != vehFaction && vehFaction != Constants.FACTION_ADMIN)
                             {
                                 player.WarpOutOfVehicle<bool>();
-                                dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Mitglied dieser Fraktion!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Mitglied dieser Fraktion!");
                                 return;
                             }
                             dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, false);
                             if (player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN) == 0)
                             {
-                                dxLibary.VnX.DrawNotification(player, "warning", "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
                             }
                         }
                     }
@@ -916,11 +916,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == Constants.ADMINLVL_NONE && VehicleFaction == Constants.FACTION_ADMIN)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Admin!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Admin!");
                     }
                     else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) != player.GetVnXName() && VehicleFaction != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) && VehicleFaction != Constants.FACTION_ADMIN)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Schlüssel für dieses Fahrzeug!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Schlüssel für dieses Fahrzeug!");
                     }
                     else
                     {
@@ -953,7 +953,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
             }
             else
             {

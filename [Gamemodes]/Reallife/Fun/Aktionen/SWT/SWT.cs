@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Timers;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_POLICE);
                 if (fkasse.money < totalcost)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
                     return;
                 }
 

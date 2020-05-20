@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Nicht befugt!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht befugt!");
                         Console.WriteLine("ColShape Player hit : " + player.GetVnXName());
                         Console.WriteLine("FID" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                         Console.WriteLine("FID COL " + shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
@@ -325,7 +325,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) < 4)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht Befugt!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                         return;
                     }
                     Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));

@@ -85,11 +85,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                             }
                                             else { RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
                                         }
-                                        else { dxLibary.VnX.DrawNotification(player, "error", "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
+                                        else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
                                     }
-                                    else { dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht befugt dieses Gebiet anzugreifen!"); }
+                                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht befugt dieses Gebiet anzugreifen!"); }
                                 }
-                                else { dxLibary.VnX.DrawNotification(player, "error", "Du kannst nicht deine eigene Fraktion angreifen!"); }
+                                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst nicht deine eigene Fraktion angreifen!"); }
                             }
                         }
                     }
@@ -110,10 +110,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                 return;
 
                             }
-                            else { dxLibary.VnX.DrawNotification(player, "error", "Ihr seid schon genug Angreifer!"); }
+                            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ihr seid schon genug Angreifer!"); }
                         }
                     }
-                    else { dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Angreifer oder in einer Bösen Fraktion!"); }
+                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Angreifer oder in einer Bösen Fraktion!"); }
                 }
             }
             catch { }
@@ -151,14 +151,14 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                         factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(150, 0, 0) + player.GetVnXName() + " nimmt nun am Gangwar teil.");
 
                                     }
-                                    else { dxLibary.VnX.DrawNotification(player, "error", "Du bist leider zu spaet zum GW!"); }
+                                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist leider zu spaet zum GW!"); }
                                 }
-                                else { dxLibary.VnX.DrawNotification(player, "error", "Ihr seid schon zu viele"); }
+                                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ihr seid schon zu viele"); }
                             }
-                            else { dxLibary.VnX.DrawNotification(player, "error", "Du musst weiter weg vom Gebiet sein!"); }
+                            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du musst weiter weg vom Gebiet sein!"); }
                         }
                     }
-                    else { dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Verteidiger oder in einer Bösen Fraktion!"); }
+                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Verteidiger oder in einer Bösen Fraktion!"); }
                 }
             }
             catch { }
@@ -173,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     // You entered a GW Area
                     if (area.AreaIColShape == shape)
                     {
-                        dxLibary.VnX.DrawNotification(player, "warning", "Du hast ein Ganggebiet betreten!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast ein Ganggebiet betreten!");
                         return;
                     }
 

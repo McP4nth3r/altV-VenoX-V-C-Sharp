@@ -135,7 +135,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     {
                         AltV.Net.Alt.RemoveColShape(Führerschein_Abgabe_Marker);
                     }
-                    dxLibary.VnX.DrawNotification(player, "info", "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
                     player.vnxSetElementData(EntityData.PLAYER_FÜHRERSCHEIN, 1);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 10500);
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
@@ -148,7 +148,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "info", "Checkpoint erreicht!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
                     int Abgegeben = player.vnxGetElementData<int>("Marker_Pruefung");
                     Position Destination = Pruefungs_Marker[Abgegeben + 1];
                     Führerschein_Abgabe_Marker = Alt.CreateColShapeSphere(Destination, 2f);
@@ -188,7 +188,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keinem Fahrzeug!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Fahrzeug!");
                 }
             }
             catch

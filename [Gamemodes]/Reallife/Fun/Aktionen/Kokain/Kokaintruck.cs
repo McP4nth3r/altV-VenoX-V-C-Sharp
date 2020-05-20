@@ -4,7 +4,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Timers;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -147,7 +147,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 
                     if (cops < 3)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Nicht genug Cops Online!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht genug Cops Online!");
                         return;
                     }
                     if (Allround.AktionAmLaufen(player))

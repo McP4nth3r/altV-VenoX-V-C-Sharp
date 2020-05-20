@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;

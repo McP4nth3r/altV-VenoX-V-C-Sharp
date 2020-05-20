@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
                 else if (shape == LSPDDuty)
@@ -113,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
                 else if (shape == BUS_JOB_Col)
@@ -128,7 +128,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
             }
@@ -145,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) != Constants.JOB_NONE)
                 {
                     player.vnxSetElementData(EntityData.PLAYER_JOB, Constants.JOB_NONE);
-                    dxLibary.VnX.DrawNotification(player, "info", "Du bist nun Arbeitslos.");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du bist nun Arbeitslos.");
                 }
             }
             catch { }
@@ -192,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst mindestens Job Level 50!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens Job Level 50!");
                         }
                     }
                     else if (button == "button3")
@@ -204,7 +204,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst mindestens Job Level 100!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens Job Level 100!");
                         }
                     }
                 }
@@ -220,7 +220,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen Flugschein A!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen Flugschein A!");
                         }
                     }
                     if (button == "button2")
@@ -236,12 +236,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen Flugschein B!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen Flugschein B!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst mindestens Job Level 50!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens Job Level 50!");
                         }
                     }
                     if (button == "button3")
@@ -256,12 +256,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen Flugschein B!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen Flugschein B!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst mindestens Job Level 150!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens Job Level 150!");
                         }
                     }
                 }
@@ -276,7 +276,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen LKW - Führerschein!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen LKW - Führerschein!");
                         }
                     }
                     if (button == "button2")
@@ -288,7 +288,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen LKW - Führerschein!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen LKW - Führerschein!");
                         }
                     }
                     if (button == "button3")
@@ -300,14 +300,14 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du brauchst einen LKW - Führerschein!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst einen LKW - Führerschein!");
                         }
                     }
                 }
 
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "du bist bei keinem Job");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "du bist bei keinem Job");
                 }
             }
             catch { }
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0  
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
             }
             else if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
             {

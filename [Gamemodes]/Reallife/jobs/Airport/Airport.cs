@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     int randomjobdim = anzeigen.Usefull.VnX.GetRandomNumber(1, 99999);
                     // Die punkte abfragen!
                     player.vnxSetElementData("JOB_STAGE_AIRPORT_STARTED", 1);
-                    dxLibary.VnX.DrawNotification(player, "info", "Flieg zum Abgabepunkt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Flieg zum Abgabepunkt!");
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                     Random random = new Random();
                     Position Destination = Abgabepunkte_Airport_LVLONE[random.Next(1, 2)];
@@ -79,7 +79,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     int randomjobdim = anzeigen.Usefull.VnX.GetRandomNumber(1, 99999);
                     // Die punkte abfragen!
                     player.vnxSetElementData("JOB_STAGE_AIRPORT_STARTED", 1);
-                    dxLibary.VnX.DrawNotification(player, "info", "Flieg zum Abgabepunkt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Flieg zum Abgabepunkt!");
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                     Random random = new Random();
                     Position Destination = Abgabepunkte_Airport_LVLONE[random.Next(1, 2)];
@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     int randomjobdim = anzeigen.Usefull.VnX.GetRandomNumber(1, 99999);
                     // Die punkte abfragen!
                     player.vnxSetElementData("JOB_STAGE_AIRPORT_STARTED", 0);
-                    dxLibary.VnX.DrawNotification(player, "info", "Flieg zum Abgabepunkt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Flieg zum Abgabepunkt!");
                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                     Random random = new Random();
                     Position Destination = Abgabepunkte_Airport_LVLONE[0];

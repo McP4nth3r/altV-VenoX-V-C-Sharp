@@ -5,9 +5,9 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.admin;
 using VenoXV._Gamemodes_.Reallife.character;
-using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
@@ -390,7 +390,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -404,7 +404,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -420,7 +420,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -435,7 +435,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -454,7 +454,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -468,7 +468,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -487,7 +487,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -500,7 +500,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -513,7 +513,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -526,7 +526,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -544,7 +544,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -557,7 +557,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -575,7 +575,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -589,7 +589,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -605,7 +605,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -618,7 +618,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -636,7 +636,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -650,7 +650,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -669,7 +669,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -683,7 +683,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -702,7 +702,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -716,7 +716,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "warning", "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
@@ -762,7 +762,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     anzeigen.Usefull.VnX.OnFactionChange(player);
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
                     player.vnxSetElementData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
-                    dxLibary.VnX.DrawNotification(player, "info", "Du hast dich selbst uninvitet!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dich selbst uninvitet!");
                 }
             }
             catch { }
@@ -795,12 +795,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist bereits in einer Fraktion!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist bereits in einer Fraktion!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Erst ab Rank 4 möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
             catch { }
@@ -819,7 +819,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (target.GetVnXName() == player.GetVnXName())
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
                             return;
                         }
                         if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) < 5)
@@ -834,17 +834,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst keinen Leader un-inviten!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keinen Leader un-inviten!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht in deiner Fraktion!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Erst ab Rank 4 möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
             catch { }
@@ -866,17 +866,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht in deiner Fraktion!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
                         return;
                     }
                     if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) == 5)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du kannst einen Leader/Co-Leader nicht seinen Rang ändern!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst einen Leader/Co-Leader nicht seinen Rang ändern!");
                         return;
                     }
                     if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) == number)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler hat bereits diesen Rang...");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler hat bereits diesen Rang...");
                         return;
                     }
                     string rankString = string.Empty;
@@ -903,7 +903,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht befugt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht befugt!");
                 }
             }
             catch
@@ -921,7 +921,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
 
                 if (state == "anziehen")
@@ -959,7 +959,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                     }
 
                     Customization.ApplyPlayerClothes(player);
@@ -1008,7 +1008,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else if (isStateFaction(player))
                 {
@@ -1057,7 +1057,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                 {

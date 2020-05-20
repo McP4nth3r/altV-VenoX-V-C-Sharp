@@ -33,15 +33,15 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
-                            dxLibary.VnX.DrawNotification(player, "info", "Du hast " + FINAL_AD_COSTS + " $ für deine Werbung Gezahlt!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + FINAL_AD_COSTS + " $ für deine Werbung Gezahlt!");
                         }
-                        else { dxLibary.VnX.DrawNotification(player, "info", "Du hast nicht genug Geld!"); }
+                        else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast nicht genug Geld!"); }
                     }
                     else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Nächste AD Möglich : " + WERBUNG_COOLDOWN); }
                 }
-                else { dxLibary.VnX.DrawNotification(player, "error", "Das AD-System wurde von einem Moderator deaktiviert!"); }
+                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das AD-System wurde von einem Moderator deaktiviert!"); }
             }
-            else { dxLibary.VnX.DrawNotification(player, "error", "Du brauchst mindestens 30 Spielstunden!"); }
+            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens 30 Spielstunden!"); }
         }
 
         [Command("werbung", true)]

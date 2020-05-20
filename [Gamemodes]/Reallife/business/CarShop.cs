@@ -171,7 +171,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
                     // We show the catalog
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.Emit("showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
                 }
             }
@@ -195,7 +194,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
                             // Create a new car
                             SpawnPurchasedIVehicle(player, Constants.CARSHOP_SPAWNS, VehicleModel, IVehiclePrice, firstRgba, secondRgba);
                             player.vnxSetStreamSharedElementData("HideHUD", 0);
-                            anzeigen.Usefull.VnX.UpdateHUD(player);
                             break;
                         case 1:
                             // Create a new motorcycle
@@ -209,7 +207,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld auf der Bank!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld auf der Bank!");
                 }
             }
             catch { }
@@ -299,7 +297,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 //player.SetIntoIVehicle(IVehicle, (int)IVehicleSeat.Driver);
                 Vehicle.EngineOn = true;
                 player.vnxSetStreamSharedElementData("HideHUD", 0);
-                anzeigen.Usefull.VnX.UpdateHUD(player);
             }
             catch
             {
@@ -310,7 +307,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
         public void ShowHUDAgain(Client player)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 0);
-            anzeigen.Usefull.VnX.UpdateHUD(player);
         }
     }
 }

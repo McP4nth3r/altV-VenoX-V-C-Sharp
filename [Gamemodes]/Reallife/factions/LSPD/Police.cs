@@ -9,7 +9,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
                 }
             }
             catch
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
                 }
             }
             catch
@@ -156,17 +156,17 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zu weit von " + target.GetVnXName() + " entfernt!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht im Dienst!!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht im Dienst!!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Staatsfraktionist!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Staatsfraktionist!");
                 }
             }
             catch
@@ -1168,11 +1168,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
             }
             else if (Allround.isStateFaction(player) == false)
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                 return;
             }
             else
@@ -1223,11 +1223,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
             }
             else if (Allround.isStateFaction(player) == false)
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                 return;
             }
             else
@@ -1261,7 +1261,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 if (Allround.isStateFaction(player) == false)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                     return;
                 }
                 Client target = RageAPI.GetPlayerFromName(target_name);
@@ -1280,7 +1280,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Erst ab Rank 3 verfügbar!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 3 verfügbar!");
                 }
             }
             catch { }
@@ -1557,7 +1557,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 if (Allround.isStateFaction(player) == false)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                     return;
                 }
                 Client target = RageAPI.GetPlayerFromName(target_name);

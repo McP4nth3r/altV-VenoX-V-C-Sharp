@@ -163,7 +163,6 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
                     player.vnxSetStreamSharedElementData("settings_quest", "nein");
                 }
-                anzeigen.Usefull.VnX.UpdateHUD(player);
             }
             catch { }
 
@@ -187,7 +186,6 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     Console.WriteLine("ID : " + state);
                 }
                 player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
-                anzeigen.Usefull.VnX.UpdateHUD(player);
             }
             catch { }
 

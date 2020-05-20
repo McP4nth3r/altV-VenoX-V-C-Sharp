@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -30,7 +30,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         }
                         if (value > player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY))
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Soviel Geld hast du nicht!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                             return;
                         }
                         else
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Ungültige Eingabe!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige Eingabe!");
                     }
                 }
 
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     {
                         if (value > player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK))
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Soviel Geld hast du nicht!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                             return;
                         }
                         else
@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Ungültige Eingabe!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige Eingabe!");
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                 }
                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) < value)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Soviel Geld hast du nicht!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                     return;
                 }
                 else
@@ -99,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         Client target = RageAPI.GetPlayerFromName(SpielerNameNormal);
                         if (target == null || target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) != true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht Online!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht Online!");
                             return;
                         }
                         else
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler exestiert nicht!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler exestiert nicht!");
                     }
                 }
             }

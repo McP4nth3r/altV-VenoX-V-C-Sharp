@@ -112,11 +112,11 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 }
                 else if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else
                 {
@@ -135,7 +135,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else
                 {
@@ -153,7 +153,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else
                 {
@@ -171,7 +171,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else
                 {

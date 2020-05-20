@@ -2,7 +2,7 @@
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -182,12 +182,12 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     {
                         if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 200)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                             return;
                         }
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
                         Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast dein Auto voll getankt!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dein Auto voll getankt!");
                     }
                 }
                 else if (value == 2)
@@ -198,7 +198,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - Gold!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - Gold!");
                     }
                 }
                 else if (value == 3)
@@ -209,7 +209,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - Gold!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - Gold!");
                     }
                 }
 
@@ -232,7 +232,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                     }
                 }
                 else if (value == 6)
@@ -251,17 +251,17 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits eine Vintage - Pistole!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits eine Vintage - Pistole!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - Silver!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - Silver!");
                     }
                 }
                 else if (value == 7)
@@ -280,17 +280,17 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Vintage - Pistole!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Vintage - Pistole!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - Silver!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - Silver!");
                     }
                 }
                 else if (value == 8)
@@ -309,17 +309,17 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits eine Mini - SMG!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits eine Mini - SMG!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - UltimateRed!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - UltimateRed!");
                     }
                 }
                 else if (value == 9)
@@ -338,17 +338,17 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Mini - SMG!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Mini - SMG!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast kein VIP - UltimateRed!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast kein VIP - UltimateRed!");
                     }
                 }
             }

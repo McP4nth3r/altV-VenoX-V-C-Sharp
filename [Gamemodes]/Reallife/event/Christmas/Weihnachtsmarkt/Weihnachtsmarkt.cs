@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -223,12 +223,12 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits das heutige Türchen geöffnet.");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits das heutige Türchen geöffnet.");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Wir haben nicht den " + value + ". Dezember!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wir haben nicht den " + value + ". Dezember!");
                 }
             }
             catch { }
@@ -243,7 +243,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 12)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // Schockolade
@@ -254,7 +254,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 17)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // Cookies
@@ -265,7 +265,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 34)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // Lebkuchen
@@ -276,7 +276,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 60)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // sparerips
@@ -287,7 +287,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 15)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // gluehwein
@@ -298,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 6)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // milk
@@ -309,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 12)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     // hotchocolate
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 75)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
                     Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, Constants.ITEM_ART_WAFFE, 1, true);

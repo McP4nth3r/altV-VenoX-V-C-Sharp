@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -43,34 +43,34 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 /*
                 if (shape == TuningGaragenTeleport)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "In der BETA Phase leider nicht möglich...");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
                     return;
                     if (player.IsInVehicle)
                     {
                         IVehicle Vehicle = player.Vehicle;
                         if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) > Constants.FACTION_NONE)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
                         else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) !=player.GetVnXName())
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst keine Fraktions fahrzeuge Tunen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
                         else if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst kein Aktions fahrzeug Tunen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst kein Aktions fahrzeug Tunen!");
                             return;
                         }
                         else if (Vehicle.vnxGetElementData("VenoX_Rentals_Fahrzeug") == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst kein Miet-fahrzeug Tunen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst kein Miet-fahrzeug Tunen!");
                             return;
                         }
                         else if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true || Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) == true)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du kannst dieses Fahrzeug nicht Tunen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
                             return;
                         }
                         player.Emit("Remote_Speedo_Hide", true);
@@ -296,7 +296,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     tunningModel.id = Database.AddTunning(tunningModel);
                     Main.tunningList.Add(tunningModel);
-                    dxLibary.VnX.DrawNotification(player, "info", "Tunning Erfolgreich gekauft!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
                 else
                 {
@@ -308,7 +308,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     tunningModel.id = Database.AddTunning(tunningModel);
                     Main.tunningList.Add(tunningModel);
-                    dxLibary.VnX.DrawNotification(player, "info", "Tunning Erfolgreich gekauft!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
             }
             catch

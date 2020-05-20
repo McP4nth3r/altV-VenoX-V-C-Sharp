@@ -163,13 +163,13 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Das ist kein Job Fahrzeug!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das ist kein Job Fahrzeug!");
                             }
                         }
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist in keinem Fahrzeug?!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Fahrzeug?!");
                     }
                 }
             }

@@ -133,18 +133,18 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du zu weit von " + target.GetVnXName() + " entfernt!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du zu weit von " + target.GetVnXName() + " entfernt!");
                             }
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du bist in keinem Medic Fahrzeug!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Medic Fahrzeug!");
                         }
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist bei keinem Spieler!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist bei keinem Spieler!");
                 }
             }
             catch

@@ -1,14 +1,13 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using VenoXV._Gamemodes_.Reallife.business;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs;
@@ -209,12 +208,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 30)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
-                        dxLibary.VnX.DrawNotification(player, "warning", "Du bekommst hunger... Besorg dir was zu Essen!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
                     else if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 10)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
-                        dxLibary.VnX.DrawNotification(player, "warning", "Du bekommst hunger... Besorg dir was zu Essen!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) <= 20)
                     {
@@ -389,7 +388,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
                 {
                     player.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) - 1);
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
                 }
                 if (playerFaction > 0)
                 {

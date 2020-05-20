@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 {
                     /*if(target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du kannst keinen Arbeitskollegen Interviewn.");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keinen Arbeitskollegen Interviewn.");
                         return;
                     }*/
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.GetVnXName() + " eine Anfrage geschickt!");
@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Reporter!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Reporter!");
                 }
             }
             catch
@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast keine Live Anfrage von " + target.GetVnXName() + " erhalten!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Live Anfrage von " + target.GetVnXName() + " erhalten!");
                 }
             }
             catch
@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keinem Interview!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Interview!");
                 }
             }
             catch
@@ -114,7 +114,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keinem Interview!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Interview!");
                 }
             }
             catch

@@ -61,7 +61,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             try
             {   // Die punkte abfragen!
                 player.vnxSetElementData(BUSJOB_LEVEL, 0);
-                dxLibary.VnX.DrawNotification(player, "info", "Mach VenoX Mobil!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Mach VenoX Mobil!");
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 3000);
 
                 Position Destination = AbgabepunkteLVLONE[0];
@@ -77,7 +77,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 else if (value == 3) { VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Position(466.3002f, -595.9792f, 28.10545f), 190, new Rgba(0, 0, 0, 255), new Rgba(0, 0, 0, 255), true, false, Constants.JOB_BUS, "VenoX"); }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast nichts ausgewählt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nichts ausgewählt!");
                 }
             }
             catch { }
@@ -104,7 +104,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                     }
 
                     Position Destination = AbgabepunkteLVLONE[(int)player.vnxGetElementData<int>(BUSJOB_LEVEL)];
-                    dxLibary.VnX.DrawNotification(player, "info", "+ " + BUSJOB_LEVEL_ONE_MONEY + " $");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "+ " + BUSJOB_LEVEL_ONE_MONEY + " $");
                     JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);

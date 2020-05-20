@@ -26,7 +26,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
                 if (player.vnxGetElementData<string>("settings_quest") == "ja")
                 {
                     player.vnxSetStreamSharedElementData("settings_quest", "nein");
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", true);
                 }
             }
@@ -41,7 +40,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
                     if (player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
                     {
                         player.vnxSetStreamSharedElementData("settings_quest", "ja");
-                        anzeigen.Usefull.VnX.UpdateHUD(player);
                         player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
                     }
                     player.Emit("Greenzone:ChangeStatus", false);

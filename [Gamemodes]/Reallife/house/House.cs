@@ -4,7 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.database;
+using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
@@ -147,7 +147,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 {
                     if (house.owner == player.GetVnXName())
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
                     }
                     if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
@@ -324,7 +324,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == 0)
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Dein Haus ist jetzt nicht mehr Mietbar!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dein Haus ist jetzt nicht mehr Mietbar!");
             }
             else
             {
@@ -333,7 +333,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 HouseModel house = GetHouseById(houseId);
                 if (house == null || house.owner != player.GetVnXName())
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Dir gehört kein Haus!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dir gehört kein Haus!");
                 }
                 else if (amount > 0)
                 {
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Miete muss kleiner als 5000 sein!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Miete muss kleiner als 5000 sein!");
                     }
 
                 }
@@ -362,7 +362,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 }*/
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Miete muss größer als 0 sein!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Miete muss größer als 0 sein!");
                 }
             }
         }
@@ -379,11 +379,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     {
                         if (house.status != Constants.HOUSE_STATE_RENTABLE)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Dieses Haus steht nicht zur Vermietung!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dieses Haus steht nicht zur Vermietung!");
                         }
                         else if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < house.rental)
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                         else
                         {
@@ -398,7 +398,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                                 //house.houseLabel.Text = GetHouseLabelText(house);
                             }
                             Database.UpdateHouse(house);*/
-                            dxLibary.VnX.DrawNotification(player, "info", "Du hast dich Erfolgreich Eingemietet!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dich Erfolgreich Eingemietet!");
                         }
                         break;
                     }
@@ -411,7 +411,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     }*/
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du hast bereits eine Wohnung!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits eine Wohnung!");
                     }
                 }
             }

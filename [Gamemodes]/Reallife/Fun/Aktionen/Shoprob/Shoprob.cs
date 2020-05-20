@@ -156,7 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du bist in einer Staatsfraktion!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in einer Staatsfraktion!");
                         }
                     }
                 }

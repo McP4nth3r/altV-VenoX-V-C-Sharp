@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
             {
                 // Die punkte abfragen!
                 player.vnxSetElementData("JOB_STAGE_TRANSPORTER_STARTED", 1);
-                dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Beliefer die Firmen!");
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();
                 Position Destination = AbgabepunkteLVLONE[random.Next(1, 8)];
@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                     dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
-                    dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
                     player.vnxSetElementData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 1);
 
                     return;
@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                     dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
-                    dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
                     player.vnxSetElementData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 2);
                     return;
                 }
@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                     dxLibary.VnX.DrawZielBlip(player, "Abgabe [ Transporter Job]", Destination, 611, 75, 0);
-                    dxLibary.VnX.DrawNotification(player, "info", "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint Erreicht! Jetzt zum Nächsten Marker!");
                     player.vnxSetElementData(EntityData.PLAYER_LIEFERJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL) + 3);
                     return;
                 }
@@ -153,7 +153,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
             try
             {
                 // Die punkte abfragen!
-                dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Beliefer die Firmen!");
                 player.vnxSetElementData("JOB_STAGE_TRANSPORTER_STARTED", 2);
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();
@@ -216,7 +216,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Lieferrant
             try
             {
                 // Die punkte abfragen!
-                dxLibary.VnX.DrawNotification(player, "info", "Beliefer die Firmen!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Beliefer die Firmen!");
                 player.vnxSetElementData("JOB_STAGE_TRANSPORTER_STARTED", 3);
                 Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                 Random random = new Random();

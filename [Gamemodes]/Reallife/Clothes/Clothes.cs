@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1 || player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY_NEUTRAL) == 1)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Geh zuerst Off-Duty!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
                         return;
                     }
                     Random random = new Random();
@@ -45,7 +45,6 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                     dxLibary.VnX.SetElementFrozen(player, true);
                     player.Rotation = new Rotation(0f, 0f, 160f);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    anzeigen.Usefull.VnX.UpdateHUD(player);
                     player.Dimension = dim;
                     player.Emit("showClothesMenu", "Klamottenshop ", 1);
                     dxLibary.VnX.CreateDiscordUpdate(player, "Kauft grad neue Klamotten", "VenoX - Reallife");
@@ -61,7 +60,6 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             {
                 player.vnxSetStreamSharedElementData("HideHUD", 0);
                 player.Dimension = 0;
-                anzeigen.Usefull.VnX.UpdateHUD(player);
                 anzeigen.Usefull.VnX.ResetDiscordData(player);
                 dxLibary.VnX.SetElementFrozen(player, false);
             }

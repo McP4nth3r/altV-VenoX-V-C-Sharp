@@ -3,9 +3,9 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist in keiner Fraktion!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                 }
                 else
                 {

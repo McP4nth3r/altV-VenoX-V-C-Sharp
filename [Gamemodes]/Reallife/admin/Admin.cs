@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.character;
-using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
@@ -310,7 +310,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         }
                     }
                 }
-                else { dxLibary.VnX.DrawNotification(player, "error", "Seit wann bist du ein VenoX Mitglied?"); }
+                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Seit wann bist du ein VenoX Mitglied?"); }
             }
             catch { }
         }
@@ -509,12 +509,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht Befugt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                 }
             }
             catch { }
@@ -565,12 +565,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht Befugt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                 }
             }
             catch { }
@@ -641,7 +641,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Status muss JA oder NEIN sein!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Status muss JA oder NEIN sein!");
                 }
             }
         }
@@ -708,7 +708,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Der Spieler ist nicht im Prison!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht im Prison!");
                     }
                     if (targetplayer != null)
                     {
@@ -763,12 +763,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     }
                     else
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht Befugt!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                 }
             }
             catch { }
@@ -1044,7 +1044,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Das Fahrzeug exestiert nicht!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug exestiert nicht!");
                 }
             }
             catch { }
@@ -1096,12 +1096,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Es sind Aktionen bereits verfügbar!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es sind Aktionen bereits verfügbar!");
                 }
             }
             else
             {
-                dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht Befugt!");
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
             }
         }
 
@@ -1171,7 +1171,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     if (target == null) { return; }
                     if (faction > 13 || faction < 0)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Fraktions ID nur zwischen 0-13 möglich!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Fraktions ID nur zwischen 0-13 möglich!");
                         return;
                     }
                     if (faction == 0)
@@ -1264,11 +1264,11 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Der Spieler " + target.GetVnXName() + " ist in keiner Fraktion!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler " + target.GetVnXName() + " ist in keiner Fraktion!");
                 }
                 if (rank > 5 || rank < 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Fraktions Rang nur zwischen 0-5 möglich!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Fraktions Rang nur zwischen 0-5 möglich!");
                     return;
                 }
                 else
@@ -1327,7 +1327,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
                 }
             }
         }
@@ -1581,7 +1581,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     // Update the IVehicle's position into the database
                     Database.UpdateIVehicleSingleString("model", modelName, veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
-                    dxLibary.VnX.DrawNotification(player, "error", "Du hast das Fahrzeug geändert zu : " + modelName);
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast das Fahrzeug geändert zu : " + modelName);
                 }
             }
         }
@@ -1619,12 +1619,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (R > 255 || G > 255 || B > 255 || R2 > 255 || G2 > 255 || B2 > 255)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Primary & Sec. Rgba darf nicht über 255 sein!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Primary & Sec. Rgba darf nicht über 255 sein!");
                     return;
                 }
                 else if (R < 0 || G < 0 || B < 0 || R2 < 0 || G2 < 0 || B2 < 0)
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Primary & Sec. Rgba darf nicht unter 0 sein!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Primary & Sec. Rgba darf nicht unter 0 sein!");
                     return;
                 }
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)

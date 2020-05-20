@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                         string Clantag = admin.Admin.GetRgbaedClantag(pl_adminlvl);
                         if (player.vnxGetElementData<string>("settings_globalchat") == "nein")
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
                             return;
                         }
                         foreach (Client onlinespieler in Alt.GetAllPlayers())
@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    if (Global_Admin_Status == "Ausgeschaltet") { dxLibary.VnX.DrawNotification(player, "error", "Der Global chat ist bereits angeschaltet!"); return; }
+                    if (Global_Admin_Status == "Ausgeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Ausgeschaltet";
                     foreach (Client onlinespieler in Alt.GetAllPlayers())
                     {
@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= 4)
                 {
-                    if (Global_Admin_Status == "Angeschaltet") { dxLibary.VnX.DrawNotification(player, "error", "Der Global chat ist bereits angeschaltet!"); return; }
+                    if (Global_Admin_Status == "Angeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Angeschaltet";
                     foreach (Client onlinespieler in Alt.GetAllPlayers())
                     {

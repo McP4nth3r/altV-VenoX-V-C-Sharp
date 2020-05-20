@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.register_login
 {
@@ -14,16 +13,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
            + " - 225.000$ wurde entfernt.<br>"
            + " - More Infos Cooming Soon...<br>"
            ;
-        }
-
-        [ClientEvent("Register:First")]
-        public static void OnFirstStepRegister(Client player, string username, string email, string password, string password_retype, int GenderSelected)
-        {
-            //int Sex = int.Parse(GenderSelected);
-            Core.Debug.OutputDebugString("Register : " + username + " | " + email + " | " + password + " | " + password_retype + " | " + GenderSelected);
-            Core.Debug.OutputDebugString("Register called");
-            player.Emit("DestroyLoginWindow");
-            player.Emit("CharCreator:Start");
         }
     }
 }

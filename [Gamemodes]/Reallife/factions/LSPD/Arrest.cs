@@ -3,9 +3,9 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._Gamemodes_.Reallife.database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
@@ -39,7 +39,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             player.Dimension = 0;
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                            anzeigen.Usefull.VnX.UpdateHUD(player);
                         }
                         else if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) >= kaution)
                         {
@@ -53,11 +52,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             player.Dimension = 0;
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                            anzeigen.Usefull.VnX.UpdateHUD(player);
                         }
                         else
                         {
-                            dxLibary.VnX.DrawNotification(player, "error", "Du hast nicht genug Geld!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                     }
                 }
@@ -107,27 +105,27 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Staatsfraktionist im Dienst!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Staatsfraktionist im Dienst!");
                         return;
                     }
                     if (player.Position.Distance(target.Position) > 2.5f)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
                         return;
                     }
                     if (target.IsInVehicle && target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == false)
                     {
                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, true);
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast " + target.GetVnXName() + " gefesselt!");
-                        dxLibary.VnX.DrawNotification(target, "warning", player.GetVnXName() + " hat dich gefesselt!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.GetVnXName() + " gefesselt!");
+                        _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.GetVnXName() + " hat dich gefesselt!");
                         // Disable some player movements
                         target.Emit("toggleHandcuffed", true);
                     }
                     else if (target.IsInVehicle && target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true)
                     {
                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                        dxLibary.VnX.DrawNotification(player, "info", "Du hast " + target.GetVnXName() + " Handschellen entfernt!");
-                        dxLibary.VnX.DrawNotification(target, "info", player.GetVnXName() + " hat deine Handschellen abgenommen!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.GetVnXName() + " Handschellen entfernt!");
+                        _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.GetVnXName() + " hat deine Handschellen abgenommen!");
                         target.Emit("toggleHandcuffed", false);
                     }
                     else
@@ -140,8 +138,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
 
                             player.vnxSetElementData(EntityData.PLAYER_ANIMATION, true);
                             target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, true);
-                            dxLibary.VnX.DrawNotification(player, "info", "Du hast " + target.GetVnXName() + " gefesselt!");
-                            dxLibary.VnX.DrawNotification(target, "warning", player.GetVnXName() + " hat dich gefesselt!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.GetVnXName() + " gefesselt!");
+                            _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.GetVnXName() + " hat dich gefesselt!");
                             //target.Emit("Attach_Element_to_Entity", player, cuff);
                             // Disable some player movements
                             target.Emit("toggleHandcuffed", true);
@@ -157,8 +155,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
                             target.vnxSetElementData(EntityData.PLAYER_ANIMATION, false);
 
-                            dxLibary.VnX.DrawNotification(player, "info", "Du hast " + target.GetVnXName() + " Handschellen entfernt!");
-                            dxLibary.VnX.DrawNotification(target, "info", player.GetVnXName() + " hat deine Handschellen abgenommen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.GetVnXName() + " Handschellen entfernt!");
+                            _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.GetVnXName() + " hat deine Handschellen abgenommen!");
 
                             // Enable previously disabled player movements
                             target.Emit("toggleHandcuffed", false);
@@ -187,7 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                         {
                             if (player.Position.Distance(target.Position) > 2.5f)
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zuweit von " + target.GetVnXName() + " entfernt...");
                                 return;
                             }
                             IVehicle Vehicle = player.Vehicle;
@@ -214,7 +212,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                 {
                     if (Allround.isStateFaction(player) == false)
                     {
-                        dxLibary.VnX.DrawNotification(player, "error", "Du bist kein Beamter im Dienst!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                         return;
                     }
                     // We check whether the player is connected
@@ -247,7 +245,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                                         target.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4);
                                         target.vnxSetElementData(EntityData.PLAYER_KAUTION, KostenProWanted * target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS));
                                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
-                                        anzeigen.Usefull.VnX.UpdateHUD(target);
                                         anzeigen.Usefull.VnX.RemoveAllWeapons(target);
                                         Random random = new Random();
                                         int dim = random.Next(1, 9999);
@@ -264,7 +261,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast " + target.GetVnXName() + " Eingesperrt für " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 5 + " Minuten.");
                                         target.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 5);
                                         target.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
-                                        anzeigen.Usefull.VnX.UpdateHUD(target);
                                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
                                         anzeigen.Usefull.VnX.RemoveAllWeapons(target);
                                         Random random = new Random();
@@ -279,14 +275,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                             }
                             else
                             {
-                                dxLibary.VnX.DrawNotification(player, "error", "Der Spieler " + target.GetVnXName() + " ist nicht im PD Hinterhof!");
+                                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler " + target.GetVnXName() + " ist nicht im PD Hinterhof!");
                             }
                         }
                     }
                 }
                 else
                 {
-                    dxLibary.VnX.DrawNotification(player, "error", "Du bist nicht auf dem PD Hinterhof!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht auf dem PD Hinterhof!");
                 }
             }
             catch
