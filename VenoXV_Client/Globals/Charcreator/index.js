@@ -24,25 +24,9 @@ alt.onServer('CharCreator:Start', (gender = 1) => {
     }, 2500);
     loginCamera = game.createCamWithParams("DEFAULT_SCRIPTED_CAMERA", 3280, 5220, 26, 0, 0, 240, 50, true, 2);
     alt.setTimeout(() => {
-        CharCreator.on("Client:Charselector:cefReady", () => {
-            alt.setTimeout(() => {
-                CharCreator.emit("CEF:Charcreator:openGenderSelect");
-            }, 250);
-        });
-        CharCreator.on("Client:Charcreator:hideGenderSelector", (gender) => {
-            if (gender == undefined) return;
-            alt.setTimeout(() => {
-                alt.setTimeout(() => {
-                    openCharCreator(gender);
-                }, 500);
-            }, 250);
-        });
         createLoginCam(402.85, -999, -98.4, 358);
         CharCreator.emit("CEF:Charcreator:openCreator");
-
-
         CharCreator.on("Client:Charcreator:UpdateHeadOverlays", (headoverlaysarray) => {
-            alt.log('Called Update HeadOverlays + ' + headoverlaysarray);
             let headoverlays = JSON.parse(headoverlaysarray);
             game.setPedHeadOverlayColor(charcreatorPedHandle, 1, 1, parseInt(headoverlays[2][1]), 1);
             game.setPedHeadOverlayColor(charcreatorPedHandle, 2, 1, parseInt(headoverlays[2][2]), 1);
@@ -66,7 +50,6 @@ alt.onServer('CharCreator:Start', (gender = 1) => {
         });
 
         CharCreator.on("Client:Charcreator:UpdateFaceFeature", (facefeaturesdata) => {
-            alt.log('Called Update facefeaturesdata + ' + facefeaturesdata);
             let facefeatures = JSON.parse(facefeaturesdata);
 
             for (let i = 0; i < 20; i++) {
@@ -85,12 +68,22 @@ alt.onServer('CharCreator:Start', (gender = 1) => {
         });
 
         CharCreator.on("Client:Charcreator:CreateCharacter", (facefeaturesarray, headblendsdataarray, headoverlaysarray) => {
-            alt.log(`JS Gender: ${gender}`);
             alt.emitServer("CharCreator:Create", facefeaturesarray, headblendsdataarray, headoverlaysarray);
         });
     }, 1500);
 
 });
+
+
+alt.onServer('CharCreator:Close', () => {
+    if (CharCreator) {
+        CharCreator.destroy();
+        CharCreator = false;
+        game.deletePed(charcreatorPedHandle);
+    }
+});
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function setClothes(entity, compId, draw, tex) {
@@ -115,7 +108,6 @@ function createLoginCam(x, y, z, rot) {
 
 
 function spawnCreatorPed(gender) { //gender (0 - male | 1 - female)
-    alt.log("Called CreatorPed! " + gender);
     if (gender == 0) charcreatorModelHash = game.getHashKey('mp_m_freemode_01');
     else if (gender == 1) charcreatorModelHash = game.getHashKey('mp_f_freemode_01');
     else return;
