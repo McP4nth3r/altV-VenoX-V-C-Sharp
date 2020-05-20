@@ -1,6 +1,7 @@
 ﻿using AltV.Net.Resources.Chat.Api;
 using Google.Cloud.Translation.V2;
 using System;
+using System.Net;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Language_
@@ -11,34 +12,31 @@ namespace VenoXV._Language_
         {
             German = 1,
             English = 2,
-            Turkish = 3,
-            French = 4,
-            Italian = 5,
-            Spanish = 6
         };
+
+        public static string TranslateText(string input, string languagePair)
+        {
+            string url = String.Format("http://www.google.com/translate_t?hl=en&ie=UTF8&text={0}&langpair={1}", input, languagePair);
+            WebClient webClient = new WebClient
+            {
+                Encoding = System.Text.Encoding.UTF8
+            };
+            string result = webClient.DownloadString(url);
+            result = result.Substring(result.IndexOf("<span title=\"") + "<span title=\"".Length);
+            result = result.Substring(result.IndexOf(">") + 1);
+            result = result.Substring(0, result.IndexOf("</span>"));
+            return result.Trim();
+        }
 
         public static void SendTranslatedChatMessage(Client playerClass, string text)
         {
-            TranslationClient client = TranslationClient.Create();
             switch (playerClass.Language)
             {
                 case (int)Languages.English:
-                    playerClass.SendChatMessage(client.TranslateText(text, LanguageCodes.English).TranslatedText);
+                    playerClass.SendChatMessage(TranslateText(text, LanguageCodes.English));
                     break;
                 case (int)Languages.German:
                     playerClass.SendChatMessage(text);
-                    break;
-                case (int)Languages.French:
-                    playerClass.SendChatMessage(client.TranslateText(text, LanguageCodes.French).TranslatedText);
-                    break;
-                case (int)Languages.Italian:
-                    playerClass.SendChatMessage(client.TranslateText(text, LanguageCodes.Italian).TranslatedText);
-                    break;
-                case (int)Languages.Spanish:
-                    playerClass.SendChatMessage(client.TranslateText(text, LanguageCodes.Spanish).TranslatedText);
-                    break;
-                case (int)Languages.Turkish:
-                    playerClass.SendChatMessage(client.TranslateText(text, LanguageCodes.Turkish).TranslatedText);
                     break;
             }
         }
@@ -46,15 +44,10 @@ namespace VenoXV._Language_
         {
             try
             {
-                TranslationClient client = TranslationClient.Create();
                 return CountryLanguageCode switch
                 {
-                    LanguageCodes.English => client.TranslateText(text, LanguageCodes.English).TranslatedText,
-                    LanguageCodes.German => client.TranslateText(text, LanguageCodes.German).TranslatedText,
-                    LanguageCodes.French => client.TranslateText(text, LanguageCodes.French).TranslatedText,
-                    LanguageCodes.Italian => client.TranslateText(text, LanguageCodes.Italian).TranslatedText,
-                    LanguageCodes.Spanish => client.TranslateText(text, LanguageCodes.Spanish).TranslatedText,
-                    LanguageCodes.Turkish => client.TranslateText(text, LanguageCodes.Turkish).TranslatedText,
+                    LanguageCodes.English => TranslateText(text, LanguageCodes.English),
+                    LanguageCodes.German => TranslateText(text, LanguageCodes.German),
                     _ => text,
                 };
             }
