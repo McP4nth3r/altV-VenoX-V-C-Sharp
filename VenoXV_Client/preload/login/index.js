@@ -33,7 +33,7 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 		}, 1000);
 		loginbrowser.focus();
 		loginbrowser.on('request_player_login', (n, p) => {
-			alt.emitServer("loginAccount", n, p);
+			alt.emitServer("LoginAccount", n, p);
 		});
 		loginbrowser.on('Register:First', (username, email, password, password_retype, GenderSelected) => {
 			alt.emitServer("Account:Register", username, email, password, password_retype, GenderSelected, true);
