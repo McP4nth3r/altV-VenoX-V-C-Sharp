@@ -11,6 +11,7 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Preload_.Character_Creator;
+using VenoXV._Preload_.Register;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -36,6 +37,10 @@ namespace VenoXV._RootCore_.Database
             {
                 await AltAsync.Do(() =>
                 {
+                    //Load Accounts
+                    Register.AccountList = LoadAllAccounts();
+                    Core.Debug.OutputDebugString(Register.AccountList.Count + " Accounts wurden geladen...");
+
                     //Char-Creator Accounts loading.
                     _Preload_.Character_Creator.Main.CharacterSkins = LoadAllCharacterSkins();
 
@@ -286,23 +291,20 @@ namespace VenoXV._RootCore_.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, passwort, Geschlecht ) VALUES(@SpielerName, @SpielerSocial, @serial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht)";
-                    command.Parameters.AddWithValue("@SpielerName", nickname);
-                    command.Parameters.AddWithValue("@SpielerSocial", SocialClub);
-                    command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
-                    command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@passwort", password);
-                    command.Parameters.AddWithValue("@Geschlecht", geschlecht);
-
-                    command.ExecuteNonQuery();
-                }
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, Passwort, Geschlecht ) VALUES(@SpielerName, @SpielerSocial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht)";
+                command.Parameters.AddWithValue("@SpielerName", nickname);
+                command.Parameters.AddWithValue("@SpielerSocial", SocialClub);
+                command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
+                command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@passwort", password);
+                command.Parameters.AddWithValue("@Geschlecht", geschlecht);
+                command.ExecuteNonQuery();
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); }
         }
 
         public static void CreateCharacterSkin(int UID, string facefeatures, string headblends, string headoverlays)
@@ -370,7 +372,7 @@ namespace VenoXV._RootCore_.Database
             }
         }
 
-        public static int CreateCharacter(Client player, int UID, SkinModel skin)
+        public static int CreateCharacter(Client player, int UID)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -378,66 +380,10 @@ namespace VenoXV._RootCore_.Database
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "INSERT INTO users (UID, SpielerName, sex, socialName) VALUES (@UID, @playerName, @playerSex, @socialName)";
+                    command.CommandText = "INSERT INTO users (UID, SpielerName, sex) VALUES (@UID, @playerName, @playerSex)";
                     command.Parameters.AddWithValue("@playerName", player.GetVnXName());
                     command.Parameters.AddWithValue("@UID", UID);
-                    command.Parameters.AddWithValue("@playerSex", (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX));
-                    command.Parameters.AddWithValue("@socialName", player.SocialClubId.ToString());
-                    command.ExecuteNonQuery();
-
-                    // Store player's skin
-                    command.CommandText = "INSERT INTO skins VALUES (@playerId, @firstHeadShape, @secondHeadShape, @firstSkinTone, @secondSkinTone, @headMix, @skinMix, ";
-                    command.CommandText += "@hairModel, @firstHairColor, @secondHairColor, @beardModel, @beardColor, @chestModel, @chestColor, @blemishesModel, @ageingModel, ";
-                    command.CommandText += "@complexionModel, @sundamageModel, @frecklesModel, @noseWidth, @noseHeight, @noseLength, @noseBridge, @noseTip, @noseShift, @browHeight, ";
-                    command.CommandText += "@browWidth, @cheekboneHeight, @cheekboneWidth, @cheeksWidth, @eyes, @lips, @jawWidth, @jawHeight, @chinLength, @chinPosition, @chinWidth, ";
-                    command.CommandText += "@chinShape, @neckWidth, @eyesColor, @eyebrowsModel, @eyebrowsColor, @makeupModel, @blushModel, @blushColor, @lipstickModel, @lipstickColor)";
-                    command.Parameters.AddWithValue("@playerId", UID);
-                    command.Parameters.AddWithValue("@firstHeadShape", skin.firstHeadShape);
-                    command.Parameters.AddWithValue("@secondHeadShape", skin.secondHeadShape);
-                    command.Parameters.AddWithValue("@firstSkinTone", skin.firstSkinTone);
-                    command.Parameters.AddWithValue("@secondSkinTone", skin.secondSkinTone);
-                    command.Parameters.AddWithValue("@headMix", skin.headMix);
-                    command.Parameters.AddWithValue("@skinMix", skin.skinMix);
-                    command.Parameters.AddWithValue("@hairModel", skin.hairModel);
-                    command.Parameters.AddWithValue("@firstHairColor", skin.firstHairColor);
-                    command.Parameters.AddWithValue("@secondHairColor", skin.secondHairColor);
-                    command.Parameters.AddWithValue("@beardModel", skin.beardModel);
-                    command.Parameters.AddWithValue("@beardColor", skin.beardColor);
-                    command.Parameters.AddWithValue("@chestModel", skin.chestModel);
-                    command.Parameters.AddWithValue("@chestColor", skin.chestColor);
-                    command.Parameters.AddWithValue("@blemishesModel", skin.blemishesModel);
-                    command.Parameters.AddWithValue("@ageingModel", skin.ageingModel);
-                    command.Parameters.AddWithValue("@complexionModel", skin.complexionModel);
-                    command.Parameters.AddWithValue("@sundamageModel", skin.sundamageModel);
-                    command.Parameters.AddWithValue("@frecklesModel", skin.frecklesModel);
-                    command.Parameters.AddWithValue("@noseWidth", skin.noseWidth);
-                    command.Parameters.AddWithValue("@noseHeight", skin.noseHeight);
-                    command.Parameters.AddWithValue("@noseLength", skin.noseLength);
-                    command.Parameters.AddWithValue("@noseBridge", skin.noseBridge);
-                    command.Parameters.AddWithValue("@noseTip", skin.noseTip);
-                    command.Parameters.AddWithValue("@noseShift", skin.noseShift);
-                    command.Parameters.AddWithValue("@browHeight", skin.browHeight);
-                    command.Parameters.AddWithValue("@browWidth", skin.browWidth);
-                    command.Parameters.AddWithValue("@cheekboneHeight", skin.cheekboneHeight);
-                    command.Parameters.AddWithValue("@cheekboneWidth", skin.cheekboneWidth);
-                    command.Parameters.AddWithValue("@cheeksWidth", skin.cheeksWidth);
-                    command.Parameters.AddWithValue("@eyes", skin.eyes);
-                    command.Parameters.AddWithValue("@lips", skin.lips);
-                    command.Parameters.AddWithValue("@jawWidth", skin.jawWidth);
-                    command.Parameters.AddWithValue("@jawHeight", skin.jawHeight);
-                    command.Parameters.AddWithValue("@chinLength", skin.chinLength);
-                    command.Parameters.AddWithValue("@chinPosition", skin.chinPosition);
-                    command.Parameters.AddWithValue("@chinWidth", skin.chinWidth);
-                    command.Parameters.AddWithValue("@chinShape", skin.chinShape);
-                    command.Parameters.AddWithValue("@neckWidth", skin.neckWidth);
-                    command.Parameters.AddWithValue("@eyesColor", skin.eyesColor);
-                    command.Parameters.AddWithValue("@eyebrowsModel", skin.eyebrowsModel);
-                    command.Parameters.AddWithValue("@eyebrowsColor", skin.eyebrowsColor);
-                    command.Parameters.AddWithValue("@makeupModel", skin.makeupModel);
-                    command.Parameters.AddWithValue("@blushModel", skin.blushModel);
-                    command.Parameters.AddWithValue("@blushColor", skin.blushColor);
-                    command.Parameters.AddWithValue("@lipstickModel", skin.lipstickModel);
-                    command.Parameters.AddWithValue("@lipstickColor", skin.lipstickColor);
+                    command.Parameters.AddWithValue("@playerSex", player.Sex);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -524,7 +470,7 @@ namespace VenoXV._RootCore_.Database
         }
 
 
-        public static Client LoadCharacterInformationById(Client character, int characterId)
+        public static void LoadCharacterInformationById(Client character, int characterId)
         {
             try
             {
@@ -598,10 +544,8 @@ namespace VenoXV._RootCore_.Database
                         character.Reallife.Adventskalender = reader.GetInt32("Adventskalender");
                     }
                 }
-
-                return character;
             }
-            catch { return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoadCharacterInformationById", ex); }
         }
 
 
@@ -1026,104 +970,6 @@ namespace VenoXV._RootCore_.Database
             catch { return false; }
         }
 
-        public static bool FindCharacterBanBySerial(string serial)
-        {
-            try
-            {
-                bool found = false;
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm FROM ban WHERE serial = @serial LIMIT 1";
-                    command.Parameters.AddWithValue("@serial", serial);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
-
-                return found;
-            }
-            catch { return false; }
-        }
-
-        public static int GetAccountUID(string SocialName)
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", SocialName);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetInt32("UID");
-                        }
-                    }
-                }
-                return -1;
-            }
-            catch { return -1; }
-        }
-
-        public static int GetAccountUIDBySerial(string serial)
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM spieler WHERE serial = @serial LIMIT 1";
-                    command.Parameters.AddWithValue("@serial", serial);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetInt32("UID");
-                        }
-                    }
-                }
-                return -1;
-            }
-            catch { return -1; }
-        }
-        public static int GetAccountUIDByName(string name)
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetInt32("UID");
-                        }
-                    }
-                }
-                return -1;
-            }
-            catch { return -1; }
-        }
-
         public static int GetCharakterUID(string SpielerName)
         {
             try
@@ -1147,6 +993,29 @@ namespace VenoXV._RootCore_.Database
                 return -1;
             }
             catch { return -1; }
+        }
+
+        public static int GetPlayerUID(string SpielerName)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                    command.Parameters.AddWithValue("@SpielerName", SpielerName);
+
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        return reader.GetInt32("UID");
+                    }
+                }
+                return -1;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GetPlayerUID", ex); return -1; }
         }
 
 
@@ -2006,6 +1875,37 @@ namespace VenoXV._RootCore_.Database
                 }
 
                 return itemList;
+            }
+            catch { return null; }
+        }
+        public static List<AccountModel> LoadAllAccounts()
+        {
+            try
+            {
+                List<AccountModel> accountList = new List<AccountModel>();
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "SELECT * FROM spieler";
+
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        AccountModel account = new AccountModel
+                        {
+                            UID = reader.GetInt32("UID"),
+                            HardwareId = reader.GetString("HardwareIdHash"),
+                            HardwareIdExhash = reader.GetString("HardwareIdExHash"),
+                            Name = reader.GetString("SpielerName"),
+                            Password = reader.GetString("Passwort"),
+                            SocialID = reader.GetString("SpielerSocial")
+                        };
+                        accountList.Add(account);
+                    }
+                }
+                return accountList;
             }
             catch { return null; }
         }
