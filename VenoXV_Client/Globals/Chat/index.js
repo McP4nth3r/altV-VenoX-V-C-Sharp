@@ -12,12 +12,9 @@ let view = null;
 
 export function LoadChat() {
   if (view != null) { return; }
-  view = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/html/index.html");
+  view = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/index.html");
   view.on('chatloaded', () => {
     if (view == null) { return; }
-    for (const msg of buffer) {
-      addMessage(msg.name, msg.text);
-    }
     loaded = true;
   })
 
@@ -34,31 +31,11 @@ export function LoadChat() {
 }
 
 
-function addMessage(name, text) {
+
+alt.onServer('chat:message', (text) => {
   if (view == null) { return; }
-  if (name) {
-    view.emit('addMessage', name, text);
-  } else {
-    view.emit('addString', text);
-  }
-}
-
-
-export function pushMessage(name, text) {
-  if (view == null) { return; }
-  if (!loaded) {
-    buffer.push({ name, text });
-  } else {
-    addMessage(name, text);
-  }
-}
-
-export function pushLine(text) {
-  if (view == null) { return; }
-  pushMessage(null, text);
-}
-
-alt.onServer('chat:message', pushMessage);
+  view.emit('Chat:Push', text);
+});
 
 alt.on('keyup', (key) => {
   if (loaded) {
