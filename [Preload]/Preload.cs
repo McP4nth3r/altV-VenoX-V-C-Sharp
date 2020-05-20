@@ -27,6 +27,14 @@ namespace VenoXV.Preload
     }
     public class Preload : IScript
     {
+        public enum Gamemodes
+        {
+            Reallife = 0,
+            Zombies = 1,
+            Tactics = 2,
+            Race = 3,
+            SevenTowers = 4,
+        };
 
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(Client player, int value)
@@ -34,39 +42,36 @@ namespace VenoXV.Preload
             switch (value)
             {
                 case 0:
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_REALLIFE); //Reallife Gamemode Selected
+                    player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
                     Login.OnSelectedReallifeGM(player);
                     Globals.Main.ReallifePlayers.Add(player);
                     player.Emit("Player:ChangeCurrentLobby", "Reallife");
                     break;
                 case 1:
-                    //if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
-                    //{
                     Globals.Main.ZombiePlayers.Add(player);
                     player.Language = (int)_Language_.Main.Languages.English;
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_ZOMBIE); //Tactics Gamemode Selected
+                    player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
                     Zombie.World.Main.OnSelectedZombieGM(player);
                     player.Emit("Load_Zombie_GM");
                     player.Emit("Player:ChangeCurrentLobby", "Zombies");
-                    //}
                     break;
                 case 2:
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_TACTICS); //Tactics Gamemode Selected
+                    player.Gamemode = (int)Gamemodes.Tactics;//Tactics Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.English;
                     Globals.Main.TacticsPlayers.Add(player);
                     _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Tactics");
                     break;
                 case 3:
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_RACE);
+                    player.Gamemode = (int)Gamemodes.Race;
                     player.Language = (int)_Language_.Main.Languages.English;
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Race");
                     break;
                 case 4:
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_SEVENTOWERS); //7-Towers Gamemode Selected
+                    player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.English;
                     SevenTowers.Lobby.Main.JoinedSevenTowers(player);
                     player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
