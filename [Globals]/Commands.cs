@@ -18,7 +18,7 @@ namespace VenoXV._Globals_
                 int counter = 0;
                 foreach (CameraModel camera in CurrentPlayerCameras)
                 {
-                    if (camera.CameraCreator == player.GetVnXName()) { counter++; }
+                    if (camera.CameraCreator == player.Username) { counter++; }
                 }
                 return counter;
             }
@@ -36,7 +36,7 @@ namespace VenoXV._Globals_
             }
             CameraModel PlayerCamera = new CameraModel
             {
-                CameraCreator = player.GetVnXName(),
+                CameraCreator = player.Username,
                 StartPosition = player.Position,
                 StartRotation = new Vector3(0, 0, (float)rot_start),
                 EndPosition = new Vector3((float)x, (float)y, (float)z),
@@ -59,7 +59,7 @@ namespace VenoXV._Globals_
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.GetVnXName())
+                if (cam.CameraCreator == player.Username)
                 {
                     CurrentPlayerCameras.Remove(cam);
                 }
@@ -72,7 +72,7 @@ namespace VenoXV._Globals_
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.GetVnXName() && cam.ID == ID)
+                if (cam.CameraCreator == player.Username && cam.ID == ID)
                 {
                     player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du hast die Cam[ID: " + ID + "] gelöscht!");
                     CurrentPlayerCameras.Remove(cam);
@@ -85,7 +85,7 @@ namespace VenoXV._Globals_
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.GetVnXName())
+                if (cam.CameraCreator == player.Username)
                 {
                     player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 150, 200) + "Cam [ID : " + cam.ID + "]");
                 }
@@ -97,7 +97,7 @@ namespace VenoXV._Globals_
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.GetVnXName() && cam.ID == ID)
+                if (cam.CameraCreator == player.Username && cam.ID == ID)
                 {
                     player.Emit("Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
                 }

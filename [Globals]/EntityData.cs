@@ -27,6 +27,7 @@ namespace VenoXV.Globals
         public const string PLAYER_VIP_LEVEL = "PLAYER_VIP_LEVEL";
         public const string PLAYER_MONEY = "PLAYER_MONEY";
         public const string PLAYER_SEX = "PLAYER_SEX";
+        public const string PLAYER_ADMIN_RANK = "PLAYER_ADMIN_RANK";
         //Prison
         public const string PLAYER_PRISON_TIME = "PLAYER_PRISON_TIME";
         public const string PLAYER_PRISON_GRUND = "PLAYER_PRISON_GRUND";
