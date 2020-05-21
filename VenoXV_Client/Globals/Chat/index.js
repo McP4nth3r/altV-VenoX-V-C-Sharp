@@ -1,62 +1,153 @@
 import * as alt from 'alt';
-import { ShowCursor, GetCursorStatus } from '../VnX-Lib';
-
-
-let buffer = [];
-
-let loaded = false;
-let opened = false;
-
-let view = null;
-
-
+let webview = null;
 export function LoadChat() {
-  if (view != null) { return; }
-  view = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/index.html");
-  view.on('chatloaded', () => {
-    if (view == null) { return; }
-    loaded = true;
-  })
+  if (webview != null) { return; }
+  webview = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/html/index.html");
+  webview.focus();
+  webview.on('chat:onLoaded', () => {
+    activateChat(true);
+    push('Connected to VenoX', 'white', [0, 200, 255], 'check')
+  });
 
-  view.on('chatmessage', (msg) => {
-    if (view == null) { return; }
-    if (msg.length > 0) {
-      alt.emitServer('chat:message', msg);
-    }
-    opened = false;
-    alt.toggleGameControls(true);
-    ShowCursor(opened);
-  })
+  webview.on('chat:onInputStateChange', state => {
+    inputActive = state;
+
+    alt.showCursor(state);
+    alt.toggleGameControls(!state);
+  });
+
+  webview.on('chat:onChatStateChange', state => {
+    chatActive = state;
+  });
+
+  webview.on('chat:onInput', text => {
+    alt.emitServer('chat:message', text);
+  });
 
 }
 
 
+let chatActive = false;
+let inputActive = false;
+let scrollActive = false;
 
-alt.onServer('chat:message', (text) => {
-  if (view == null) { return; }
-  view.emit('Chat:Push', text);
+
+
+alt.onServer('chat:sendMessage', (sender, text) => {
+  push(`${sender} says: ${text}`);
 });
 
-alt.on('keyup', (key) => {
-  if (loaded) {
-    if (view == null) { return; }
-    if (!opened && key === 0x54 && alt.gameControlsEnabled() && !GetCursorStatus()) {
-      opened = true;
-      view.emit('openChat', false);
-      alt.toggleGameControls(false);
-      ShowCursor(opened);
-    } else if (!opened && key === 0xBF && alt.gameControlsEnabled()) {
-      opened = true;
-      view.emit('openChat', true);
-      alt.toggleGameControls(false);
-      ShowCursor(opened);
-    } else if (opened && key == 0x1B) {
-      opened = false;
-      view.emit('closeChat');
-      alt.toggleGameControls(true);
-      ShowCursor(opened);
+function pushMessage(name, text) {
+  push(text);
+}
+
+alt.onServer('chat:message', pushMessage);
+
+
+alt.onServer('chat:showMessage', (text, color, gradient, icon) => {
+  push(text, color, gradient, icon);
+});
+
+
+
+alt.onServer('chat:activateChat', state => {
+  activateChat(state);
+});
+
+export function clearMessages() {
+  webview.emit('chat:clearMessages');
+}
+
+// Backwards compatibility until next update
+export function clearChat(...args) {
+  alt.logWarning('Chat function "clearChat" is deprecated. Consider using "clearMessages" as old one will be removed after next update.');
+  clearMessages(...args);
+}
+
+export function push(text, color = 'white', gradient = false, icon = false) {
+  webview.emit('chat:pushMessage', text, color, gradient, icon);
+}
+
+// Backwards compatibility until next update
+export function addChatMessage(...args) {
+  alt.logWarning('Chat function "addChatMessage" is deprecated. Consider using "push" as old one will be removed after next update.');
+  push(...args);
+}
+
+export function activateChat(state) {
+  webview.emit('chat:activateChat', state);
+}
+
+// Backwards compatibility until next update
+export function showChat() {
+  alt.logError('Chat function "showChat" is deprecated. Consider using "activateChat" as old one will be removed after next update. Function was not called!');
+  push('Check you console!', 'red');
+}
+
+// Backwards compatibility until next update
+export function hideChat() {
+  alt.logError('Chat function "hideChat" is deprecated. Consider using "activateChat" as old one will be removed after next update. Function was not called!');
+  push('Check you console!', 'red');
+}
+
+
+alt.on('keyup', key => {
+  // Keys working only when chat is not active
+  if (!chatActive) {
+    switch (key) {
+    }
+  }
+
+  // Keys working only when chat is active
+  if (chatActive) {
+    switch (key) {
+      // PageUp
+      case 33: return scrollMessagesList('up');
+      // PageDown
+      case 34: return scrollMessagesList('down');
+    }
+  }
+
+  // Keys working only when chat is active and input is not active
+  if (chatActive && !inputActive) {
+    switch (key) {
+      // KeyT
+      case 84: return activateInput(true);
+    }
+  }
+
+  // Keys working only when chat is active and input is active
+  if (chatActive && inputActive) {
+    switch (key) {
+      // Enter
+      case 13: return sendInput();
+      // ArrowUp
+      case 38: return shiftHistoryUp();
+      // ArrowDown
+      case 40: return shiftHistoryDown();
     }
   }
 });
 
-//pushLine('<b>alt:V Multiplayer has started</b>');
+function scrollMessagesList(direction) {
+  if (scrollActive) return;
+  scrollActive = true;
+  alt.setTimeout(() => scrollActive = false, 250 + 5);
+  webview.emit('chat:scrollMessagesList', direction);
+}
+
+function activateInput(state) {
+  webview.emit('chat:activateInput', state);
+}
+
+function sendInput() {
+  webview.emit('chat:sendInput');
+}
+
+function shiftHistoryUp() {
+  webview.emit('chat:shiftHistoryUp');
+}
+
+function shiftHistoryDown() {
+  webview.emit('chat:shiftHistoryDown');
+}
