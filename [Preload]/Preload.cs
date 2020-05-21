@@ -2,11 +2,10 @@
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using System;
-using VenoXV._Gamemodes_.Reallife.register_login;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV.Preload
+namespace VenoXV._Preload_
 {
     internal class VenoXResource : AsyncResource
     {
@@ -17,6 +16,7 @@ namespace VenoXV.Preload
         public override void OnStart()
         {
             VenoXV.Globals.Main.OnResourceStart();
+
             //Console.WriteLine("Started");
         }
 
@@ -44,7 +44,7 @@ namespace VenoXV.Preload
                 case 0:
                     player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
-                    Login.OnSelectedReallifeGM(player);
+                    _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     Globals.Main.ReallifePlayers.Add(player);
                     player.Emit("Player:ChangeCurrentLobby", "Reallife");
                     break;
@@ -77,6 +77,7 @@ namespace VenoXV.Preload
                     player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
             }
+            player.Playing = true;
         }
 
 
@@ -104,11 +105,11 @@ namespace VenoXV.Preload
         {
             try
             {
-                player.Emit("showLoginWindow", "Willkommen auf VenoX", Login.GetCurrentChangelogs());
+                player.Emit("showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
                 //ShowLogin(player);
-                Core.Debug.OutputDebugString("[CONNECTED] : " + player.GetVnXName() + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
+                Core.Debug.OutputDebugString("[CONNECTED] : " + player.Username + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode
-                Login.CreateNewLogin_Cam(player, 0, 0);
+                _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }

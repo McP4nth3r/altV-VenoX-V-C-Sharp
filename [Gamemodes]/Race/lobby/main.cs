@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     VehicleModel vehClass = new VehicleModel()
                     {
                         Vehicle_Hash = (AltV.Net.Enums.VehicleModel)CurrentMap.PlayerVehicleHash,
-                        Vehicle_Owner = player.GetVnXName(),
+                        Vehicle_Owner = player.Username,
                         Vehicle_Position = Spawnpoint,
                         Vehicle_Rotation = CurrentMap.PlayerRotation,
                         vehicle = vehicle
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 //if (RACE_PLAYERS_JOINED == 1) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "[Race] : Momentan ist keiner in der Race-Lobby :(... Gedulde dich bis jemand joint..."); return; }
                 PutPlayerInRound(player);
-                Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(0, 200, 0) + player.GetVnXName() + " hat die Race runde betreten.");
+                Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Race runde betreten.");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedRaceGM", ex); }
         }

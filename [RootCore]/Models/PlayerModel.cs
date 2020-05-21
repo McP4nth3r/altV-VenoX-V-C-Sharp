@@ -86,8 +86,8 @@ namespace VenoXV._RootCore_.Models
     }
     public class Tactics
     {
-        public int Tactic_kills { get; set; }
-        public int Tactic_tode { get; set; }
+        public int Kills { get; set; }
+        public int Deaths { get; set; }
         public Tactics(Player player)
         {
             try
@@ -151,7 +151,7 @@ namespace VenoXV._RootCore_.Models
         //Main
         public int UID { get; set; }
         public string Username { get; set; }
-        public int AdminRank { get; set; }
+        public int AdminRank { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_ADMIN_RANK); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
         public int Language { get; set; }
 
         // Gamemode Classes

@@ -12,7 +12,7 @@ namespace VenoXV._Preload_.Character_Creator
         [ClientEvent("CharCreator:Create")]
         public static void OnCharCreatorCreateCall(Client player, string facefeatures, string headblends, string headoverlays)
         {
-            int UID = Database.GetPlayerUID(player.GetVnXName());
+            int UID = Database.GetPlayerUID(player.Username);
             player.UID = UID;
 
             Core.Debug.OutputDebugString("----------------");
@@ -51,7 +51,7 @@ namespace VenoXV._Preload_.Character_Creator
 
         public static void LoadCharacterSkin(Client player)
         {
-            player.SetPlayerSkin(player.Sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
+            player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
             foreach (CharacterModel skins in CharacterSkins)
             {
                 if (skins.UID == player.UID)

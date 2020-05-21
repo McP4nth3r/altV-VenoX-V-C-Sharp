@@ -70,7 +70,7 @@ namespace VenoXV._Preload_.Register
                 player.Emit("DestroyLoginWindow");
                 player.Emit("CharCreator:Start", sex);
                 player.Playing = true;
-                player.SetVnXName(nickname);
+                player.Username = nickname;
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 ChangeCharacterSexEvent(player, sex);

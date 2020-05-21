@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 using VenoXV._Preload_.Register;
@@ -15,7 +14,7 @@ namespace VenoXV._Preload_.Login
         static string Sha256(string randomString)
         {
             var crypt = new SHA256Managed();
-            string hash = String.Empty;
+            string hash = string.Empty;
             byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(randomString));
             foreach (byte theByte in crypto)
             {
@@ -58,14 +57,13 @@ namespace VenoXV._Preload_.Login
             AccountModel accClass;
             if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Falscher Nutzername/Password"); return; }
             accClass = GetAccountModel(Nickname, Sha256(Password));
-            if (accClass == null) { Core.Debug.OutputDebugString("Character not Found ?!"); return; }
+            if (accClass == null) { return; }
             Database.LoadCharacterInformationById(player, accClass.UID);
             if (!Character_Creator.Main.PlayerHaveSkin(player))
             {
                 player.Emit("DestroyLoginWindow");
                 player.Emit("CharCreator:Start", player.Sex);
                 player.Playing = true;
-                player.SetVnXName(Nickname);
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 Register.Register.ChangeCharacterSexEvent(player, player.Sex);

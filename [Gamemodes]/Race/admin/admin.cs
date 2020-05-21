@@ -12,8 +12,8 @@ namespace VenoXV._Gamemodes_.Race.admin
         [Command("skipcurrentrace")]
         public static void SkipRound(Client player)
         {
-            Core.Debug.OutputDebugString("Called with : " + player.GetVnXName());
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_MODERATOR)
+            Core.Debug.OutputDebugString("Called with : " + player.Username);
+            if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
                 Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + " hat das Rennen übersprungen!");
                 Race.Lobby.Main.StartNewRound();

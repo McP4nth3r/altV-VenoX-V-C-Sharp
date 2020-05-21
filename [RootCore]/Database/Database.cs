@@ -13,7 +13,6 @@ using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Preload_.Character_Creator;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Database
 {
@@ -381,7 +380,7 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "INSERT INTO users (UID, SpielerName, sex) VALUES (@UID, @playerName, @playerSex)";
-                    command.Parameters.AddWithValue("@playerName", player.GetVnXName());
+                    command.Parameters.AddWithValue("@playerName", player.Username);
                     command.Parameters.AddWithValue("@UID", UID);
                     command.Parameters.AddWithValue("@playerSex", player.Sex);
                     command.ExecuteNonQuery();
@@ -395,80 +394,6 @@ namespace VenoXV._RootCore_.Database
 
             return UID;
         }
-
-        public static SkinModel GetCharacterSkin(int characterId)
-        {
-            try
-            {
-                SkinModel skin = new SkinModel();
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM skins WHERE characterId = @characterId LIMIT 1";
-                    command.Parameters.AddWithValue("@characterId", characterId);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            skin.firstHeadShape = reader.GetInt32("firstHeadShape");
-                            skin.secondHeadShape = reader.GetInt32("secondHeadShape");
-                            skin.firstSkinTone = reader.GetInt32("firstSkinTone");
-                            skin.secondSkinTone = reader.GetInt32("secondSkinTone");
-                            skin.headMix = reader.GetFloat("headMix");
-                            skin.skinMix = reader.GetFloat("skinMix");
-                            skin.hairModel = reader.GetInt32("hairModel");
-                            skin.firstHairColor = reader.GetInt32("firstHairColor");
-                            skin.secondHairColor = reader.GetInt32("secondHairColor");
-                            skin.beardModel = reader.GetInt32("beardModel");
-                            skin.beardColor = reader.GetInt32("beardColor");
-                            skin.chestModel = reader.GetInt32("chestModel");
-                            skin.chestColor = reader.GetInt32("chestColor");
-                            skin.blemishesModel = reader.GetInt32("blemishesModel");
-                            skin.ageingModel = reader.GetInt32("ageingModel");
-                            skin.complexionModel = reader.GetInt32("complexionModel");
-                            skin.sundamageModel = reader.GetInt32("sundamageModel");
-                            skin.frecklesModel = reader.GetInt32("frecklesModel");
-                            skin.noseWidth = reader.GetFloat("noseWidth");
-                            skin.noseHeight = reader.GetFloat("noseHeight");
-                            skin.noseLength = reader.GetFloat("noseLength");
-                            skin.noseBridge = reader.GetFloat("noseBridge");
-                            skin.noseTip = reader.GetFloat("noseTip");
-                            skin.noseShift = reader.GetFloat("noseShift");
-                            skin.browHeight = reader.GetFloat("browHeight");
-                            skin.browWidth = reader.GetFloat("browWidth");
-                            skin.cheekboneHeight = reader.GetFloat("cheekboneHeight");
-                            skin.cheekboneWidth = reader.GetFloat("cheekboneWidth");
-                            skin.cheeksWidth = reader.GetFloat("cheeksWidth");
-                            skin.eyes = reader.GetFloat("eyes");
-                            skin.lips = reader.GetFloat("lips");
-                            skin.jawWidth = reader.GetFloat("jawWidth");
-                            skin.jawHeight = reader.GetFloat("jawHeight");
-                            skin.chinLength = reader.GetFloat("chinLength");
-                            skin.chinPosition = reader.GetFloat("chinPosition");
-                            skin.chinWidth = reader.GetFloat("chinWidth");
-                            skin.chinShape = reader.GetFloat("chinShape");
-                            skin.neckWidth = reader.GetFloat("neckWidth");
-                            skin.eyesColor = reader.GetInt32("eyesColor");
-                            skin.eyebrowsModel = reader.GetInt32("eyebrowsModel");
-                            skin.eyebrowsColor = reader.GetInt32("eyebrowsColor");
-                            skin.makeupModel = reader.GetInt32("makeupModel");
-                            skin.blushModel = reader.GetInt32("blushModel");
-                            skin.blushColor = reader.GetInt32("blushColor");
-                            skin.lipstickModel = reader.GetInt32("lipstickModel");
-                            skin.lipstickColor = reader.GetInt32("lipstickColor");
-                        }
-                    }
-                }
-
-                return skin;
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DB:GETCHARACTERSKIN", ex); return null; }
-        }
-
 
         public static void LoadCharacterInformationById(Client character, int characterId)
         {
@@ -534,8 +459,8 @@ namespace VenoXV._RootCore_.Database
                         character.Settings.ShowQuests = reader.GetString("quest_anzeigen");
                         character.Settings.ShowReporter = reader.GetString("reporter_anzeigen");
                         character.Globalchat = reader.GetString("globalchat_anzeigen");
-                        character.Tactics.Tactic_kills = reader.GetInt32("tactic_kills");
-                        character.Tactics.Tactic_tode = reader.GetInt32("tactic_tode");
+                        character.Tactics.Kills = reader.GetInt32("tactic_kills");
+                        character.Tactics.Deaths = reader.GetInt32("tactic_tode");
 
                         character.Zombies.Zombie_tode = reader.GetInt32("zombie_tode");
                         character.Zombies.Zombie_kills = reader.GetInt32("zombie_kills");
@@ -612,8 +537,8 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@quest_anzeigen", player.Settings.ShowQuests);
                     command.Parameters.AddWithValue("@reporter_anzeigen", player.Settings.ShowReporter);
                     command.Parameters.AddWithValue("@globalchat_anzeigen", player.Globalchat);
-                    command.Parameters.AddWithValue("@tactic_kills", player.Tactics.Tactic_kills);
-                    command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Tactic_tode);
+                    command.Parameters.AddWithValue("@tactic_kills", player.Tactics.Kills);
+                    command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Deaths);
                     command.Parameters.AddWithValue("@Adventskalender", player.Reallife.Adventskalender);
                     command.Parameters.AddWithValue("@zombie_kills", player.Zombies.Zombie_kills);
                     command.Parameters.AddWithValue("@zombie_tode", player.Zombies);

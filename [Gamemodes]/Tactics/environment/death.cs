@@ -27,13 +27,13 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         switch (killer.vnxGetElementData<int>(EntityData.PLAYER_CURRENT_STREAK))
                         {
                             case 3:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Tripple-Kill erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Tripple-Kill erzielt!!");
                                 break;
                             case 5:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Penta-Kill Streak erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Penta-Kill Streak erzielt!!");
                                 break;
                             case 7:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.GetVnXName() + " hat einen Ultimate-Kill Streak erzielt!!");
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Ultimate-Kill Streak erzielt!!");
                                 break;
                         }
                         killer.vnxSetElementData(EntityData.PLAYER_KILLED_PLAYERS, killer.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS) + 1);
@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     }
 
 
-                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.GetVnXName() + " hat " + player.GetVnXName() + " getötet!");
+                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " hat " + player.Username + " getötet!");
                     player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, false);
                     player.vnxSetElementData(EntityData.PLAYER_IS_DEAD, true);
                     player.vnxSetElementData(EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_TODE) + 1);

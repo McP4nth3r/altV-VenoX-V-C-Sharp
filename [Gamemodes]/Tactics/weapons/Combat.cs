@@ -88,8 +88,8 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
             try
             {
                 if (target == player) { return; }
-                if (player.GetVnXName() == target.GetVnXName()) { return; }
-                target.vnxSetElementData(EntityData.PLAYER_LAST_DAMAGED_BY, player.GetVnXName());
+                if (player.Username == target.Username) { return; }
+                target.vnxSetElementData(EntityData.PLAYER_LAST_DAMAGED_BY, player.Username);
                 if (target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM))
                 {
                     return;

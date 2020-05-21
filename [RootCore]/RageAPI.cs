@@ -144,15 +144,6 @@ namespace VenoXV.Core
         {
             player.Emit("Player:WarpOutOfVehicle");
         }
-        public static void SetVnXName(this Client player, string Name)
-        {
-            player.vnxSetElementData(Globals.EntityData.PLAYER_NAME, Name);
-            player.SetStreamSyncedMetaData(Globals.EntityData.PLAYER_NAME, Name);
-        }
-        public static string GetVnXName(this Client player)
-        {
-            return player.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME);
-        }
         public static Client GetPlayerFromName(string name)
         {
             Client player = null;
@@ -161,7 +152,7 @@ namespace VenoXV.Core
                 name = name.ToLower();
                 foreach (Client players in Alt.GetAllPlayers())
                 {
-                    if (players.GetVnXName().ToLower() == name)
+                    if (players.Username.ToLower() == name)
                     {
                         player = players;
                     }

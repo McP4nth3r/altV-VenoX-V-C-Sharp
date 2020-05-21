@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         {
             try
             {
-                player.SendChatMessage("[VenoX-Command-System] : /" + RageAPI.GetHexColorcode(0, 200, 255) + Command + RageAPI.GetHexColorcode(255, 255, 255) + " not found...");
+                player.SendChatMessage("[VenoX-Command-System] : " + RageAPI.GetHexColorcode(0, 200, 255) + "/" + Command + RageAPI.GetHexColorcode(255, 255, 255) + " not found...");
             }
             catch { }
         }
