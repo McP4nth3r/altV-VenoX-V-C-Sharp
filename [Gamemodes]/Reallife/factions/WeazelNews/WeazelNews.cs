@@ -75,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                 {
                     foreach (Client targetsingame in Alt.GetAllPlayers())
                     {
-                        if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
+                        if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
                             targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                         }
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     foreach (Client targetsingame in Alt.GetAllPlayers())
                     {
-                        if (targetsingame.vnxGetElementData<string>("settings_reporter") == "ja")
+                        if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
                             targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat das Live interview beendet.");
                         }

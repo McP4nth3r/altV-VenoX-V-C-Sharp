@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             if (shape == LSPD_Col)
             {
                 player.Emit("Greenzone:ChangeStatus", true);
-                if (player.vnxGetElementData<string>("settings_quest") == "ja")
+                if (player.vnxGetElementData<int>("settings_quest") == 1)
                 {
                     player.vnxSetStreamSharedElementData("settings_quest", "nein");
                     player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", true);

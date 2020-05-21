@@ -23,7 +23,8 @@ namespace VenoXV._Gamemodes_.Reallife.character
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
+                player.ResetClothes();
                 foreach (ClothesModel clothes in Main.clothesList)
                 {
                     if (clothes.player == playerId && clothes.dressed)
@@ -31,12 +32,10 @@ namespace VenoXV._Gamemodes_.Reallife.character
                         if (clothes.type == 0)
                         {
                             Core.RageAPI.SetClothes(player, clothes.slot, clothes.drawable, clothes.texture);
-                            //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
                             Core.RageAPI.SetAccessories(player, clothes.slot, clothes.drawable, clothes.texture);
-                            // player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }

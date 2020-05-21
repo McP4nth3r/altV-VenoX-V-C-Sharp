@@ -342,6 +342,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             try
             {
                 _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
+                character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
                 List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
 

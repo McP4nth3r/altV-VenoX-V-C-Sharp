@@ -23,7 +23,6 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         {
             try
             {
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true) { return; }
                 //player.Emit("ScoreBoard_Allow");
                 string secondMessage = string.Empty;
                 float distanceGap = range / Constants.CHAT_RANGES;
@@ -36,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
 
                 foreach (Client target in Alt.GetAllPlayers())
                 {
-                    if (target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) && player.Dimension == target.Dimension)
+                    if (target.Playing && player.Dimension == target.Dimension)
                     {
                         if (player != target || (player == target && !excludePlayer))
                         {
@@ -113,15 +112,15 @@ namespace VenoXV._Gamemodes_.Reallife.chat
             {
                 if (message[0].ToString() == "/") { return; }
                 else { Core.Debug.OutputDebugString(message[0].ToString()); }
-                if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
+                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
                 {
                     Tactics.chat.Chat.OnChatMessage(player, message);
                 }
-                else if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == false)
+                else if (player.Playing == false)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
-                else if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
+                else if (player.Dead != 0)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }

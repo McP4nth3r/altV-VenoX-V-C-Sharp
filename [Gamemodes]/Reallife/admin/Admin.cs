@@ -563,23 +563,22 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("adstate")]
-        public static void SetAdState(Client player, string Werbungjaodernein)
+        public static void SetAdState(Client player, int Werbung)
         {
             if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
-                Werbungjaodernein = Werbungjaodernein.ToLower();
                 string state = RageAPI.GetHexColorcode(0, 175, 0) + "angeschaltet!";
-                if (Werbungjaodernein == "nein")
+                if (Werbung == 0)
                 {
                     state = RageAPI.GetHexColorcode(175, 0, 0) + "ausgeschaltet!";
                 }
-                else if (Werbungjaodernein == "ja")
+                else if (Werbung == 1)
                 {
                     RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat das AD-System " + state);
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Status muss JA oder NEIN sein!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Status muss 1 oder 0 sein!");
                 }
             }
         }

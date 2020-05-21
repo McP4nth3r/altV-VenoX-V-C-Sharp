@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             try
             {
                 int itemId = 0;
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
                     if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ITEM_ART == "Waffe")

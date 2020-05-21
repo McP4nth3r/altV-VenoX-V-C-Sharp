@@ -1000,8 +1000,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                int playerSex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
-                int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                int playerSex = player.Sex;
+                int playerFaction = player.Reallife.Faction;
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
@@ -1009,8 +1009,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else if (isStateFaction(player))
                 {
-                    Database.LoadCharacterInformationById(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
+                    player.ResetClothes();
                     foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                     {
                         if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
@@ -1023,7 +1022,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         }
                     }
                     player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 1);
-                    AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                     player.Health = 200;
                     player.Armor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
@@ -1057,19 +1055,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                 {
-                    AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                     // Populate player's clothes
                     Customization.ApplyPlayerClothes(player);
 
                     // We set the player off duty
                     player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 0);
-
                     // Load selected character
-                    Database.LoadCharacterInformationById(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                     player.SpawnPlayer(player.Position);
-                    player.SetPlayerSkin(player.Sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
-                    Customization.ApplyPlayerClothes(player);
                     Customization.ApplyPlayerTattoos(player);
                     anzeigen.Usefull.VnX.RemoveAllWeapons(player);
                 }
