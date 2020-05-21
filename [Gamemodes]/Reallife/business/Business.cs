@@ -219,7 +219,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
                     player.SendTranslatedChatMessage( "Transaktion in Höhe von " + RageAPI.GetHexColorcode(0,200,200} " + price + "$ " + RageAPI.GetHexColorcode(255,255,255) + "abgeschlossen!");
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Transaktion in Höhe von " + price + "$ abgeschlossen!");
-                    vnx_stored_files.logfile.WriteLogs("clothes",player.GetVnXName() + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
+                    vnx_stored_files.logfile.WriteLogs("clothes",player.Username + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
                 }
                 else
                 {

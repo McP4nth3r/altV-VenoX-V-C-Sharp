@@ -152,7 +152,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             Core.Debug.OutputDebugString("Position CAR :" + Vehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION));
                         }
                     }
-                    factions.Faction.CreateFactionInformation(fraktionsID, player.GetVnXName() + " hat die Fraktion´s Fahrzeuge Respawned!");
+                    factions.Faction.CreateFactionInformation(fraktionsID, player.Username + " hat die Fraktion´s Fahrzeuge Respawned!");
                 }
                 else
                 {
@@ -174,14 +174,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 IVehicle Vehicle = Vehicles.GetVehicleById(FahrzeugID);
                 if (Vehicle != null)
                 {
-                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
+                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username)
                     {
                         if (Preis > 0)
                         {
                             // Sell cAr
-                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.GetVnXName() + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " bietet dir ein " + Vehicle.Model.ToString().ToLower() + "(" + Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) + ") für " + Preis + " $ an!");
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Du hast " + target.GetVnXName() + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Du hast " + target.Username + " deinen " + Vehicle.Model.ToString().ToLower() + " für " + Preis + " $ angeboten!");
                             target.vnxSetStreamSharedElementData(FahrzeugID.ToString(), Preis);
                         }
                     }
@@ -208,14 +208,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) == FahrzeugID)
                                 {
-                                    Vehicle.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER,player.GetVnXName());
-                                    vehicle.vnxSetSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER,player.GetVnXName());
-                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.GetVnXName() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
-                                   target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.GetVnXName() + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
+                                    Vehicle.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER,player.Username);
+                                    vehicle.vnxSetSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER,player.Username);
+                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.Username + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                   target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.Username + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
                                     player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
                                     Target.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + player.vnxGetElementData(FahrzeugID.ToString()));
                                     player.vnxSetElementData(FahrzeugID.ToString(), null);
-                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.GetVnXName() + " hat das Fahrzeug von " + target.GetVnXName() + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
+                                    vnx_stored_files.logfile.WriteLogs("IVehicle",player.Username + " hat das Fahrzeug von " + target.Username + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                 }
                             }
                             else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!"); }
@@ -247,9 +247,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         float kostenberechnung = 100f - Gas;
                         kostenWindow = (int)kostenberechnung * 15;
                         dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
-                        /*RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName() + " hat :" + Gas);
-                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName() + " hat :" + kostenberechnung);
-                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.GetVnXName() + " hat :" + kostenWindow);*/
+                        /*RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + Gas);
+                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenberechnung);
+                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenWindow);*/
                     }
                     player.Emit("createGasWindow", kostenWindow);
                 }
@@ -771,7 +771,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                 }
                             }
 
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
+                            if (player.AdminRank == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
                             {
                                 player.WarpOutOfVehicle<bool>();
                                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein teil des Admin - Teams!");
@@ -810,7 +810,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName())
+                if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username)
                 {
                     player.vnxSetElementData("FAHRZEUG_AM_TESTEN", false);
                     player.Dimension = 0;
@@ -914,11 +914,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     int VehicleFaction = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
 
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) == Constants.ADMINLVL_NONE && VehicleFaction == Constants.FACTION_ADMIN)
+                    if (player.AdminRank == Constants.ADMINLVL_NONE && VehicleFaction == Constants.FACTION_ADMIN)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Admin!");
                     }
-                    else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) != player.GetVnXName() && VehicleFaction != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) && VehicleFaction != Constants.FACTION_ADMIN)
+                    else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) != player.Username && VehicleFaction != player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) && VehicleFaction != Constants.FACTION_ADMIN)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Schlüssel für dieses Fahrzeug!");
                     }

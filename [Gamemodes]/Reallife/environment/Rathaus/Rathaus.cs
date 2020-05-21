@@ -233,7 +233,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 if (player.IsInVehicle)
                 {
                     IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.GetVnXName() && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
+                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
                     {
                         player.vnxSetElementData("Marker_Pruefung", 0);
                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
@@ -256,12 +256,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         Vehicle.Remove();
                         IColShape FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
                         IColShape FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
-                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") == player.GetVnXName())
+                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") == player.Username)
                         {
                             AltV.Net.Alt.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
                             return;
                         }
-                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") == player.GetVnXName())
+                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") == player.Username)
                         {
                             AltV.Net.Alt.RemoveColShape(FührerscheinCol);
                             return;

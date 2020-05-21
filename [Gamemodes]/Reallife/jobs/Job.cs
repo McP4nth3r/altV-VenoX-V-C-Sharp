@@ -79,7 +79,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else if (job == "Arbeitslos")
                     {
-                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " + player.GetVnXName() + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "Venox City Transport", "Hallo " + player.Username + ",<br>willkommen bei Venox City Transport!<br>Du liebst es zu Fahren ?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Transporter Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -91,14 +91,14 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
                     {
 
-                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.GetVnXName());
+                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
                 else if (shape == FBIDuty)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_FBI)
                     {
-                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.GetVnXName());
+                        player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
                 else if (shape == AIRPORT_JOB_Col)
@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " + player.GetVnXName() + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "LS Airport", "Hallo " + player.Username + ",<br>willkommen bei Venox City Airport!<br>Du liebst es zu Fliegen?<br>Du liebst es mit anderen Menschen in Kontakt zu kommen ?<br>Dann bist du hier genau Richtig!<br>Möchtest du deine Karriere als Pilot Starten ?", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                     else if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_NONE)
                     {
-                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " + player.GetVnXName() + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
+                        dxLibary.VnX.DrawWindow(player, "VenoX Busdepot", "Hallo " + player.Username + ",<br>willkommen beim VenoX City Busdepot!<br>Du liebst es mit einem 500.000$ Benz zu fahren?<br>Du liebst es jedentag heiße Frauen in deinem Fahrzeug zu haben?<br>Dann werde heute noch Busfahrer!", "Job Annehmen", "Job Ablehnen");
                     }
                     else
                     {
@@ -360,7 +360,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     PlayerModel character = Database.LoadCharacterInformationById(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
                     SkinModel skinModel = Database.GetCharacterSkin(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
 
-                    //ToDo : Fix & find another Way! player.GetVnXName() = character.realName;
+                    //ToDo : Fix & find another Way! player.Username = character.realName;
                     player.vnxSetElementData(EntityData.PLAYER_SKIN_MODEL, skinModel);
                                                 player.SetPlayerSkin(character.sex == 0) ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01");
                     Customization.ApplyPlayerCustomization(player, skinModel, character.sex);

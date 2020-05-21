@@ -388,11 +388,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.GetVnXName() + " : " + text);
+                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.Username + " : " + text);
                     }
                 }
-                //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.GetVnXName() + " : " + text);
-                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.GetVnXName() + "] : " + text);
+                //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Username + " : " + text);
+                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.Username + "] : " + text);
             }
             catch { }
         }
@@ -462,10 +462,10 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     int UID = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                     int PRISON_TIME = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME);
                     string PRISON_STRING = player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_PRISON_GRUND);
-                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.GetVnXName());
-                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.GetVnXName());
+                    string PRISON_REASON = Database.GetCharakterPrisonReason(player.Username);
+                    string PRISON_FROMADMIN = Database.GetCharakterPrisonAdminBy(player.Username);
 
-                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.GetVnXName());
+                    DateTime PRISON_DATETIME = Database.GetCharakterPrisonErstelltAm(player.Username);
 
                     Database.UpdatePlayerPrisonTime(UID, PRISON_TIME, PRISON_REASON, PRISON_FROMADMIN, PRISON_DATETIME);
 
@@ -473,7 +473,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.spawnplayer_on_spawnpoint(player);
-                        Database.RemoveOldPrison(player.GetVnXName());
+                        Database.RemoveOldPrison(player.Username);
                     }
                 }
             }

@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
                         {
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " [Werbung] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
-                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " Von : " + RageAPI.GetHexColorcode(255, 255, 255) + player.GetVnXName() + " | " + RageAPI.GetHexColorcode(0, 200, 255) + " Handy : " + RageAPI.GetHexColorcode(255, 255, 255) + "V.2.0.0 INCOMING");
+                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " Von : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Username + " | " + RageAPI.GetHexColorcode(0, 200, 255) + " Handy : " + RageAPI.GetHexColorcode(255, 255, 255) + "V.2.0.0 INCOMING");
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 

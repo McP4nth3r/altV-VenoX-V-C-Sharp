@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
 
         private static bool IsVehicleOwner(Client player, IVehicle vehicle)
         {
-            if (Core.RageAPI.vnxGetElementData<string>(vehicle, VenoXV.Globals.EntityData.VEHICLE_OWNER) == Core.RageAPI.GetVnXName(player)) { return true; }
+            if (Core.RageAPI.vnxGetElementData<string>(vehicle, VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username) { return true; }
             else { return false; }
         }
 
@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         public static void OnXMenuButtonPressed(Client player, int Button, Client target)
         {
             if (target == null) { return; }
-            Core.Debug.OutputDebugString("Hallo " + Core.RageAPI.GetVnXName(player) + "ich habe deine nachricht bekommen von : " + Button + " Entity : " + Core.RageAPI.GetVnXName(target));
+            Core.Debug.OutputDebugString("Hallo " + player.Username + "ich habe deine nachricht bekommen von : " + Button + " Entity : " + target.Username);
             switch (Button)
             {
                 case 8800:

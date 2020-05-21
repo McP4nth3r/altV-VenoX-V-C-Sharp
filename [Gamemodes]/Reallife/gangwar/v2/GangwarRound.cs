@@ -226,7 +226,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                                     if (TKCounter > 0)
                                     {
                                         TKCounter = 0;
-                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.GetVnXName() + " hat den TK beesetzt!", AttackerId);
+                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.Username + " hat den TK beesetzt!", AttackerId);
                                     }
                                     break;
                                 }

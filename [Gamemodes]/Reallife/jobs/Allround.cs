@@ -25,16 +25,16 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     {
                         if (
                         //LieferrantenJobIVehicle
-                        Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
-                        || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
-                        || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.GetVnXName()
+                        Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
+                        || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
+                        || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
                         )
                         {
                             player.vnxSetElementData(EntityData.PLAYER_IS_IN_JOB, false);
                             dxLibary.VnX.DestroyRadarElement(player, "Blip");
                             dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Job beendet!");
-                            if (JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.GetVnXName())
+                            if (JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.Username)
                             {
                                 AltV.Net.Alt.RemoveColShape(JobAbgabeMarker);
                             }
@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             {
                 if (shape.vnxGetElementData<bool>(EntityData.PLAYER_IS_JOB_COL) == true)
                 {
-                    if (shape.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) != player.GetVnXName())
+                    if (shape.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) != player.Username)
                     {
                         return;
                     }

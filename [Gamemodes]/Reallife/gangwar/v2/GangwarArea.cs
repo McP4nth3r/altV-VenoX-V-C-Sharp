@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void Update(Client player)
         {
-            // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.GetVnXName() + " )");
+            // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.Username + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "gw:ca", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 

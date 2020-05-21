@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.environment.Weed
 {
@@ -51,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
             {
                 WeedModel weed = new WeedModel
                 {
-                    CreatedBy = RageAPI.GetVnXName(player),
+                    CreatedBy = player.Username,
                     Name = "Hanfpflanze",
                     Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z - 0.5f),
                     Rotation = player.Rotation,

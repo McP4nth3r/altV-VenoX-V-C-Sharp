@@ -264,7 +264,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
                     foreach (HouseModel house in House.houseList)
                     {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName() == house.owner)
+                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.Username == house.owner)
                         {
                             player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "House");
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Haus!");

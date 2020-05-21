@@ -122,7 +122,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         foreach (HouseModel house in House.houseList)
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.GetVnXName() == house.owner)
+                            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.Username == house.owner)
                             {
                                 AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                                 player.SetPosition = Main.GetHouseIplExit(house.ipl);

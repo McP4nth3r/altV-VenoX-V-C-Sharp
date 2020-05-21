@@ -78,7 +78,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             try
             {
-                return (player.GetVnXName() == house.owner || player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == house.id);
+                return (player.Username == house.owner || player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == house.id);
             }
             catch { return false; }
         }
@@ -118,9 +118,9 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - house.price;
                         string labelText = GetHouseLabelText(house);
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, bank);
-                        logfile.WriteLogs("house", player.GetVnXName() + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
+                        logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
                         house.status = Constants.HOUSE_STATE_NONE;
-                        house.owner = player.GetVnXName();
+                        house.owner = player.Username;
                         house.locked = true;
                         //house.houseLabel.Text = GetHouseLabelText(house);
                         // Update the house
@@ -145,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 // Get all the houses
                 foreach (HouseModel house in houseList)
                 {
-                    if (house.owner == player.GetVnXName())
+                    if (house.owner == player.Username)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             // Get all the houses
             foreach (HouseModel house in houseList)
             {
-                if (house.owner ==player.GetVnXName())
+                if (house.owner ==player.Username)
                 {
                     if (player.vnxGetElementData("SELL_HOUSE_REQUESTED") == true)
                     {
@@ -208,7 +208,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 {
                     if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                     {
-                        if (house.owner == player.GetVnXName())
+                        if (house.owner == player.Username)
                         {
                             string State = "Abgeschlossen!";
                             if (house.locked)
@@ -238,7 +238,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 // Get all the houses
                 foreach (HouseModel house in houseList)
                 {
-                    if (house.owner == player.GetVnXName())
+                    if (house.owner == player.Username)
                     {
                         if (house.locked == true) { status = "Abgeschlossen"; }
                         player.SendTranslatedChatMessage("__________________________________________");
@@ -331,7 +331,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
                 int houseId = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED);
                 HouseModel house = GetHouseById(houseId);
-                if (house == null || house.owner != player.GetVnXName())
+                if (house == null || house.owner != player.Username)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dir gehört kein Haus!");
                 }

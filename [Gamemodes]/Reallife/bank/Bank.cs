@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + value);
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - value);
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " eingezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.GetVnXName() + " ] hat " + value + " $ eingezahlt!");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ eingezahlt!");
                         }
                     }
                     else
@@ -61,7 +61,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - value);
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + value);
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " ausgezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.GetVnXName() + " ] hat " + value + " $ aussgezahlt!");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ aussgezahlt!");
                         }
                     }
                     else
@@ -105,13 +105,13 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         else
                         {
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + SpielerNameNormal + " " + RageAPI.GetHexColorcode(255, 255, 255) + +value + "  " + RageAPI.GetHexColorcode(0, 200, 255) + "  $ überwiesen!!");
-                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 255, 0) + player.GetVnXName() + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 255, 0) + player.Username + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - value);
                             target.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + value);
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.GetVnXName() + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.GetVnXName() + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Username + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
-                                admin.Admin.sendAdminNotification(player.GetVnXName() + " hat " + target.GetVnXName() + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
+                                admin.Admin.sendAdminNotification(player.Username + " hat " + target.Username + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
                             }
                         }
                     }
