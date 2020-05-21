@@ -209,9 +209,16 @@ namespace VenoXV.Core
         public static void SetClothes(this Client element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             if (clothesslot < 0 || clothesdrawable < 0) { return; }
-            Core.Debug.OutputDebugString("Stuff : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
+        }
+        public static void ResetClothes(this Client element)
+        {
+            try
+            {
+                element.SetPlayerSkin(element.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ResetClothes", ex); }
         }
         public static void SetProp(this Client element, int propID, int drawableID, int textureID)
         {

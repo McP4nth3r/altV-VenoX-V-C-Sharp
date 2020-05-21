@@ -38,6 +38,9 @@ namespace VenoXV._Language_
                 case (int)Languages.German:
                     playerClass.SendChatMessage(text);
                     break;
+                default:
+                    playerClass.SendChatMessage("ERROR " + text);
+                    break;
             }
         }
         public static string ReturnTranslatedText(string CountryLanguageCode, string text)

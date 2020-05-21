@@ -453,12 +453,14 @@ namespace VenoXV._RootCore_.Database
                         character.Reallife.Wanteds = reader.GetInt32("wanteds");
                         character.Reallife.Kaution = reader.GetInt32("kaution");
                         character.Reallife.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
-                        character.Settings.ShowATM = reader.GetString("atm_anzeigen");
-                        character.Settings.ShowHouse = reader.GetString("haus_anzeigen");
-                        character.Settings.ShowSpeedo = reader.GetString("tacho_anzeigen");
-                        character.Settings.ShowQuests = reader.GetString("quest_anzeigen");
-                        character.Settings.ShowReporter = reader.GetString("reporter_anzeigen");
-                        character.Globalchat = reader.GetString("globalchat_anzeigen");
+
+                        character.Settings.ShowATM = reader.GetInt32("atm_anzeigen");
+                        character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
+                        character.Settings.ShowSpeedo = reader.GetInt32("tacho_anzeigen");
+                        character.Settings.ShowQuests = reader.GetInt32("quest_anzeigen");
+                        character.Settings.ShowReporter = reader.GetInt32("reporter_anzeigen");
+                        character.Settings.ShowGlobalChat = reader.GetInt32("globalchat_anzeigen");
+
                         character.Tactics.Kills = reader.GetInt32("tactic_kills");
                         character.Tactics.Deaths = reader.GetInt32("tactic_tode");
 
@@ -536,7 +538,7 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@tacho_anzeigen", player.Settings.ShowSpeedo);
                     command.Parameters.AddWithValue("@quest_anzeigen", player.Settings.ShowQuests);
                     command.Parameters.AddWithValue("@reporter_anzeigen", player.Settings.ShowReporter);
-                    command.Parameters.AddWithValue("@globalchat_anzeigen", player.Globalchat);
+                    command.Parameters.AddWithValue("@globalchat_anzeigen", player.Settings.ShowGlobalChat);
                     command.Parameters.AddWithValue("@tactic_kills", player.Tactics.Kills);
                     command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Deaths);
                     command.Parameters.AddWithValue("@Adventskalender", player.Reallife.Adventskalender);
