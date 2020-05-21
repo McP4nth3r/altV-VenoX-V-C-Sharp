@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -11,6 +10,15 @@ namespace VenoXV._Gamemodes_.Reallife.chat
 {
     public class Chat : IScript
     {
+        [CommandEvent(CommandEventType.CommandNotFound)]
+        public static void OnPlayerCommandNotFoundHandler(Client player, string Command)
+        {
+            try
+            {
+                player.SendChatMessage("[VenoX-Command-System] : /" + RageAPI.GetHexColorcode(0, 200, 255) + Command + RageAPI.GetHexColorcode(255, 255, 255) + " not found...");
+            }
+            catch { }
+        }
         public static void SendMessageToNearbyPlayers(Client player, string message, int type, float range, bool excludePlayer = false)
         {
             try
@@ -103,7 +111,6 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         {
             try
             {
-
                 if (message[0].ToString() == "/") { return; }
                 else { Core.Debug.OutputDebugString(message[0].ToString()); }
                 if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
