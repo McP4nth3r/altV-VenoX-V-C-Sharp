@@ -112,9 +112,17 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
     catch{ }
 });
 
+alt.onServer("Clothes:Reset", () => {
+    try {
+        game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
+        alt.log("Clothes Client Resetted!");
+    }
+    catch{ }
+});
+
+
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
-        if (clothesdrawable < 0 || clothestexture < 0) { return; }
         game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
         alt.log("Clothes Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
     }
@@ -123,7 +131,6 @@ alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
 
 alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
-        if (clothesdrawable < 0 || clothestexture < 0) { return; }
         game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true);
         alt.log("Prop Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
     }
