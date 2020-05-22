@@ -490,3 +490,17 @@ function checkCamInAir() {
     }
     catch{ }
 }
+
+
+
+var area = {};
+alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
+    if (area[name] != null) {
+        game.removeBlip(area[name]);
+    }
+    area[name] = game.addBlipForRadius(x, y, z, r);
+    game.setBlipSprite(area[name], 5);
+    game.setBlipAlpha(area[name], 150);
+    game.setBlipColour(area[name], c);
+    game.setBlipRotation(area[name], r2);
+});
