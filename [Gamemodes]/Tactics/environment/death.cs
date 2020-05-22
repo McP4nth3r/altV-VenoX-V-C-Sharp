@@ -19,12 +19,12 @@ namespace VenoXV._Gamemodes_.Tactics.environment
         {
             try
             {
-                player.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, 0);
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_IS_DEAD) == false || player.vnxGetElementData<string>(EntityData.PLAYER_IS_DEAD) == "")
+                player.Tactics.CurrentStreak = 0;
+                if (!player.Tactics.IsDead)
                 {
                     if (player != killer)
                     {
-                        switch (killer.vnxGetElementData<int>(EntityData.PLAYER_CURRENT_STREAK))
+                        switch (killer.Tactics.CurrentStreak)
                         {
                             case 3:
                                 Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Tripple-Kill erzielt!!");
@@ -36,18 +36,18 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                                 Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Ultimate-Kill Streak erzielt!!");
                                 break;
                         }
-                        killer.vnxSetElementData(EntityData.PLAYER_KILLED_PLAYERS, killer.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS) + 1);
-                        killer.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, killer.vnxGetElementData<int>(EntityData.PLAYER_CURRENT_STREAK) + 1);
-                        killer.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS, killer.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_KILLS) + 1);
+                        killer.Tactics.Kills += 1;
+                        killer.Tactics.CurrentKills += 1;
+                        killer.Tactics.CurrentStreak += 1;
                     }
 
 
                     Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " hat " + player.Username + " getötet!");
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, false);
-                    player.vnxSetElementData(EntityData.PLAYER_IS_DEAD, true);
-                    player.vnxSetElementData(EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(EntityData.PLAYER_TACTIC_TODE) + 1);
+                    player.Tactics.Spawned = false;
+                    player.Tactics.IsDead = false;
+                    player.Tactics.Deaths += 1;
 
-                    if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
+                    if (player.Tactics.Team == EntityData.BFAC_NAME)
                     {
                         Lobby.Main.MEMBER_COUNT_BFAC -= 1;
                         if (Lobby.Main.MEMBER_COUNT_BFAC <= 0)
@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                             return;
                         }
                     }
-                    else if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.COPS_NAME)
+                    else if (player.Tactics.Team == EntityData.COPS_NAME)
                     {
                         Lobby.Main.MEMBER_COUNT_COPS -= 1;
                         if (Lobby.Main.MEMBER_COUNT_COPS <= 0)
@@ -67,15 +67,15 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     }
                     else
                     {
-                        Core.Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
-                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM));
+                        Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.Tactics.Team);
+                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.Tactics.Team);
                     }
                     player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);
                     player.Emit("Tactics:OnDeath");
-                    _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
+                    Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllPlayerWeapons();
                 }
             }

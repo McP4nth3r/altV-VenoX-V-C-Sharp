@@ -1,10 +1,5 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using System;
 using System.Collections.Generic;
-using VenoXV._Gamemodes_.Tactics.Globals;
-using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.weapons
 {
@@ -80,88 +75,6 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
                 return DamageValues[Weapon];
             }
             catch { return 1; }
-        }
-
-
-        public static void OnHittedEntity(Client player, Client target, AltV.Net.Enums.WeaponModel WeaponModel, AltV.Net.Data.BodyPart hitBone)
-        {
-            try
-            {
-                if (target == player) { return; }
-                if (player.Username == target.Username) { return; }
-                target.vnxSetElementData(EntityData.PLAYER_LAST_DAMAGED_BY, player.Username);
-                if (target.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM) == player.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_TEAM))
-                {
-                    return;
-                }
-                else if (player.vnxGetElementData<bool>(Globals.EntityData.PLAYER_IS_DEAD) == true)
-                {
-                    return;
-                }
-                else if (target.Health <= 0) // If target is Dead Niggah then he should Return.
-                {
-                    return;
-                }
-
-                // If Weapon is Sniper && BONE == HEAD THEN KILL DONE
-                if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle && hitBone == AltV.Net.Data.BodyPart.Head)
-                {
-                    player.Emit("Globals:PlayHitsound");
-                    target?.Emit("Globals:ShowBloodScreen");
-                    target.Health = 0;
-                    return;
-                }
-
-                if (WeaponModel == AltV.Net.Enums.WeaponModel.RPG)
-                {
-                    player.Emit("Globals:PlayHitsound");
-                    target?.Emit("Globals:ShowBloodScreen");
-                    target.Health -= 150;
-                    return;
-                }
-
-                float Damage = GetWeaponDamage(WeaponModel); // GetWeaponDamageNiggah
-                Damage *= GetBoneDamageMul(hitBone); //Damage * BoneMule , If Bone != Penis or Head then Multiplikator = 1 Niggah.
-
-                IVehicle veh = target.Vehicle; //Get The target IVehicle Nigga
-                if (veh != null) // If target is in IVehicle this boi then 
-                {
-                    /* if (veh.GetSharedData("VEHICLE_HEALTH_SERVER") == null) { veh.vnxSetSharedData("VEHICLE_HEALTH_SERVER", 1000); // Fix if no Value! }
-                     float vehdamage = Damage * 2;
-                     target.Emit("set_bodyhealth", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - Convert.ToInt32(vehdamage)); // Set The Engine Health from the target Lower.
-                     VenoXV.VnX.VehiclevnxSetSharedData(veh, "VEHICLE_HEALTH_SERVER", veh.GetSharedData("VEHICLE_HEALTH_SERVER") - vehdamage);*/
-                    // RageAPI.SendTranslatedChatMessageToAll("IVehicle Health : " + veh.GetSharedData("VEHICLE_HEALTH_SERVER"));
-                }
-                else
-                {
-
-                    player.vnxSetElementData(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
-                    player.SetSyncedMetaData(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
-                    //player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_DAMAGE_DONE, player.vnxGetElementData<float>(Globals.EntityData.PLAYER_DAMAGE_DONE) + Damage);
-                    player.Emit("Globals:PlayHitsound");
-                    target?.Emit("Globals:ShowBloodScreen");
-                    if (target.Armor > 0)
-                    {
-                        int Adiff = target.Armor - Convert.ToInt32(Damage);
-                        if (Adiff <= 0)
-                        {
-                            target.Health += (ushort)Adiff;
-                            target.Armor = 0;
-                        }
-                        else
-                        {
-                            target.Armor -= (ushort)Damage;
-                        }
-                    }
-                    else
-                    {
-                        target.Health -= (ushort)Damage;
-                    }
-                    Lobby.Main.SyncPlayerStats();
-                }
-
-            }
-            catch { }
         }
     }
 }

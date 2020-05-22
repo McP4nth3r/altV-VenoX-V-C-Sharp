@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         public static int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
         public static int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
         public static int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
-        public static int TACTIC_PLAYER_DIMENSION = -10;
+        public static int TACTIC_PLAYER_DIMENSION = 10;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,18 +54,16 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             LastMap = CurrentMap;
         }
         private static void InitializePlayerSavedData(Client player)
-        {
-            player.vnxSetElementData(EntityData.PLAYER_CURRENT_STREAK, 0); // ToDo : Load by Database.
+        {   // ToDo : Load by Database.
+            player.Tactics.CurrentStreak = 0;
         }
         private static void InitializePlayerData(Client player)
         {
-            player.vnxSetElementData(EntityData.PLAYER_JOINED_TACTICS, true);
-            player.vnxSetElementData(EntityData.PLAYER_DAMAGE_DONE, 0);
-            player.vnxSetElementData(EntityData.PLAYER_KILLED_PLAYERS, 0);
-            player.vnxSetElementData(EntityData.PLAYER_LEFT_ROUND, false);
-            player.vnxSetElementData(EntityData.PLAYER_DISCONNECTED_ROUND, false);
-            player.vnxSetElementData(EntityData.PLAYER_IS_DEAD, false);
-            player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, false);
+            player.Tactics.Joined = true;
+            player.Tactics.CurrentDamage = 0;
+            player.Tactics.CurrentKills = 0;
+            player.Tactics.IsDead = false;
+            player.Tactics.Spawned = false;
             player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
             RageAPI.SetPlayerVisible(player, true);
         }
@@ -153,8 +151,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     player.SpawnPlayer(Spawnpunkt);
                     player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_B_Skin));
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, true);
-                    player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, EntityData.BFAC_NAME);
+                    player.Tactics.Spawned = true;
+                    player.Tactics.Team = EntityData.BFAC_NAME;
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
@@ -164,8 +162,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
                     player.SpawnPlayer(Spawnpunkt); player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_A_Skin));
                     player.Dimension = TACTIC_PLAYER_DIMENSION;
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNED_TACTICS, true);
-                    player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, EntityData.COPS_NAME);
+                    player.Tactics.Spawned = true;
+                    player.Tactics.Team = EntityData.COPS_NAME;
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
@@ -193,7 +191,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 // Wir Checken ob bereits eine Runde bereits läuft, falls nein dann setzen wir den Status auf True.
                 if (!IsTacticRoundRunning()) { TACTICMANAGER__ROUND_ISRUNNING = true; }
 
-                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.COPS_NAME)
+                if (player.Tactics.Team == EntityData.COPS_NAME)
                 {
                     if (MEMBER_COUNT_BFAC <= MEMBER_COUNT_COPS) // Wenn Böse Fraktionisten in der Unterzahl sind, dann Spieler in die BFAC tun.
                     {
@@ -262,12 +260,12 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                player.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
+                player.Tactics.Deaths -= 1;
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " ist Disconnected!");
                 }
-                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
+                if (player.Tactics.Team == EntityData.BFAC_NAME)
                 {
                     Lobby.Main.MEMBER_COUNT_BFAC -= 1;
                     if (Lobby.Main.MEMBER_COUNT_BFAC <= 0)
@@ -278,7 +276,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         return;
                     }
                 }
-                else if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.COPS_NAME)
+                else if (player.Tactics.Team == EntityData.COPS_NAME)
                 {
                     Lobby.Main.MEMBER_COUNT_COPS -= 1;
                     if (Lobby.Main.MEMBER_COUNT_COPS <= 0)
@@ -301,7 +299,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 //AntiCheat_Allround.SetTimeOutHealth(player, 3000);
                 //AntiCheat_Allround.StartTimerTeleport(player);
                 InitializePlayerSavedData(player);
-                player.vnxSetElementData(EntityData.PLAYER_CURRENT_TEAM, "NULL");
+                player.Tactics.Team = "NULL";
                 if (TACTICMANAGER__ROUND_ISRUNNING && TACTICMANAGER_ROUND_TIMETOJOIN < DateTime.Now)
                 {
                     if (MEMBER_COUNT_MAX_BFAC == 0 || MEMBER_COUNT_MAX_COPS == 0)
@@ -353,10 +351,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
-                    int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
-                    //Debug.OutputDebugString("Damage Done : " + DamageDone); 
-                    //Debug.OutputDebugString("Kills Done : " + KillsDone); 
+                    float DamageDone = players.Tactics.CurrentDamage;
+                    int KillsDone = players.Tactics.CurrentKills;
                     players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
                 }
             }
