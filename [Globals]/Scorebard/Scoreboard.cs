@@ -169,14 +169,14 @@ namespace VenoXV._Globals_.Scoreboard
 
                 if (Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= 0)
                 {
-                    Spielzeit = Spieler.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
+                    Spielzeit = Spieler.Played;
                 }
                 TimeSpan spielzeittab = TimeSpan.FromMinutes(Spielzeit);
                 string label = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
 
                 string playerping = Spieler.Ping.ToString();
 
-                if (Spieler.vnxGetElementData<string>(_Gamemodes_.Tactics.Globals.EntityData.PLAYER_CURRENT_TEAM) == _Gamemodes_.Tactics.Globals.EntityData.COPS_NAME)
+                if (Spieler.Tactics.Team == _Gamemodes_.Tactics.Globals.EntityData.COPS_NAME)
                 {
                     SpielerListe.FID = -2;
                     SpielerListe.FIDTactics = 20;
