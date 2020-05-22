@@ -225,6 +225,62 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
+            new RoundModel
+            {
+                Map_Name = "Pennergebiet",
+                Team_A_Name = "Penner1",
+                Team_A_Skin = "a_m_o_tramp_01",
+                Team_A_WinnerText = "Die Penner[1] gewinnen die Runde.",
+                Team_A_Color = new int[] { 125, 0, 0 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(1426.9187f, 6327.4814f, 24.073242f),
+                    new Vector3(1430.2946f, 6327.7583f, 24.00586f),
+                    new Vector3(1432.444f, 6327.9956f, 24.00586f),
+                    new Vector3(1434.3165f, 6329.1167f, 23.989014f),
+                },
+                Team_B_Name = "Penner2",
+                Team_B_Skin = "a_m_m_tramp_01",
+                Team_B_WinnerText = "Die Penner[2] gewinnen die Runde.",
+                Team_B_Color = new int[] { 0, 200, 0 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(1480.9583f, 6403.767f, 22.624146f),
+                    new Vector3(1482.6989f, 6403.2793f, 22.523071f),
+                    new Vector3(1484.9011f, 6402.5537f, 22.657837f),
+                    new Vector3(1482.1187f, 6399.6265f, 22.624146f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+            },
+            new RoundModel
+            {
+                Map_Name = "Bio",
+                Team_A_Name = "Bio",
+                Team_A_Skin = "a_m_m_bevhills_02",
+                Team_A_WinnerText = "Die Bio Menschen gewinnen die Runde.",
+                Team_A_Color = new int[] { 125, 0, 0 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(1905.1516f, 4921.556f, 48.84253f),
+                    new Vector3(1905.5209f, 4923.178f, 48.87622f),
+                    new Vector3(1905.4945f, 4926.6064f, 48.909912f),
+                    new Vector3(1905.5604f, 4930.7866f, 48.96045f),
+                },
+                Team_B_Name = "Compton Family's",
+                Team_B_Skin = "mp_m_famdd_01",
+                Team_B_WinnerText = "Die Compton Family gewinnen die Runde.",
+                Team_B_Color = new int[] { 0, 200, 0 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(1900.3253f, 4996.1143f, 47.831543f),
+                    new Vector3(1898.6241f, 4997.9604f, 48.03369f),
+                    new Vector3(1902.2902f, 5001.165f, 47.29236f),
+                    new Vector3(1903.9253f, 4999.4507f, 47.106934f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+            }
         };
     }
 }
