@@ -1,4 +1,5 @@
 import * as alt from 'alt';
+import { ShowCursor } from '../VnX-Lib';
 let webview = null;
 export function LoadChat() {
   if (webview != null) { return; }
@@ -11,9 +12,7 @@ export function LoadChat() {
 
   webview.on('chat:onInputStateChange', state => {
     inputActive = state;
-
-    alt.showCursor(state);
-    alt.toggleGameControls(!state);
+    ShowCursor(state);
   });
 
   webview.on('chat:onChatStateChange', state => {

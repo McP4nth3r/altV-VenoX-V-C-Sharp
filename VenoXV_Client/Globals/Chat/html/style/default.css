@@ -26,8 +26,10 @@ body {
 .chat-box .chat-messages-list .chat-message {
     color: white;
     padding-left: 2px;
-
     line-height: 22px;
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
 }
 
 .chat-box .chat-input-bar {

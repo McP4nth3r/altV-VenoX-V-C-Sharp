@@ -215,3 +215,14 @@ alt.on('chat:scrollMessagesList', scrollMessagesList);
 alt.on('chat:addInputToHistory', addInputToHistory);
 alt.on('chat:shiftHistoryUp', shiftHistoryUp);
 alt.on('chat:shiftHistoryDown', shiftHistoryDown);
+
+$(function () {
+    $(document).keydown(function (objEvent) {
+        if (objEvent.ctrlKey) {
+            if (objEvent.keyCode == 65) {
+
+                return false;
+            }
+        }
+    });
+});   
