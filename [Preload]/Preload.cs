@@ -58,7 +58,7 @@ namespace VenoXV._Preload_
                     break;
                 case 2:
                     player.Gamemode = (int)Gamemodes.Tactics;//Tactics Gamemode Selected
-                    player.Language = (int)_Language_.Main.Languages.English;
+                    player.Language = (int)_Language_.Main.Languages.German;
                     Globals.Main.TacticsPlayers.Add(player);
                     _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Tactics");
@@ -75,6 +75,9 @@ namespace VenoXV._Preload_
                     player.Language = (int)_Language_.Main.Languages.English;
                     SevenTowers.Lobby.Main.JoinedSevenTowers(player);
                     player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
+                    break;
+                default:
+                    Core.Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
                     break;
             }
             player.Playing = true;
@@ -100,8 +103,8 @@ namespace VenoXV._Preload_
             catch { }
         }
 
-        [ScriptEvent(ScriptEventType.PlayerConnect)]
-        public void PlayerConnect(Client player, string reason)
+        [ServerEvent("GlobalSystems:PlayerReady")]
+        public void PlayerConnect(Client player)
         {
             try
             {
