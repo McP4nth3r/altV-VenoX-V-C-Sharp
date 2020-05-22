@@ -5,9 +5,9 @@
 	<script>
 		if ("alt" in window) {
 			alt.on('Load:UserInfo', (z, r, t) => {
-                $('.rec_0_userinfo').html(z);
-                $('.rec_1_userinfo').html(r);
-                $('.rec_2_userinfo').html(t);
+				$('.rec_0_userinfo').html(z);
+				$('.rec_1_userinfo').html(r);
+				$('.rec_2_userinfo').html(t);
 			});
 		}
 	</script>
@@ -18,58 +18,58 @@
 	<audio id="clicksoundtrack" src="files/sounds/mouseclick.wav" class="d-none" controls="controls"></audio>
 	<div id="Main" class="all d-nne" onclick="playAudio(2)">
 		<img class="background">
-        <div class="header_bar">
-		<div id="rectangle" class="rec_0" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(1);">
-                <div class="rec_text">Zombie
-                <div class="rec_userinfo d-none" id="rec_0_userinfo">30 / 100 Online.</div>
-            </div>
-		</div>
-		<div id="rectangle" class="rec_1" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(0);">
-			<div class="rec_text">Reallife
-				<div class="rec_userinfo d-none" id="rec_1_userinfo">70 / 500 Online.</div>
+		<div class="header_bar">
+			<div id="rectangle" class="rec_0" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(1);">
+				<div class="rec_text">Zombie
+					<div class="rec_userinfo d-none" id="rec_0_userinfo">30 / 100 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_1" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(0);">
+				<div class="rec_text">Reallife
+					<div class="rec_userinfo d-none" id="rec_1_userinfo">70 / 500 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_2" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(2);">
+				<div class="rec_text">Tactics
+					<div class="rec_userinfo d-none" id="rec_2_userinfo">90 / 400 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_3" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(3);">
+				<div class="rec_text">Race
+					<div class="rec_userinfo d-none" id="rec_3_userinfo">10 / 30 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_4" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
+				<div class="rec_text">7Towers
+					<div class="rec_userinfo d-none" id="rec_4_userinfo">500 / 0 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_5" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
+				<div class="rec_text">Gesperrt
+					<div class="rec_userinfo d-none" id="rec_5_userinfo">0 / 0 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_6" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
+				<div class="rec_text">Gesperrt
+					<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_7" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
+				<div class="rec_text">Gesperrt
+					<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
+				</div>
+			</div>
+			<div id="rectangle" class="rec_8" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
+				<div class="rec_text">Gesperrt
+					<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
+				</div>
 			</div>
 		</div>
-		<div id="rectangle" class="rec_2" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(2);">
-			<div class="rec_text">Tactics
-				<div class="rec_userinfo d-none" id="rec_2_userinfo">90 / 400 Online.</div>
-			</div>
-		</div>
-		<div id="rectangle" class="rec_3" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(3);">
-			<div class="rec_text">Race
-				<div class="rec_userinfo d-none" id="rec_3_userinfo">10 / 30 Online.</div>
-			</div>
-		</div>
-		<div id="rectangle" class="rec_4" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
-			<div class="rec_text">7Towers
-				<div class="rec_userinfo d-none" id="rec_4_userinfo">500 / 0 Online.</div>
-			</div>
-		</div>
-		<div id="rectangle" class="rec_5" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(4);">
-			<div class="rec_text">Gesperrt
-				<div class="rec_userinfo d-none" id="rec_5_userinfo">0 / 0 Online.</div>
-			</div>
-		</div>
-        <div id="rectangle" class="rec_6" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
-			<div class="rec_text">Gesperrt
-				<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
-			</div>
-		</div>
-        <div id="rectangle" class="rec_7" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
-			<div class="rec_text">Gesperrt
-				<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
-			</div>
-		</div>
-        <div id="rectangle" class="rec_8" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
-			<div class="rec_text">Gesperrt
-				<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online.</div>
-			</div>
-		</div>
-	</div>
-	<script>
-		function TriggerSelectedGM(number) {
-			if ("alt" in window) {
-				alt.emit("load_selected_gm", number);
+		<script>
+			function TriggerSelectedGM(number) {
+				if ("alt" in window) {
+					alt.emit("load_selected_gm", number);
+				}
 			}
-		}
-	</script>
+		</script>
 </body>
