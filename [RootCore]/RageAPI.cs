@@ -270,10 +270,7 @@ namespace VenoXV.Core
                     ColorB = color[2],
                     ColorA = color[3]
                 };
-
                 _Gamemodes_.Reallife.Globals.Main.LabelList.Add(label);
-                //DynamicTextLabel textLabel = TextLabelStreamer.CreateDynamicTextLabel("Some Text", new Vector3(-879.655f, -853.499f, 19.566f), 0, true, new Rgba(255, 255, 255, 255));
-                //TextLabelStreamer.CreateDynamicTextLabel(text, new Vector3(pos.X, pos.Y, pos.Z), dimension, true, new Rgba(255, 255, 255, 255));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
         }

@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
@@ -66,51 +65,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             return false;
         }
 
-        public static int TestCounter = 0;
-        [Command("tpaltv")]
-        public static void TeleportPlayerToBullshitCoords(Client player)
-        {
-            foreach (Client players in Alt.GetAllPlayers())
-            {
-                players.RemoveAllPlayerWeapons();
-                switch (TestCounter)
-                {
-                    case 0:
-                        players.SetPosition = new Vector3(-1000.9978f, -3408.6858f, 13.828613f);
-                        players.SetPlayerSkin(Alt.Hash("csb_mweather"));
-                        players.Dimension = -10;
-                        Alt.Server.TriggerClientEvent(players, "FreezePlayerPLAYER_VnX", true);
-                        break;
-                    case 1:
-                        players.SetPosition = new Vector3(473.44617f, 6596.136f, 24.713501f);
-                        players.SetPlayerSkin(Alt.Hash("ig_claypain"));
-                        Alt.Server.TriggerClientEvent(players, "FreezePlayerPLAYER_VnX", true);
-                        players.Dimension = -10;
-                        break;
-                }
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.PumpShotgun, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.SMG, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.CombatPDW, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.CarbineRifle, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.AssaultRifle, 800);
-                RageAPI.GivePlayerWeapon(players, AltV.Net.Enums.WeaponModel.Musket, 800);
-                players.Health = 200;
-                players.Armor = 100;
-                players.Emit("LoadTacticUI", "test", "Test2", 255, 255, 0, 200, 0, 200);
-                players.Emit("Tactics:LoadTimer", (int)180);
-                //float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
-                //int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
-                //Debug.OutputDebugString("Damage Done : " + DamageDone); 
-                //Debug.OutputDebugString("Kills Done : " + KillsDone); 
-                //players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
-                //SyncTime();
-                //SyncPlayerStats();
-                //SyncStats();
-            }
-            if (TestCounter == 0) { TestCounter++; }
-            else { TestCounter--; }
-        }
 
         [Command("admins")]
         public void AdminsIngameCommand(Client player)
