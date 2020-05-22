@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -245,19 +244,16 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 CreateRandomRound();
                 SpawnMapVehicles();
                 // To Do : wenn runde gestartet ist = nicht machen !
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        AntiCheat_Allround.SetTimeOutHealth(players, 3000);
-                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
-                        //InitializePlayerData(players);
-                        PutPlayerInTeam(players);
-                        SyncTime();
-                        SyncPlayerStats();
-                        SyncStats();
-                    }
+                    AntiCheat_Allround.SetTimeOutHealth(players, 3000);
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
+                    //InitializePlayerData(players);
+                    PutPlayerInTeam(players);
+                    SyncTime();
+                    SyncPlayerStats();
+                    SyncStats();
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
@@ -267,12 +263,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 player.vnxSetElementData(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE, player.vnxGetElementData<int>(Tactics.Globals.EntityData.PLAYER_TACTIC_TODE) - 1);
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS && player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " ist Disconnected!");
-                    }
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " ist Disconnected!");
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_TEAM) == EntityData.BFAC_NAME)
                 {
@@ -335,13 +328,10 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
-                        players.Emit("Tactics:LoadTimer", (int)leftTime);
-                    }
+                    double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
+                    players.Emit("Tactics:LoadTimer", (int)leftTime);
                 }
             }
             catch { }
@@ -350,12 +340,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        players.Emit("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
-                    }
+                    players.Emit("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
                 }
             }
             catch { }
@@ -364,16 +351,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
-                        int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
-                        //Debug.OutputDebugString("Damage Done : " + DamageDone); 
-                        //Debug.OutputDebugString("Kills Done : " + KillsDone); 
-                        players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
-                    }
+                    float DamageDone = players.vnxGetElementData<float>(EntityData.PLAYER_DAMAGE_DONE);
+                    int KillsDone = players.vnxGetElementData<int>(EntityData.PLAYER_KILLED_PLAYERS);
+                    //Debug.OutputDebugString("Damage Done : " + DamageDone); 
+                    //Debug.OutputDebugString("Kills Done : " + KillsDone); 
+                    players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
                 }
             }
             catch { }
@@ -382,12 +366,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    if (players.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
-                    {
-                        players.Emit("Tactics:OnTacticEndRound", text);
-                    }
+                    players.Emit("Tactics:OnTacticEndRound", text);
                 }
             }
             catch { }
