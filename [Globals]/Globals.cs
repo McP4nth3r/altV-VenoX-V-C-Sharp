@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,51 +9,30 @@ namespace VenoXV.Globals
 {
     public class Main : IScript
     {
-        public static List<IPlayer> ReallifePlayers = new List<IPlayer>();
-        public static List<IPlayer> TacticsPlayers = new List<IPlayer>();
-        public static List<IPlayer> ZombiePlayers = new List<IPlayer>();
-        public static List<IPlayer> RacePlayers = new List<IPlayer>();
+        public static List<Client> ReallifePlayers = new List<Client>();
+        public static List<Client> TacticsPlayers = new List<Client>();
+        public static List<Client> ZombiePlayers = new List<Client>();
+        public static List<Client> RacePlayers = new List<Client>();
+        public static List<Client> SevenTowersPlayers = new List<Client>();
 
 
-        public static void AddPlayerIntoGamemodeList(Client player, string Gamemode)
-        {
-            try
-            {
-                switch (Gamemode)
-                {
-                    case EntityData.GAMEMODE_REALLIFE:
-                        ReallifePlayers.Add(player);
-                        break;
-                    case EntityData.GAMEMODE_TACTICS:
-                        TacticsPlayers.Add(player);
-                        break;
-                    case EntityData.GAMEMODE_ZOMBIE:
-                        ZombiePlayers.Add(player);
-                        break;
-                    case EntityData.GAMEMODE_RACE:
-                        RacePlayers.Add(player);
-                        break;
-                }
-            }
-            catch (Exception ex) { Debug.CatchExceptions("AddPlayerIntoGamemodeList", ex); }
-        }
         public static void RemovePlayerFromGamemodeList(Client player)
         {
             try
             {
-                string Gamemode = player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE);
+                int Gamemode = player.Gamemode;
                 switch (Gamemode)
                 {
-                    case EntityData.GAMEMODE_REALLIFE:
+                    case (int)_Preload_.Preload.Gamemodes.Reallife:
                         ReallifePlayers.Remove(player);
                         break;
-                    case EntityData.GAMEMODE_TACTICS:
+                    case (int)_Preload_.Preload.Gamemodes.Tactics:
                         TacticsPlayers.Remove(player);
                         break;
-                    case EntityData.GAMEMODE_ZOMBIE:
+                    case (int)_Preload_.Preload.Gamemodes.Zombies:
                         ZombiePlayers.Remove(player);
                         break;
-                    case EntityData.GAMEMODE_RACE:
+                    case (int)_Preload_.Preload.Gamemodes.Race:
                         RacePlayers.Remove(player);
                         break;
                 }
@@ -81,8 +59,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                Client player = entity as Client;
-                if (player == null) return;
+                if (!(entity is Client player)) return;
                 if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
             }
@@ -95,9 +72,9 @@ namespace VenoXV.Globals
             try
             {
                 player.DespawnPlayer();
-                if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_TACTICS)
+                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
                 {
-                    if (killer == null) { killer = RageAPI.GetPlayerFromName(player.vnxGetElementData<string>(_Gamemodes_.Tactics.Globals.EntityData.PLAYER_LAST_DAMAGED_BY)); }
+                    if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
                     if (Functions.IstargetInSameLobby(player, killer))
                     {
                         _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
@@ -109,7 +86,7 @@ namespace VenoXV.Globals
                     }
                     return;
                 }
-                else if (player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE) == EntityData.GAMEMODE_REALLIFE)
+                else if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
                     if (killer == null || Functions.IstargetInSameLobby(player, killer))
                     {
@@ -123,6 +100,19 @@ namespace VenoXV.Globals
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnDeath", ex); }
+        }
+
+
+        [ServerEvent("GlobalSystems:OnPlayerSyncDamage")]
+        public void OnPlayerSyncDamage(Client player, Client killer)
+        {
+            try
+            {
+                player.Emit("Globals:ShowBloodScreen");
+                killer.Emit("Globals:PlayHitsound");
+                player.vnxSetElementData("VenoX:LastDamaged", killer);
+            }
+            catch { }
         }
 
         public static void OnUpdate(object unused)
@@ -147,20 +137,6 @@ namespace VenoXV.Globals
                 _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
                 _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
-            }
-            catch { }
-        }
-
-        [ScriptEvent(ScriptEventType.WeaponDamage)]
-        public static void WeaponDamage(Client source, Client target, uint weapon, ushort damage, Position offset, AltV.Net.Data.BodyPart bodypart)
-        {
-            try
-            {
-                AltV.Net.Enums.WeaponModel weaponModel = (AltV.Net.Enums.WeaponModel)weapon;
-                if (target != null && source != null)
-                {
-                    _Gamemodes_.Tactics.weapons.Combat.OnHittedEntity(source, target, weaponModel, bodypart);
-                }
             }
             catch { }
         }
