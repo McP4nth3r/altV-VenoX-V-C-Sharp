@@ -280,6 +280,34 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+            },
+            new RoundModel
+            {
+                Map_Name = "Baustelle",
+                Team_A_Name = "Bauarbeiter",
+                Team_A_Skin = "s_m_y_construct_02",
+                Team_A_WinnerText = "Die Bauarbeiter gewinnen die Runde.",
+                Team_A_Color = new int[] { 255, 255, 0 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(-136.73407f, -1080.3956f, 42.13623f),
+                    new Vector3(-137.48572f, -1079.4725f, 42.13623f),
+                    new Vector3(-136.28572f, -1078.2329f, 42.13623f),
+                    new Vector3(-137.28792f, -1076.888f, 42.13623f),
+                },
+                Team_B_Name = "Ballas",
+                Team_B_Skin = "g_m_y_ballaorig_01",
+                Team_B_WinnerText = "Die Ballas gewinnen die Runde.",
+                Team_B_Color = new int[] { 85, 26, 139 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(-164.14944f, -1071.1384f, 36.137695f),
+                    new Vector3(-165.36264f, -1071.9165f, 36.137695f),
+                    new Vector3(-164.59781f, -1073.6307f, 36.137695f),
+                    new Vector3(-162.61978f, -1072.734f, 36.137695f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             }
         };
     }
