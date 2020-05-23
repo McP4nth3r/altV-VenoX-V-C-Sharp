@@ -11,8 +11,8 @@ namespace VenoXV._RootCore_.Models
         private Player Player;
         public int Money { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         public int Bank { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_BANK, value); } }
-        public string SocialState { get { return Player.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_STATUS, value); } }
-        public int Faction { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
+        public string SocialState { get { return Player.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
+        public int Faction { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
         public int REALLIFE_HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
         public DateTime Zivizeit { get { return Player.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
         public string REALLIFE_JOB { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
@@ -38,7 +38,7 @@ namespace VenoXV._RootCore_.Models
         public int Waffenschein { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, value); } }
         public string SpawnLocation { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SPAWNPOINT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SPAWNPOINT, value); } }
         public int Quests { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS, value); } }
-        public int Wanteds { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
+        public int Wanteds { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
         public int Knastzeit { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT, value); } }
         public int Kaution { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION, value); } }
         public int Adventskalender { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER, value); } }
@@ -158,8 +158,8 @@ namespace VenoXV._RootCore_.Models
     {
         //Main
         public int UID { get; set; }
-        public string Username { get; set; }
-        public int AdminRank { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_ADMIN_RANK); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
+        public string Username { get { return this.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
+        public int AdminRank { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_ADMIN_RANK); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
         public int Language { get; set; }
 
         // Gamemode Classes
