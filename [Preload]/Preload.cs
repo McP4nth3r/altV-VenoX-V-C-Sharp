@@ -110,8 +110,6 @@ namespace VenoXV._Preload_
             try
             {
                 player.Emit("showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
-                //ShowLogin(player);
-                Core.Debug.OutputDebugString("[CONNECTED] : " + player.Username + " | SERIAL : " + player.HardwareIdHash + " | SOCIALCLUB : " + player.SocialClubId + " | IP : " + player.Ip);
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode
                 _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
             }
