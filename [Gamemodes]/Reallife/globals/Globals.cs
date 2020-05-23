@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Client player = entity as Client;
                 CarShop.OnPlayerEnterIColShape(shape, player);
                 Clothes.Clothes.OnPlayerEnterIColShape(shape, player);
-                Environment.ammunation.ammunation.OnPlayerEnterIColShape(shape, player);
+                Environment.ammunation.Ammunation.OnPlayerEnterIColShape(shape, player);
                 Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterIColShape(shape, player);
                 Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterIColShape(shape, player);
                 Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterIColShape(shape, player);
@@ -673,23 +673,19 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 //NAPI.Server.SetGlobalServerChat(false);
                 // Interior list Loading ( Example : LSPD, Hospital Interior etc.)
 
-                /*foreach (InteriorModel interior in Constants.INTERIOR_LIST)
+                foreach (InteriorModel interior in Constants.INTERIOR_LIST)
                 {
                     if (interior.blipId > 0)
                     {
-                        interior.blip = NAPI.Blip.CreateBlip(interior.entrancePosition);
-                        interior.blip.Sprite = (uint)interior.blipId;
-                        interior.blip.Name = interior.blipName;
-                        interior.blip.ShortRange = true;
-                        interior.blip.Rgba = interior.BlipRgba;
+                        Core.RageAPI.CreateBlip(interior.blipName, interior.entrancePosition, interior.blipId, interior.BlipRgba, true);
                     }
 
                     if (interior.captionMessage != string.Empty)
                     {
                         //interior.textLabel = //ToDo: ClientSide erstellen NAPI.
-                        .CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new Rgba(interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB), false, 0);
+                        Core.RageAPI.CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new int[] { interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB }, 0);
                     }
-                }*/
+                }
 
                 minuteTimer = new Timer(OnMinuteSpent, null, 60000, 60000); // Payday Generation und alles was nach einer Minute passiert!
                 OnTickTimer = new Timer(VenoXV.Globals.Main.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
@@ -700,7 +696,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
                 CarShop.OnResourceStart();
                 Clothes.Clothes.OnResourceStart();
-                Environment.ammunation.ammunation.OnResourceStart();
+                Environment.ammunation.Ammunation.OnResourceStart();
                 factions.Allround.OnResourceStart(); // Label - Faction Loading !
                 fraktionskassen.OnResourceStart(); // GangKassen & IColShapes Loading !
                 Fun.Allround.OnResourceStart(); // GangKassen & IColShapes Loading !

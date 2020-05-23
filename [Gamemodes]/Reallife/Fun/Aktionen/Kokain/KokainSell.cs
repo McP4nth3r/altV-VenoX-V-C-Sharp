@@ -2,11 +2,11 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._RootCore_.Database;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -17,16 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
         public static IColShape KokainSell_Col = Alt.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
         public static void OnResourceStart()
         {
-            BlipModel blip = new BlipModel();
-            Position pos = new Position(140.425f, -239.0754f, 51.52684f);
-            blip.Name = "Dealer";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 51;
-            blip.Color = 27;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            Core.RageAPI.CreateBlip("Dealer", new Vector3(140.425f, -239.0754f, 51.52684f), 51, 27, true);
         }
 
         public static void OnPlayerEnterIColShape(IColShape shape, Client player)

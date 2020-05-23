@@ -1,10 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using VenoXV._Gamemodes_.Reallife.model;
+using System.Numerics;
 
 namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
 {
@@ -13,16 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
         IColShape col = Alt.CreateColShapeSphere(new Position(-311.2075f, -278.3156f, 31.5f), 3f);
         public static void OnResourceStart()
         {
-            BlipModel blip = new BlipModel();
-            Position pos = new Position(-311.2075f, -278.3156f, 31.5f);
-            blip.Name = "VIP Area";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 304;
-            blip.Color = 46;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            Core.RageAPI.CreateBlip("VIP Area", new Vector3(-311.2075f, -278.3156f, 31.5f), 304, 46, false);
         }
 
         /*[Command("gotovipshop")]

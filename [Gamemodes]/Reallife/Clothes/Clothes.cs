@@ -2,8 +2,8 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -15,15 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         //Marker ClothesImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-158.886f, -296.9503f, 39.73328f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         public static void OnResourceStart()
         {
-            BlipModel blip = new BlipModel();
-            blip.Name = "Klamottengeschäft";
-            blip.posX = -158.886f;
-            blip.posY = -296.9503f;
-            blip.posZ = 39.73328f;
-            blip.Sprite = 73;
-            blip.Color = 26;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            RageAPI.CreateBlip("Name", new Vector3(-158.886f, -296.9503f, 39.73328f), 73, 26, true);
         }
 
 

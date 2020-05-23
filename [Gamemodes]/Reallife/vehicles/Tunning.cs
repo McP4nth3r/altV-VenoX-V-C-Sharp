@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System.Linq;
-using VenoXV._RootCore_.Database;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -15,21 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
     {
         public static void OnResourceStart()
         {
-            //Ped verleihped = NAPI.Ped.CreatePed(PedHash.BoatADMINLVL01F, new Position(-2302.375f, 365.1267f, 174.6016f), 0.0f);
-            //Blip TuningGaragenBlip = NAPI.Blip.CreateBlip(new Position(-354.7027f, -135.3738f, 38.57238f));
-            //TuningGaragenBlip.Name = "Werkstatt";
-            //TuningGaragenBlip.Sprite = 446;
-
-            BlipModel blip = new BlipModel();
-            Position pos = new Position(-354.7027f, -135.3738f, 38.57238f);
-            blip.Name = "Werkstatt";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 446;
-            blip.Color = 0;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            Core.RageAPI.CreateBlip("Werkstatt", new Vector3(-354.7027f, -135.3738f, 38.57238f), 446, 0, true);
         }
 
         public static IColShape TuningGaragenTeleport = Alt.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);

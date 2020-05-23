@@ -3,10 +3,11 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Numerics;
 using System.Timers;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
@@ -20,27 +21,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 
         public static void OnResourceStart()
         {
-            BlipModel blip = new BlipModel();
-            Position pos = new Position(-1265.874f, -3432.416f, 13.5f);
-            blip.Name = "Kokaintruck [Illegal]";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 318;
-            blip.Color = 27;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
-
-            BlipModel blip2 = new BlipModel();
-            Position pos2 = new Position(2854.921f, 1501.922f, 24.77632f);
-            blip2.Name = "Waffentruck [Illegal]";
-            blip2.posX = pos2.X;
-            blip2.posY = pos2.Y;
-            blip2.posZ = pos2.Z;
-            blip2.Sprite = 318;
-            blip2.Color = 1;
-            blip2.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip2);
+            Core.RageAPI.CreateBlip("Kokaintruck [Illegal]", new Vector3(-1265.874f, -3432.416f, 13.5f), 318, 27, true);
+            Core.RageAPI.CreateBlip("Waffentruck [Illegal]", new Vector3(2854.921f, 1501.922f, 24.77632f), 318, 1, true);
         }
 
 

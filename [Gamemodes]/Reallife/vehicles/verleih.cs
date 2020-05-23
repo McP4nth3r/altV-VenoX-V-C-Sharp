@@ -8,7 +8,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -32,41 +31,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static IColShape LSPDVerleihCol = Alt.CreateColShapeSphere(new Position(333.6211f, -950.823f, 2), 2);
         public static void OnResourceStart()
         {
-            // Noobspawn
-            /*Blip NoobspawnVerleih = 
-             * (NOOBSPAWN_RENTALS);
-            NoobspawnVerleih.Name = "VenoX Rental Service";
-            NoobspawnVerleih.Sprite = 545;
-            NoobspawnVerleih.Rgba = 3;
-            // LSPD
-            Blip LSPDVerleih = NAPI.Blip.CreateBlip(LSPD_RENTALS);
-            LSPDVerleih.Name = "VenoX Rental Service";
-            LSPDVerleih.Sprite = 545;
-            LSPDVerleih.Rgba = 3;
-            NAPI.Object.CreateObject(1000639787, new Position(NOOBSPAWN_RENTALS.X, NOOBSPAWN_RENTALS.Y, NOOBSPAWN_RENTALS.Z - 1), new Position(0.0f, 0.0f, 0.0f), 0);
-            NAPI.Object.CreateObject(1000639787, new Position(LSPD_RENTALS.X, LSPD_RENTALS.Y, LSPD_RENTALS.Z - 1), new Position(0.0f, 0.0f, 180f), 0);*/
-
-            BlipModel blip = new BlipModel();
-            Position pos = NOOBSPAWN_RENTALS;
-            blip.Name = "VenoX Rental Service";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 545;
-            blip.Color = 3;
-            blip.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
-
-            BlipModel blip1 = new BlipModel();
-            Position pos1 = LSPD_RENTALS;
-            blip1.Name = "VenoX Rental Service";
-            blip1.posX = pos1.X;
-            blip1.posY = pos1.Y;
-            blip1.posZ = pos1.Z;
-            blip1.Sprite = 545;
-            blip1.Color = 3;
-            blip1.ShortRange = true;
-            VenoXV.Globals.Functions.BlipList.Add(blip1);
+            Core.RageAPI.CreateBlip("VenoX Rental Service", NOOBSPAWN_RENTALS, 545, 3, true);
+            Core.RageAPI.CreateBlip("VenoX Rental Service", LSPD_RENTALS, 545, 3, true);
         }
 
 

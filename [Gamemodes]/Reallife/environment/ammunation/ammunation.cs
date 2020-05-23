@@ -1,29 +1,19 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 {
-    public class ammunation : IScript
+    public class Ammunation : IScript
     {
         public static void OnResourceStart()
         {
-            BlipModel blip = new BlipModel();
-            Position pos = new Position(21.11444f, -1106.664f, 29.79703f);
-            blip.Name = "Ammunation";
-            blip.posX = pos.X;
-            blip.posY = pos.Y;
-            blip.posZ = pos.Z;
-            blip.Sprite = 110;
-            blip.Color = 4;
-            blip.ShortRange = false;
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            RageAPI.CreateBlip("Ammunation", new System.Numerics.Vector3(21.11444f, -1106.664f, 29.79703f), 110, 4, false);
         }
 
         //[AltV.Net.ClientEvent("Buy_Item_Ammo_S")]

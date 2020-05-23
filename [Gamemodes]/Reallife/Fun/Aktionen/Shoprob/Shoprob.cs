@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -79,15 +78,17 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     Col.vnxSetElementData(SHOP_IS_COL, true);
                     Col.vnxSetElementData(SHOP_ID, SHOP_ID_COUNTER);
                     ShopIColShapes.Add(Col);
-                    BlipModel blip = new BlipModel();
-                    blip.Name = SHOP_BLIP_NAME_POSSIBLE;
-                    blip.posX = ShopCoord.Key.X;
-                    blip.posY = ShopCoord.Key.Y;
-                    blip.posZ = ShopCoord.Key.Z;
-                    blip.Sprite = SHOP_BLIP_ID;
-                    blip.Color = SHOP_Rgba_POSSIBLE;
-                    blip.ShortRange = true;
-                    VenoXV.Globals.Functions.BlipList.Add(blip);
+                    BlipModel blip = new BlipModel
+                    {
+                        Name = SHOP_BLIP_NAME_POSSIBLE,
+                        posX = ShopCoord.Key.X,
+                        posY = ShopCoord.Key.Y,
+                        posZ = ShopCoord.Key.Z,
+                        Sprite = SHOP_BLIP_ID,
+                        Color = SHOP_Rgba_POSSIBLE,
+                        ShortRange = true
+                    };
+                    RageAPI.CreateBlip(SHOP_BLIP_NAME_POSSIBLE, ShopCoord.Key, SHOP_BLIP_ID, SHOP_Rgba_POSSIBLE, true);
                     ShopBlips.Add(blip);
                     SHOP_ID_COUNTER += 1;
 
@@ -196,8 +197,6 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                     //Blip RobbedBlip = ShopBlips[CURRENT_ID];
                                     //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                                     //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
-
-
                                     col.vnxSetElementData(SHOP_ROB_STARTED, false);
                                     col.vnxSetElementData(SHOP_ROB_POSSIBLE, false);
                                     col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
