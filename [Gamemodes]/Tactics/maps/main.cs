@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-              }
+              },
               new RoundModel
             {
                 Map_Name = "Altruistendorf",
@@ -387,6 +387,34 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                     new Vector3(-1059.3363f, 4905.7056f, 211.3927f),
                     new Vector3(-1061.2616f, 4905.4023f, 211.66223f),
                     new Vector3(-1061.4725f, 4903.8066f, 211.69592f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+              },
+              new RoundModel
+            {
+                Map_Name = "Holzfäller",
+                Team_A_Name = "Holzfäller",
+                Team_A_Skin = "s_m_y_construct_01",
+                Team_A_WinnerText = "Die Holzfäller gewinnen die Runde.",
+                Team_A_Color = new int[] { 205 ,175, 149 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(-583.96484f, 5314.998f, 70.20801f),
+                    new Vector3(-583.52966f, 5313.231f, 70.20801f),
+                    new Vector3(-581.789f, 5313.1123f, 70.20801f),
+                    new Vector3(-580.94507f, 5314.892f, 70.20801f),
+                },
+                Team_B_Name = "SAMCRO",
+                Team_B_Skin = "g_m_y_lost_03",
+                Team_B_WinnerText = "SAMCRO gewinnt die Runde.",
+                Team_B_Color = new int[] { 100, 50, 50 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(-513.74506f, 5250.6196f, 80.2168f),
+                    new Vector3(-512.9275f, 5253.099f, 80.621216f),
+                    new Vector3(-512.3077f, 5255.8813f, 80.60437f),
+                    new Vector3(-511.47693f, 5259.745f, 80.60437f),
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
