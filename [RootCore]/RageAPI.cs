@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 
 namespace VenoXV.Core
 {
@@ -251,12 +252,14 @@ namespace VenoXV.Core
             try { element.Emit("Player:Alpha", alpha); }
             catch { }
         }
+        private static int TextLabelCounter = 0;
         public static void CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
         {
             try
             {
                 LabelModel label = new LabelModel
                 {
+                    ID = TextLabelCounter++,
                     Text = text,
                     PosX = pos.X,
                     PosY = pos.Y,
@@ -270,7 +273,7 @@ namespace VenoXV.Core
                     ColorB = color[2],
                     ColorA = color[3]
                 };
-                _Gamemodes_.Reallife.Globals.Main.LabelList.Add(label);
+                Sync.LabelList.Add(label);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
         }
@@ -286,7 +289,7 @@ namespace VenoXV.Core
                 Color = Color,
                 ShortRange = ShortRange
             };
-            VenoXV.Globals.Functions.BlipList.Add(blip);
+            Sync.BlipList.Add(blip);
         }
 
         public static float ToRadians(float val)
