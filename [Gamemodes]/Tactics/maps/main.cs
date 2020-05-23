@@ -308,8 +308,35 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-            }
-
+            },
+             new RoundModel
+            {
+                Map_Name = "Gefängnis",
+                Team_A_Name = "Inhaftierte",
+                Team_A_Skin = "s_m_y_prisoner_01",
+                Team_A_WinnerText = "Die Inhaftierten gewinnen die Runde.",
+                Team_A_Color = new int[] { 255, 255, 0 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(1648.4835f, 2631.6792f, 45.556763f),
+                    new Vector3(1648.378f, 2629.5166f, 45.556763f),
+                    new Vector3(1650.9099f, 2629.754f, 45.556763f),
+                    new Vector3(1650.7649f, 2631.9429f, 45.556763f),
+                },
+                Team_B_Name = "Wärter",
+                Team_B_Skin = "s_m_m_prisguard_01",
+                Team_B_WinnerText = "Die Wärter gewinnen die Runde.",
+                Team_B_Color = new int[] { 250,235,215 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(1714.0352f, 2665.8594f, 45.556763f),
+                    new Vector3(1713.7847f, 2668.1538f, 45.556763f),
+                    new Vector3(1711.8594f, 2668.0747f, 45.556763f),
+                    new Vector3(1711.8462f, 2666.1758f, 45.556763f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+             }
         };
     }
 }
