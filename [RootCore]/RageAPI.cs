@@ -274,6 +274,21 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
         }
+        public static void CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
+        {
+            BlipModel blip = new BlipModel
+            {
+                Name = Name,
+                posX = coord.X,
+                posY = coord.Y,
+                posZ = coord.Z,
+                Sprite = Sprite,
+                Color = Color,
+                ShortRange = ShortRange
+            };
+            VenoXV.Globals.Functions.BlipList.Add(blip);
+        }
+
         public static float ToRadians(float val)
         {
             return (float)(System.Math.PI / 180) * val;
