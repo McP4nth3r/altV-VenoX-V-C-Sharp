@@ -336,7 +336,35 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-             }
+             },
+              new RoundModel
+            {
+                Map_Name = "Biker",
+                Team_A_Name = "SAMCRO",
+                Team_A_Skin = "g_m_y_lost_03",
+                Team_A_WinnerText = "SAMCRO gewinnt die Runde.",
+                Team_A_Color = new int[] { 100, 50, 50 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(35.406593f, 3718.8396f, 39.524536f),
+                    new Vector3(35.96044f, 3720.066f, 39.54138f),
+                    new Vector3(37.60879f, 3719.6045f, 39.524536f),
+                    new Vector3(38.584618f, 3717.9956f, 39.575073f),
+                },
+                Team_B_Name = "MayansMC",
+                Team_B_Skin = "g_m_y_lost_01",
+                Team_B_WinnerText = "Der MayansMC gewinnt die Runde.",
+                Team_B_Color = new int[] { 193, 205, 193 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(103.62198f, 3717.9692f, 39.70984f),
+                    new Vector3(101.03736f, 3718.4438f, 39.6593f),
+                    new Vector3(100.52308f, 3717.4812f, 39.676147f),
+                    new Vector3(101.98682f, 3717.3098f, 39.692993f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+              }
         };
     }
 }
