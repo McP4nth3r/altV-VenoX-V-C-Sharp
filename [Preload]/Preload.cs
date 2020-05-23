@@ -15,8 +15,7 @@ namespace VenoXV._Preload_
         }
         public override void OnStart()
         {
-            VenoXV.Globals.Main.OnResourceStart();
-
+            Globals.Main.OnResourceStart();
             //Console.WriteLine("Started");
         }
 

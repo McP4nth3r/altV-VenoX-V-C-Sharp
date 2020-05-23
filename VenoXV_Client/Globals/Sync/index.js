@@ -7,69 +7,6 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { Draw3DText } from '../VnX-Lib';
 
-let LabelList = {};
-let LabelListCounter = 0;
-
-let LabelListNearLocal = {};
-let LabelListNearLocalCounter = 0;
-
-let textLabelStrArray = [];
-alt.onServer('Sync:LoadTextLabels', (json, counter, maxcount) => {
-    textLabelStrArray[counter] = json;
-    for (let i = 0; i < maxcount; ++i) {
-        if (typeof (textLabelStrArray[i]) === "undefined") {
-            return;
-        }
-    }
-    let fullJson = "";
-    for (let i = 0; i < maxcount; ++i) {
-        fullJson += textLabelStrArray[i];
-    }
-    let LabelItems = JSON.parse(fullJson);
-    for (let i = 0; i < LabelItems.length; i++) {
-        let data = LabelItems[i];
-        LabelList[LabelListCounter] = {
-            Text: data.Text,
-            PosX: data.PosX,
-            PosY: data.PosY,
-            PosZ: data.PosZ,
-            Font: data.Font,
-            Color: [data.ColorR, data.ColorG, data.ColorB, data.ColorA],
-            Dimension: data.Dimension,
-            Range: data.Range
-        }
-        LabelListCounter++;
-    }
-});
-
-alt.setInterval(() => {
-    LabelListNearLocal = {};
-    LabelListNearLocalCounter = 0;
-    for (var i in LabelList) {
-        let data = LabelList[i];
-        if (game.getDistanceBetweenCoords(data.PosX, data.PosY, data.PosZ, alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, 1) <= 200) {
-            LabelListNearLocal[LabelListNearLocalCounter] = {
-                Text: data.Text,
-                PosX: data.PosX,
-                PosY: data.PosY,
-                PosZ: data.PosZ,
-                Font: data.Font,
-                Color: data.Color,
-                Dimension: data.Dimension,
-                Range: data.Range
-            }
-            LabelListNearLocalCounter++;
-        }
-    }
-}, 5000);
-
-alt.everyTick(() => {
-    for (var labels in LabelListNearLocal) {
-        let data = LabelListNearLocal[labels];
-        //alt.log(data.Text + " | " + data.PosX + " | " + data.PosY + " | " + data.PosZ + " | " + data.Font + " | " + data.Color[0] + " | " + data.Color[1] + " | " + data.Color[2] + " | " + data.Range);
-        Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
-    }
-});
 
 let muted = true;
 export function OnVoiceKeyDown(key) {
@@ -96,9 +33,6 @@ alt.on("gameEntityCreate", entity => {
 });
 
 
-
-
-
 function loadModel(model) {
     if (!game.isModelValid(model)) { return; }
 
@@ -107,7 +41,6 @@ function loadModel(model) {
     if (game.hasModelLoaded(model)) { return; }
 
     game.requestModel(model);
-    alt.log('[' + model + ']' + '[' + alt.hash(model) + ']' + 'Model successful fixed');
 
     let interval = alt.setInterval(() => {
         if (game.hasModelLoaded(model)) {
@@ -132,7 +65,6 @@ ModelList[ModelCounter++] = "csb_mweather";
 ModelList[ModelCounter++] = "s_m_y_marine_03";
 ModelList[ModelCounter++] = "g_m_m_chicold_01";
 function LoadModelsOnStart() {
-    alt.log('Called Model Loading');
     alt.setTimeout(() => {
         for (var models in ModelList) {
             loadModel(ModelList[models]);
@@ -140,3 +72,45 @@ function LoadModelsOnStart() {
     }, 2000);
 }
 LoadModelsOnStart();
+
+
+
+
+let CurrentLabels = {};
+alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, ColorG, ColorB, ColorA, Dimension, Range) => {
+    if (CurrentLabels[ID] != null) { return; }
+    CurrentLabels[ID] = {
+        ID: ID,
+        Text: Text,
+        PosX: PosX,
+        PosY: PosY,
+        PosZ: PosZ,
+        Font: Font,
+        Color: [ColorR, ColorG, ColorB, ColorA],
+        Dimension: Dimension,
+        Range: Range
+    };
+});
+
+alt.onServer('Sync:RemoveLabels', () => {
+    //outputted = false;
+    CurrentLabels = {};
+});
+/*
+let outputted = false;
+function DebugLog() {
+    let c = 0;
+    for (var labels in CurrentLabels) {
+        c++;
+    }
+    alt.log(c);
+    outputted = true;
+}*/
+alt.everyTick(() => {
+    //if (!outputted) { DebugLog(); }
+    for (var labels in CurrentLabels) {
+        let data = CurrentLabels[labels];
+        //alt.log(data.Text + " | " + data.PosX + " | " + data.PosY + " | " + data.PosZ + " | " + data.Font + " | " + data.Color[0] + " | " + data.Color[1] + " | " + data.Color[2] + " | " + data.Range);
+        Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
+    }
+});
