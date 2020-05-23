@@ -309,6 +309,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             }
+
         };
     }
 }
