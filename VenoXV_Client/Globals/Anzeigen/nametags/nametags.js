@@ -113,7 +113,7 @@ export function DrawNametags() {
 					//alt.log("[DISTANCE ZUM SPIELER] : " + distance);
 					//alt.log("[MAX_DISTANCE] : " + maxDistance_load);
 					DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
-					DrawText(player.getStreamSyncedMeta("SocialState_NAMETAG"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
+					DrawText(player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 				}
 			}
 		}

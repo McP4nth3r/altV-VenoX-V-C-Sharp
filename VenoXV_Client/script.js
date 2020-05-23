@@ -46,11 +46,11 @@ alt.setStat('flying_ability', 100);
 alt.setStat('shooting_ability', 100);
 alt.setStat('stealth_ability', 100);
 
-
+/*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
-
+*/
 
 game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
 game.startAudioScene('CHARACTER_CHANGE_IN_SKY_SCENE');

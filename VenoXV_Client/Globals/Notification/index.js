@@ -11,6 +11,7 @@ let browser_1 = new alt.WebView("http://resource/VenoXV_Client/Globals/Notificat
 
 alt.onServer('createVnXLiteNotify', (e, v) => {
     browser_1.emit("Notify:Create", e, v);
+    browser_1.emit("SideNotification:Create", e, v);
 });
 
 alt.onServer('Globals:PlayHitsound', () => {

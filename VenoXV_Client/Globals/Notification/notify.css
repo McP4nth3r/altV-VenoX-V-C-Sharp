@@ -547,7 +547,109 @@ top: 54vw
     }
 }
 
+/* Side Notification */
 
-.d-none {
-    display: none !important
+.SideNotification_1{
+    position: absolute;
+    left: 1.25%;
+    top: 76.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+
+.SideNotification_2{
+    position: absolute;
+    left: 1.25%;
+    top: 71.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+
+.SideNotification_3{
+    position: absolute;
+    left: 1.25%;
+    top: 66.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+
+.SideNotification_4{
+    position: absolute;
+    left: 1.25%;
+    top: 61.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_5{
+    position: absolute;
+    left: 1.25%;
+    top: 56.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_6{
+    position: absolute;
+    left: 1.25%;
+    top: 51.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_7{
+    position: absolute;
+    left: 1.25%;
+    top: 46.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_8{
+    position: absolute;
+    left: 1.25%;
+    top: 41.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_9{
+    position: absolute;
+    left: 1.25%;
+    top: 36.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+.SideNotification_10{
+    position: absolute;
+    left: 1.25%;
+    top: 31.5%;
+    width: 13%;
+    background-color: rgb(0,0,0,0.8);
+    border-top: solid 0.10vw rgb(0,150,200);
+    padding: 0.5vw;
+}
+
+.SideNotification_Container{
+    font-family: arial;
+    overflow: hidden;
+    font-size: 0.8vw;
+    color: white;
+}
+
+.d-none{
+    display: none;
 }
