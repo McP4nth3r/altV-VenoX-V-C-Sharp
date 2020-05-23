@@ -365,6 +365,34 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
               }
+              new RoundModel
+            {
+                Map_Name = "Altruistendorf",
+                Team_A_Name = "Altruisten",
+                Team_A_Skin = "a_m_o_acult_01",
+                Team_A_WinnerText = "Die Altruisten gewinnen die Runde.",
+                Team_A_Color = new int[] { 100, 50, 50 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(-1163.4198f, 4926.3955f, 222.95166f),
+                    new Vector3(-1163.3143f, 4925.13f, 222.88428f),
+                    new Vector3(-1161.5077f, 4924.879f, 222.8169f),
+                    new Vector3(-1161.0989f, 4926.1055f, 222.86743f),
+                },
+                Team_B_Name = "Merryweather",
+                Team_B_Skin = "s_m_m_chemsec_01",
+                Team_B_WinnerText = "Merryweather gewinnt die Runde.",
+                Team_B_Color = new int[] { 205, 55, 0 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(-1059.2439f, 4904.031f, 211.40955f),
+                    new Vector3(-1059.3363f, 4905.7056f, 211.3927f),
+                    new Vector3(-1061.2616f, 4905.4023f, 211.66223f),
+                    new Vector3(-1061.4725f, 4903.8066f, 211.69592f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+              }
         };
     }
 }
