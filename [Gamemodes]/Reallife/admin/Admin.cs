@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             foreach (Client admin in Alt.GetAllPlayers())
             {
-                if (admin.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
+                if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
                     admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + text);
                 }
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 foreach (Client admin in Alt.GetAllPlayers())
                 {
-                    if (admin.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
+                    if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
                         admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[Info] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
                     }

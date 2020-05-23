@@ -125,6 +125,7 @@ namespace VenoXV._RootCore_.Models
     }
     public class SevenTowers
     {
+        public bool Spawned { get; set; }
         public SevenTowers(Player player)
         {
             try

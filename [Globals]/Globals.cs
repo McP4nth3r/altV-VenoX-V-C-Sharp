@@ -47,7 +47,7 @@ namespace VenoXV.Globals
             {
                 _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
                 _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
-                SevenTowers.Lobby.Main.OnResourceStart();
+                _Gamemodes_.SevenTowers.Main.OnResourceStart();
             }
             catch (Exception ex) { Debug.CatchExceptions("OnResourceStart", ex); }
         }
@@ -122,8 +122,8 @@ namespace VenoXV.Globals
                 _Gamemodes_.Reallife.Globals.Main.OnUpdate();
                 _Gamemodes_.Tactics.Globals.Main.OnUpdate();
                 _Gamemodes_.Race.Globals.main.OnUpdate();
+                _Gamemodes_.SevenTowers.Main.OnUpdate();
                 Zombie.globals.Main.OnUpdate();
-                //SevenTowers.globals.Main.OnUpdate();
             }
             catch { }
         }

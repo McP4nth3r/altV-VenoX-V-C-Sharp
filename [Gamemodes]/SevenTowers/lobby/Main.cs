@@ -1,15 +1,14 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VenoXV._Gamemodes_.SevenTowers.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
-using VenoXV.SevenTowers.globals;
 
-namespace VenoXV.SevenTowers.Lobby
+namespace VenoXV._Gamemodes_.SevenTowers
 {
     public class Main : IScript
     {
@@ -25,19 +24,25 @@ namespace VenoXV.SevenTowers.Lobby
 
         // Saved Datas
         public static bool SEVENTOWERS_ROUND_IS_RUNNING = false;
-        public static List<IPlayer> SevenTowersPlayers = new List<IPlayer>();
         public static List<IVehicle> SevenTowersVehicles = new List<IVehicle>();
         public static DateTime SEVENTOWERS_ROUND_END;
         public static DateTime SEVENTOWERS_ROUND_WILL_START;
         public static DateTime SEVENTOWERS_ROUND_JOINTIME_TILL_START;
-        public static Dictionary<Position, bool> SevenTowerSpawns;
+        public static List<SpawnModel> SevenTowerSpawns = new List<SpawnModel>();
         public static int VEHICLE_LIST_MAX = 0;
 
 
         public static List<Position> SPAWNPOINT_COORDS = new List<Position> // CONSTANT 7TOWERS SPAWNS
         {
-            new Position(75.20439f, -5802.7383f, 85.524536f),
-            new Position(90.65934f,-5784.0264f,85.524536f),
+            new Position(67.753845f, -5843.222f, 79.84619f),
+            new Position(94.496704f, -5818.1406f, 85.13696f),
+            new Position(168.1978f, -5832.0923f, 86.51868f),
+            new Position(199.29231f, -5815.1606f, 86.51868f),
+            new Position(197.74945f, -5720.123f, 87.1084f),
+            new Position(190.97144f, -5687.8813f, 86.73767f),
+            new Position(127.97802f, -5662.1934f, 87.765625f),
+            new Position(52.87912f, -5683.5034f, 96.22412f),
+            new Position(94.61539f, -5719.609f, 85.15381f),
         };
 
 
@@ -56,7 +61,6 @@ namespace VenoXV.SevenTowers.Lobby
             AltV.Net.Enums.VehicleModel.Police3,
             AltV.Net.Enums.VehicleModel.Turismo2,
             AltV.Net.Enums.VehicleModel.Asea2,
-
         };
 
         public static int GetRandomNumber(int min, int max)
@@ -69,8 +73,15 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                SevenTowerSpawns = new Dictionary<Position, bool>();
-                foreach (Position pos in SPAWNPOINT_COORDS) { SevenTowerSpawns.Add(pos, false); }
+                foreach (Position pos in SPAWNPOINT_COORDS)
+                {
+                    SpawnModel spawnClass = new SpawnModel
+                    {
+                        Position = pos,
+                        Spawned = false
+                    };
+                    SevenTowerSpawns.Add(spawnClass);
+                }
                 foreach (AltV.Net.Enums.VehicleModel vehicles in VEHICLE_HASHES) { VEHICLE_LIST_MAX++; }
             }
             catch { }
@@ -82,7 +93,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                player.vnxSetElementData(EntityData.PLAYER_SPAWNED, false);
+                player.SevenTowers.Spawned = false;
             }
             catch (Exception ex)
             {
@@ -113,11 +124,10 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                foreach (Client player in SevenTowersPlayers)
+                foreach (Client player in Globals.Main.SevenTowersPlayers)
                 {
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
-                    SEVENTOWERS_ROUND_JOINTIME_TILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_JOINTIME);
                 }
             }
             catch (Exception ex)
@@ -133,7 +143,7 @@ namespace VenoXV.SevenTowers.Lobby
                 {
                     Alt.RemoveVehicle(veh);
                 }
-                foreach (Client player in SevenTowersPlayers)
+                foreach (Client player in Globals.Main.SevenTowersPlayers)
                 {
                     //if (player.IsInVehicle) { Reallife.dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true); return; }
                     //Reallife.dxLibary.VnX.SetElementFrozen(player, true);
@@ -149,18 +159,16 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                foreach (var Spawns in SevenTowerSpawns.ToList())
+                foreach (SpawnModel Spawns in SevenTowerSpawns.ToList())
                 {
-                    if (!Spawns.Value && !player.vnxGetElementData<bool>(EntityData.PLAYER_SPAWNED)) // Wenn Spawn nicht Belegt
+                    if (!Spawns.Spawned && !player.SevenTowers.Spawned) // Wenn Spawn nicht Belegt
                     {
-                        IVehicle vehicle = Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Key, new Rotation(0, 0, 0));
-                        player.SetPosition = Spawns.Key;
+                        IVehicle vehicle = Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Position, new Rotation(0, 0, 0));
+                        player.SpawnPlayer(Spawns.Position);
 
-                        player.vnxSetElementData(EntityData.PLAYER_SPAWNED, true);
+                        player.SevenTowers.Spawned = true;
                         player.WarpIntoVehicle<bool>(vehicle, -1);
                         SevenTowersVehicles.Add(vehicle);
-                        SevenTowerSpawns.Remove(Spawns.Key);
-                        SevenTowerSpawns.Add(Spawns.Key, true);
                         vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
                         vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
                     }
@@ -190,8 +198,7 @@ namespace VenoXV.SevenTowers.Lobby
         {
             try
             {
-                SevenTowersPlayers.Add(player);
-                if (SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
+                if (Globals.Main.SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
                 if (CanPlayerJoin())
                 {
                     PutPlayerInRound(player);
@@ -205,6 +212,31 @@ namespace VenoXV.SevenTowers.Lobby
             {
                 Debug.CatchExceptions("JoinedSevenTowers", ex);
             }
+        }
+
+        public static void OnUpdate()
+        {
+            try
+            {
+                if (SEVENTOWERS_ROUND_END <= DateTime.Now)
+                {
+                    EndRound();
+                    SEVENTOWERS_ROUND_IS_RUNNING = false;
+                    SEVENTOWERS_ROUND_WILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_START_AFTER_LOADING);
+                }
+
+                if (!SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
+                {
+                    if (Globals.Main.SevenTowersPlayers.Count > 0)
+                    {
+                        StartNewRound();
+                        SEVENTOWERS_ROUND_IS_RUNNING = true;
+                        SEVENTOWERS_ROUND_END = DateTime.Now.AddMinutes(SEVENTOWERS_ROUND_MINUTE);
+                        SEVENTOWERS_ROUND_JOINTIME_TILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_JOINTIME);
+                    }
+                }
+            }
+            catch { }
         }
     }
 }

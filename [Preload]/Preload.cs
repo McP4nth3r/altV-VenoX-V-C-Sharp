@@ -73,7 +73,8 @@ namespace VenoXV._Preload_
                 case 4:
                     player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.English;
-                    SevenTowers.Lobby.Main.JoinedSevenTowers(player);
+                    Globals.Main.SevenTowersPlayers.Add(player);
+                    _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
                     player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
                 default:
