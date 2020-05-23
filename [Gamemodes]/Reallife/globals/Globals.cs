@@ -23,7 +23,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public static List<ClothesModel> clothesList;
         public static List<TattooModel> tattooList;
         public static List<TunningModel> tunningList;
-        public static List<LabelModel> LabelList = new List<LabelModel>();
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
@@ -683,7 +682,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     if (interior.captionMessage != string.Empty)
                     {
                         //interior.textLabel = //ToDo: ClientSide erstellen NAPI.
-                        Core.RageAPI.CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new int[] { interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB }, 0);
+                        Core.RageAPI.CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new int[] { interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB, 255 }, 0);
                     }
                 }
 

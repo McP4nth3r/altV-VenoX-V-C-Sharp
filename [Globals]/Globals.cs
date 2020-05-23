@@ -3,6 +3,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 
 namespace VenoXV.Globals
@@ -124,6 +125,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Race.Globals.main.OnUpdate();
                 _Gamemodes_.SevenTowers.Main.OnUpdate();
                 Zombie.globals.Main.OnUpdate();
+                Sync.OnSyncTick();
             }
             catch { }
         }

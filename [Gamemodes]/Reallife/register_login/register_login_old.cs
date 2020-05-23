@@ -2,16 +2,14 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
@@ -344,11 +342,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                 character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
-                List<BlipModel> AlleBlips = VenoXV.Globals.Functions.BlipList;
-
-                player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
-                player.Emit("BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
-                RootCore.Sync.LoadAllTextLabels(player);
+                Sync.LoadBlips(player);
                 CreateGasBlips(player);
                 foreach (IVehicle Vehicle in Alt.GetAllVehicles())
                 {

@@ -1018,7 +1018,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 house.locked = true;
                 // Add a new house
                 house.id = Database.AddHouse(house);
-                ////house.houseLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(House.GetHouseLabelText(house), house.position, 20.0f, 0.75f, 4, new Rgba(255, 255, 255));
                 Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 });
                 House.houseList.Add(house);
 

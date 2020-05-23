@@ -27,16 +27,11 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         {
             try
             {
-                if (player.vnxGetElementData<int>("settings_atm") == 1)
+                if (player.Settings.ShowATM == 1)
                 {
                     player.Emit("ShowATMBlips");
                 }
-
-                if (player.vnxGetElementData<int>("settings_quest") == 1)
-                {
-                    player.vnxSetStreamSharedElementData("settings_quest", "ja");
-                }
-                if (player.vnxGetElementData<int>("settings_haus") == 1)
+                if (player.Settings.ShowHouse == 1)
                 {
                     if (House.houseList != null)
                     {
@@ -52,19 +47,6 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                             }
                         }
                     }
-                }
-                if (player.vnxGetElementData<int>("settings_tacho") == 1)
-                {
-                    player.vnxSetStreamSharedElementData("settings_tacho", "ja");
-                }
-                if (player.vnxGetElementData<int>("settings_reporter") == 1)
-                {
-                    player.vnxSetStreamSharedElementData("settings_reporter", "ja");
-                }
-
-                if (player.vnxGetElementData<int>("settings_globalchat") == 1)
-                {
-                    player.vnxSetStreamSharedElementData("settings_globalchat", "ja");
                 }
             }
             catch { }
