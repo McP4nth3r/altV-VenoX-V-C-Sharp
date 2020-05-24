@@ -109,11 +109,16 @@ namespace VenoXV._Preload_
             _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
         }
+        private static void LoadSevenTowersMap(Client player)
+        {
+            _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
+        }
         [ServerEvent("GlobalSystems:PlayerReady")]
         public void PlayerConnect(Client player)
         {
             try
             {
+                LoadSevenTowersMap(player);
                 LoadReallifeMaps(player);
                 player.Emit("showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode

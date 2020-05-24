@@ -74,7 +74,7 @@ function LoadModelsOnStart() {
 LoadModelsOnStart();
 
 
-
+/* Sync : TextLabels */
 
 let CurrentLabels = {};
 alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, ColorG, ColorB, ColorA, Dimension, Range) => {
@@ -96,6 +96,26 @@ alt.onServer('Sync:RemoveLabels', () => {
     //outputted = false;
     CurrentLabels = {};
 });
+
+/* Sync : Marker-Map */
+let CurrentMarkers = {};
+alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, ColorR, ColorG, ColorB, ColorA) => {
+    if (CurrentMarkers[ID] != null) { return; }
+    CurrentMarkers[ID] = {
+        ID: ID,
+        Type: Type,
+        PosX: PosX,
+        PosY: PosY,
+        PosZ: PosZ,
+        Scale: [ScaleX, ScaleY, ScaleZ],
+        Color: [ColorR, ColorG, ColorB, ColorA],
+    };
+})
+alt.onServer('Sync:RemoveMarkers', () => {
+    //outputted = false;
+    CurrentMarkers = {};
+});
+
 /*
 let outputted = false;
 function DebugLog() {
@@ -106,11 +126,46 @@ function DebugLog() {
     alt.log(c);
     outputted = true;
 }*/
-alt.everyTick(() => {
-    //if (!outputted) { DebugLog(); }
+
+function SyncTextLabels() {
     for (var labels in CurrentLabels) {
         let data = CurrentLabels[labels];
-        //alt.log(data.Text + " | " + data.PosX + " | " + data.PosY + " | " + data.PosZ + " | " + data.Font + " | " + data.Color[0] + " | " + data.Color[1] + " | " + data.Color[2] + " | " + data.Range);
         Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
+    }
+}
+
+function SyncMarkers() {
+    for (var Markers in CurrentMarkers) {
+        let data = CurrentMarkers[Markers];
+        game.drawMarker(data.type, data.PosX, data.PosY, data.PosZ, 0, 0, 0, 0, 0, 0, data.Scale[0], data.Scale[1], data.Scale[2], data.Color[0], data.Color[1], data.Color[2], data.Color[3], false, true, 2, false, undefined, undefined, false);
+    }
+}
+
+
+alt.everyTick(() => {
+    SyncTextLabels();
+    SyncMarkers();
+});
+
+
+let MapObjects = {};
+let MapC = 0;
+alt.onServer('Sync:LoadMap', (MapName, Hash, X, Y, Z, RotX, RotY, RotZ, freeze) => {
+    let Entity = game.createObject(Hash, X, Y, Z, false, false, false);
+    game.setEntityRotation(Entity, RotX, RotY, RotZ, 1, true);
+    game.freezeEntityPosition(Entity, freeze);
+    MapObjects[MapC++] = {
+        Entity: Entity,
+        MapName: MapName
+    };
+});
+
+alt.onServer('Sync:UnloadMap', (MapName) => {
+    for (var obj in MapObjects) {
+        if (MapObjects[obj].MapName == MapName) {
+            game.deleteObject(MapObjects[obj].Entity);
+            MapC--;
+            MapObjects[obj] = {};
+        }
     }
 });

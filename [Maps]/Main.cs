@@ -20,7 +20,10 @@ namespace VenoXV._Maps_
         private static readonly List<MapModel> STADTHALLEMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + STADTHALLE_MAP + ".json"));
 
         public const string WUERFELPARK_MAP = "WUERFELPARK";
-        //private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));
+        //private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));        
+
+        public const string SEVENTOWERS_MAP = "SEVENTOWERS";
+        private static readonly List<MapModel> SEVENTOWERSMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + SEVENTOWERS_MAP + ".json"));
 
         public static void LoadMap(Client playerClass, string MapName)
         {
@@ -29,19 +32,25 @@ namespace VenoXV._Maps_
                 case LSPD_MAP:
                     foreach (MapModel mapClass in LSPDMAP)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z);
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z, true);
                     }
                     break;
                 case NOOBSPAWN_MAP:
                     foreach (MapModel mapClass in NOOBSPAWNMAP)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z);
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z, true);
                     }
                     break;
                 case STADTHALLE_MAP:
                     foreach (MapModel mapClass in STADTHALLEMAP)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z);
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z, true);
+                    }
+                    break;
+                case SEVENTOWERS_MAP:
+                    foreach (MapModel mapClass in SEVENTOWERSMAP)
+                    {
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z, mapClass.Rotation.X, mapClass.Rotation.Y, mapClass.Rotation.Z, true);
                     }
                     break;
                 case WUERFELPARK_MAP:
