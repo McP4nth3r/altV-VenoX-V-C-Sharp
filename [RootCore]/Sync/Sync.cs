@@ -14,12 +14,13 @@ namespace VenoXV._RootCore_.Sync
 
         public static List<BlipModel> BlipList = new List<BlipModel>();
         public static List<LabelModel> LabelList = new List<LabelModel>();
+        public static List<MarkerModel> MarkerList = new List<MarkerModel>();
         public static DateTime NextSyncTick = DateTime.Now;
 
         //BlipClass Sync
         public static void LoadBlips(Client playerClass)
         {
-            List<BlipModel> AlleBlips = Sync.BlipList;
+            List<BlipModel> AlleBlips = BlipList;
             Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
         }
 
@@ -35,8 +36,21 @@ namespace VenoXV._RootCore_.Sync
                     Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
                 }
             }
-
         }
+
+        // Marker Sync
+        private static void SyncMarker(Client playerClass)
+        {
+            Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
+            foreach (MarkerModel marker in MarkerList)
+            {
+                if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
+                {
+                    Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
+                }
+            }
+        }
+
         public static void OnSyncTick()
         {
             try
@@ -46,6 +60,7 @@ namespace VenoXV._RootCore_.Sync
                     foreach (Client playerClass in Alt.GetAllPlayers())
                     {
                         SyncTextLabels(playerClass);
+                        SyncMarker(playerClass);
                     }
                     NextSyncTick.AddSeconds(UpdateInterval);
                 }

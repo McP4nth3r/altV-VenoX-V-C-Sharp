@@ -103,11 +103,18 @@ namespace VenoXV._Preload_
             catch { }
         }
 
+        private static void LoadReallifeMaps(Client player)
+        {
+            _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
+        }
         [ServerEvent("GlobalSystems:PlayerReady")]
         public void PlayerConnect(Client player)
         {
             try
             {
+                LoadReallifeMaps(player);
                 player.Emit("showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode
                 _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);

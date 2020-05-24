@@ -213,18 +213,9 @@ namespace VenoXV.Core
             try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
         }
-        public static void ResetClothes(this Client element)
-        {
-            try
-            {
-                element.SetPlayerSkin(element.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ResetClothes", ex); }
-        }
         public static void SetProp(this Client element, int propID, int drawableID, int textureID)
         {
             if (propID < 0 || textureID < 0) { return; }
-            Core.Debug.OutputDebugString("Stuff : " + propID + " | " + drawableID + " | " + textureID);
             try { element.Emit("Prop:Load", propID, drawableID, textureID); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
         }
@@ -253,7 +244,7 @@ namespace VenoXV.Core
             catch { }
         }
         private static int TextLabelCounter = 0;
-        public static void CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
         {
             try
             {
@@ -274,22 +265,46 @@ namespace VenoXV.Core
                     ColorA = color[3]
                 };
                 Sync.LabelList.Add(label);
+                return label;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); return new LabelModel(); }
         }
-        public static void CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
+        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
         {
-            BlipModel blip = new BlipModel
+            try
             {
-                Name = Name,
-                posX = coord.X,
-                posY = coord.Y,
-                posZ = coord.Z,
-                Sprite = Sprite,
-                Color = Color,
-                ShortRange = ShortRange
-            };
-            Sync.BlipList.Add(blip);
+                BlipModel blip = new BlipModel
+                {
+                    Name = Name,
+                    posX = coord.X,
+                    posY = coord.Y,
+                    posZ = coord.Z,
+                    Sprite = Sprite,
+                    Color = Color,
+                    ShortRange = ShortRange
+                };
+                Sync.BlipList.Add(blip);
+                return blip;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
+        }
+        private static int MarkerCounter = 0;
+        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color)
+        {
+            try
+            {
+                MarkerModel marker = new MarkerModel
+                {
+                    ID = MarkerCounter++,
+                    Type = Type,
+                    Position = Position,
+                    Scale = Scale,
+                    Color = Color
+                };
+                Sync.MarkerList.Add(marker);
+                return marker;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
         }
 
         public static float ToRadians(float val)
