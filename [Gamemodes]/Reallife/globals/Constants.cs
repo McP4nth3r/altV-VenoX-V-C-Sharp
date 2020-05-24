@@ -454,7 +454,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new InteriorModel("Krankenhaus", new Position(355.45f, -596.153f, 28.77341f), new Position(275.446f, -1361.11f, 24.5378f), "Coroner_Int_On", 153, "Krankenhaus", 255,255,255, 1),
             new InteriorModel("Weazel News", new Position(-598.51f, -929.95f, 23.87f), new Position(-1082.433f, -258.7667f, 37.76331f), "facelobby", 459, "Weazel News",  255,255,255,0),
             new InteriorModel("Los Santos Police Department", new Position(434.4719f,-982.0015f,30.71084f), new Position(434.4719f,-982.0015f,30.71084f), string.Empty, 60, "Los Santos Police Department",255,255,255, 0),
-            new InteriorModel("Rathaus", Rathaus.RathausMarkerEingang, Rathaus.RathausMarkerImInterior, string.Empty, 1, "Rathaus", 255,255,255, 64),
+            new InteriorModel("Rathaus", Rathaus.RathausMarkerEingang.Position, Rathaus.RathausMarkerImInterior.Position, string.Empty, 1, "Rathaus", 255,255,255, 64),
 
         };
 

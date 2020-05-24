@@ -1009,7 +1009,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else if (isStateFaction(player))
                 {
-                    player.ResetClothes();
                     foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                     {
                         if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)

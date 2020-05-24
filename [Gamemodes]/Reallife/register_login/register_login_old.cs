@@ -2,10 +2,13 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -330,6 +333,8 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
                 CreateGasBlips(player);
+                List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
+                player.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }

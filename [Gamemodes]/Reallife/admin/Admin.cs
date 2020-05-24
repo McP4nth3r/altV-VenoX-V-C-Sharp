@@ -682,7 +682,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             Client target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
 
-            List<InventoryModel> inventory = Reallife.anzeigen.Inventar.Main.GetPlayerInventory(target);
+            List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(target);
             target.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
 

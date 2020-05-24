@@ -3,7 +3,6 @@ using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.character
 {
@@ -24,7 +23,6 @@ namespace VenoXV._Gamemodes_.Reallife.character
             try
             {
                 int playerId = player.UID;
-                player.ResetClothes();
                 foreach (ClothesModel clothes in Main.clothesList)
                 {
                     if (clothes.player == playerId && clothes.dressed)
