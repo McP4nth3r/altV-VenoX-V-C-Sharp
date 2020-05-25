@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
+using VenoXV._Gamemodes_.Tactics.model;
 
 namespace VenoXV._Gamemodes_.Tactics.maps
 {
@@ -307,7 +309,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
-             new RoundModel
+            new RoundModel
             {
                 Map_Name = "Gefängnis",
                 Team_A_Name = "Inhaftierte",
@@ -334,8 +336,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-             },
-              new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "Biker",
                 Team_A_Name = "SAMCRO",
@@ -362,8 +364,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-              },
-              new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "Altruistendorf",
                 Team_A_Name = "Altruisten",
@@ -390,8 +392,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-              },
-              new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "Holzfäller",
                 Team_A_Name = "Holzfäller",
@@ -418,8 +420,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-              },
-              new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "U-Bahn",
                 Team_A_Name = "S.W.A.T",
@@ -447,7 +449,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
                 },
-                new RoundModel
+            new RoundModel
             {
                 Map_Name = "Rennstrecke",
                 Team_A_Name = "S.W.A.T",
@@ -474,8 +476,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-                },
-                  new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "Airfield",
                 Team_A_Name = "Militär",
@@ -502,8 +504,8 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-                },
-                  new RoundModel
+            },
+            new RoundModel
             {
                 Map_Name = "Fischerdorf",
                 Team_A_Name = "Angler",
@@ -530,8 +532,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-                  }
-
+            }
         };
     }
 }
