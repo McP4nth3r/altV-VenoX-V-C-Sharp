@@ -82,8 +82,8 @@ namespace VenoXV.Globals
                     }
                     else
                     {
-                        Core.Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
+                        Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
+                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
                     }
                     return;
                 }
@@ -91,7 +91,7 @@ namespace VenoXV.Globals
                 {
                     if (killer == null || Functions.IstargetInSameLobby(player, killer))
                     {
-                        VenoXV._Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                        _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
                     }
                 }
                 else

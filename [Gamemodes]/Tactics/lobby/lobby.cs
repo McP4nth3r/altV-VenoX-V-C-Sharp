@@ -169,7 +169,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     player.Armor = 100;
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, false);
+                Reallife.dxLibary.VnX.SetElementFrozen(player, false);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
         }
@@ -193,6 +193,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
 
                 if (player.Tactics.Team == EntityData.COPS_NAME)
                 {
+                    Alt.Emit("GlobalSystems:PlayerTeam", player, 0);
                     if (MEMBER_COUNT_BFAC <= MEMBER_COUNT_COPS) // Wenn Böse Fraktionisten in der Unterzahl sind, dann Spieler in die BFAC tun.
                     {
                         MEMBER_COUNT_BFAC += 1;
@@ -210,6 +211,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 }
                 else
                 {
+                    Alt.Emit("GlobalSystems:PlayerTeam", player, 1);
                     if (MEMBER_COUNT_COPS <= MEMBER_COUNT_BFAC) // Wenn Böse Fraktionisten in der Unterzahl sind, dann Spieler in die BFAC tun.
                     {
                         MEMBER_COUNT_COPS += 1;
