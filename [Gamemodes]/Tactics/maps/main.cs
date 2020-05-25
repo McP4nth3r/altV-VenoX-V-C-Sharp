@@ -446,6 +446,34 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+                },
+                new RoundModel
+            {
+                Map_Name = "Rennstrecke",
+                Team_A_Name = "S.W.A.T",
+                Team_A_Skin = "s_m_y_swat_01",
+                Team_A_WinnerText = "Das S.W.A.T gewinnt die Runde.",
+                Team_A_Color = new int[] { 0, 50, 183 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(1034.9407f, 2302.51f, 44.832275f),
+                    new Vector3(1034.4528f, 2300.7693f, 44.832275f),
+                    new Vector3(1033.8726f, 2298.765f, 44.81543f),
+                    new Vector3(1032.5275f, 2299.0022f, 44.81543f),
+                },
+                Team_B_Name = "SAMCRO",
+                Team_B_Skin = "g_m_y_lost_03",
+                Team_B_WinnerText = "SAMCRO gewinnt die Runde.",
+                Team_B_Color = new int[] { 100, 50, 50 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(1018.87915f, 2258.189f, 44.630005f),
+                    new Vector3(1019.34064f, 2260.655f, 44.630005f),
+                    new Vector3(1016.74286f, 2262.3032f, 44.832275f),
+                    new Vector3(1014.55383f, 2259.3757f, 45.152344f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
                 }
 
         };
