@@ -502,7 +502,35 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-                }
+                },
+                  new RoundModel
+            {
+                Map_Name = "Fischerdorf",
+                Team_A_Name = "Angler",
+                Team_A_Skin = "g_m_y_mexgoon_03",
+                Team_A_WinnerText = "Die Angler gewinnen die Runde.",
+                Team_A_Color = new int[] { 192, 192, 192 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(1311.6923f, 4313.288f, 38.058594f),
+                    new Vector3(1312.2329f, 4315.0815f, 38.125977f),
+                    new Vector3(1311.4813f, 4315.5825f, 38.07544f),
+                    new Vector3(1310.5978f, 4315.2793f, 37.974365f),
+                },
+                Team_B_Name = "P.B.P.D",
+                Team_B_Skin = "s_m_y_hwaycop_01",
+                Team_B_WinnerText = "Das P.B.P.D gewinnen die Runde.",
+                Team_B_Color = new int[] { 255, 160, 122 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(1367.8418f, 4366.536f, 44.326782f),
+                    new Vector3(1366.6022f, 4366.813f, 44.326782f),
+                    new Vector3(1365.811f, 4365.178f, 44.326782f),
+                    new Vector3(1366.589f, 4364.466f, 44.326782f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+                  }
 
         };
     }
