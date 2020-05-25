@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Numerics;
-using VenoXV._Gamemodes_.Tactics.model;
 
 namespace VenoXV._Gamemodes_.Tactics.maps
 {
@@ -420,7 +418,36 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<VehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-              }
+              },
+              new RoundModel
+            {
+                Map_Name = "U-Bahn",
+                Team_A_Name = "S.W.A.T",
+                Team_A_Skin = "s_m_y_swat_01",
+                Team_A_WinnerText = "Das S.W.A.T gewinnt die Runde.",
+                Team_A_Color = new int[] { 0, 50, 183 },
+                Team_A_Spawnpoints = new List<Vector3>{
+                    new Vector3(129.00659f, -563.74945f, 22.017578f),
+                    new Vector3(128.99341f, -565.5165f, 22.017578f),
+                    new Vector3(131.8022f, -566.04395f, 22.017578f),
+                    new Vector3(132.92308f, -565.0154f, 22.017578f),
+                },
+                Team_B_Name = "SAMCRO",
+                Team_B_Skin = "g_m_y_lost_03",
+                Team_B_WinnerText = "SAMCRO gewinnt die Runde.",
+                Team_B_Color = new int[] { 100, 50, 50 },
+                Team_B_Spawnpoints = new List<Vector3>{
+                    new Vector3(170.51868f, -552.0791f, 21.967041f),
+                    new Vector3(170.34726f, -553.7143f, 21.967041f),
+                    new Vector3(169.33186f, -554.3472f, 21.967041f),
+                    new Vector3(169.96483f, -555.6923f, 21.967041f),
+                },
+                Custom_Weapon_Map = false,
+                Custom_Weapon_Mode_Name = "",
+                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
+                }
+
         };
     }
 }
