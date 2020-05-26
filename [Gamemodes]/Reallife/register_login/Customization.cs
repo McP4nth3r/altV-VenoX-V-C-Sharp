@@ -8,16 +8,6 @@ namespace VenoXV._Gamemodes_.Reallife.character
 {
     public class Customization : IScript
     {
-        public static void ApplyPlayerCustomization(Client player, SkinModel skinModel, int sex)
-        {
-            try
-            {
-                Core.RageAPI.SetClothes(player, 2, skinModel.hairModel, 0);
-                Core.RageAPI.SetCustomization(player, skinModel);
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerCustomization", ex); }
-        }
-
         public static void ApplyPlayerClothes(Client player)
         {
             try
