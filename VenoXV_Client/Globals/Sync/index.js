@@ -150,9 +150,9 @@ alt.everyTick(() => {
 
 let MapObjects = {};
 let MapC = 0;
-alt.onServer('Sync:LoadMap', (MapName, Hash, X, Y, Z, RotX, RotY, RotZ, freeze) => {
+alt.onServer('Sync:LoadMap', (MapName, Hash, X, Y, Z, RotOrder, RotX, RotY, RotZ, freeze) => {
     let Entity = game.createObject(Hash, X, Y, Z, false, false, false);
-    game.setEntityRotation(Entity, RotX, RotY, RotZ, 1, true);
+    game.setEntityRotation(Entity, RotX, RotY, RotZ, RotOrder, true);
     game.freezeEntityPosition(Entity, freeze);
     MapObjects[MapC++] = {
         Entity: Entity,
