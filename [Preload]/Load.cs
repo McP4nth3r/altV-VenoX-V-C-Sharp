@@ -1,16 +1,44 @@
 ﻿using AltV.Net;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
+using static VenoXV._Preload_.Preload;
 
 namespace VenoXV._Preload_
 {
     public class Load : IScript
     {
-        public static void InitializePlayerData(Client player)
-        {
-            player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, "VenoX");
-            player.vnxSetStreamSharedElementData("SocialState_NAMETAG", "VenoX");
-        }
 
+        public static void LoadGamemodeWindows(Client player, Gamemodes Gamemode)
+        {
+            switch (Gamemode)
+            {
+                case Gamemodes.Reallife:
+                    player.Emit("Inventory:Load");
+                    player.Emit("XMenu:Load'");
+                    break;
+                case Gamemodes.Tactics:
+                    break;
+                case Gamemodes.Zombies:
+                    //Test
+                    break;
+                case Gamemodes.SevenTowers:
+                    break;
+            }
+        }
+        public static void UnloadGamemodeWindows(Client player, Gamemodes Gamemode)
+        {
+            switch (Gamemode)
+            {
+                case Gamemodes.Reallife:
+                    player.Emit("Inventory:Unload");
+                    player.Emit("XMenu:Unload");
+                    break;
+                case Gamemodes.Tactics:
+                    break;
+                case Gamemodes.Zombies:
+                    break;
+                case Gamemodes.SevenTowers:
+                    break;
+            }
+        }
     }
 }

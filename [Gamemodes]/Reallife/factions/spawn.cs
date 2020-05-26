@@ -27,6 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 player.vnxSetElementData(EntityData.PLAYER_KILLED, 0);
                 player.vnxSetStreamSharedElementData(EntityData.PLAYER_HUNGER, 100);
                 player.Emit("start_screen_fx", "RaceTurbo", 2000, false);
+                player.Dimension = 0;
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
                 {

@@ -6,7 +6,6 @@ using System.Numerics;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.model;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.Lobby
@@ -246,7 +245,6 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 // To Do : wenn runde gestartet ist = nicht machen !
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
-                    AntiCheat_Allround.SetTimeOutHealth(players, 3000);
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
                     //InitializePlayerData(players);

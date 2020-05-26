@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -35,14 +36,28 @@ namespace VenoXV._Preload_
             SevenTowers = 4,
         };
 
+        [Command("leave")]
+        public static void ShowGamemodeSelection(Client player)
+        {
+            try
+            {
+                player.Dimension = player.Id;
+                Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
+                player.Emit("preload_gm_list");
+            }
+            catch { }
+        }
+
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(Client player, int value)
         {
+            player.Dimension = player.Id;
             switch (value)
             {
                 case 0:
                     player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
+                    Load.LoadGamemodeWindows(player, (int)Gamemodes.Reallife);
                     _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     Globals.Main.ReallifePlayers.Add(player);
                     player.Emit("Player:ChangeCurrentLobby", "Reallife");
@@ -51,6 +66,7 @@ namespace VenoXV._Preload_
                     Globals.Main.ZombiePlayers.Add(player);
                     player.Language = (int)_Language_.Main.Languages.English;
                     player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
+                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Zombies);
                     Zombie.World.Main.OnSelectedZombieGM(player);
                     player.Emit("Load_Zombie_GM");
                     player.Emit("Player:ChangeCurrentLobby", "Zombies");
@@ -61,12 +77,14 @@ namespace VenoXV._Preload_
                     Globals.Main.TacticsPlayers.Add(player);
                     _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Tactics");
+                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Tactics);
                     break;
                 case 3:
                     player.Gamemode = (int)Gamemodes.Race;
                     player.Language = (int)_Language_.Main.Languages.English;
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
+                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Race);
                     player.Emit("Player:ChangeCurrentLobby", "Race");
                     break;
                 case 4:
@@ -74,6 +92,7 @@ namespace VenoXV._Preload_
                     player.Language = (int)_Language_.Main.Languages.English;
                     Globals.Main.SevenTowersPlayers.Add(player);
                     _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
+                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Seventowers);
                     player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
                 default:
@@ -81,6 +100,7 @@ namespace VenoXV._Preload_
                     break;
             }
             player.Playing = true;
+            player.Emit("Preload:LoadTickEvents", player.Gamemode);
         }
 
 

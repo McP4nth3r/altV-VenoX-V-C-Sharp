@@ -20,9 +20,9 @@ namespace VenoXV.Zombie.KI
             {
                 Random randomSkin = new Random();
                 int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
-                Core.Debug.OutputDebugString("FaceFeatures : " + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].FaceFeatures);
+                /*Core.Debug.OutputDebugString("FaceFeatures : " + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].FaceFeatures);
                 Core.Debug.OutputDebugString("HeadBlendData :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadBlendData);
-                Core.Debug.OutputDebugString("HeadOverlays :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays);
+                Core.Debug.OutputDebugString("HeadOverlays :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays);*/
                 ZombieModel zombieClass = new ZombieModel
                 {
                     ID = CurrentZombieCounter++,
