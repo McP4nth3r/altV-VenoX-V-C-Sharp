@@ -13,6 +13,10 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
+                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers)
+                {
+                    Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
+                }
                 if (!KilledZombieIds.Contains(Id)) KilledZombieIds.Add(Id);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
