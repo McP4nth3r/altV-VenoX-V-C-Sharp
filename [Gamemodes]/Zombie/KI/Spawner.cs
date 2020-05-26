@@ -1,7 +1,9 @@
 ﻿using AltV.Net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
 using VenoXV.Globals;
@@ -16,17 +18,51 @@ namespace VenoXV.Zombie.KI
         {
             foreach (Client player in Main.ZombiePlayers)
             {
+                Random randomSkin = new Random();
+                int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
+                Core.Debug.OutputDebugString("FaceFeatures : " + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].FaceFeatures);
+                Core.Debug.OutputDebugString("HeadBlendData :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadBlendData);
+                Core.Debug.OutputDebugString("HeadOverlays :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays);
                 ZombieModel zombieClass = new ZombieModel
                 {
                     ID = CurrentZombieCounter++,
-                    SkinName = "u_m_y_zombie_01",
+                    SkinName = "mp_m_freemode_01",
+                    RandomSkinUID = randomSkinPicked,
+                    FaceFeatures = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].FaceFeatures,
+                    HeadBlendData = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadBlendData,
+                    HeadOverlays = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays,
+                    Sex = 0,
                     IsDead = false,
-                    Position = new Vector3(player.Position.X + 3, player.Position.Y + 3, player.Position.Z),
+                    Position = new Vector3(player.Position.X + 5, player.Position.Y + 5, player.Position.Z),
                     TargetEntity = null
                 };
                 CurrentZombies.Add(zombieClass);
             }
         }
+
+        private static void ApplyZombieClothes(Client player, int RandomSkinUID, int ZombieId)
+        {
+            try
+            {
+                foreach (ClothesModel clothes in _Gamemodes_.Reallife.Globals.Main.clothesList)
+                {
+                    if (clothes.player == RandomSkinUID && clothes.dressed)
+                    {
+                        if (clothes.type == 0)
+                        {
+                            player.Emit("Clothes:Load", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                        }
+                        else
+                        {
+                            player.Emit("Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                        }
+                    }
+                }
+                player.Emit("Zombies:ApplyBloodToZombie", ZombieId);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyZombieClothes", ex); }
+        }
+
         private static void SpawnZombiesArroundPlayers()
         {
             foreach (Client player in Main.ZombiePlayers)
@@ -36,7 +72,8 @@ namespace VenoXV.Zombie.KI
                     if (player.Position.Distance(zombieClass.Position) <= 50 && zombieClass.TargetEntity == null)
                     {
                         zombieClass.TargetEntity = player;
-                        player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.Position, player);
+                        player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, player);
+                        ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
                     }
                 }
             }
@@ -63,12 +100,12 @@ namespace VenoXV.Zombie.KI
             {
                 if (zombies.ID == Id)
                 {
+                    /*
                     foreach (Client players in Main.ZombiePlayers)
                     {
                         players.Emit("Zombies:DeleteZombieById", Id);
-                    }
+                    }*/
                     CurrentZombies.Remove(zombies);
-                    CurrentZombieCounter--;
                 }
             }
         }
