@@ -399,77 +399,75 @@ namespace VenoXV._RootCore_.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM users WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", characterId);
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM users WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", characterId);
+                    reader.Read();
+                    float posX = reader.GetFloat("posX");
+                    float posY = reader.GetFloat("posY");
+                    float posZ = reader.GetFloat("posZ");
+                    float rot = reader.GetFloat("rotation");
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        reader.Read();
-                        float posX = reader.GetFloat("posX");
-                        float posY = reader.GetFloat("posY");
-                        float posZ = reader.GetFloat("posZ");
-                        float rot = reader.GetFloat("rotation");
+                    character.UID = reader.GetInt32("UID");
+                    character.Username = reader.GetString("SpielerName");
+                    character.AdminRank = reader.GetInt32("adminRank");
+                    character.Reallife.SpawnLocation = reader.GetString("spawn");
+                    character.Reallife.Knastzeit = reader.GetInt32("knastzeit");
+                    character.Reallife.Faction = reader.GetInt32("faction");
+                    character.Reallife.Zivizeit = reader.GetDateTime("zivizeit");
+                    character.SetPosition = new Position(posX, posY, posZ);
+                    character.Reallife.Money = reader.GetInt32("money");
+                    character.Reallife.Bank = reader.GetInt32("bank");
+                    character.Reallife.SocialState = reader.GetString("SocialState");
+                    character.Sex = reader.GetInt32("sex");
+                    character.Reallife.REALLIFE_JOB = reader.GetString("job");
+                    character.Reallife.LIEFERJOB_LEVEL = reader.GetInt32("LIEFERJOB_LEVEL");
+                    character.Reallife.AIRPORTJOB_LEVEL = reader.GetInt32("AIRPORTJOB_LEVEL");
+                    character.Reallife.BUSJOB_LEVEL = reader.GetInt32("BUSJOB_LEVEL");
+                    character.Reallife.FactionRank = reader.GetInt32("rank");
+                    character.Dead = reader.GetInt32("killed");
+                    character.Reallife.HouseRent = reader.GetInt32("houseRent");
+                    character.Reallife.HouseEntered = reader.GetInt32("houseEntered");
+                    character.Reallife.BusinessEntered = reader.GetInt32("businessEntered");
 
-                        character.UID = reader.GetInt32("UID");
-                        character.Username = reader.GetString("SpielerName");
-                        character.AdminRank = reader.GetInt32("adminRank");
-                        character.Reallife.SpawnLocation = reader.GetString("spawn");
-                        character.Reallife.Knastzeit = reader.GetInt32("knastzeit");
-                        character.Reallife.Faction = reader.GetInt32("faction");
-                        character.Reallife.Zivizeit = reader.GetDateTime("zivizeit");
-                        character.SetPosition = new Position(posX, posY, posZ);
-                        character.Reallife.Money = reader.GetInt32("money");
-                        character.Reallife.Bank = reader.GetInt32("bank");
-                        character.Reallife.SocialState = reader.GetString("SocialState");
-                        character.Sex = reader.GetInt32("sex");
-                        character.Reallife.REALLIFE_JOB = reader.GetString("job");
-                        character.Reallife.LIEFERJOB_LEVEL = reader.GetInt32("LIEFERJOB_LEVEL");
-                        character.Reallife.AIRPORTJOB_LEVEL = reader.GetInt32("AIRPORTJOB_LEVEL");
-                        character.Reallife.BUSJOB_LEVEL = reader.GetInt32("BUSJOB_LEVEL");
-                        character.Reallife.FactionRank = reader.GetInt32("rank");
-                        character.Dead = reader.GetInt32("killed");
-                        character.Reallife.HouseRent = reader.GetInt32("houseRent");
-                        character.Reallife.HouseEntered = reader.GetInt32("houseEntered");
-                        character.Reallife.BusinessEntered = reader.GetInt32("businessEntered");
+                    character.Reallife.Personalausweis = reader.GetInt32("Personalausweis");
+                    character.Reallife.Autofuehrerschein = reader.GetInt32("Autofuehrerschein");
+                    character.Reallife.Motorradfuehrerschein = reader.GetInt32("Motorradfuehrerschein");
+                    character.Reallife.LKWfuehrerschein = reader.GetInt32("LKWfuehrerschein");
+                    character.Reallife.Helikopterfuehrerschein = reader.GetInt32("Helikopterfuehrerschein");
+                    character.Reallife.FlugscheinKlasseA = reader.GetInt32("FlugscheinKlasseA");
+                    character.Reallife.FlugscheinKlasseB = reader.GetInt32("FlugscheinKlasseB");
+                    character.Reallife.Motorbootschein = reader.GetInt32("Motorbootschein");
+                    character.Reallife.Angelschein = reader.GetInt32("Angelschein");
+                    character.Reallife.Waffenschein = reader.GetInt32("Waffenschein");
 
-                        character.Reallife.Personalausweis = reader.GetInt32("Personalausweis");
-                        character.Reallife.Autofuehrerschein = reader.GetInt32("Autofuehrerschein");
-                        character.Reallife.Motorradfuehrerschein = reader.GetInt32("Motorradfuehrerschein");
-                        character.Reallife.LKWfuehrerschein = reader.GetInt32("LKWfuehrerschein");
-                        character.Reallife.Helikopterfuehrerschein = reader.GetInt32("Helikopterfuehrerschein");
-                        character.Reallife.FlugscheinKlasseA = reader.GetInt32("FlugscheinKlasseA");
-                        character.Reallife.FlugscheinKlasseB = reader.GetInt32("FlugscheinKlasseB");
-                        character.Reallife.Motorbootschein = reader.GetInt32("Motorbootschein");
-                        character.Reallife.Angelschein = reader.GetInt32("Angelschein");
-                        character.Reallife.Waffenschein = reader.GetInt32("Waffenschein");
+                    character.Played = reader.GetInt32("played");
+                    character.Reallife.Quests = reader.GetInt32("quests");
+                    character.Reallife.Wanteds = reader.GetInt32("wanteds");
+                    character.Reallife.Kaution = reader.GetInt32("kaution");
+                    character.Reallife.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
 
-                        character.Played = reader.GetInt32("played");
-                        character.Reallife.Quests = reader.GetInt32("quests");
-                        character.Reallife.Wanteds = reader.GetInt32("wanteds");
-                        character.Reallife.Kaution = reader.GetInt32("kaution");
-                        character.Reallife.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
+                    character.Settings.ShowATM = reader.GetInt32("atm_anzeigen");
+                    character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
+                    character.Settings.ShowSpeedo = reader.GetInt32("tacho_anzeigen");
+                    character.Settings.ShowQuests = reader.GetInt32("quest_anzeigen");
+                    character.Settings.ShowReporter = reader.GetInt32("reporter_anzeigen");
+                    character.Settings.ShowGlobalChat = reader.GetInt32("globalchat_anzeigen");
 
-                        character.Settings.ShowATM = reader.GetInt32("atm_anzeigen");
-                        character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
-                        character.Settings.ShowSpeedo = reader.GetInt32("tacho_anzeigen");
-                        character.Settings.ShowQuests = reader.GetInt32("quest_anzeigen");
-                        character.Settings.ShowReporter = reader.GetInt32("reporter_anzeigen");
-                        character.Settings.ShowGlobalChat = reader.GetInt32("globalchat_anzeigen");
+                    character.Tactics.Kills = reader.GetInt32("tactic_kills");
+                    character.Tactics.Deaths = reader.GetInt32("tactic_tode");
 
-                        character.Tactics.Kills = reader.GetInt32("tactic_kills");
-                        character.Tactics.Deaths = reader.GetInt32("tactic_tode");
+                    character.Zombies.Zombie_tode = reader.GetInt32("zombie_tode");
+                    character.Zombies.Zombie_kills = reader.GetInt32("zombie_kills");
+                    character.Zombies.Zombie_player_kills = reader.GetInt32("zombie_player_kills");
 
-                        character.Zombies.Zombie_tode = reader.GetInt32("zombie_tode");
-                        character.Zombies.Zombie_kills = reader.GetInt32("zombie_kills");
-                        character.Zombies.Zombie_player_kills = reader.GetInt32("zombie_player_kills");
-
-                        character.Reallife.Adventskalender = reader.GetInt32("Adventskalender");
-                    }
+                    character.Reallife.Adventskalender = reader.GetInt32("Adventskalender");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("LoadCharacterInformationById", ex); }
