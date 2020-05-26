@@ -5,6 +5,7 @@ export function LoadChat() {
   if (webview != null) { return; }
   webview = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/html/index.html");
   webview.focus();
+  chatActive = true;
   webview.on('chat:onLoaded', () => {
     activateChat(true);
     push('Connected to VenoX', 'white', [0, 200, 255], 'check')
@@ -136,6 +137,7 @@ function scrollMessagesList(direction) {
 }
 
 function activateInput(state) {
+  webview.focus(state);
   webview.emit('chat:activateInput', state);
 }
 

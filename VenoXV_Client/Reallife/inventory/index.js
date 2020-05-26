@@ -10,7 +10,8 @@ import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
 let InventoryCreated = false;
 let InventoryOpen = false;
 let InventoryBrowser;
-export function CreateInventory() {
+
+alt.onServer('Inventory:Load', () => {
     if (InventoryCreated) { return; }
     InventoryBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/inventory/main.html");
     InventoryCreated = true;
@@ -23,7 +24,13 @@ export function CreateInventory() {
                 alt.emitServer('Inventory:Remove', Hash);
         }
     });
-}
+});
+
+alt.onServer('Inventory:Unload', () => {
+    if (!InventoryCreated) { return; }
+    InventoryBrowser.destroy();
+    InventoryCreated = false;
+});
 
 
 export function OnInventoryKeyPressed(key) {

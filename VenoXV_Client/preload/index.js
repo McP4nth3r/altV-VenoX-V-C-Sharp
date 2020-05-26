@@ -7,16 +7,7 @@
 let preloadbrowser = null;
 import * as alt from 'alt-client';
 import * as game from "natives";
-import * as dxClass from '../Globals/VnX-Lib/dxClass';
 import { ShowCursor } from '../Globals/VnX-Lib';
-import { CreateInventory } from '../Reallife/inventory';
-
-
-function test() {
-	dxClass.vnxDestroyWindow("TestWindow");
-}
-
-
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -29,7 +20,9 @@ dxClass.vnxDrawText("RollerText", "Roller Vermietungs Text lol", "Hello Alt:V,\n
 //dxClass.vnxDrawWindow("FynnZeigt", "Info für FynnScheisst", "Fynnzeigts erstes Window", 0, 0, 0.3, 0.2, penis);
 
 
+alt.onServer('Preload:UnloadGamemode', (Id) => {
 
+});
 
 alt.onServer('preload_gm_list', () => {
 	if (preloadbrowser != null) {
@@ -44,15 +37,6 @@ alt.onServer('preload_gm_list', () => {
 			preloadbrowser.destroy();
 			preloadbrowser = null;
 		}
-		if (v == 0) {
-			//eval(`import "./Reallife/VenoXV/index.js"`);
-			CreateInventory();
-		}
-		else if (v == 1) {
-			////eval(`import "./Zombie/VenoXV/index.js"`);	
-		}
-		else if (v == 2) {
-		}
 		alt.emitServer("Load_selected_gm_server", v);
 		game.setEntityAlpha(alt.Player.local.scriptID, 255);
 		game.freezeEntityPosition(alt.Player.local.scriptID, false);
@@ -63,21 +47,11 @@ alt.onServer('preload_gm_list', () => {
 });
 
 
-alt.onServer('LoadReallifeGamemodeRemote', () => {
-	CreateInventory();
-});
-
 alt.onServer('LoadPreloadUserInfo', (z, r, t) => {
 	alt.emit("Load:UserInfo", z, r, t);
 	//preloadbrowser.execute(`document.getElementById('rec_0_userinfo').innerHTML="` + z + `";document.getElementById('rec_1_userinfo').innerHTML="` + r + `";document.getElementById('rec_2_userinfo').innerHTML="` + t + `";`);
 });
 
-
-alt.onServer('Load_Zombie_GM', () => {
-	//ToDo :Freeze/Unfreeze Player - mp.players.local.freezePosition(false);
-	//ToDo : Hide/ShowCursor - mp.gui.cursor.show(false, false);
-	//eval(`import "./Zombie/VenoXV/index.js"`);	
-});
 
 alt.onServer("Charselector:setCorrectSkin", (facefeaturesarray, headblendsarray, headoverlaysarray) => {
 	alt.log(facefeaturesarray);

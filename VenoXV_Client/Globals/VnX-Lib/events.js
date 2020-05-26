@@ -278,29 +278,52 @@ OnCameraEveryTick();
 
 */
 
-function ReallifeEveryTick() {
-    let gamemode_version = "1.1.4";
-    DrawText("German Venox Reallife " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
+function OnTacticsTick() {
+    TacticsEveryTick();
+}
+function OnReallifeTick() {
+    try {
+        let gamemode_version = "1.1.4";
+        DrawText("German Venox Reallife " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
+    }
+    catch{ }
 }
 
+let TickEvent;
+let Gamemodes = {
+    Reallife: 0,
+    Zombies: 1,
+    Tactics: 2,
+    Race: 3,
+    SevenTowers: 4
+};
+alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
+
+    if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
+    switch (GamemodeId) {
+        case Gamemodes.Reallife:
+            TickEvent = alt.everyTick(() => {
+                OnReallifeTick();
+            });
+            break;
+        case Gamemodes.Tactics:
+            TickEvent = alt.everyTick(() => {
+                OnTacticsTick();
+            });
+            break;
+    };
+
+});
+
+
+
+//Global Tick-Event
 alt.everyTick(() => {
     try {
         DrawNametags();
         RenderHitMarker();
         RenderTacho();
         RenderHUDs();
-        switch (CurrentLobby) {
-            case PLAYER_LOBBY_7TOWERS:
-                Render7TowersLobby();
-                break;
-
-            case PLAYER_LOBBY_TACTICS:
-                TacticsEveryTick();
-                break;
-            case PLAYER_LOBBY_REALLIFE:
-                ReallifeEveryTick();
-                break;
-        }
     }
     catch{ }
 });
@@ -310,7 +333,7 @@ alt.setInterval(() => {
         game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
     }
     catch{ }
-}, 1000)
+}, 1000);
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

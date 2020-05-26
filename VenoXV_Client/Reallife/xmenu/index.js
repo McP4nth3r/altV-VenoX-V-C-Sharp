@@ -7,7 +7,7 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { ShowCursor, GetCursorStatus, frontOfPlayer } from '../../Globals/VnX-Lib';
 export let XMENU_KEY = 0x58;
-let XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
+let XMenuBrowser;
 let EntityType = null;
 let XMenuOpen = false;
 
@@ -15,16 +15,32 @@ let XTYPES_VEHICLE = "veh";
 let XTYPES_PLAYER = "player";
 let XTYPES_SELF = "self";
 ///////////////////////////////////////////////////////////////////////////////////////
-XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
-    if (Button == 9900 || Button == 9901) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
-    else { alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); }
-    alt.log("Ich habe die Funktion gecalled mit : " + Button + " | " + Hitted);
+
+alt.onServer('XMenu:Load', () => {
+    if (XMenuBrowser) { return; }
+    XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
+
+    XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
+        if (!XMenuBrowser) { return; }
+        if (Button == 9900 || Button == 9901) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
+        else { alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); }
+        alt.log("Ich habe die Funktion gecalled mit : " + Button + " | " + Hitted);
+    });
 });
+
+alt.onServer('XMenu:Unload', () => {
+    if (!XMenuBrowser) { return; }
+    XMenuBrowser.destroy();
+    XMenuBrowser = null;
+});
+
+
 
 
 
 let currentEntity = null;
 function ToggleXMenu(EntityTypeName, EntityID) {
+    if (!XMenuBrowser) { return; }
     if (!XMenuOpen) {
         if (!EntityTypeName) { return; }
         currentEntity = EntityID;
@@ -48,6 +64,7 @@ function ToggleXMenu(EntityTypeName, EntityID) {
 ///////////////////////////////////////////////////////////////////////////////////////
 
 export function OnXKeyDown() {
+    if (!XMenuBrowser) { return; }
     if (game.isPlayerDead(alt.Player.local.scriptID)) { return; }
     if (!GetCursorStatus()) {
         GetCurrentObject();
@@ -68,6 +85,7 @@ export function OnXKeyDown() {
     }
 }
 export function OnXKeyUp() {
+    if (!XMenuBrowser) { return; }
     ToggleXMenu(null, null);
 }
 
@@ -78,6 +96,7 @@ export function OnXKeyUp() {
 let laststring = "";
 let Hitted = null;
 function GetCurrentObject() {
+    if (!XMenuBrowser) { return; }
     let distance = 5;
     let position = alt.Player.local.pos;
     let farAway = frontOfPlayer(distance);
