@@ -2,12 +2,9 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 
@@ -218,15 +215,6 @@ namespace VenoXV.Core
             if (propID < 0 || textureID < 0) { return; }
             try { element.Emit("Prop:Load", propID, drawableID, textureID); }
             catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
-        }
-        public static void SetCustomization(this Client element, SkinModel model)
-        {
-            List<SkinModel> modellist = new List<SkinModel>
-            {
-                model
-            };
-            try { element.Emit("HeadShape:Load", JsonConvert.SerializeObject(modellist)); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SetCustomization", ex); }
         }
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
