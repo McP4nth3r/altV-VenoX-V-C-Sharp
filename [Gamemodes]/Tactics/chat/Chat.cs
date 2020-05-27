@@ -8,10 +8,14 @@ namespace VenoXV._Gamemodes_.Tactics.chat
     {
         public static void OnChatMessage(Client player, string message)
         {
-            foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+            try
             {
-                players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.Username + " : " + message);
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                {
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.Username + " : " + message);
+                }
             }
+            catch { }
         }
     }
 }

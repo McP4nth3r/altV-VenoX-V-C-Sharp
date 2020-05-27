@@ -27,23 +27,6 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
         public const float RAY_MINIGUN = 20;
 
 
-        // HIT BONE MULE 
-        public const string BONE_HEAD = "SKEL_Head"; // Kopf.
-        public const float BONE_HEAD_DAMAGE_MUL = 1.9f;
-        public const string BONE_BECKEN = "SKEL_Pelvis"; // Auch bekannt als Penis!
-        public const float BONE_BECKEN_DAMAGE_MUL = 2.5f;
-
-
-        public static float GetBoneDamageMul(AltV.Net.Data.BodyPart hitbone)
-        {
-            try
-            {
-                if (hitbone == AltV.Net.Data.BodyPart.Head) { return BONE_HEAD_DAMAGE_MUL; }
-                else if (hitbone == AltV.Net.Data.BodyPart.Pelvis) { return BONE_BECKEN_DAMAGE_MUL; }
-                else { return 1; }
-            }
-            catch { return 1; }
-        }
 
         public static void OnResourceStart()
         {
@@ -66,15 +49,6 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
                 {(AltV.Net.Enums.WeaponModel)AltV.Net.Alt.Hash("weapon_raypistol"), RAY_PISTOL },// SNIPERRIFLE - DAMAGE
                 {(AltV.Net.Enums.WeaponModel)AltV.Net.Alt.Hash("weapon_rayminigun"), RAY_MINIGUN } // SNIPERRIFLE - DAMAGE
             };
-        }
-
-        public static float GetWeaponDamage(AltV.Net.Enums.WeaponModel Weapon)
-        {
-            try
-            {
-                return DamageValues[Weapon];
-            }
-            catch { return 1; }
         }
     }
 }

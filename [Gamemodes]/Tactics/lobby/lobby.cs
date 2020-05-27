@@ -46,25 +46,37 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
 
         private static void GetNewMap()
         {
-            Random random = new Random();
-            int RandomMap = random.Next(0, maps.Main.TacticMaps.Count); // Count Spawnpoints
-            CurrentMap = maps.Main.TacticMaps[RandomMap];
-            if (LastMap == CurrentMap) { GetNewMap(); return; }
-            LastMap = CurrentMap;
+            try
+            {
+                Random random = new Random();
+                int RandomMap = random.Next(0, maps.Main.TacticMaps.Count); // Count Spawnpoints
+                CurrentMap = maps.Main.TacticMaps[RandomMap];
+                if (LastMap == CurrentMap) { GetNewMap(); return; }
+                LastMap = CurrentMap;
+            }
+            catch { CurrentMap = maps.Main.TacticMaps[1]; }
         }
         private static void InitializePlayerSavedData(Client player)
         {   // ToDo : Load by Database.
-            player.Tactics.CurrentStreak = 0;
+            try
+            {
+                player.Tactics.CurrentStreak = 0;
+            }
+            catch { }
         }
         private static void InitializePlayerData(Client player)
         {
-            player.Tactics.Joined = true;
-            player.Tactics.CurrentDamage = 0;
-            player.Tactics.CurrentKills = 0;
-            player.Tactics.IsDead = false;
-            player.Tactics.Spawned = false;
-            player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
-            RageAPI.SetPlayerVisible(player, true);
+            try
+            {
+                player.Tactics.Joined = true;
+                player.Tactics.CurrentDamage = 0;
+                player.Tactics.CurrentKills = 0;
+                player.Tactics.IsDead = false;
+                player.Tactics.Spawned = false;
+                player.Emit("LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
+                RageAPI.SetPlayerVisible(player, true);
+            }
+            catch { }
         }
         public static bool IsTacticRoundRunning()
         {
@@ -85,7 +97,6 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                player.RemoveAllPlayerWeapons();
                 if (CurrentMap.Custom_Weapon_Map)
                 {
                     foreach (AltV.Net.Enums.WeaponModel weapon in CurrentMap.Custom_Weapons)
@@ -364,6 +375,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
+                    players.RemoveAllPlayerWeapons();
                     players.Emit("Tactics:OnTacticEndRound", text);
                 }
             }
