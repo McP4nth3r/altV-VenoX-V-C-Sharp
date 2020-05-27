@@ -1,5 +1,5 @@
 /*//----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By LargePeach & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//*/
@@ -24,237 +24,493 @@
 
 /* Hintergrund */
 
-.back {
-    position: fixed;
-    background: rgba(15, 15, 15, 0.7);
-    width: 50.4vw;
-    height: 30.45vw;
+#back {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+    top: 50%;
     left: 50%;
-    transform: translate(-50%);
-    top: 12vw;
-}
-
-/* Blauer Strich */
-
-.blue_line {
-    position: fixed;
-	background: rgba(0, 150, 200, 0.6);
-	width: 50.4vw;
-	left: 50%;
-    transform: translate(-50%);
-	height: 0.2vw;
-	top: 12vw;
-    list-style-type: inherit;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    height: 50%;
+    color: white;
 }
 
 /* Überschrift */
 
 .header {
     position: fixed;
-	background: rgba(10, 10, 10, 0.6);
-	color: white;
-	font-size: 1.5vw;
+    background: rgba(0,0,0,1);
+    width: 100%;
+    left: 50%;
+    font-size: 1.4vw;
+    text-align: center;
+    border-radius: 0.1vw;
 	font-family: drugs;
-	text-align: center;
-	width: 50vw;
-	left: 50%;
     transform: translate(-50%);
-    top: 12.2vw;
-    padding: 0.21vw 0vw;
-    list-style-type: inherit;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Header Hintergrund */
+/* Hintergrundbild */
 
-.header_background {
-    position: fixed;
-    background: rgba(15, 15, 15, 0.4);
-    width: 50.4vw;
-    left: 50%;
-    transform: translate(-50%);
-    top: 14.3vw;
-    height: 2.05vw;
-    list-style-type: inherit;
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3vw;
+    z-index: -2;
+    opacity: 0.6;
 }
 
-/* Footer */
+/* Trennlienen */
 
-.footer {
-    position: fixed;
-    background: rgba(15, 15, 15, 0.4);
-    width: 50.4vw;
-    left: 50%;
-    transform: translate(-50%);
-    top: 36.55vw;
-    height: 5.85vw;
-}
-
-/* Trennlinien */
-
-.parting_line_1, .parting_line_2, .parting_line_3, .parting_line_4, .parting_line_5 , .parting_line_6, .parting_line_7, .parting_line_8, .parting_line_9{
-    position: fixed;
-    background: white;
+.parting_line_1, .parting_line_2, .parting_line_3, .parting_line_4, .parting_line_5, .parting_line_6, .parting_line_7 {
+    position: absolute;
+    background: rgba(255,255,255,0.9);
     width: 0.1vw;
-    height: 22.15vw;
-    transform: translate(-50%);
-    top: 14.3vw;
-    z-index: 1;
-    list-style-type: inherit;
+    height: 100%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: -1;
 }
 
 .parting_line_1 {
-    position: fixed;
-    left: 35%;
-    transform: translate(-50%);
+    left: 20%;
 }
-
 .parting_line_2 {
-    position: fixed;
-    left: 43%;
-    transform: translate(-50%);
+    left: 30%;
 }
-
 .parting_line_3 {
-    position: fixed;
-    left: 54%;
-    transform: translate(-50%);
+    left: 50%;
 }
-
 .parting_line_4 {
-    position: fixed;
-    left: 61%;
-    transform: translate(-50%);
+    left: 65%;
 }
-
 .parting_line_5 {
-    position: fixed;
-    left: 71%;
-    transform: translate(-50%);
+    left: 75%;
 }
-
 .parting_line_6 {
-    position: fixed;
-    top: 12.2vw;
-    height: 30.26vw;
-    left: 24.96%;
-    transform: translate(-50%);
-    width: 0.2vw;
-    background: rgba(10, 10, 10, 0.6);
+    left: 90%;
 }
 
-.parting_line_7 {
-    position: fixed;
-    top: 12.2vw;
-    height: 30.26vw;
-    left: 75.08%;
-    transform: translate(-50%);
-    width: 0.2vw;
-    background: rgba(10, 10, 10, 0.6);
+/* Name Überschrift */
+
+.name_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 0%;
+    width: 20%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
 }
 
-.parting_line_8 {
-    position: fixed;
+/* Zeit Überschrift */
+
+.time_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 25%;
+    width: 10%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* Status Überschrift */
+
+.status_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 40%;
+    width: 20%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* Handy Überschrift */
+
+.handy_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 57.5%;
+    width: 15%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* VIP Überschrift */
+
+.vip_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 70%;
+    width: 10%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* Fraktion Überschrift */
+
+.faction_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 82.5%;
+    width: 15%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* Ping Überschrift */
+
+.ping_h {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+	font-family: drugs;
+    font-weight: bold;
+    transform: translate(-50%);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 7.143%;
+    font-size: 1vw;
+    left: 95%;
+    width: 10%;
+    z-index: -2;
+    letter-spacing: 0.05vw;
+}
+
+/* User Tabellen */
+/* Spieler */
+
+#scoreboardplayer {
+    position: absolute;
+    color: white;
+    left: 0%;
+    font-size: 1vw;
+    width: 20%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Spielzeit */
+
+#scoreboardspielzeit {
+    position: absolute;
+    color: white;
+    left: 20%;
+    font-size: 1vw;
+    width: 10%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Status */
+
+#scoreboardstatus {
+    position: absolute;
+    color: white;
+    left: 30%;
+    font-size: 1vw;
+    width: 20%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Handynummer */
+
+#scoreboardhandy {
+    position: absolute;
+    color: white;
+    left: 50%;
+    font-size: 1vw;
+    width: 15%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* VIP */
+
+#scoreboardVIP {
+    position: absolute;
+    color: white;
+    left: 65%;
+    font-size: 1vw;
+    width: 10%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Fraktion */
+
+#scoreboardfaction {
+    position: absolute;
+    color: white;
+    left: 75%;
+    font-size: 1vw;
+    width: 15%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Ping */
+
+#scoreboardping {
+    position: absolute;
+    color: white;
+    left: 90%;
+    font-size: 1vw;
+    width: 10%;
+    text-align: center;
+    line-height: 2.1vw;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    padding: inherit;
+	font-family: robot;
+    z-index: 1;
+}
+
+/* Tabelle */
+
+.scoreboard {
+    position: absolute;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 14.4%;
     left: 50%;
     transform: translate(-50%);
-    height: 0.2vw;
-    width: 50vw;
-    top: 36.45vw;
-    background: rgba(0, 105, 150, 0.8);
+    width: 100%;
+    height: 85.7%;
 }
 
-.parting_line_9 {
+
+
+/* Rechter Slider */
+/* Back */
+
+#slider {
+    background: rgba(0,0,0,0.7);
+    top: 50%;
+    right: 0%;
+    transform: translate(0%,-50%);
+    width: 10%;
+    height: 60%;
+    border-top-left-radius: 0.3vw;
+    border-bottom-left-radius: 0.3vw;
+    color: white;
+    font-family: drugs;
+}
+
+/* Rechter Slider Header */
+
+.header_r {
     position: fixed;
+    background: rgba(0,0,0,0.6);
+    width: 100%;
     left: 50%;
+    font-size: 1.2vw;
+    text-align: center;
+    border-radius: 0.1vw;
+	font-family: drugs;
     transform: translate(-50%);
-    height: 0.2vw;
-    width: 50vw;
-    top: 42.25vw;
-    background: rgba(10, 10, 10, 0.6);
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.2vw;
 }
 
-/* Online Spieler anzahlen */
+/* Fraktionen */
 /* Los Santos Police Department */
 
 .police {
     position: absolute;
-    color: dodgerblue;
+    color: rgb(0,140,180);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 37.3vw;
-    left: 29%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 7.143%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* La Cosa Nostra */
 
 .mafia {
     position: absolute;
-    color: dimgray;
+    color: rgb(120,120,120);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 37.3vw;
-    left: 39%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 14.286%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Yakuza */
 
 .yakuza {
     position: absolute;
-    color: firebrick;
+    color: rgb(200,0,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 39vw;
-    left: 39%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 21.429%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Weazel News */
 
 .weazel_news {
     position: absolute;
-    color: darkgoldenrod;
+    color: rgb(200,150,25);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 37.3vw;
-    left: 61%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 28.572%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Federal Investigation Bureau */
 
 .fib {
     position: absolute;
-    color: mediumblue;
+    color: rgb(0,100,200);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 39vw;
-    left: 29%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 35.715%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Vatos Locos */
 
 .vatos_locos {
     position: absolute;
-    color: gold;
+    color: rgb(220,220,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 40.7vw;
-    left: 39%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 42.858%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* U.S. Army */
@@ -262,42 +518,54 @@
 .army {
     /*display: none; /* Einfach löschen vor öffnung */
     position: absolute;
-    color: darkgreen;
+    color: rgb(0,130,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 40.7vw;
-    left: 29%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 50.001%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* SAMCRO */
 
 .samcro {
     position: absolute;
-    color: saddlebrown;
+    color: rgb(140,90,90);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 37.3vw;
-    left: 50%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 57.144%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Medic */
 
 .medic {
     position: absolute;
-    color: red;
+    color: rgb(255,0,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 39vw;
-    left: 61%;
-    transform: translate(-50%);
-    letter-spacing: 0.04vw;
+    width: 100%;
+    top: 64.287%;
+    letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Mechaniker */
@@ -305,281 +573,88 @@
 .mechaniker { 
     /*display: none;/* Einfach löschen vor öffnung */
     position: absolute;
-    color: orangered;
+    color: rgb(255,125,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 40.7vw;
-    left: 61%;
-    transform: translate(-50%);
-    letter-spacing: 0.04vw;
+    width: 100%;
+    top: 71.43%;
+    letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Rollin Height's */
 
 .ballas {
     position: absolute;
-    color: rebeccapurple;
+    color: rgb(170,70,250);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 39vw;
-    left: 50%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 78.573%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Compton Family's */
 
 .compton {
     position: absolute;
-    color: forestgreen;
+    color: rgb(0,152,0);
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 40.7vw;
-    left: 50%;
-    transform: translate(-50%);
+    width: 100%;
+    top: 85.716%;
     letter-spacing: 0.03vw;
+    height: 7.143%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
 }
 
 /* Spieler Online */
 
 .player {
     position: absolute;
-    color: rgb(0, 105, 150);
+    background: rgba(0,0,0,0.6);
+    color: rgb(0, 150, 200);
+    font-size: 0.9vw;
     text-align: center;
     font-family: robot;
     font-weight: bold;
-    top: 40.7vw;
-    left: 71%;
-    transform: translate(-50%);
+    top: 92.859%;
+    width: 100%;
     letter-spacing: 0.03vw;
-}
-
-/* Namen */
-
-.userdata_header {
-	position: fixed;
-	color: white;
-	width: 9.95vw;
-	left: 30%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* Spielzeit */
-
-.spielzeit_header {
-	position: fixed;
-	color: white;
-	width: 8vw;
-	left: 39%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* Status */
-
-.status_header {
-	position: fixed;
-	color: white;
-	width: 11vw;
-	left: 48.5%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;    
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* VIP */
-
-.VIP_header {
-	position: fixed;
-	color: white;
-	width: 7vw;
-	left: 57.5%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* Fraktionen */
-
-.Fraktion_header {
-	position: fixed;
-	color: white;
-	width: 10vw;
-	left: 66%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* Ping */
-
-.Ping_header {
-	position: fixed;
-	color: white;
-	width: 3.9vw;
-	left: 73%;
-    transform: translate(-50%);
-	top: 14.3vw;
-	font-size: 1.45vw;
-	font-family: robot;
-	font-weight: bold;
-    text-align: center;
-    padding: 0.16vw 0vw;
-    list-style-type: inherit;
-}
-
-/* Namen Liste */
-
-#scoreboardplayer {
-    position: absolute;
-    color: white;
-    left: 10%;
-    transform: translate(-50%);
-    font-size: 1vw;
-    width: 10vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
+    height: 7.141%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 0.3vw;
     text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
 }
 
-/* Spielzeit Liste */
-
-#scoreboardspielzeit {
-    position: absolute;
-    color: white;
-    left: 28%;
-    transform: translate(-50%);
-    font-size: 1vw;
-    width: 8vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
-    
-}
-
-/* Status Liste */
-
-#scoreboardstatus {
-    position: absolute;
-    color: white;
-    left: 47%;
-    transform: translate(-50%);
-    font-size: 1vw;
-    width: 11vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
-}
-
-/* VIP Liste */
-
-#scoreboardVIP {
-    position: absolute;
-    color: white;
-    left: 65%;
-    transform: translate(-50%);
-    font-size: 1vw;
-    width: 7vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
-}
-
-/* Fraktion Liste */
-
-#scoreboardfaction {
-    position: absolute;
-    color: white;
-    left: 82%;
-    transform: translate(-50%);
-    font-size: 1vw;
-    width: 10vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
-}
-
-/* Ping Liste */
-
-#scoreboardping {
-    position: absolute;
-    color: white;
-    left: 96.4%;
-    transform: translate(-50%);
-    font-size: 1vw;
-	width: 4.2vw;
-    text-align: center;
-    line-height: 1.99vw;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    padding: inherit;
-	font-family: robot;
-}
-
-/*-------------------------------------------*/
-
-.scoreboard {
-    position: absolute;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    top: 16.4vw;
-    left: 50%;
-    transform: translate(-50%);
-    width: 50vw;
-    height: 20.05vw;
-    
-}
-
-.d-none {
-    display: none !important
-}
+/* Scrollbar */
 
 ::-webkit-scrollbar {
-    display: none;
+    width: 0.25vw;
+}
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 150, 200, 0.6);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 200, 255, 0.6);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 200, 255, 1);
 }
