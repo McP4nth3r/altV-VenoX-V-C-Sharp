@@ -1,10 +1,13 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using System;
+using System.Linq;
+using VenoXV._Gamemodes_.KI;
+using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV.Zombie.World
+namespace VenoXV._Gamemodes_.Zombie.World
 {
     public class Main : IScript
     {
@@ -12,9 +15,13 @@ namespace VenoXV.Zombie.World
         public static int TIME_INTERVAL_ZOMBIES = 10; // Zeit in sekunden wie oft Zombies spawnen sollten.
         public static int ZOMBIE_AMMOUNT_EACH_SPAWN = 2; // Zombies die Pro Spawn-Function Aufruf spawnen sollen.
         public static int TIME_INTERVAL_DELETE_ZOMBIES = 5;
+        public static int TIME_INTERVAL_SYNCER_UPDATE = 1; // Time in Minutes
+        public static int TIME_INTERVAL_TARGET_UPDATE = 2; // Time in Seconds
         // ENTITYDATAS & TIMER
         public static DateTime TIME_TO_SPAWN_ZOMBIES = DateTime.Now;
         public static DateTime TIME_TO_DELETE_ZOMBIES = DateTime.Now;
+        public static DateTime TIME_TO_GET_NEW_SYNCER = DateTime.Now;
+        public static DateTime TIME_TO_GET_NEW_TARGET = DateTime.Now;
 
 
 
@@ -24,18 +31,6 @@ namespace VenoXV.Zombie.World
             {
                 player.SendTranslatedChatMessage("Willkommen im VenoX " + Core.RageAPI.GetHexColorcode(255, 0, 0) + " Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
                 player.SendTranslatedChatMessage("Kämpfe um dein Überleben!");
-            }
-            catch { }
-        }
-
-        public static void InitializePlayerData(Client player)
-        {
-            try
-            {
-                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS, 0);
-                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_PLAYERS_KILLED, 0);
-                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_TODE, 0);
-
             }
             catch { }
         }
@@ -56,6 +51,73 @@ namespace VenoXV.Zombie.World
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedZombieGM", ex); }
         }
 
+        private static void SetBestPlayerByPing(Client player)
+        {
+            uint BestPing = player.Ping;
+            foreach (Client otherplayers in VenoXV.Globals.Main.ZombiePlayers)
+            {
+                if (otherplayers.Position.Distance(player.Position) <= 100)
+                {
+                    player.Zombies.NearbyPlayers.Add(otherplayers);
+                }
+            }
+            foreach (Client nearbyPlayers in player.Zombies.NearbyPlayers.ToList())
+            {
+                if (BestPing < nearbyPlayers.Ping)
+                {
+                    BestPing = nearbyPlayers.Ping;
+                    nearbyPlayers.Zombies.IsSyncer = true;
+                    player.Zombies.IsSyncer = false;
+                    Core.Debug.OutputDebugString("Syncer for nearest Area : " + nearbyPlayers.Username);
+                }
+                else
+                {
+                    nearbyPlayers.Zombies.IsSyncer = false;
+                    player.Zombies.IsSyncer = true;
+                    player.Emit("Zombies:Sync", false);
+                    nearbyPlayers.Emit("Zombies:Sync", false);
+                }
+            }
+        }
+        public static void GetBestAreaSyncer()
+        {
+            foreach (Client player in VenoXV.Globals.Main.ZombiePlayers)
+            {
+                SetBestPlayerByPing(player);
+                if (player.Zombies.IsSyncer)
+                {
+                    player.Emit("Zombies:Sync", true);
+                }
+            }
+        }
+
+        private static void GetNewZombieTarget()
+        {
+            foreach (ZombieModel zombieClass in Spawner.CurrentZombies)
+            {
+                foreach (Client player in VenoXV.Globals.Main.ZombiePlayers)
+                {
+                    if (player.Position.Distance(zombieClass.Position) < 50)
+                    {
+                        zombieClass.TargetEntity = player;
+                    }
+                }
+            }
+        }
+        private static void SyncZombieTargeting()
+        {
+            foreach (ZombieModel zombieClass in Spawner.CurrentZombies)
+            {
+                foreach (Client player in VenoXV.Globals.Main.ZombiePlayers)
+                {
+                    if (player.Position.Distance(zombieClass.Position) < 250)
+                    {
+                        player.Emit("Zombies:MoveToTarget", zombieClass.TargetEntity);
+                    }
+                }
+            }
+        }
+
         public static void OnUpdate()
         {
             if (TIME_TO_SPAWN_ZOMBIES <= DateTime.Now)
@@ -63,19 +125,30 @@ namespace VenoXV.Zombie.World
                 TIME_TO_SPAWN_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_ZOMBIES);
                 for (var i = 0; i < ZOMBIE_AMMOUNT_EACH_SPAWN; i++)
                 {
-                    KI.Spawner.SpawnZombiesForEveryPlayer();
+                    _Gamemodes_.KI.Spawner.SpawnZombiesForEveryPlayer();
                 }
             }
             if (TIME_TO_DELETE_ZOMBIES <= DateTime.Now)
             {
                 TIME_TO_DELETE_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_DELETE_ZOMBIES);
-                if (_Gamemodes_.Zombie.Globals.Events.KilledZombieIds.Count > 0)
+                if (Globals.Events.KilledZombieIds.Count > 0)
                 {
-                    foreach (int Id in _Gamemodes_.Zombie.Globals.Events.KilledZombieIds)
+                    foreach (int Id in Globals.Events.KilledZombieIds)
                     {
-                        KI.Spawner.DestroyZombieById(Id);
+                        Spawner.DestroyZombieById(Id);
                     }
                 }
+            }
+            if (TIME_TO_GET_NEW_SYNCER <= DateTime.Now)
+            {
+                TIME_TO_GET_NEW_SYNCER = DateTime.Now.AddMinutes(TIME_INTERVAL_SYNCER_UPDATE);
+                GetBestAreaSyncer();
+            }
+            if (TIME_TO_GET_NEW_TARGET <= DateTime.Now)
+            {
+                TIME_TO_GET_NEW_TARGET = DateTime.Now.AddSeconds(TIME_INTERVAL_TARGET_UPDATE);
+                GetNewZombieTarget();
+                SyncZombieTargeting();
             }
         }
     }

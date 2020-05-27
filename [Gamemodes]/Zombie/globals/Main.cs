@@ -3,7 +3,7 @@ using System;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV.Zombie.globals
+namespace VenoXV._Gamemodes_.Zombie.Globals
 {
     public class Main : IScript
     {

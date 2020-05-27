@@ -8,11 +8,11 @@ using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
 using VenoXV.Globals;
 
-namespace VenoXV.Zombie.KI
+namespace VenoXV._Gamemodes_.KI
 {
     public class Spawner : IScript
     {
-        private static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
+        public static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
         private static int CurrentZombieCounter = 0;
         private static void AddNearbyZombiesIntoList()
         {
@@ -20,9 +20,6 @@ namespace VenoXV.Zombie.KI
             {
                 Random randomSkin = new Random();
                 int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
-                /*Core.Debug.OutputDebugString("FaceFeatures : " + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].FaceFeatures);
-                Core.Debug.OutputDebugString("HeadBlendData :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadBlendData);
-                Core.Debug.OutputDebugString("HeadOverlays :" + _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays);*/
                 ZombieModel zombieClass = new ZombieModel
                 {
                     ID = CurrentZombieCounter++,
@@ -34,7 +31,7 @@ namespace VenoXV.Zombie.KI
                     Sex = 0,
                     IsDead = false,
                     Position = new Vector3(player.Position.X + 5, player.Position.Y + 5, player.Position.Z),
-                    TargetEntity = null
+                    TargetEntity = player
                 };
                 CurrentZombies.Add(zombieClass);
             }
@@ -69,12 +66,8 @@ namespace VenoXV.Zombie.KI
             {
                 foreach (ZombieModel zombieClass in CurrentZombies)
                 {
-                    if (player.Position.Distance(zombieClass.Position) <= 50 && zombieClass.TargetEntity == null)
-                    {
-                        zombieClass.TargetEntity = player;
-                        player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, player);
-                        ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
-                    }
+                    player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                    ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
                 }
             }
         }
@@ -93,7 +86,6 @@ namespace VenoXV.Zombie.KI
             AddNearbyZombiesIntoList();
             SpawnZombiesArroundPlayers();
         }
-
         public static void DestroyZombieById(int Id)
         {
             foreach (ZombieModel zombies in CurrentZombies.ToList())
