@@ -1002,7 +1002,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 int playerSex = player.Sex;
                 int playerFaction = player.Reallife.Faction;
-
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
@@ -1013,11 +1012,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
                         {
-                            Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                            RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                         }
                         else if (uniform.type == 1 && playerSex == uniform.characterSex)
                         {
-                            Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                            RageAPI.SetProp(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                         }
                     }
                     player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 1);
@@ -1044,7 +1043,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
         [ClientEvent("goOFFDUTYServer")]
-        public void OffDuty_Server_ÈVENT(Client player)
+        public void OffDuty_Server_EVENT(Client player)
         {
             try
             {

@@ -315,7 +315,6 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                 }
                 else
                 {
-                    AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 145, 200) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat sich gestellt!");
                     player.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4);
                     player.vnxSetElementData(EntityData.PLAYER_KAUTION, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * KostenProWanted);
@@ -326,7 +325,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;
-                    player.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
+                    player.SetPosition = Constants.JAIL_SPAWNS[random.Next(0, Constants.JAIL_SPAWNS.Count)];
                 }
             }
             catch
