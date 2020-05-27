@@ -67,7 +67,7 @@ namespace VenoXV._Preload_
                     player.Language = (int)_Language_.Main.Languages.English;
                     player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Zombies);
-                    Zombie.World.Main.OnSelectedZombieGM(player);
+                    _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                     player.Emit("Load_Zombie_GM");
                     player.Emit("Player:ChangeCurrentLobby", "Zombies");
                     break;

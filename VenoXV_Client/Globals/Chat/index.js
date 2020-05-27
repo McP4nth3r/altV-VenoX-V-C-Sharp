@@ -21,7 +21,7 @@ export function LoadChat() {
   });
 
   webview.on('chat:onInput', text => {
-    alt.emitServer('chat:message', text); 
+    alt.emitServer('chat:message', text);
   });
 
 }
