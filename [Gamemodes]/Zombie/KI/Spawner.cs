@@ -47,7 +47,7 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (clothes.type == 0)
                         {
-                            player.Emit("Clothes:Load", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            player.Emit("Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
