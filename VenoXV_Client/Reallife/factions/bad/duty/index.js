@@ -28,6 +28,7 @@ alt.onServer('show_duty_window_bad', (e) => {
     });
     duty_browser.on('duty_window_bad_btn_pressed', (state) => {
         alt.emitServer('goDUTYBADServer', state);
+        alt.log('Called : Duty : ' + state);
         alt.emit("destroy_duty_window_bad");
     });
 });

@@ -14,20 +14,26 @@ alt.onServer('showDutyWindow', (e, pname) => {
     duty_browser.focus();
     ShowCursor(true);
     duty_browser.emit("Duty:Load", e, pname);
-
     duty_browser.on('ButtonPressed', (button) => {
         switch (button) {
             case "Duty":
                 alt.emitServer('goDUTYServer');
+                break;
             case "OffDuty":
                 alt.emitServer('goOFFDUTYServer');
+                break;
             case "Swat":
                 alt.emitServer('goSWATServer');
+                break;
         }
-        alt.log(button);
-        alt.emit("destroyDutyWindow");
+        if (duty_browser != null) {
+            duty_browser.destroy();
+            duty_browser = null;
+            FreezeClient(false);
+            ShowCursor(false);
+            return
+        }
     });
-
     duty_browser.on('destroyDutyWindow', () => {
         if (duty_browser != null) {
             duty_browser.destroy();
