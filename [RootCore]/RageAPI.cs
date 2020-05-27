@@ -206,15 +206,21 @@ namespace VenoXV.Core
         }
         public static void SetClothes(this Client element, int clothesslot, int clothesdrawable, int clothestexture)
         {
-            if (clothesslot < 0 || clothesdrawable < 0) { return; }
-            try { element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SetClothes", ex); }
+            try
+            {
+                if (clothesslot < 0 || clothesdrawable < 0) { return; }
+                element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture);
+            }
+            catch (Exception ex) { Debug.CatchExceptions("SetClothes", ex); }
         }
         public static void SetProp(this Client element, int propID, int drawableID, int textureID)
         {
-            if (propID < 0 || textureID < 0) { return; }
-            try { element.Emit("Prop:Load", propID, drawableID, textureID); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SetProp", ex); }
+            try
+            {
+                if (propID < 0 || textureID < 0) { return; }
+                element.Emit("Prop:Load", propID, drawableID, textureID);
+            }
+            catch (Exception ex) { Debug.CatchExceptions("SetProp", ex); }
         }
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
