@@ -7,15 +7,9 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 
-
-// SETTINGS 
-
-let DestroyZombiesAfterMS = 5000;
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+let IsSyncer = false;
 
 
 function SetZombieCorrectSkin(zombieEntity, facefeaturesarray, headblendsarray, headoverlaysarray) {
@@ -54,6 +48,31 @@ alt.onServer('Zombies:ApplyBloodToZombie', (Id) => {
 });
 
 
+alt.onServer('Zombies:Sync', (state) => {
+    IsSyncer = state;
+    if (SyncInterval) { alt.clearInterval(SyncInterval); SyncInterval = null; }
+    if (IsSyncer) {
+        SyncInterval = alt.setInterval(() => {
+            for (var counter in Zombies) {
+                let Zombie = Zombies[counter];
+                if (!Zombie) { return; }
+                if (Zombie.Entity != null) {
+                    let zombiePos = game.getEntityCoords(Zombie.Entity, true);
+                    alt.emitServer('Zombies:OnSyncerCall', Zombie.Id, zombiePos.x, zombiePos.y, zombiePos.z);
+                }
+            };
+        }, 1000);
+    }
+});
+
+alt.onServer('Zombies:Delete', (Id) => {
+    if (!Zombies[Id]) { return; }
+    game.deletePed(Zombies[Id].Entity);
+    Zombies.splice(Zombies[Id], 1);
+});
+
+
+
 let Zombies = [];
 game.requestAnimDict("special_ped@zombie@monologue_6@monologue_6a");
 let ZombieHash = game.getHashKey("mp_m_freemode_01");
@@ -61,7 +80,6 @@ alt.loadModel(ZombieHash);
 game.requestModel(ZombieHash);
 alt.onServer('Zombies:SpawnKI', (Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) => {
     if (Zombies[Id]) { return; }
-    alt.log(Id + "|" + Hash + "|" + FaceFeatures + "|" + HeadBlendData + "|" + HeadOverlays + "|" + Position + "|" + Target);
     let zombieEntity = game.createPed(2, game.getHashKey(Hash), Position.x, Position.y, Position.z, 0, false, false);
     Zombies[Id] = {
         Id: Id,
@@ -96,19 +114,19 @@ alt.onServer("Zombies:AccessoriesLoad", (Id, clothesslot, clothesdrawable, cloth
 });
 
 
-function DeleteZombieById(Id) {
-    for (var counter in Zombies) {
-        if (Zombies[counter].Id == Id) {
-            game.deletePed(Zombies[counter].Entity);
-            Zombies.splice(counter, 1);
-        }
-    }
-}
-
 
 alt.onServer('Zombies:SetHealth', (Id, Health) => {
+    if (!Zombies[Id]) { return; }
     game.setEntityHealth(Zombies[Id].Entity, Health);
 });
+
+let SyncInterval;
+alt.onServer("Zombies:SetPosition", (Id, PosX, PosY, PosZ) => {
+    if (!Zombies[Id]) { return; }
+    game.setEntityCoords(Zombies[Id].Entity, PosX, PosY, PosZ - 0.3);
+});
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,24 +152,27 @@ function CheckZombieDamage(Zombie) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+alt.onServer('Zombies:MoveToTarget', (TargetEntity) => {
+    for (var counter in Zombies) {
+        let Zombie = Zombies[counter];
+        Zombie.TargetEntity = TargetEntity;
+        let playerPos = game.getEntityCoords(Zombie.TargetEntity.scriptID, true);
+        game.taskGoToCoordAnyMeans(Zombie.Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
+        game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
+    }
+});
+
+
 function MoveZombiesToPlayers() {
     for (var counter in Zombies) {
         let Zombie = Zombies[counter];
         if (Zombie.Entity != null) {
-            let playerPos = game.getEntityCoords(Zombie.TargetEntity.scriptID, true);
-            let zombiePos = Zombie.Position;
-            if (game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, zombiePos.x, zombiePos.y, zombiePos.z, false) < 35) {
-                game.taskGoToCoordAnyMeans(Zombie.Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
-                game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
-            }
-            else {
-                //ToDo : Tell it to the Server, Send a new Target to the Client/- or Destroy the Zombie!
-            }
             if (game.getEntityHealth(Zombie.Entity) <= 0 && !Zombie.IsDead) {
                 alt.emitServer("Zombies:OnZombieDeath", Zombie.Id);
                 Zombie.IsDead = true;
                 alt.setTimeout(() => {
-                    DeleteZombieById(Zombie.Id);
+                    game.deletePed(Zombie.Entity);
+                    Zombies.splice(counter, 1);
                 }, 5000);
                 //mp.events.callRemote('OnZombieKill');
             }
