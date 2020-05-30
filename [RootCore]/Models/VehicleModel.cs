@@ -1,4 +1,5 @@
-﻿using AltV.Net.Data;
+﻿using AltV.Net;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
@@ -20,7 +21,8 @@ namespace VenoXV._RootCore_.Models
         public int Price { get; set; }
         public string Job { get; set; }
         public bool Save { get; set; }
-        public bool Godmode { get; set; }
+        public bool vehGodmode { get; set; }
+        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); } }
         public bool Testing { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
@@ -34,6 +36,18 @@ namespace VenoXV._RootCore_.Models
         {
         }
 
+    }
+
+    public class MyVehicleFactory : IEntityFactory<IVehicle>
+    {
+        public IVehicle Create(IntPtr playerPointer, ushort id)
+        {
+            try
+            {
+                return new VehicleModel(playerPointer, id);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("VehicleFactory:Create", ex); return null; }
+        }
     }
 
 }

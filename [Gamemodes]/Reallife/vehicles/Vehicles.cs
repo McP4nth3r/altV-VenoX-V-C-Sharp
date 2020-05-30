@@ -586,10 +586,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (Vehicle.Godmode)
                     {
                         Vehicle.Godmode = false;
-                        foreach (Client players in VenoXV.Globals.Main.ReallifePlayers)
-                        {
-                            players.Emit("Vehicle:Godmode", Vehicle, false);
-                        }
                     }
                     Vehicle.Frozen = false;
 

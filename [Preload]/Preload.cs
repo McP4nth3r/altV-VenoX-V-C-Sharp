@@ -16,6 +16,11 @@ namespace VenoXV._Preload_
         {
             return new MyPlayerFactory();
         }
+        public override IEntityFactory<IVehicle> GetVehicleFactory()
+        {
+            return new MyVehicleFactory();
+        }
+
         public override void OnStart()
         {
             Globals.Main.OnResourceStart();
