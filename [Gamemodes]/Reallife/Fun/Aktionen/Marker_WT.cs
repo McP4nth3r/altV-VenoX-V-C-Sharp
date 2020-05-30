@@ -10,13 +10,13 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 {
     public class Marker_WT : IScript
     {
-        public static IColShape LSPD_COL { get; set; }
-        public static IColShape MAFIA_COL { get; set; }
-        public static IColShape YAKUZA_COL { get; set; }
-        public static IColShape VATOSLOCOS_COL { get; set; }
-        public static IColShape AOD_COL { get; set; }
-        public static IColShape BALLAS_COL { get; set; }
-        public static IColShape COMPTON_COL { get; set; }
+        public static ColShapeModel LSPD_COL { get; set; }
+        public static ColShapeModel MAFIA_COL { get; set; }
+        public static ColShapeModel YAKUZA_COL { get; set; }
+        public static ColShapeModel VATOSLOCOS_COL { get; set; }
+        public static ColShapeModel AOD_COL { get; set; }
+        public static ColShapeModel BALLAS_COL { get; set; }
+        public static ColShapeModel COMPTON_COL { get; set; }
         /*public static Marker LSPD_MARKER { get; set; }
         public static Marker LCN_MARKER { get; set; }
         public static Marker YAKUZA_MARKER { get; set; }
@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 {
                     if (type == "SWT")
                     {
-                        LSPD_COL = Alt.CreateColShapeSphere(new Position(479.4737f, -1020.995f, 27.74058f), 2f);
+                        LSPD_COL = RageAPI.CreateColShapeSphere(new Position(479.4737f, -1020.995f, 27.74058f), 2f);
                         LSPD_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_POLICE);
                         //LSPD_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(479.4737f, -1020.995f, 27.74058f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
                         CURRENT_WEAPONTRUCK = "Staatswaffentruck";
@@ -42,27 +42,27 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                     else
                     {
                         CURRENT_WEAPONTRUCK = "Waffentruck";
-                        MAFIA_COL = Alt.CreateColShapeSphere(new Position(-1045.836f, 209.3303f, 63.32611f), 2f);
+                        MAFIA_COL = RageAPI.CreateColShapeSphere(new Position(-1045.836f, 209.3303f, 63.32611f), 2f);
                         MAFIA_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_COSANOSTRA);
                         //LCN_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-1045.836f, 209.3303f, 63.32611f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-                        YAKUZA_COL = Alt.CreateColShapeSphere(new Position(-1463.687f, 886.5746f, 183.0481f), 2f);
+                        YAKUZA_COL = RageAPI.CreateColShapeSphere(new Position(-1463.687f, 886.5746f, 183.0481f), 2f);
                         YAKUZA_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_YAKUZA);
                         //YAKUZA_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-1463.687, 886.5746, 183.0481), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-                        VATOSLOCOS_COL = Alt.CreateColShapeSphere(new Position(890.6336f, -1079.333f, 30.53848f), 2f);
+                        VATOSLOCOS_COL = RageAPI.CreateColShapeSphere(new Position(890.6336f, -1079.333f, 30.53848f), 2f);
                         VATOSLOCOS_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_MS13);
                         //VL_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(890.6336f, -1079.333f, 30.53848f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-                        AOD_COL = Alt.CreateColShapeSphere(new Position(533.7743f, -179.3259f, 54.38534f), 2f);
+                        AOD_COL = RageAPI.CreateColShapeSphere(new Position(533.7743f, -179.3259f, 54.38534f), 2f);
                         AOD_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_SAMCRO);
                         //AOD_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(533.7743f, -179.3259f, 54.38534f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-                        BALLAS_COL = Alt.CreateColShapeSphere(new Position(271.0188f, -2091.159f, 16.44794f), 2f);
+                        BALLAS_COL = RageAPI.CreateColShapeSphere(new Position(271.0188f, -2091.159f, 16.44794f), 2f);
                         BALLAS_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_BALLAS);
                         //BALLAS_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(271.0188f, -2091.159f, 16.44794f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
-                        COMPTON_COL = Alt.CreateColShapeSphere(new Position(103.1415f, -1939.005f, 20.80372f), 2f);
+                        COMPTON_COL = RageAPI.CreateColShapeSphere(new Position(103.1415f, -1939.005f, 20.80372f), 2f);
                         COMPTON_COL.vnxSetElementData("WT_COL_FACTION", Constants.FACTION_GROVE);
                         //COMPTON_MARKER = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(103.1415f, -1939.005f, 20.80372f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
 
@@ -70,19 +70,19 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                 }
                 else
                 {
-                    AltV.Net.Alt.RemoveColShape(LSPD_COL);
+                    RageAPI.RemoveColShape(LSPD_COL);
                     //LSPD_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(MAFIA_COL);
+                    RageAPI.RemoveColShape(MAFIA_COL);
                     //LCN_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(YAKUZA_COL);
+                    RageAPI.RemoveColShape(YAKUZA_COL);
                     //YAKUZA_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(VATOSLOCOS_COL);
+                    RageAPI.RemoveColShape(VATOSLOCOS_COL);
                     //VL_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(AOD_COL);
+                    RageAPI.RemoveColShape(AOD_COL);
                     //AOD_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(BALLAS_COL);
+                    RageAPI.RemoveColShape(BALLAS_COL);
                     //BALLAS_COL.Remove();
-                    AltV.Net.Alt.RemoveColShape(COMPTON_COL);
+                    RageAPI.RemoveColShape(COMPTON_COL);
                     // COMPTON_COL.Remove();
                 }
             }
@@ -104,19 +104,19 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                     Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                     Allround.ChangeAktionsState(false);
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200,0,0) + "Der Waffentruck wurde zerstört!");
-                    AltV.Net.Alt.RemoveColShape(LSPD_COL);
+                    RageAPI.RemoveColShape(LSPD_COL);
                     //LSPD_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(MAFIA_COL);
+                    RageAPI.RemoveColShape(MAFIA_COL);
                     //LCN_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(YAKUZA_COL);
+                    RageAPI.RemoveColShape(YAKUZA_COL);
                     //YAKUZA_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(VATOSLOCOS_COL);
+                    RageAPI.RemoveColShape(VATOSLOCOS_COL);
                     //VL_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(AOD_COL);
+                    RageAPI.RemoveColShape(AOD_COL);
                     //AOD_MARKER.Remove();
-                    AltV.Net.Alt.RemoveColShape(BALLAS_COL);
+                    RageAPI.RemoveColShape(BALLAS_COL);
                     //BALLAS_COL.Remove();
-                    AltV.Net.Alt.RemoveColShape(COMPTON_COL);
+                    RageAPI.RemoveColShape(COMPTON_COL);
                     //COMPTON_COL.Remove();
                     veh.Remove();
                 }*/
@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
@@ -140,8 +140,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                     {
                         if (player.IsInVehicle)
                         {
-                            IVehicle Vehicle = player.Vehicle;
-                            if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
+                            VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                            if (vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                             {
                                 if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > 0)
                                 {
@@ -149,21 +149,21 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
                                     if (CURRENT_WEAPONTRUCK == "Staatswaffentruck")
                                     {
-                                        SWT.FinishSWT(player, Vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
-                                        AltV.Net.Alt.RemoveColShape(LSPD_COL);
+                                        SWT.FinishSWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
+                                        RageAPI.RemoveColShape(LSPD_COL);
                                     }
                                     else
                                     {
-                                        WT.WT.FinishWT(player, Vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
-                                        AltV.Net.Alt.RemoveColShape(MAFIA_COL);
-                                        AltV.Net.Alt.RemoveColShape(YAKUZA_COL);
-                                        AltV.Net.Alt.RemoveColShape(VATOSLOCOS_COL);
-                                        AltV.Net.Alt.RemoveColShape(AOD_COL);
-                                        AltV.Net.Alt.RemoveColShape(BALLAS_COL);
-                                        AltV.Net.Alt.RemoveColShape(COMPTON_COL);
+                                        WT.WT.FinishWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
+                                        RageAPI.RemoveColShape(MAFIA_COL);
+                                        RageAPI.RemoveColShape(YAKUZA_COL);
+                                        RageAPI.RemoveColShape(VATOSLOCOS_COL);
+                                        RageAPI.RemoveColShape(AOD_COL);
+                                        RageAPI.RemoveColShape(BALLAS_COL);
+                                        RageAPI.RemoveColShape(COMPTON_COL);
                                     }
                                     // player.WarpOutOfVehicle<bool>();
-                                    AltV.Net.Alt.RemoveVehicle(Vehicle);
+                                    AltV.Net.Alt.RemoveVehicle(vehicle);
                                 }
                             }
                         }

@@ -188,7 +188,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zuweit von " + target.Username + " entfernt...");
                                 return;
                             }
-                            IVehicle Vehicle = player.Vehicle;
+                            VehicleModel vehicle = (VehicleModel)player.Vehicle;
                             //target.vnxGetElementData(SetIntoIVehicle(IVehicle, 2);
                         }
                     }
@@ -231,8 +231,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
                         {
                             if (target.Position.Distance(arrestpositioncar) < 3.5f)
                             {
-                                IVehicle Vehicle = target.Vehicle;
-                                if (Allround.isStateIVehicle(Vehicle))
+                                VehicleModel vehicle = (VehicleModel)target.Vehicle;
+                                if (Allround.isStateIVehicle(vehicle))
                                 {
                                     Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_POLICE);
                                     Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
@@ -290,12 +290,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
             }
         }
 
-        public static IColShape stellenIColShape = Alt.CreateColShapeSphere(new Position(441.0676f, -981.1415f, 30.68959f), 1);
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static ColShapeModel stellenColShapeModel = RageAPI.CreateColShapeSphere(new Position(441.0676f, -981.1415f, 30.68959f), 1);
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == stellenIColShape)
+                if (shape == stellenColShapeModel.Entity)
                 {
                     player.Emit("showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
                 }

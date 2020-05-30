@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -8,14 +7,14 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
     public class XMenu : IScript
     {
 
-        private static bool IsVehicleOwner(Client player, IVehicle vehicle)
+        private static bool IsVehicleOwner(Client player, VehicleModel vehicle)
         {
-            if (Core.RageAPI.vnxGetElementData<string>(vehicle, VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username) { return true; }
+            if (vehicle.Owner == player.Username) { return true; }
             else { return false; }
         }
 
         [ClientEvent("XMenu:ApplyServerButtonVehicle")]
-        public static void OnXMenuButtonPressedVehicle(Client player, int Button, IVehicle vehicle)
+        public static void OnXMenuButtonPressedVehicle(Client player, int Button, VehicleModel vehicle)
         {
             if (vehicle == null) { return; }
             if (!IsVehicleOwner(player, vehicle)) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nicht der Besitzer dieses Fahrzeuges!"); return; }

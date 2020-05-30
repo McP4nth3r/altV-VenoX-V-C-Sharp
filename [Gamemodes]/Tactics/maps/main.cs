@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
 
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
 
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
 
                 Custom_Weapon_Map = true,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>
                 {
                     {(AltV.Net.Enums.WeaponModel) AltV.Net.Alt.Hash("weapon_raypistol")},
@@ -125,7 +125,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
 
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
 
@@ -182,12 +182,12 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                     new Vector3(-1140.6593f, -2870.789f, 13.9296875f),
                 },
 
-                Custom_Vehicles = new List<VehicleModel>
+                Custom_Vehicles = new List<MapVehicleModel>
                 {
-                    new VehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-863.0242f,  -3204.5671f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new VehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-867.87695f, -3212.2417f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new VehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-873.6f,     -3216.7913f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new VehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-878.38684f, -3224.6638f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
+                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-863.0242f,  -3204.5671f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
+                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-867.87695f, -3212.2417f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
+                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-873.6f,     -3216.7913f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
+                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Buzzard,Vehicle_Position = new Vector3(-878.38684f, -3224.6638f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
                 },
                 Custom_Weapon_Map = true,
                 Custom_Weapon_Mode_Name = "",
@@ -222,7 +222,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -250,7 +250,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -278,7 +278,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -306,7 +306,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -334,7 +334,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -362,7 +362,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -390,7 +390,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -418,7 +418,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -446,7 +446,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
                 },
             new RoundModel
@@ -474,7 +474,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -502,7 +502,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             },
             new RoundModel
@@ -530,7 +530,7 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 },
                 Custom_Weapon_Map = false,
                 Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<VehicleModel>(),
+                Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             }
         };

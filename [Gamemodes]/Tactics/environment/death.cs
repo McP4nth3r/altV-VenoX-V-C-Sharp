@@ -19,33 +19,35 @@ namespace VenoXV._Gamemodes_.Tactics.environment
         {
             try
             {
-                player.Tactics.CurrentStreak = 0;
                 if (!player.Tactics.IsDead)
                 {
-                    if (player != killer)
+                    if (killer != null)
                     {
-                        switch (killer.Tactics.CurrentStreak)
+                        if (player != killer)
                         {
-                            case 3:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Tripple-Kill erzielt!!");
-                                break;
-                            case 5:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Penta-Kill Streak erzielt!!");
-                                break;
-                            case 7:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Ultimate-Kill Streak erzielt!!");
-                                break;
+                            switch (killer.Tactics.CurrentStreak)
+                            {
+                                case 3:
+                                    Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Tripple-Kill erzielt!!");
+                                    break;
+                                case 5:
+                                    Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Penta-Kill Streak erzielt!!");
+                                    break;
+                                case 7:
+                                    Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + " hat einen Ultimate-Kill Streak erzielt!!");
+                                    break;
+                            }
+                            killer.Tactics.Kills += 1;
+                            killer.Tactics.CurrentKills += 1;
+                            killer.Tactics.CurrentStreak += 1;
                         }
-                        killer.Tactics.Kills += 1;
-                        killer.Tactics.CurrentKills += 1;
-                        killer.Tactics.CurrentStreak += 1;
                     }
-
 
                     Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " hat " + player.Username + " getötet!");
                     player.Tactics.Spawned = false;
                     player.Tactics.IsDead = false;
                     player.Tactics.Deaths += 1;
+                    player.Tactics.CurrentStreak = 0;
 
                     if (player.Tactics.Team == EntityData.BFAC_NAME)
                     {

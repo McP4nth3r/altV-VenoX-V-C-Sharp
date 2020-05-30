@@ -145,7 +145,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 }
                 foreach (Client player in Globals.Main.SevenTowersPlayers)
                 {
-                    //if (player.IsInVehicle) { Reallife.dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true); return; }
+                    //if (player.IsInVehicle) { Reallife.dxLibary.VnX.SetIVehicleElementFrozen((VehicleModel)player.Vehicle, player, true); return; }
                     //Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                 }
             }
@@ -163,14 +163,14 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 {
                     if (!Spawns.Spawned && !player.SevenTowers.Spawned) // Wenn Spawn nicht Belegt
                     {
-                        IVehicle vehicle = Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Position, new Rotation(0, 0, 0));
+                        VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_LIST_MAX)], Spawns.Position, new Rotation(0, 0, 0));
                         player.SpawnPlayer(Spawns.Position);
 
                         player.SevenTowers.Spawned = true;
                         player.WarpIntoVehicle<bool>(vehicle, -1);
                         SevenTowersVehicles.Add(vehicle);
-                        vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
-                        vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                        vehicle.Kms = 0;
+                        vehicle.Gas = 100;
                     }
                 }
             }

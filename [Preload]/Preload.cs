@@ -3,7 +3,9 @@ using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Numerics;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 
 namespace VenoXV._Preload_
@@ -47,10 +49,20 @@ namespace VenoXV._Preload_
             }
             catch { }
         }
-
+        static bool created = false;
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(Client player, int value)
         {
+            if (!created)
+            {
+                foreach (ColShapeModel shapes in RageAPI.GetAllColShapes())
+                {
+                    RageAPI.CreateMarker(28, new Vector3(shapes.Position.X, shapes.Position.Y, shapes.Position.Z - 0.5f), new Vector3(shapes.Radius, shapes.Radius, shapes.Radius), new int[] { 200, 0, 0, 200 });
+                }
+                Core.Debug.OutputDebugString("Counted : " + RageAPI.GetAllColShapes().Count);
+                Core.Debug.OutputDebugString("Counted2 : " + Sync.MarkerList.Count);
+                created = true;
+            }
             player.Dimension = player.Id;
             switch (value)
             {

@@ -11,9 +11,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions
     public class Emergency : IScript
     {
 
-        public static IColShape EmergencyReviveCol = Alt.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
+        public static ColShapeModel EmergencyReviveCol = RageAPI.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
@@ -21,10 +21,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (player.IsInVehicle)
                     {
-                        IVehicle Vehicle = player.Vehicle;
-                        if(player.VehicleSeat == (int)IVehicleSeat.Driver)
+                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                        if((VehicleModel)player.VehicleSeat == (int)IVehicleSeat.Driver)
                         {
-                            if (Vehicle != null && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == Constants.FACTION_EMERGENCY)
+                            if (Vehicle != null && Vehicle.Faction == Constants.FACTION_EMERGENCY)
                             {
                                 if (Vehicle.Occupants.Count > 0)
                                 {
@@ -107,8 +107,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (player.IsInVehicle)
                     {
-                        IVehicle Vehicle = player.Vehicle;
-                        if (Vehicle != null || Vehicle.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
+                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                        if (vehicle != null || vehicle.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
                         {
                             if (player.Position.Distance(target.Position) < 7)
                             {

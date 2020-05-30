@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         public static Dictionary<Position, int> ShopSkins;
         //public static Blip[] ShopBlips { get; set; }
         public static List<BlipModel> ShopBlips = new List<BlipModel>();
-        public static List<IColShape> ShopIColShapes = new List<IColShape>();
+        public static List<ColShapeModel> ShopColShapeModels = new List<ColShapeModel>();
 
         public static string SHOP_COOLDOWN = "SHOP_COOLDOWN";
         public static string SHOP_ROB_POSSIBLE = "SHOP_ROB_POSSIBLE";
@@ -70,14 +70,14 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 int SHOP_ID_COUNTER = 0;
                 foreach (var ShopCoord in ShopSkins)
                 {
-                    IColShape Col = Alt.CreateColShapeSphere(ShopCoord.Key, 2.25f);
+                    ColShapeModel Col = RageAPI.CreateColShapeSphere(ShopCoord.Key, 2.25f);
                     Col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now);
                     Col.vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now);
                     Col.vnxSetElementData(SHOP_ROB_POSSIBLE, true);
                     Col.vnxSetElementData(SHOP_ROB_STARTED, false);
                     Col.vnxSetElementData(SHOP_IS_COL, true);
                     Col.vnxSetElementData(SHOP_ID, SHOP_ID_COUNTER);
-                    ShopIColShapes.Add(Col);
+                    ShopColShapeModels.Add(Col);
                     BlipModel blip = new BlipModel
                     {
                         Name = SHOP_BLIP_NAME_POSSIBLE,
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
@@ -141,16 +141,16 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                         if (factions.Allround.isStateFaction(player) == false)
                         {
                             int CURRENT_ID = player.vnxGetElementData<int>(SHOP_ID);
-                            if (ShopIColShapes[CURRENT_ID].vnxGetElementData<bool>(SHOP_ROB_STARTED) == false && ShopIColShapes[CURRENT_ID].vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now)
+                            if (ShopColShapeModels[CURRENT_ID].vnxGetElementData<bool>(SHOP_ROB_STARTED) == false && ShopColShapeModels[CURRENT_ID].vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now)
                             {
                                 //Blip RobbedBlip = ShopBlips[CURRENT_ID];
                                 //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_BEING_ROBBED);
                                 //RobbedBlip. = SHOP_BLIP_NAME_BEING_ROBBED;
                                 player.vnxSetElementData(SHOP_ROB_ID, CURRENT_ID);
                                 player.vnxSetElementData(PLAYER_ROB_STARTED, true);
-                                ShopIColShapes[CURRENT_ID].vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                                ShopIColShapes[CURRENT_ID].vnxSetElementData(SHOP_ROB_STARTED, true);
-                                ShopIColShapes[CURRENT_ID].vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now.AddMinutes(SHOP_ROB_TIME));
+                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_POSSIBLE, false);
+                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_STARTED, true);
+                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now.AddMinutes(SHOP_ROB_TIME));
                                 factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
                                 anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
                             }
@@ -171,7 +171,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             {
                 foreach (Client player in Alt.GetAllPlayers())
                 {
-                    foreach (IColShape col in ShopIColShapes)
+                    foreach (ColShapeModel col in ShopColShapeModels)
                     {
                         if (col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == true && col.vnxGetElementData<DateTime>(SHOP_ROB_TIMEREMAINING) <= DateTime.Now)
                         {
@@ -239,7 +239,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (IColShape col in ShopIColShapes)
+                foreach (ColShapeModel col in ShopColShapeModels)
                 {
                     if (col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == true && col.vnxGetElementData<DateTime>(SHOP_ROB_TIMEREMAINING) >= DateTime.Now)
                     {
@@ -264,7 +264,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (IColShape col in Alt.GetAllColShapes())
+                foreach (ColShapeModel col in Alt.GetAllColShapes())
                 {
                     if (col.vnxGetElementData<bool>(SHOP_IS_COL) == true)
                     {

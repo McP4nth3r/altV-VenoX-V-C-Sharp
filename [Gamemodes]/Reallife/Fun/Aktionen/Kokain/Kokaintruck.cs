@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Kokaintruck : IScript
     {
-        public static IColShape Kokaintruck_Col = Alt.CreateColShapeSphere(new Position(-1265.874f, -3432.416f, 1.5f), 1.5f);
+        public static ColShapeModel Kokaintruck_Col = RageAPI.CreateColShapeSphere(new Position(-1265.874f, -3432.416f, 1.5f), 1.5f);
         static Timer KTTimer = new Timer();
 
         public static void OnResourceStart()
@@ -26,11 +26,11 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == Kokaintruck_Col)
+                if (shape == Kokaintruck_Col.Entity)
                 {
                     if (factions.Allround.isBadFaction(player))
                     {
@@ -78,7 +78,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
                                 player.WarpOutOfVehicle<bool>();
                                 player.Vehicle.Remove();
-                                AltV.Net.Alt.RemoveColShape(shape);
+                                Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                 foreach (Client target in Alt.GetAllPlayers())
                                 {
@@ -161,24 +161,22 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         }
                         AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                         Allround.ChangeAktionsState(true);
-                        IColShape Kokaintruck_Col_Abgabe = Alt.CreateColShapeSphere(new Position(2536.999f, 2578.391f, 0), 3f);
+                        ColShapeModel Kokaintruck_Col_Abgabe = RageAPI.CreateColShapeSphere(new Position(2536.999f, 2578.391f, 0), 3f);
                         Kokaintruck_Col_Abgabe.vnxSetElementData("AKTION_COL", true);
                         RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - kokskosten);
 
-                        IVehicle Kokaintruckveh = AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0));
+                        VehicleModel Kokaintruckveh = (VehicleModel)AltV.Net.Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0));
                         //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, Kokaintruckveh, -1);
 
                         Kokaintruckveh.SetSyncedMetaData("AKTIONS_FAHRZEUG", true);
 
                         Kokaintruckveh.EngineOn = true;
-                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "Kokaintruck");
-                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "KOKAINTRUCK"); ;
-                        Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
-                        Kokaintruckveh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                        Kokaintruckveh.Kms = 0;
+                        Kokaintruckveh.Gas = 100;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
-                        Kokaintruckveh.SetSyncedMetaData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
+                        Kokaintruckveh.Save = false;
                         foreach (Client target in Alt.GetAllPlayers())
                         {
                             if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
@@ -209,7 +207,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static void ChangeActionStateKT(object unused, ElapsedEventArgs e)
         {
             KTTimer.Stop();
-            foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+            foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
             {
                 if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                 {

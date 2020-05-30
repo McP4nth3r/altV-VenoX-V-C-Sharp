@@ -13,11 +13,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
     public class Job : IScript
     {
         //Cols 
-        public static IColShape CITY_TRANSPORT_Col = Alt.CreateColShapeSphere(new Position(864.2459f, -2312.139f, 30), 2);
-        public static IColShape AIRPORT_JOB_Col = Alt.CreateColShapeSphere(new Position(-1047.312f, -2744.564f, 21.3594f), 2);
-        public static IColShape BUS_JOB_Col = Alt.CreateColShapeSphere(new Position(438.2896f, -626.1547f, 28.70835f), 2);
-        public static IColShape LSPDDuty = Alt.CreateColShapeSphere(new Position(459.297f, -990.9312f, 30.6896f), 1.5f);
-        public static IColShape FBIDuty = Alt.CreateColShapeSphere(new Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
+        public static ColShapeModel CITY_TRANSPORT_Col = RageAPI.CreateColShapeSphere(new Position(864.2459f, -2312.139f, 30), 2);
+        public static ColShapeModel AIRPORT_JOB_Col = RageAPI.CreateColShapeSphere(new Position(-1047.312f, -2744.564f, 21.3594f), 2);
+        public static ColShapeModel BUS_JOB_Col = RageAPI.CreateColShapeSphere(new Position(438.2896f, -626.1547f, 28.70835f), 2);
+        public static ColShapeModel LSPDDuty = RageAPI.CreateColShapeSphere(new Position(459.297f, -990.9312f, 30.6896f), 1.5f);
+        public static ColShapeModel FBIDuty = RageAPI.CreateColShapeSphere(new Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
 
         [Command("setclothes")]
         public static void GiveIPlayerTestClothes(Client player, int clothesslot, int clothesdrawable, int clothestexture)
@@ -66,11 +66,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             player.GivePlayerWeapon((AltV.Net.Enums.WeaponModel)Alt.Hash(weaponname), 500);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == CITY_TRANSPORT_Col)
+                if (shape == CITY_TRANSPORT_Col.Entity)
                 {
                     string job = player.vnxGetElementData<string>(EntityData.PLAYER_JOB);
                     if (job == Constants.JOB_CITY_TRANSPORT)
@@ -86,7 +86,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
-                else if (shape == LSPDDuty)
+                else if (shape == LSPDDuty.Entity)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
                     {
@@ -94,14 +94,14 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
-                else if (shape == FBIDuty)
+                else if (shape == FBIDuty.Entity)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_FBI)
                     {
                         player.Emit("showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
-                else if (shape == AIRPORT_JOB_Col)
+                else if (shape == AIRPORT_JOB_Col.Entity)
                 {
                     if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_AIRPORT)
                     {
@@ -116,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
-                else if (shape == BUS_JOB_Col)
+                else if (shape == BUS_JOB_Col.Entity)
                 {
                     if (player.vnxGetElementData<string>(EntityData.PLAYER_JOB) == Constants.JOB_BUS)
                     {

@@ -370,13 +370,13 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
         }
 
 
-        public static IColShape AmmunationCOL = Alt.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
+        public static ColShapeModel AmmunationCOL = RageAPI.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == AmmunationCOL)
+                if (shape == AmmunationCOL.Entity)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN) != 1)
                     {

@@ -53,14 +53,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
 
-        public static IColShape SWT_COL = Alt.CreateColShapeSphere(new Position(1853.666f, 3688.104f, 34f), 1);
-        public static IColShape WT_COL = Alt.CreateColShapeSphere(new Position(2853.49f, 1502.488f, 24.72436f), 1);
+        public static ColShapeModel SWT_COL = RageAPI.CreateColShapeSphere(new Position(1853.666f, 3688.104f, 34f), 1);
+        public static ColShapeModel WT_COL = RageAPI.CreateColShapeSphere(new Position(2853.49f, 1502.488f, 24.72436f), 1);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == SWT_COL && Allround.isStateFaction(player))
+                if (shape == SWT_COL.Entity && Allround.isStateFaction(player))
                 {
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
                     player.Emit("ShowStaatswaffentruck_C", "Staatswaffentruck",

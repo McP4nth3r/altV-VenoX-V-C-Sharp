@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
@@ -12,6 +13,40 @@ namespace VenoXV.Core
 {
     public static class RageAPI
     {
+        //RageAPI.CreateColShapeSphere(new Position(732.712f, -1088.656f, 21.77967f), 2);
+
+        public static List<ColShapeModel> GetAllColShapes()
+        {
+            try { return Sync.ColShapeList; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GetAllColShapes", ex); return new List<ColShapeModel>(); }
+        }
+        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius)
+        {
+            try
+            {
+                IColShape Entity = Alt.CreateColShapeSphere(Position, Radius);
+                ColShapeModel ColShape = new ColShapeModel
+                {
+
+                    Entity = Entity,
+                    Position = Position,
+                    Radius = Radius,
+                    Dimension = 0
+                };
+                Sync.ColShapeList.Add(ColShape);
+                return ColShape;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateColShapeSphere", ex); return new ColShapeModel(); }
+        }
+
+        public static void RemoveColShape(ColShapeModel ColShape)
+        {
+            try
+            {
+                Sync.ColShapeList.Remove(ColShape);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("RemoveColShape", ex); }
+        }
         public static void SendTranslatedChatMessage(this Client element, string msg)
         {
             try
@@ -261,7 +296,7 @@ namespace VenoXV.Core
                 Sync.LabelList.Add(label);
                 return label;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTextLabel", ex); return new LabelModel(); }
+            catch (Exception ex) { Debug.CatchExceptions("CreateTextLabel", ex); return new LabelModel(); }
         }
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
         {
@@ -280,7 +315,7 @@ namespace VenoXV.Core
                 Sync.BlipList.Add(blip);
                 return blip;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
+            catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
         public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color)
@@ -293,12 +328,14 @@ namespace VenoXV.Core
                     Type = Type,
                     Position = Position,
                     Scale = Scale,
-                    Color = Color
+                    Color = Color,
+                    Dimension = 0,
+                    Visible = true
                 };
                 Sync.MarkerList.Add(marker);
                 return marker;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
+            catch (Exception ex) { Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
         }
 
         public static float ToRadians(float val)

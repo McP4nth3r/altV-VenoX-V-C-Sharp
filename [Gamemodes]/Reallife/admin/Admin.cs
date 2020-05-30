@@ -915,21 +915,20 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    IVehicle Vehicle = Vehicles.Vehicles.GetVehicleById(IVehicleid);
+                    VehicleModel vehicle = Vehicles.Vehicles.GetVehicleById(IVehicleid);
                     if (action == "despawn")
                     {
-                        Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
+                        vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
                         player.SendTranslatedChatMessage("Erfolgreich despawned!");
                     }
                     else if (action == "gethere")
                     {
-                        Vehicle.Position = player.Position;
+                        vehicle.Position = player.Position;
                         player.SendTranslatedChatMessage("Fahrzeug Erfolgreich geholt!");
                     }
                     else if (action == "goto")
                     {
-                        AntiCheat_Allround.SetTimeOutTeleport(player, 2500);
-                        player.SetPosition = Vehicle.Position;
+                        player.SetPosition = vehicle.Position;
                         player.SendTranslatedChatMessage("Fahrzeug Erfolgreich hingegangen!");
                     }
                 }
@@ -948,9 +947,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                     {
-                        if (Vehicle.Position.Distance(player.Position) < 20 && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) <= Constants.FACTION_NONE)
+                        if (Vehicle.Position.Distance(player.Position) < 20 && Vehicle.Faction <= Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
                         }
@@ -971,7 +970,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 DateTime AktionPossible = Fun.Allround.AktionsTimer;
                 if (AktionPossible > DateTime.Now)
                 {
-                    foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                     {
                         if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                         {
@@ -1172,17 +1171,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
-        [Command("getIVehicleinfo", true)]
-        public static void GiveAdminWeapons(Client player)
-        {
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
-            {
-                if (player.Vehicle != null)
-                {
-                    player.SendTranslatedChatMessage("Info : " + player.Vehicle.Model);
-                }
-            }
-        }
 
 
         [Command("giveweapon", true)]
@@ -1320,7 +1308,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     if (player.IsInVehicle)
                     {
-                        IVehicle Vehicle = player.Vehicle;
+                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
                         // player.SendTranslatedChatMessage("[vnxGetElementData(" + element + ") = " + Vehicle.vnxGetElementData(element));
                     }
                 }
@@ -1337,7 +1325,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     if (player.IsInVehicle)
                     {
-                        IVehicle Vehicle = player.Vehicle;
+                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
                         // player.SendTranslatedChatMessage("[VnXGetSharedData(" + element + ") = " + Vehicle.vnxGetElementData(element));
                     }
                 }
@@ -1466,11 +1454,11 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 // Obtain occupied IVehicle
-                IVehicle veh = player.Vehicle;
+                VehicleModel veh = (VehicleModel)player.Vehicle;
                 if (veh != null)
                 {
                     // Update the IVehicle's position into the database
-                    Database.UpdateIVehicleSingleString("model", modelName, veh.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
+                    Database.UpdateIVehicleSingleString("model", modelName, veh.ID);
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast das Fahrzeug geändert zu : " + modelName);
                 }
             }
@@ -1502,50 +1490,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.AssaultRifle, 2);
         }
 
-        [Command("createvehicle")]
-        public static void CreatePermanentIVehicle(Client player, string VehicleModel, string IVehicleOwner, int FID, int R, int G, int B, int R2, int G2, int B2, int IVehiclePreis, float IVehicleLiter)
-        {
-            try
-            {
-                if (R > 255 || G > 255 || B > 255 || R2 > 255 || G2 > 255 || B2 > 255)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Primary & Sec. Rgba darf nicht über 255 sein!");
-                    return;
-                }
-                else if (R < 0 || G < 0 || B < 0 || R2 < 0 || G2 < 0 || B2 < 0)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Primary & Sec. Rgba darf nicht unter 0 sein!");
-                    return;
-                }
-                if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
-                {
-                    VehicleModel IVehicle = new VehicleModel
-                    {
-                        // Basic data for IVehicle creation
-                        model = VehicleModel,
-                        faction = FID,
-                        position = player.Position,
-                        rotation = player.Rotation,
-                        dimension = player.Dimension,
-                        RgbaType = Constants.VEHICLE_Rgba_TYPE_CUSTOM,
-                        firstRgba = R + "," + G + "," + B,
-                        secondRgba = R2 + "," + G2 + "," + B2,
-                        pearlescent = 0,
-                        owner = IVehicleOwner,
-                        plate = string.Empty,
-                        price = IVehiclePreis,
-                        parking = 0,
-                        parked = 0,
-                        gas = IVehicleLiter,
-                        kms = 0.0f
-                    };
-
-                    // Create the IVehicle
-                    Vehicles.Vehicles.CreateVehicle(player, IVehicle, true);
-                }
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnAdminVehicle", ex); }
-        }
 
 
         // DrugsMichaelAliensFightIn == Sollten wir verwenden für drogen system ^^

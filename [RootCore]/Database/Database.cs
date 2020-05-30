@@ -4,9 +4,11 @@ using AltV.Net.Data;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.gangwar.v2;
+using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Vehicles;
@@ -1310,12 +1312,50 @@ namespace VenoXV._RootCore_.Database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT * FROM Vehicles";
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        float posX = reader.GetFloat("posX");
+                        float posY = reader.GetFloat("posY");
+                        float posZ = reader.GetFloat("posZ");
+                        float rotX = reader.GetFloat("rotX");
+                        float rotY = reader.GetFloat("rotY");
+                        float rotZ = reader.GetFloat("rotZ");
+                        VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
+                        vehClass.ID = reader.GetInt32("id");
+                        vehClass.Name = reader.GetString("model");
+                        vehClass.FirstColor = reader.GetString("firstColor");
+                        vehClass.SecondColor = reader.GetString("secondColor");
+                        vehClass.Owner = reader.GetString("owner");
+                        vehClass.Plate = reader.GetString("plate");
+                        vehClass.Faction = reader.GetInt32("faction");
+                        if (vehClass.Faction > 0)
                         {
-                            VehicleModel IVehicle = new VehicleModel(reader);
-                            IVehicleList.Add(IVehicle);
+                            vehClass.Dimension = reader.GetInt32("dimension");
+                        }
+                        else
+                        {
+                            vehClass.Dimension = Constants.VEHICLE_OFFLINE_DIM;
+                        }
+                        vehClass.Price = reader.GetInt32("price");
+                        vehClass.Gas = reader.GetFloat("gas");
+                        vehClass.Kms = reader.GetFloat("kms");
+                        vehClass.Position = new Vector3(posX, posY, posZ);
+                        vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
+                        vehClass.SpawnCoord = vehClass.Position;
+                        vehClass.SpawnRot = vehClass.Rotation;
+                        string[] firstRgba = vehClass.FirstColor.Split(',');
+                        string[] secondRgba = vehClass.SecondColor.Split(',');
+                        vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                        vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
+                        vehClass.EngineOn = false;
+                        if (vehClass.Faction > Constants.FACTION_NONE)
+                        {
+                            vehClass.LockState = AltV.Net.Enums.VehicleLockState.Unlocked;
+                        }
+                        else
+                        {
+                            vehClass.LockState = AltV.Net.Enums.VehicleLockState.Locked;
                         }
                     }
                 }
@@ -1360,6 +1400,7 @@ namespace VenoXV._RootCore_.Database
             catch { return new List<GangwarModel>(); }
         }
 
+        /*
         public static int AddNewIVehicle(VehicleModel IVehicle)
         {
             try
@@ -1401,7 +1442,7 @@ namespace VenoXV._RootCore_.Database
             }
             catch { return 99999; }
         }
-
+        */
         public static int AddNewAdminTicket(AdminTickets ticket)
         {
 
@@ -1435,84 +1476,6 @@ namespace VenoXV._RootCore_.Database
         }
 
 
-
-
-        public static void UpdateIVehicleRgba(VehicleModel IVehicle)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "UPDATE Vehicles SET RgbaType = @RgbaType, firstRgba = @firstRgba, ";
-                    command.CommandText += "secondRgba = @secondRgba, pearlescent = @pearlescent WHERE id = @vehId LIMIT 1";
-                    command.Parameters.AddWithValue("@RgbaType", IVehicle.RgbaType);
-                    command.Parameters.AddWithValue("@firstRgba", IVehicle.firstRgba);
-                    command.Parameters.AddWithValue("@secondRgba", IVehicle.secondRgba);
-                    command.Parameters.AddWithValue("@pearlescent", IVehicle.pearlescent);
-                    command.Parameters.AddWithValue("@vehId", IVehicle.id);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleRgba] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleRgba] " + ex.StackTrace);
-                }
-            }
-        }
-
-        public static void UpdateIVehiclePosition(VehicleModel IVehicle)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation WHERE id = @vehId LIMIT 1";
-                    command.Parameters.AddWithValue("@posX", IVehicle.position.X);
-                    command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
-                    command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
-                    command.Parameters.AddWithValue("@rotation", IVehicle.rotation);
-                    command.Parameters.AddWithValue("@vehId", IVehicle.id);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateIVehiclePosition] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateIVehiclePosition] " + ex.StackTrace);
-                }
-            }
-        }
-
-        public static void UpdateIVehicleSingleValue(string table, int value, int IVehicleId)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "UPDATE Vehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
-                    command.Parameters.AddWithValue("@value", value);
-                    command.Parameters.AddWithValue("@vehId", IVehicleId);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleValue] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleValue] " + ex.StackTrace);
-                }
-            }
-        }
-
         public static void UpdateIVehicleSingleString(string table, string value, int IVehicleId)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -1538,7 +1501,7 @@ namespace VenoXV._RootCore_.Database
 
         public static void SaveIVehicle(VehicleModel IVehicle)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            /*using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
@@ -1577,11 +1540,12 @@ namespace VenoXV._RootCore_.Database
                     Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.Message);
                     Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.StackTrace);
                 }
-            }
+            }*/
         }
 
         public static void SaveAllIVehicles(List<VehicleModel> IVehicleList)
         {
+            /*
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -1627,7 +1591,7 @@ namespace VenoXV._RootCore_.Database
                     Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.Message);
                     Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.StackTrace);
                 }
-            }
+            }*/
         }
 
         public static void RemoveIVehicle(int IVehicleId)

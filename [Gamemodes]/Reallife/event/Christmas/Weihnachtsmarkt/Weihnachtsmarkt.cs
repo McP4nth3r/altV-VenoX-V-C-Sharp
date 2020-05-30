@@ -1,11 +1,8 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -13,19 +10,19 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
 {
     public class Weihnachtsmarkt : IScript
     {
-        public static IColShape Adventskalender_Col = Alt.CreateColShapeSphere(new Position(213.1452f, -923.5319f, 30.69199f), 1.5f);
+        public static ColShapeModel Adventskalender_Col = RageAPI.CreateColShapeSphere(new Position(213.1452f, -923.5319f, 30.69199f), 1.5f);
         //Marker Adventskalender_Marker = //ToDo Create Marker NAPI.Marker.CreateMarker(0, Adventskalender_Col.position, new Position(0, 0, 0), new Position(0, 0, 0), 2, new Rgba(0, 150, 200), true, 0);
-        public static IColShape Markt_Col = Alt.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
+        public static ColShapeModel Markt_Col = RageAPI.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == Markt_Col)
+                if (shape == Markt_Col.Entity)
                 {
                     player.Emit("CreateChristmasMarketWindow");
                 }
-                else if (shape == Adventskalender_Col)
+                else if (shape == Adventskalender_Col.Entity)
                 {
                     player.Emit("CreateAdventskalenderWindow");
                 }
@@ -35,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
 
 
 
-        public static void GivePlayerPresent(Client player, int Day)
+        /*public static void GivePlayerPresent(Client player, int Day)
         {
             try
             {
@@ -209,6 +206,8 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
             }
             catch { }
         }
+        */
+
 
         //[AltV.Net.ClientEvent("OnAdventskalenderClickServer")]
         public static void OnAdventskalenderClick(Client player, int value)
@@ -219,7 +218,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ADVENTSKALENEDER) != DateTime.Now.Day)
                     {
-                        GivePlayerPresent(player, value);
+                        //GivePlayerPresent(player, value);
                     }
                     else
                     {

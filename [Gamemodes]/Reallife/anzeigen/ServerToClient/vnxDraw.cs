@@ -128,14 +128,7 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "Player:Freeze", state);
         }
-        public static void SetIVehicleElementFrozen(IVehicle Vehicle, IPlayer sender, bool state)
-        {
-            if (Vehicle != null)
-            {
-                AltV.Net.Alt.Server.TriggerClientEvent(sender, "Vehicle:Freeze", Vehicle, state);
-            }
-        }
-        public static void SetDelayedIVehicleElementFrozen(IVehicle Vehicle, IPlayer sender, bool state, int TimeInMS)
+        public static void SetDelayedIVehicleElementFrozen(VehicleModel Vehicle, IPlayer sender, bool state, int TimeInMS)
         {
             if (Vehicle != null)
             {

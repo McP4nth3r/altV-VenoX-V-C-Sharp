@@ -164,21 +164,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
                 foreach (GangwarArea area in _gangwarManager.GangwarAreas)
                 {
                     // You entered a GW Area
-                    if (area.AreaIColShape == shape)
+                    if (area.AreaColShapeModel.Entity == shape)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast ein Ganggebiet betreten!");
                         return;
                     }
 
                     // You entered the TK of an area
-                    if (area.TKIColShape == shape)
+                    if (area.TKColShapeModel.Entity == shape)
                     {
                         area.Inform(player);
                         return;

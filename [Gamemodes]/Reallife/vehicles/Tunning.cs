@@ -15,14 +15,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
     {
         public static void OnResourceStart()
         {
-            Core.RageAPI.CreateBlip("Werkstatt", new Vector3(-354.7027f, -135.3738f, 38.57238f), 446, 0, true);
+            RageAPI.CreateBlip("Werkstatt", new Vector3(-354.7027f, -135.3738f, 38.57238f), 446, 0, true);
         }
 
-        public static IColShape TuningGaragenTeleport = Alt.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);
+        public static ColShapeModel TuningGaragenTeleport = RageAPI.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);
 
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
@@ -33,13 +33,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     return;
                     if (player.IsInVehicle)
                     {
-                        IVehicle Vehicle = player.Vehicle;
-                        if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) > Constants.FACTION_NONE)
+                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                        if (Vehicle.Faction > Constants.FACTION_NONE)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
-                        else if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) !=player.Username)
+                        else if (Vehicle.Owner !=player.Username)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         player.vnxSetStreamSharedElementData("HideHUD", 1);
                         IVehicle.position = new Position(-337.9052f, -136.9406f, 38.58294f);
                         IVehicle.Rotation = new Position(0, 0, 300);
-                        dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, true);
+                        vehicle.Frozen = true;
                         VnX.CreateDiscordUpdate(player, "Am Auto Schrauben", "VenoX Reallife Tuning");
                         anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                         player.Emit("showTuningMenu");
@@ -81,12 +81,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (player.IsInVehicle)
                 {
-                    IVehicle Vehicle = player.Vehicle;
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
                     player.Emit("Remote_Speedo_Hide", false);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    Vehicle.Rotation = new Rotation(0f, 0f, 90f);
-                    dxLibary.VnX.SetIVehicleElementFrozen(Vehicle, player, false);
-                    Vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
+                    vehicle.Rotation = new Rotation(0f, 0f, 90f);
+                    vehicle.Frozen = false;
+                    vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
                     anzeigen.Usefull.VnX.ResetDiscordData(player);
                 }
                 player.Emit("CloseTuningWindow");
@@ -94,13 +94,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void AddTunningToIVehicle(IVehicle Vehicle)
+        public static void AddTunningToIVehicle(VehicleModel vehClass)
         {
             try
             {
                 /*foreach (TunningModel tunning in Main.tunningList)
                 {
-                    if (Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID) == tunning.IVehicle)
+                    if (Vehicle.ID == tunning.IVehicle)
                     {
                         IVehicle.SetMod(tunning.slot, tunning.component);
                     }
@@ -128,15 +128,15 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                IVehicle Vehicle = player.Vehicle;
+                VehicleModel vehicle = (VehicleModel)player.Vehicle;
 
                 if (component > 0)
                 {
-                    //player.Vehicle.SetMod(slot, component);
+                    //(VehicleModel)player.Vehicle.SetMod(slot, component);
                 }
                 else
                 {
-                    //player.Vehicle.RemoveMod(slot);
+                    //(VehicleModel)player.Vehicle.RemoveMod(slot);
                 }
             }
             catch { }
@@ -147,7 +147,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                int IVehicleId = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
+                VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                int IVehicleId = vehClass.ID;
 
                 for (int i = 0; i < 49; i++)
                 {
@@ -155,7 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     int component = GetIVehicleTunningComponent(IVehicleId, i);
 
                     // Remove or add the tunning part
-                    // player.Vehicle.SetMod(i, component);
+                    // (VehicleModel)player.Vehicle.SetMod(i, component);
                 }
             }
             catch { }
@@ -266,7 +267,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
 
                 // Get the IVehicle's id
-                int IVehicleId = player.Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
+                VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                int IVehicleId = vehClass.ID;
                 int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 TunningModel Tunning = Main.GetIVehicleTuningBySlot();
                 if (Tunning != null && Tunning.slot == slot)

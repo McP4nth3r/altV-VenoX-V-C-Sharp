@@ -1,11 +1,10 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Timers;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -19,146 +18,11 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 
 
         //[AltV.Net.ClientEvent("Start_SWT_Server")]
-        public static void Start_SWT_Server(Client player, int nightstick, int stungun, int pistol, int pistol_ammo, int pistol50, int pistol50_ammo, int pumpshotgun, int pumpshotgun_ammo, int combatpdw, int combatpdw_ammo, int carbinerifle, int carbinerifle_ammo, int advancedrifle, int advancedrifle_ammo, int sniperrifle, int sniperrifle_ammo, int smokegrenade, int totalcost)
-        {
-            try
-            {
-                if (Allround.isAktionPossible(player) == false)
-                {
-                    return;
-                }
-                else if (Allround.AktionAmLaufen(player))
-                {
-                    return;
-                }
-                Allround.ChangeAktionsState(true);
-                Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_POLICE);
-                if (fkasse.money < totalcost)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es ist nicht genug Geld in der Fraktion´s Kasse vorhanden!");
-                    return;
-                }
 
-                Database.SetFactionStats(Constants.FACTION_POLICE, fkasse.money - totalcost, fkasse.weed, fkasse.koks, fkasse.mats);
-
-                int nightstick_final_value = nightstick;
-                int stungun_final_value = stungun;
-                int pistol_final_value = pistol;
-                int pistol_ammo_final_value = pistol_ammo;
-
-
-                int pistol50_final_value = pistol50;
-                int pistol50_ammo_final_value = pistol50_ammo;
-                int pumpshotgun_final_value = pumpshotgun;
-                int pumpshotgun_ammo_final_value = pumpshotgun_ammo;
-
-
-                int combatpdw_final_value = combatpdw;
-                int combatpdw_ammo_final_value = combatpdw_ammo;
-                int carbinerifle_final_value = carbinerifle;
-                int carbinerifle_ammo_final_value = carbinerifle_ammo;
-
-
-                int advancedrifle_final_value = advancedrifle;
-                int advancedrifle_ammo_final_value = advancedrifle_ammo;
-
-                int sniperrifle_final_value = sniperrifle;
-                int sniperrifle_ammo_final_value = sniperrifle_ammo;
-
-
-                int smokegrenade_final_value = smokegrenade;
-
-                if (nightstick_final_value > Constants.NIGHTSTICK_MAX_LAGER) { nightstick_final_value = Constants.NIGHTSTICK_MAX_LAGER; }
-                if (stungun_final_value > Constants.STUNGUN_MAX_LAGER) { stungun_final_value = Constants.STUNGUN_MAX_LAGER; }
-
-                if (pistol_final_value > Constants.PISTOL_MAX_LAGER) { pistol_final_value = Constants.PISTOL_MAX_LAGER; }
-                if (pistol_ammo_final_value > Constants.PISTOL_AMMO_MAX_LAGER) { pistol_ammo_final_value = Constants.PISTOL_AMMO_MAX_LAGER; }
-
-                if (pistol50_final_value > Constants.PISTOL50_MAX_LAGER) { pistol50_final_value = Constants.PISTOL50_MAX_LAGER; }
-                if (pistol50_ammo_final_value > Constants.PISTOL50_AMMO_MAX_LAGER) { pistol50_ammo_final_value = Constants.PISTOL50_AMMO_MAX_LAGER; }
-
-                if (pumpshotgun_final_value > Constants.SHOTGUN_MAX_LAGER) { pumpshotgun_final_value = Constants.SHOTGUN_MAX_LAGER; }
-                if (pumpshotgun_ammo_final_value > Constants.SHOTGUN_AMMO_MAX_LAGER) { pumpshotgun_ammo_final_value = Constants.SHOTGUN_AMMO_MAX_LAGER; }
-
-                if (combatpdw_final_value > Constants.COMBATPDW_MAX_LAGER) { combatpdw_final_value = Constants.COMBATPDW_MAX_LAGER; }
-                if (combatpdw_ammo_final_value > Constants.COMBATPDW_AMMO_MAX_LAGER) { combatpdw_ammo_final_value = Constants.COMBATPDW_AMMO_MAX_LAGER; }
-
-                if (carbinerifle_final_value > Constants.KARABINER_MAX_LAGER) { carbinerifle_final_value = Constants.KARABINER_MAX_LAGER; }
-                if (carbinerifle_ammo_final_value > Constants.KARABINER_AMMO_MAX_LAGER) { carbinerifle_ammo_final_value = Constants.KARABINER_AMMO_MAX_LAGER; }
-
-                if (advancedrifle_final_value > Constants.ADVANCEDRIFLE_MAX_LAGER) { advancedrifle_final_value = Constants.ADVANCEDRIFLE_MAX_LAGER; }
-                if (advancedrifle_ammo_final_value > Constants.ADVANCEDRIFLE_AMMO_MAX_LAGER) { advancedrifle_ammo_final_value = Constants.ADVANCEDRIFLE_AMMO_MAX_LAGER; }
-
-                if (sniperrifle_final_value > Constants.SNIPER_MAX_LAGER) { sniperrifle_final_value = Constants.SNIPER_MAX_LAGER; }
-                if (sniperrifle_ammo_final_value > Constants.SNIPER_AMMO_MAX_LAGER) { sniperrifle_ammo_final_value = Constants.SNIPER_AMMO_MAX_LAGER; }
-
-                if (smokegrenade_final_value > Constants.TRAENENGAS_MAX_LAGER) { smokegrenade_final_value = Constants.TRAENENGAS_MAX_LAGER; }
-
-
-                /*player.SendTranslatedChatMessage("nightstick : " + nightstick);
-                player.SendTranslatedChatMessage("stungun : " + stungun);
-                player.SendTranslatedChatMessage("pistol : " + pistol);
-                player.SendTranslatedChatMessage("pistol_ammo : " + pistol_ammo);
-                player.SendTranslatedChatMessage("pistol50 : " + pistol50);
-                player.SendTranslatedChatMessage("pistol50_ammo : " + pistol50_ammo);
-                player.SendTranslatedChatMessage("pumpshotgun : " + pumpshotgun);
-                player.SendTranslatedChatMessage("pumpshotgun_ammo : " + pumpshotgun_ammo);
-                player.SendTranslatedChatMessage("combatpdw : " + combatpdw);
-                player.SendTranslatedChatMessage("combatpdw_ammo : " + combatpdw_ammo);
-                player.SendTranslatedChatMessage("carbinerifle : " + carbinerifle);
-                player.SendTranslatedChatMessage("carbinerifle_ammo : " + carbinerifle_ammo);
-                player.SendTranslatedChatMessage("advancedrifle : " + advancedrifle);
-                player.SendTranslatedChatMessage("advancedrifle_ammo : " + advancedrifle_ammo);
-                player.SendTranslatedChatMessage("sniperrifle : " + sniperrifle);
-                player.SendTranslatedChatMessage("sniperrifle_ammo : " + sniperrifle_ammo);
-                player.SendTranslatedChatMessage("smokegrenade : " + smokegrenade);*/
-
-                Marker_WT.CreateFactionWTEnter(false, "SWT");
-                SWT_TRUCK = Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Terbyte, new Position(1813.723f, 3685.898f, 33.84286f), new Rotation(0, 0, 115));
-                SWT_TRUCK.EngineOn = true;
-                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "SWT");
-                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PLATE, "SWT");
-                SWT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
-                SWT_TRUCK.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
-                SWT_TRUCK.NumberplateText = "VenoX";
-                SWT_TRUCK.vnxSetElementData("AKTIONS_FAHRZEUG", true);
-                SWT_TRUCK.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
-
-                SWT_TRUCK.vnxSetElementData("nightstick", nightstick_final_value);
-                SWT_TRUCK.vnxSetElementData("stungun", stungun_final_value);
-                SWT_TRUCK.vnxSetElementData("pistol", pistol_final_value);
-                SWT_TRUCK.vnxSetElementData("pistol_ammo", pistol_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("pistol50", pistol50_final_value);
-                SWT_TRUCK.vnxSetElementData("pistol50_ammo", pistol50_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("pumpshotgun", pumpshotgun_final_value);
-                SWT_TRUCK.vnxSetElementData("pumpshotgun_ammo", pumpshotgun_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("combatpdw", combatpdw_final_value);
-                SWT_TRUCK.vnxSetElementData("combatpdw_ammo", combatpdw_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("carbinerifle", carbinerifle_final_value);
-                SWT_TRUCK.vnxSetElementData("carbinerifle_ammo", carbinerifle_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("advancedrifle", advancedrifle_final_value);
-                SWT_TRUCK.vnxSetElementData("advancedrifle_ammo", advancedrifle_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("sniperrifle", sniperrifle_final_value);
-                SWT_TRUCK.vnxSetElementData("sniperrifle_ammo", sniperrifle_ammo_final_value);
-                SWT_TRUCK.vnxSetElementData("smokegrenade", smokegrenade_final_value);
-                //player.SetIntoIVehicle(SWT_TRUCK, -1);
-
-
-
-                SWTTimer.Elapsed += new ElapsedEventHandler(ChangeActionStateSWT);
-                SWTTimer.Interval = 20 * 60000;
-                SWTTimer.Enabled = true;
-
-                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 175, 0) + "[Staat] : Ein Staatswaffentruck wurde beladen!");
-            }
-            catch
-            {
-            }
-        }
         public static void ChangeActionStateSWT(object unused, ElapsedEventArgs e)
         {
             SWTTimer.Stop();
-            foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+            foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
             {
                 if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                 {

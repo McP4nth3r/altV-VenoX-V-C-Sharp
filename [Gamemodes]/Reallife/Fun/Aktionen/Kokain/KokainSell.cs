@@ -14,17 +14,17 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
 {
     public class KokainSell : IScript
     {
-        public static IColShape KokainSell_Col = Alt.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
+        public static ColShapeModel KokainSell_Col = RageAPI.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
         public static void OnResourceStart()
         {
             Core.RageAPI.CreateBlip("Dealer", new Vector3(140.425f, -239.0754f, 51.52684f), 51, 27, true);
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == KokainSell_Col)
+                if (shape == KokainSell_Col.Entity)
                 {
                     dxLibary.VnX.DrawInputWindow(player, "Kokain Dealer", "Hast du etwas Koks für mich?<br>Ich zahle dir pro Gramm 30$....", "Verkaufen");
                 }

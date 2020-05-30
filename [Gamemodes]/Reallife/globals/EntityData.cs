@@ -63,7 +63,7 @@
         public const string PLAYER_BUSINESS_ENTERED = "PLAYER_BUSINESS_ENTERED";
         public const string PLAYER_DRIVING_EXAM = "PLAYER_DRIVING_EXAM";
         public const string PLAYER_DRIVING_CHECKPOINT = "PLAYER_DRIVING_CHECKPOINT";
-        public const string PLAYER_DRIVING_IColShape = "PLAYER_DRIVING_IColShape";
+        public const string PLAYER_DRIVING_ColShapeModel = "PLAYER_DRIVING_ColShapeModel";
         public const string PLAYER_HANDCUFFED = "PLAYER_HANDCUFFED";
         public const string PLAYER_DELIVER_ORDER = "PLAYER_DELIVER_ORDER";
         public const string PLAYER_DELIVER_START = "PLAYER_DELIVER_START";

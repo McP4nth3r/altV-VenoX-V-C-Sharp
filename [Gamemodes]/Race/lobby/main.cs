@@ -1,7 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -32,7 +29,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static MapModel CurrentMap;
         public static List<Client> PlayerModelList;
         private static void DeleteAllRaceVehicles()
-        {
+        {/*
             try
             {
                 foreach (VehicleModel vehClass in RaceVehicles)
@@ -41,12 +38,13 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 }
                 RaceVehicles = new List<VehicleModel>();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DeleteAllRaceVehicles", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DeleteAllRaceVehicles", ex); }*/
         }
         public static void StartNewRound()
         {
             try
             {
+                /*
                 GetNewMap();
                 DeleteAllRaceVehicles();
                 RACE_PLAYERS_IN_ROUND = 0;
@@ -66,7 +64,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
                     player.Emit("Race:FillPlayerList", JsonConvert.SerializeObject(PlayerModelList));
                     player.Emit("Race:StartTimer", leftTime);
-                    IVehicle vehicle = Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
+                    VehicleModel vehicle = Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
                     VehicleModel vehClass = new VehicleModel()
                     {
                         Vehicle_Hash = (AltV.Net.Enums.VehicleModel)CurrentMap.PlayerVehicleHash,
@@ -84,7 +82,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 RACE_ROUND_IS_RUNNING = true;
                 RACE_STARTED = DateTime.Now;
                 RACE_WILL_END = DateTime.Now.AddMinutes(RACE_ROUND_MINUTES);
-                TIME_TO_JOIN = DateTime.Now.AddSeconds(RACE_JOIN_TIME);
+                TIME_TO_JOIN = DateTime.Now.AddSeconds(RACE_JOIN_TIME);*/
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("StartNewRaceRound", ex); }
         }

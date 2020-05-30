@@ -15,6 +15,7 @@ namespace VenoXV._RootCore_.Sync
         public static List<BlipModel> BlipList = new List<BlipModel>();
         public static List<LabelModel> LabelList = new List<LabelModel>();
         public static List<MarkerModel> MarkerList = new List<MarkerModel>();
+        public static List<ColShapeModel> ColShapeList = new List<ColShapeModel>();
         public static DateTime NextSyncTick = DateTime.Now;
 
         //BlipClass Sync
@@ -42,11 +43,13 @@ namespace VenoXV._RootCore_.Sync
         private static void SyncMarker(Client playerClass)
         {
             Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
+            int dcounter = 0;
             foreach (MarkerModel marker in MarkerList)
             {
                 if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
                 {
                     Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
+                    dcounter++;
                 }
             }
         }
@@ -62,7 +65,7 @@ namespace VenoXV._RootCore_.Sync
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);
                     }
-                    NextSyncTick.AddSeconds(UpdateInterval);
+                    NextSyncTick = DateTime.Now.AddSeconds(UpdateInterval);
                 }
             }
             catch { }

@@ -52,20 +52,20 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
 
         public static Position LSPD_FGUNS_COL = new Position(451.5455f, -993.3593f, 30.6896f);
-        public static IColShape LSPDCOL_FGUNS = Alt.CreateColShapeSphere(LSPD_FGUNS_COL, 2f);
+        public static ColShapeModel LSPDCOL_FGUNS = RageAPI.CreateColShapeSphere(LSPD_FGUNS_COL, 2f);
 
         public static Position FBI_FGUNS_COL = new Position(136.1328f, -761.8464f, 45.75203f);
-        public static IColShape FBICOL_FGUNS = Alt.CreateColShapeSphere(FBI_FGUNS_COL, 1.5f);
+        public static ColShapeModel FBICOL_FGUNS = RageAPI.CreateColShapeSphere(FBI_FGUNS_COL, 1.5f);
 
 
         public static Position BAD_INTERIOR_FGUNS_COL = new Position(256.6112f, -996.761f, -99.00867f);
         public static Position BAD_INTERIOR2_FGUNS_COL = new Position(350.1265f, -993.4926f, -99.19615f);
         public static Position BAD_INTERIOR3_FGUNS_COL = new Position(973.5081f, -101.8594f, 74.84988f);
         public static Position BAD_INTERIOR4_FGUNS_COL = new Position(-1286.099f, 438.3797f, 94.09482f);
-        public static IColShape BAD_INTERIOR_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR_FGUNS_COL, 1.5f);
-        public static IColShape BAD_INTERIOR2_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR2_FGUNS_COL, 1.5f);
-        public static IColShape BAD_INTERIOR3_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR3_FGUNS_COL, 1.5f);
-        public static IColShape BAD_INTERIOR4_FGUNS = Alt.CreateColShapeSphere(BAD_INTERIOR4_FGUNS_COL, 1.5f);
+        public static ColShapeModel BAD_INTERIOR_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR_FGUNS_COL, 1.5f);
+        public static ColShapeModel BAD_INTERIOR2_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR2_FGUNS_COL, 1.5f);
+        public static ColShapeModel BAD_INTERIOR3_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR3_FGUNS_COL, 1.5f);
+        public static ColShapeModel BAD_INTERIOR4_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR4_FGUNS_COL, 1.5f);
 
 
         public static void OnResourceStart()
@@ -113,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_sm_15_office_01b");
 
 
-            /* IColShapes */
+            /* ColShapeModels */
 
             RageAPI.CreateTextLabel("L.S.P.D Equip", LSPD_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 0, 105, 145, 255 });
 
@@ -132,11 +132,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == LSPDCOL_FGUNS)
+                if (shape == LSPDCOL_FGUNS.Entity)
                 {
                     if (isStateFaction(player))
                     {
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK));
                     }
                 }
-                else if (shape == FBICOL_FGUNS)
+                else if (shape == FBICOL_FGUNS.Entity)
                 {
                     if (isStateFaction(player))
                     {
@@ -288,11 +288,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             }
             catch { return false; }
         }
-        public static bool isStateIVehicle(IVehicle Vehicle)
+        public static bool isStateIVehicle(VehicleModel Vehicle)
         {
             try
             {
-                int VEHICLE_Fraktion = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
+                int VEHICLE_Fraktion = Vehicle.Faction;
                 if (VEHICLE_Fraktion == Constants.FACTION_POLICE || VEHICLE_Fraktion == Constants.FACTION_FBI || VEHICLE_Fraktion == Constants.FACTION_USARMY)
                 {
                     return true;
@@ -308,11 +308,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             }
         }
 
-        public static bool isBadIVehicle(IVehicle Vehicle)
+        public static bool isBadIVehicle(VehicleModel Vehicle)
         {
             try
             {
-                int VEHICLE_Fraktion = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
+                int VEHICLE_Fraktion = Vehicle.Faction;
                 if (VEHICLE_Fraktion == Constants.FACTION_COSANOSTRA || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_MS13 || VEHICLE_Fraktion == Constants.FACTION_SAMCRO || VEHICLE_Fraktion == Constants.FACTION_BALLAS || VEHICLE_Fraktion == Constants.FACTION_GROVE)
                 {
                     return true;
@@ -327,11 +327,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 return false;
             }
         }
-        public static bool isNeutralIVehicle(IVehicle Vehicle)
+        public static bool isNeutralIVehicle(VehicleModel Vehicle)
         {
             try
             {
-                int VEHICLE_Fraktion = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
+                int VEHICLE_Fraktion = Vehicle.Faction;
                 if (VEHICLE_Fraktion == Constants.FACTION_NEWS || VEHICLE_Fraktion == Constants.FACTION_EMERGENCY || VEHICLE_Fraktion == Constants.FACTION_MECHANIK)
                 {
                     return true;

@@ -1,10 +1,9 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -177,8 +176,8 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                 int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
                 if (value == 1)
                 {
-                    IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle != null)
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    if (vehicle != null)
                     {
                         if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 200)
                         {
@@ -186,7 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             return;
                         }
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
-                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
+                        vehicle.Gas = 100;
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dein Auto voll getankt!");
                     }
                 }

@@ -61,8 +61,8 @@ namespace VenoXV.Globals
             try
             {
                 if (!(entity is Client player)) return;
-                if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterIColShape(shape, player); }
-                else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitIColShape(shape, player); }
+                if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player); }
+                else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
             }
             catch { }
         }

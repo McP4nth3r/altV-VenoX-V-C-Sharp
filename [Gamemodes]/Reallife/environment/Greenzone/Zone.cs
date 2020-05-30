@@ -9,7 +9,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
     public class Zone : IScript
     {
         public static Position LSPD_COL_POS = new Position(399.868f, -998.4932f, 29.45414f);
-        public static IColShape LSPD_Col = Alt.CreateColShapeSphere(LSPD_COL_POS, 50);
+        public static ColShapeModel LSPD_Col = RageAPI.CreateColShapeSphere(LSPD_COL_POS, 50);
         public static void CreateGreenzone(Client player)
         {
             try
@@ -18,9 +18,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             }
             catch { }
         }
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
-            if (shape == LSPD_Col)
+            if (shape == LSPD_Col.Entity)
             {
                 player.Emit("Greenzone:ChangeStatus", true);
                 if (player.vnxGetElementData<int>("settings_quest") == 1)
@@ -31,11 +31,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             }
         }
 
-        public static void OnPlayerExitIColShape(IColShape shape, Client player)
+        public static void OnPlayerExitColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == LSPD_Col)
+                if (shape == LSPD_Col.Entity)
                 {
                     if (player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
                     {

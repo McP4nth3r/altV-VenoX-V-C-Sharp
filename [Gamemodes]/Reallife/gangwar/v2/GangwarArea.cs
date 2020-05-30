@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -21,10 +20,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public Position TK { get; set; }
         public int IDOwner { get; set; }
         public DateTime Cooldown { get; set; }
-        public IColShape TKIColShape { get; set; }
-        public IColShape AreaIColShape { get; set; }
+        public ColShapeModel TKColShapeModel { get; set; }
+        public ColShapeModel AreaColShapeModel { get; set; }
         public bool isRunning { get; set; }
-        public IVehicle[] IVehicles { get; set; }
+        public VehicleModel[] IVehicles { get; set; }
         public List<GangwarRound> Rounds { get; set; }
 
         public GangwarArea()
@@ -61,15 +60,15 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 /* GANGWAR TK */
-                this.TKIColShape = Alt.CreateColShapeSphere(this.TK, gangwar.v2.GangwarManager.TKRange);
+                this.TKColShapeModel = RageAPI.CreateColShapeSphere(this.TK, gangwar.v2.GangwarManager.TKRange);
                 //ToDo Create Marker NAPI.Marker.CreateMarker(3, this.TK, new Position(0, 0, 0), new Position(0, 0, 0), 0.75f, new Rgba(200, 200, 200, 150), true, 0);
 
                 RageAPI.CreateTextLabel("TK", new Position(this.TK.X, this.TK.Y, this.TK.Z + 0.13f), 20.0f, 2f, 4, new int[] { 0, 150, 200, 255 });
-                this.TKIColShape.vnxSetElementData(gangwar.v2.GangwarManager.TKType, true);
+                this.TKColShapeModel.vnxSetElementData(gangwar.v2.GangwarManager.TKType, true);
 
                 /* GANGWAR GEBIET */
-                this.AreaIColShape = Alt.CreateColShapeSphere(this.Position, this.Radius);
-                this.AreaIColShape.vnxSetElementData(gangwar.v2.GangwarManager.AreaType, true);
+                this.AreaColShapeModel = RageAPI.CreateColShapeSphere(this.Position, this.Radius);
+                this.AreaColShapeModel.vnxSetElementData(gangwar.v2.GangwarManager.AreaType, true);
             }
             catch { }
         }
@@ -143,31 +142,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                this.IVehicles = new IVehicle[]
+                this.IVehicles = new VehicleModel[]
                 {
-                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
-                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
-                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
-                    Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
                 };
 
                 foreach (var veh in this.IVehicles)
                 {
                     veh.EngineOn = true;
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_MODEL, "burrito3");
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FACTION, 0);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER, "GANGWAR");
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE, Constants.VEHICLE_Rgba_TYPE_CUSTOM);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba, "255,255,255");
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba, "0,255,0");
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba, 0);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PRICE, 0);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKING, 0);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_PARKED, 0);
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
-                    veh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_KMS, 0);
-                    veh.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_GAS, 100);
-                    veh.vnxSetElementData(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED, true);
+                    veh.Kms = 0;
+                    veh.Gas = 100;
+                    veh.Save = false;
                     veh.Dimension = GangwarManager.GW_DIM;
                 }
             }

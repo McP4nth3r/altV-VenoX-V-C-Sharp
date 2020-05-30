@@ -1,14 +1,12 @@
 ﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -486,33 +484,14 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 List<VehicleModel> IVehicleList = new List<VehicleModel>();
 
-                foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
-                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) != null)
+                    if (Vehicle.Owner != null)
                     {
-                        if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_TESTING) != true && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == 0 && Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) != true && Vehicle.Dimension == 0)
+                        if (Vehicle.Testing != true && Vehicle.Faction == 0 && Vehicle.Save != false && Vehicle.Dimension == 0)
                         {
-                            VehicleModel VehicleModel = new VehicleModel();
-                            VehicleModel.id = Convert.ToInt32(Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID));
-                            VehicleModel.model = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
-                            VehicleModel.position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
-                            VehicleModel.rotation = Vehicle.vnxGetElementData<Rotation>(VenoXV.Globals.EntityData.VEHICLE_ROTATION);
-                            VehicleModel.dimension = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_DIMENSION);
-                            VehicleModel.RgbaType = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_Rgba_TYPE);
-                            VehicleModel.firstRgba = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_FIRST_Rgba);
-                            VehicleModel.secondRgba = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_SECOND_Rgba);
-                            VehicleModel.pearlescent = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PEARLESCENT_Rgba);
-                            VehicleModel.faction = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION);
-                            VehicleModel.plate = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
-                            VehicleModel.owner = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
-                            VehicleModel.price = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PRICE);
-                            VehicleModel.parking = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PARKING);
-                            VehicleModel.parked = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PARKED);
-                            VehicleModel.gas = Vehicle.vnxGetElementData<float>(VenoXV.Globals.EntityData.VEHICLE_GAS);
-                            VehicleModel.kms = Vehicle.vnxGetElementData<float>(VenoXV.Globals.EntityData.VEHICLE_KMS);
-
                             // Add IVehicle into the list
-                            IVehicleList.Add(VehicleModel);
+                            IVehicleList.Add(Vehicle);
                         }
                     }
                 }
@@ -524,9 +503,5 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 Console.WriteLine("[EXCEPTION SaveIVehicleDatas] " + ex.StackTrace);
             }
         }
-
-
-
-
     }
 }

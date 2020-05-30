@@ -48,12 +48,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { return new Position(0, 0, 0); }
         }
 
-        public static IVehicle GetClosestIVehicle(Client player, float distance = 3.5f)
+        public static VehicleModel GetClosestIVehicle(Client player, float distance = 3.5f)
         {
             try
             {
-                IVehicle Vehicle = null;
-                foreach (IVehicle veh in Alt.GetAllVehicles())
+                VehicleModel vehicle = null;
+                foreach (VehicleModel veh in Alt.GetAllVehicles())
                 {
                     Position vehPos = veh.Position;
                     float distanceIVehicleToPlayer = player.Position.Distance(vehPos);
@@ -61,10 +61,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     if (distanceIVehicleToPlayer < distance && player.Dimension == veh.Dimension)
                     {
                         distance = distanceIVehicleToPlayer;
-                        Vehicle = veh;
+                        vehicle = veh;
                     }
                 }
-                return Vehicle;
+                return vehicle;
             }
             catch { return null; }
         }
@@ -92,45 +92,45 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             environment.Weed.Main.OnUpdate();
         }
 
-        public static void OnPlayerExitIColShape(IColShape shape, Client player)
+        public static void OnPlayerExitColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                Environment.Gzone.Zone.OnPlayerExitIColShape(shape, player);
+                Environment.Gzone.Zone.OnPlayerExitColShapeModel(shape, player);
             }
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, IEntity entity)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, IEntity entity)
         {
             try
             {
                 Client player = entity as Client;
-                CarShop.OnPlayerEnterIColShape(shape, player);
-                Clothes.Clothes.OnPlayerEnterIColShape(shape, player);
-                Environment.ammunation.Ammunation.OnPlayerEnterIColShape(shape, player);
-                Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterIColShape(shape, player);
-                Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterIColShape(shape, player);
-                Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterIColShape(shape, player);
-                Environment.Rathaus.Rathaus.OnPlayerEnterIColShape(shape, player);
-                Environment.Gzone.Zone.OnPlayerEnterIColShape(shape, player);
-                events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterIColShape(shape, player);
-                factions.LSPD.Arrest.OnPlayerEnterIColShape(shape, player);
-                Emergency.OnPlayerEnterIColShape(shape, player);
-                Allround.OnPlayerEnterIColShape(shape, player);
-                fraktionskassen.OnPlayerEnterIColShape(shape, player);
-                Fraktionswaffenlager.OnPlayerEnterIColShape(shape, player);
-                Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterIColShape(shape, player);
-                Fun.Kokaintruck.OnPlayerEnterIColShape(shape, player);
-                Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterIColShape(shape, player);
-                Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterIColShape(shape, player);
-                gangwar.Allround.OnPlayerEnterIColShape(shape, player);
-                JoB_Allround.OnPlayerEnterIColShape(shape, player);
-                Job.OnPlayerEnterIColShape(shape, player);
-                Vehicles.paynspray.OnPlayerEnterIColShape(shape, player);
-                Vehicles.Tunning.OnPlayerEnterIColShape(shape, player);
-                Vehicles.Vehicles.OnPlayerEnterIColShape(shape, player);
-                Vehicles.Verleih.OnPlayerEnterIColShape(shape, player);
+                CarShop.OnPlayerEnterColShapeModel(shape, player);
+                Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
+                Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
+                events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
+                factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
+                Emergency.OnPlayerEnterColShapeModel(shape, player);
+                Allround.OnPlayerEnterColShapeModel(shape, player);
+                fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
+                Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
+                Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
+                Fun.Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
+                Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
+                Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
+                gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
+                JoB_Allround.OnPlayerEnterColShapeModel(shape, player);
+                Job.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
             }
             catch { }
         }
@@ -422,13 +422,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Bankzinsen : " + RageAPI.GetHexColorcode(255, 255, 255) + +bankInterest + " $");
                 }
 
-                foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username && Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) != true)
+                    if (Vehicle.Owner == player.Username && Vehicle.Save != true)
                     {
 
-                        int IVehicleTaxes = (int)Math.Round((int)Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_PRICE) * Constants.TAXES_IVehicle);
+                        int IVehicleTaxes = (int)Math.Round((int)Vehicle.Price * Constants.TAXES_IVehicle);
                         int IVehicleTaxes_ = 0;
                         if (VipL.Vip_BisZum > DateTime.Now)
                         {
@@ -455,11 +455,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             }
                         }
 
-                        int IVehicleId = Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
-                        string VehicleModel = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
-                        string IVehiclePlate = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE) == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " VIP Fahrzeugsteuer Abzug : " + RageAPI.GetHexColorcode(255, 255, 255) + +IVehicleTaxes_ + "$");
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Fahrzeugsteuer : " + RageAPI.GetHexColorcode(255, 255, 255) + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
+                        int IVehicleId = Vehicle.ID;
+                        //string VehicleModel vehicle = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
+                        //string IVehiclePlate = Vehicle.Plate == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
+                        //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " VIP Fahrzeugsteuer Abzug : " + RageAPI.GetHexColorcode(255, 255, 255) + +IVehicleTaxes_ + "$");
+                        //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Fahrzeugsteuer : " + RageAPI.GetHexColorcode(255, 255, 255) + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
                         total -= IVehicleTaxes;
                         total += IVehicleTaxes_;
                     }
@@ -697,11 +697,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Clothes.Clothes.OnResourceStart();
                 Environment.ammunation.Ammunation.OnResourceStart();
                 factions.Allround.OnResourceStart(); // Label - Faction Loading !
-                fraktionskassen.OnResourceStart(); // GangKassen & IColShapes Loading !
-                Fun.Allround.OnResourceStart(); // GangKassen & IColShapes Loading !
-                Job.OnResourceStart(); // GangKassen & IColShapes Loading !
+                fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
+                Fun.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
+                Job.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 premium.vnxcase.VenoXCases.OnResourceStart();
-                Vehicles.paynspray.OnResourceStart();
+                Vehicles.PaynSpray.OnResourceStart();
                 Vehicles.Tunning.OnResourceStart();
                 Vehicles.Verleih.OnResourceStart();
                 Vehicles.Vehicles.OnResourceStart();
@@ -729,12 +729,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
-                    foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                     {
-                        if (Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username && Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == Constants.FACTION_NONE)
+                        if (Vehicle.Owner == player.Username && Vehicle.Faction == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
-                            Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_DIMENSION, Constants.VEHICLE_OFFLINE_DIM);
                             /* ToDo : Fix if (Vehicle.Occupants.Count > 0)
                              {
                                  var playersInCar = NAPI.Vehicle.GetIVehicleOccupants(Vehicle);
@@ -752,10 +751,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         {
                             if (
                             //LieferrantenJobIVehicle
-                            Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
+                            Vehicle.Job == Constants.JOB_CITY_TRANSPORT && Vehicle.Owner == player.Username
                             //Airport ToDo
-                            || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
-                            || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
+                            || Vehicle.Job == Constants.JOB_AIRPORT && Vehicle.Owner == player.Username
+                            || Vehicle.Job == Constants.JOB_BUS && Vehicle.Owner == player.Username
                             )
                             {
                                 if (Vehicle != null)
@@ -766,12 +765,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 {
                                     if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.Username)
                                     {
-                                        AltV.Net.Alt.RemoveColShape(JoB_Allround.JobAbgabeMarker);
+                                        RageAPI.RemoveColShape(JoB_Allround.JobAbgabeMarker);
                                     }
                                 }
                             }
                         }
-                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username)
+                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
                         }

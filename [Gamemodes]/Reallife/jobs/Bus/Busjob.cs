@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -66,7 +65,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 
                 Position Destination = AbgabepunkteLVLONE[0];
 
-                JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
+                JoB_Allround.JobAbgabeMarker = RageAPI.CreateColShapeSphere(Destination, 5f);
                 dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                 dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                 JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.Username);
@@ -105,14 +104,13 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 
                     Position Destination = AbgabepunkteLVLONE[(int)player.vnxGetElementData<int>(BUSJOB_LEVEL)];
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "+ " + BUSJOB_LEVEL_ONE_MONEY + " $");
-                    JoB_Allround.JobAbgabeMarker = Alt.CreateColShapeSphere(Destination, 5f);
+                    JoB_Allround.JobAbgabeMarker = RageAPI.CreateColShapeSphere(Destination, 5f);
                     dxLibary.VnX.DrawCustomZielBlip(player, "Abgabe[Bus - Job]", Destination, 1, 480, 0, 0, 0, 0, 0, 0);
                     dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_JOB_COLSHAPE_OWNER, player.Username);
                     JoB_Allround.JobAbgabeMarker.vnxSetElementData(EntityData.PLAYER_IS_JOB_COL, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + BUSJOB_LEVEL_ONE_MONEY);
-                    dxLibary.VnX.SetIVehicleElementFrozen(player.Vehicle, player, true);
-                    dxLibary.VnX.SetDelayedIVehicleElementFrozen(player.Vehicle, player, false, 5000);
+                    dxLibary.VnX.SetDelayedIVehicleElementFrozen((VehicleModel)player.Vehicle, player, false, 5000);
                     player.vnxSetElementData(EntityData.PLAYER_BUSJOB_LEVEL, player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL) + 1);
                 }
             }

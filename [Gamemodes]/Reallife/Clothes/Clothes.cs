@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
 {
     public class Clothes : IScript
     {
-        public static IColShape ClothesShape = Alt.CreateColShapeSphere(new Position(-158.886f, -296.9503f, 39.73328f), 2f);
+        public static ColShapeModel ClothesShape = RageAPI.CreateColShapeSphere(new Position(-158.886f, -296.9503f, 39.73328f), 2f);
         //Marker ClothesImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-158.886f, -296.9503f, 39.73328f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         public static void OnResourceStart()
         {
@@ -19,11 +19,11 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         }
 
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == ClothesShape)
+                if (shape == ClothesShape.Entity)
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1 || player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY_NEUTRAL) == 1)
                     {

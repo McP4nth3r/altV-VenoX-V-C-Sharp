@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
@@ -349,19 +348,18 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
                 Sync.LoadBlips(player);
                 CreateGasBlips(player);
-                foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
-                    string owner = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
+                    string owner = Vehicle.Owner;
                     if (owner != null && owner == player.Username)
                     {
                         Vehicle.Dimension = 0;
-                        Vehicle.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.VEHICLE_DIMENSION, 0);
                     }
                     // JOB 
                     if (
-                    Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_CITY_TRANSPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
-                    || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_AIRPORT && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
-                    || Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_JOB) == Constants.JOB_BUS && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username
+                    Vehicle.Job == Constants.JOB_CITY_TRANSPORT && Vehicle.Owner == player.Username
+                    || Vehicle.Job == Constants.JOB_AIRPORT && Vehicle.Owner == player.Username
+                    || Vehicle.Job == Constants.JOB_BUS && Vehicle.Owner == player.Username
                     )
                     {
                         if (Vehicle != null)
@@ -371,7 +369,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     }
 
                     //Test Vehilce Delete
-                    if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username)
+                    if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
                     {
                         Vehicle.Remove();
                     }

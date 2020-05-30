@@ -187,9 +187,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             foreach (IVehicle veh in TacticVehicleList) { if (veh != null) { veh.Remove(); } }
             TacticVehicleList = new List<IVehicle>();
-            foreach (VehicleModel vehClass in CurrentMap.Custom_Vehicles)
+            foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles)
             {
-                IVehicle vehicle = Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
+                VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
                 vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
                 TacticVehicleList.Add(vehicle);
             }

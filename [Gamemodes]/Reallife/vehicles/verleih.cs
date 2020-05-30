@@ -27,8 +27,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //Col Creation
-        public static IColShape NoobspawnVerleihIColShape = Alt.CreateColShapeSphere(new Position(-2302.628f, 366.7664f, 2), 2);
-        public static IColShape LSPDVerleihCol = Alt.CreateColShapeSphere(new Position(333.6211f, -950.823f, 2), 2);
+        public static ColShapeModel NoobspawnVerleihColShapeModel = RageAPI.CreateColShapeSphere(new Position(-2302.628f, 366.7664f, 2), 2);
+        public static ColShapeModel LSPDVerleihCol = RageAPI.CreateColShapeSphere(new Position(333.6211f, -950.823f, 2), 2);
         public static void OnResourceStart()
         {
             Core.RageAPI.CreateBlip("VenoX Rental Service", NOOBSPAWN_RENTALS, 545, 3, true);
@@ -162,9 +162,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                foreach (IVehicle Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
-                    if (Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_RENTED) == true && Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_OWNER) == player.Username)
+                    if (Vehicle.Rented && Vehicle.Owner == player.Username)
                     {
                         player.vnxSetStreamSharedElementData(HAVE_PLAYER_RENTED_VEHICLE, 0);
                         Vehicle.Remove();
@@ -192,11 +192,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == NoobspawnVerleihIColShape || shape == LSPDVerleihCol)
+                if (shape == NoobspawnVerleihColShapeModel.Entity || shape == LSPDVerleihCol.Entity)
                 {
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_VENOXRENTALS);
                     dxLibary.VnX.DrawWindowSelection(player, "VenoX Rentals", "Wilkommen bei VenoX Rentals, <br>hier kannst du dir ein Fahrzeug ausleihen <br>gegen eine geringe Gebühr.", "Roller<br>[75$]", "Smart<br>[119$]");

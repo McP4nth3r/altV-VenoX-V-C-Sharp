@@ -58,33 +58,5 @@ namespace VenoXV.Globals
         public const string PLAYER_PLAYED = "PLAYER_PLAYED";
         public const string PLAYER_STATUS = "PLAYER_SOCIALSTATE";
         public const string PLAYER_DEAD = "PLAYER_DEAD";
-
-
-        public const string VEHICLE_ID = "VEHICLE_ID";
-        public const string VEHICLE_MODEL = "VEHICLE_MODEL";
-        public const string VEHICLE_MOTOR = "VEHICLE_MOTOR";
-        public const string VEHICLE_LOCKED = "VEHICLE_LOCKED";
-        public const string VEHICLE_POSITION = "VEHICLE_POSITION";
-        public const string VEHICLE_ROTATION = "VEHICLE_ROTATION";
-        public const string VEHICLE_DIMENSION = "VEHICLE_DIMENSION";
-        public const string VEHICLE_Rgba_TYPE = "VEHICLE_Rgba_TYPE";
-        public const string VEHICLE_FIRST_Rgba = "VEHICLE_FIRST_Rgba";
-        public const string VEHICLE_SECOND_Rgba = "VEHICLE_SECOND_Rgba";
-        public const string VEHICLE_PEARLESCENT_Rgba = "VEHICLE_PEARLESCENT_Rgba";
-        public const string VEHICLE_FACTION = "VEHICLE_FACTION";
-        public const string VEHICLE_PLATE = "VEHICLE_PLATE";
-        public const string VEHICLE_OWNER = "VEHICLE_OWNER";
-        public const string VEHICLE_PRICE = "VEHICLE_PRICE";
-        public const string VEHICLE_PARKING = "VEHICLE_PARKING";
-        public const string VEHICLE_PARKED = "VEHICLE_PARKED";
-        public const string VEHICLE_MODDED = "VEHICLE_MODDED";
-        public const string VEHICLE_GAS = "VEHICLE_GAS";
-        public const string VEHICLE_KMS = "VEHICLE_KMS";
-        public const string VEHICLE_FROZEN = "VEHICLE_FROZEN";
-        public const string VEHICLE_GODMODE = "VEHICLE_GODMODE";
-        public const string VEHICLE_TESTING = "VEHICLE_TESTING";
-        public const string VEHICLE_JOB = "VEHICLE_JOB";
-        public const string VEHICLE_RENTED = "VEHICLE_RENTED";
-        public const string VEHICLE_NOT_SAVED = "VEHICLE_NOT_SAVED";
     }
 }

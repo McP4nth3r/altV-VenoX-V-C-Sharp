@@ -11,17 +11,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
     public class Rathaus : IScript
     {
 
-        public static IColShape RathausIColShape = Alt.CreateColShapeSphere(new Position(-548.8972f, -202.5477f, 38.30002f), 1.2f);
+        public static ColShapeModel RathausColShapeModel = RageAPI.CreateColShapeSphere(new Position(-548.8972f, -202.5477f, 38.30002f), 1.2f);
         //public static Marker RathausMarkerImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-546.1301, -202.6208, 38.30002), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         //public static Marker RathausMarkerEingang = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-545.3177f, -203.7145f, 38.2151f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         public static MarkerModel RathausMarkerImInterior = RageAPI.CreateMarker(0, new Vector3(-546.1301f, -202.6208f, 38.30002f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
         public static MarkerModel RathausMarkerEingang = RageAPI.CreateMarker(0, new Vector3(-545.3177f, -203.7145f, 38.2151f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
 
-        public static void OnPlayerEnterIColShape(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
             {
-                if (shape == RathausIColShape)
+                if (shape == RathausColShapeModel.Entity)
                 {
                     string PERSO_BTN = "Personalausweis";
                     string CAR_BTN = "Führerschein";
@@ -234,8 +234,8 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             {
                 if (player.IsInVehicle)
                 {
-                    IVehicle Vehicle = player.Vehicle;
-                    if (Vehicle != null && Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    if (vehicle != null && vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
                     {
                         player.vnxSetElementData("Marker_Pruefung", 0);
                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
@@ -255,17 +255,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             player.vnxSetElementData("PRUEFUNGS_NAME", false);
                         }
 
-                        Vehicle.Remove();
-                        IColShape FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
-                        IColShape FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
+                        vehicle.Remove();
+                        ColShapeModel FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
+                        ColShapeModel FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
                         if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") == player.Username)
                         {
-                            AltV.Net.Alt.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
+                            RageAPI.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
                             return;
                         }
                         else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") == player.Username)
                         {
-                            AltV.Net.Alt.RemoveColShape(FührerscheinCol);
+                            RageAPI.RemoveColShape(FührerscheinCol);
                             return;
                         }
                         return;

@@ -13,7 +13,7 @@ namespace VenoXV._Preload_
             {
                 case Gamemodes.Reallife:
                     player.Emit("Inventory:Load");
-                    player.Emit("XMenu:Load'");
+                    player.Emit("XMenu:Load");
                     break;
                 case Gamemodes.Tactics:
                     break;

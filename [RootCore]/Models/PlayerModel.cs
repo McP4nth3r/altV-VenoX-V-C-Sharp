@@ -107,7 +107,6 @@ namespace VenoXV._RootCore_.Models
     }
     public class Zombies
     {
-        private Player Player;
         public int Zombie_kills { get; set; }
         public int Zombie_player_kills { get; set; }
         public int Zombie_tode { get; set; }

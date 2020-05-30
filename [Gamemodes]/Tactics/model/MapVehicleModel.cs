@@ -2,7 +2,7 @@
 
 namespace VenoXV._Gamemodes_.Tactics.model
 {
-    public class VehicleModel
+    public class MapVehicleModel
     {
         public AltV.Net.Enums.VehicleModel Vehicle_Hash { get; set; }
         public Vector3 Vehicle_Position { get; set; }
