@@ -105,32 +105,37 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                Client player = entity as Client;
-                CarShop.OnPlayerEnterColShapeModel(shape, player);
-                Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
-                Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
-                events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
-                factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
-                Emergency.OnPlayerEnterColShapeModel(shape, player);
-                Allround.OnPlayerEnterColShapeModel(shape, player);
-                fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
-                Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
-                Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
-                Fun.Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
-                Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
-                Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
-                gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
-                JoB_Allround.OnPlayerEnterColShapeModel(shape, player);
-                Job.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
+                if (entity is Client player)   //We Check if the Entity is the player.
+                {
+                    CarShop.OnPlayerEnterColShapeModel(shape, player);
+                    Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
+                    Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
+                    events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
+                    factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
+                    Emergency.OnPlayerEnterColShapeModel(shape, player);
+                    Allround.OnPlayerEnterColShapeModel(shape, player);
+                    fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
+                    Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
+                    Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
+                    Fun.Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
+                    Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
+                    Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
+                    gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
+                    JoB_Allround.OnPlayerEnterColShapeModel(shape, player);
+                    Job.OnPlayerEnterColShapeModel(shape, player);
+                    Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
+                }
+                else if (entity is VehicleModel vehicle)
+                {
+                    Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, vehicle);
+                    //Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
+                    //Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
+                }
             }
             catch { }
         }
