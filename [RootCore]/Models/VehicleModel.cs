@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
@@ -22,11 +23,11 @@ namespace VenoXV._RootCore_.Models
         public string Job { get; set; }
         public bool Save { get; set; }
         public bool vehGodmode { get; set; }
-        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); } }
+        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetSharedElementData("VEHICLE_GODMODE", value); } }
         public bool Testing { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
-        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; AltV.Net.Alt.EmitAllClients("Vehicle:Freeze", this, value); } }
+        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; AltV.Net.Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetSharedElementData("VEHICLE_FROZEN", value); } }
         public float Gas { get; set; }
         public float Kms { get; set; }
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
