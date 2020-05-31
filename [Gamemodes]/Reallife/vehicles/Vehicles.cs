@@ -131,20 +131,16 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 int fraktionsID = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
                 if (fraktionsID > 0)
                 {
-                    //player.Emit("respawn_mod_IVehicles_c");
                     foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                     {
-                        if (Vehicle.Faction == fraktionsID)
+                        if (Vehicle.Faction == fraktionsID && Vehicle.Driver == null)
                         {
                             Vehicle.Position = Vehicle.SpawnCoord;
                             Vehicle.Rotation = Vehicle.SpawnRot;
                             Vehicle.Kms = 0;
                             Vehicle.Gas = 100;
-                            Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
                             Vehicle.Frozen = true;
-                            Core.Debug.OutputDebugString("FACTION CAR : RESPAWNED!");
-                            Core.Debug.OutputDebugString("Position CAR :" + Vehicle.SpawnCoord);
-                            Core.Debug.OutputDebugString("Position CAR :" + Vehicle.SpawnRot);
+                            Vehicle.Repair();
                         }
                     }
                     factions.Faction.CreateFactionInformation(fraktionsID, player.Username + " hat die Fraktion´s Fahrzeuge Respawned!");
@@ -673,8 +669,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
                         }
                     }
-
-
                     float kms = Vehicle.Kms;
                     float gas = Vehicle.Gas;
                     Vehicle.Gas = gas;
