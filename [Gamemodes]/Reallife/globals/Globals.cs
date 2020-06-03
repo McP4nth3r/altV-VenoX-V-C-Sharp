@@ -193,9 +193,9 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                if (player.Playing)
                 {
-                    int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
+                    int played = player.Played;
                     if (played > 0 && played % 60 == 0)
                     {
 
@@ -307,15 +307,15 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 }
                 foreach (Client player in Alt.GetAllPlayers())
                 {
-                    if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_REALLIFE)
+                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                     {
                         OnMinuteSpentReallifeGM(player);
                     }
-                    else if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_TACTICS)
+                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
                     {
                         OnMinuteSpentTacticGM(player);
                     }
-                    else if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == VenoXV.Globals.EntityData.GAMEMODE_ZOMBIE)
+                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Zombies)
                     {
                         OnMinuteSpentZombieGM(player);
                     }
