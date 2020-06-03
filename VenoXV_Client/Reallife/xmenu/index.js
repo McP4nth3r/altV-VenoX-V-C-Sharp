@@ -19,12 +19,10 @@ let XTYPES_SELF = "self";
 alt.onServer('XMenu:Load', () => {
     if (XMenuBrowser) { return; }
     XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
-
     XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
         if (!XMenuBrowser) { return; }
         if (Button == 9900 || Button == 9901) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
         else { alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); }
-        alt.log("Ich habe die Funktion gecalled mit : " + Button + " | " + Hitted);
     });
 });
 
@@ -38,12 +36,10 @@ alt.onServer('XMenu:Unload', () => {
 
 
 
-let currentEntity = null;
 function ToggleXMenu(EntityTypeName, EntityID) {
     if (!XMenuBrowser) { return; }
     if (!XMenuOpen) {
         if (!EntityTypeName) { return; }
-        currentEntity = EntityID;
         XMenuBrowser.emit('XMenu:Open', EntityTypeName);
         XMenuBrowser.focus();
         ShowCursor(true);
@@ -68,12 +64,13 @@ export function OnXKeyDown() {
     if (game.isPlayerDead(alt.Player.local.scriptID)) { return; }
     if (!GetCursorStatus()) {
         GetCurrentObject();
-        const player = alt.Player.local.scriptID;
-        let type = EntityType;
-        if (player.vehicle) {
-            ToggleXMenu(XTYPES_VEHICLE, player.vehicle);
+        if (alt.Player.local.vehicle) {
+            Hitted = alt.Player.local.vehicle;
+            ToggleXMenu(XTYPES_VEHICLE, alt.Player.local.vehicle);
+            return;
         }
-        else if (type == "vehicle") {
+        let type = EntityType;
+        if (type == "vehicle") {
             ToggleXMenu(XTYPES_VEHICLE, Hitted);
         }
         else if (type == "player") {

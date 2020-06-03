@@ -45,13 +45,11 @@ function createX(type, tag = "normal") {
 		$itemNames = ["Auf & Zuschliessen", "Motor an / ausschalten", "Schliessen"];
 	}
 	else if (type == "self") {
-		piemenu.createWheel([icon.cross, icon.package, icon.car, icon.anonymous, icon.talke]);
+		piemenu.createWheel([icon.cross, icon.package, icon.car]);
 		piemenu.navItems[0].navSlice.mouseover(function () { setID(0, 0); });
 		piemenu.navItems[1].navSlice.mouseover(function () { setID(1, 0); });
 		piemenu.navItems[2].navSlice.mouseover(function () { setID(2, 0); });
-		piemenu.navItems[3].navSlice.mouseover(function () { setID(3, 0); });
-		piemenu.navItems[4].navSlice.mouseover(function () { setID(4, 0); });
-		$itemNames = ["Schliessen", "Inventar", "Fahrzeuge anzeigen", "Maske an / ausziehen", "Ticket schreiben"];
+		$itemNames = ["Schliessen", "Inventar", "Fahrzeuge anzeigen"];
 	}
 	else {
 		if (tag == "leader") {
