@@ -3,9 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
@@ -16,8 +14,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
     public class Vehicles : IScript
     {
-        private static Dictionary<int, Timer> gasTimerList = new Dictionary<int, Timer>();
-        private static Dictionary<int, Timer> IVehicleRespawnTimerList = new Dictionary<int, Timer>();
         public static string INFO_VEHICLE_TURNED_ON = "Motor Angeschaltet!";
         public static string INFO_VEHICLE_TURNED_OFF = "Motor Ausgeschaltet!";
         public static void LoadDatabaseVehicles()
@@ -501,7 +497,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                if (player.vnxGetElementData<string>(VenoXV.Globals.EntityData.PLAYER_CURRENT_GAMEMODE) != VenoXV.Globals.EntityData.GAMEMODE_REALLIFE) { return; }
+                if (player.Gamemode != (int)_Preload_.Preload.Gamemodes.Reallife) { return; }
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehClass = (VehicleModel)player.Vehicle;
@@ -510,7 +506,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         float gas = vehClass.Gas;
                         if (gas <= 0)
                         {
-                            player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
                             if (gas < 0)
                             {
                                 vehClass.Gas = 0;
@@ -519,7 +515,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         else if (gas <= 10)
                         {
-                            player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 200, 0) + "Achtung! Tank ist fast leer!");
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Achtung! Tank ist fast leer!");
                         }
                         if (speed <= 10)
                         {
