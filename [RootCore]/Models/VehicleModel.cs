@@ -23,15 +23,19 @@ namespace VenoXV._RootCore_.Models
         public string Job { get; set; }
         public bool Save { get; set; }
         public bool vehGodmode { get; set; }
-        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetSharedElementData("VEHICLE_GODMODE", value); } }
+        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
         public bool Testing { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
-        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; AltV.Net.Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetSharedElementData("VEHICLE_FROZEN", value); } }
-        public float Gas { get; set; }
-        public float Kms { get; set; }
+        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; AltV.Net.Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
+        private float vehGas { get; set; }
+        public float Gas { get { return vehGas; } set { vehGas = value; this.vnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
+        private float vehKms { get; set; }
+        public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
         {
+            this.Gas = 100;
+            this.Kms = 0;
         }
         public VehicleModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
