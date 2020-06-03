@@ -543,7 +543,7 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Deaths);
                     command.Parameters.AddWithValue("@Adventskalender", player.Reallife.Adventskalender);
                     command.Parameters.AddWithValue("@zombie_kills", player.Zombies.Zombie_kills);
-                    command.Parameters.AddWithValue("@zombie_tode", player.Zombies);
+                    command.Parameters.AddWithValue("@zombie_tode", player.Zombies.Zombie_tode);
                     command.Parameters.AddWithValue("@zombie_player_kills", player.Zombies.Zombie_player_kills);
 
 
