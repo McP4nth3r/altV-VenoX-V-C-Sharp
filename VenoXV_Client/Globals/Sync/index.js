@@ -92,6 +92,8 @@ alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, C
     };
 });
 
+alt.Discord.currentUser.avatar
+
 alt.onServer('Sync:RemoveLabels', () => {
     //outputted = false;
     CurrentLabels = {};
@@ -137,7 +139,7 @@ function SyncTextLabels() {
 function SyncMarkers() {
     for (var Markers in CurrentMarkers) {
         let data = CurrentMarkers[Markers];
-        game.drawMarker(data.type, data.PosX, data.PosY, data.PosZ, 0, 0, 0, 0, 0, 0, data.Scale[0], data.Scale[1], data.Scale[2], data.Color[0], data.Color[1], data.Color[2], data.Color[3], false, true, 2, false, undefined, undefined, false);
+        game.drawMarker(data.Type, data.PosX, data.PosY, data.PosZ, 0, 0, 0, 0, 0, 0, data.Scale[0], data.Scale[1], data.Scale[2], data.Color[0], data.Color[1], data.Color[2], data.Color[3], false, true, 2, false, undefined, undefined, false);
     }
 }
 

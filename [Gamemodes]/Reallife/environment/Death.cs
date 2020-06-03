@@ -1,10 +1,9 @@
 ﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -26,16 +25,21 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             catch { }
         }
 
+        public static void OnPlayerDeath(Client playerClass, Client killerClass, uint weapon)
+        {
+            if (playerClass.IsDead) { return; }
 
-        public static void OnPlayerDeath(Client player, Client killer, uint weapon)
+        }
+
+
+
+        public static void OldOnPlayerDeath(Client player, Client killer, uint weapon)
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 0)
+                if (!player.IsDead)
                 {
                     anzeigen.Usefull.VnX.RemoveAllWeapons(player);
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 3000);
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_KILLED, 1);
                     Emergency.CreateEmergencyDeathNotify(player, 120);
                     CreateKrankenhausTimer(player);
                     if (killer != null)
