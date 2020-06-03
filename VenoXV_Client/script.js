@@ -46,6 +46,8 @@ alt.setStat('flying_ability', 100);
 alt.setStat('shooting_ability', 100);
 alt.setStat('stealth_ability', 100);
 
+game.pauseClock(true); //Freezes the Current-Ingame Time! 
+
 /*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
