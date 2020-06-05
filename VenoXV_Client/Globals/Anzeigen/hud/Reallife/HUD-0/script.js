@@ -20,10 +20,12 @@ function UpdateHUDStats(Faction, Armor, Health, Hunger, Money) {
     // Update Money
     $('.HUD_BOTTOM_MONEY').html(Money + "$");
 }
-UpdateHUDStats(1, 38, 50, 40, 500);
+//UpdateHUDStats(1, 38, 50, 40, 500);
 
 
 function UpdateVoiceState(State) {
+    if (State) { State = 1; }
+    else { State = 0; }
     // Update Voice
     $('.HUD_BOTTOM_VOICE').attr("src", "files/images/Voice" + State + ".png");
 }

@@ -66,6 +66,11 @@ function CheckHUDUpdate() {
 	let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
 	let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
 	let CurrentHunger = LocalEntity.getStreamSyncedMeta('PLAYER_HUNGER');
+	if (CurrentHealth <= 0) {
+		CurrentArmor = 0;
+		CurrentHealth = 0;
+		CurrentHunger = 0;
+	}
 	let CurrentFaction = LocalEntity.getStreamSyncedMeta('PLAYER_FACTION');
 	let CurrentMoney = LocalEntity.getStreamSyncedMeta('PLAYER_MONEY');
 	let CurrentWanteds = LocalEntity.getStreamSyncedMeta('PLAYER_WANTEDS');
@@ -105,7 +110,6 @@ function CheckHUDUpdate() {
 	}
 	if (CurrentVoiceState != LastVoiceState) {
 		LastVoiceState = CurrentVoiceState;
-		alt.log(LastVoiceState)
 		HUD_BROWSER.emit('HUD:UpdateVoiceState', CurrentVoiceState);
 	}
 }
