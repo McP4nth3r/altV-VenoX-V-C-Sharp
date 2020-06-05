@@ -60,7 +60,7 @@ function isBadFaction(player) {
 	return false;
 }
 
-export function DrawNametags() {
+alt.everyTick(() => {
 	let players = alt.Player.all;
 	/*let graphics = mp.game.graphics;
 	let screenRes = graphics.getScreenResolution(0, 0);
@@ -118,4 +118,4 @@ export function DrawNametags() {
 			}
 		}
 	}
-}
+});

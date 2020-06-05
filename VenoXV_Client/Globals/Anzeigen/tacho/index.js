@@ -21,7 +21,7 @@ alt.onServer('Remote_Speedo_Hide', (state) => {
 	}
 });
 
-export function RenderTacho() {
+alt.everyTick(() => {
 	//ToDo : Unperformant!!
 	if (alt.Player.local.vehicle) {
 		if (showed === false) {
@@ -42,7 +42,7 @@ export function RenderTacho() {
 			showed = false;
 		}
 	}
-}
+});
 
 alt.setInterval(function () {
 	if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); }
