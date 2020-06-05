@@ -26,7 +26,7 @@ alt.onServer('Globals:ShowBloodScreen', () => {
 
 
 var VnXTM = 0;
-export function RenderHitMarker() {
+alt.everyTick(() => {
     game.resetPlayerStamina(alt.Player.local.scriptID);
     if (!game.hasStreamedTextureDictLoaded("hud_reticle")) {
         game.requestStreamedTextureDict("hud_reticle", true);
@@ -36,4 +36,4 @@ export function RenderHitMarker() {
             game.drawSprite("hud_reticle", "reticle_ar", 0.5, 0.5, 0.025, 0.040, 45, 255, 255, 255, 150);
         }
     }
-}
+});
