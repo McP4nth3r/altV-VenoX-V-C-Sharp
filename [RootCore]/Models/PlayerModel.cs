@@ -10,11 +10,12 @@ namespace VenoXV._RootCore_.Models
     public class Reallife
     {
         private Player Player;
-        public int Money { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_MONEY, value); } }
+        public int Money { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         public int Bank { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_BANK, value); } }
         public string SocialState { get { return Player.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
         public int Faction { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
-        public int REALLIFE_HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
+        public int HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
+        public int Hunger { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
         public DateTime Zivizeit { get { return Player.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
         public string REALLIFE_JOB { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
         public int LIEFERJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL, value); } }
@@ -50,6 +51,8 @@ namespace VenoXV._RootCore_.Models
                 Player = player;
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 Money = 0;
+                HUD = 0;
+                Hunger = 100;
                 Faction = 0;
                 Zivizeit = DateTime.Now;
                 REALLIFE_JOB = "-";
