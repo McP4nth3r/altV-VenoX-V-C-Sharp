@@ -1918,23 +1918,21 @@ namespace VenoXV._RootCore_.Database
 
         public static void RemoveAllItemsByArt(int SQLID, string ItemArt)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
-                    command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
-                    command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
-                }
+                command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
+                command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
+                command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
+                Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
             }
         }
 
