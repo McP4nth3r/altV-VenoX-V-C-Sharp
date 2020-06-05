@@ -6,12 +6,11 @@
 
 using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -1311,15 +1310,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
-                if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                if (target != null && target.Playing == true)
                 {
                     action = action.ToLower();
-                    if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 6 || target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 6)
+                    if (target.Reallife.Wanteds == 6 || target.Reallife.Wanteds > 6)
                     {
                         player.SendTranslatedChatMessage("{007d00}Der Spieler hat bereits 6 Wanteds!");
                         return;
                     }
-                    int SpielerWanteds = target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS);
+                    int SpielerWanteds = target.Reallife.Wanteds;
                     string wantedgrund = action;
 
                     /////////////////////////////// 1 STAR ///////////////////////////////
@@ -1360,7 +1359,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         case "fahrerlaubnis":
                         case "besitz1":
                         case "illegal1":
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
+                            target.Reallife.Wanteds += 1;
                             break;
                         default:
                             player.SendTranslatedChatMessage("Falsches Wantedkürzel");
@@ -1387,7 +1386,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     || action == "matsbesitz1" || action == "mats1"
                     )
                     {
-                        target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 1);
+                        target.Reallife.Wanteds += 1;
 
                         if (action == "kpv") { wantedgrund = "Körperverletzung"; }
                         else if (action == "behind") { wantedgrund = "Beamtenbehinderung"; }
@@ -1426,13 +1425,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         || action == "matsbesitz2" || action == "mats2"
                         )
                     {
-                        if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 5)
+                        if (target.Reallife.Wanteds == 5)
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 6);
+                            target.Reallife.Wanteds = 6;
                         }
                         else
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 2);
+                            target.Reallife.Wanteds += 2;
                         }
 
                         if (action == "verweig") { wantedgrund = "Verweigerung der Durchsuchung"; }
@@ -1467,13 +1466,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         || action == "matsbesitz3" || action == "mats3"
                         )
                     {
-                        if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 3)
+                        if (target.Reallife.Wanteds > 3)
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 6);
+                            target.Reallife.Wanteds = 6;
                         }
                         else
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 3);
+                            target.Reallife.Wanteds += 3;
                         }
                         if (action == "mord") { wantedgrund = "Mord"; }
                         else if (action == "sperr") { wantedgrund = "Betreten von Sperrzonen"; }
@@ -1495,13 +1494,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                          || action == "geiselnahme" || action == "geisel"
                         )
                     {
-                        if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 2)
+                        if (target.Reallife.Wanteds > 2)
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 6);
+                            target.Reallife.Wanteds = 6;
                         }
                         else
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
+                            target.Reallife.Wanteds += 4;
                         }
                         if (action == "br") { wantedgrund = "Bankraub"; }
                         else if (action == "geisel") { wantedgrund = "Geiselnahme"; }
@@ -1514,13 +1513,13 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         || action == "einbruch beim lspd" || action == "pd"
                         )
                     {
-                        if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 2)
+                        if (target.Reallife.Wanteds > 2)
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 6);
+                            target.Reallife.Wanteds = 6;
                         }
                         else
                         {
-                            target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + 4);
+                            target.Reallife.Wanteds += 4;
                         }
                         if (action == "fib") { wantedgrund = "Einbruch beim FIB"; }
                         else if (action == "pd") { wantedgrund = "Einbruch beim LSPD"; }
