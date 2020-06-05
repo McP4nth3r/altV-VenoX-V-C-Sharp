@@ -315,6 +315,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
+                player.Emit("Reallife:LoadHUD", player.Reallife.HUD);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
                 player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
