@@ -7,15 +7,10 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/Lobby';
-import { CreateBlip, ShowCursor, CreatePed, GetCursorStatus } from './index';
-import { RenderHitMarker } from '../Notification';
-import { RenderTacho } from '../Anzeigen/tacho';
+import { CreateBlip, ShowCursor, CreatePed, GetCursorStatus, DrawText } from './index';
 import { KeyUp, KeyDown } from '../Scoreboard';
-import { RenderHUDs } from '../Anzeigen/hud';
-import { Render7TowersLobby } from '../../SevenTowers/Lobby';
 import { BasicKeyBinds } from '../../preload/login';
 import { OnInventoryKeyPressed } from '../../Reallife/inventory';
-import { DrawNametags } from '../Anzeigen/nametags/nametags';
 import { XMENU_KEY, OnXKeyUp, OnXKeyDown } from '../../Reallife/xmenu';
 import { OnVoiceKeyDown, OnVoiceKeyUp } from '../Sync';
 import { interpolateCamera, destroyCamera } from './camera';
@@ -115,7 +110,6 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
 alt.onServer("Clothes:Reset", () => {
     try {
         game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
-        alt.log("Clothes Client Resetted!");
     }
     catch{ }
 });
@@ -124,7 +118,6 @@ alt.onServer("Clothes:Reset", () => {
 alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
         game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
-        alt.log("Clothes Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
     }
     catch{ }
 });
@@ -132,7 +125,6 @@ alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
 alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
         game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true);
-        alt.log("Prop Client : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture)
     }
     catch{ }
 });
@@ -282,11 +274,8 @@ function OnTacticsTick() {
     TacticsEveryTick();
 }
 function OnReallifeTick() {
-    try {
-        let gamemode_version = "1.1.4";
-        DrawText("German Venox Reallife " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
-    }
-    catch{ }
+    let gamemode_version = "1.1.4";
+    DrawText("German Venox Reallife " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
 }
 
 let TickEvent;
@@ -298,7 +287,6 @@ let Gamemodes = {
     SevenTowers: 4
 };
 alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
-
     if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
     switch (GamemodeId) {
         case Gamemodes.Reallife:
@@ -315,24 +303,8 @@ alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
 
 });
 
-
-
-//Global Tick-Event
-alt.everyTick(() => {
-    try {
-        DrawNametags();
-        RenderHitMarker();
-        RenderTacho();
-        RenderHUDs();
-    }
-    catch{ }
-});
-
 alt.setInterval(() => {
-    try {
-        game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
-    }
-    catch{ }
+    game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
 }, 1000);
 
 
