@@ -453,7 +453,7 @@ namespace VenoXV._RootCore_.Database
                     character.Reallife.Quests = reader.GetInt32("quests");
                     character.Reallife.Wanteds = reader.GetInt32("wanteds");
                     character.Reallife.Kaution = reader.GetInt32("kaution");
-                    character.Reallife.REALLIFE_HUD = reader.GetInt32("REALLIFE_HUD");
+                    character.Reallife.HUD = reader.GetInt32("REALLIFE_HUD");
 
                     character.Settings.ShowATM = reader.GetInt32("atm_anzeigen");
                     character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
@@ -532,7 +532,7 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@wanteds", player.Reallife.Wanteds);
                     command.Parameters.AddWithValue("@knastzeit", player.Reallife.Knastzeit);
                     command.Parameters.AddWithValue("@kaution", player.Reallife.Kaution);
-                    command.Parameters.AddWithValue("@REALLIFE_HUD", player.Reallife.REALLIFE_HUD);
+                    command.Parameters.AddWithValue("@REALLIFE_HUD", player.Reallife.HUD);
                     command.Parameters.AddWithValue("@atm_anzeigen", player.Settings.ShowATM);
                     command.Parameters.AddWithValue("@haus_anzeigen", player.Settings.ShowHouse);
                     command.Parameters.AddWithValue("@tacho_anzeigen", player.Settings.ShowSpeedo);
