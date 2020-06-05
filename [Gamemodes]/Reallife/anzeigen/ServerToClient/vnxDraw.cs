@@ -106,24 +106,6 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
             AltV.Net.Alt.Server.TriggerClientEvent(player, "createInputWindow", headertext, boxtext, buttontext);
         }
 
-        public static void CreateCTimer(Client player, string timername, int zeit)
-        {
-            if (zeit == 60)
-            {
-                zeit = 6 * 600000;
-            }
-            else if (zeit == 30)
-            {
-                zeit = 3 * 600000;
-            }
-            else if (zeit == 10)
-            { zeit = 600000; }
-            else if (zeit == 5)
-            { zeit = 300000; }
-            else if (zeit == 1)
-            { zeit = 60000; }
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnX_LoadIPlayerSideTimer", player, timername, zeit);
-        }
         public static void SetElementFrozen(Client player, bool state)
         {
             AltV.Net.Alt.Server.TriggerClientEvent(player, "Player:Freeze", state);
