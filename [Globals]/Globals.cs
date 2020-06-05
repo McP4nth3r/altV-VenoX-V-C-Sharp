@@ -73,31 +73,33 @@ namespace VenoXV.Globals
             try
             {
                 player.DespawnPlayer();
-                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
+                switch (player.Gamemode)
                 {
-                    if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
-                    if (Functions.IstargetInSameLobby(player, killer))
-                    {
-                        _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
-                    }
-                    else
-                    {
-                        Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                    }
-                    return;
-                }
-                else if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
-                {
-                    if (killer == null || Functions.IstargetInSameLobby(player, killer))
-                    {
-                        _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
-                    }
-                }
-                else
-                {
-                    Core.Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
-                    Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE));
+                    case (int)_Preload_.Preload.Gamemodes.Tactics:
+
+                        if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
+                        if (Functions.IstargetInSameLobby(player, killer))
+                        {
+                            _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
+                        }
+                        else
+                        {
+                            Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
+                            RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
+                        }
+                        return;
+                    case (int)_Preload_.Preload.Gamemodes.Reallife:
+                        {
+                            if (killer == null || Functions.IstargetInSameLobby(player, killer))
+                            {
+                                _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                            }
+                        }
+                        return;
+                    default:
+                        Core.Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                        return;
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnDeath", ex); }
@@ -135,12 +137,13 @@ namespace VenoXV.Globals
         {
             try
             {
+                VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
                 string type = string.Empty;
                 _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
                 _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDisconnect", ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDamage)]
