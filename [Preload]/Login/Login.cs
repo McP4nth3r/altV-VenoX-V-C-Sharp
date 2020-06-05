@@ -70,6 +70,7 @@ namespace VenoXV._Preload_.Login
                 return;
             }
             player.Emit("DestroyLoginWindow");
+            if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); }
             player.Emit("preload_gm_list");
         }
     }

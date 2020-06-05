@@ -49,7 +49,7 @@ namespace VenoXV._Preload_.Register
             }
         }
 
-        [ClientEvent("Account:Register")]
+        //[ClientEvent("Account:Register")]
         public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
         {
             try
