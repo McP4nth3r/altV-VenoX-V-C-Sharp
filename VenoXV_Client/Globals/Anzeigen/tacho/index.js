@@ -4,7 +4,6 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import * as game from "natives";
 
 let speedo = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/tacho/speedometer.html");
 let showed = false;
