@@ -178,6 +178,14 @@ alt.onServer('Player:WarpOutOfVehicle', () => {
     catch{ }
 });
 
+alt.onServer('start_screen_fx', (effectName, duration, looped) => {
+    try {
+        game.animpostfxPlay(effectName, duration, looped);
+    }
+    catch{ }
+});
+
+
 alt.on('keyup', (key) => {
     try {
         KeyUp(key);
