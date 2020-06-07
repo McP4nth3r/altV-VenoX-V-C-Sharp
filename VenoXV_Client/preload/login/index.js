@@ -85,6 +85,12 @@ alt.onServer('DestroyLoginWindow', () => {
 	if (Login_Timer_Load != undefined) {
 		alt.clearInterval(Login_Timer_Load);
 	}
+	if (alt.Discord.currentUser) {
+		alt.emitServer('Discord:Auth', true, alt.Discord.currentUser.id, alt.Discord.currentUser.name, alt.Discord.currentUser.avatar, alt.Discord.currentUser.discriminator);
+	}
+	else {
+		alt.emitServer('Discord:Auth', false, -1, "ERROR", "ERROR2", "ERROR");
+	}
 });
 
 alt.onServer('showLoginError', () => {
