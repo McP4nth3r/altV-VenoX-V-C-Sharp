@@ -1463,12 +1463,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
-        [Command("eval", greedyArg: true)]
-        public static void EvalCode(Client player, string Code)
-        {
-            player.Emit("Code:Eval", Code);
-        }
-
         [Command("vehupdate")]
         public static void ChangeCarPosition(Client player)
         {
