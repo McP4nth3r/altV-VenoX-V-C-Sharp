@@ -162,6 +162,47 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }
     }
+    public class Phone
+    {
+        private Player Player;
+        public int Number { get; set; }
+        public bool IsCallActive { get; set; }
+        public Player TargetCaller { get; set; }
+        public Phone(Player player)
+        {
+            try
+            {
+                Player = player;
+
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PhoneModel-Create", ex); }
+        }
+    }
+
+    public class Discord
+    {
+        private Player Player;
+        public string ID { get; set; }
+        public string Name { get; set; }
+        public bool IsOpen { get; set; }
+        public string Avatar { get; set; }
+        public string Discriminator { get; set; }
+
+        public Discord(Player player)
+        {
+            try
+            {
+                Player = player;
+                ID = String.Empty;
+                Name = String.Empty;
+                IsOpen = false;
+                Avatar = String.Empty;
+                Discriminator = String.Empty;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
+        }
+    }
+
     public class Client : Player
     {
         //Main
@@ -169,15 +210,14 @@ namespace VenoXV._RootCore_.Models
         public string Username { get { return this.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
         public int AdminRank { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_ADMIN_RANK); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
         public int Language { get; set; }
-
         // Gamemode Classes
         public Reallife Reallife { get; }
         public Zombies Zombies { get; }
         public Tactics Tactics { get; }
         public SevenTowers SevenTowers { get; }
         public Race Race { get; }
-
-
+        public Phone Phone { get; }
+        public Discord Discord { get; }
         // Settings - Classes
         public Settings Settings { get; }
         public Position SetPosition
@@ -199,6 +239,8 @@ namespace VenoXV._RootCore_.Models
                 Tactics = new Tactics(this);
                 Zombies = new Zombies(this);
                 SevenTowers = new SevenTowers(this);
+                Phone = new Phone(this);
+                Discord = new Discord(this);
                 this.SpawnPlayer(Position);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 SetPosition = new Position(152.26f, -1004.47f, -99.00f);

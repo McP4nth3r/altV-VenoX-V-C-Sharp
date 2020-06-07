@@ -35,6 +35,7 @@ import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as Death from '/VenoXV_Client/Reallife/environment/death/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
+import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 alt.setStat('stamina', 100);

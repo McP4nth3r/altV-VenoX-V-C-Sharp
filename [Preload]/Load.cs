@@ -14,6 +14,7 @@ namespace VenoXV._Preload_
                 case Gamemodes.Reallife:
                     player.Emit("Inventory:Load");
                     player.Emit("XMenu:Load");
+                    player.Emit("Phone:Load");
                     break;
                 case Gamemodes.Tactics:
                     break;
@@ -31,6 +32,7 @@ namespace VenoXV._Preload_
                 case Gamemodes.Reallife:
                     player.Emit("Inventory:Unload");
                     player.Emit("XMenu:Unload");
+                    player.Emit("Phone:Unload");
                     break;
                 case Gamemodes.Tactics:
                     break;

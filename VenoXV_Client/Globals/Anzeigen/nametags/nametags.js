@@ -22,7 +22,6 @@ let b1 = 0;
 let typing = false;
 //mp.nametags.enabled = false;
 
-
 function returnRGB(player) {
 	let hp = game.getEntityHealth(player.scriptID);
 
@@ -59,7 +58,6 @@ function isBadFaction(player) {
 	}
 	return false;
 }
-
 
 function OnStart() {
 	if (!game.hasStreamedTextureDictLoaded("Commonmenu")) {

@@ -15,8 +15,6 @@ namespace VenoXV.Globals
         public static List<Client> ZombiePlayers = new List<Client>();
         public static List<Client> RacePlayers = new List<Client>();
         public static List<Client> SevenTowersPlayers = new List<Client>();
-
-
         public static void RemovePlayerFromGamemodeList(Client player)
         {
             try
@@ -156,6 +154,19 @@ namespace VenoXV.Globals
             catch { }
         }
 
-
+        [ClientEvent("Discord:Auth")]
+        public static void LoadDiscordInformations(Client player, bool IsOpen, string Id, string Name, string Avatar, string Discriminator)
+        {
+            try
+            {
+                Debug.OutputDebugString(player.Username + " | " + IsOpen + " | " + Id + " | " + Name + " | " + Avatar + " | " + Discriminator);
+                player.Discord.ID = Id;
+                player.Discord.IsOpen = IsOpen;
+                player.Discord.Name = Name;
+                player.Discord.Avatar = Avatar;
+                player.Discord.Discriminator = Discriminator;
+            }
+            catch (Exception ex) { Debug.CatchExceptions("LoadDiscordInformations", ex); }
+        }
     }
 }

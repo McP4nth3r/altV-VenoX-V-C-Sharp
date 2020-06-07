@@ -64,8 +64,8 @@ namespace VenoXV._Preload_
                     player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
                     Load.LoadGamemodeWindows(player, (int)Gamemodes.Reallife);
-                    _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     Globals.Main.ReallifePlayers.Add(player);
+                    _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     player.Emit("Player:ChangeCurrentLobby", "Reallife");
                     break;
                 case 1:
