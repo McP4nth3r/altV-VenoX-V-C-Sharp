@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                int fraktionsID = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                int fraktionsID = player.Reallife.Faction;
                 if (fraktionsID > 0)
                 {
                     foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
@@ -575,6 +575,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (Vehicle.Driver == player)
                 {
+                    player.Emit("Vehicle:DisableEngineToggle"); // Disable Auto-TurnOn for Vehicle.
                     if (Vehicle.Godmode)
                     {
                         Vehicle.Godmode = false;
@@ -728,7 +729,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("engineOnEventKey")]
+        [ClientEvent("engineOnEventKey")]
         public void EngineOnEventKeyEvent(Client player)
         {
             try
@@ -796,7 +797,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("engineOnEventKey", ex); }
         }
 
         //[AltV.Net.ClientEvent("saveIVehicleConsumes")]

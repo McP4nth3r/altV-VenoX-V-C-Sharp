@@ -1463,6 +1463,43 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
+        [Command("eval", greedyArg: true)]
+        public static void EvalCode(Client player, string Code)
+        {
+            player.Emit("Code:Eval", Code);
+        }
+
+        [Command("vehupdate")]
+        public static void ChangeCarPosition(Client player)
+        {
+            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            {
+                if (!player.IsInVehicle) { player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug!"); return; }
+                VehicleModel veh = (VehicleModel)player.Vehicle;
+                veh.SpawnCoord = veh.Position;
+                veh.SpawnRot = veh.Rotation;
+                Database.SaveIVehicle(veh);
+                player.SendChatMessage("Vehicle Saved!");
+            }
+        }
+
+        [Command("createvehicle")]
+        public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save)
+        {
+            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            {
+                VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(Model), player.Position, player.Rotation);
+                vehClass.Name = Model;
+                vehClass.FirstColor = "";
+                vehClass.SecondColor = "";
+                vehClass.Owner = "";
+                vehClass.Plate = "alt-V";
+                vehClass.Faction = Faction;
+                if (Save) { Database.AddNewIVehicle(vehClass); }
+            }
+        }
+
+
         /* [Command("createtestcar")]
          public static void CreateCar(PlayerModel player, string VehicleModel)
          {

@@ -1400,7 +1400,7 @@ namespace VenoXV._RootCore_.Database
             catch { return new List<GangwarModel>(); }
         }
 
-        /*
+
         public static int AddNewIVehicle(VehicleModel IVehicle)
         {
             try
@@ -1413,21 +1413,23 @@ namespace VenoXV._RootCore_.Database
                     {
                         connection.Open();
                         MySqlCommand command = connection.CreateCommand();
-                        command.CommandText = "INSERT INTO IVehicles (model, posX, posY, posZ, rotation, firstRgba, secondRgba, dimension, faction, owner, plate, gas) ";
-                        command.CommandText += "VALUES (@model, @posX, @posY, @posZ, @rotation, @firstRgba, @secondRgba, @dimension, @faction, @owner, @plate, @gas)";
-                        command.Parameters.AddWithValue("@model", IVehicle.model);
-                        command.Parameters.AddWithValue("@posX", IVehicle.position.X);
-                        command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
-                        command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
-                        command.Parameters.AddWithValue("@rotation", IVehicle.rotation);
-                        command.Parameters.AddWithValue("@firstRgba", IVehicle.firstRgba);
-                        command.Parameters.AddWithValue("@secondRgba", IVehicle.secondRgba);
-                        command.Parameters.AddWithValue("@dimension", IVehicle.dimension);
-                        command.Parameters.AddWithValue("@faction", IVehicle.faction);
-                        command.Parameters.AddWithValue("@owner", IVehicle.owner);
-                        command.Parameters.AddWithValue("@plate", IVehicle.plate);
-                        command.Parameters.AddWithValue("@gas", IVehicle.gas);
-
+                        command.CommandText = "INSERT INTO Vehicles (model, posX, posY, posZ, rotX, rotY, rotZ, FirstColor, SecondColor, dimension, faction, owner, plate, gas) ";
+                        command.CommandText += "VALUES (@model, @posX, @posY, @posZ, @rotX, @rotY, @rotZ, @FirstColor, @SecondColor, @dimension, @faction, @owner, @plate, @gas)";
+                        command.Parameters.AddWithValue("@model", IVehicle.Name);
+                        command.Parameters.AddWithValue("@posX", IVehicle.Position.X);
+                        command.Parameters.AddWithValue("@posY", IVehicle.Position.Y);
+                        command.Parameters.AddWithValue("@posZ", IVehicle.Position.Z);
+                        Vector3 rot = IVehicle.Rotation;
+                        command.Parameters.AddWithValue("@rotX", rot.X);
+                        command.Parameters.AddWithValue("@rotY", rot.Y);
+                        command.Parameters.AddWithValue("@rotZ", rot.Z);
+                        command.Parameters.AddWithValue("@FirstColor", IVehicle.FirstColor);
+                        command.Parameters.AddWithValue("@SecondColor", IVehicle.SecondColor);
+                        command.Parameters.AddWithValue("@dimension", IVehicle.Dimension);
+                        command.Parameters.AddWithValue("@faction", IVehicle.Faction);
+                        command.Parameters.AddWithValue("@owner", IVehicle.Owner);
+                        command.Parameters.AddWithValue("@plate", IVehicle.Plate);
+                        command.Parameters.AddWithValue("@gas", IVehicle.Gas);
                         command.ExecuteNonQuery();
                         vehId = (int)command.LastInsertedId;
                     }
@@ -1440,9 +1442,9 @@ namespace VenoXV._RootCore_.Database
 
                 return vehId;
             }
-            catch { return 99999; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewDatabaseVehicleEntry", ex); return 99999; }
         }
-        */
+
         public static int AddNewAdminTicket(AdminTickets ticket)
         {
 
@@ -1501,97 +1503,86 @@ namespace VenoXV._RootCore_.Database
 
         public static void SaveIVehicle(VehicleModel IVehicle)
         {
-            /*using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, RgbaType = @RgbaType, ";
-                    command.CommandText += "firstRgba = @firstRgba, secondRgba = @secondRgba, pearlescent = @pearlescent, dimension = @dimension, ";
-                    command.CommandText += "engine = @engine, locked = @locked, faction = @faction, owner = @owner, plate = @plate, price = @price, ";
-                    command.CommandText += "parking = @parking, parkedTime = @parkedTime, gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
-                    command.Parameters.AddWithValue("@posX", IVehicle.position.X);
-                    command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
-                    command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
-                    command.Parameters.AddWithValue("@rotation", IVehicle.rotation);
-                    command.Parameters.AddWithValue("@RgbaType", IVehicle.RgbaType);
-                    command.Parameters.AddWithValue("@firstRgba", IVehicle.firstRgba);
-                    command.Parameters.AddWithValue("@secondRgba", IVehicle.secondRgba);
-                    command.Parameters.AddWithValue("@pearlescent", IVehicle.pearlescent);
-                    command.Parameters.AddWithValue("@dimension", IVehicle.dimension);
-                    command.Parameters.AddWithValue("@engine", IVehicle.engine);
-                    command.Parameters.AddWithValue("@locked", IVehicle.locked);
-                    command.Parameters.AddWithValue("@faction", IVehicle.faction);
-                    command.Parameters.AddWithValue("@owner", IVehicle.owner);
-                    command.Parameters.AddWithValue("@plate", IVehicle.plate);
-                    command.Parameters.AddWithValue("@price", IVehicle.price);
-                    command.Parameters.AddWithValue("@parking", IVehicle.parking);
-                    command.Parameters.AddWithValue("@parkedTime", IVehicle.parked);
-                    command.Parameters.AddWithValue("@gas", IVehicle.gas);
-                    command.Parameters.AddWithValue("@kms", IVehicle.kms);
-                    command.Parameters.AddWithValue("@vehId", IVehicle.id);
+                command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotX = @rotX, rotY = @rotY, rotZ = @rotZ,";
+                command.CommandText += "FirstColor = @FirstColor, SecondColor = @SecondColor, dimension = @dimension, ";
+                command.CommandText += "faction = @faction, owner = @owner, plate = @plate, price = @price, ";
+                command.CommandText += "gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
+                Vector3 rot = IVehicle.Rotation;
+                command.Parameters.AddWithValue("@posX", IVehicle.Position.X);
+                command.Parameters.AddWithValue("@posY", IVehicle.Position.Y);
+                command.Parameters.AddWithValue("@posZ", IVehicle.Position.Z);
+                command.Parameters.AddWithValue("@rotX", rot.X);
+                command.Parameters.AddWithValue("@rotY", rot.Y);
+                command.Parameters.AddWithValue("@rotZ", rot.Z);
+                command.Parameters.AddWithValue("@FirstColor", IVehicle.FirstColor);
+                command.Parameters.AddWithValue("@SecondColor", IVehicle.SecondColor);
+                command.Parameters.AddWithValue("@dimension", IVehicle.Dimension);
+                command.Parameters.AddWithValue("@faction", IVehicle.Faction);
+                command.Parameters.AddWithValue("@owner", IVehicle.Owner);
+                command.Parameters.AddWithValue("@plate", IVehicle.Plate);
+                command.Parameters.AddWithValue("@price", IVehicle.Price);
+                command.Parameters.AddWithValue("@gas", IVehicle.Gas);
+                command.Parameters.AddWithValue("@kms", IVehicle.Kms);
+                command.Parameters.AddWithValue("@vehId", IVehicle.ID);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.StackTrace);
-                }
-            }*/
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SaveIVehicle] " + ex.StackTrace);
+            }
         }
 
         public static void SaveAllIVehicles(List<VehicleModel> IVehicleList)
         {
-            /*
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+
+                command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotX = @rotX, rotY = @rotY, rotZ = @rotZ,";
+                command.CommandText += "FirstColor = @FirstColor, SecondColor = @SecondColor, dimension = @dimension, ";
+                command.CommandText += "faction = @faction, owner = @owner, plate = @plate, price = @price, ";
+                command.CommandText += "gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
+
+                foreach (VehicleModel IVehicle in IVehicleList)
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                    command.Parameters.Clear();
 
-                    command.CommandText = "UPDATE Vehicles SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, ColorType = @ColorType, ";
-                    command.CommandText += "firstColor = @firstColor, secondColor = @secondColor, pearlescent = @pearlescent, dimension = @dimension, ";
-                    command.CommandText += "engine = @engine, locked = @locked, faction = @faction, owner = @owner, plate = @plate, price = @price, ";
-                    command.CommandText += "parking = @parking, parkedTime = @parkedTime, gas = @gas, kms = @kms WHERE id = @vehId LIMIT 1";
-
-                    foreach (VehicleModel IVehicle in IVehicleList)
-                    {
-                        command.Parameters.Clear();
-
-                        command.Parameters.AddWithValue("@posX", IVehicle.position.X);
-                        command.Parameters.AddWithValue("@posY", IVehicle.position.Y);
-                        command.Parameters.AddWithValue("@posZ", IVehicle.position.Z);
-                        command.Parameters.AddWithValue("@rotation", IVehicle.rotation.Yaw);
-                        command.Parameters.AddWithValue("@ColorType", IVehicle.RgbaType);
-                        command.Parameters.AddWithValue("@firstColor", IVehicle.firstRgba);
-                        command.Parameters.AddWithValue("@secondColor", IVehicle.secondRgba);
-                        command.Parameters.AddWithValue("@pearlescent", IVehicle.pearlescent);
-                        command.Parameters.AddWithValue("@dimension", IVehicle.dimension);
-                        command.Parameters.AddWithValue("@engine", IVehicle.engine);
-                        command.Parameters.AddWithValue("@locked", IVehicle.locked);
-                        command.Parameters.AddWithValue("@faction", IVehicle.faction);
-                        command.Parameters.AddWithValue("@owner", IVehicle.owner);
-                        command.Parameters.AddWithValue("@plate", IVehicle.plate);
-                        command.Parameters.AddWithValue("@price", IVehicle.price);
-                        command.Parameters.AddWithValue("@parking", IVehicle.parking);
-                        command.Parameters.AddWithValue("@parkedTime", IVehicle.parked);
-                        command.Parameters.AddWithValue("@gas", IVehicle.gas);
-                        command.Parameters.AddWithValue("@kms", IVehicle.kms);
-                        command.Parameters.AddWithValue("@vehId", IVehicle.id);
-
-                        command.ExecuteNonQuery();
-                    }
+                    Vector3 rot = IVehicle.SpawnRot;
+                    command.Parameters.AddWithValue("@posX", IVehicle.SpawnCoord.X);
+                    command.Parameters.AddWithValue("@posY", IVehicle.SpawnCoord.Y);
+                    command.Parameters.AddWithValue("@posZ", IVehicle.SpawnCoord.Z);
+                    command.Parameters.AddWithValue("@rotX", rot.X);
+                    command.Parameters.AddWithValue("@rotY", rot.Y);
+                    command.Parameters.AddWithValue("@rotZ", rot.Z);
+                    command.Parameters.AddWithValue("@FirstColor", IVehicle.FirstColor);
+                    command.Parameters.AddWithValue("@SecondColor", IVehicle.SecondColor);
+                    command.Parameters.AddWithValue("@dimension", IVehicle.Dimension);
+                    command.Parameters.AddWithValue("@faction", IVehicle.Faction);
+                    command.Parameters.AddWithValue("@owner", IVehicle.Owner);
+                    command.Parameters.AddWithValue("@plate", IVehicle.Plate);
+                    command.Parameters.AddWithValue("@price", IVehicle.Price);
+                    command.Parameters.AddWithValue("@gas", IVehicle.Gas);
+                    command.Parameters.AddWithValue("@kms", IVehicle.Kms);
+                    command.Parameters.AddWithValue("@vehId", IVehicle.ID);
+                    command.ExecuteNonQuery();
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.StackTrace);
-                }
-            }*/
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SaveAllIVehicles] " + ex.StackTrace);
+            }
         }
 
         public static void RemoveIVehicle(int IVehicleId)
