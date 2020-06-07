@@ -1,0 +1,67 @@
+<head>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+</head>
+    
+<body>
+
+<div class="all d-none">
+	<div id="PhoneIndex" class="PhoneIndex" src="./files/images/vnxphone.png">
+		<div class="HomeButton" onclick="DrawHomeScreen();"></div>
+		<div class="PhoneScreen">
+			<div id="PhoneHomeScreen" class="d-non">
+				<div class="PhoneBackground"></div>
+				<div class="PhoneAppBar">
+					<div class="Phone_App_Call" onclick="OnAppClick('PhoneCallScreen');"></div>				
+					<div class="Phone_App_SMS"  onclick="OnAppClick('PhoneSMSScreen');"></div>					
+					<div class="Phone_App_MUSIC"></div>			
+					<div class="Phone_App_Safari"></div>
+                </div>
+				<div class="PhoneAppHome">
+					<div class="Phone_App_TurnOff"></div>	
+				</div>
+			</div>
+	
+            <div id="PhoneCallScreen" class="d-none">
+                <div class="PhoneCallBackground">
+                    <div class="callscreenheader">
+                            <div class="Username">Name</div>
+                            <div class="Telnr">Telnr</div>
+                    </div>
+                    <div class="callscreenGridbg"></div>
+                    <div class="call_button">Anrufen</div>
+                </div>
+            </div>
+            
+            <div id="PhoneCallScreenActive" class="d-none">
+                <div class="PhoneCallActiveBackground">
+                    <div class="BlurBG"></div>
+                    <div class="PhoneCallActiveName"></div>
+                    <div class="PhoneCallActiveStatus"></div>
+                    <div class="PhoneCallActiveAvatarImage"></div>
+                    <div class="PhoneCallActiveHangup d-none">Auflegen</div>
+                    <div class="PhoneCallActiveAccept d-none">Annehmen</div>
+                    <div class="PhoneCallActiveDeny d-none">Ablehnen</div>
+                </div>
+            </div>
+            
+
+            <div id="PhoneSMSScreen" class="d-none">
+                
+            </div>
+            
+            
+            <div id="PhonePornhubScreen" class="d-none">
+                <object class="PhoneScreen" data="">
+                <embed class="PhoneScreen" src="">
+                </object>	
+            </div>
+        </div>
+    </div>
+</div>
+<script src="scripts/allround.js"></script>
+<script src="scripts/call.js"></script>
+
+</body>
+
