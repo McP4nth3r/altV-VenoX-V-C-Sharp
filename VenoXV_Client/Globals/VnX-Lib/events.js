@@ -185,6 +185,10 @@ alt.onServer('start_screen_fx', (effectName, duration, looped) => {
     catch{ }
 });
 
+alt.onServer('Vehicle:DisableEngineToggle', () => {
+    game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, false, true, true);
+    alt.log('Called DisableEngineToggle');
+});
 
 alt.on('keyup', (key) => {
     try {
@@ -314,6 +318,8 @@ alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
 alt.setInterval(() => {
     game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
 }, 1000);
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -97,6 +97,7 @@ function CheckHUDUpdate() {
 		LastMoney = CurrentMoney;
 	}
 	if (Update) {
+		if (CurrentHealth <= 0) { CurrentHealth = 100; }
 		HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
 	}
 	if (CurrentLocation != LastLocation) {
