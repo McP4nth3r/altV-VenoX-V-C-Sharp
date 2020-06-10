@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
@@ -32,6 +33,10 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     TankstellenCol.vnxSetElementData("TANKSTELLEN_COL", true);
                     /*Console.WriteLine("Tankstelle [" + counter + "] wurde erstellt! Pos : " + Tankstellen);
                     counter++;*/
+                }
+                foreach (Vector3 Tankstellen in Constants.AUTO_ZAPF_LIST_BLIPS)
+                {
+                    RageAPI.CreateBlip("Tankstelle", Tankstellen, 361, 3, true);
                 }
             }
             catch { }
