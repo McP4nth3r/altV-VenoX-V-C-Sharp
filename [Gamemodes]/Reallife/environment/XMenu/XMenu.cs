@@ -10,6 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         private static bool IsVehicleOwner(Client player, VehicleModel vehicle)
         {
             if (vehicle.Owner == player.Username) { return true; }
+            else if (vehicle.Faction == player.Reallife.Faction) { return true; }
             else { return false; }
         }
 
