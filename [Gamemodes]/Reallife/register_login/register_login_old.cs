@@ -332,7 +332,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
-                CreateGasBlips(player);
                 List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
                 player.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
@@ -348,7 +347,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
                 Sync.LoadBlips(player);
-                CreateGasBlips(player);
                 foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
                     string owner = Vehicle.Owner;
@@ -400,16 +398,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try { LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
-        }
-
-
-
-        public static void CreateGasBlips(Client player)
-        {
-            foreach (var Tankstellen in Constants.AUTO_ZAPF_LIST_BLIPS)
-            {
-                player.Emit("ShowTankstellenBlips", Tankstellen);
-            }
         }
 
         //[AltV.Net.ClientEvent("Send_Player_Where_From")]
