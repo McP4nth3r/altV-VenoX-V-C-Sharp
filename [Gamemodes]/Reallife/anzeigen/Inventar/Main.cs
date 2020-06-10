@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -19,13 +18,13 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 foreach (ItemModel items in CurrentOfflineItemList)
                 {
-                    if (items.ownerIdentifier == player?.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID))
+                    if (items.ownerIdentifier == player.UID)
                     {
                         CurrentOnlineItemList.Add(items);
                     }
                 }
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                player?.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
+                player.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -35,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 foreach (ItemModel items in CurrentOnlineItemList)
                 {
-                    if (items.ownerIdentifier == player?.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID))
+                    if (items.ownerIdentifier == player.UID)
                     {
                         CurrentOnlineItemList.Remove(items);
                     }
@@ -57,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 List<InventoryModel> inventory = new List<InventoryModel>();
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 foreach (ItemModel item in CurrentOnlineItemList)
                 {
                     if (item.ownerIdentifier == playerId)
@@ -84,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 foreach (ItemModel item in CurrentOnlineItemList)
                 {
                     if (item.ownerIdentifier == playerId)
@@ -98,7 +97,6 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-
 
         public static void UseItem(Client player, string ItemHash)
         {
