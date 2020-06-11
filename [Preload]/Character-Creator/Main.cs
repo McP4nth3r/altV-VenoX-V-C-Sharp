@@ -35,8 +35,8 @@ namespace VenoXV._Preload_.Character_Creator
             player.DespawnPlayer();
             CharacterSkins.Add(playerClassSkin);
             Database.CreateCharacterSkin(player.UID, facefeatures, headblends, headoverlays);
-            player.Emit("preload_gm_list");
-            player.Emit("CharCreator:Close");
+            Alt.Server.TriggerClientEvent(player,"preload_gm_list");
+            Alt.Server.TriggerClientEvent(player,"CharCreator:Close");
             Database.LoadCharacterInformationById(player, UID);
         }
 
@@ -56,7 +56,7 @@ namespace VenoXV._Preload_.Character_Creator
             {
                 if (skins.UID == player.UID)
                 {
-                    player.Emit("Charselector:setCorrectSkin", skins.FaceFeatures, skins.HeadBlendData, skins.HeadOverlays);
+                    Alt.Server.TriggerClientEvent(player,"Charselector:setCorrectSkin", skins.FaceFeatures, skins.HeadBlendData, skins.HeadOverlays);
                 }
             }
         }

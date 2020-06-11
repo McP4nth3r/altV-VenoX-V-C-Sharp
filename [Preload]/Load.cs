@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 using static VenoXV._Preload_.Preload;
 
 namespace VenoXV._Preload_
@@ -12,9 +13,10 @@ namespace VenoXV._Preload_
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
-                    player.Emit("Inventory:Load");
-                    player.Emit("XMenu:Load");
-                    player.Emit("Phone:Load");
+                    Alt.Server.TriggerClientEvent(player, "Inventory:Load");
+                    Alt.Server.TriggerClientEvent(player, "XMenu:Load");
+                    Alt.Server.TriggerClientEvent(player, "Phone:Load");
+                    player.LoadAllNPCs();
                     break;
                 case Gamemodes.Tactics:
                     break;
@@ -30,9 +32,9 @@ namespace VenoXV._Preload_
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
-                    player.Emit("Inventory:Unload");
-                    player.Emit("XMenu:Unload");
-                    player.Emit("Phone:Unload");
+                    Alt.Server.TriggerClientEvent(player, "Inventory:Unload");
+                    Alt.Server.TriggerClientEvent(player, "XMenu:Unload");
+                    Alt.Server.TriggerClientEvent(player, "Phone:Unload");
                     break;
                 case Gamemodes.Tactics:
                     break;

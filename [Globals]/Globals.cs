@@ -109,7 +109,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                player.Emit("Globals:ShowBloodScreen");
+                Alt.Server.TriggerClientEvent(player,"Globals:ShowBloodScreen");
                 killer.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
             }

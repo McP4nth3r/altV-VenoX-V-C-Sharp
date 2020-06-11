@@ -45,7 +45,7 @@ namespace VenoXV._Globals_
                 ID = ID
             };
             //CurrentPlayerCameras.Add(PlayerCamera);
-            player.Emit("Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
+            Alt.Server.TriggerClientEvent(player,"Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
         }
         [Command("stopcam")]
         public static void StopCurrentCamera(Client player)
@@ -99,7 +99,7 @@ namespace VenoXV._Globals_
             {
                 if (cam.CameraCreator == player.Username && cam.ID == ID)
                 {
-                    player.Emit("Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
+                    Alt.Server.TriggerClientEvent(player,"Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
                 }
             }
         }

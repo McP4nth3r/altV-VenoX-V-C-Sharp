@@ -15,7 +15,7 @@ namespace VenoXV.Core
         {
             try
             {
-                player.Emit("UpdateHealth", player.Armor, player.Health);
+                Alt.Server.TriggerClientEvent(player,"UpdateHealth", player.Armor, player.Health);
             }
             catch { }
         }
@@ -29,7 +29,7 @@ namespace VenoXV.Core
         {
             try
             {
-                player.Emit("delay_element_data", args[0], args[1], args[2], args[3]);
+                Alt.Server.TriggerClientEvent(player,"delay_element_data", args[0], args[1], args[2], args[3]);
             }
             catch { }
         }
@@ -37,7 +37,7 @@ namespace VenoXV.Core
         {
             try
             {
-                player.Emit("delay_element_data", element, value, "bool", TimeInMS);
+                Alt.Server.TriggerClientEvent(player,"delay_element_data", element, value, "bool", TimeInMS);
             }
             catch { }
         }
@@ -45,7 +45,7 @@ namespace VenoXV.Core
         {
             try
             {
-                player.Emit("delay_element_data", element, value, "int", TimeInMS);
+                Alt.Server.TriggerClientEvent(player,"delay_element_data", element, value, "int", TimeInMS);
             }
             catch { }
         }

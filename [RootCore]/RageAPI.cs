@@ -5,6 +5,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
@@ -43,6 +44,7 @@ namespace VenoXV.Core
         {
             try
             {
+                Alt.RemoveColShape(ColShape.Entity);
                 Sync.ColShapeList.Remove(ColShape);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemoveColShape", ex); }
@@ -148,7 +150,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (Client player in Alt.GetAllPlayers()) { player.Emit("Vehicle:Repair", element); }
+                foreach (Client player in Alt.GetAllPlayers()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -171,11 +173,11 @@ namespace VenoXV.Core
         }
         public static void WarpIntoVehicle<T>(this Client player, IVehicle veh, int seat)
         {
-            player.Emit("Player:WarpIntoVehicle", veh, seat);
+            Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
         }
         public static void WarpOutOfVehicle<T>(this Client player)
         {
-            player.Emit("Player:WarpOutOfVehicle");
+            Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
         }
         public static Client GetPlayerFromName(string name)
         {
@@ -338,6 +340,73 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
         }
 
+        public static void LoadAllNPCs(this Client playerClass)
+        {
+            try
+            {
+                foreach (NPCModel npcClass in NPCList)
+                {
+                    Alt.Server.TriggerClientEvent(playerClass, "NPC:Create", npcClass.Name, npcClass.Position, npcClass.Rotation);
+                }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("LoadAllNPCs", ex); }
+        }
+        public static List<NPCModel> NPCList = new List<NPCModel>();
+        public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, Client VisibleOnlyFor = null)
+        {
+            try
+            {
+                NPCModel NPC = new NPCModel
+                {
+                    ID = 0,
+                    Gamemode = Gamemode,
+                    Health = 200,
+                    Armor = 100,
+                    Name = HashName,
+                    Position = Position,
+                    Rotation = Rotation
+                };
+                foreach (Client players in Alt.GetAllPlayers())
+                {
+                    if (players.Playing)
+                    {
+                        if (players.Gamemode == Gamemode && VisibleOnlyFor == null)
+                        {
+                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation);
+                        }
+                        else if (players.Gamemode == Gamemode && VisibleOnlyFor == players)
+                        {
+                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation);
+                        }
+                    }
+                }
+                NPCList.Add(NPC);
+                return NPC;
+            }
+            catch (Exception ex) { Debug.CatchExceptions("CreateNPC", ex); return new NPCModel(); }
+        }
+        public static void UpdateNPCPosition(NPCModel npcClass)
+        {
+
+        }
+        public static void UpdateNPCPositionById(int npcId)
+        {
+
+        }
+        public static void RemoveNPC(NPCModel npcClass)
+        {
+            foreach (NPCModel npcs in NPCList.ToList())
+            {
+                if (npcs == npcClass)
+                {
+                    NPCList.Remove(npcs);
+                }
+            }
+        }
+        public static void RemoveNPCById(int npcId)
+        {
+
+        }
         public static float ToRadians(float val)
         {
             return (float)(System.Math.PI / 180) * val;

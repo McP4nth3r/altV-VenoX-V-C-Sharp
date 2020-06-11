@@ -346,7 +346,7 @@ namespace VenoXV._Globals_.Scoreboard
                 List<ScoreboardModel> AlleSpieler = GetAllPlayersScoreboard();
                 foreach (Client player in Alt.GetAllPlayers())
                 {
-                    player.Emit("UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler));
+                    Alt.Server.TriggerClientEvent(player,"UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler));
                 }
             }
             catch

@@ -61,17 +61,17 @@ namespace VenoXV._Preload_.Login
             Database.LoadCharacterInformationById(player, accClass.UID);
             if (!Character_Creator.Main.PlayerHaveSkin(player))
             {
-                player.Emit("DestroyLoginWindow");
-                player.Emit("CharCreator:Start", player.Sex);
+                Alt.Server.TriggerClientEvent(player,"DestroyLoginWindow");
+                Alt.Server.TriggerClientEvent(player,"CharCreator:Start", player.Sex);
                 player.Playing = true;
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 Register.Register.ChangeCharacterSexEvent(player, player.Sex);
                 return;
             }
-            player.Emit("DestroyLoginWindow");
+            Alt.Server.TriggerClientEvent(player,"DestroyLoginWindow");
             if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); }
-            player.Emit("preload_gm_list");
+            Alt.Server.TriggerClientEvent(player,"preload_gm_list");
         }
     }
 }

@@ -48,7 +48,7 @@ namespace VenoXV._Preload_
             {
                 player.Dimension = player.Id;
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
-                player.Emit("preload_gm_list");
+                Alt.Server.TriggerClientEvent(player,"preload_gm_list");
             }
             catch { }
         }
@@ -66,7 +66,7 @@ namespace VenoXV._Preload_
                     Load.LoadGamemodeWindows(player, (int)Gamemodes.Reallife);
                     Globals.Main.ReallifePlayers.Add(player);
                     _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
-                    player.Emit("Player:ChangeCurrentLobby", "Reallife");
+                    Alt.Server.TriggerClientEvent(player,"Player:ChangeCurrentLobby", "Reallife");
                     break;
                 case 1:
                     Globals.Main.ZombiePlayers.Add(player);
@@ -74,15 +74,15 @@ namespace VenoXV._Preload_
                     player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Zombies);
                     _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
-                    player.Emit("Load_Zombie_GM");
-                    player.Emit("Player:ChangeCurrentLobby", "Zombies");
+                    Alt.Server.TriggerClientEvent(player,"Load_Zombie_GM");
+                    Alt.Server.TriggerClientEvent(player,"Player:ChangeCurrentLobby", "Zombies");
                     break;
                 case 2:
                     player.Gamemode = (int)Gamemodes.Tactics;//Tactics Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
                     Globals.Main.TacticsPlayers.Add(player);
                     _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
-                    player.Emit("Player:ChangeCurrentLobby", "Tactics");
+                    Alt.Server.TriggerClientEvent(player,"Player:ChangeCurrentLobby", "Tactics");
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Tactics);
                     break;
                 case 3:
@@ -91,7 +91,7 @@ namespace VenoXV._Preload_
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Race);
-                    player.Emit("Player:ChangeCurrentLobby", "Race");
+                    Alt.Server.TriggerClientEvent(player,"Player:ChangeCurrentLobby", "Race");
                     break;
                 case 4:
                     player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
@@ -99,14 +99,14 @@ namespace VenoXV._Preload_
                     Globals.Main.SevenTowersPlayers.Add(player);
                     _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Seventowers);
-                    player.Emit("Player:ChangeCurrentLobby", "Seven-Towers");
+                    Alt.Server.TriggerClientEvent(player,"Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
                 default:
                     Core.Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
                     break;
             }
             player.Playing = true;
-            player.Emit("Preload:LoadTickEvents", player.Gamemode);
+            Alt.Server.TriggerClientEvent(player,"Preload:LoadTickEvents", player.Gamemode);
         }
 
 
@@ -124,7 +124,7 @@ namespace VenoXV._Preload_
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_ZOMBIE) { ZombiePlayers += 1; }
                 }
-                player.Emit("LoadPreloadUserInfo", ZombiePlayers + " Online.", ReallifePlayers + " Online.", TacticsPlayers + " Online.");
+                Alt.Server.TriggerClientEvent(player,"LoadPreloadUserInfo", ZombiePlayers + " Online.", ReallifePlayers + " Online.", TacticsPlayers + " Online.");
             }
             catch { }
         }
@@ -146,7 +146,7 @@ namespace VenoXV._Preload_
             {
                 LoadSevenTowersMap(player);
                 LoadReallifeMaps(player);
-                player.Emit("showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
+                Alt.Server.TriggerClientEvent(player,"showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode
                 _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
             }
