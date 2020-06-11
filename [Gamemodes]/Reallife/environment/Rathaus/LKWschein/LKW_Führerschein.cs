@@ -77,7 +77,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
 
-                player.Emit("destroyRathausWindow");
+                Alt.Server.TriggerClientEvent(player,"destroyRathausWindow");
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, PruefungsAuto, -1);
                 //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, PruefungsAuto, -1);
 
@@ -205,7 +205,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     player.vnxSetElementData("PLAYER_DRIVINGSCHOOL", false);
-                    player.Emit("Destroy_Rathaus_License_Ped");
+                    Alt.Server.TriggerClientEvent(player,"Destroy_Rathaus_License_Ped");
                     player.vnxSetElementData("PRUEFUNGS_NAME", false);
                     Vehicle.Remove();
                     if (LKW_Führerschein_Abgabe_Marker != null && LKW_Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.Username)

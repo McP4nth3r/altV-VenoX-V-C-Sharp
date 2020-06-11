@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
         {
             if (shape == col)
             {
-                //player.Emit("CreateCaseWindow");
+                //Alt.Server.TriggerClientEvent(player,"CreateCaseWindow");
                 //player.SendTranslatedChatMessage("Funktion Aufgerufen!");
             }
         }*/

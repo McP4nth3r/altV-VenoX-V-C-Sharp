@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);
-                    player.Emit("Tactics:OnDeath");
+                    Alt.Server.TriggerClientEvent(player,"Tactics:OnDeath");
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllPlayerWeapons();
                 }

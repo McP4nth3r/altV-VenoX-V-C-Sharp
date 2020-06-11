@@ -113,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             if (player.Position.Distance(target.Position) < 7)
                             {
                                 Anti_Cheat.AntiCheat_Allround.SetTimeOutHealth(target, 1000);
-                                player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
+                                Alt.Server.TriggerClientEvent(player,"start_screen_fx", "ExplosionJosh3", 0, false);
                                 target.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
                                 //NAPI.player.SpawnPlayerPlayer(target.vnxGetElementData<int>( target.position;
                                 target.Emit("destroyKrankenhausTimer");

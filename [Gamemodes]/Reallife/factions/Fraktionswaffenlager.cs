@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 if (shape == SWT_COL.Entity && Allround.isStateFaction(player))
                 {
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
-                    player.Emit("ShowStaatswaffentruck_C", "Staatswaffentruck",
+                    Alt.Server.TriggerClientEvent(player,"ShowStaatswaffentruck_C", "Staatswaffentruck",
 
                         "Schlagstock [" + Constants.NIGHTSTICK_LAGER + "$]",
                         "Tazer [" + Constants.STUNGUN_LAGER + "$]",
@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 else if (shape == WT_COL && Allround.isBadFaction(player))
                 {
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                    player.Emit("ShowWaffentruck_C", "Waffentruck",
+                    Alt.Server.TriggerClientEvent(player,"ShowWaffentruck_C", "Waffentruck",
 
                         "Baseball [" + Constants.NIGHTSTICK_LAGER + "$]",
 

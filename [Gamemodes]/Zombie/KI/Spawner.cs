@@ -47,15 +47,15 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (clothes.type == 0)
                         {
-                            player.Emit("Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            Alt.Server.TriggerClientEvent(player,"Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
-                            player.Emit("Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            Alt.Server.TriggerClientEvent(player,"Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }
-                player.Emit("Zombies:ApplyBloodToZombie", ZombieId);
+                Alt.Server.TriggerClientEvent(player,"Zombies:ApplyBloodToZombie", ZombieId);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyZombieClothes", ex); }
         }
@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.KI
             {
                 foreach (ZombieModel zombieClass in CurrentZombies)
                 {
-                    player.Emit("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                    Alt.Server.TriggerClientEvent(player,"Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                     ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
                 }
             }

@@ -62,8 +62,8 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     Vector3 Rotation = CurrentMap.PlayerRotation;
                     player.SpawnPlayer(Spawnpoint);
                     double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
-                    player.Emit("Race:FillPlayerList", JsonConvert.SerializeObject(PlayerModelList));
-                    player.Emit("Race:StartTimer", leftTime);
+                    Alt.Server.TriggerClientEvent(player,"Race:FillPlayerList", JsonConvert.SerializeObject(PlayerModelList));
+                    Alt.Server.TriggerClientEvent(player,"Race:StartTimer", leftTime);
                     VehicleModel vehicle = Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
                     VehicleModel vehClass = new VehicleModel()
                     {

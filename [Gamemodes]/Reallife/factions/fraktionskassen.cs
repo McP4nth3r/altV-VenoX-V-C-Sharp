@@ -163,12 +163,12 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     {
                         if (shape.vnxGetElementData<bool>("GANGSKINMARKER") == true)
                         {
-                            player.Emit("show_duty_window_bad");
+                            Alt.Server.TriggerClientEvent(player,"show_duty_window_bad");
                             return;
                         }
                         else if (shape.vnxGetElementData<bool>("NEUTRALMARKER") == true)
                         {
-                            player.Emit("show_duty_window_bad", true);
+                            Alt.Server.TriggerClientEvent(player,"show_duty_window_bad", true);
                             return;
                         }
                         Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
@@ -181,7 +181,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         {
                             completeword = "Das Fraktions Lager der ";
                         }
-                        player.Emit("showFactionStuff", completeword + Faction.GetPlayerFactionName(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
+                        Alt.Server.TriggerClientEvent(player,"showFactionStuff", completeword + Faction.GetPlayerFactionName(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
                     }
                 }
             }
@@ -317,7 +317,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats ins Depot gelegt!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats ins Depot gelegt!");
-                    player.Emit("destroyFkassenWindow");
+                    Alt.Server.TriggerClientEvent(player,"destroyFkassenWindow");
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
 
                 }
@@ -354,7 +354,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     int finalwertweed = fkasse.weed - weed;
                     int finalwertkoks = fkasse.koks - koks;
                     int finalwertmats = fkasse.mats - mats;
-                    player.Emit("destroyFkassenWindow");
+                    Alt.Server.TriggerClientEvent(player,"destroyFkassenWindow");
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + money);
                     Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
                     Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");

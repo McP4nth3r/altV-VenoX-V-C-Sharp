@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                     }
                 }
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                player.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
+                Alt.Server.TriggerClientEvent(player,"Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -47,7 +47,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 UnloadPlayerItems(player);
-                player.Emit("Inventory:RemoveAll");
+                Alt.Server.TriggerClientEvent(player,"Inventory:RemoveAll");
             }
             catch { }
         }

@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     return;
                 }
-                player.Emit("VEHICLE_Data_Storage_load", vehicle);
+                Alt.Server.TriggerClientEvent(player,"VEHICLE_Data_Storage_load", vehicle);
                 player.SendTranslatedChatMessage("IVehicle Name " + vehicle.Model.ToString());
             }
             catch { }
@@ -243,7 +243,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenberechnung);
                         RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenWindow);*/
                     }
-                    player.Emit("createGasWindow", kostenWindow);
+                    Alt.Server.TriggerClientEvent(player,"createGasWindow", kostenWindow);
                 }
             }
             catch
@@ -393,8 +393,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kosten);
 
-                    player.Emit("Fill_Car_Accepted", 100, 2000);
-                    player.Emit("destroyGasWindow");
+                    Alt.Server.TriggerClientEvent(player,"Fill_Car_Accepted", 100, 2000);
+                    Alt.Server.TriggerClientEvent(player,"destroyGasWindow");
                 }
                 else
                 {
@@ -431,15 +431,15 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         if (value >= 100)
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 1500);
-                            player.Emit("Fill_Car_Accepted", 100, 2000);
-                            player.Emit("destroyGasWindow");
+                            Alt.Server.TriggerClientEvent(player,"Fill_Car_Accepted", 100, 2000);
+                            Alt.Server.TriggerClientEvent(player,"destroyGasWindow");
                             return;
                         }
                         else
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kosten);
-                            player.Emit("Fill_Car_Accepted", vehicle.Gas + value, 2000);
-                            player.Emit("destroyGasWindow");
+                            Alt.Server.TriggerClientEvent(player,"Fill_Car_Accepted", vehicle.Gas + value, 2000);
+                            Alt.Server.TriggerClientEvent(player,"destroyGasWindow");
                         }
                     }
                 }
@@ -492,7 +492,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public const string GETRIEBE_HANDLING = "FINITIALDRIVEFORCE";
         public const string REIFEN_REIBUNG_HANDLING = "FTRACTIONCURVEMAX"; // Reifenoberflächenreibung
         public const string POLICE3_VEH = "police3";
-        //  player.Emit("SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
+        //  Alt.Server.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
 
 
         public static float Verbrauch = 0;
@@ -512,13 +512,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         if (gas <= 0)
                         {
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
-                            if (gas < 0)
+                            if (gas <= 0)
                             {
                                 vehClass.Gas = 0;
                             }
+                            vehClass.EngineOn = false;
                             return;
                         }
-                        else if (gas <= 10)
+                        else if (gas == 10)
                         {
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Achtung! Tank ist fast leer!");
                         }
@@ -530,7 +531,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         {
                             Verbrauch = speed / 100;
                         }
-                        vehClass.Gas = gas - Verbrauch;
+                        vehClass.Gas -= Verbrauch;
                     }
                 }
             }
@@ -580,7 +581,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (Vehicle.Driver == player)
                 {
-                    player.Emit("Vehicle:DisableEngineToggle"); // Disable Auto-TurnOn for Vehicle.
+                    Alt.Server.TriggerClientEvent(player,"Vehicle:DisableEngineToggle"); // Disable Auto-TurnOn for Vehicle.
                     if (Vehicle.Godmode)
                     {
                         Vehicle.Godmode = false;
@@ -675,7 +676,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     float gas = Vehicle.Gas;
                     Vehicle.Gas = gas;
                     Vehicle.Kms = kms;
-                    player.Emit("initializeSpeedometer", kms, gas, Vehicle.EngineOn);
+                    Alt.Server.TriggerClientEvent(player,"initializeSpeedometer", kms, gas, Vehicle.EngineOn);
                 }
             }
             catch (Exception ex)
@@ -706,7 +707,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     Tunning.CloseTunningWindow(player);
                 }
-                player.Emit("resetSpeedometer", Vehicle);
+                Alt.Server.TriggerClientEvent(player,"resetSpeedometer", Vehicle);
             }
             catch { }
         }

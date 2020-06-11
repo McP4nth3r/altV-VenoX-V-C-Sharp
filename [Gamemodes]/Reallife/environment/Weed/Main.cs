@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                 {
                     if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
                     {
-                        player.Emit("Weed:Create", JsonConvert.SerializeObject(weed));
+                        Alt.Server.TriggerClientEvent(player,"Weed:Create", JsonConvert.SerializeObject(weed));
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
             if (NextUpdate > DateTime.Now) { return; }
             foreach (Client player in VenoXV.Globals.Main.ReallifePlayers)
             {
-                player.Emit("Weed:Destroy");
+                Alt.Server.TriggerClientEvent(player,"Weed:Destroy");
                 List<WeedModel> NearestWeedPlants = new List<WeedModel>();
                 List<WeedModel> NearestWeedPlants1 = new List<WeedModel>();
                 List<WeedModel> NearestWeedPlants2 = new List<WeedModel>();
@@ -91,17 +91,17 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                         else if (NearestWeedPlants5.Count < MAX_LIST_SIZE) { NearestWeedPlants5.Add(weed); }
                     }
                 }
-                if (NearestWeedPlants.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants)); }
-                if (NearestWeedPlants1.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants1)); }
-                if (NearestWeedPlants2.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants2)); }
-                if (NearestWeedPlants3.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants3)); }
-                if (NearestWeedPlants4.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants4)); }
-                if (NearestWeedPlants5.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants5)); }
-                if (NearestWeedPlants6.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants6)); }
-                if (NearestWeedPlants7.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants7)); }
-                if (NearestWeedPlants8.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants8)); }
-                if (NearestWeedPlants9.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants9)); }
-                if (NearestWeedPlants10.Count > 0) { player.Emit("Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants10)); }
+                if (NearestWeedPlants.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants)); }
+                if (NearestWeedPlants1.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants1)); }
+                if (NearestWeedPlants2.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants2)); }
+                if (NearestWeedPlants3.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants3)); }
+                if (NearestWeedPlants4.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants4)); }
+                if (NearestWeedPlants5.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants5)); }
+                if (NearestWeedPlants6.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants6)); }
+                if (NearestWeedPlants7.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants7)); }
+                if (NearestWeedPlants8.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants8)); }
+                if (NearestWeedPlants9.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants9)); }
+                if (NearestWeedPlants10.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants10)); }
             }
             NextUpdate = DateTime.Now.AddSeconds(UPDATE_INTERVAL_WEED);
         }

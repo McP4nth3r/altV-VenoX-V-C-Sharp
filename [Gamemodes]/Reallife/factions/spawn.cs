@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 player.SpawnPlayer(player.Position);
                 player.vnxSetElementData(EntityData.PLAYER_KILLED, 0);
                 player.vnxSetStreamSharedElementData(EntityData.PLAYER_HUNGER, 100);
-                player.Emit("start_screen_fx", "RaceTurbo", 2000, false);
+                Alt.Server.TriggerClientEvent(player,"start_screen_fx", "RaceTurbo", 2000, false);
                 player.Dimension = 0;
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     player.Dimension = dim;
                     player.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
                     player.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                    player.Emit("toggleHandcuffed", false);
+                    Alt.Server.TriggerClientEvent(player,"toggleHandcuffed", false);
                     return;
                 }
                 if (player.vnxGetElementData<string>(EntityData.PLAYER_SPAWNPOINT) == "noobspawn")

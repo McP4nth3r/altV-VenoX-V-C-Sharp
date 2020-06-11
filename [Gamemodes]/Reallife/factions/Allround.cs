@@ -141,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     if (isStateFaction(player))
                     {
                         Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
-                        player.Emit("showStateWeaponWindow",
+                        Alt.Server.TriggerClientEvent(player,"showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
 
@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     if (isStateFaction(player))
                     {
                         Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
-                        player.Emit("showStateWeaponWindow",
+                        Alt.Server.TriggerClientEvent(player,"showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
 
@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     if (isBadFaction(player))
                     {
                         Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                        player.Emit("showBadWeaponWindow",
+                        Alt.Server.TriggerClientEvent(player,"showBadWeaponWindow",
 
                         "Baseball [" + fweapon.weapon_baseball + "/" + Constants.BASEBALL_MAX_LAGER + "]",
 

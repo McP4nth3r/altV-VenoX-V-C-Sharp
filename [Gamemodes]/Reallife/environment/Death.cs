@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             try
             {
                 if (player.Dimension != 0) { return; }
-                player.Emit("DeathScreen:Show", DeathScreenTime);
+                Alt.Server.TriggerClientEvent(player,"DeathScreen:Show", DeathScreenTime);
             }
             catch { }
         }

@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         {
             try
             {
-                player.Emit("LOAD_SETTINGS_VNX");
+                Alt.Server.TriggerClientEvent(player,"LOAD_SETTINGS_VNX");
             }
             catch { }
         }
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
             {
                 if (player.Settings.ShowATM == 1)
                 {
-                    player.Emit("ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player,"ShowATMBlips");
                 }
                 if (player.Settings.ShowHouse == 1)
                 {
@@ -39,11 +39,11 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                player.Emit("ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
                             }
                             else
                             {
-                                player.Emit("ShowHouseBlips", house.position, 76, "Haus");
+                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 76, "Haus");
                             }
                         }
                     }
@@ -63,13 +63,13 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 if (state == true)
                 {
 
-                    player.Emit("ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player,"ShowATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "ja");
                 }
                 else
                 {
 
-                    player.Emit("Destroy_ATMBlips");
+                    Alt.Server.TriggerClientEvent(player,"Destroy_ATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
@@ -90,22 +90,22 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                player.Emit("ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
                             }
                             else
                             {
-                                player.Emit("ShowHouseBlips", house.position, 76, "Haus");
+                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 76, "Haus");
                             }
                         }
                     }
                 }
                 else
                 {
-                    player.Emit("getTableShit");
+                    Alt.Server.TriggerClientEvent(player,"getTableShit");
                     player.vnxSetStreamSharedElementData("settings_haus", "nein");
                     //foreach (HouseModel house in House.houseList)
                     // {
-                    player.Emit("Destroy_HouseBlips");
+                    Alt.Server.TriggerClientEvent(player,"Destroy_HouseBlips");
                     // }
                 }
             }
@@ -167,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
                     Console.WriteLine("ID : " + state);
                 }
-                player.Emit("Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
+                Alt.Server.TriggerClientEvent(player,"Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
             }
             catch { }
 

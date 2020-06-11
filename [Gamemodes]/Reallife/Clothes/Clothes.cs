@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                     player.Rotation = new Rotation(0f, 0f, 160f);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
                     player.Dimension = dim;
-                    player.Emit("showClothesMenu", "Klamottenshop ", 1);
+                    Alt.Server.TriggerClientEvent(player,"showClothesMenu", "Klamottenshop ", 1);
                     dxLibary.VnX.CreateDiscordUpdate(player, "Kauft grad neue Klamotten", "VenoX - Reallife");
                 }
             }

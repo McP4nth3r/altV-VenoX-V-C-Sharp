@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
             {
                 if (shape == stellenColShapeModel.Entity)
                 {
-                    player.Emit("showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
+                    Alt.Server.TriggerClientEvent(player,"showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
                 }
             }
             catch { }

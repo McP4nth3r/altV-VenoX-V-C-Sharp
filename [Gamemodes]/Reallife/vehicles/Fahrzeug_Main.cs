@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         return;
                     }
-                    player.Emit("showIVehicleMenu");
+                    Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
                 else
@@ -39,7 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     else
                     {
-                        player.Emit("showIVehicleMenu");
+                        Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
                         player.vnxSetElementData("HideHUD", 1);
                     }
                     // Player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug! ");
@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    player.Emit("showIVehicleMenu");
+                    Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
             }

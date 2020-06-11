@@ -90,6 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             gangwar.Allround.OnUpdate();
             Fun.Aktionen.Shoprob.Shoprob.OnUpdate();
             environment.Weed.Main.OnUpdate();
+            environment.NPC.NPC.OnUpdate();
         }
 
         public static void OnPlayerExitColShapeModel(IColShape shape, Client player)
@@ -835,7 +836,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
-                            player.Emit("showATM", player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
+                            Alt.Server.TriggerClientEvent(player, "showATM", player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
                             return;
                         }
                     }
@@ -923,7 +924,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (target == null) { return; }
                 int targetId = target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 List<TattooModel> playerTattooList = tattooList.Where(t => t.player == targetId).ToList();
-                player.Emit("updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), target);
+                Alt.Server.TriggerClientEvent(player, "updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), target);
             }
             catch { }
         }
@@ -1088,7 +1089,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             if (GetPlayerInventoryTotal(player) > 0)
             {
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                player.Emit("showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
+                Alt.Server.TriggerClientEvent(player,"showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
             }
             else
             {

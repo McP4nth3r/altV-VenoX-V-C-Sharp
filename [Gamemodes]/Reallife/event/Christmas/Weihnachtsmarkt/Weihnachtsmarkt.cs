@@ -20,11 +20,11 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
             {
                 if (shape == Markt_Col.Entity)
                 {
-                    player.Emit("CreateChristmasMarketWindow");
+                    Alt.Server.TriggerClientEvent(player,"CreateChristmasMarketWindow");
                 }
                 else if (shape == Adventskalender_Col.Entity)
                 {
-                    player.Emit("CreateAdventskalenderWindow");
+                    Alt.Server.TriggerClientEvent(player,"CreateAdventskalenderWindow");
                 }
             }
             catch { }

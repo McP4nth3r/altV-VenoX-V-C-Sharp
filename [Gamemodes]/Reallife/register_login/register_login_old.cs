@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     int time = 60000;
                     Vector3 StartRotation = new Rotation(320, 0, 180);
                     Vector3 EndRotation = new Rotation(320, 0, 220);
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(411.4904f, -956.7184f, 20);
 
                 }
@@ -79,7 +79,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Rotation(320, 0, 220);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-2295.875f, 377.0148f, 230);
                 }
                 else if (cevent == 3)
@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(0, 0, 88);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-1043.623f, 193.3604f, 60f);
                 }
                 else if (cevent == 4)
@@ -103,7 +103,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 100);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-545.0013f, -950.6284f, 20f);
                 }
                 else if (cevent == 5)
@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 100);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(902.6528f, -1068.302f, 38f);
                 }
                 else if (cevent == 6)
@@ -127,7 +127,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 108);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(170.3055f, -671.4557f, 60.14089f);
                 }
                 else if (cevent == 7)
@@ -139,7 +139,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 220);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-1532.188f, -59.43741f, 70.07549f);
                 }
                 else if (cevent == 8)
@@ -151,7 +151,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 280);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(66.55393f, -1945.313f, 50.94582f);
                 }
                 else if (cevent == 9)
@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 237);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(528.9905f, -192.5913f, 62f);
                 }
                 else if (cevent == 10)
@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 100);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(339.2675f, -547.7947f, 20f);
                 }
                 else if (cevent == 11)
@@ -187,7 +187,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(320, 0, 0);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(258.2238f, -2060.314f, 10f);
                 }
                 else if (cevent == 12)
@@ -199,7 +199,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(0, 0, 326);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-2018.205f, -1115.911f, 20f);
                 }
                 else if (cevent == 13)
@@ -211,7 +211,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(0, 0, 30);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(626.6843f, 1159.774f, 278.9638f);
                 }
                 else if (cevent == 14)
@@ -223,7 +223,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(335, 0, 48);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(45.82481f, -1135.694f, 15f);
                 }
                 else if (cevent == 15)
@@ -235,7 +235,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     Vector3 EndRotation = new Vector3(335, 0, 58);
                     int time = 60000;
                     int Fov = 75;
-                    player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                    Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                     player.SetPosition = new Vector3(-555.4027f, -268.2709f, 30f);
                 }
             }
@@ -256,7 +256,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             Rotation EndRotation = new Rotation(rotx, roty, rotz);
             int time = 60000;
             int Fov = 50;
-            player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
+            Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
             player.SetPosition = LastPosition;
         }
 
@@ -286,7 +286,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             Rotation StartRotation = new Rotation(rot1x, rot1y, rot1z);
             Rotation EndRotation = new Rotation(rot2x, rot2y, rot2z);
             //int Fov = 50;
-            player.Emit("SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
+            Alt.Server.TriggerClientEvent(player,"SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
             player.SetPosition = LastPosition;
         }
 
@@ -305,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         [Command("stopcameraevent")]
         public static void StopCurrentCameraEvent(Client player)
         {
-            player.Emit("DestroyCamera_Event");
+            Alt.Server.TriggerClientEvent(player,"DestroyCamera_Event");
         }
 
 
@@ -315,7 +315,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
-                player.Emit("Reallife:LoadHUD", player.Reallife.HUD);
+                Alt.Server.TriggerClientEvent(player,"Reallife:LoadHUD", player.Reallife.HUD);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
                 player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
@@ -333,7 +333,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
                 List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
-                player.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
+                Alt.Server.TriggerClientEvent(player,"Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -379,9 +379,9 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
                     // Give the weapons to the player
-                    Reallife.weapons.Weapons.GivePlayerWeaponItems(player);
+                    weapons.Weapons.GivePlayerWeaponItems(player);
 
-                    player.Emit("movecamtocurrentpos_client");
+                    Alt.Server.TriggerClientEvent(player,"movecamtocurrentpos_client");
 
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                     {

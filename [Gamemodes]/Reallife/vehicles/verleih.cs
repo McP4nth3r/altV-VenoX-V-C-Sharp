@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= FAGGIO_COSTS)
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
-                        player.Emit("VnX_UpdateRent", player);
+                        Alt.Server.TriggerClientEvent(player,"VnX_UpdateRent", player);
                     }
                     else
                     {
@@ -144,7 +144,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= PANTO_COSTS)
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
-                        player.Emit("VnX_UpdateRent", player);
+                        Alt.Server.TriggerClientEvent(player,"VnX_UpdateRent", player);
                     }
                     else
                     {

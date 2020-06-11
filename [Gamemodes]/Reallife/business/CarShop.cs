@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
                     // We show the catalog
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    player.Emit("showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
+                    Alt.Server.TriggerClientEvent(player,"showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
                 }
             }
             catch { }

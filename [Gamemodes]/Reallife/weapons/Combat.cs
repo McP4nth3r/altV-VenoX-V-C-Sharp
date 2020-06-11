@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                                 target.Health = 0;
                                 target.vnxSetElementData("PLAYER_GOT_HITTED", true);
                                 Core.VnX.SetDelayedBoolSharedData(target, "PLAYER_GOT_HITTED", false, 30000);
-                                player.Emit("log_dmg_ped", target, currentWeapon, 200);
+                                Alt.Server.TriggerClientEvent(player,"log_dmg_ped", target, currentWeapon, 200);
                                 if (target.Health <= 0)
                                 {
                                     Environment.Death.OnPlayerDeath(target, player, 0);
@@ -151,12 +151,12 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                                     {
                                         target.Health += Adiff;
                                         target.Armor = 0;
-                                        player.Emit("log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
+                                        Alt.Server.TriggerClientEvent(player,"log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
                                     }
                                     else
                                     {
                                         target.Armor -= Convert.ToInt32(Damage);
-                                        player.Emit("log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
+                                        Alt.Server.TriggerClientEvent(player,"log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
                                     }
                                 }
                                 else
@@ -167,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                                         Environment.Death.OnPlayerDeath(target, player, 0);
                                         gangwar.Allround.ProcessKill(player, target);
                                     }
-                                    player.Emit("log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
+                                    Alt.Server.TriggerClientEvent(player,"log_dmg_ped", target, currentWeapon, Convert.ToInt32(Damage));
                                     target.vnxSetElementData("PLAYER_GOT_HITTED", true);
                                     Core.VnX.SetDelayedBoolSharedData(target, "PLAYER_GOT_HITTED", false, 30000);
                                 }

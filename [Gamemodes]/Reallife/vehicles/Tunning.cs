@@ -59,14 +59,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
                             return;
                         }
-                        player.Emit("Remote_Speedo_Hide", true);
+                        Alt.Server.TriggerClientEvent(player,"Remote_Speedo_Hide", true);
                         player.vnxSetStreamSharedElementData("HideHUD", 1);
                         IVehicle.position = new Position(-337.9052f, -136.9406f, 38.58294f);
                         IVehicle.Rotation = new Position(0, 0, 300);
                         vehicle.Frozen = true;
                         VnX.CreateDiscordUpdate(player, "Am Auto Schrauben", "VenoX Reallife Tuning");
                         anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
-                        player.Emit("showTuningMenu");
+                        Alt.Server.TriggerClientEvent(player,"showTuningMenu");
                         player.vnxSetElementData("InTuningGarage", true);
                     }
                 }*/
@@ -82,14 +82,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    player.Emit("Remote_Speedo_Hide", false);
+                    Alt.Server.TriggerClientEvent(player,"Remote_Speedo_Hide", false);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
                     vehicle.Rotation = new Rotation(0f, 0f, 90f);
                     vehicle.Frozen = false;
                     vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
                     anzeigen.Usefull.VnX.ResetDiscordData(player);
                 }
-                player.Emit("CloseTuningWindow");
+                Alt.Server.TriggerClientEvent(player,"CloseTuningWindow");
             }
             catch { }
         }

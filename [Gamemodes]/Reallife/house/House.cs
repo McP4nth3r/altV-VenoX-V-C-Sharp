@@ -271,7 +271,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     List<string> clothesNames = Main.GetClothesNames(clothesList);
 
                     // Show player's clothes
-                    player.Emit("showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
+                    Alt.Server.TriggerClientEvent(player,"showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
                 }
                 else
                 {

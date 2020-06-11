@@ -110,7 +110,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 }
                 foreach (var ShopCoord in ShopSkins)
                 {
-                    player.Emit("ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
+                    Alt.Server.TriggerClientEvent(player,"ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
                 }
             }
             catch { }
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             {
                 if (shape.vnxGetElementData<bool>(SHOP_IS_COL) == true) // == True = BugFix ( Cannot not Convert null to Bolean) < --- Server Crash verhindung.
                 {
-                    player.Emit("CreateShopWindow");
+                    Alt.Server.TriggerClientEvent(player,"CreateShopWindow");
                     player.vnxSetElementData(SHOP_ID, shape.vnxGetElementData<int>(SHOP_ID));
                 }
             }
