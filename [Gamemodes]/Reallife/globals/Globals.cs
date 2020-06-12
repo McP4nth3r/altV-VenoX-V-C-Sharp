@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using VenoXV._Gamemodes_.Reallife.business;
-using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
                     Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
                     events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
-                    factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
+                    Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
                     Emergency.OnPlayerEnterColShapeModel(shape, player);
                     Allround.OnPlayerEnterColShapeModel(shape, player);
                     fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
@@ -386,7 +386,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 int total = 0;
                 int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK);
                 int playerRank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
-                int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                int playerFaction = player.Reallife.Faction;
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
                 Client VipL = Database.GetPlayerVIP(player, (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
 
@@ -411,7 +411,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 int gwboni = 0;
                 foreach (var area in gangwar.Allround._gangwarManager.GangwarAreas)
                 {
-                    if (area.IDOwner == player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
+                    if (area.IDOwner == player.Reallife.Faction)
                     {
                         gwboni += 250;
                     }
@@ -702,7 +702,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 CarShop.OnResourceStart();
                 Clothes.Clothes.OnResourceStart();
                 Environment.ammunation.Ammunation.OnResourceStart();
-                factions.Allround.OnResourceStart(); // Label - Faction Loading !
+                Factions.Allround.OnResourceStart(); // Label - Faction Loading !
                 fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 Fun.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 Job.OnResourceStart(); // GangKassen & ColShapeModels Loading !

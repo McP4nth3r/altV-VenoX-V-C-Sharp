@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
+namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
 {
     public class WeazelNews : IScript
     {
@@ -16,9 +16,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions.WeazelNews
             {
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
+                if (player.Reallife.Faction == Constants.FACTION_NEWS)
                 {
-                    /*if(target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NEWS)
+                    /*if(target.Reallife.Faction == Constants.FACTION_NEWS)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keinen Arbeitskollegen Interviewn.");
                         return;

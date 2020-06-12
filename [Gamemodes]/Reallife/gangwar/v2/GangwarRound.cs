@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.factions;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -32,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 _isLeft = false;
             }
 
-            public int GetFaction() => _player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+            public int GetFaction() => _player.Reallife.Faction;
         }
 
         public int DefenderId;
@@ -181,7 +180,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                         // Respawn target
                         IPlayerEntry._isRespawned = true;
-                        factions.Spawn.spawnplayer_on_spawnpoint(Player);
+                        Factions.Spawn.spawnplayer_on_spawnpoint(Player);
                     }
                 }
             }
@@ -225,7 +224,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                                     if (TKCounter > 0)
                                     {
                                         TKCounter = 0;
-                                        factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.Username + " hat den TK beesetzt!", AttackerId);
+                                        Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.Username + " hat den TK beesetzt!", AttackerId);
                                     }
                                     break;
                                 }
@@ -241,12 +240,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                             }
                             if (TKCounter == 2)
                             {
-                                factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
+                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
                                 PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
                             }
                             if (TKCounter == 3)
                             {
-                                factions.Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
+                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
                                 PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
                             }
                             if (TKCounter == 4)
@@ -408,7 +407,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                     if (!playerEntry._isRespawned)
                     {
-                        factions.Spawn.spawnplayer_on_spawnpoint(playerEntry._player);
+                        Factions.Spawn.spawnplayer_on_spawnpoint(playerEntry._player);
                     }
                 }
             }

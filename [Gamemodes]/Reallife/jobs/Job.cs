@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 }
                 else if (shape == LSPDDuty.Entity)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_POLICE)
+                    if (player.Reallife.Faction == Constants.FACTION_POLICE)
                     {
 
                         Alt.Server.TriggerClientEvent(player,"showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 }
                 else if (shape == FBIDuty.Entity)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_FBI)
+                    if (player.Reallife.Faction == Constants.FACTION_FBI)
                     {
                         Alt.Server.TriggerClientEvent(player,"showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         {
             // We get the sex, job and faction from the player
             int playerSex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
-            int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+            int playerFaction = player.Reallife.Faction;
 
             if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0  
             {

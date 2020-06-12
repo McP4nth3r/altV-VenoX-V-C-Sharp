@@ -9,7 +9,7 @@ using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.factions
+namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Fraktionswaffenlager : IScript
     {
@@ -18,14 +18,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
+                if (player.Reallife.Faction == 0)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    player.SendTranslatedChatMessage("Fraktions ID : " + player.Reallife.Faction);
+                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
                     player.SendTranslatedChatMessage("weapon_knuckle : " + fweapon.weapon_knuckle);
                     player.SendTranslatedChatMessage("weapon_nightstick : " + fweapon.weapon_nightstick);
                     player.SendTranslatedChatMessage("weapon_stungun : " + fweapon.weapon_tazer);
@@ -110,7 +110,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 else if (shape == WT_COL && Allround.isBadFaction(player))
                 {
-                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
                     Alt.Server.TriggerClientEvent(player,"ShowWaffentruck_C", "Waffentruck",
 
                         "Baseball [" + Constants.NIGHTSTICK_LAGER + "$]",

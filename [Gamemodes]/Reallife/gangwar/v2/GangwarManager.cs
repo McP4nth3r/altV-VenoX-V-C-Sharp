@@ -2,11 +2,9 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV._RootCore_.Database;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
@@ -166,9 +164,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 int result = 0;
-                foreach (var player in Alt.GetAllPlayers())
+                foreach (var player in VenoXV.Globals.Main.ReallifePlayers)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == facId)
+                    if (player.Reallife.Faction == facId)
                         ++result;
                 }
                 return result;

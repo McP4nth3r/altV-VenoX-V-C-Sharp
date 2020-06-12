@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.factions;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -159,18 +158,18 @@ namespace VenoXV._Globals_.Scoreboard
                     SpielerListe.tode = "-";
                     SpielerListe.Fraktion = factionname;
                     SpielerListe.Ping = playerping;
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_POLICE) { R = 0; G = 140; B = 183; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_COSANOSTRA) { R = 120; G = 120; B = 120; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_YAKUZA) { R = 255; G = 4; B = 4; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_NEWS) { R = 180; G = 130; B = 0; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_FBI) { R = 0; G = 86; B = 184; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_MS13) { R = 128; G = 129; B = 150; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_USARMY) { R = 0; G = 100; B = 0; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_SAMCRO) { R = 100; G = 50; B = 50; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_EMERGENCY) { R = 255; G = 51; B = 51; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_MECHANIK) { R = 255; G = 100; B = 0; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_BALLAS) { R = 138; G = 43; B = 226; }
-                    if (Spieler.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _Gamemodes_.Reallife.Globals.Constants.FACTION_GROVE) { R = 0; G = 152; B = 0; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_POLICE) { R = 0; G = 140; B = 183; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_COSANOSTRA) { R = 120; G = 120; B = 120; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_YAKUZA) { R = 255; G = 4; B = 4; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_NEWS) { R = 180; G = 130; B = 0; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_FBI) { R = 0; G = 86; B = 184; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_MS13) { R = 128; G = 129; B = 150; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_USARMY) { R = 0; G = 100; B = 0; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_SAMCRO) { R = 100; G = 50; B = 50; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_EMERGENCY) { R = 255; G = 51; B = 51; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_MECHANIK) { R = 255; G = 100; B = 0; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_BALLAS) { R = 138; G = 43; B = 226; }
+                    if (Spieler.Reallife.Faction == _Gamemodes_.Reallife.Globals.Constants.FACTION_GROVE) { R = 0; G = 152; B = 0; }
                     SpielerListe.ColorStorageR = R;
                     SpielerListe.ColorStorageG = G;
                     SpielerListe.ColorStorageB = B;
@@ -346,7 +345,7 @@ namespace VenoXV._Globals_.Scoreboard
                 List<ScoreboardModel> AlleSpieler = GetAllPlayersScoreboard();
                 foreach (Client player in Alt.GetAllPlayers())
                 {
-                    Alt.Server.TriggerClientEvent(player,"UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler));
+                    Alt.Server.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler));
                 }
             }
             catch

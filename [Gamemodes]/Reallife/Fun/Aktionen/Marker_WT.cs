@@ -135,7 +135,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
             {
                 if (shape.vnxGetElementData<int>("WT_COL_FACTION") > 0)
                 {
-                    int faction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                    int faction = player.Reallife.Faction;
                     if (faction > 0)
                     {
                         if (player.IsInVehicle)
@@ -143,7 +143,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                             VehicleModel vehicle = (VehicleModel)player.Vehicle;
                             if (vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                             {
-                                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > 0)
+                                if (player.Reallife.Faction > 0)
                                 {
                                     factions.Faction.CreateFactionMessage((int)shape.vnxGetElementData<int>("WT_COL_FACTION"), " hat den " + CURRENT_WEAPONTRUCK + " Erfolgreich in eurer Base abgegeben!", RageAPI.GetHexColorcode(0, 150, 200) + "", player);
                                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");

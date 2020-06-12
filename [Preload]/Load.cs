@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
+using VenoXV._RootCore_.Sync;
 using static VenoXV._Preload_.Preload;
 
 namespace VenoXV._Preload_
@@ -16,7 +16,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Inventory:Load");
                     Alt.Server.TriggerClientEvent(player, "XMenu:Load");
                     Alt.Server.TriggerClientEvent(player, "Phone:Load");
-                    player.LoadAllNPCs();
+                    Sync.LoadAllNPCs(player);
                     break;
                 case Gamemodes.Tactics:
                     break;

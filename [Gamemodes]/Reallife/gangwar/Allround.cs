@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                 // Is a current gangwar assigned?
                 if (_gangwarManager.currentArea == null)
                 {
-                    if (!factions.Allround.isBadFaction(player))
+                    if (!Factions.Allround.isBadFaction(player))
                         return;
 
                     if (_gangwarManager.attacksCount < GangwarManager.MAX_ATTACKS_DAY)
@@ -61,7 +61,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                             if (area.TK.Distance(player.Position) < GangwarManager.TKRange)
                             {
                                 // Is the player's faction isnt the area's owner id?
-                                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) != area.IDOwner)
+                                if (player.Reallife.Faction != area.IDOwner)
                                 {
                                     // Is the player's rank above the minimum rank?
                                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= GangwarManager.MIN_RANK_ATTACK)
@@ -97,11 +97,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                 else
                 {
                     // Add player to the running Gangwar Round 
-                    if (factions.Allround.isBadFaction(player) && player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _gangwarManager.currentArea.GetCurrentRound().AttackerId)
+                    if (Factions.Allround.isBadFaction(player) && player.Reallife.Faction == _gangwarManager.currentArea.GetCurrentRound().AttackerId)
                     {
                         if (_gangwarManager.currentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.PREPARING)
                         {
-                            var attCount = _gangwarManager.currentArea.GetCurrentRound().AliveFactionCount(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                            var attCount = _gangwarManager.currentArea.GetCurrentRound().AliveFactionCount(player.Reallife.Faction);
                             if ((GangwarManager.AttackerCountMore && attCount <= _gangwarManager.GetFactionCount(_gangwarManager.currentArea.IDOwner))
                                 || (!GangwarManager.AttackerCountMore && attCount < _gangwarManager.GetFactionCount(_gangwarManager.currentArea.IDOwner)))
                             {
@@ -127,7 +127,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                 // Ist ein Gangwar schon am laufen?
                 if (_gangwarManager.currentArea != null)
                 {
-                    if (factions.Allround.isBadFaction(player) && player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == _gangwarManager.currentArea.GetCurrentRound().DefenderId)
+                    if (Factions.Allround.isBadFaction(player) && player.Reallife.Faction == _gangwarManager.currentArea.GetCurrentRound().DefenderId)
                     {
                         if (_gangwarManager.currentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.RUNNING)
                         {
@@ -238,7 +238,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
 
                         // Respawn target
                         playerEntry._isRespawned = true;
-                        factions.Spawn.spawnplayer_on_spawnpoint(player);
+                        Factions.Spawn.spawnplayer_on_spawnpoint(player);
                     }
                 }
             }

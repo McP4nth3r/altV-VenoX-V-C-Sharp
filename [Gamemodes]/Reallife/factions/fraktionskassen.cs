@@ -3,13 +3,14 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.factions
+namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class fraktionskassen : IScript
     {
@@ -54,32 +55,28 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
             ///////////////////////////////////
             ColShapeModel fkassencolNEWS = RageAPI.CreateColShapeSphere(new Position(-537.0566f, -886.5463f, 25.20651f), 2);
-            fkassencolNEWS.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fkassencolNEWS.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
             Core.RageAPI.CreateTextLabel("News - Kasse", new Position(-537.0566f, -886.5463f, 25.20651f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 });
             //////////////////////////////      
             //////////////////////////////////////
             ColShapeModel fskincolNEWS = RageAPI.CreateColShapeSphere(new Position(-575.1335f, -939.9796f, 23.8616f), 2);
-            fskincolNEWS.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
-            fskincolNEWS.vnxSetElementData("NEUTRALMARKER", true);
+            fskincolNEWS.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fskincolNEWS.Entity.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(-575.1335f, -939.9796f, 23.8616f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 }, fskincolNEWS.Dimension);
             //////////////////////////////               
             /////////////////////////////////////////
             ColShapeModel fskincolMEDIC = RageAPI.CreateColShapeSphere(new Position(326.3686f, -559.8064f, 28.74379f), 2);
-            fskincolMEDIC.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
-            fskincolMEDIC.vnxSetElementData("NEUTRALMARKER", true);
+            fskincolMEDIC.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
+            fskincolMEDIC.Entity.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(326.3686f, -559.8064f, 28.74379f), 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolMEDIC.Dimension);
             //////////////////////////////            
 
 
-
-
-
-
             //////////////////////////////      
             ColShapeModel fskincolLCN = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolLCN.Dimension = Constants.FACTION_COSANOSTRA;
-            fskincolLCN.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
-            fskincolLCN.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolLCN.Entity.Dimension = Constants.FACTION_COSANOSTRA;
+            fskincolLCN.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
+            fskincolLCN.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_COSANOSTRA);
 
             //////////////////////////////       
@@ -93,27 +90,27 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             */
 
             ColShapeModel fskincolBallas = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolBallas.Dimension = Constants.FACTION_BALLAS;
-            fskincolBallas.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
-            fskincolBallas.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolBallas.Entity.Dimension = Constants.FACTION_BALLAS;
+            fskincolBallas.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            fskincolBallas.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, Constants.FACTION_BALLAS);
 
             ColShapeModel fskincolCompton = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolCompton.Dimension = Constants.FACTION_GROVE;
-            fskincolCompton.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
-            fskincolCompton.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolCompton.Entity.Dimension = Constants.FACTION_GROVE;
+            fskincolCompton.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
+            fskincolCompton.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_GROVE);
 
             ColShapeModel fskincolMS13 = RageAPI.CreateColShapeSphere(new Position(-1285.856f, 446.7924f, 97.89468f), 0.3f);
-            fskincolMS13.Dimension = Constants.FACTION_MS13;
-            fskincolMS13.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
-            fskincolMS13.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolMS13.Entity.Dimension = Constants.FACTION_MS13;
+            fskincolMS13.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
+            fskincolMS13.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_MS13);
 
             ColShapeModel fskincolSAMCRO = RageAPI.CreateColShapeSphere(new Position(983.1344f, -98.7942f, 74.84556f), 0.3f);
-            fskincolSAMCRO.Dimension = Constants.FACTION_SAMCRO;
-            fskincolSAMCRO.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
-            fskincolSAMCRO.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolSAMCRO.Entity.Dimension = Constants.FACTION_SAMCRO;
+            fskincolSAMCRO.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            fskincolSAMCRO.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(983.1344f, -98.7942f, 74.84556f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_SAMCRO);
         }
 
@@ -125,14 +122,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
+                if (player.Reallife.Faction == 0)
                 {
                     player.SendTranslatedChatMessage("Du bist in keiner Fraktion!");
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage("Fraktions ID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
-                    Fraktions_Kassen fkasse = Database.GetFactionStats((int)player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    player.SendTranslatedChatMessage("Fraktions ID : " + player.Reallife.Faction);
+                    Fraktions_Kassen fkasse = Database.GetFactionStats((int)player.Reallife.Faction);
                     player.SendTranslatedChatMessage("Fraktions Koks : " + fkasse.koks);
                     player.SendTranslatedChatMessage("Fraktions Mats : " + fkasse.mats);
                     player.SendTranslatedChatMessage("Fraktions Money : " + fkasse.money);
@@ -150,38 +147,38 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                if (shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == player.vnxGetElementData<int>(EntityData.PLAYER_FACTION))
+                if (shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == player.Reallife.Faction)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 0)
+                    if (player.Reallife.Faction == 0)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht befugt!");
                         Console.WriteLine("ColShape Player hit : " + player.Username);
-                        Console.WriteLine("FID" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                        Console.WriteLine("FID" + player.Reallife.Faction);
                         Console.WriteLine("FID COL " + shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                     }
                     else
                     {
                         if (shape.vnxGetElementData<bool>("GANGSKINMARKER") == true)
                         {
-                            Alt.Server.TriggerClientEvent(player,"show_duty_window_bad");
+                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad");
                             return;
                         }
                         else if (shape.vnxGetElementData<bool>("NEUTRALMARKER") == true)
                         {
-                            Alt.Server.TriggerClientEvent(player,"show_duty_window_bad", true);
+                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad", true);
                             return;
                         }
-                        Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                        Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
                         string completeword = string.Empty;
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 1)
+                        if (player.Reallife.Faction == 1)
                         {
                             completeword = "Das Fraktions Lager des ";
                         }
-                        else if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == 2)
+                        else if (player.Reallife.Faction == 2)
                         {
                             completeword = "Das Fraktions Lager der ";
                         }
-                        Alt.Server.TriggerClientEvent(player,"showFactionStuff", completeword + Faction.GetPlayerFactionName(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
+                        Alt.Server.TriggerClientEvent(player, "showFactionStuff", completeword + Faction.GetPlayerFactionName(player.Reallife.Faction), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
                     }
                 }
             }
@@ -203,7 +200,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 }
                 if (state == "StoreDatas")
                 {
-                    Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
                     int finalwertweed = fkasse.weed;
                     int finalwertkoks = fkasse.koks;
                     int finalwertmats = fkasse.mats;
@@ -315,10 +312,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - money);
                         }
                     }
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats ins Depot gelegt!");
+                    Faction.CreateFactionInformation(player.Reallife.Faction, player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats ins Depot gelegt!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats ins Depot gelegt!");
-                    Alt.Server.TriggerClientEvent(player,"destroyFkassenWindow");
-                    Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
+                    Alt.Server.TriggerClientEvent(player, "destroyFkassenWindow");
+                    Database.SetFactionStats(player.Reallife.Faction, finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
 
                 }
                 else if (state == "TakeDatas")
@@ -328,7 +325,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                         return;
                     }
-                    Fraktions_Kassen fkasse = Database.GetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
+                    Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
                     int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                     if (fkasse.weed < weed)
                     {
@@ -354,10 +351,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     int finalwertweed = fkasse.weed - weed;
                     int finalwertkoks = fkasse.koks - koks;
                     int finalwertmats = fkasse.mats - mats;
-                    Alt.Server.TriggerClientEvent(player,"destroyFkassenWindow");
+                    Alt.Server.TriggerClientEvent(player, "destroyFkassenWindow");
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + money);
-                    Database.SetFactionStats(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
-                    Faction.CreateFactionInformation(player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");
+                    Database.SetFactionStats(player.Reallife.Faction, finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
+                    Faction.CreateFactionInformation(player.Reallife.Faction, player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats aus dem Depot genommen!");
 
 

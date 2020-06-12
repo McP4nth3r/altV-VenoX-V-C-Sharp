@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
@@ -10,7 +11,7 @@ using VenoXV._RootCore_.Models;
 using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
+namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
 {
     public class Arrest : IScript
     {
@@ -297,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.LSPD
             {
                 if (shape == stellenColShapeModel.Entity)
                 {
-                    Alt.Server.TriggerClientEvent(player,"showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
+                    Alt.Server.TriggerClientEvent(player, "showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
                 }
             }
             catch { }

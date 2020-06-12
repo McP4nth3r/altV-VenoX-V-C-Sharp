@@ -5,7 +5,6 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
@@ -300,6 +299,14 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateTextLabel", ex); return new LabelModel(); }
         }
+        public static void RemoveTextLabel(LabelModel labelClass)
+        {
+            try
+            {
+                if (Sync.LabelList.Contains(labelClass)) { Sync.LabelList.Remove(labelClass); }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
+        }
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
         {
             try
@@ -339,19 +346,6 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
         }
-
-        public static void LoadAllNPCs(this Client playerClass)
-        {
-            try
-            {
-                foreach (NPCModel npcClass in NPCList)
-                {
-                    Alt.Server.TriggerClientEvent(playerClass, "NPC:Create", npcClass.Name, npcClass.Position, npcClass.Rotation);
-                }
-            }
-            catch (Exception ex) { Debug.CatchExceptions("LoadAllNPCs", ex); }
-        }
-        public static List<NPCModel> NPCList = new List<NPCModel>();
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, Client VisibleOnlyFor = null)
         {
             try
@@ -372,15 +366,15 @@ namespace VenoXV.Core
                     {
                         if (players.Gamemode == Gamemode && VisibleOnlyFor == null)
                         {
-                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation);
+                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
                         }
                         else if (players.Gamemode == Gamemode && VisibleOnlyFor == players)
                         {
-                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation);
+                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
                         }
                     }
                 }
-                NPCList.Add(NPC);
+                Sync.NPCList.Add(NPC);
                 return NPC;
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateNPC", ex); return new NPCModel(); }
@@ -395,13 +389,7 @@ namespace VenoXV.Core
         }
         public static void RemoveNPC(NPCModel npcClass)
         {
-            foreach (NPCModel npcs in NPCList.ToList())
-            {
-                if (npcs == npcClass)
-                {
-                    NPCList.Remove(npcs);
-                }
-            }
+            if (Sync.NPCList.Contains(npcClass)) { Sync.NPCList.Remove(npcClass); }
         }
         public static void RemoveNPCById(int npcId)
         {

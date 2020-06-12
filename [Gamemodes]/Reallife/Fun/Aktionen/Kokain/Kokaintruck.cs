@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (shape == Kokaintruck_Col.Entity)
                 {
-                    if (factions.Allround.isBadFaction(player))
+                    if (Factions.Allround.isBadFaction(player))
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Jo... Willst du dir paar gramm Kokain dazu verdienen?");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageAPI.GetHexColorcode(255, 255, 255) + "nutze /kokaintruck [Zahl] um einen Kokaintruck zu starten! Maximal 1000 G");
@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 }
                 else if (shape.vnxGetElementData<bool>("AKTION_COL") == true)
                 {
-                    if (factions.Allround.isBadFaction(player))
+                    if (Factions.Allround.isBadFaction(player))
                     {
                         if (player.IsInVehicle)
                         {
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                 foreach (Client target in Alt.GetAllPlayers())
                                 {
-                                    if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
+                                    if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))
                                     {
                                         dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                     }
@@ -116,12 +116,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 {
                     return;
                 }
-                if (factions.Allround.isBadFaction(player))
+                if (Factions.Allround.isBadFaction(player))
                 {
                     int cops = 0;
                     foreach (Client Spieler in Alt.GetAllPlayers())
                     {
-                        if (factions.Allround.isStateFaction(Spieler))
+                        if (Factions.Allround.isStateFaction(Spieler))
                         {
                             cops += 1;
                         }
@@ -179,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         Kokaintruckveh.Save = false;
                         foreach (Client target in Alt.GetAllPlayers())
                         {
-                            if (factions.Allround.isBadFaction(target) || factions.Allround.isStateFaction(target))
+                            if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))
                             {
                                 dxLibary.VnX.DrawZielBlip(target, "Kokaintruck - Abgabe", new Position(2536.999f, 2578.391f, 38), 315, 59, 0);
                             }

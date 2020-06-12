@@ -1,11 +1,12 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.factions
+namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class FactionChat : IScript
     {
@@ -74,9 +75,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                int FraktionsID = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                int FraktionsID = player.Reallife.Faction;
                 Faction.CreateFactionMessage(FraktionsID, text, GetFactionRgba(FraktionsID), player);
-                vnx_stored_files.logfile.WriteLogs("teamsay" + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION), "[TEAMSAY FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                vnx_stored_files.logfile.WriteLogs("teamsay" + player.Reallife.Faction, "[TEAMSAY FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
             }
             catch (Exception ex)
             {
@@ -105,10 +106,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                if (Allround.isStateFaction(player) || player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
+                if (Allround.isStateFaction(player) || player.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
                     Faction.CreateStateMessage(text, RageAPI.GetHexColorcode(140, 10, 10), player);
-                    vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                    vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
                 }
                 else
                 {
@@ -134,7 +135,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 2)
                     {
                         Faction.CreateBadMessage(text, RageAPI.GetHexColorcode(107, 107, 107), player);
-                        vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                        vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
                     }
                     else
                     {

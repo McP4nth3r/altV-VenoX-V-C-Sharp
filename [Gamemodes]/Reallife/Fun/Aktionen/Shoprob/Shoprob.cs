@@ -3,7 +3,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -110,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 }
                 foreach (var ShopCoord in ShopSkins)
                 {
-                    Alt.Server.TriggerClientEvent(player,"ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
+                    Alt.Server.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
                 }
             }
             catch { }
@@ -123,7 +122,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             {
                 if (shape.vnxGetElementData<bool>(SHOP_IS_COL) == true) // == True = BugFix ( Cannot not Convert null to Bolean) < --- Server Crash verhindung.
                 {
-                    Alt.Server.TriggerClientEvent(player,"CreateShopWindow");
+                    Alt.Server.TriggerClientEvent(player, "CreateShopWindow");
                     player.vnxSetElementData(SHOP_ID, shape.vnxGetElementData<int>(SHOP_ID));
                 }
             }
@@ -138,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 {
                     if (player.vnxGetElementData<bool>(SHOP_ID) != false)
                     {
-                        if (factions.Allround.isStateFaction(player) == false)
+                        if (Factions.Allround.isStateFaction(player) == false)
                         {
                             int CURRENT_ID = player.vnxGetElementData<int>(SHOP_ID);
                             if (ShopColShapeModels[CURRENT_ID].vnxGetElementData<bool>(SHOP_ROB_STARTED) == false && ShopColShapeModels[CURRENT_ID].vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now)

@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void Inform(Client player)
         {
-            string Gang_Rgba_Chat = factions.FactionChat.GetFactionRgba(this.IDOwner);
+            string Gang_Rgba_Chat = Factions.FactionChat.GetFactionRgba(this.IDOwner);
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetPlayerFactionName(this.IDOwner));
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Nächster Attack möglich: " + this.Cooldown);
@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (!this.isRunning)
                 {
                     this.isRunning = true;
-                    this.Rounds.Insert(0, new GangwarRound(this, this.IDOwner, player.vnxGetElementData<int>(EntityData.PLAYER_FACTION)));
+                    this.Rounds.Insert(0, new GangwarRound(this, this.IDOwner, player.Reallife.Faction));
 
                     this.CreateIVehicles();
                     this.AddPlayer(player);

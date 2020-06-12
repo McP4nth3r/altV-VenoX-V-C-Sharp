@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -351,7 +351,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         Target.Emit("VnX_DestroyIPlayerSideTimer_KH");
                         foreach (Client medics in Alt.GetAllPlayers())
                         {
-                            if (medics.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_EMERGENCY)
+                            if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                             {
                                 medics.Emit("Destroy_MedicBlips", Target.Username);
                             }
@@ -1150,7 +1150,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (target.vnxGetElementData<int>(EntityData.PLAYER_FACTION) == Constants.FACTION_NONE)
+                if (target.Reallife.Faction == Constants.FACTION_NONE)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler " + target.Username + " ist in keiner Fraktion!");
                 }
@@ -1338,7 +1338,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         public void ChangeHausData(Client player, string element, int value)
         {
             string e = element.ToLower();
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_FACTION) > Constants.ADMINLVL_STELLVP)
+            if (player.Reallife.Faction > Constants.ADMINLVL_STELLVP)
             {
                 HouseModel house = House.GetClosestHouse(player);
                 if (house == null)

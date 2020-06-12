@@ -231,7 +231,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 }
                 else if (spawn == "Basis")
                 {
-                    int playerFaction = player.vnxGetElementData<int>(EntityData.PLAYER_FACTION);
+                    int playerFaction = player.Reallife.Faction;
                     if (playerFaction > 0)
                     {
                         player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Basis");

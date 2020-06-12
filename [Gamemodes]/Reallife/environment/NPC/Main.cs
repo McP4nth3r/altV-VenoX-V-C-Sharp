@@ -21,6 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         // Entity´s & Shapes
         public static List<ColShapeModel> NPC_Cols = new List<ColShapeModel>();
         public static List<NPCModel> NPCPeds = new List<NPCModel>();
+        public static List<LabelModel> NPCLabels = new List<LabelModel>();
 
         public static DateTime NPC_NextUpdate_Pos = DateTime.Now.AddMinutes(NPC_UPDATE_TIME + 1);
         public static string NPC_COLSHAPE = "NPC_COLSHAPE";
@@ -135,7 +136,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                         Col.Entity.SetData(NPC_ROTATION, rotation);
                         Col.Entity.SetData(NPC_RANDOM_ID, GetRandomNPCs);
                         NPC_Cols.Add(Col);
-                        CreateRandomNPC(Col);
+                        CreateRandomNPC(Col, rotation);
                         Debug.OutputDebugString("[NPC-System] : Spawned at " + position + " with Rotation : " + rotation + " | " + GetRandomNPCs);
                     }
                 }
@@ -168,12 +169,16 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                 {
                     RageAPI.RemoveNPC(npc);
                 }
+                foreach (LabelModel npc in NPCLabels)
+                {
+                    RageAPI.RemoveTextLabel(npc);
+                }
                 NPC_Cols.Clear();
                 NPC_Cols = new List<ColShapeModel>();
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("Reallife:DeleteAllNPCs", ex); }
         }
-        public static void CreateRandomNPC(ColShapeModel col)
+        public static void CreateRandomNPC(ColShapeModel col, int rotation)
         {
             try
             {
@@ -293,6 +298,8 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                 col.Entity.SetData(NPC_ENTITY_WINDOW_TEXT, SkinWindowText);
                 col.Entity.SetData(NPC_ENTITY_BUTTON1_TEXT, SkinButton1Text);
                 col.Entity.SetData(NPC_ENTITY_BUTTON2_TEXT, SkinButton2Text);
+                NPCPeds.Add(RageAPI.CreateNPC(SkinHashKey, new Vector3(col.Position.X, col.Position.Y, col.Position.Z + 0.5f), new Vector3(0, 0, rotation), 0, null));
+                NPCLabels.Add(RageAPI.CreateTextLabel(SkinTextLabel, new Vector3(col.Position.X, col.Position.Y, col.Position.Z + 1.25f), 10f, 0.6f, 0, new int[] { 255, 255, 255, 255 }, 0));
             }
             catch { }
         }
@@ -303,7 +310,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                 NPC_NextUpdate_Pos = DateTime.Now.AddHours(NPC_UPDATE_TIME);
                 DeleteAllNPCs();
                 CreateNewNPC();
-                Core.Debug.OutputDebugString("Es wurden neue Random - NPC's nun erstellt!");
+                Debug.OutputDebugString("Es wurden neue Random - NPC's nun erstellt!");
             }
         }
 
