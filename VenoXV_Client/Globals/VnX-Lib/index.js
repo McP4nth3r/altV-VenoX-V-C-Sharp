@@ -8,6 +8,12 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 let player = alt.Player.local;
 let cursor = false;
+let cBrowserList = [];
+let cBrowserId = 0;
+let cNPCList = [];
+let cNPCId = 0;
+
+
 export function ShowCursor(bool) {
     try {
         if (cursor == false && bool == false || cursor == true && bool == true) {
@@ -26,7 +32,6 @@ export function GetCursorStatus() {
     }
     catch{ }
 }
-
 export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline = true, useDropShadow = true, layer = 0, align = 0) {
     try {
         let hex = msg.match('{.*}');
@@ -56,11 +61,6 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
     }
     catch{ }
 }
-
-
-
-//function drawText3d(msg, pos = [0, 0, 0], scale, fontType, r, g, b, a, useOutline = true, useDropShadow = true) {
-
 export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true) {
     try {
         const [bol, _x, _y] = game.getScreenCoordFromWorldCoord(x, y, z);
@@ -97,9 +97,6 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
     }
     catch{ }
 }
-
-
-
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     try {
         let blip = new alt.PointBlip(pos[0], pos[1], pos[2]);
@@ -111,14 +108,22 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
     }
     catch{ }
 }
-
 export function CreatePed(PedName, Vector3Pos, rot) {
     try {
-        game.createPed(0, alt.hash(PedName), Vector3Pos[0], Vector3Pos[1], Vector3Pos[2], rot, 0, 0);
+        let PedHash = game.getHashKey(PedName);
+        alt.loadModel(PedName);
+        game.requestModel(PedName);
+        let Entity = game.createPed(0, PedHash, Vector3Pos[0], Vector3Pos[1], Vector3Pos[2], rot, 0, 0);
+        cNPCList[cNPCId++] = {
+            Entity: Entity,
+            ID: cNPCId,
+            Name: PedName,
+            Hash: PedHash
+        };
+        return Entity;
     }
     catch{ }
 }
-
 export function frontOfPlayer(distance) {
     try {
         var result = game.getEntityForwardVector(player.scriptID);
@@ -130,4 +135,32 @@ export function frontOfPlayer(distance) {
         return pos;
     }
     catch{ }
+}
+
+export function vnxCreateCEF(Name, Path) {
+    for (var Browser in cBrowserList) {
+        if (cBrowserList[Browser].Name == Name) {
+            return;
+        }
+    }
+    let cPath = "http://resource/VenoXV_Client/";
+    let cBrowser = new alt.WebView(cPath + Path);
+    cBrowserList[cBrowserId++] = {
+        ID: cBrowserId,
+        CEF: cBrowser,
+        Name: Name,
+        Path: Path
+    };
+    return cBrowser;
+}
+
+export function vnxDestroyCEF(Name) {
+    for (var Browser in cBrowserList) {
+        if (cBrowserList[Browser].Name == Name) {
+            if (cBrowserList[Browser].CEF != null) {
+                cBrowserList[Browser].CEF.destroy();
+                cBrowserList.splice(Browser, 1);
+            }
+        }
+    }
 }

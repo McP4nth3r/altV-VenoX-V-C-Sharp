@@ -1,0 +1,76 @@
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <center>
+        <div class="all">
+            <div class="back"></div>
+            <div class="blue_header"></div>
+            <div class="header">VenoX Ammunation</div>
+
+            <div class="armor">
+                <img src="images/Armor-GTAV.png" id="armor">
+            </div>
+            <div class="armor_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Weste`);">Schussweste [100$]</div>
+
+            <div class="knife">
+                <img src="images/Switch-blade-icon.png" id="knife">
+            </div>
+            <div class="knife_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Messer`);">Messer [200$]</div>
+
+            <div class="parachute">
+                <img src="images/Parachute-icon.png" id="parachute">
+            </div>
+            <div class="parachute_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Fallschirm`);">Fallschirm [925$]
+            </div>
+
+            <div class="pistol">
+                <img src="images/Pistol-icon.png" id="pistol">
+            </div>
+            <div class="pistol_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Pistole`);">Pistole [265$]</div>
+            <div class="pistol_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `Pistolen Magazin`);">Magazin [90$]</div>
+
+            <div class="pistol_50">
+                <img src="images/Pistol.50-icon.png" id="pistol_50">
+            </div>
+            <div class="pistol_50_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Pistole50`);">Pistole.50 [385$]
+            </div>
+            <div class="pistol_50_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `Pistole 50 Magazin`);">Magazin [165$]
+            </div>
+
+            <div class="revolver">
+                <img src="images/Heavy-revolver-icon.png" id="revolver">
+            </div>
+            <div class="revolver_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Revolver`);">Revolver [450$]</div>
+            <div class="revolver_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `Revolver Magazin`);">Magazin [220$]
+            </div>
+
+            <div class="shotgun">
+                <img src="images/Pump-shotgun-icon.png" id="shotgun">
+            </div>
+            <div class="shotgun_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Shotgun`);">Shotgun [600$]</div>
+            <div class="shotgun_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `Shotgun Magazin`);">Magazin [100$]
+            </div>
+
+            <div class="pdw">
+                <img src="images/Combat-pdw-icon.png" id="pdw">
+            </div>
+            <div class="pdw_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `PDW`);">PDW [800$]</div>
+            <div class="pdw_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `PDW Magazin`);">Magazin [450$]</div>
+
+            <div class="rifle">
+                <img src="images/Advanced-rifle-icon.png" id="rifle">
+            </div>
+            <div class="rifle_btn" onclick="alt.emit(`Ammunation:BuyWeapon`, `Rifle`);">Rifle [950$]</div>
+            <div class="rifle_btn2" onclick="alt.emit(`Ammunation:BuyAmmo`, `Rifle Magazin`);">Magazin [535$]</div>
+
+            <div class="close" onclick="alt.emit(`Ammunation:Hide`);">X</div>
+
+        </div>
+    </center>
+
+</body>

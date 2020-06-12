@@ -4,8 +4,9 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
+import { vnxCreateCEF } from '../../VnX-Lib';
 
-let speedo = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/tacho/speedometer.html");
+let speedo = vnxCreateCEF("Tacho", "Globals/Anzeigen/tacho/speedometer.html");
 let showed = false;
 let kmS = 0;
 let gas = 0;
@@ -20,7 +21,7 @@ alt.onServer('Remote_Speedo_Hide', (state) => {
 	}
 });
 
-alt.everyTick(() => {
+alt.setInterval(() => {
 	//ToDo : Unperformant!!
 	if (alt.Player.local.vehicle) {
 		if (showed === false) {
@@ -41,7 +42,7 @@ alt.everyTick(() => {
 			showed = false;
 		}
 	}
-});
+}, 250);
 
 alt.setInterval(function () {
 	if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); }

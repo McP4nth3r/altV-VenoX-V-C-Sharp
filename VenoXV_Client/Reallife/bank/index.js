@@ -1,16 +1,13 @@
 ﻿import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor } from '../../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF } from '../../Globals/VnX-Lib';
 
 let ATM_Blips = {};
 let ATM_Tabelle = {};
 let ATM_BROWSER = null;
 alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
-	if (ATM_BROWSER != null) {
-		return;
-	}
 	game.freezeEntityPosition(alt.Player.local.scriptID, true);
-	ATM_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Reallife/bank/main.html");
+	ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html");
 	ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
 	ATM_BROWSER.focus();
 	ATM_BROWSER.on('closeATM', () => {

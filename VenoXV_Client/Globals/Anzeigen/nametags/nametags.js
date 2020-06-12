@@ -80,36 +80,42 @@ function DrawNametags() {
 	let players = alt.Player.all
 	if (players.length > 0) {
 		let localPlayer = alt.Player.local;
+		if (localPlayer.vehicle) {
+			if (alt.Player.local.vehicle.speed * 3.6 >= 120) {
+				return;
+			}
+		}
 		for (var i = 0; i < players.length; i++) {
 			var player = players[i];
 			let playerPos = localPlayer.pos;
 			let playerPos2 = player.pos;
 			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
-			//if (player == localPlayer) { return; }
-			if (player.vehicle && localPlayer.vehicle) { maxDistance_load = 60; } else { maxDistance_load = maxDistance; }
-			//if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
-			if (distance <= maxDistance_load) {
-				if (player.getStreamSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.getStreamSyncedMeta("PLAYER_NAME"); }
-				else { name = player.getStreamSyncedMeta("PLAYER_NAME"); }
-				if (isStateFaction(player) && isBadFaction(localPlayer) || isStateFaction(localPlayer) && isBadFaction(player)) { r1 = 200; g1 = 0; b1 = 0; }
-				else if (player.getStreamSyncedMeta("PLAYER_FACTION") == localPlayer.getStreamSyncedMeta("PLAYER_FACTION") && player.getStreamSyncedMeta("PLAYER_FACTION") > 0) { r1 = 0; g1 = 200; b1 = 0; }
-				else { r1 = 0; g1 = 105; b1 = 145; }
-				if (player.getStreamSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
-				else { let values = returnRGB(player); r = values[0]; g = values[1]; b = values[2]; }
-				let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
-				if (player.isTalking) {
-					game.drawSprite('images', 'Voice_true', screenPos[1] - 0.035, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
-				}
+			if (player != localPlayer) {
+				if (player.vehicle && localPlayer.vehicle) { maxDistance_load = 60; } else { maxDistance_load = maxDistance; }
+				//if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
+				if (distance <= maxDistance_load) {
+					if (player.getStreamSyncedMeta("PLAYER_ADMIN_RANK") > 2) { name = "[VnX]" + player.getStreamSyncedMeta("PLAYER_NAME"); }
+					else { name = player.getStreamSyncedMeta("PLAYER_NAME"); }
+					if (isStateFaction(player) && isBadFaction(localPlayer) || isStateFaction(localPlayer) && isBadFaction(player)) { r1 = 200; g1 = 0; b1 = 0; }
+					else if (player.getStreamSyncedMeta("PLAYER_FACTION") == localPlayer.getStreamSyncedMeta("PLAYER_FACTION") && player.getStreamSyncedMeta("PLAYER_FACTION") > 0) { r1 = 0; g1 = 200; b1 = 0; }
+					else { r1 = 0; g1 = 105; b1 = 145; }
+					if (player.getStreamSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
+					else { let values = returnRGB(player); r = values[0]; g = values[1]; b = values[2]; }
+					let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
+					if (player.isTalking) {
+						game.drawSprite('images', 'Voice_true', screenPos[1] - 0.035, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+					}
 
-				if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
-					game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), screenPos[1] - 0.025, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
-					game.drawSprite('images', 'wanted' + player.getStreamSyncedMeta('PLAYER_WANTEDS'), screenPos[1] + 0.025, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+					if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
+						game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), screenPos[1] - 0.025, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+						game.drawSprite('images', 'wanted' + player.getStreamSyncedMeta('PLAYER_WANTEDS'), screenPos[1] + 0.025, screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+					}
+					else {
+						game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), screenPos[1], screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+					}
+					DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
+					DrawText(player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 				}
-				else {
-					game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), screenPos[1], screenPos[2] - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
-				}
-				DrawText(name, [screenPos[1], screenPos[2] - 0.030], [0.65, 0.65], 4, [r, g, b, 255], true, true);
-				DrawText(player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"), [screenPos[1], screenPos[2] + 0.012], [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
 			}
 		}
 	}

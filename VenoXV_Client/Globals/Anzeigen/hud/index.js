@@ -6,7 +6,7 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText } from '../../VnX-Lib';
+import { DrawText, vnxCreateCEF } from '../../VnX-Lib';
 import { GetWeaponData } from '../../Weapons/Combat';
 
 
@@ -19,7 +19,7 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 	if (HUD_BROWSER != null) {
 		HUD_BROWSER.destroy();
 	}
-	HUD_BROWSER = new alt.WebView("http://resource/VenoXV_Client/Globals/Anzeigen/hud/Reallife/HUD-" + e + "/main.html");
+	HUD_BROWSER = vnxCreateCEF("ReallifeHUD", "Globals/Anzeigen/hud/Reallife/HUD-" + e + "/main.html");
 	CURRENT_HUD = e;
 	HUD_BROWSER.emit("HUD:Show", true);
 });

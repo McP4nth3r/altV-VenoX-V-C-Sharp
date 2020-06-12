@@ -109,7 +109,6 @@ function AddPlayertoCallList(username, telnr) {
         $('.callscreenGridbg').append('<div class="callscreenlinedark"><div class="Username">' + username + '</div><div class="Telnr">' + telnr + '</div></div>');
         c--;
     }
-
 }
 
 if ('alt' in window) {

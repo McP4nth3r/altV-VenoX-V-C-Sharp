@@ -4,7 +4,6 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import * as game from "natives";
 import { GetCursorStatus, ShowCursor } from '../../Globals/VnX-Lib';
 
 let Phone;

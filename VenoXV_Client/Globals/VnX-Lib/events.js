@@ -376,3 +376,7 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
     game.setBlipColour(area[name], c);
     game.setBlipRotation(area[name], r2);
 });
+
+alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
+    CreatePed(PedName, Vector3Pos, rot)
+});

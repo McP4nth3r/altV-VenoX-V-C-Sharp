@@ -6,7 +6,7 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor } from '../VnX-Lib';
+import { ShowCursor, vnxCreateCEF } from '../VnX-Lib';
 
 let CharCreator;
 let loginCamera;
@@ -16,7 +16,7 @@ let charcreatorModelHash;
 alt.onServer('CharCreator:Start', (gender = 1) => {
     if (CharCreator) { return; }
     spawnCreatorPed(gender);
-    CharCreator = new alt.WebView("http://resource/VenoXV_Client/Globals/Charcreator/cef/charselector/index.html");
+    CharCreator = vnxCreateCEF("CharCreator", "Globals/Charcreator/cef/charselector/index.html");
     CharCreator.focus();
     ShowCursor(true);
     alt.setTimeout(() => {

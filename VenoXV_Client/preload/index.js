@@ -7,7 +7,7 @@
 let preloadbrowser = null;
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor } from '../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF } from '../Globals/VnX-Lib';
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -29,7 +29,7 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser.destroy();
 		preloadbrowser = null;
 	}
-	preloadbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/main.html");
+	preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 	ShowCursor(true);
 	preloadbrowser.focus();
 	preloadbrowser.on('load_selected_gm', (v) => {
