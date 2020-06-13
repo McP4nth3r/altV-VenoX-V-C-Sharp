@@ -6,7 +6,7 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText, vnxCreateCEF } from '../../VnX-Lib';
+import { DrawText, vnxCreateCEF, vnxDestroyCEF } from '../../VnX-Lib';
 import { GetWeaponData } from '../../Weapons/Combat';
 
 
@@ -16,12 +16,14 @@ let handcuffed = false;
 
 
 alt.onServer('Reallife:LoadHUD', (e) => {
-	if (HUD_BROWSER != null) {
-		HUD_BROWSER.destroy();
-	}
+	vnxDestroyCEF("ReallifeHUD");
 	HUD_BROWSER = vnxCreateCEF("ReallifeHUD", "Globals/Anzeigen/hud/Reallife/HUD-" + e + "/main.html");
 	CURRENT_HUD = e;
 	HUD_BROWSER.emit("HUD:Show", true);
+});
+
+alt.onServer('Reallife:UnloadHUD', () => {
+	vnxDestroyCEF("ReallifeHUD");
 });
 
 alt.onServer('toggleHandcuffed', (toggle) => {
@@ -59,7 +61,7 @@ let LastMoney = 0;
 let LastWanteds = 0;
 let LastVoiceState = false;
 function CheckHUDUpdate() {
-	if (HUD_BROWSER == null) { return; }
+	if (!HUD_BROWSER) { return; }
 	let Update = false;
 	let LocalEntity = alt.Player.local;
 	let LocalEntityScriptId = alt.Player.local.scriptID;
