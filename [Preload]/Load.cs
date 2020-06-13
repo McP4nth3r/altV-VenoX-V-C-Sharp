@@ -16,6 +16,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Inventory:Load");
                     Alt.Server.TriggerClientEvent(player, "XMenu:Load");
                     Alt.Server.TriggerClientEvent(player, "Phone:Load");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:LoadHUD", player.Reallife.HUD);
                     Sync.LoadAllNPCs(player);
                     break;
                 case Gamemodes.Tactics:
@@ -35,6 +36,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Inventory:Unload");
                     Alt.Server.TriggerClientEvent(player, "XMenu:Unload");
                     Alt.Server.TriggerClientEvent(player, "Phone:Unload");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:UnloadHUD");
                     break;
                 case Gamemodes.Tactics:
                     break;
