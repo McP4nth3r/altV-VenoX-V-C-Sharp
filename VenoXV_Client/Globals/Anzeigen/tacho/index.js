@@ -42,7 +42,7 @@ alt.setInterval(() => {
 			showed = false;
 		}
 	}
-}, 250);
+}, 100);
 
 alt.setInterval(function () {
 	if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); }
