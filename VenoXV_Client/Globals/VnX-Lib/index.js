@@ -108,21 +108,42 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
     }
     catch{ }
 }
-export function CreatePed(PedName, Vector3Pos, rot) {
-    try {
-        let PedHash = game.getHashKey(PedName);
-        alt.loadModel(PedName);
-        game.requestModel(PedName);
-        let Entity = game.createPed(0, PedHash, Vector3Pos[0], Vector3Pos[1], Vector3Pos[2], rot, 0, 0);
+export function CreatePed(PedName, Vector3Pos, rot = 0) {
+    let PedHash = game.getHashKey(PedName);
+    if (!game.hasModelLoaded(PedHash)) {
+        alt.loadModel(PedHash);
+        game.requestModel(PedHash);
+    }
+    if (game.hasModelLoaded(PedHash)) {
+        let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z, rot, false, false);
+        alt.setTimeout(() => { game.freezeEntityPosition(Entity, true); }, 3000);
         cNPCList[cNPCId++] = {
             Entity: Entity,
             ID: cNPCId,
             Name: PedName,
             Hash: PedHash
         };
+        game.setEntityAsMissionEntity(Entity, true, false); // make sure its not despawned by game engine
+        game.setBlockingOfNonTemporaryEvents(Entity, true); // make sure ped doesnt flee etc only do what its told
+        game.setPedCanBeTargetted(Entity, false);
+        game.setPedCanBeKnockedOffVehicle(Entity, 1);
+        game.setPedCanBeDraggedOut(Entity, false);
+        game.setPedSuffersCriticalHits(Entity, false);
+        game.setPedDropsWeaponsWhenDead(Entity, false);
+        game.setPedDiesInstantlyInWater(Entity, false);
+        game.setPedCanRagdoll(Entity, false);
+        game.setPedDiesWhenInjured(Entity, false);
+        game.taskSetBlockingOfNonTemporaryEvents(Entity, true);
+        game.setPedFleeAttributes(Entity, 0, false);
+        game.setPedConfigFlag(Entity, 32, false); // ped cannot fly thru windscreen
+        game.setPedConfigFlag(Entity, 281, true); // ped no writhe
+        game.setPedGetOutUpsideDownVehicle(Entity, false);
+        game.setPedCanEvasiveDive(Entity, false);
         return Entity;
     }
-    catch{ }
+    else {
+        alt.log("Model not Loaded " + PedHash);
+    }
 }
 export function frontOfPlayer(distance) {
     try {

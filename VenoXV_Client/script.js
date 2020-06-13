@@ -38,7 +38,7 @@ import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.j
 import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
-import * as Ammunation from 'VenoXV_Client/Reallife/ammunation/index.js';
+import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
 alt.setStat('stamina', 100);
 alt.setStat('strength', 100);
 alt.setStat('lung_capacity', 100);

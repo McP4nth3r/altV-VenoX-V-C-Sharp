@@ -114,8 +114,13 @@ function CheckHUDUpdate() {
 		HUD_BROWSER.emit('HUD:UpdateVoiceState', CurrentVoiceState);
 	}
 }
+let GamemodeVersion = "1.0.0";
+alt.onServer('Gameversion:Update', (version) => {
+	GamemodeVersion = version;
+});
 
 alt.everyTick(() => {
+	DrawText("International Venox V." + GamemodeVersion + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
 	let player = alt.Player.local;
 	game.displayAmmoThisFrame(false);
 	if (game.isPedSprinting(player.scriptID)) {

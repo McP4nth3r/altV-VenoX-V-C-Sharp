@@ -285,11 +285,6 @@ OnCameraEveryTick();
 function OnTacticsTick() {
     TacticsEveryTick();
 }
-function OnReallifeTick() {
-    let gamemode_version = "1.1.4";
-    DrawText("German Venox Reallife " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
-}
-
 let TickEvent;
 let Gamemodes = {
     Reallife: 0,
@@ -301,11 +296,6 @@ let Gamemodes = {
 alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
     if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
     switch (GamemodeId) {
-        case Gamemodes.Reallife:
-            TickEvent = alt.everyTick(() => {
-                OnReallifeTick();
-            });
-            break;
         case Gamemodes.Tactics:
             TickEvent = alt.everyTick(() => {
                 OnTacticsTick();

@@ -21,7 +21,7 @@ alt.onServer('XMenu:Load', () => {
     XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
     XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
         if (!XMenuBrowser) { return; }
-        if (Button == 9900 || Button == 9901) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
+        if (Button == 9900 || Button == 9901 || Button == 9902) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
         else { alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); }
     });
 });

@@ -152,8 +152,14 @@ alt.everyTick(() => {
 
 let MapObjects = {};
 let MapC = 0;
-alt.onServer('Sync:LoadMap', (MapName, Hash, X, Y, Z, RotOrder, RotX, RotY, RotZ, freeze) => {
-    let Entity = game.createObject(Hash, X, Y, Z, false, false, false);
+alt.onServer('Sync:LoadMap', (MapName, Hash, X, Y, Z, RotOrder, RotX, RotY, RotZ, freeze, HashNeeded) => {
+    let Entity;
+    if (HashNeeded) {
+        Entity = game.createObject(game.getHashKey(Hash), X, Y, Z, false, false, false);
+    }
+    else {
+        Entity = game.createObject(Hash, X, Y, Z, false, false, false);
+    }
     game.setEntityRotation(Entity, RotX, RotY, RotZ, RotOrder, true);
     game.freezeEntityPosition(Entity, freeze);
     MapObjects[MapC++] = {
