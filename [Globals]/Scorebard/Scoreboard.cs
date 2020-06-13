@@ -100,7 +100,7 @@ namespace VenoXV._Globals_.Scoreboard
                 TimeSpan spielzeittab = TimeSpan.FromMinutes(Spielzeit);
                 string label = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
 
-                string factionname = Faction.GetPlayerFactionName(Fraktion);
+                string factionname = Faction.GetFactionNameById(Fraktion);
                 if (Fraktion == _Gamemodes_.Reallife.Globals.Constants.FACTION_POLICE)
                 {
                     factionname = "L.S.P.D";

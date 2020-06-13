@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             }
         }
 
-        public static string GetPlayerFactionName(int FID)
+        public static string GetFactionNameById(int FID)
         {
             string fraktionsname = string.Empty;
             if (FID == 0)

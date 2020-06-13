@@ -178,7 +178,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         {
                             completeword = "Das Fraktions Lager der ";
                         }
-                        Alt.Server.TriggerClientEvent(player, "showFactionStuff", completeword + Faction.GetPlayerFactionName(player.Reallife.Faction), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
+                        Alt.Server.TriggerClientEvent(player, "showFactionStuff", completeword + Faction.GetFactionNameById(player.Reallife.Faction), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
                     }
                 }
             }

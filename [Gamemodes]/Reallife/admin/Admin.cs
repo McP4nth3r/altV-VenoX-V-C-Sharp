@@ -1491,6 +1491,10 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 vehClass.Faction = Faction;
                 if (Save) { Database.AddNewIVehicle(vehClass); }
             }
+            else
+            {
+                Core.Debug.OutputDebugString("NO RIGHTS!");
+            }
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -30,6 +31,12 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
                     vehicle.EngineOn = !vehicle.EngineOn;
                     if (vehicle.EngineOn) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 150, 0) + " Motor angeschaltet!"); }
                     else { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(150, 0, 0) + " Motor ausgeschaltet!"); }
+                    break;
+                case 9902:
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Fahrzeug ID : " + RageAPI.GetHexColorcode(255, 255, 255) + vehicle.ID);
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Fahrzeug Name : " + RageAPI.GetHexColorcode(255, 255, 255) + vehicle.Name);
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Fahrzeug Besitzer : " + RageAPI.GetHexColorcode(255, 255, 255) + vehicle.Owner);
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Fahrzeug Fraktion : " + RageAPI.GetHexColorcode(255, 255, 255) + factions.Faction.GetFactionNameById(vehicle.Faction));
                     break;
             }
         }

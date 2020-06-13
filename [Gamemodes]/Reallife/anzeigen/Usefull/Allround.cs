@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
         public static void OnFactionChange(Client player)
         {
-            Alt.Server.TriggerClientEvent(player, "UpdateFaction", Faction.GetPlayerFactionName((int)player.Reallife.Faction), Faction.GetPlayerFactionRank(player), (int)player.Reallife.Faction);
+            Alt.Server.TriggerClientEvent(player, "UpdateFaction", Faction.GetFactionNameById((int)player.Reallife.Faction), Faction.GetPlayerFactionRank(player), (int)player.Reallife.Faction);
         }
 
         public static void CreateCarGhostMode(Client player, int playeralpha, int IVehiclealpha, int timervalue)

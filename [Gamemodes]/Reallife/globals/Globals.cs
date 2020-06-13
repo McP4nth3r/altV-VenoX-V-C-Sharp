@@ -26,10 +26,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
-        public const string CURRENT_VERSION = "1.1.2";
-
-
-
         public static Position GetHouseIplExit(string ipl)
         {
             try
@@ -715,7 +711,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 weapons.Combat.OnResourceStart();
                 Club.RussianClub.OnResourceStart();
 
-                Console.WriteLine("VenoX V." + CURRENT_VERSION + " Loaded!");
                 // 0,105,145 <----- Dunkler Rgba Code Blau !
                 // 0,150,200 <----- Dunkler Rgba Code Mittelmäßig Helles Blau!
                 // 0,200,255 <----- Dunkler Rgba Code Extrem Helles Blau!

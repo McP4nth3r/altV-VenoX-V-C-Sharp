@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             string Gang_Rgba_Chat = Factions.FactionChat.GetFactionRgba(this.IDOwner);
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
-            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetPlayerFactionName(this.IDOwner));
+            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetFactionNameById(this.IDOwner));
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Nächster Attack möglich: " + this.Cooldown);
         }
 

@@ -105,11 +105,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
                 else
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetPlayerFactionName(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetPlayerFactionName(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
             }
             catch { }
@@ -269,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void informDefender()
         {
-            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 180, 0) + "Eurer Ganggebiet " + this.GangwarArea.Name + " wird von " + Faction.GetPlayerFactionName(this.AttackerId) + " angegriffen !", this.DefenderId);
+            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 180, 0) + "Eurer Ganggebiet " + this.GangwarArea.Name + " wird von " + Faction.GetFactionNameById(this.AttackerId) + " angegriffen !", this.DefenderId);
             Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 180, 0) + "Benutzt /defend um am Gangwar teilzunehmen!", this.DefenderId);
         }
 
@@ -292,7 +292,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 // Display IPlayer DX for joinen Player 
                 var AttackRGB = GangwarArea.GangwarIVehicleRgbas(this.AttackerId);
                 var DefenderRGB = GangwarArea.GangwarIVehicleRgbas(this.DefenderId);
-                Alt.Server.TriggerClientEvent(player, "gw:showUp", true, Faction.GetPlayerFactionName(this.AttackerId), Faction.GetPlayerFactionName(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
+                Alt.Server.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(this.AttackerId), Faction.GetFactionNameById(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
                 SyncStats(player, playerEntry);
                 InformAllThatPlayerJoined();
 

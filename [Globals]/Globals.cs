@@ -2,6 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using VenoXV._Preload_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
@@ -47,6 +48,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
                 _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
                 _Gamemodes_.SevenTowers.Main.OnResourceStart();
+                Console.WriteLine("VenoX V." + Preload.CURRENT_VERSION + " Loaded!");
             }
             catch (Exception ex) { Debug.CatchExceptions("OnResourceStart", ex); }
         }
@@ -109,7 +111,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player,"Globals:ShowBloodScreen");
+                Alt.Server.TriggerClientEvent(player, "Globals:ShowBloodScreen");
                 killer.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
             }
