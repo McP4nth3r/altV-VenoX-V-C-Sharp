@@ -60,6 +60,7 @@ namespace VenoXV._Preload_
         {
             player.Dimension = player.Id;
             Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
+
             switch (value)
             {
                 case 0:
