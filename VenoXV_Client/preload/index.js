@@ -7,7 +7,7 @@
 let preloadbrowser = null;
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, vnxCreateCEF } from '../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../Globals/VnX-Lib';
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -25,18 +25,12 @@ alt.onServer('Preload:UnloadGamemode', (Id) => {
 });
 
 alt.onServer('preload_gm_list', () => {
-	if (preloadbrowser != null) {
-		preloadbrowser.destroy();
-		preloadbrowser = null;
-	}
+	vnxDestroyCEF("Preload");
 	preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 	ShowCursor(true);
 	preloadbrowser.focus();
 	preloadbrowser.on('load_selected_gm', (v) => {
-		if (preloadbrowser != null) {
-			preloadbrowser.destroy();
-			preloadbrowser = null;
-		}
+		vnxDestroyCEF("Preload");
 		alt.emitServer("Load_selected_gm_server", v);
 		game.setEntityAlpha(alt.Player.local.scriptID, 255);
 		game.freezeEntityPosition(alt.Player.local.scriptID, false);
