@@ -126,15 +126,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     JoB_Allround.OnPlayerEnterColShapeModel(shape, player);
                     Job.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
+                    Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
+                    Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
+                    Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
                 }
-                else if (entity is VehicleModel vehicle)
-                {
-                    Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, vehicle);
-                    //Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
-                    //Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
-                }
+                Core.Debug.OutputDebugString("Entity : " + entity);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
         }
 
 

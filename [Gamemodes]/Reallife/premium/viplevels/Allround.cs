@@ -78,7 +78,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                 Client VipL = Database.GetPlayerVIP(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
                 if (GetVIPRangName(VipL.Vip_Paket) != "Abgelaufen" || GetVIPRangName(VipL.Vip_Paket).Length > 3)
                 {
-                    Alt.Server.TriggerClientEvent(player,"CreateVIPWindow");
+                    Alt.Server.TriggerClientEvent(player, "CreateVIPWindow");
                 }
             }
             catch { }
@@ -168,8 +168,8 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
 
 
 
-        //[AltV.Net.ClientEvent("TriggerVIPButtonToServer")]
-        public void VIP_Button_Pressed(Client player, int value, int betrag)
+        [AltV.Net.ClientEvent("TriggerVIPButtonToServer")]
+        public void VIP_Button_Pressed(Client player, int value, string betrag)
         {
             try
             {

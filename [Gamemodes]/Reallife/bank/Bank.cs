@@ -1,8 +1,7 @@
 ﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
 using System;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -11,15 +10,13 @@ namespace VenoXV._Gamemodes_.Reallife.bank
     public class Bank : IScript
     {
 
-        //[AltV.Net.ClientEvent("ATM_MONEY_BUTTON_TRIGGER")]
-        public static void ATM_BUTTON_TRIGGERED(Client player, string button, int value)
+        [ClientEvent("ATM_MONEY_BUTTON_TRIGGER")]
+        public static void ATM_BUTTON_TRIGGERED(Client player, string button, string v)
         {
             try
             {
-                if (value < 0)
-                {
-                    return;
-                }
+                int value = int.Parse(v);
+                if (value < 0) { return; }
                 if (button == "einzahlen")
                 {
                     if (value != 0)
@@ -35,8 +32,8 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         }
                         else
                         {
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + value);
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - value);
+                            player.Reallife.Bank += value;
+                            player.Reallife.Money -= value;
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " eingezahlt!");
                             vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ eingezahlt!");
                         }
@@ -58,8 +55,8 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         }
                         else
                         {
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - value);
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + value);
+                            player.Reallife.Bank -= value;
+                            player.Reallife.Money += value;
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " ausgezahlt!");
                             vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ aussgezahlt!");
                         }
@@ -70,9 +67,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         [ClientEvent("ATM_MONEY_SEND_TO")]
@@ -106,8 +101,8 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         {
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + SpielerNameNormal + " " + RageAPI.GetHexColorcode(255, 255, 255) + +value + "  " + RageAPI.GetHexColorcode(0, 200, 255) + "  $ überwiesen!!");
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 255, 0) + player.Username + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - value);
-                            target.vnxSetStreamSharedElementData(Core.VnX.PLAYER_BANKMONEY, target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + value);
+                            player.Reallife.Bank -= value;
+                            target.Reallife.Bank += value;
                             vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Username + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
@@ -121,10 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                 }
             }
-            catch
-            {
-
-            }
+            catch { }
         }
     }
 }

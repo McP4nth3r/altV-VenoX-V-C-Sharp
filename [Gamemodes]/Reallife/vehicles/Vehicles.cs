@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 foreach (Position Tankstellen in Constants.AUTO_ZAPF_LIST)
                 {
                     ColShapeModel TankstellenCol = RageAPI.CreateColShapeSphere(Tankstellen, 2);
-                    TankstellenCol.vnxSetElementData("TANKSTELLEN_COL", true);
+                    TankstellenCol.Entity.vnxSetElementData("TANKSTELLEN_COL", true);
                     /*Console.WriteLine("Tankstelle [" + counter + "] wurde erstellt! Pos : " + Tankstellen);
                     counter++;*/
                 }
@@ -254,7 +254,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("Buy_Snack_Server")]
+        [ClientEvent("Buy_Snack_Server")]
         public void Give_Snack_Func(Client player)
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 6)
@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("Buy_Kanister_Server")]
+        [ClientEvent("Buy_Kanister_Server")]
         public void Give_Kanister_Func(Client player)
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 450)
@@ -342,7 +342,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
         }
 
-        //[AltV.Net.ClientEvent("Close_Gas_Window")]
+        [ClientEvent("Close_Gas_Window")]
         public void Close_Gas_Window(Client player)
         {
             try
@@ -357,7 +357,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("Fill_Car_Done")]
+        [ClientEvent("Fill_Car_Done")]
         public static void FilLCar_Done(Client player, int value)
         {
             try
@@ -372,7 +372,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("Fill_Car")]
+        [AltV.Net.ClientEvent("Fill_Car")]
         public void Fill_Gas_Car(Client player)
         {
             try
@@ -407,7 +407,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("Fill_Gas_Liter")]
+        [ClientEvent("Fill_Gas_Liter")]
         public void Fill_Car_Liter(Client player, int value)
         {
             try
@@ -432,14 +432,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                         if (value >= 100)
                         {
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 1500);
+                            player.Reallife.Money -= 1500;
                             Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
                             Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
                             return;
                         }
                         else
                         {
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kosten);
+                            player.Reallife.Money -= kosten;
                             Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", vehicle.Gas + value, 2000);
                             Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
                         }
