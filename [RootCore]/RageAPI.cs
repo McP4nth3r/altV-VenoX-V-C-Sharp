@@ -200,9 +200,8 @@ namespace VenoXV.Core
             try
             {
                 Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
-                player.GiveWeapon(weapon, ammo, false);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerWeapon", ex); }
         }
         public static void RemovePlayerWeapon(this Client player, AltV.Net.Enums.WeaponModel weapon)
         {

@@ -11,7 +11,7 @@ namespace VenoXV._RootCore_.Models
     {
         private Player Player;
         public int Money { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
-        public int Bank { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { Player.vnxSetElementData(Globals.EntityData.PLAYER_BANK, value); } }
+        public int Bank { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
         public string SocialState { get { return Player.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
         public int Faction { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
         public int HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
