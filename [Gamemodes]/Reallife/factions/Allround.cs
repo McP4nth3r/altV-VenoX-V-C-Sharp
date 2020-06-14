@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Allround : IScript
     {
-        public static Position LCN_Teleport_Base_Enter = new Position(-1038.044f, 222.168f, 64.37566f);
+        public static Position LCN_Teleport_Base_Enter = new Position(-842.2286f, -25.041758f, 40.38391f);
         public static Position LCN_Teleport_Base_Exit = new Position(266.1213f, -1007.609f, -101.0086f);
 
         public static Position FIB_Teleport_Heli_Exit = new Position(141.338f, -734.9205f, 262.8516f);
@@ -46,8 +46,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static Position MS13_Teleport_Base_heli_Enter = new Position(-1554.938f, -115.0005f, 54.51854f);
         public static Position MS13_Teleport_Base_heli_Exit = new Position(-1553.669f, -106.2555f, 67.1683f);
 
-        public static Position LCN_Teleport_Base_heli_Enter = new Position(-1043.062f, 237.1805f, 64.16475f);
-        public static Position LCN_Teleport_Base_heli_Exit = new Position(-1045.745f, 236.1165f, 71.88445f);
+        public static Position LCN_Teleport_Base_heli_Enter = new Position(-855.75824f, -33.66593f, 44.141357f);
+        public static Position LCN_Teleport_Base_heli_Exit = new Position(-849.33624f, -27.995604f, 50.931885f);
 
 
 
