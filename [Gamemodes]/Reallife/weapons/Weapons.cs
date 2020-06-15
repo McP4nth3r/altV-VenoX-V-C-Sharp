@@ -20,7 +20,6 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     {
                         AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
                         RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
-                        player.SetWeaponAmmo(WeaponModel, item.amount);
                     }
                 }
             }

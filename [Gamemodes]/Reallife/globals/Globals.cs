@@ -936,7 +936,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 if (playerId > 0)
                 {
                     ItemModel Item = Main.GetPlayerItemModelFromHash(playerId, ItemHash);

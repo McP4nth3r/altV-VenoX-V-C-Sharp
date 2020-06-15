@@ -181,7 +181,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
             try
             {
                 int playerId = player.UID;
-                int playermoney = player.Reallife.Money;
                 switch (item)
                 {
                     case "Weste":
@@ -404,7 +403,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
                         return;
                     }
-                    Alt.Server.TriggerClientEvent(player,"Ammunation:Show");
+                    Alt.Server.TriggerClientEvent(player, "Ammunation:Show");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerAmmunationColShapeHit", ex); }

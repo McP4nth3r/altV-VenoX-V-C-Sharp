@@ -224,7 +224,7 @@ namespace VenoXV.Core
         {
             try
             {
-                player.SetWeaponAmmo(weapon, (byte)ammo);
+                Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
             }
             catch { }
         }

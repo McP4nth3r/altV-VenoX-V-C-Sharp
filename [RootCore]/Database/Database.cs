@@ -1742,7 +1742,6 @@ namespace VenoXV._RootCore_.Database
 
                             item.id = reader.GetInt32("id");
                             item.hash = reader.GetString("hash");
-                            item.ownerEntity = reader.GetString("ownerEntity");
                             item.ownerIdentifier = reader.GetInt32("ownerIdentifier");
                             item.amount = reader.GetInt32("amount");
                             item.position = new Position(posX, posY, posZ);
@@ -1830,10 +1829,9 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO `items` (`hash`, `ownerEntity`, `ownerIdentifier`, `amount`, `posX`, `posY`, `posZ`, `ITEM_ART`)";
-                    command.CommandText += " VALUES (@hash, @ownerEntity, @ownerIdentifier, @amount, @posX, @posY, @posZ, @ITEM_ART)";
+                    command.CommandText = "INSERT INTO `items` (`hash`, `ownerIdentifier`, `amount`, `posX`, `posY`, `posZ`, `ITEM_ART`)";
+                    command.CommandText += " VALUES (@hash, @ownerIdentifier, @amount, @posX, @posY, @posZ, @ITEM_ART)";
                     command.Parameters.AddWithValue("@hash", item.hash);
-                    command.Parameters.AddWithValue("@ownerEntity", item.ownerEntity);
                     command.Parameters.AddWithValue("@ownerIdentifier", item.ownerIdentifier);
                     command.Parameters.AddWithValue("@amount", item.amount);
                     command.Parameters.AddWithValue("@posX", item.position.X);
@@ -1863,9 +1861,8 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE `items` SET `ownerEntity` = @ownerEntity, `ownerIdentifier` = @ownerIdentifier, `amount` = @amount, ";
+                    command.CommandText = "UPDATE `items` SET `ownerIdentifier` = @ownerIdentifier, `amount` = @amount, ";
                     command.CommandText += "`posX` = @posX, `posY` = @posY, `posZ` = @posZ, `dimension` = @dimension, ITEM_ART = @ITEM_ART WHERE `id` = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@ownerEntity", item.ownerEntity);
                     command.Parameters.AddWithValue("@ownerIdentifier", item.ownerIdentifier);
                     command.Parameters.AddWithValue("@amount", item.amount);
                     command.Parameters.AddWithValue("@posX", item.position.X);

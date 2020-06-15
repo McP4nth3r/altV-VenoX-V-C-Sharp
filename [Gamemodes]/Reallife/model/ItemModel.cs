@@ -1,6 +1,4 @@
 ﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {
@@ -8,7 +6,6 @@ namespace VenoXV._Gamemodes_.Reallife.model
     {
         public int id { get; set; }
         public string hash { get; set; }
-        public string ownerEntity { get; set; }
         public int ownerIdentifier { get; set; }
         public int amount { get; set; }
         public Position position { get; set; }
@@ -23,17 +20,18 @@ namespace VenoXV._Gamemodes_.Reallife.model
 
         public ItemModel Copy()
         {
-            ItemModel itemModel = new ItemModel();
-            itemModel.id = id;
-            itemModel.hash = hash;
-            itemModel.ownerEntity = ownerEntity;
-            itemModel.ownerIdentifier = ownerIdentifier;
-            itemModel.amount = amount;
-            itemModel.position = position;
-            itemModel.dimension = dimension;
-            itemModel.ITEM_ART = ITEM_ART;
-            itemModel.type = type;
-            itemModel.objectHandle = objectHandle;
+            ItemModel itemModel = new ItemModel
+            {
+                id = id,
+                hash = hash,
+                ownerIdentifier = ownerIdentifier,
+                amount = amount,
+                position = position,
+                dimension = dimension,
+                ITEM_ART = ITEM_ART,
+                type = type,
+                objectHandle = objectHandle
+            };
             return itemModel;
         }
     }

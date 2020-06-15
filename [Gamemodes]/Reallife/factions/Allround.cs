@@ -969,11 +969,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 int playerSex = player.Sex;
                 int playerFaction = player.Reallife.Faction;
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
+                if (player.IsDead)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    return;
                 }
-                else if (isStateFaction(player))
+                if (isStateFaction(player))
                 {
                     foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                     {
@@ -986,7 +987,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             RageAPI.SetProp(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                         }
                     }
-                    player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 1);
+                    player.Reallife.OnDuty = 1;
                     player.Health = 200;
                     player.Armor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
@@ -1000,9 +1001,23 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                AntiCheat_Allround.SetTimeOutHealth(player, 5000);
-                player.SetPlayerSkin(Alt.Hash("Swat01SMY"));
-                player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 1);
+                if (player.IsDead)
+                {
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    return;
+                }
+                if (!isStateFaction(player)) { return; }
+
+                player.Reallife.OnDuty = 1;
+                player.Health = 200;
+                player.Armor = 100;
+                player.SetClothes(6, 24, 0);
+                player.SetClothes(4, 33, 0);
+                player.SetClothes(9, 7, 1);
+                player.SetClothes(11, 50, 0);
+                player.SetProp(0, 144, 0);
+                player.SetClothes(3, 4, 0);
+                player.SetClothes(8, 15, 0);
                 weapons.Weapons.GivePlayerWeaponItems(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
@@ -1014,17 +1029,18 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
+                if (player.IsDead)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    return;
                 }
-                else if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
+                if (player.Reallife.OnDuty == 1)
                 {
                     // Populate player's clothes
                     Customization.ApplyPlayerClothes(player);
 
                     // We set the player off duty
-                    player.vnxSetElementData(EntityData.PLAYER_ON_DUTY, 0);
+                    player.Reallife.OnDuty = 0;
                     // Load selected character
                     player.SpawnPlayer(player.Position);
                     Customization.ApplyPlayerTattoos(player);

@@ -32,34 +32,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             player.SendTranslatedChatMessage("ClothesSlot " + clothesslot + " | ClothesDrawable " + clothesdrawable + " | ClothesTexture " + clothestexture);
         }
 
-        [Command("setcopclothes")]
-        public static void GiveTargetCopClothes(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            target.SetClothes(6, 24, 0);
-            target.SetClothes(4, 33, 0);
-            target.SetClothes(9, 7, 1);
-            target.SetClothes(11, 50, 0);
-            target.SetProp(0, 144, 0);
-            target.SetClothes(3, 4, 0);
-            target.SetClothes(8, 15, 0);
-        }
-
-        [Command("setbadclothes")]
-        public static void GiveTargetBadClothes(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            target.SetClothes(4, 19, 0);
-            target.SetClothes(1, 95, 0);
-            target.SetClothes(3, 0, 0);
-            target.SetClothes(8, 15, 0);
-            target.SetClothes(7, 0, 0);
-            target.SetClothes(6, 25, 0);
-            target.SetClothes(11, 18, 0);
-        }
-
         [Command("givepweapon")]
         public static void GivePlayerWeapons(Client player, string weaponname)
         {
@@ -91,14 +63,14 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     if (player.Reallife.Faction == Constants.FACTION_POLICE)
                     {
 
-                        Alt.Server.TriggerClientEvent(player,"showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
+                        Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
                 else if (shape == FBIDuty.Entity)
                 {
                     if (player.Reallife.Faction == Constants.FACTION_FBI)
                     {
-                        Alt.Server.TriggerClientEvent(player,"showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
+                        Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
                 else if (shape == AIRPORT_JOB_Col.Entity)
