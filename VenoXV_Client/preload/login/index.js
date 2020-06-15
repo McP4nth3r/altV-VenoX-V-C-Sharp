@@ -7,7 +7,7 @@
 import * as alt from 'alt-client';
 import * as game from "natives"
 import { interpolateCamera, destroyCamera } from '../../Globals/VnX-Lib/camera';
-import { ShowCursor } from '../../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 import { LoadChat } from '../../Globals/Chat';
 
 let loginbrowser = null;
@@ -20,10 +20,10 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 	alt.setTimeout(() => {
 		var localplayer = alt.Player.local;
 		if (loginbrowser != null) {
-			loginbrowser.destroy();
+			vnxDestroyCEF("LoginRegister");
 			loginbrowser = null;
 		}
-		loginbrowser = new alt.WebView("http://resource/VenoXV_Client/preload/login/main.html");
+		loginbrowser = vnxCreateCEF("LoginRegister", "preload/login/main.html");
 		alt.gameControlsEnabled(false);
 		ShowCursor(true);
 		alt.setTimeout(() => {
@@ -72,16 +72,14 @@ export function BasicKeyBinds(key) {
 
 
 alt.onServer('DestroyLoginWindow', () => {
-	if (loginbrowser != null) {
-		loginbrowser.destroy();
-		loginbrowser = null;
-		OnPlayerSpawnLoad();
-		ShowCursor(false);
-		destroyCamera();
-		game.displayRadar(true);
-		game.displayHud(true);
-		LoadChat();
-	}
+	vnxDestroyCEF("LoginRegister");
+	loginbrowser = null;
+	OnPlayerSpawnLoad();
+	ShowCursor(false);
+	destroyCamera();
+	game.displayRadar(true);
+	game.displayHud(true);
+	LoadChat();
 	if (Login_Timer_Load != undefined) {
 		alt.clearInterval(Login_Timer_Load);
 	}
