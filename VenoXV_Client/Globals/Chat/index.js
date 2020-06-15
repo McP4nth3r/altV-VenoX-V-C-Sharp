@@ -1,9 +1,9 @@
 import * as alt from 'alt';
-import { ShowCursor } from '../VnX-Lib';
+import { ShowCursor, vnxCreateCEF } from '../VnX-Lib';
 let webview = null;
 export function LoadChat() {
   if (webview != null) { return; }
-  webview = new alt.WebView("http://resource/VenoXV_Client/Globals/Chat/html/index.html");
+  webview = vnxCreateCEF("Chat", "Globals/Chat/html/index.html");
   webview.focus();
   chatActive = true;
   webview.on('chat:onLoaded', () => {

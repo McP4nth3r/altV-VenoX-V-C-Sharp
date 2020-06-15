@@ -162,7 +162,6 @@ alt.onServer('Sync:LoadMap', (MapName, Hash, Position, QuaternionX, QuaternionY,
     }
     game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, RotOrder, true);
     game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
-    alt.log(QuaternionX + " | " + QuaternionY + " | " + QuaternionZ + " | " + QuaternionW);
     game.freezeEntityPosition(Entity, freeze);
     MapObjects[MapC++] = {
         Entity: Entity,

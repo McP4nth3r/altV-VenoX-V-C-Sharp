@@ -6,30 +6,30 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, GetCursorStatus } from '../VnX-Lib';
+import { ShowCursor, GetCursorStatus, vnxCreateCEF, vnxDestroyCEF } from '../VnX-Lib';
 import { GetCurrentLobby, PLAYER_LOBBY_REALLIFE, PLAYER_LOBBY_TACTICS } from '../VnX-Lib/events';
 
 let CurrentBrowser = null;
 let CurrentBrowserPath = "";
 let removed = false;
 let allowed = true;
-let ReallifeScoreboardPath = "http://resource/VenoXV_Client/Globals/Scoreboard/reallife/tab.html";
-let TacticsScoreboardPath = "http://resource/VenoXV_Client/Globals/Scoreboard/tactics/tab.html";
+let ReallifeScoreboardPath = "Globals/Scoreboard/reallife/tab.html";
+let TacticsScoreboardPath = "Globals/Scoreboard/tactics/tab.html";
 
 
 function CheckCurrentBrowser() {
 	if (GetCurrentLobby() == PLAYER_LOBBY_REALLIFE) {
 		if (CurrentBrowserPath != ReallifeScoreboardPath) {
-			if (CurrentBrowser != null) { CurrentBrowser.destroy(); }
-			CurrentBrowser = new alt.WebView(ReallifeScoreboardPath);
+			if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
+			CurrentBrowser = vnxCreateCEF("Scoreboard", ReallifeScoreboardPath);
 			CurrentBrowserPath = ReallifeScoreboardPath;
 			alt.log("Scoreboard for " + GetCurrentLobby() + " Created! ");
 		}
 	}
 	else if (GetCurrentLobby() == PLAYER_LOBBY_TACTICS) {
 		if (CurrentBrowserPath != TacticsScoreboardPath) {
-			if (CurrentBrowser != null) { CurrentBrowser.destroy(); }
-			CurrentBrowser = new alt.WebView(TacticsScoreboardPath);
+			if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
+			CurrentBrowser = vnxCreateCEF("Scoreboard", TacticsScoreboardPath);
 			CurrentBrowserPath = TacticsScoreboardPath;
 			alt.log("Scoreboard for " + GetCurrentLobby() + " Created! ");
 		}
