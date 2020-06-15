@@ -26,6 +26,6 @@ alt.onServer('showStateWeaponWindow', (s, t, p, p2, s2, p3, k, r, s3, i, st) => 
 	});
 
 	StateFguns_Browser.on('triggerStateWeaponWindowBtn', (btnstring) => {
-		alt.emitServer('triggerStateWeaponWindowBtn_S', btnstring);
+		alt.emitServer('Reallife:OnPoliceWeaponSelect', btnstring);
 	});
 });
