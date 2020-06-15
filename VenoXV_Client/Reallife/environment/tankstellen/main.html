@@ -1,0 +1,44 @@
+﻿<head>
+    <link rel="stylesheet" href="tankstelle.css">
+</head>
+
+<body>
+    <script>
+        function RequestDatas_Gas() {
+            let Gas_Liter = document.getElementById('liter').value;
+            alt.emit('SendRequestedDatas', Gas_Liter);
+        }
+        alt.on('Window:Load', (GasPrice) => {
+            document.getElementById('v1').innerHTML = "VenoX Tankstelle";
+            document.getElementById('v2').innerHTML = "Voll<br>Tanken<br>[" + GasPrice + "$]";
+            document.getElementById('v3').innerHTML = "Hier haben sie die<br>moeglichkeit den Tank<br>komplett aufzutanken.";
+            document.getElementById('v4').innerHTML = "Liter<br>Tanken";
+            document.getElementById('v5').innerHTML = "Hier haben sie die<br>moeglichtkeit Literweise<br>zu tanken.<br>1 Liter = 15$";
+            document.getElementById('v6').innerHTML = "Snack Kaufen<br>Preis: 6$";
+            document.getElementById('v7').innerHTML = "Kanister Kaufen<br>Preis: 450$";
+        });
+    </script>
+    <div class="all">
+        <div class="back"></div>
+        <div class="header" id="v1"></div>
+        <div class="blue_header"></div>
+        <div class="back_down"></div>
+
+        <div class="gas_image">
+            <img src="images/gas_icon.png" id="gas_image">
+        </div>
+        <div class="voll_tanken_btn" id="v2" onclick="alt.emit('Fill_Car_C');"></div>
+        <div class="voll_tanken_text" id="v3"></div>
+
+        <div class="tank_image">
+            <img src="images/tank_icon.png" id="tank_image">
+        </div>
+        <div class="liter_tanken_btn" id="v4" onclick="RequestDatas_Gas()"></div>
+        <input id="liter" class="liter_tanken_box" type="liter_box" placeholder="Liter..." cols="3" rows="1">
+        <div class="liter_tanken_text" id="v5"></div>
+        <div class="snack_btn" id="v6" onclick="alt.emit('Buy_Snack');"></div>
+        <div class="kanister_btn" id="v7" onclick="alt.emit('Buy_Kanister');"></div>
+
+        <div class="close" onclick="alt.emit('destroyGasWindow');">X</div>
+    </div>
+</body>
