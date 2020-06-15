@@ -1,3 +1,8 @@
+//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//
 // Call Events
 let SelectedObj;
 let SelectedObjName;
@@ -27,6 +32,7 @@ function ShowCallOutgoing() {
     //Name & State Insert
     $('.PhoneCallActiveName').html(SelectedObjName);
     ChangeCallingState("Klingeln...", "rgb(255,255,255)");
+    alt.emit('Phone:CallingTarget', SelectedObjName);
 }
 
 function ShowCallIncoming() {
@@ -122,6 +128,10 @@ if ('alt' in window) {
         }
         $('.callscreenlinedark').click(function () { OnCallGridClick(this); }); // Event
         $('.callscreenline').click(function () { OnCallGridClick(this); }); // Event
+    });
+    alt.on('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
+        $('.PhoneCallActiveAvatarImage').css("background-image", "url(https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png)");
+        console.log("https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png");
     });
 }
 

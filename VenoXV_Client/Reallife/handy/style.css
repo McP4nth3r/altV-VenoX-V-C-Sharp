@@ -252,8 +252,7 @@ body{
     height: 10vw;
     transform: translate(-50%, -50%);
     background-image: url(files/images/avatar.png);
-    
-        background-size: cover;
+    background-size: cover;
     background-repeat: no-repeat;
 	background-position: 50% 50%;
 }

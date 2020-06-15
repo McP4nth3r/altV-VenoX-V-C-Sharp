@@ -1,3 +1,8 @@
+//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//
 let HomeBackground = 1;
 let HomeBackgroundUrl = $('.PhoneBackground').css("background-image");
 /*-------------------------------------------------------------*/

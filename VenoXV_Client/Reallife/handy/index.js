@@ -1,5 +1,5 @@
 //----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
@@ -11,6 +11,9 @@ let PhoneOpen = false;
 alt.onServer('Phone:Load', () => {
     if (Phone) { return; }
     Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
+    Phone.on('Phone:CallingTarget', (Name) => {
+        alt.emitServer('VenoXPhone:CallTarget', Name);
+    });
 });
 
 alt.onServer('Phone:Unload', () => {
@@ -19,10 +22,17 @@ alt.onServer('Phone:Unload', () => {
     Phone = null;
 });
 
-alt.onServer('LoadPlayerList', (Phonelist) => {
+alt.onServer('Phone:LoadPlayerList', (Phonelist) => {
     if (!Phone) { return; }
-    Phone.emit('CallList:Init', Phonelist);
-    alt.log(Phonelist);
+    alt.setTimeout(() => {
+        Phone.emit('CallList:Init', Phonelist);
+        //alt.log(Phonelist);
+    }, 500);
+});
+
+alt.onServer('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
+    if (!Phone) { return; }
+    Phone.emit("Phone:ChangeCallTargetAvatar", ID, Avatar);
 });
 
 alt.on('keyup', (key) => {
