@@ -5,15 +5,17 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor } from '../../../../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX-Lib';
 import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 
 let duty_browser = null;
 alt.onServer('showDutyWindow', (e, pname) => {
-    duty_browser = new alt.WebView("http://resource/VenoXV_Client/Reallife/factions/state/duty/main.html");
-    duty_browser.focus();
-    ShowCursor(true);
-    duty_browser.emit("Duty:Load", e, pname);
+    duty_browser = vnxCreateCEF("LSPD-Duty", "Reallife/factions/state/duty/main.html");
+    alt.setTimeout(() => {
+        duty_browser.focus();
+        ShowCursor(true);
+        duty_browser.emit("Duty:Load", e, pname);
+    }, 200);
     duty_browser.on('ButtonPressed', (button) => {
         switch (button) {
             case "Duty":
@@ -26,21 +28,13 @@ alt.onServer('showDutyWindow', (e, pname) => {
                 alt.emitServer('goSWATServer');
                 break;
         }
-        if (duty_browser != null) {
-            duty_browser.destroy();
-            duty_browser = null;
-            FreezeClient(false);
-            ShowCursor(false);
-            return
-        }
+        vnxDestroyCEF("LSPD-Duty");
+        FreezeClient(false);
+        ShowCursor(false);
     });
     duty_browser.on('destroyDutyWindow', () => {
-        if (duty_browser != null) {
-            duty_browser.destroy();
-            duty_browser = null;
-            FreezeClient(false);
-            ShowCursor(false);
-            return
-        }
+        vnxDestroyCEF("LSPD-Duty");
+        FreezeClient(false);
+        ShowCursor(false);
     });
 });

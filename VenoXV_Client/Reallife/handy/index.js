@@ -4,18 +4,18 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import { GetCursorStatus, ShowCursor } from '../../Globals/VnX-Lib';
+import { GetCursorStatus, ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
 let Phone;
 let PhoneOpen = false;
 alt.onServer('Phone:Load', () => {
     if (Phone) { return; }
-    Phone = new alt.WebView("http://resource/VenoXV_Client/Reallife/handy/main.html");
+    Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
 });
 
 alt.onServer('Phone:Unload', () => {
     if (!Phone) { return; }
-    Phone.destroy();
+    vnxDestroyCEF("VenoXPhone");
     Phone = null;
 });
 

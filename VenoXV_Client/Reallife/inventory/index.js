@@ -5,7 +5,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, GetCursorStatus } from '../../Globals/VnX-Lib';
+import { ShowCursor, GetCursorStatus, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
 let InventoryCreated = false;
 let InventoryOpen = false;
@@ -13,7 +13,7 @@ let InventoryBrowser;
 
 alt.onServer('Inventory:Load', () => {
     if (InventoryCreated) { return; }
-    InventoryBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/inventory/main.html");
+    InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html");
     InventoryCreated = true;
 
     InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
@@ -28,7 +28,7 @@ alt.onServer('Inventory:Load', () => {
 
 alt.onServer('Inventory:Unload', () => {
     if (!InventoryCreated) { return; }
-    InventoryBrowser.destroy();
+    vnxDestroyCEF("Inventory-Reallife");
     InventoryCreated = false;
 });
 

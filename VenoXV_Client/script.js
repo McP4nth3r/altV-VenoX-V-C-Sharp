@@ -24,6 +24,7 @@ import * as TacticsSpectator from '/VenoXV_Client/Tactics/Spectator/index.js';
 import * as jobs from '/VenoXV_Client/Reallife/jobs/allround.js';
 import * as environment_house from '/VenoXV_Client/Reallife/environment/house/index.js';
 import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
+import * as environment_gas from '/VenoXV_Client/Reallife/environment/tankstellen/index.js';
 import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
 import * as StateFguns from '/VenoXV_Client/Reallife/factions/state/fguns/index.js';
 import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
