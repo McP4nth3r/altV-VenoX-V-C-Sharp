@@ -1,6 +1,6 @@
 ﻿import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, vnxCreateCEF } from '../../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
 let ATM_Blips = {};
 let ATM_Tabelle = {};
@@ -8,13 +8,12 @@ let ATM_BROWSER = null;
 alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
 	game.freezeEntityPosition(alt.Player.local.scriptID, true);
 	ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html");
-	ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
-	ATM_BROWSER.focus();
+	alt.setTimeout(() => {
+		ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
+		ATM_BROWSER.focus();
+	}, 200);
 	ATM_BROWSER.on('closeATM', () => {
-		if (ATM_BROWSER != null) {
-			ATM_BROWSER.destroy();
-			ATM_BROWSER = null;
-		}
+		vnxDestroyCEF("ATM");
 		ShowCursor(false);
 		game.freezeEntityPosition(alt.Player.local.scriptID, false);
 	});
@@ -27,7 +26,7 @@ alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
 		alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
 	});
 	ATM_BROWSER.on('atm_load_money_storage', () => {
-		let money = alt.Player.local.getSyncedMeta("PLAYER_BANK");
+		let money = alt.Player.local.getStreamSyncedMeta("PLAYER_BANK");
 		ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
 	});
 	ShowCursor(true);
