@@ -6,17 +6,17 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
+import { vnxCreateCEF, vnxDestroyCEF } from '../../../Globals/VnX-Lib';
 
 let HospitalWindow;
 alt.onServer('DeathScreen:Show', (time) => {
 	if (HospitalWindow != null) { return; }
-	HospitalWindow = new alt.WebView("http://resource/VenoXV_Client/Reallife/environment/death/main.html");
-	HospitalWindow.emit('Timer:Init', time);
+	HospitalWindow = vnxCreateCEF("HospitalReallife", "Reallife/environment/death/main.html");
 	alt.setTimeout(() => {
-		if (HospitalWindow != null) {
-			HospitalWindow.destroy();
-			HospitalWindow = null;
-			alt.emitServer('Reallife:Revive');
-		}
+		HospitalWindow.emit('Timer:Init', time);
+	}, 400);
+	alt.setTimeout(() => {
+		vnxDestroyCEF("HospitalReallife");
+		alt.emitServer('Reallife:Revive');
 	}, time);
 });
