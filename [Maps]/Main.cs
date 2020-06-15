@@ -34,7 +34,7 @@ namespace VenoXV._Maps_
                     foreach (MapModel mapClass in LSPDMAP)
                     {
                         Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                        Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                        //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
                     }
                     break;
                 case NOOBSPAWN_MAP:
@@ -47,7 +47,7 @@ namespace VenoXV._Maps_
                     foreach (MapModel mapClass in STADTHALLEMAP)
                     {
                         Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                        Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                        //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
                     }
                     break;
                 case SEVENTOWERS_MAP:
