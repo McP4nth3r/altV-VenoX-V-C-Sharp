@@ -185,3 +185,10 @@ export function vnxDestroyCEF(Name) {
         }
     }
 }
+
+export function vnxDestroyAllCEF() {
+    let i = cBrowserList.length;
+    while (i--) {
+        cBrowserList.splice(i, 1);
+    }
+}
