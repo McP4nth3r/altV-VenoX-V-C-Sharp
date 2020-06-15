@@ -173,490 +173,169 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        //[AltV.Net.ClientEvent("triggerStateWeaponWindowBtn_S")]
-        public static void GivePlayerStateFactionWeapon(Client player, string button)
+        [ClientEvent("Reallife:OnPoliceWeaponSelect")]
+        public static void GivePlayerStateFactionWeapon(Client player, string Button)
         {
-            try
+            if (!Allround.isStateFaction(player)) { return; }
+            FactionAllroundModel fweapon = new FactionAllroundModel();
+            foreach (FactionAllroundModel fClass in Main.FactionAllroundList) { if (fClass.FID == Constants.FACTION_POLICE) { fweapon = fClass; } }
+            if (fweapon.FID == 0) { return; }
+            switch (Button)
             {
-                if (Allround.isStateFaction(player))
-                {
-                    int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
-                    int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-
-                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
-                    //Waffen Datas = 
-
-                    int weapon_knuckle = fweapon.weapon_knuckle;
-                    int weapon_nightstick = fweapon.weapon_nightstick;
-                    int weapon_stungun = fweapon.weapon_tazer;
-                    int weapon_pistol = fweapon.weapon_pistol;
-                    int weapon_pistol50 = fweapon.weapon_pistol50;
-                    int weapon_revolver = fweapon.weapon_revolver;
-                    int weapon_pumpshotgun = fweapon.weapon_pumpshotgun;
-                    int weapon_combatpdw = fweapon.weapon_combatpdw_ammo;
-                    int weapon_assaultrifle = fweapon.weapon_assaultrifle;
-                    int weapon_carbinerifle = fweapon.weapon_carbinerifle;
-                    int weapon_advancedrifle = fweapon.weapon_advancedrifle;
-                    int weapon_gusenberg = fweapon.weapon_gusenberg;
-                    int weapon_sniperrifle = fweapon.weapon_sniperrifle;
-                    int weapon_rpg = fweapon.weapon_rpg;
-                    int weapon_bzgas = fweapon.weapon_bzgas;
-                    int weapon_molotov = fweapon.weapon_molotov;
-                    int weapon_smokegrenade = fweapon.weapon_smokegrenade;
-                    int weapon_pistol_ammo = fweapon.weapon_pistol_ammo;
-                    int weapon_pistol50_ammo = fweapon.weapon_pistol50_ammo;
-                    int weapon_revolver_ammo = fweapon.weapon_revolver_ammo;
-                    int weapon_pumpshotgun_ammo = fweapon.weapon_pumpshotgun_ammo;
-                    int weapon_combatpdw_ammo = fweapon.weapon_combatpdw_ammo;
-                    int weapon_assaultrifle_ammo = fweapon.weapon_assaultrifle_ammo;
-                    int weapon_carbinerifle_ammo = fweapon.weapon_carbinerifle_ammo;
-                    int weapon_advancedrifle_ammo = fweapon.weapon_advancedrifle_ammo;
-                    int weapon_gusenberg_ammo = fweapon.weapon_gusenberg_ammo;
-                    int weapon_sniperrifle_ammo = fweapon.weapon_sniperrifle_ammo;
-                    int weapon_rpg_ammo = fweapon.weapon_rpg_ammo;
-
-                    ItemModel SCHLAGSTOCK = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_NIGHTSTICK);
-                    ItemModel TAZER = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_TAZER);
-                    ItemModel PISTOLE = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
-                    ItemModel PISTOLE50 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE50);
-                    ItemModel SHOTGUN = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SHOTGUN);
-                    ItemModel PDW = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PDW);
-                    ItemModel KARABINER = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KARABINER);
-                    ItemModel ADVANCEDRIFLE = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_ADVANCEDRIFLE);
-                    ItemModel SNIPER = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNIPERRIFLE);
-
-                    if (button == "Schlagstock")
+                case "Schlagstock":
+                    ItemModel SCHLAGSTOCK = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_NIGHTSTICK);
+                    if (SCHLAGSTOCK != null) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Schlagstock!"); return; }
+                    if (fweapon.Waffenlager.weapon_nightstick > 0)
                     {
-                        if (SCHLAGSTOCK == null)
-                        {
-                            if (fweapon.weapon_nightstick > 0)
-                            {
-                                SCHLAGSTOCK = new ItemModel();
-                                SCHLAGSTOCK.amount = 0;
-                                SCHLAGSTOCK.dimension = 0;
-                                SCHLAGSTOCK.position = new Position(0.0f, 0.0f, 0.0f);
-                                SCHLAGSTOCK.hash = Constants.ITEM_HASH_NIGHTSTICK;
-                                SCHLAGSTOCK.ownerIdentifier = playerId;
-                                SCHLAGSTOCK.ITEM_ART = "Waffe";
-                                SCHLAGSTOCK.objectHandle = null;
-                                SCHLAGSTOCK.id = Database.AddNewItem(SCHLAGSTOCK);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SCHLAGSTOCK);
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Nightstick, 0);
-                                weapon_nightstick = weapon_nightstick - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat einen Schlagstock vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
-                        }
-                        else
-                        {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Schlagstock!");
-                        }
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_NIGHTSTICK, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat einen Schlagstock vom Lager genommen.");
                     }
-
-                    if (button == "Tazer")
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Tazer":
+                    ItemModel Item = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_TAZER);
+                    if (Item != null) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Tazer!"); return; }
+                    if (fweapon.Waffenlager.weapon_tazer > 0)
                     {
-                        if (TAZER == null)
-                        {
-                            if (fweapon.weapon_tazer > 0)
-                            {
-                                TAZER = new ItemModel();
-                                TAZER.amount = 0;
-                                TAZER.dimension = 0;
-                                TAZER.position = new Position(0.0f, 0.0f, 0.0f);
-                                TAZER.hash = Constants.ITEM_HASH_TAZER;
-                                TAZER.ownerIdentifier = playerId;
-                                TAZER.ITEM_ART = "Waffe";
-                                TAZER.objectHandle = null;
-
-
-                                TAZER.id = Database.AddNewItem(TAZER);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(TAZER);
-
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.StunGun, 0);
-                                weapon_stungun = weapon_stungun - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat einen Tazer vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
-                        }
-                        else
-                        {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits einen Tazer!");
-                        }
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_TAZER, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat einen Tazer vom Lager genommen.");
                     }
-                    if (button == "Pistol")
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Pistol":
+                    ItemModel Pistol = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_PISTOLE);
+                    if (Pistol != null)
                     {
-                        if (PISTOLE == null)
+                        if (fweapon.Waffenlager.weapon_pistol_ammo > 0)
                         {
-                            if (fweapon.weapon_pistol > 0)
-                            {
-                                PISTOLE = new ItemModel();
-                                PISTOLE.amount = 0;
-                                PISTOLE.dimension = 0;
-                                PISTOLE.position = new Position(0.0f, 0.0f, 0.0f);
-                                PISTOLE.hash = Constants.ITEM_HASH_PISTOLE;
-                                PISTOLE.ownerIdentifier = playerId;
-                                PISTOLE.ITEM_ART = "Waffe";
-                                PISTOLE.objectHandle = null;
-
-                                PISTOLE.id = Database.AddNewItem(PISTOLE);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE);
-
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol, 0);
-                                weapon_pistol = weapon_pistol - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Pistole vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Pistolen Magazin vom Lager genommen.");
+                            return;
                         }
-                        else
-                        {
-                            ItemModel PistolenMagazin = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOL_AMMO);
-                            if (fweapon.weapon_pistol_ammo > 0)
-                            {
-                                if (PistolenMagazin == null)
-                                {
-                                    PistolenMagazin = new ItemModel();
-                                    PistolenMagazin.amount = 12;
-                                    PistolenMagazin.dimension = 0;
-                                    PistolenMagazin.position = new Position(0.0f, 0.0f, 0.0f);
-                                    PistolenMagazin.hash = Constants.ITEM_HASH_PISTOL_AMMO;
-                                    PistolenMagazin.ownerIdentifier = playerId;
-                                    PistolenMagazin.ITEM_ART = "Magazin";
-                                    PistolenMagazin.objectHandle = null;
-
-
-                                    PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
-                                }
-                                else
-                                {
-                                    PistolenMagazin.amount = PistolenMagazin.amount + 12;
-                                    Database.UpdateItem(PistolenMagazin);
-                                }
-                                weapon_pistol_ammo = weapon_pistol_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol, PistolenMagazin.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Pistolen Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
-                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
                     }
-
-                    if (button == "Pistol50")
+                    if (fweapon.Waffenlager.weapon_pistol > 0)
                     {
-                        if (PISTOLE50 == null)
-                        {
-                            if (fweapon.weapon_pistol50 > 0)
-                            {
-                                PISTOLE50 = new ItemModel();
-                                PISTOLE50.amount = 0;
-                                PISTOLE50.dimension = 0;
-                                PISTOLE50.position = new Position(0.0f, 0.0f, 0.0f);
-                                PISTOLE50.hash = Constants.ITEM_HASH_PISTOLE50;
-                                PISTOLE50.ownerIdentifier = playerId;
-                                PISTOLE50.ITEM_ART = "Waffe";
-                                PISTOLE50.objectHandle = null;
-
-                                PISTOLE50.id = Database.AddNewItem(PISTOLE50);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PISTOLE50);
-
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 0);
-                                weapon_pistol50 = weapon_pistol50 - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Pistol50. vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
-                        }
-                        else
-                        {
-                            ItemModel PistolenMagazin = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOL_AMMO);
-                            if (fweapon.weapon_pistol50_ammo > 0)
-                            {
-                                if (PistolenMagazin == null)
-                                {
-                                    PistolenMagazin = new ItemModel();
-                                    PistolenMagazin.amount = 12;
-                                    PistolenMagazin.dimension = 0;
-                                    PistolenMagazin.position = new Position(0.0f, 0.0f, 0.0f);
-                                    PistolenMagazin.hash = Constants.ITEM_HASH_PISTOL_AMMO;
-                                    PistolenMagazin.ownerIdentifier = playerId;
-                                    PistolenMagazin.ITEM_ART = "Magazin";
-                                    PistolenMagazin.objectHandle = null;
-
-                                    // Add the item into the database
-                                    PistolenMagazin.id = Database.AddNewItem(PistolenMagazin);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PistolenMagazin);
-                                }
-                                else
-                                {
-                                    PistolenMagazin.amount = PistolenMagazin.amount + 12;
-                                    Database.UpdateItem(PistolenMagazin);
-                                }
-                                weapon_pistol50_ammo = weapon_pistol50_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol50, PistolenMagazin.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Pistol50. Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!");
-                            }
-                        }
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Pistole vom Lager genommen.");
                     }
-
-                    if (button == "Shotgun")
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Pistol50":
+                    ItemModel Pistol50 = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_PISTOLE50);
+                    if (Pistol50 != null)
                     {
-                        if (SHOTGUN == null)
+                        if (fweapon.Waffenlager.weapon_pistol50_ammo > 0)
                         {
-                            if (fweapon.weapon_pumpshotgun > 0)
-                            {
-                                SHOTGUN = new ItemModel();
-                                SHOTGUN.amount = 0;
-                                SHOTGUN.dimension = 0;
-                                SHOTGUN.position = new Position(0.0f, 0.0f, 0.0f);
-                                SHOTGUN.hash = Constants.ITEM_HASH_SHOTGUN;
-                                SHOTGUN.ownerIdentifier = playerId;
-                                SHOTGUN.ITEM_ART = "Waffe";
-                                SHOTGUN.objectHandle = null;
-
-                                SHOTGUN.id = Database.AddNewItem(SHOTGUN);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SHOTGUN);
-
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 0);
-                                weapon_pumpshotgun = weapon_pumpshotgun - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Shotgun vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
-                            }
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE50, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Pistol50 Magazin vom Lager genommen.");
+                            return;
                         }
-                        else
-                        {
-                            if (fweapon.weapon_pumpshotgun_ammo > 0)
-                            {
-                                SHOTGUN.amount = SHOTGUN.amount + 6;
-                                Database.UpdateItem(SHOTGUN);
-                                weapon_pumpshotgun_ammo = weapon_pumpshotgun_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.PumpShotgun, SHOTGUN.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Shotgun Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
-                            }
-                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
                     }
-
-                    if (button == "PDW")
+                    if (fweapon.Waffenlager.weapon_pistol50 > 0)
                     {
-                        if (PDW == null)
-                        {
-                            if (fweapon.weapon_combatpdw > 0)
-                            {
-                                PDW = new ItemModel();
-                                PDW.amount = 0;
-                                PDW.dimension = 0;
-                                PDW.position = new Position(0.0f, 0.0f, 0.0f);
-                                PDW.hash = Constants.ITEM_HASH_PDW;
-                                PDW.ownerIdentifier = playerId;
-                                PDW.ITEM_ART = "Waffe";
-                                PDW.objectHandle = null;
-                                PDW.id = Database.AddNewItem(PDW);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(PDW);
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 0);
-                                weapon_combatpdw = weapon_combatpdw - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine PDW vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
-                            }
-                        }
-                        else
-                        {
-                            if (fweapon.weapon_combatpdw_ammo > 0)
-                            {
-                                PDW.amount = PDW.amount + 30;
-                                Database.UpdateItem(PDW);
-                                weapon_combatpdw_ammo = weapon_combatpdw_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.CombatPDW, PDW.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein PDW Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
-                            }
-                        }
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_PISTOLE50, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Pistol50 vom Lager genommen.");
                     }
-
-                    if (button == "Karabiner")
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Shotgun":
+                    ItemModel Shotgun = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_SHOTGUN);
+                    if (Shotgun != null)
                     {
-                        if (KARABINER == null)
+                        if (fweapon.Waffenlager.weapon_pumpshotgun_ammo > 0)
                         {
-                            if (fweapon.weapon_carbinerifle > 0)
-                            {
-                                KARABINER = new ItemModel();
-                                KARABINER.amount = 0;
-                                KARABINER.dimension = 0;
-                                KARABINER.position = new Position(0.0f, 0.0f, 0.0f);
-                                KARABINER.hash = Constants.ITEM_HASH_KARABINER;
-                                KARABINER.ownerIdentifier = playerId;
-                                KARABINER.ITEM_ART = "Waffe";
-                                KARABINER.objectHandle = null;
-
-                                ItemModel AdvancedRifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_ADVANCEDRIFLE);
-                                if (AdvancedRifle != null)
-                                {
-                                    Database.RemoveItem(AdvancedRifle.id);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(AdvancedRifle);
-                                    player.RemovePlayerWeapon(AltV.Net.Enums.WeaponModel.AdvancedRifle);
-                                }
-                                KARABINER.id = Database.AddNewItem(KARABINER);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(KARABINER);
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 0);
-                                weapon_carbinerifle = weapon_carbinerifle - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Karabiner vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
-                            }
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_SHOTGUN, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Shotgun Magazin vom Lager genommen.");
+                            return;
                         }
-                        else
-                        {
-                            if (fweapon.weapon_carbinerifle_ammo > 0)
-                            {
-                                KARABINER.amount = KARABINER.amount + 30;
-                                Database.UpdateItem(KARABINER);
-                                weapon_carbinerifle_ammo = weapon_carbinerifle_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.CarbineRifle, KARABINER.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Karabiner Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
-                            }
-                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
                     }
-
-                    if (button == "Rifle")
+                    if (fweapon.Waffenlager.weapon_pumpshotgun > 0)
                     {
-                        if (ADVANCEDRIFLE == null)
-                        {
-                            if (fweapon.weapon_advancedrifle > 0)
-                            {
-                                ADVANCEDRIFLE = new ItemModel();
-                                ADVANCEDRIFLE.amount = 0;
-                                ADVANCEDRIFLE.dimension = 0;
-                                ADVANCEDRIFLE.position = new Position(0.0f, 0.0f, 0.0f);
-                                ADVANCEDRIFLE.hash = Constants.ITEM_HASH_ADVANCEDRIFLE;
-                                ADVANCEDRIFLE.ownerIdentifier = playerId;
-                                ADVANCEDRIFLE.ITEM_ART = "Waffe";
-                                ADVANCEDRIFLE.objectHandle = null;
-                                ItemModel Karabiner = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KARABINER);
-                                if (Karabiner != null)
-                                {
-                                    Database.RemoveItem(Karabiner.id);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Karabiner);
-                                    player.RemovePlayerWeapon(AltV.Net.Enums.WeaponModel.CarbineRifle);
-                                }
-                                ADVANCEDRIFLE.id = Database.AddNewItem(ADVANCEDRIFLE);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(ADVANCEDRIFLE);
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AdvancedRifle, 0);
-                                weapon_advancedrifle = weapon_advancedrifle - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine AdvancedRifle vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
-                            }
-                        }
-                        else
-                        {
-                            if (fweapon.weapon_advancedrifle_ammo > 0)
-                            {
-                                ADVANCEDRIFLE.amount = ADVANCEDRIFLE.amount + 30;
-                                Database.UpdateItem(ADVANCEDRIFLE);
-                                weapon_advancedrifle_ammo = weapon_advancedrifle_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.AdvancedRifle, ADVANCEDRIFLE.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein AdvancedRifle Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
-                            }
-                        }
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_SHOTGUN, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Shotgun vom Lager genommen.");
                     }
-
-                    if (button == "Sniper")
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "PDW":
+                    ItemModel PDW = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_PDW);
+                    if (PDW != null)
                     {
-                        if (SNIPER == null)
+                        if (fweapon.Waffenlager.weapon_mp5_ammo > 0)
                         {
-                            if (fweapon.weapon_sniperrifle > 0)
-                            {
-                                SNIPER = new ItemModel();
-                                SNIPER.amount = 0;
-                                SNIPER.dimension = 0;
-                                SNIPER.position = new Position(0.0f, 0.0f, 0.0f);
-                                SNIPER.hash = Constants.ITEM_HASH_SNIPERRIFLE;
-                                SNIPER.ownerIdentifier = playerId;
-                                SNIPER.ITEM_ART = "Waffe";
-                                SNIPER.objectHandle = null;
-
-                                SNIPER.id = Database.AddNewItem(SNIPER);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Add(SNIPER);
-                                RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 0);
-                                weapon_sniperrifle = weapon_sniperrifle - 1;
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Sniper vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Waffen im Lager!");
-                            }
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_PDW, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein PDW Magazin vom Lager genommen.");
+                            return;
                         }
-                        else
-                        {
-                            if (fweapon.weapon_sniperrifle_ammo > 0)
-                            {
-                                SNIPER.amount = SNIPER.amount + 5;
-                                Database.UpdateItem(SNIPER);
-                                weapon_sniperrifle_ammo = weapon_sniperrifle_ammo - 1;
-                                player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.SniperRifle, SNIPER.amount);
-                                Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Sniper Magazin vom Lager genommen.");
-                            }
-                            else
-                            {
-                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Magazine im Lager!");
-                            }
-                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
                     }
-
-                    // WT FIX 
-
-                    int weapon_baseball = 0;
-                    int weapon_mp5 = 0;
-                    int weapon_mp5_ammo = 0;
-                    int weapon_rifle = 0;
-                    int weapon_rifle_ammo = 0;
-                    Database.SetFactionWeaponlager(Constants.FACTION_POLICE, weapon_knuckle, weapon_nightstick, weapon_baseball, weapon_stungun, weapon_pistol, weapon_pistol50,
-            weapon_revolver, weapon_pumpshotgun, weapon_combatpdw, weapon_mp5, weapon_assaultrifle, weapon_carbinerifle, weapon_advancedrifle,
-            weapon_gusenberg, weapon_rifle, weapon_sniperrifle, weapon_rpg, weapon_bzgas, weapon_molotov, weapon_smokegrenade, weapon_pistol_ammo, weapon_pistol50_ammo, weapon_revolver_ammo, weapon_pumpshotgun_ammo, weapon_combatpdw_ammo, weapon_mp5_ammo, weapon_assaultrifle_ammo,
-            weapon_carbinerifle_ammo, weapon_advancedrifle_ammo, weapon_gusenberg_ammo, weapon_rifle_ammo, weapon_sniperrifle_ammo, weapon_rpg_ammo);
-                }
+                    if (fweapon.Waffenlager.weapon_mp5 > 0)
+                    {
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_PDW, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine PDW vom Lager genommen.");
+                    }
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Karabiner":
+                    ItemModel Karabiner = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_KARABINER);
+                    if (Karabiner != null)
+                    {
+                        if (fweapon.Waffenlager.weapon_carbinerifle_ammo > 0)
+                        {
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Karabiner Magazin vom Lager genommen.");
+                            return;
+                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    }
+                    if (fweapon.Waffenlager.weapon_carbinerifle > 0)
+                    {
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Karabiner vom Lager genommen.");
+                    }
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Rifle":
+                    ItemModel Rifle = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_ADVANCEDRIFLE);
+                    if (Rifle != null)
+                    {
+                        if (fweapon.Waffenlager.weapon_advancedrifle_ammo > 0)
+                        {
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_ADVANCEDRIFLE, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Advancedrifle Magazin vom Lager genommen.");
+                            return;
+                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    }
+                    if (fweapon.Waffenlager.weapon_advancedrifle > 0)
+                    {
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_ADVANCEDRIFLE, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Advancedrifle vom Lager genommen.");
+                    }
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
+                case "Sniper":
+                    ItemModel Sniper = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_SNIPERRIFLE);
+                    if (Sniper != null)
+                    {
+                        if (fweapon.Waffenlager.weapon_sniperrifle_ammo > 0)
+                        {
+                            Main.GivePlayerItem(player, Constants.ITEM_HASH_SNIPERRIFLE, Constants.ITEM_ART_WAFFE, 1, true);
+                            Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat ein Sniper Magazin vom Lager genommen.");
+                            return;
+                        }
+                        else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    }
+                    if (fweapon.Waffenlager.weapon_sniperrifle > 0)
+                    {
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_SNIPERRIFLE, Constants.ITEM_ART_WAFFE, 1, false);
+                        Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " hat eine Sniper vom Lager genommen.");
+                    }
+                    else { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug im Lager!"); }
+                    break;
             }
-            catch { }
         }
 
         //[AltV.Net.ClientEvent("triggerBadWeaponWindowBtn_S")]

@@ -63,6 +63,8 @@ namespace VenoXV._RootCore_.Database
 
                     // Tattoos loading
                     _Gamemodes_.Reallife.Globals.Main.tattooList = LoadAllTattoos();
+
+                    _Gamemodes_.Reallife.Globals.Main.FactionAllroundList = LoadAllFactionDatas();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Database Connection = OK.");
                     Console.ResetColor();
@@ -2362,6 +2364,26 @@ namespace VenoXV._RootCore_.Database
             }
         }
 
+        public static List<FactionAllroundModel> LoadAllFactionDatas()
+        {
+            try
+            {
+                List<FactionAllroundModel> FactionDataList = new List<FactionAllroundModel>();
+                for (int i = 0; i <= 13; i++)
+                {
+                    FactionAllroundModel currentFaction = new FactionAllroundModel()
+                    {
+                        FID = i,
+                        Kasse = GetFactionStats(i),
+                        Waffenlager = GetFactionWaffenlager(i)
+                    };
+                    Core.Debug.OutputDebugString("[" + i + "] FactionDataList-Loaded!");
+                }
+                return FactionDataList;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoadAllFactionDatas", ex); return null; }
+
+        }
         public static List<TattooModel> LoadAllTattoos()
         {
             try

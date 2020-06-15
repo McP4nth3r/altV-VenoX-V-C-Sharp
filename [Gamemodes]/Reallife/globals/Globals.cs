@@ -23,6 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public static List<ClothesModel> clothesList;
         public static List<TattooModel> tattooList;
         public static List<TunningModel> tunningList;
+        public static List<FactionAllroundModel> FactionAllroundList;
         public static Timer minuteTimer;
         public static Timer OnTickTimer;
         public static Timer ScoreboardTimer;
