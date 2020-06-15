@@ -8,9 +8,13 @@ namespace VenoXV._Gamemodes_.Reallife.handy
     {
         public static void UpdatePhonePlayerlist()
         {
-            foreach (Client players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            foreach (Client players in VenoXV.Globals.Main.ReallifePlayers)
             {
-                players.Emit("Phone:LoadPlayerList", JsonConvert.SerializeObject(VenoXV.Globals.Main.ReallifePlayers));
+                players.Emit("Phone:LoadPlayerList", JsonConvert.SerializeObject(VenoXV.Globals.Main.ReallifePlayers.ToList(), Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }));
             }
         }
     }
