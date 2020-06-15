@@ -7,7 +7,7 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { TacticsEveryTick } from '../../Tactics/Lobby';
-import { CreateBlip, ShowCursor, CreatePed, GetCursorStatus, DrawText } from './index';
+import { CreateBlip, ShowCursor, CreatePed, GetCursorStatus, DrawText, vnxDestroyAllCEF } from './index';
 import { KeyUp, KeyDown } from '../Scoreboard';
 import { BasicKeyBinds } from '../../preload/login';
 import { OnInventoryKeyPressed } from '../../Reallife/inventory';
@@ -369,4 +369,8 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
 
 alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
     CreatePed(PedName, Vector3Pos, rot)
+});
+
+alt.on("disconnect", () => {
+    vnxDestroyAllCEF();
 });
