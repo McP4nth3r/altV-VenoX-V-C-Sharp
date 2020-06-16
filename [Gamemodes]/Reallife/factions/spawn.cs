@@ -4,8 +4,8 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 using AltV.Net;
-using AltV.Net.Data;
 using System;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -39,15 +39,15 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (player.Reallife.SpawnLocation == "noobspawn")
                 {
                     // Noob Spawn
-                    player.SetPosition = new Position(-2286.745f, 356.3762f, 175.317f);
+                    player.SetPosition = new Vector3(-2286.745f, 356.3762f, 175.317f);
                 }
                 else if (player.Reallife.SpawnLocation == "Rathaus")
                 {
-                    player.SetPosition = new Position(-533.1649f, -211.0938f, 37.64977f);
+                    player.SetPosition = new Vector3(-533.1649f, -211.0938f, 37.64977f);
                 }
                 else if (player.Reallife.SpawnLocation == "Wuerfelpark")
                 {
-                    player.SetPosition = new Position(180.3914f, -923.7885f, 30.68681f);
+                    player.SetPosition = new Vector3(180.3914f, -923.7885f, 30.68681f);
                 }
                 else
                 {
@@ -61,51 +61,56 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         if (player.Reallife.Faction == Constants.FACTION_POLICE)
                         {
                             //LSPD Spawn
-                            player.SetPosition = new Position(469.8354f, -985.0742f, 33.89248f);
+                            player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_COSANOSTRA)
                         {
                             //Mafia Spawn
-                            player.SetPosition = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_YAKUZA)
                         {
-                            player.SetPosition = new Position(339.3727f, -997.0941f, -99.19626f);
+                            player.SetPosition = new Vector3(339.3727f, -997.0941f, -99.19626f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_TERRORCLOSED)
                         {
-                            player.SetPosition = new Position(469.8354f, -985.0742f, 33.89248f);
+                            player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_NEWS)
                         {
-                            player.SetPosition = new Position(-562.649f, -920.7836f, 23.87799f);
+                            player.SetPosition = new Vector3(-562.649f, -920.7836f, 23.87799f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_FBI)
                         {
-                            player.SetPosition = new Position(139.1606f, -762.1356f, 45.75201f);
+                            player.SetPosition = new Vector3(139.1606f, -762.1356f, 45.75201f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_MS13)
                         {
-                            player.SetPosition = new Position(-1283.504f, 432.7738f, 97.52215f);
+                            player.SetPosition = new Vector3(-1283.504f, 432.7738f, 97.52215f);
                             player.Dimension = Constants.FACTION_MS13;
+                        }
+                        else if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                        {
+                            if (player.Reallife.FactionRank == 0) { player.SetPosition = new Vector3(-2089.4636f, 3273.7056f, 32.801514f); }
+                            else { player.SetPosition = new Vector3(468.65933f, -3205.8594f, 9.784668f); }
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_SAMCRO)
                         {
-                            player.SetPosition = new Position(982.0083f, -100.8747f, 74.84512f);
+                            player.SetPosition = new Vector3(982.0083f, -100.8747f, 74.84512f);
                             //player.Dimension = Constants.FACTION_SAMCRO;
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_EMERGENCY)
                         {
                             player.Dimension = Constants.FACTION_NONE;
-                            player.SetPosition = new Position(319.5905f, -560.0225f, 28.74378f);
+                            player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_BALLAS)
                         {
-                            player.SetPosition = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                         }
                         else if (player.Reallife.Faction == Constants.FACTION_GROVE)
                         {
-                            player.SetPosition = new Position(266.2531f, -1007.264f, -101.0095f);
+                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                         }
                     }
                     else if (player.Reallife.SpawnLocation == "HOTELLS")
