@@ -83,13 +83,15 @@ $('.PhoneCallActiveAccept').click(function () {
     //Name & State Insert
     $('.PhoneCallActiveName').html(SelectedObjName);
     ChangeCallingState("Angenommen.", "rgb(0,255,0)");
+    alt.emit('Phone:CallAccepted', SelectedObjName);
 });
 
 
 $('.PhoneCallActiveHangup').click(function () {
     if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
     $('.PhoneCallActiveHangup').addClass('d-none');
-    ChangeCallingState("Abgelehnt.", "rgb(255,0,0)");
+    ChangeCallingState("Aufgelegt.", "rgb(255,0,0)");
+    alt.emit('Phone:CallDenied', SelectedObjName);
     setTimeout(() => {
         IsCallInProcess = false;
         DrawHomeScreen();
@@ -132,6 +134,11 @@ if ('alt' in window) {
     alt.on('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
         $('.PhoneCallActiveAvatarImage').css("background-image", "url(https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png)");
         console.log("https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png");
+    });
+    alt.on('Phone:ShowIncomingCall', (Name, Telnr) => {
+        SelectedObjName = Name;
+        SelectedObjTelnr = Telnr;
+        ShowCallIncoming();
     });
 }
 

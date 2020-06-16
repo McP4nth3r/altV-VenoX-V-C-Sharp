@@ -14,6 +14,12 @@ alt.onServer('Phone:Load', () => {
     Phone.on('Phone:CallingTarget', (Name) => {
         alt.emitServer('VenoXPhone:CallTarget', Name);
     });
+    Phone.on('Phone:CallAccepted', (Name) => {
+        alt.emitServer('VenoXPhone:CallAccepted', Name);
+    });
+    Phone.on('Phone:CallDenied', (Name) => {
+        alt.emitServer('VenoXPhone:CallDenied', Name);
+    });
 });
 
 alt.onServer('Phone:Unload', () => {
@@ -30,16 +36,31 @@ alt.onServer('Phone:LoadPlayerList', (Phonelist) => {
     }, 500);
 });
 
+
+// Set Discord Avatar of Target
 alt.onServer('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
     if (!Phone) { return; }
     Phone.emit("Phone:ChangeCallTargetAvatar", ID, Avatar);
 });
 
+alt.onServer('Phone:ShowIncomingCall', (Name, Telnr) => {
+    if (!Phone) { return; }
+    Phone.emit('Phone:ShowIncomingCall', Name, Telnr);
+});
+
 alt.on('keyup', (key) => {
-    if (key == 'O'.charCodeAt() && !GetCursorStatus()) {
-        Phone.focus();
-        PhoneOpen = !PhoneOpen;
-        ShowCursor(!PhoneOpen);
-        Phone.emit('Phone:Show', !PhoneOpen);
+    if (key == 'O'.charCodeAt()) {
+        if (!GetCursorStatus()) {
+            Phone.focus();
+            PhoneOpen = true;
+            ShowCursor(true);
+            Phone.emit('Phone:Show', true);
+        }
+        else if (PhoneOpen) {
+            Phone.unfocus();
+            PhoneOpen = false;
+            ShowCursor(false);
+            Phone.emit('Phone:Show', false);
+        }
     }
 });
