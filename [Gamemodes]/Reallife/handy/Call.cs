@@ -26,6 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             {
                 ChangeTargetCallerAvatar(player, target.Discord.ID, target.Discord.Avatar);
             }
+            target.Emit("Phone:Shpw", true);
             target.Emit("Phone:ShowIncomingCall", player.Username, player.Phone.Number);
         }
 
@@ -62,6 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
         {
             Client target = Core.RageAPI.GetPlayerFromName(TargetName);
             if (target == null) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Der Spieler ist Offline."); return; }
+            target.Emit("Phone:HangupCall");
             foreach (CallModel callClass in PlayerCalls.ToList())
             {
                 if (callClass.Caller == player)
