@@ -34,6 +34,10 @@ namespace VenoXV._RootCore_.Models
         public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
         {
+
+        }
+        public VehicleModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+        {
             Plate = "alt-V";
             Locked = true;
             Godmode = true;
@@ -41,9 +45,6 @@ namespace VenoXV._RootCore_.Models
             Owner = "";
             Gas = 100;
             Kms = 0;
-        }
-        public VehicleModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
-        {
         }
 
     }

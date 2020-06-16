@@ -1351,6 +1351,8 @@ namespace VenoXV._RootCore_.Database
                         vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
                         vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
                         vehClass.EngineOn = false;
+                        vehClass.Frozen = true;
+                        vehClass.Godmode = true;
                         if (vehClass.Faction > Constants.FACTION_NONE)
                         {
                             vehClass.LockState = AltV.Net.Enums.VehicleLockState.Unlocked;
