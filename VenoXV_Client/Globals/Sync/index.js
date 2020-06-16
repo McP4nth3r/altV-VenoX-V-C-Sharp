@@ -24,6 +24,9 @@ export function OnVoiceKeyUp(key) {
 }
 
 alt.on("gameEntityCreate", entity => {
+    if (game.isEntityAVehicle(entity.scriptID)) {
+        game.setVehicleEngineOn(entity.scriptID, false, true, true);
+    }
     if (entity.hasStreamSyncedMeta('VEHICLE_FROZEN')) {
         game.freezeEntityPosition(entity.scriptID, entity.getStreamSyncedMeta('VEHICLE_FROZEN'));
     }
