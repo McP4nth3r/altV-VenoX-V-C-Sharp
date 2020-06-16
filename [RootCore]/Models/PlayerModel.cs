@@ -167,7 +167,6 @@ namespace VenoXV._RootCore_.Models
         private Player Player;
         public int Number { get; set; }
         public bool IsCallActive { get; set; }
-        public Player TargetCaller { get; set; }
         public Phone(Player player)
         {
             try
