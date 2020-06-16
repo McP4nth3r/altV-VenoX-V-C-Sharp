@@ -380,7 +380,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 int total = 0;
                 int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK);
-                int playerRank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
+                int playerRank = player.Reallife.FactionRank;
                 int playerFaction = player.Reallife.Faction;
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
                 Client VipL = Database.GetPlayerVIP(player, (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));

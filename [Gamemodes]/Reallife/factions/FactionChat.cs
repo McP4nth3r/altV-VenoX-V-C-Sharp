@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 if (Allround.isBadFaction(player))
                 {
-                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 2)
+                    if (player.Reallife.FactionRank >= 2)
                     {
                         Faction.CreateBadMessage(text, RageAPI.GetHexColorcode(107, 107, 107), player);
                         vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);

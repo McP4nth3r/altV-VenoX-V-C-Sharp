@@ -944,9 +944,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 3)
+                if (player.Reallife.FactionRank >= 3)
                 {
-                    if (target.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
+                    if (target.Reallife.Knastzeit > 0)
                     {
                         Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);

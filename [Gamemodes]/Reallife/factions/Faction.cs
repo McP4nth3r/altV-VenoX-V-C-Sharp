@@ -223,7 +223,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 string rankString = string.Empty;
                 int faction = player.Reallife.Faction;
-                int rank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK);
+                int rank = player.Reallife.FactionRank;
                 foreach (FactionModel factionModel in Constants.FACTION_RANK_LIST)
                 {
                     if (factionModel.faction == faction && factionModel.rank == rank)

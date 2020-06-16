@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             int facId = player.Reallife.Faction;
             if (facId > 0)
             {
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) != 5)
+                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_FACTION_RANK) != 5)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Seit wann bist du Leader deiner Fraktion?");
                     return;

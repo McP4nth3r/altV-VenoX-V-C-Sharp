@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                 if (player.Reallife.Faction != area.IDOwner)
                                 {
                                     // Is the player's rank above the minimum rank?
-                                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= GangwarManager.MIN_RANK_ATTACK)
+                                    if (player.Reallife.FactionRank >= GangwarManager.MIN_RANK_ATTACK)
                                     {
                                         // Has the Defeneder Faction enough ppl online?
                                         if (_gangwarManager.GetFactionCount(area.IDOwner) >= GangwarManager.MIN_COUNT_PLAYER)

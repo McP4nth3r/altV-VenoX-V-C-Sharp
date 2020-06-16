@@ -838,7 +838,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new UniformModel(0, FACTION_MS13, SEX_FEMALE, 10, 58, 0),
             new UniformModel(0, FACTION_MS13, SEX_FEMALE, 11, 250, 0),
 
-
+            // Male Army uniform
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 0, 107, 8),
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 2, 2,4),
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 4, 86, 8),
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 6, 24, 0),
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 8, 130, 0),
+            new UniformModel(0, FACTION_USARMY, SEX_MALE, 11,220, 8),
                         
             // Male ROCKER uniform
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 0, -1, -1),

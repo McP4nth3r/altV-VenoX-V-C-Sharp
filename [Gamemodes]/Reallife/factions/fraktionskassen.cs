@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 else if (state == "TakeDatas")
                 {
-                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) < 4)
+                    if (player.Reallife.FactionRank < 4)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                         return;

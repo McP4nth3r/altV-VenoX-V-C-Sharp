@@ -1133,7 +1133,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
                     }
                     target.vnxSetStreamSharedElementData(EntityData.PLAYER_FACTION, faction);
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, 5);
+                    target.Reallife.FactionRank = 5;
                     anzeigen.Usefull.VnX.OnFactionChange(target);
                     logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
                 }
@@ -1161,7 +1161,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else
                 {
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, rank);
+                    target.Reallife.FactionRank = rank;
                     anzeigen.Usefull.VnX.OnFactionChange(target);
                     target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat deinen Fraktion´s rang auf " + rank + " geändert!");
                     sendAdminNotification(player.Username + " hat " + target.Username + " Franktion´s Rang auf " + rank + " geändert!");

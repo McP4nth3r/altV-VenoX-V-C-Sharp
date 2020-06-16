@@ -18,6 +18,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static ColShapeModel BUS_JOB_Col = RageAPI.CreateColShapeSphere(new Position(438.2896f, -626.1547f, 28.70835f), 2);
         public static ColShapeModel LSPDDuty = RageAPI.CreateColShapeSphere(new Position(459.297f, -990.9312f, 30.6896f), 1.5f);
         public static ColShapeModel FBIDuty = RageAPI.CreateColShapeSphere(new Position(121.7512f, -753.7672f, 45.75201f), 1.5f);
+        public static ColShapeModel ARMYDuty = RageAPI.CreateColShapeSphere(new Position(467.07693f, -3220.4834f, 7.0549316f), 1.5f);
+        public static ColShapeModel ARMY2Duty = RageAPI.CreateColShapeSphere(new Position(-2172.7913f, 3255.9692f, 32.801514f), 1.5f);
 
         [Command("setclothes")]
         public static void GiveIPlayerTestClothes(Client player, int clothesslot, int clothesdrawable, int clothestexture)
@@ -71,6 +73,20 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     if (player.Reallife.Faction == Constants.FACTION_FBI)
                     {
                         Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
+                    }
+                }
+                else if (shape == ARMYDuty.Entity)
+                {
+                    if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                    {
+                        Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
+                    }
+                }
+                else if (shape == ARMY2Duty.Entity)
+                {
+                    if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                    {
+                        Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username);
                     }
                 }
                 else if (shape == AIRPORT_JOB_Col.Entity)

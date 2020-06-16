@@ -40,8 +40,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static Position MS13_Teleport_Base_Enter = new Position(-1549.369f, -91.01895f, 54.92917f);
         public static Position MS13_Teleport_Base_Exit = new Position(-1289.76f, 449.9201f, 97.90071f);
 
-        public static Position SAM_Teleport_Base_Enter = new Position(982.1898f, -103.258f, 74.84872f); // 982,1898, -103,258, 74,84872
-        public static Position SAM_Teleport_Base_Exit = new Position(981.1188f, -102.3915f, 74.84511f); // 981.1188, -102.3915, 74.84511
+        //public static Position SAM_Teleport_Base_Enter = new Position(982.1898f, -103.258f, 74.84872f); // 982,1898, -103,258, 74,84872
+        //public static Position SAM_Teleport_Base_Exit = new Position(981.1188f, -102.3915f, 74.84511f); // 981.1188, -102.3915, 74.84511
 
         public static Position MS13_Teleport_Base_heli_Enter = new Position(-1554.938f, -115.0005f, 54.51854f);
         public static Position MS13_Teleport_Base_heli_Exit = new Position(-1553.669f, -106.2555f, 67.1683f);
@@ -93,8 +93,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             RageAPI.CreateTextLabel("Narcos Eingang", MS13_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
             RageAPI.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_MS13);
 
-            RageAPI.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
-            RageAPI.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_SAMCRO);
+            //RageAPI.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
+            //RageAPI.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_SAMCRO);
 
             RageAPI.CreateTextLabel("Narcos Dach Eingang", MS13_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NONE);
             RageAPI.CreateTextLabel("Narcos Dach Ausgang", MS13_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NONE);
@@ -170,7 +170,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
                         "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
 
-                        player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK));
+                        player.Reallife.FactionRank);
                     }
                 }
                 else if (shape == FBICOL_FGUNS.Entity)
@@ -206,7 +206,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
                         "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
 
-                        player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK));
+                        player.Reallife.FactionRank);
                     }
                 }
                 else if (shape.vnxGetElementData<bool>("isWeaponSelectShape") == true)
@@ -244,7 +244,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo +
                         "<br>RPG Magazin : " + fweapon.weapon_rpg_ammo,
 
-                        player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK));
+                        player.Reallife.FactionRank);
                     }
                 }
             }
@@ -665,7 +665,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (player_Fraktion == Constants.FACTION_SAMCRO || isStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (SAM_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
+                    /*if (SAM_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
@@ -692,7 +692,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         player.SetPosition = SAM_Teleport_Base_Enter;
                         player.Dimension = 0;
                         return true;
-                    }
+                    }*/
                 }
             }
             catch { }
@@ -741,7 +741,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.Reallife.Faction != Constants.FACTION_NONE && player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 4)
+                if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
                     Client target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
@@ -750,7 +750,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         if (target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
                         {
                             target.vnxSetElementData(EntityData.PLAYER_FACTION, player.Reallife.Faction);
-                            target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, 0);
+                            target.Reallife.FactionRank = 0;
                             anzeigen.Usefull.VnX.OnFactionChange(target);
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast den Spieler " + target.Username + " in deine Fraktion aufgenommen!");
@@ -778,7 +778,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.Reallife.Faction != Constants.FACTION_NONE && player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 4)
+                if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
                     Client target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
@@ -789,10 +789,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
                             return;
                         }
-                        if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) < 5)
+                        if (target.Reallife.FactionRank < 5)
                         {
                             target.vnxSetElementData(EntityData.PLAYER_FACTION, 0);
-                            target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, 0);
+                            target.Reallife.FactionRank = 0;
                             target.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
                             anzeigen.Usefull.VnX.OnFactionChange(target);
                             player.vnxSetElementData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
@@ -829,19 +829,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     return;
                 }
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) >= 4 && player.Reallife.Faction > Constants.FACTION_NONE)
+                if (player.Reallife.FactionRank >= 4 && player.Reallife.Faction > Constants.FACTION_NONE)
                 {
                     if (target.Reallife.Faction != player.Reallife.Faction)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
                         return;
                     }
-                    if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) == 5)
+                    if (target.Reallife.FactionRank == 5)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst einen Leader/Co-Leader nicht seinen Rang ändern!");
                         return;
                     }
-                    if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) == number)
+                    if (target.Reallife.FactionRank == number)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler hat bereits diesen Rang...");
                         return;
@@ -855,7 +855,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             break;
                         }
                     }
-                    if (target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_RANK) < number)
+                    if (target.Reallife.FactionRank < number)
                     {
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Glückwunsch, du wurdest soeben von " + player.Username + " zum " + rankString + " befördert!");
 
@@ -865,7 +865,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben von " + player.Username + " zum " + rankString + " degradiert!");
                     }
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.Username + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_RANK, number);
+                    target.Reallife.FactionRank = number;
 
                 }
                 else
