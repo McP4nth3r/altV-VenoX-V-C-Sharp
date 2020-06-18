@@ -34,7 +34,7 @@ namespace VenoXV._RootCore_.Models
         public bool Locked { get; set; }
         public int Price { get; set; }
         public string Job { get; set; }
-        public bool Save { get; set; }
+        public bool NotSave { get; set; }
         public bool vehGodmode { get; set; }
         public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
         public bool Testing { get; set; }

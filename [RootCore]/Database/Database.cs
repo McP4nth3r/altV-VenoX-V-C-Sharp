@@ -430,7 +430,7 @@ namespace VenoXV._RootCore_.Database
                     character.Reallife.Bank = reader.GetInt32("bank");
                     character.Reallife.SocialState = reader.GetString("SocialState");
                     character.Sex = reader.GetInt32("sex");
-                    character.Reallife.REALLIFE_JOB = reader.GetString("job");
+                    character.Reallife.Job = reader.GetString("job");
                     character.Reallife.LIEFERJOB_LEVEL = reader.GetInt32("LIEFERJOB_LEVEL");
                     character.Reallife.AIRPORTJOB_LEVEL = reader.GetInt32("AIRPORTJOB_LEVEL");
                     character.Reallife.BUSJOB_LEVEL = reader.GetInt32("BUSJOB_LEVEL");
@@ -506,7 +506,7 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@killed", player.Dead);
                     command.Parameters.AddWithValue("@faction", player.Reallife.Faction);
                     command.Parameters.AddWithValue("@zivizeit", player.Reallife.Zivizeit);
-                    command.Parameters.AddWithValue("@job", player.Reallife.REALLIFE_JOB);
+                    command.Parameters.AddWithValue("@job", player.Reallife.Job);
                     command.Parameters.AddWithValue("@LIEFERJOB_LEVEL", player.Reallife.LIEFERJOB_LEVEL);
                     command.Parameters.AddWithValue("@AIRPORTJOB_LEVEL", player.Reallife.AIRPORTJOB_LEVEL);
                     command.Parameters.AddWithValue("@BUSJOB_LEVEL", player.Reallife.BUSJOB_LEVEL);

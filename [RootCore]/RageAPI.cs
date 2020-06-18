@@ -43,8 +43,7 @@ namespace VenoXV.Core
         {
             try
             {
-                Alt.RemoveColShape(ColShape.Entity);
-                Sync.ColShapeList.Remove(ColShape);
+                if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape.Entity); Sync.ColShapeList.Remove(ColShape); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RemoveColShape", ex); }
         }
@@ -307,6 +306,14 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
         }
+        public static void CreateBlip(BlipModel blipClass)
+        {
+            try
+            {
+                if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); }
+        }
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, Client VisibleOnlyFor = null)
         {
             try
@@ -346,6 +353,14 @@ namespace VenoXV.Core
                 return marker;
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
+        }
+        public static void RemoveMarker(MarkerModel markerClass)
+        {
+            try
+            {
+                if (Sync.MarkerList.Contains(markerClass)) { Sync.MarkerList.Remove(markerClass); }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("RemoveMarker", ex); }
         }
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, Client VisibleOnlyFor = null)
         {

@@ -17,7 +17,7 @@ namespace VenoXV._RootCore_.Models
         public int HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
         public int Hunger { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
         public DateTime Zivizeit { get { return Player.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
-        public string REALLIFE_JOB { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
+        public string Job { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
         public int LIEFERJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL, value); } }
         public int AIRPORTJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_AIRPORTJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_AIRPORTJOB_LEVEL, value); } }
         public int BUSJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSJOB_LEVEL, value); } }
@@ -55,7 +55,7 @@ namespace VenoXV._RootCore_.Models
                 Hunger = 100;
                 Faction = 0;
                 Zivizeit = DateTime.Now;
-                REALLIFE_JOB = "-";
+                Job = "-";
                 LIEFERJOB_LEVEL = 0;
                 BUSJOB_LEVEL = 0;
                 AIRPORTJOB_LEVEL = 0;
