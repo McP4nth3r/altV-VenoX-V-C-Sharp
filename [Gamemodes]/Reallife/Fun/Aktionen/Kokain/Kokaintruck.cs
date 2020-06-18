@@ -176,7 +176,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         Kokaintruckveh.Kms = 0;
                         Kokaintruckveh.Gas = 100;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
-                        Kokaintruckveh.Save = false;
+                        Kokaintruckveh.NotSave = false;
                         foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                         {
                             if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))

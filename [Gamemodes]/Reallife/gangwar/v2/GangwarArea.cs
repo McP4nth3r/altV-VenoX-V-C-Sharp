@@ -156,7 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
                     veh.Kms = 0;
                     veh.Gas = 100;
-                    veh.Save = false;
+                    veh.NotSave = false;
                     veh.Dimension = GangwarManager.GW_DIM;
                 }
             }

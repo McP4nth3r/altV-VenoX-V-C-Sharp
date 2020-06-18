@@ -468,7 +468,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 {
                     if (Vehicle.Owner != null)
                     {
-                        if (Vehicle.Testing != true && Vehicle.Faction == 0 && Vehicle.Save != false && Vehicle.Dimension == 0)
+                        if (Vehicle.Testing != true && Vehicle.Faction == 0 && Vehicle.NotSave != false && Vehicle.Dimension == 0)
                         {
                             // Add IVehicle into the list
                             IVehicleList.Add(Vehicle);

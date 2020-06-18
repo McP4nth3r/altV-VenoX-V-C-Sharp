@@ -97,7 +97,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 PruefungsAuto.Kms = 0;
                 PruefungsAuto.Gas = 100;
                 PruefungsAuto.NumberplateText = "VenoX";
-                PruefungsAuto.Save = true;
+                PruefungsAuto.NotSave = true;
                 PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO", true);
                 PruefungsAuto.vnxSetElementData("PRUEFUNGS_AUTO_BESITZER", player.Username);
 

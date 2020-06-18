@@ -18,6 +18,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Police : IScript
     {
+
+
+
         [Command("zeigen")]
         public static void ShowToPlayerLicense(Client player, string target_name)
         {
@@ -840,97 +843,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
             catch { }
         }
-        /*
-        [Command("barricade")]
-        public void PutCommand(PlayerModel player, string item)
-        {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-            }
-            else if (Allround.isStateFaction(player) == false)
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
-                return;
-            }
-            else
-            {
-                PoliceControlModel policeControl = null;
-                if (player.Reallife.Faction == Constants.FACTION_POLICE)
-                {
-                    switch (item.ToLower())
-                    {
-                        case Messages.ARG_CONE:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_CONE, player.position, player.Rotation);
-                            policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
-                            policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_CONE, policeControl.position, policeControl.rotation);
-                            policeControlList.Add(policeControl);
-                            break;
-                        case Messages.ARG_BEACON:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BEACON, player.position, player.Rotation);
-                            policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
-                            policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_BEACON, policeControl.position, policeControl.rotation);
-                            policeControlList.Add(policeControl);
-                            break;
-                        case Messages.ARG_BARRIER:
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_BARRIER, player.position, player.Rotation);
-                            policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
-                            policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_BARRIER, policeControl.position, policeControl.rotation);
-                            policeControlList.Add(policeControl);
-                            break;
-                        case "nagelband":
-                            policeControl = new PoliceControlModel(0, string.Empty, Constants.POLICE_DEPLOYABLE_SPIKES, player.position, player.Rotation);
-                            policeControl.position = new Position(policeControl.position.X, policeControl.position.Y, policeControl.position.Z - 1.0f);
-                            policeControl.controlObject = NAPI.Object.CreateObject(Constants.POLICE_DEPLOYABLE_SPIKES, policeControl.position, policeControl.rotation);
-                            policeControlList.Add(policeControl);
-                            break;
-                        default:
-                            player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_PUT_COMMAND);
-                            break;
-                    }
-                }
-                else
-                {
-                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_PLAYER_NOT_POLICE_FACTION);
-                }
-            }
-        }
-        
-        [Command(Messages.COM_REMOVE, Messages.GEN_POLICE_REMOVE_COMMAND)]
-        public void RemoveCommand(PlayerModel player, string item)
-        {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-            }
-            else if (Allround.isStateFaction(player) == false)
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
-                return;
-            }
-            else
-            {
-                switch (item.ToLower())
-                {
-                    case Messages.ARG_CONE:
-                        RemoveClosestPoliceControlItem(player, Constants.POLICE_DEPLOYABLE_CONE);
-                        break;
-                    case Messages.ARG_BEACON:
-                        RemoveClosestPoliceControlItem(player, Constants.POLICE_DEPLOYABLE_BEACON);
-                        break;
-                    case Messages.ARG_BARRIER:
-                        RemoveClosestPoliceControlItem(player, Constants.POLICE_DEPLOYABLE_BARRIER);
-                        break;
-                    case Messages.ARG_SPIKES:
-                        RemoveClosestPoliceControlItem(player, Constants.POLICE_DEPLOYABLE_SPIKES);
-                        break;
-                    default:
-                        player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_POLICE_REMOVE_COMMAND);
-                        break;
-                }
-            }
-        }
-        */
 
         [Command("ausknasten")]
         public void RemovePlayerFromKnast(Client player, string target_name)

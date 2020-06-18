@@ -9,7 +9,6 @@ using System.Threading;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.house;
-using VenoXV._Gamemodes_.Reallife.jobs;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -116,7 +115,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
                     Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
                     Emergency.OnPlayerEnterColShapeModel(shape, player);
-                    Allround.OnPlayerEnterColShapeModel(shape, player);
                     fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
                     Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
                     Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
@@ -124,8 +122,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
                     Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
                     gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
-                    JoB_Allround.OnPlayerEnterColShapeModel(shape, player);
-                    Job.OnPlayerEnterColShapeModel(shape, player);
+                    jobs.Allround.OnColShapeHit(shape, player);
+                    factions.State.Allround.OnStateColShapeHit(shape, player);
                     Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
@@ -426,7 +424,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.Owner == player.Username && Vehicle.Save != true)
+                    if (Vehicle.Owner == player.Username && Vehicle.NotSave != true)
                     {
 
                         int IVehicleTaxes = (int)Math.Round((int)Vehicle.Price * Constants.TAXES_IVehicle);
@@ -700,7 +698,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Factions.Allround.OnResourceStart(); // Label - Faction Loading !
                 fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 Fun.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
-                Job.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 premium.vnxcase.VenoXCases.OnResourceStart();
                 Vehicles.PaynSpray.OnResourceStart();
                 Vehicles.Tunning.OnResourceStart();
@@ -747,30 +744,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                              }*/
                         }
                         // JOB 
-                        if (player.vnxGetElementData<bool>(EntityData.PLAYER_IS_IN_JOB) == true)
-                        {
-                            if (
-                            //LieferrantenJobIVehicle
-                            Vehicle.Job == Constants.JOB_CITY_TRANSPORT && Vehicle.Owner == player.Username
-                            //Airport ToDo
-                            || Vehicle.Job == Constants.JOB_AIRPORT && Vehicle.Owner == player.Username
-                            || Vehicle.Job == Constants.JOB_BUS && Vehicle.Owner == player.Username
-                            )
-                            {
-                                if (Vehicle != null)
-                                {
-                                    Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
-                                }
-                                if (JoB_Allround.JobAbgabeMarker != null)
-                                {
-                                    if (JoB_Allround.JobAbgabeMarker.vnxGetElementData<string>(EntityData.PLAYER_JOB_COLSHAPE_OWNER) == player.Username)
-                                    {
-                                        RageAPI.RemoveColShape(JoB_Allround.JobAbgabeMarker);
-                                    }
-                                }
-                            }
-                        }
-                        else if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
+                        jobs.Allround.OnPlayerDisconnect(player);
+                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
                         }
@@ -787,7 +762,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-        //[AltV.Net.ClientEvent("checkPlayerEventKey")]
         [ClientEvent("checkPlayerEventKey")]
         public void CheckPlayerEventKeyEvent(Client player)
         {
@@ -795,8 +769,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
                 {
-
-                    if (Allround.IsNearFactionTeleporter(player))
+                    if (Factions.Allround.IsNearFactionTeleporter(player))
                     {
                         return;
                     }
