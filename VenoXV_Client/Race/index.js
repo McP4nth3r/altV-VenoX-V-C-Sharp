@@ -33,7 +33,7 @@ alt.everyTick(() => {
     game.drawRect(0.93, 0.349, 0.1, 0.003, 0, 150, 200, 255);
     DrawText("Race-Info", [0.93, 0.350], [0.5, 0.5], 1, [255, 255, 255, 255], true, true);
     DrawText("5 / 10", [0.95, 0.01], [0.8, 0.8], 1, [0, 200, 255, 255], true, true);
-    DrawText("Timer : " + RACE_COUNTDOWN, [0.5, 0.1], [0.5, 0.5], 1, [255, 255, 255, 255], true, true);
+    DrawText("Timer : " + RACE_COUNTDOWN, [0.5, 0.01], [0.5, 0.5], 1, [255, 255, 255, 255], true, true);
 
     if (!game.hasStreamedTextureDictLoaded("hunting")) {
         game.requestStreamedTextureDict("hunting", true);

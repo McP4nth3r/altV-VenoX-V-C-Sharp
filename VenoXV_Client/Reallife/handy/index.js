@@ -48,6 +48,25 @@ alt.onServer('Phone:ShowIncomingCall', (Name, Telnr) => {
     Phone.emit('Phone:ShowIncomingCall', Name, Telnr);
 });
 
+alt.onServer('Phone:HangupCall', () => {
+    if (!Phone) { return; }
+    Phone.emit('Phone:HangupCall');
+});
+
+alt.onServer('Phone:Show', (Show) => {
+    if (!Phone) { return; }
+    if (Show) {
+        Phone.focus();
+        PhoneOpen = true;
+        Phone.emit('Phone:Show', true);
+    }
+    else {
+        Phone.unfocus();
+        PhoneOpen = false;
+        Phone.emit('Phone:Show', false);
+    }
+});
+
 alt.on('keyup', (key) => {
     if (key == 'O'.charCodeAt()) {
         if (!GetCursorStatus()) {

@@ -185,8 +185,8 @@ alt.onServer('start_screen_fx', (effectName, duration, looped) => {
     catch{ }
 });
 
-alt.onServer('Vehicle:DisableEngineToggle', () => {
-    game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, false, true, true);
+alt.onServer('Vehicle:DisableEngineToggle', state => {
+    game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state);
     alt.log('Called DisableEngineToggle');
 });
 

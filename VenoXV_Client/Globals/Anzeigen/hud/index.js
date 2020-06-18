@@ -23,6 +23,7 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 });
 
 alt.onServer('Reallife:UnloadHUD', () => {
+	HUD_BROWSER = null;
 	vnxDestroyCEF("ReallifeHUD");
 });
 

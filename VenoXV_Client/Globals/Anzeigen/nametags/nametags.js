@@ -8,10 +8,6 @@ import * as game from "natives";
 import { DrawText } from '../../VnX-Lib';
 let maxDistance = 20;
 let maxDistance_load = 20;
-let width = 0.03;
-let height = 0.0065;
-let border = 0.001;
-let color = [255, 255, 255, 255];
 let name = "";
 let r = 0;
 let g = 0;
@@ -62,11 +58,13 @@ function isBadFaction(player) {
 function OnStart() {
 	if (!game.hasStreamedTextureDictLoaded("Commonmenu")) {
 		game.requestStreamedTextureDict('Commonmenu');
-		alt.log('requested packages');
+		alt.log('Requested Packages!');
+
 	}
 	if (!game.hasStreamedTextureDictLoaded("images")) {
 		game.requestStreamedTextureDict('images');
-		alt.log('requested packages');
+		alt.log('Requested Packages!');
+
 	}
 	alt.setTimeout(() => {
 		alt.everyTick(() => {

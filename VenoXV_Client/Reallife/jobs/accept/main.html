@@ -1,0 +1,35 @@
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="style.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+    <div class="all">
+        <div class="back"></div>
+        <div class="blue_header"></div>
+
+        <center>
+            <div class="text_head" id="text_head"></div>
+            <div class="text_info" id="text_info"></div>
+            <div class="btn1" id="btn1" onclick="alt.emit(`Reallife:OnJobAcceptWindowClick`, 1);"></div>
+            <div class="btn2" id="btn2" onclick="alt.emit(`Reallife:OnJobAcceptWindowClick`, 2);"></div>
+            <div class="close" onclick="mp.trigger(`DestroyVnXSAWindowLib`);">X</div>
+        </center>
+    </div>
+    <script>
+        if ('alt' in window) {
+            alt.on('JobAccept:Init', (headertext, boxtext, buttontext1, buttontext2) => {
+                document.getElementById('text_head').innerHTML = headertext;
+                document.getElementById('text_info').innerHTML = boxtext;
+                document.getElementById('btn1').innerHTML = buttontext1;
+                document.getElementById('btn2').innerHTML = buttontext2;
+            });
+        }
+
+    </script>
+
+</body>

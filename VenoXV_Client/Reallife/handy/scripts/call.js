@@ -57,7 +57,7 @@ $('.call_button').click(function () {
 });
 
 $('.PhoneCallActiveDeny').click(function () {
-    if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
+    if (!SelectedObjName || !SelectedObjTelnr) { Console.log(SelectedObjName + " | " + SelectedObjTelnr); return; }
     $('.PhoneCallActiveName').html(SelectedObjName);
     $('.PhoneCallActiveAccept').addClass('d-none');
     $('.PhoneCallActiveDeny').addClass('d-none');
@@ -73,7 +73,7 @@ $('.PhoneCallActiveDeny').click(function () {
 });
 
 $('.PhoneCallActiveAccept').click(function () {
-    if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
+    if (!SelectedObjName || !SelectedObjTelnr) { Console.log(SelectedObjName + " | " + SelectedObjTelnr); return; }
     $('#PhoneCallScreen').addClass('d-none');
     $('.PhoneCallActiveHangup').removeClass('d-none');
     $('.PhoneCallActiveAccept').addClass('d-none');
@@ -88,7 +88,7 @@ $('.PhoneCallActiveAccept').click(function () {
 
 
 $('.PhoneCallActiveHangup').click(function () {
-    if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
+    if (!SelectedObjName || !SelectedObjTelnr) { Console.log(SelectedObjName + " | " + SelectedObjTelnr); return; }
     $('.PhoneCallActiveHangup').addClass('d-none');
     ChangeCallingState("Aufgelegt.", "rgb(255,0,0)");
     alt.emit('Phone:CallDenied', SelectedObjName);
@@ -139,6 +139,17 @@ if ('alt' in window) {
         SelectedObjName = Name;
         SelectedObjTelnr = Telnr;
         ShowCallIncoming();
+    });
+    alt.on('Phone:HangupCall', () => {
+        $('.PhoneCallActiveHangup').addClass('d-none');
+        ChangeCallingState("Aufgelegt.", "rgb(255,0,0)");
+        setTimeout(() => {
+            IsCallInProcess = false;
+            DrawHomeScreen();
+            SelectedObj = null;
+            SelectedObjName = null;
+            SelectedObjTelnr = null;
+        }, 5000);
     });
 }
 
