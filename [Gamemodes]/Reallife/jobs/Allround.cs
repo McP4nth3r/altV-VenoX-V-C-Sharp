@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -16,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static ColShapeModel AIRPORT_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(-1047.312f, -2744.564f, 21.3594f), 2);
         public static ColShapeModel BUS_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(438.2896f, -626.1547f, 28.70835f), 2);
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterJobStartShape(IColShape shape, Client player)
         {
             try
             {
@@ -113,7 +114,22 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         break;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("TriggerJobButton", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("TriggerJobButton", ex); }
+        }
+
+
+        [Command("quitjob")]
+        public static void QuitJobServer(Client player)
+        {
+            try
+            {
+                if (player.Reallife.Job != Constants.JOB_NONE)
+                {
+                    player.Reallife.Job = Constants.JOB_NONE;
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du bist nun Arbeitslos.");
+                }
+            }
+            catch { }
         }
 
 
@@ -162,6 +178,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
         public static void OnColShapeHit(IColShape col, Client player)
         {
+            OnPlayerEnterJobStartShape(col, player);
             if (CurrentJobColShapes.Contains(col))
             {
                 switch (player.Reallife.Job)
