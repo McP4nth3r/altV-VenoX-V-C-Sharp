@@ -774,14 +774,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         {
                             Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
                         }
-
-                    }
-                    foreach (Client players in Alt.GetAllPlayers())
-                    {
-                        if (players.Dimension == Constants.VEHICLE_OFFLINE_DIM)
-                        {
-                            players.Dimension = 0;
-                        }
                     }
 
                     anzeigen.Usefull.VnX.SavePlayerDatas(player);

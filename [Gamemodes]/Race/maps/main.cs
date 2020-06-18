@@ -23,9 +23,9 @@ namespace VenoXV._Gamemodes_.Race.maps
                 },
                 RaceCheckpoints = new List<Position>
                 {
-                    new Vector3(0,0,0),
-                    new Vector3(0,0,0),
-                    new Vector3(0,0,0),
+                    new Vector3(2936.967f, 3808.1274f, 52.0271f),
+                    new Vector3(2936.967f, 3808.1274f, 52.0271f),
+                    new Vector3(2895.8506f, 4141.029f, 49.75244f),
                     new Vector3(0,0,0),
                     new Vector3(0,0,0),
                 },

@@ -583,7 +583,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (Vehicle.Driver == player)
                 {
-                    Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle"); // Disable Auto-TurnOn for Vehicle.
+                    Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     if (Vehicle.Godmode)
                     {
                         Vehicle.Godmode = false;

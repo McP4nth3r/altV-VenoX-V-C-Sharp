@@ -129,7 +129,16 @@ namespace VenoXV._RootCore_.Models
     }
     public class Race
     {
-
+        private Player Player;
+        public Client Owner { get; set; }
+        public Race(Player player)
+        {
+            try
+            {
+                Player = player;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("RaceModel-Create", ex); }
+        }
     }
     public class SevenTowers
     {
@@ -237,6 +246,7 @@ namespace VenoXV._RootCore_.Models
                 Reallife = new Reallife(this);
                 Tactics = new Tactics(this);
                 Zombies = new Zombies(this);
+                Race = new Race(this);
                 SevenTowers = new SevenTowers(this);
                 Phone = new Phone(this);
                 Discord = new Discord(this);

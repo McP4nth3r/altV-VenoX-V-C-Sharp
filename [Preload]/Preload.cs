@@ -90,7 +90,7 @@ namespace VenoXV._Preload_
                     break;
                 case 3:
                     player.Gamemode = (int)Gamemodes.Race;
-                    player.Language = (int)_Language_.Main.Languages.English;
+                    player.Language = (int)_Language_.Main.Languages.German;
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Race);

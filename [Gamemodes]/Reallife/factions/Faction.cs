@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (Allround.isStateFaction(target))
                     {
@@ -69,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (Allround.isStateFaction(target))
                     {
@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (Allround.isBadFaction(target) && target.Reallife.Faction == UID)
                     {
@@ -105,7 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -141,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (Allround.isBadFaction(target))
                     {

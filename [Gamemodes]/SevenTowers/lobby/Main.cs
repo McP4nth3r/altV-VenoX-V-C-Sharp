@@ -167,7 +167,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         player.SpawnPlayer(Spawns.Position);
 
                         player.SevenTowers.Spawned = true;
-                        player.WarpIntoVehicle<bool>(vehicle, -1);
+                        player.WarpIntoVehicle(vehicle, -1);
                         SevenTowersVehicles.Add(vehicle);
                         vehicle.Kms = 0;
                         vehicle.Gas = 100;

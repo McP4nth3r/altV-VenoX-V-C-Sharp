@@ -168,7 +168,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (Client player in Alt.GetAllPlayers())
+                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     foreach (ColShapeModel col in ShopColShapeModels)
                     {

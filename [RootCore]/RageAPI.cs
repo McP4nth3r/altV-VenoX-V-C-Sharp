@@ -170,7 +170,7 @@ namespace VenoXV.Core
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-        public static void WarpIntoVehicle<T>(this Client player, IVehicle veh, int seat)
+        public static void WarpIntoVehicle(this Client player, IVehicle veh, int seat)
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
         }

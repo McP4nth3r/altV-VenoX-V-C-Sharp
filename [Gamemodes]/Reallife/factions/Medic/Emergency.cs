@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                foreach (Client medics in Alt.GetAllPlayers())
+                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -69,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                foreach (Client medics in Alt.GetAllPlayers())
+                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         //[AltV.Net.ClientEvent("DestroyForAllMedicBlip")]
         public void DestroyMedicBlipAfterSpawn(Client player)
         {
-            foreach (Client medics in Alt.GetAllPlayers())
+            foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
             {
                 if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 target.Emit("destroyKrankenhausTimer");
                                 target.Emit("VnX_DestroyIPlayerSideTimer_KH");
 
-                                foreach (Client medics in Alt.GetAllPlayers())
+                                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
                                 {
                                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                     {
