@@ -1478,22 +1478,24 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("createvehicle")]
-        public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save)
+        public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save, int R = 255, int G = 255, int B = 255, int R2 = 255, int G2 = 255, int B2 = 255)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(Model), player.Position, player.Rotation);
                 vehClass.Name = Model;
-                vehClass.FirstColor = "";
-                vehClass.SecondColor = "";
-                vehClass.Owner = "";
-                vehClass.Plate = "alt-V";
+                vehClass.FirstColor = R + "," + G + "," + B;
+                vehClass.SecondColor = R2 + "," + G2 + "," + B2;
+                vehClass.Owner = factions.Faction.GetFactionNameById(Faction);
+                vehClass.Plate = factions.Faction.GetFactionNameById(Faction);
+                vehClass.Gas = 100;
+                vehClass.Kms = 0;
                 vehClass.Faction = Faction;
                 if (Save) { Database.AddNewIVehicle(vehClass); }
             }
             else
             {
-                Core.Debug.OutputDebugString("NO RIGHTS!");
+                Debug.OutputDebugString("NO RIGHTS!");
             }
         }
 
