@@ -45,7 +45,10 @@ namespace VenoXV._RootCore_.Sync
             {
                 if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= 200 && labels.Dimension == playerClass.Dimension)
                 {
-                    Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                    if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
+                    {
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                    }
                 }
             }
         }
@@ -54,13 +57,14 @@ namespace VenoXV._RootCore_.Sync
         private static void SyncMarker(Client playerClass)
         {
             Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
-            int dcounter = 0;
             foreach (MarkerModel marker in MarkerList)
             {
                 if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
                 {
-                    Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
-                    dcounter++;
+                    if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
+                    {
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
+                    }
                 }
             }
         }
