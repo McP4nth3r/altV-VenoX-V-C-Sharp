@@ -55,6 +55,14 @@ alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
 */
+game.replaceHudColourWithRgba(142, 0, 200, 255, 255); //Waypoint
+
+// Alle Chars
+game.replaceHudColourWithRgba(143, 0, 200, 255, 255);
+game.replaceHudColourWithRgba(144, 0, 200, 255, 255);
+game.replaceHudColourWithRgba(145, 0, 200, 255, 255);
+
+
 
 alt.setTimeout(() => {
     game.startAudioScene('FBI_HEIST_H5_MUTE_AMBIENCE_SCENE');
