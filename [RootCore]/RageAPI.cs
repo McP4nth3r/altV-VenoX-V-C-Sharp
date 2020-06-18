@@ -273,7 +273,7 @@ namespace VenoXV.Core
             catch { }
         }
         private static int TextLabelCounter = 0;
-        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0)
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0, Client VisibleOnlyFor = null)
         {
             try
             {
@@ -291,7 +291,8 @@ namespace VenoXV.Core
                     ColorR = color[0],
                     ColorG = color[1],
                     ColorB = color[2],
-                    ColorA = color[3]
+                    ColorA = color[3],
+                    VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.LabelList.Add(label);
                 return label;
@@ -306,7 +307,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
         }
-        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange)
+        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, Client VisibleOnlyFor = null)
         {
             try
             {
@@ -326,7 +327,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
-        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color)
+        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, Client VisibleOnlyFor = null)
         {
             try
             {
@@ -338,7 +339,8 @@ namespace VenoXV.Core
                     Scale = Scale,
                     Color = Color,
                     Dimension = 0,
-                    Visible = true
+                    Visible = true,
+                    VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.MarkerList.Add(marker);
                 return marker;
