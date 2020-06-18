@@ -72,7 +72,7 @@ namespace VenoXV.Globals
                 CreatedVehicle.Kms = 0;
                 CreatedVehicle.Gas = 100;
 
-                CreatedVehicle.Save = true;
+                CreatedVehicle.NotSave = true;
                 CreatedVehicle.NumberplateText = NumberplateText;
                 CreatedVehicle.EngineOn = true;
                 return CreatedVehicle;
