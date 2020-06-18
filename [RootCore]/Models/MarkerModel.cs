@@ -11,5 +11,6 @@ namespace VenoXV._RootCore_.Models
         public Vector3 Scale { get; set; }
         public bool Visible { get; set; }
         public int Dimension { get; set; }
+        public Client VisibleOnlyFor { get; set; }
     }
 }

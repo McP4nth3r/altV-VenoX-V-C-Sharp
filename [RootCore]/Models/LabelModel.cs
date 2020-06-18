@@ -15,6 +15,8 @@
         public int ColorA { get; set; }
         public int Dimension { get; set; }
         public float Range { get; set; }
+        public Client VisibleOnlyFor { get; set; }
+
 
         /*
          * public static List<LabelModel> LabelList = new List<LabelModel>();
