@@ -23,16 +23,15 @@ namespace VenoXV._RootCore_.Sync
         //BlipClass Sync
         public static void LoadBlips(Client playerClass)
         {
-            List<BlipModel> AlleBlips = BlipList;
-            /*foreach (BlipModel blip in BlipList)
-            {
-                switch (blip.Name)
-                {
-                    case "Tankstelle":
+            List<BlipModel> AlleBlips = new List<BlipModel>();
 
-                        break;
+            foreach (BlipModel blip in BlipList)
+            {
+                if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
+                {
+                    AlleBlips.Add(blip);
                 }
-            }*/
+            }
             Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips));
         }
 
