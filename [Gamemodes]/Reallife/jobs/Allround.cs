@@ -3,6 +3,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -73,21 +74,25 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         [ClientEvent("accept_job_server")]
         public void Accept_job(Client player, string windowname)
         {
-            switch (windowname)
+            try
             {
-                case "Venox City Transport":
-                    player.Reallife.Job = Constants.JOB_CITY_TRANSPORT;
-                    dxLibary.VnX.DrawJobWindow(player, "Venox City Transport", "Wähle dein Fahrzeug aus", "Van<br>[Ab LvL 0]", "Transporter<br>[Ab LvL 50]", "LkW<br>[Ab LvL 100]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 100<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL));
-                    break;
-                case "LS Airport":
-                    player.Reallife.Job = Constants.JOB_AIRPORT;
-                    dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL));
-                    break;
-                case "VenoX Busdepot":
-                    player.Reallife.Job = Constants.JOB_BUS;
-                    dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL));
-                    break;
+                switch (windowname)
+                {
+                    case "Venox City Transport":
+                        player.Reallife.Job = Constants.JOB_CITY_TRANSPORT;
+                        dxLibary.VnX.DrawJobWindow(player, "Venox City Transport", "Wähle dein Fahrzeug aus", "Van<br>[Ab LvL 0]", "Transporter<br>[Ab LvL 50]", "LkW<br>[Ab LvL 100]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 100<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL));
+                        break;
+                    case "LS Airport":
+                        player.Reallife.Job = Constants.JOB_AIRPORT;
+                        dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL));
+                        break;
+                    case "VenoX Busdepot":
+                        player.Reallife.Job = Constants.JOB_BUS;
+                        dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL));
+                        break;
+                }
             }
+            catch (Exception ex) { Debug.CatchExceptions("AcceptJob", ex); }
         }
 
         [ClientEvent("Job:StartStage")]
@@ -132,7 +137,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch { }
         }
 
-
         /* Usefull Functions & Calling - Events/Functions */
 
         public static List<IColShape> CurrentJobColShapes = new List<IColShape>();
@@ -145,59 +149,92 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
         public static void CreateJobMarker(Client player, int BlipID, Vector3 Position, int Scale, int[] Color)
         {
-            MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player);
-            BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Job]", Position, BlipID, 75, false, player);
-            ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale);
-            player.vnxSetElementData(JOB_MARKER_ENTITY, markerClass);
-            player.vnxSetElementData(JOB_BLIP_ENTITY, blipClass);
-            player.vnxSetElementData(JOB_COL_ENTITY, colClass.Entity);
-            player.vnxSetElementData(JOB_COLCLASS_ENTITY, colClass);
-            CurrentJobMarker.Add(markerClass);
-            CurrentJobBlips.Add(blipClass);
-            CurrentJobColShapes.Add(colClass.Entity);
+            try
+            {
+                MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player, player.Dimension);
+                BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Job]", Position, BlipID, 75, false, player);
+                ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
+                player.vnxSetElementData(JOB_MARKER_ENTITY, markerClass);
+                player.vnxSetElementData(JOB_BLIP_ENTITY, blipClass);
+                player.vnxSetElementData(JOB_COL_ENTITY, colClass.Entity);
+                player.vnxSetElementData(JOB_COLCLASS_ENTITY, colClass);
+                CurrentJobMarker.Add(markerClass);
+                CurrentJobBlips.Add(blipClass);
+                CurrentJobColShapes.Add(colClass.Entity);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
         }
         public static void DestroyJobMarker(Client player)
         {
-            //Remove ColShapes
-            if (CurrentJobColShapes.Contains(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY)))
+            try
             {
-                RageAPI.RemoveColShape(player.vnxGetElementData<ColShapeModel>(JOB_COLCLASS_ENTITY));
-                CurrentJobColShapes.Remove(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY));
+                //Remove ColShapes
+                if (CurrentJobColShapes.Contains(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY)))
+                {
+                    RageAPI.RemoveColShape(player.vnxGetElementData<ColShapeModel>(JOB_COLCLASS_ENTITY));
+                    CurrentJobColShapes.Remove(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY));
+                }
+                //Remove Marker
+                if (CurrentJobMarker.Contains(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY)))
+                {
+                    RageAPI.RemoveMarker(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY));
+                    CurrentJobMarker.Remove(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY));
+                }
+                //Remove Blips
+                if (CurrentJobBlips.Contains(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY)))
+                {
+                    RageAPI.RemoveBlip(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY));
+                    CurrentJobBlips.Remove(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY));
+                }
             }
-            //Remove Marker
-            if (CurrentJobMarker.Contains(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY)))
-            {
-                CurrentJobMarker.Remove(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY));
-            }
-            //Remove Blips
-            if (CurrentJobBlips.Contains(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY)))
-            {
-                CurrentJobBlips.Remove(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY));
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyJobMarker", ex); }
         }
 
         public static void OnColShapeHit(IColShape col, Client player)
         {
-            OnPlayerEnterJobStartShape(col, player);
-            if (CurrentJobColShapes.Contains(col))
+            try
             {
-                switch (player.Reallife.Job)
+                OnPlayerEnterJobStartShape(col, player);
+                if (CurrentJobColShapes.Contains(col))
                 {
-                    case Constants.JOB_AIRPORT:
-                        Airport.Airport.OnJobMarkerHit(player);
-                        break;
-                    case Constants.JOB_BUS:
+                    switch (player.Reallife.Job)
+                    {
+                        case Constants.JOB_AIRPORT:
+                            Airport.Airport.OnJobMarkerHit(player);
+                            break;
+                        case Constants.JOB_BUS:
 
-                        break;
-                    case Constants.JOB_CITY_TRANSPORT:
+                            break;
+                        case Constants.JOB_CITY_TRANSPORT:
 
-                        break;
+                            break;
+                    }
                 }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeJobHit", ex); }
         }
         public static void OnPlayerDisconnect(Client player)
         {
-            DestroyJobMarker(player);
+            try
+            {
+                DestroyJobMarker(player);
+                foreach (VehicleModel vehClass in Alt.GetAllVehicles().ToList())
+                {
+                    if (vehClass.Job == player.Reallife.Job && vehClass.Owner == player.Reallife.Job)
+                    {
+                        vehClass.Remove();
+                    }
+                }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("OnPlayerDisconnect", ex); }
+        }
+        public static void OnPlayerLeaveVehicle(VehicleModel vehClass, Client player, byte Seat)
+        {
+            try
+            {
+                Airport.Airport.OnPlayerExitVehicle(vehClass, player);
+            }
+            catch (Exception ex) { Debug.CatchExceptions("OnPlayerLeaveVehicle", ex); }
         }
     }
 }
