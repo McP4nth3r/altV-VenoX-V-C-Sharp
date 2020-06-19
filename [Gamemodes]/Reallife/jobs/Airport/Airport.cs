@@ -20,11 +20,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
             try
             {
                 if (!player.IsInVehicle) { return; }
-                Allround.DestroyJobMarker(player);
-                player.Vehicle.Remove();
-                player.SetPosition = AIRPORT_HOME_SPAWN;
-                player.Reallife.JobStage = 0;
-                player.Dimension = 0;
                 switch (player.Reallife.JobStage)
                 {
                     case 1:
@@ -40,6 +35,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                         player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + MONEY_STAGE_3 + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " Bekommen.");
                         break;
                 }
+                Allround.DestroyJobMarker(player);
+                player.Vehicle.Remove();
+                player.SetPosition = AIRPORT_HOME_SPAWN;
+                player.Reallife.JobStage = 0;
+                player.Dimension = 0;
             }
             catch (Exception ex) { Debug.CatchExceptions("OnJobMarkerHit", ex); }
         }
