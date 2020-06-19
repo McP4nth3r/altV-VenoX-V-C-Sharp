@@ -724,7 +724,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Fun.Aktionen.Shoprob.Shoprob.OnPlayerDisconnected(player, type, reason);
                 anzeigen.Inventar.Main.OnPlayerDisconnect(player, type, reason);
                 VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                jobs.Allround.OnPlayerDisconnect(player);
+                if (player.Playing == true)
                 {
                     foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
                     {
@@ -744,13 +745,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                              }*/
                         }
                         // JOB 
-                        jobs.Allround.OnPlayerDisconnect(player);
-                        if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
-                        {
-                            Vehicle.Dimension = Constants.VEHICLE_JOB_OFFLINE_DIM;
-                        }
                     }
-
                     anzeigen.Usefull.VnX.SavePlayerDatas(player);
                 }
             }
