@@ -1,10 +1,12 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -596,7 +598,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         if (player.Reallife.Faction == Constants.FACTION_NONE)
                         {
-                            player.WarpOutOfVehicle<bool>();
+                            player.WarpOutOfVehicle();
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                             return;
                         }
@@ -622,8 +624,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Allround.isStateFaction(player))
                                 {
-                                    // player.WarpOutOfVehicle<bool>();
-                                    player.WarpOutOfVehicle<bool>();
+                                    // player.WarpOutOfVehicle();
+                                    player.WarpOutOfVehicle();
                                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Polizist im Dienst!");
                                     return;
                                 }
@@ -635,8 +637,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Allround.isBadFaction(player))
                                 {
-                                    // player.WarpOutOfVehicle<bool>();
-                                    player.WarpOutOfVehicle<bool>();
+                                    // player.WarpOutOfVehicle();
+                                    player.WarpOutOfVehicle();
                                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Gang-Skin an!");
                                     return;
                                 }
@@ -648,8 +650,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Allround.isNeutralFaction(player))
                                 {
-                                    // player.WarpOutOfVehicle<bool>();
-                                    player.WarpOutOfVehicle<bool>();
+                                    // player.WarpOutOfVehicle();
+                                    player.WarpOutOfVehicle();
                                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Fraktion´s-Skin an!");
                                     return;
                                 }
@@ -658,13 +660,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                         if (player.AdminRank == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
                         {
-                            player.WarpOutOfVehicle<bool>();
+                            player.WarpOutOfVehicle();
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein teil des Admin - Teams!");
                             return;
                         }
                         else if (vehFaction > 0 && playerFaction != vehFaction && vehFaction != Constants.FACTION_ADMIN)
                         {
-                            player.WarpOutOfVehicle<bool>();
+                            player.WarpOutOfVehicle();
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Mitglied dieser Fraktion!");
                             return;
                         }
@@ -688,30 +690,21 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
         }
 
-        ////[ServerEvent(Event.PlayerExitIVehicle)]
-        public void OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
+        [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
+        public static async void OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
         {
             try
             {
-                if (player.vnxGetElementData<bool>("FAHRZEUG_AM_TESTEN") == true && Vehicle.Owner == player.Username)
+                await Task.Run(async () =>
                 {
-                    player.vnxSetElementData("FAHRZEUG_AM_TESTEN", false);
-                    player.Dimension = 0;
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(225, 0, 0) + "[VenoX Motorsport Shop]" + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Altes Test - Fahrzeug wurde abgegeben!");
+                    await AltAsync.Do(() =>
+                    {
+                        jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
 
-                    Vehicle.Remove();
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
-                    player.SetPosition = new Position(-51.54087f, -1076.941f, 26.94754f);
-                    player.Dimension = 0;
-                    return;
-                }
-                if (player.vnxGetElementData<bool>("InTuningGarage") == true)
-                {
-                    Tunning.CloseTunningWindow(player);
-                }
-                Alt.Server.TriggerClientEvent(player, "resetSpeedometer", Vehicle);
+                    });
+                });
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
         }
 
         /*//[ServerEvent(Event.IVehicleDeath)]
