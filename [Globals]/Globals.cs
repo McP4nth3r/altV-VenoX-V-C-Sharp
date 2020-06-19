@@ -129,7 +129,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Zombie.Globals.Main.OnUpdate();
                 Sync.OnSyncTick();
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]

@@ -16,6 +16,7 @@ namespace VenoXV._RootCore_.Models
         public int Faction { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
         public int HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
         public int Hunger { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
+        public int JobStage { get; set; }
         public DateTime Zivizeit { get { return Player.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
         public string Job { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
         public int LIEFERJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL, value); } }
@@ -59,6 +60,7 @@ namespace VenoXV._RootCore_.Models
                 LIEFERJOB_LEVEL = 0;
                 BUSJOB_LEVEL = 0;
                 AIRPORTJOB_LEVEL = 0;
+                JobStage = 0;
                 OnDuty = 0;
                 OnDutyBad = 0;
                 OnDutyNeutral = 0;
@@ -131,6 +133,8 @@ namespace VenoXV._RootCore_.Models
     {
         private Player Player;
         public Client Owner { get; set; }
+        public bool IsRacing { get; set; }
+        public bool IsInRound { get; set; }
         public Race(Player player)
         {
             try

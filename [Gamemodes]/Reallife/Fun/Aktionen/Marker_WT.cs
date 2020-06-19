@@ -162,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                                         RageAPI.RemoveColShape(BALLAS_COL);
                                         RageAPI.RemoveColShape(COMPTON_COL);
                                     }
-                                    // player.WarpOutOfVehicle<bool>();
+                                    // player.WarpOutOfVehicle();
                                     AltV.Net.Alt.RemoveVehicle(vehicle);
                                 }
                             }

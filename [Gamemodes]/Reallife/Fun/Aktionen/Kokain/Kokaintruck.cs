@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 Allround.ChangeAktionsTimer(DateTime.Now.AddHours(1));
                                 Allround.ChangeAktionsState(false);
                                 RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
-                                player.WarpOutOfVehicle<bool>();
+                                player.WarpOutOfVehicle();
                                 player.Vehicle.Remove();
                                 Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");

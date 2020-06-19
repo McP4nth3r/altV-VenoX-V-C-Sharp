@@ -25,6 +25,7 @@ namespace VenoXV.Core
             try
             {
                 IColShape Entity = Alt.CreateColShapeSphere(Position, Radius);
+                Entity.Dimension = Dimension;
                 ColShapeModel ColShape = new ColShapeModel
                 {
 
@@ -173,7 +174,7 @@ namespace VenoXV.Core
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
         }
-        public static void WarpOutOfVehicle<T>(this Client player)
+        public static void WarpOutOfVehicle(this Client player)
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
         }
