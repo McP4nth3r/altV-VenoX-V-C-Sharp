@@ -20,7 +20,7 @@ namespace VenoXV.Core
             try { return Sync.ColShapeList; }
             catch (Exception ex) { Core.Debug.CatchExceptions("GetAllColShapes", ex); return new List<ColShapeModel>(); }
         }
-        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius)
+        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = 0)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace VenoXV.Core
                     Entity = Entity,
                     Position = Position,
                     Radius = Radius,
-                    Dimension = 0
+                    Dimension = Dimension
                 };
                 Sync.ColShapeList.Add(ColShape);
                 return ColShape;
@@ -306,7 +306,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
         }
-        public static void CreateBlip(BlipModel blipClass)
+        public static void RemoveBlip(BlipModel blipClass)
         {
             try
             {
@@ -326,15 +326,20 @@ namespace VenoXV.Core
                     posZ = coord.Z,
                     Sprite = Sprite,
                     Color = Color,
-                    ShortRange = ShortRange
+                    ShortRange = ShortRange,
+                    VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
+                foreach (Client players in Globals.Main.ReallifePlayers)
+                {
+                    Sync.LoadBlips(players);
+                }
                 return blip;
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
-        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, Client VisibleOnlyFor = null)
+        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, Client VisibleOnlyFor = null, int Dimension = 0)
         {
             try
             {
@@ -345,7 +350,7 @@ namespace VenoXV.Core
                     Position = Position,
                     Scale = Scale,
                     Color = Color,
-                    Dimension = 0,
+                    Dimension = Dimension,
                     Visible = true,
                     VisibleOnlyFor = VisibleOnlyFor
                 };

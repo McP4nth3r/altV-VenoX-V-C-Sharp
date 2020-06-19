@@ -9,5 +9,6 @@
         public int Sprite { get; set; }
         public int Color { get; set; }
         public bool ShortRange { get; set; }
+        public Client VisibleOnlyFor { get; set; }
     }
 }
