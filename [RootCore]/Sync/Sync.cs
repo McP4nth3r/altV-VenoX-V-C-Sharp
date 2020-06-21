@@ -33,44 +33,48 @@ namespace VenoXV._RootCore_.Sync
                     AlleBlips.Add(blip);
                 }
             }
-            Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None,
-                        new JsonSerializerSettings()
-                        {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                        }));
+            Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
         }
 
 
         // TextLabel Sync
         private static void SyncTextLabels(Client playerClass)
         {
-            Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveLabels");
-            foreach (LabelModel labels in LabelList)
+            try
             {
-                if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= 200 && labels.Dimension == playerClass.Dimension)
+                Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveLabels");
+                foreach (LabelModel labels in LabelList)
                 {
-                    if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
+                    if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= 200 && labels.Dimension == playerClass.Dimension)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                        if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                        }
                     }
                 }
             }
+            catch { }
         }
 
         // Marker Sync
         private static void SyncMarker(Client playerClass)
         {
-            Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
-            foreach (MarkerModel marker in MarkerList)
+            try
             {
-                if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
+                Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
+                foreach (MarkerModel marker in MarkerList)
                 {
-                    if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
+                    if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
+                        if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
+                        }
                     }
                 }
             }
+            catch { }
         }
         public static void LoadAllNPCs(Client playerClass)
         {
