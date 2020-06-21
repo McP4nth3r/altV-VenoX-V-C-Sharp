@@ -6,7 +6,6 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -690,18 +689,15 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
         }
 
-        [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
+        [AsyncScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
         public static async void OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
         {
             try
             {
-                await Task.Run(async () =>
+                await AltAsync.Do(() =>
                 {
-                    await AltAsync.Do(() =>
-                    {
-                        jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
+                    jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
 
-                    });
                 });
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
