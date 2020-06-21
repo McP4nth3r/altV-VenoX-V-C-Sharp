@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
@@ -1477,6 +1478,16 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
+        [Command("createobj")]
+        public static void CreateObj(Client player, string ObjName)
+        {
+            if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
+            {
+                Alt.EmitAllClients("Sync:LoadMap", "Custom", ObjName, new Vector3(player.Position.X, player.Position.Y, player.Position.Y - 0.3f), 0, 0, 0, 0, 2, player.Rotation, true, true);
+                Debug.OutputDebugString("CMD-Executed!");
+            }
+        }
+
         [Command("createvehicle")]
         public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save, int R = 255, int G = 255, int B = 255, int R2 = 255, int G2 = 255, int B2 = 255)
         {
@@ -1492,10 +1503,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 vehClass.Kms = 0;
                 vehClass.Faction = Faction;
                 if (Save) { Database.AddNewIVehicle(vehClass); }
-            }
-            else
-            {
-                Debug.OutputDebugString("NO RIGHTS!");
             }
         }
 
