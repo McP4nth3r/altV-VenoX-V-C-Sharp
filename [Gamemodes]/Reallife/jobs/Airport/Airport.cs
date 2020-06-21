@@ -39,6 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                 player.Vehicle.Remove();
                 player.SetPosition = AIRPORT_HOME_SPAWN;
                 player.Reallife.JobStage = 0;
+                player.Reallife.AIRPORTJOB_LEVEL += 1;
                 player.Dimension = 0;
             }
             catch (Exception ex) { Debug.CatchExceptions("OnJobMarkerHit", ex); }
