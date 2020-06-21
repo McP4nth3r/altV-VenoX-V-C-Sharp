@@ -164,6 +164,14 @@ alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
     try {
         alt.setTimeout(() => {
             game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+            if (!LocalPlayer.vehicle) {
+                alt.setTimeout(() => {
+                    game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+                    if (!LocalPlayer.vehicle) {
+                        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+                    }
+                }, 500);
+            }
         }, 500);
     }
     catch{ }
