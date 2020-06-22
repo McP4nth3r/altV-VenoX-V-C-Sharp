@@ -158,14 +158,16 @@ let MapC = 0;
 alt.onServer('Sync:LoadMap', (MapName, Hash, Position, QuaternionX, QuaternionY, QuaternionZ, QuaternionW, RotOrder, Rotation, freeze, HashNeeded) => {
     let Entity;
     if (HashNeeded) {
-        Entity = game.createObject(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
+        alt.loadModel(game.getHashKey(Hash));
+        Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
     }
     else {
-        Entity = game.createObject(Hash, Position.x, Position.y, Position.z, false, false, false);
+        alt.loadModel(Hash);
+        Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
     }
     game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, RotOrder, true);
     game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
-    game.freezeEntityPosition(Entity, freeze);
+    //game.freezeEntityPosition(Entity, freeze);
     MapObjects[MapC++] = {
         Entity: Entity,
         MapName: MapName
