@@ -105,6 +105,7 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
         blip.color = color;
         blip.shortRange = shortrange;
         blip.name = name;
+        return blip;
     }
     catch{ }
 }
