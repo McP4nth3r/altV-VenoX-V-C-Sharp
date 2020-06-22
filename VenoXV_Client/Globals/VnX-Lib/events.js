@@ -95,16 +95,34 @@ alt.onServer("movecamtocurrentpos_client", () => {
     catch{ }
 });
 
+let BlipList = {};
+let BlipC = 0;
 alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
     try {
         let Blip = JSON.parse(BlipJson);
         for (let i = 0; i < Blip.length; i++) {
             let data_blip = Blip[i];
             //alt.log("Datas : " + data_blip.Name + " | " + [data_blip.posX, data_blip.posY, data_blip.posZ] + " | " + data_blip.Sprite + " | " + data_blip.Color + " | " + data_blip.ShortRange);
-            CreateBlip(data_blip.Name, [data_blip.posX, data_blip.posY, data_blip.posZ], data_blip.Sprite, data_blip.Color, data_blip.ShortRange);
+            let cBlip = CreateBlip(data_blip.Name, [data_blip.posX, data_blip.posY, data_blip.posZ], data_blip.Sprite, data_blip.Color, data_blip.ShortRange);
+            BlipList[BlipC++] = {
+                Entity: cBlip,
+                Name: data_blip.Name,
+                X: data_blip.posX,
+                Y: data_blip.posY,
+                Z: data_blip.posZ
+            };
         }
     }
     catch{ }
+});
+
+alt.onServer('BlipClass:RemoveBlip', (Name, X, Y, Z) => {
+    for (var c_ in BlipList) {
+        if (BlipList[c_].Name == Name && BlipList[c_].X == X && BlipList[c_].Y == Y && BlipList[c_].Z == Z) {
+            game.deleteObject(BlipList[c_].Entity);
+            BlipList.splice(c_, 1);
+        }
+    }
 });
 
 alt.onServer("Clothes:Reset", () => {
