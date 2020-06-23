@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using System;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -11,7 +12,7 @@ using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
-    public class Tunning : IScript
+    public class Tuning : IScript
     {
         public static void OnResourceStart()
         {
@@ -26,55 +27,43 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                /*
-                if (shape == TuningGaragenTeleport)
+
+                if (shape == TuningGaragenTeleport.Entity)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
-                    return;
+                    // _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
+                    //return;
                     if (player.IsInVehicle)
                     {
                         VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                        if (Vehicle.Faction > Constants.FACTION_NONE)
+                        if (vehicle.Faction > Constants.FACTION_NONE)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
-                        else if (Vehicle.Owner !=player.Username)
+                        else if (vehicle.Owner != player.Username)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                             return;
                         }
-                        else if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst kein Aktions fahrzeug Tunen!");
-                            return;
-                        }
-                        else if (Vehicle.vnxGetElementData("VenoX_Rentals_Fahrzeug") == true)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst kein Miet-fahrzeug Tunen!");
-                            return;
-                        }
-                        else if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true || Vehicle.vnxGetElementData<bool>(VenoXV.Globals.EntityData.VEHICLE_NOT_SAVED) == true)
+                        else if (vehicle.NotSave == true)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
                             return;
                         }
-                        Alt.Server.TriggerClientEvent(player,"Remote_Speedo_Hide", true);
-                        player.vnxSetStreamSharedElementData("HideHUD", 1);
-                        IVehicle.position = new Position(-337.9052f, -136.9406f, 38.58294f);
-                        IVehicle.Rotation = new Position(0, 0, 300);
+                        vehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
+                        vehicle.Rotation = new Position(0, 0, 300);
                         vehicle.Frozen = true;
-                        VnX.CreateDiscordUpdate(player, "Am Auto Schrauben", "VenoX Reallife Tuning");
                         anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
-                        Alt.Server.TriggerClientEvent(player,"showTuningMenu");
+                        Alt.Server.TriggerClientEvent(player, "Tuning:Show");
+                        Alt.Server.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
                         player.vnxSetElementData("InTuningGarage", true);
                     }
-                }*/
+                }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShapeModel", ex); }
         }
 
-        //[AltV.Net.ClientEvent("CloseTuning")]
+        [ClientEvent("Reallife-Tuning:Close")]
         public static void CloseTunningWindow(Client player)
         {
             try
@@ -82,16 +71,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    Alt.Server.TriggerClientEvent(player,"Remote_Speedo_Hide", false);
-                    player.vnxSetStreamSharedElementData("HideHUD", 1);
+                    Alt.Server.TriggerClientEvent(player, "Remote_Speedo_Hide", false);
                     vehicle.Rotation = new Rotation(0f, 0f, 90f);
                     vehicle.Frozen = false;
                     vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
-                    anzeigen.Usefull.VnX.ResetDiscordData(player);
                 }
-                Alt.Server.TriggerClientEvent(player,"CloseTuningWindow");
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CloseTuningWindow", ex); }
         }
 
         public static void AddTunningToIVehicle(VehicleModel vehClass)
