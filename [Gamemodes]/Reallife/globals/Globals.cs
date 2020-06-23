@@ -9,6 +9,7 @@ using System.Threading;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.house;
+using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -85,7 +86,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             gangwar.Allround.OnUpdate();
             Fun.Aktionen.Shoprob.Shoprob.OnUpdate();
-            environment.Weed.Main.OnUpdate();
             environment.NPC.NPC.OnUpdate();
         }
 
@@ -126,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     factions.State.Allround.OnStateColShapeHit(shape, player);
                     Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
-                    Vehicles.Tunning.OnPlayerEnterColShapeModel(shape, player);
+                    Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
                 }
                 Core.Debug.OutputDebugString("Entity : " + entity);
@@ -652,14 +652,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-
                 //*///////////////////////////////////// SQL LOADING ///////////////////////////////////////////////////*//
-
                 // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
                 Database.OnResourceStart();
                 // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
-
-
                 //*///////////////////////////////////// BASIC LOADING ///////////////////////////////////////////////////*//
                 // Interior Loading
                 //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_dt1_02_office_02b");
@@ -695,24 +691,25 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 CarShop.OnResourceStart();
                 Clothes.Clothes.OnResourceStart();
                 Environment.ammunation.Ammunation.OnResourceStart();
-                Factions.Allround.OnResourceStart(); // Label - Faction Loading !
+                Allround.OnResourceStart(); // Label - Faction Loading !
                 fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 Fun.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 premium.vnxcase.VenoXCases.OnResourceStart();
                 Vehicles.PaynSpray.OnResourceStart();
-                Vehicles.Tunning.OnResourceStart();
+                Vehicles.Tuning.OnResourceStart();
                 Vehicles.Verleih.OnResourceStart();
                 Vehicles.Vehicles.OnResourceStart();
                 gangwar.Allround.OnResourceStart();
                 weapons.Combat.OnResourceStart();
                 Club.RussianClub.OnResourceStart();
+                Bus.OnResourceStart();
 
                 // 0,105,145 <----- Dunkler Rgba Code Blau !
                 // 0,150,200 <----- Dunkler Rgba Code Mittelmäßig Helles Blau!
                 // 0,200,255 <----- Dunkler Rgba Code Extrem Helles Blau!
                 // 40,40,40,0.8 <----- Grau Rgba Code !
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnResourceStartReallife", ex); }
         }
 
 
