@@ -70,6 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
             catch (Exception ex) { Debug.CatchExceptions("OnJobAcceptColHit", ex); }
         }
+
         // Wenn der Spieler seinen Job annimmt im Marker.
         [ClientEvent("accept_job_server")]
         public void Accept_job(Client player, string windowname)
@@ -110,7 +111,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         break;
 
                     case Constants.JOB_BUS:
-
+                        Bus.Bus.StartBusJob(player, stage);
                         break;
 
                     default:
@@ -154,6 +155,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player, player.Dimension);
                 BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Job]", Position, BlipID, 75, false, player);
                 ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
+                Alt.Server.TriggerClientEvent(player, "Player:SetWaypoint", Position.X, Position.Y);
                 player.vnxSetElementData(JOB_MARKER_ENTITY, markerClass);
                 player.vnxSetElementData(JOB_BLIP_ENTITY, blipClass);
                 player.vnxSetElementData(JOB_COL_ENTITY, colClass.Entity);
@@ -164,6 +166,26 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
         }
+
+        public static VehicleModel CreateJobVehicle(Client player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = 0, bool WarpIntoVehicle = true)
+        {
+            try
+            {
+                VehicleModel JobVehicle = (VehicleModel)Alt.CreateVehicle(veh, Position, Rotation);
+                player.Dimension = Dimension;
+                JobVehicle.Dimension = Dimension;
+                JobVehicle.EngineOn = true;
+                JobVehicle.Owner = player.Username;
+                JobVehicle.Kms = 0;
+                JobVehicle.Gas = 100;
+                JobVehicle.Job = Job;
+                JobVehicle.NotSave = true;
+                if (WarpIntoVehicle) { player.WarpIntoVehicle(JobVehicle, -1); }
+                return JobVehicle;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobVehicle", ex); return null; }
+        }
+
         public static void DestroyJobMarker(Client player)
         {
             try
@@ -195,7 +217,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 OnPlayerEnterJobStartShape(col, player);
-                if (CurrentJobColShapes.Contains(col))
+                if (CurrentJobColShapes.Contains(col) && player.vnxGetElementData<IColShape>(JOB_COL_ENTITY) == col)
                 {
                     switch (player.Reallife.Job)
                     {
@@ -203,7 +225,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                             Airport.Airport.OnJobMarkerHit(player);
                             break;
                         case Constants.JOB_BUS:
-
+                            Bus.Bus.OnJobMarkerHit(player);
                             break;
                         case Constants.JOB_CITY_TRANSPORT:
 
@@ -235,6 +257,10 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 Airport.Airport.OnPlayerExitVehicle(vehClass, player);
             }
             catch (Exception ex) { Debug.CatchExceptions("OnPlayerLeaveVehicle", ex); }
+        }
+        public static void OnResourceStart()
+        {
+            Bus.Bus.OnResourceStart();
         }
     }
 }
