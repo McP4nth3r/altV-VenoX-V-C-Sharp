@@ -307,11 +307,15 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
         }
-        public static void RemoveBlip(BlipModel blipClass)
+        public static void RemoveBlip(BlipModel blipClass, Client DeleteFor = null)
         {
             try
             {
                 if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
+                if (DeleteFor != null)
+                {
+                    DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name);
+                }
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); }
         }
@@ -368,6 +372,29 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveMarker", ex); }
         }
+        private static int ObjectCounter = 0;
+        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = 0, Client VisibleOnlyFor = null)
+        {
+            try
+            {
+                ObjectModel obj = new ObjectModel
+                {
+                    ID = ObjectCounter++,
+                    Parent = Parent,
+                    Hash = Hash,
+                    Position = Position,
+                    Rotation = Rotation,
+                    Quaternion = Quaternion,
+                    HashNeeded = HashNeeded,
+                    Dimension = Dimension,
+                    VisibleOnlyFor = VisibleOnlyFor
+                };
+                Sync.ObjectList.Add(obj);
+                return obj;
+            }
+            catch (Exception ex) { Debug.CatchExceptions("CreateObject", ex); return new ObjectModel(); }
+        }
+
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, Client VisibleOnlyFor = null)
         {
             try
