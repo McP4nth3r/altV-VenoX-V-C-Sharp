@@ -13,11 +13,13 @@ namespace VenoXV._RootCore_.Sync
     {
         //Settings
         public static int UpdateInterval = 5; // Sync Update in Seconds.
+        public static int RenderDistance = 200; // Distance to a Obj to Create.
 
         public static List<BlipModel> BlipList = new List<BlipModel>();
         public static List<LabelModel> LabelList = new List<LabelModel>();
         public static List<NPCModel> NPCList = new List<NPCModel>();
         public static List<MarkerModel> MarkerList = new List<MarkerModel>();
+        public static List<ObjectModel> ObjectList = new List<ObjectModel>();
         public static List<ColShapeModel> ColShapeList = new List<ColShapeModel>();
         public static DateTime NextSyncTick = DateTime.Now;
 
@@ -25,7 +27,6 @@ namespace VenoXV._RootCore_.Sync
         public static void LoadBlips(Client playerClass)
         {
             List<BlipModel> AlleBlips = new List<BlipModel>();
-
             foreach (BlipModel blip in BlipList)
             {
                 if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
@@ -36,6 +37,20 @@ namespace VenoXV._RootCore_.Sync
             Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
         }
 
+        private static void SyncObjects(Client playerClass)
+        {
+            Alt.Server.TriggerClientEvent(playerClass, "Sync:DestroyObjs");
+            foreach (ObjectModel obj in ObjectList)
+            {
+                if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
+                {
+                    if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
+                    {
+                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
+                    }
+                }
+            }
+        }
 
         // TextLabel Sync
         private static void SyncTextLabels(Client playerClass)
@@ -45,7 +60,7 @@ namespace VenoXV._RootCore_.Sync
                 Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveLabels");
                 foreach (LabelModel labels in LabelList)
                 {
-                    if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= 200 && labels.Dimension == playerClass.Dimension)
+                    if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= RenderDistance && labels.Dimension == playerClass.Dimension)
                     {
                         if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
                         {
@@ -65,7 +80,7 @@ namespace VenoXV._RootCore_.Sync
                 Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
                 foreach (MarkerModel marker in MarkerList)
                 {
-                    if (playerClass.Position.Distance(marker.Position) <= 200 && marker.Dimension == playerClass.Dimension)
+                    if (playerClass.Position.Distance(marker.Position) <= RenderDistance && marker.Dimension == playerClass.Dimension)
                     {
                         if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
                         {
@@ -98,6 +113,7 @@ namespace VenoXV._RootCore_.Sync
                     {
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);
+                        SyncObjects(playerClass);
                     }
                     NextSyncTick = DateTime.Now.AddSeconds(UpdateInterval);
                 }
