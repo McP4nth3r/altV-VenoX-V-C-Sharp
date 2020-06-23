@@ -104,6 +104,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             player.Dimension = Constants.FACTION_NONE;
                             player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
                         }
+                        else if (player.Reallife.Faction == Constants.FACTION_MECHANIK)
+                        {
+                            player.Dimension = Constants.FACTION_NONE;
+                            player.SetPosition = new Vector3(-440.58463f, -1693.833f, 19.186768f);
+                        }
                         else if (player.Reallife.Faction == Constants.FACTION_BALLAS)
                         {
                             player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
