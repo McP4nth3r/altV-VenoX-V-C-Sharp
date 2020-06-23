@@ -117,20 +117,40 @@ alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, Sc
     };
 })
 alt.onServer('Sync:RemoveMarkers', () => {
-    //outputted = false;
     CurrentMarkers = {};
 });
 
-/*
-let outputted = false;
-function DebugLog() {
-    let c = 0;
-    for (var labels in CurrentLabels) {
-        c++;
+let cObjs = {};
+let cObjCounter = 0;
+alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => {
+    let Entity;
+    if (HashNeeded) {
+
+        alt.loadModel(game.getHashKey(Hash));
+        Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
     }
-    alt.log(c);
-    outputted = true;
-}*/
+    else {
+        alt.loadModel(Hash);
+        Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
+    }
+    game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, 2, true);
+    game.setEntityQuaternion(Entity, 0, 0, 0, 0);
+    cObjs[cObjCounter++] = {
+        Entity: Entity,
+        Parent: Parent
+    };
+});
+
+alt.onServer('Sync:DestroyObjs', () => {
+    for (var counter in cObjs) {
+        if (cObjs[counter].Entity != null) {
+            game.deleteObject(cObjs[counter].Entity);
+        }
+    }
+    cObjs = {};
+    cObjCounter = 0;
+});
+
 
 function SyncTextLabels() {
     for (var labels in CurrentLabels) {
@@ -152,7 +172,7 @@ alt.everyTick(() => {
     SyncMarkers();
 });
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let MapObjects = {};
 let MapC = 0;
 alt.onServer('Sync:LoadMap', (MapName, Hash, Position, QuaternionX, QuaternionY, QuaternionZ, QuaternionW, RotOrder, Rotation, freeze, HashNeeded) => {
@@ -183,3 +203,6 @@ alt.onServer('Sync:UnloadMap', (MapName) => {
         }
     }
 });
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
