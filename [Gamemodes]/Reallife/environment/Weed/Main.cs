@@ -1,9 +1,9 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 
@@ -15,30 +15,14 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
 
 
         ///////////////////////////////////////////////////////////////////////////////////
-        //Settings : 
-
-        public const int MAX_WEED_DISTANCE = 50; // Die Maximale Distanz um ein Weed Objekt zu Streamen.
-        public const int UPDATE_INTERVAL_WEED = 2; // Distance Interval zum Checken der Maximalen Distanz für jeden Spieler.
-        public const int MAX_LIST_SIZE = 70;
-
-
-        //Const
-        public static DateTime NextUpdate = DateTime.Now;
-
-
-        ///////////////////////////////////////////////////////////////////////////////////
 
         public static void CreateWeedObject(WeedModel weed)
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers)
-                {
-                    if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
-                    {
-                        Alt.Server.TriggerClientEvent(player,"Weed:Create", JsonConvert.SerializeObject(weed));
-                    }
-                }
+                string Text = "~g~" + weed.Name + "\n____________\n ~g~Gewachsen : ~w~" + weed.Value + "% \n ~g~Erstellt am : ~w~ " + weed.Created.Date + " - " + weed.Created.Hour + " : " + weed.Created.Minute;
+                Core.RageAPI.CreateObject("WeedObjects", "prop_weed_01", weed.Position, weed.Rotation, new Quaternion(0, 0, 0, 0), true);
+                Core.RageAPI.CreateTextLabel(Text, weed.Position, 20, 1, 0, new int[] { 255, 255, 255, 255 });
             }
             catch { }
         }
@@ -59,51 +43,9 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                     IsInWeedGarage = false,
                     IsFakeWeedPlant = false,
                 };
+                CreateWeedObject(weed);
                 WeedList.Add(weed);
             }
-        }
-        public static void OnUpdate()
-        {
-            if (NextUpdate > DateTime.Now) { return; }
-            foreach (Client player in VenoXV.Globals.Main.ReallifePlayers)
-            {
-                Alt.Server.TriggerClientEvent(player,"Weed:Destroy");
-                List<WeedModel> NearestWeedPlants = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants1 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants2 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants3 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants4 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants5 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants6 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants7 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants8 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants9 = new List<WeedModel>();
-                List<WeedModel> NearestWeedPlants10 = new List<WeedModel>();
-                foreach (WeedModel weed in WeedList)
-                {
-                    if (player.Position.Distance(weed.Position) <= MAX_WEED_DISTANCE)
-                    {
-                        if (NearestWeedPlants.Count < MAX_LIST_SIZE) { NearestWeedPlants.Add(weed); }
-                        else if (NearestWeedPlants1.Count < MAX_LIST_SIZE) { NearestWeedPlants1.Add(weed); }
-                        else if (NearestWeedPlants2.Count < MAX_LIST_SIZE) { NearestWeedPlants2.Add(weed); }
-                        else if (NearestWeedPlants3.Count < MAX_LIST_SIZE) { NearestWeedPlants3.Add(weed); }
-                        else if (NearestWeedPlants4.Count < MAX_LIST_SIZE) { NearestWeedPlants4.Add(weed); }
-                        else if (NearestWeedPlants5.Count < MAX_LIST_SIZE) { NearestWeedPlants5.Add(weed); }
-                    }
-                }
-                if (NearestWeedPlants.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants)); }
-                if (NearestWeedPlants1.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants1)); }
-                if (NearestWeedPlants2.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants2)); }
-                if (NearestWeedPlants3.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants3)); }
-                if (NearestWeedPlants4.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants4)); }
-                if (NearestWeedPlants5.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants5)); }
-                if (NearestWeedPlants6.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants6)); }
-                if (NearestWeedPlants7.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants7)); }
-                if (NearestWeedPlants8.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants8)); }
-                if (NearestWeedPlants9.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants9)); }
-                if (NearestWeedPlants10.Count > 0) { Alt.Server.TriggerClientEvent(player,"Weed:Update", JsonConvert.SerializeObject(NearestWeedPlants10)); }
-            }
-            NextUpdate = DateTime.Now.AddSeconds(UPDATE_INTERVAL_WEED);
         }
     }
 }
