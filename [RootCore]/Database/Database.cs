@@ -290,10 +290,11 @@ namespace VenoXV._RootCore_.Database
             catch { }
         }
 
-        public static void RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht)
+        public static int RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht)
         {
             try
             {
+                int RegisteredUID = -1;
                 using MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
@@ -305,9 +306,11 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@passwort", password);
                 command.Parameters.AddWithValue("@Geschlecht", geschlecht);
+                RegisteredUID = (int)command.LastInsertedId;
                 command.ExecuteNonQuery();
+                return RegisteredUID;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); return -1; }
         }
 
         public static void CreateCharacterSkin(int UID, string facefeatures, string headblends, string headoverlays)
@@ -322,7 +325,6 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@facefeatures", facefeatures);
                 command.Parameters.AddWithValue("@headblends", headblends);
                 command.Parameters.AddWithValue("@headoverlays", headoverlays);
-
                 command.ExecuteNonQuery();
             }
             catch { }

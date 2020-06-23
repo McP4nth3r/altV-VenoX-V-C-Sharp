@@ -49,8 +49,8 @@ namespace VenoXV._Preload_.Register
             }
         }
 
-        //[ClientEvent("Account:Register")]
-        public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, string geschlecht, bool evalid)
+        [ClientEvent("Account:Register")]
+        public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
         {
             try
             {
@@ -62,15 +62,17 @@ namespace VenoXV._Preload_.Register
 
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
-                if (geschlecht == "1") { sex = 1; geschlechtalsstring = "Weiblich"; }
+                if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
                 Core.Debug.OutputDebugString("SEX" + geschlecht);
-                Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring);
+                int UID = Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring);
+                player.Username = nickname;
+                player.UID = UID;
+                Core.Debug.OutputDebugString("Vitols UID : " + UID);
                 Database.CreateCharacter(player, player.UID);
                 _ = Program.CreateForumUser(nickname, email, password);
-                Alt.Server.TriggerClientEvent(player,"DestroyLoginWindow");
-                Alt.Server.TriggerClientEvent(player,"CharCreator:Start", sex);
+                Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
+                Alt.Server.TriggerClientEvent(player, "CharCreator:Start", sex);
                 player.Playing = true;
-                player.Username = nickname;
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 ChangeCharacterSexEvent(player, sex);

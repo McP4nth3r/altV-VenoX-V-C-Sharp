@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using VenoXV._Maps_.Model;
@@ -14,56 +15,60 @@ namespace VenoXV._Maps_
         private static readonly List<MapModel> LSPDMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + LSPD_MAP + ".json"));
 
         public const string NOOBSPAWN_MAP = "NOOBSPAWN";
-        //private static readonly List<MapModel> NOOBSPAWNMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + NOOBSPAWN_MAP + ".json"));
+        private static readonly List<MapModel> NOOBSPAWNMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + NOOBSPAWN_MAP + ".json"));
 
         public const string STADTHALLE_MAP = "STADTHALLE";
         private static readonly List<MapModel> STADTHALLEMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + STADTHALLE_MAP + ".json"));
 
         public const string WUERFELPARK_MAP = "WUERFELPARK";
-        //private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));        
+        private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));
 
         public const string SEVENTOWERS_MAP = "SEVENTOWERS";
-        //private static readonly List<MapModel> SEVENTOWERSMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + SEVENTOWERS_MAP + ".json"));
+        private static readonly List<MapModel> SEVENTOWERSMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + SEVENTOWERS_MAP + ".json"));
 
         private static readonly int ROT_ORDER_NORMAL = 2;
         public static void LoadMap(Client playerClass, string MapName)
         {
-            switch (MapName)
+            try
             {
-                case LSPD_MAP:
-                    foreach (MapModel mapClass in LSPDMAP)
-                    {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                        //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
-                    }
-                    break;
-                case NOOBSPAWN_MAP:
-                    /*foreach (MapModel mapClass in NOOBSPAWNMAP)
-                    {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                    }*/
-                    break;
-                case STADTHALLE_MAP:
-                    foreach (MapModel mapClass in STADTHALLEMAP)
-                    {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                        //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
-                    }
-                    break;
-                case SEVENTOWERS_MAP:
-                    /*-foreach (MapModel mapClass in SEVENTOWERSMAP)
-                    {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion, ROT_ORDER_NORMAL, mapClass.Rotation, true, true);
-                        Core.Debug.OutputDebugString(MapName + " | " + mapClass.Hash + " | " + mapClass.Position.X + " | " + mapClass.Position.Y + " | " + mapClass.Position.Z + " | " + mapClass.Rotation.X + " | " + mapClass.Rotation.Y + " | " + mapClass.Rotation.Z);
-                    }*/
-                    break;
-                case WUERFELPARK_MAP:
-                    /*foreach (MapModel mapClass in WUERFELPARKMAP)
-                    {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z);
-                    }*/
-                    break;
+                switch (MapName)
+                {
+                    case LSPD_MAP:
+                        foreach (MapModel mapClass in LSPDMAP)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                        }
+                        break;
+                    case NOOBSPAWN_MAP:
+                        foreach (MapModel mapClass in NOOBSPAWNMAP)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                        }
+                        break;
+                    case STADTHALLE_MAP:
+                        foreach (MapModel mapClass in STADTHALLEMAP)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion.X, mapClass.Quaternion.Y, mapClass.Quaternion.Z, mapClass.Quaternion.W, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                        }
+                        break;
+                    case SEVENTOWERS_MAP:
+                        foreach (MapModel mapClass in SEVENTOWERSMAP)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, mapClass.Quaternion, ROT_ORDER_NORMAL, mapClass.Rotation, true, true);
+                            Core.Debug.OutputDebugString(MapName + " | " + mapClass.Hash + " | " + mapClass.Position.X + " | " + mapClass.Position.Y + " | " + mapClass.Position.Z + " | " + mapClass.Rotation.X + " | " + mapClass.Rotation.Y + " | " + mapClass.Rotation.Z);
+                        }
+                        break;
+                    case WUERFELPARK_MAP:
+                        foreach (MapModel mapClass in WUERFELPARKMAP)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position.X, mapClass.Position.Y, mapClass.Position.Z);
+                        }
+                        break;
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("LoadMap", ex); }
         }
         public static void UnloadMap(Client playerClass, string MapName)
         {
