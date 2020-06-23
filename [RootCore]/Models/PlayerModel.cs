@@ -147,6 +147,7 @@ namespace VenoXV._RootCore_.Models
     public class SevenTowers
     {
         public bool Spawned { get; set; }
+        public DateTime SpawnedTime { get; set; }
         public SevenTowers(Player player)
         {
             try
@@ -240,6 +241,8 @@ namespace VenoXV._RootCore_.Models
         public int Played { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_PLAYED); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_PLAYED, value); } }
         public bool Playing { get { return this.vnxGetElementData<bool>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING); } set { this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
         public string Vip_Paket { get; set; }
+        private bool _frozen { get; set; }
+        public bool Freeze { get { return _frozen; } set { _frozen = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
         public Client(IntPtr nativePointer, ushort id) : base(nativePointer, id)

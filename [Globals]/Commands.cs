@@ -9,6 +9,47 @@ namespace VenoXV._Globals_
 {
     public class Commands : IScript
     {
+        [Command("skipround")]
+        public static void SkipRound(Client player, string gm)
+        {
+            string Gamemode = gm.ToLower();
+            switch (Gamemode)
+            {
+                case "seventowers":
+                    _Gamemodes_.SevenTowers.Main.StartNewRound();
+                    break;
+                case "tactics":
+                    if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
+                    {
+                        _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat die Tactic Runde übersprungen!");
+                        _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " hat die Runde übersprungen!");
+                        _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!");
+                    }
+                    break;
+                case "race":
+                    if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
+                    {
+                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + " hat das Rennen übersprungen!");
+                        _Gamemodes_.Race.Lobby.Main.StartNewRound();
+                    }
+                    break;
+            }
+        }
+
+        [Command("pos")]
+        public static void GetPlayerPos(Client player)
+        {
+            Core.Debug.OutputDebugString("Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
+            Vector3 rot = player.Rotation;
+            if (player.IsInVehicle)
+            {
+                rot = player.Vehicle.Rotation;
+            }
+            RageAPI.CreateMarker(0, player.Position, new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 }, player, player.Dimension);
+            Core.Debug.OutputDebugString("Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
+            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
+            player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
+        }
 
         public static List<CameraModel> CurrentPlayerCameras = new List<CameraModel>();
         private static int GetCameraCount(Client player)
@@ -45,7 +86,7 @@ namespace VenoXV._Globals_
                 ID = ID
             };
             //CurrentPlayerCameras.Add(PlayerCamera);
-            Alt.Server.TriggerClientEvent(player,"Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
+            Alt.Server.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
         }
         [Command("stopcam")]
         public static void StopCurrentCamera(Client player)
@@ -99,7 +140,7 @@ namespace VenoXV._Globals_
             {
                 if (cam.CameraCreator == player.Username && cam.ID == ID)
                 {
-                    Alt.Server.TriggerClientEvent(player,"Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
+                    Alt.Server.TriggerClientEvent(player, "Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
                 }
             }
         }

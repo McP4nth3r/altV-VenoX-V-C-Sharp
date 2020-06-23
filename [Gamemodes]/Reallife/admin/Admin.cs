@@ -731,17 +731,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
-        [Command("pos")]
-        public void PosCommand(Client player)
-        {
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
-            {
-                Console.WriteLine("Position : " + player.Position);
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  Rot : " + RageAPI.GetHexColorcode(255, 255, 255) + player.Rotation);
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "  POS X :" + player.Position.X + " | POS Y : " + player.Position.Y + " | POS Z : " + player.Position.Z);
-            }
-        }
-
         [Command("sstate")]
         public static void SetSocialStatePlayer(Client player, string target_name, string element)
         {

@@ -66,7 +66,7 @@ namespace VenoXV._Preload_
                 case 0:
                     player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
                     player.Language = (int)_Language_.Main.Languages.German;
-                    Load.LoadGamemodeWindows(player, (int)Gamemodes.Reallife);
+                    Load.LoadGamemodeWindows(player, Gamemodes.Reallife);
                     Globals.Main.ReallifePlayers.Add(player);
                     _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
@@ -74,6 +74,7 @@ namespace VenoXV._Preload_
                 case 1:
                     Globals.Main.ZombiePlayers.Add(player);
                     player.Language = (int)_Language_.Main.Languages.English;
+                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                     player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Zombies);
                     _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
@@ -91,13 +92,17 @@ namespace VenoXV._Preload_
                 case 3:
                     player.Gamemode = (int)Gamemodes.Race;
                     player.Language = (int)_Language_.Main.Languages.German;
+                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
+
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Race);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                     break;
                 case 4:
+                    Load.LoadGamemodeWindows(player, Gamemodes.SevenTowers);
                     player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
+                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                     player.Language = (int)_Language_.Main.Languages.English;
                     Globals.Main.SevenTowersPlayers.Add(player);
                     _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
@@ -138,16 +143,11 @@ namespace VenoXV._Preload_
             _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
         }
-        private static void LoadSevenTowersMap(Client player)
-        {
-            _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
-        }
         [ServerEvent("GlobalSystems:PlayerReady")]
         public void PlayerConnect(Client player)
         {
             try
             {
-                LoadSevenTowersMap(player);
                 LoadReallifeMaps(player);
                 Alt.Server.TriggerClientEvent(player, "showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
                 player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode

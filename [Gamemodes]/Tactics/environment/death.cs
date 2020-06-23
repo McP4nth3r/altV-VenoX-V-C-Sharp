@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._RootCore_.Models;
@@ -10,11 +9,6 @@ namespace VenoXV._Gamemodes_.Tactics.environment
 {
     public class Death : IScript
     {
-        [Command("tpos")]
-        public static void GetTacticSpawnpoint(Client player)
-        {
-            Core.Debug.OutputDebugString("TPOS : " + player.Position.X + "f, " + player.Position.Y + "f, " + player.Position.Z + "f");
-        }
         public static void OnPlayerDeath(Client player, Client killer)
         {
             try
@@ -76,7 +70,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);
-                    Alt.Server.TriggerClientEvent(player,"Tactics:OnDeath");
+                    Alt.Server.TriggerClientEvent(player, "Tactics:OnDeath");
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllPlayerWeapons();
                 }

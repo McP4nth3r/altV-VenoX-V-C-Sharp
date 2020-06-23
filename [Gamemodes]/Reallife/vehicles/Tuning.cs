@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         vehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
                         vehicle.Rotation = new Position(0, 0, 300);
                         vehicle.Frozen = true;
-                        anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
+                        // anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                         Alt.Server.TriggerClientEvent(player, "Tuning:Show");
                         Alt.Server.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
                         player.vnxSetElementData("InTuningGarage", true);

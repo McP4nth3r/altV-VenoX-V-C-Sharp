@@ -25,6 +25,7 @@ namespace VenoXV._Preload_
                     //Test
                     break;
                 case Gamemodes.SevenTowers:
+                    _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     break;
             }
         }
@@ -43,6 +44,7 @@ namespace VenoXV._Preload_
                 case Gamemodes.Zombies:
                     break;
                 case Gamemodes.SevenTowers:
+                    _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     break;
             }
         }

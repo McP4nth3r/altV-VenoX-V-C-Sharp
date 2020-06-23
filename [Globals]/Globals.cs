@@ -23,17 +23,20 @@ namespace VenoXV.Globals
                 int Gamemode = player.Gamemode;
                 switch (Gamemode)
                 {
-                    case (int)_Preload_.Preload.Gamemodes.Reallife:
+                    case (int)Preload.Gamemodes.Reallife:
                         ReallifePlayers.Remove(player);
                         break;
-                    case (int)_Preload_.Preload.Gamemodes.Tactics:
+                    case (int)Preload.Gamemodes.Tactics:
                         TacticsPlayers.Remove(player);
                         break;
-                    case (int)_Preload_.Preload.Gamemodes.Zombies:
+                    case (int)Preload.Gamemodes.Zombies:
                         ZombiePlayers.Remove(player);
                         break;
-                    case (int)_Preload_.Preload.Gamemodes.Race:
+                    case (int)Preload.Gamemodes.Race:
                         RacePlayers.Remove(player);
+                        break;
+                    case (int)Preload.Gamemodes.SevenTowers:
+                        SevenTowersPlayers.Remove(player);
                         break;
                 }
             }

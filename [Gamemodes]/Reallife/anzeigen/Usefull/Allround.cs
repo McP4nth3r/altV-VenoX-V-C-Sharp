@@ -441,6 +441,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 Random random = new Random();
                 int cevent = random.Next(1, 9999999);
+                if (player.IsInVehicle) { player.Vehicle.Dimension = cevent; }
                 player.Dimension = cevent;
             }
             catch

@@ -50,4 +50,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="[Gamemodes]\SevenTowers\admin\" />
+  </ItemGroup>
 </Project>
