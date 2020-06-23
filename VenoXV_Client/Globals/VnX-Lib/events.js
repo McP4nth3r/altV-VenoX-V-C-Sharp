@@ -116,10 +116,12 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
     catch{ }
 });
 
-alt.onServer('BlipClass:RemoveBlip', (Name, X, Y, Z) => {
+alt.onServer('BlipClass:RemoveBlip', (Name) => {
     for (var c_ in BlipList) {
-        if (BlipList[c_].Name == Name && BlipList[c_].X == X && BlipList[c_].Y == Y && BlipList[c_].Z == Z) {
-            game.deleteObject(BlipList[c_].Entity);
+        if (BlipList[c_].Name == Name) {
+            //game.deleteObject(BlipList[c_].Entity);
+            game.removeBlip(BlipList[c_].Entity);
+            alt.log("Remove Blip : " + Name);
             BlipList.splice(c_, 1);
         }
     }
@@ -170,7 +172,12 @@ alt.onServer('Player:Visible', (bool) => {
     }
     catch{ }
 });
-
+alt.onServer('Player:SetWaypoint', (X, Y) => {
+    try {
+        game.setNewWaypoint(X, Y);
+    }
+    catch{ }
+});
 alt.onServer('Player:Alpha', (alpha) => {
     try {
         game.setEntityAlpha(Entity.scriptID, alpha, true);
