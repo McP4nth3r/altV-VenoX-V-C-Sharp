@@ -52,6 +52,12 @@ alt.onServer('Job:ShowSelection1', (headertext, boxtext, buttontext1, buttontext
 });
 
 
+alt.onServer('BusJob:CreateTimeout', (ms) => {
+	alt.setTimeout(() => {
+		alt.emitServer("BusJob:TimeoutDone");
+	}, ms);
+});
+
 
 
 
