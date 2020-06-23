@@ -58,6 +58,7 @@ alt.onServer('Tuning:Show', () => {
     ShowCursor(true);
     cTuning.on('Tuning:Destroy', () => {
         vnxDestroyCEF('Reallife-Tuning');
+        alt.emitServer('Reallife-Tuning:Close');
     });
     FillTuningList();
 });
