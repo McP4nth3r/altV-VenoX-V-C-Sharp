@@ -32,14 +32,14 @@ import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js
 import * as Inventory from '/VenoXV_Client/Reallife/inventory/index.js';
 import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/index.js';
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
-import * as Weed from '/VenoXV_Client/Reallife/environment/weed/index.js';
+import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as Death from '/VenoXV_Client/Reallife/environment/death/index.js';
-import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/script.js';
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
 import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
+import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
 alt.setStat('stamina', 100);
 alt.setStat('strength', 100);
 alt.setStat('lung_capacity', 100);
