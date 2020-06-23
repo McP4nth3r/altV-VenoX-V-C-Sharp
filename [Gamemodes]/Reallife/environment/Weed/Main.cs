@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         {
             try
             {
-                string Text = "~g~" + weed.Name + "\n____________\n ~g~Gewachsen : ~w~" + weed.Value + "% \n ~g~Erstellt am : ~w~ " + weed.Created.Date + " - " + weed.Created.Hour + " : " + weed.Created.Minute;
+                string Text = "~g~" + weed.Name + "\n____________\n ~g~Gewachsen : ~w~" + weed.Value + "% \n ~g~Erstellt am : ~w~ " + weed.Created;
                 Core.RageAPI.CreateObject("WeedObjects", "prop_weed_01", weed.Position, weed.Rotation, new Quaternion(0, 0, 0, 0), true);
                 Core.RageAPI.CreateTextLabel(Text, weed.Position, 20, 1, 0, new int[] { 255, 255, 255, 255 });
             }
@@ -30,13 +30,13 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         [Command("createweedplants")]
         public static void CreateWeedPlants(Client player, int count)
         {
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i <= count; i++)
             {
                 WeedModel weed = new WeedModel
                 {
                     CreatedBy = player.Username,
                     Name = "Hanfpflanze",
-                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z - 0.5f),
+                    Position = new Position(player.Position.X + (i / 2), player.Position.Y + (i / 2), player.Position.Z - 1f),
                     Rotation = player.Rotation,
                     Created = DateTime.Now,
                     Value = 15,
