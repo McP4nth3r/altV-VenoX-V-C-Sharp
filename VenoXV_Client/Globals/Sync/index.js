@@ -175,7 +175,7 @@ alt.everyTick(() => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let MapObjects = {};
 let MapC = 0;
-alt.onServer('Sync:LoadMap', (MapName, Hash, Position, QuaternionX, QuaternionY, QuaternionZ, QuaternionW, RotOrder, Rotation, freeze, HashNeeded) => {
+alt.onServer('Sync:LoadMap', (MapName, Hash, Position, RotOrder, Rotation, freeze, HashNeeded, HighLod = false) => {
     let Entity;
     if (HashNeeded) {
         alt.loadModel(game.getHashKey(Hash));
@@ -185,8 +185,10 @@ alt.onServer('Sync:LoadMap', (MapName, Hash, Position, QuaternionX, QuaternionY,
         alt.loadModel(Hash);
         Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
     }
+    if (freeze) { game.freezeEntityPosition(Entity, true); }
     game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, RotOrder, true);
-    game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
+    if (HighLod) { game.setEntityLodDist(Entity, 2000); }
+    //game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
     //game.freezeEntityPosition(Entity, freeze);
     MapObjects[MapC++] = {
         Entity: Entity,
