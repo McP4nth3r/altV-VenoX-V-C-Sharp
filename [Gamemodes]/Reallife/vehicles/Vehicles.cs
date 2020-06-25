@@ -6,6 +6,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -582,7 +583,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                if (Vehicle.Driver == player)
+                if (Vehicle.Driver == player && player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
                     Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     if (Vehicle.Godmode)
@@ -690,14 +691,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [AsyncScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
-        public static async void OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
+        public static async Task OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
         {
             try
             {
                 await AltAsync.Do(() =>
                 {
                     jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
-
+                    SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
                 });
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
