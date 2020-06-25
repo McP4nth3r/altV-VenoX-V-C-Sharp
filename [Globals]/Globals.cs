@@ -64,7 +64,11 @@ namespace VenoXV.Globals
             try
             {
                 if (!(entity is Client player)) return;
-                if (state) { _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player); }
+                if (state)
+                {
+                    _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
+                    SevenTowers.globals.Main.OnColShapeHit(shape, player);
+                }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
             }
             catch { }
@@ -97,6 +101,11 @@ namespace VenoXV.Globals
                             {
                                 _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
                             }
+                        }
+                        return;
+                    case (int)Preload.Gamemodes.SevenTowers:
+                        {
+                            _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
                         }
                         return;
                     default:
