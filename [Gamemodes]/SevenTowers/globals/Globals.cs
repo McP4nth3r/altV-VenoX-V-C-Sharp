@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV.SevenTowers.globals
@@ -9,9 +10,14 @@ namespace VenoXV.SevenTowers.globals
         {
             try
             {
+                _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
                 Globals.Main.SevenTowersPlayers.Remove(player);
             }
             catch { }
+        }
+        public static void OnColShapeHit(IColShape shape, Client player)
+        {
+            VenoXV._Gamemodes_.SevenTowers.Main.OnColShapeHit(shape, player);
         }
     }
 }
