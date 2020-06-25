@@ -116,6 +116,10 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 {
                     Tactics.chat.Chat.OnChatMessage(player, message);
                 }
+                else if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.SevenTowers)
+                {
+                    _Gamemodes_.SevenTowers.globals.Chat.OnChatMessage(player, message);
+                }
                 else if (player.Playing == false)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
