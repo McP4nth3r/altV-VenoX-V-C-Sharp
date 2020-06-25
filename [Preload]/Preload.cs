@@ -103,9 +103,9 @@ namespace VenoXV._Preload_
                     Load.LoadGamemodeWindows(player, Gamemodes.SevenTowers);
                     player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
                     _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
-                    player.Language = (int)_Language_.Main.Languages.English;
-                    Globals.Main.SevenTowersPlayers.Add(player);
+                    player.Language = (int)_Language_.Main.Languages.German;
                     _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
+                    Globals.Main.SevenTowersPlayers.Add(player);
                     //Load.LoadGamemodeWindows(player, (int)Gamemodes.Seventowers);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
