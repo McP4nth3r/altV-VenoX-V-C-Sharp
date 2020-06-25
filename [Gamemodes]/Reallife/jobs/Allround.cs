@@ -255,7 +255,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 Airport.Airport.OnPlayerExitVehicle(vehClass, player);
-                _Gamemodes_.SevenTowers.Main.PlayerLeaveVehicle(vehClass, player);
             }
             catch { }
         }
