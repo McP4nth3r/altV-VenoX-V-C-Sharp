@@ -20,6 +20,20 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("RaceVehicleModel-Create", ex); }
         }
     }
+    public class VehReallife
+    {
+        private Vehicle Vehicle;
+        public bool DrivingSchoolVehicle { get; set; }
+        public string DrivingSchoolLicense { get; set; }
+        public VehReallife(Vehicle vehicle)
+        {
+            try
+            {
+                Vehicle = vehicle;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ReallifeVehicleModel-Create", ex); }
+        }
+    }
     public class VehicleModel : Vehicle
     {
         public int ID { get; set; }
@@ -46,6 +60,7 @@ namespace VenoXV._RootCore_.Models
         private float vehKms { get; set; }
         public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
         public VehRace Race { get; }
+        public VehReallife Reallife { get; }
 
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
         {
@@ -61,6 +76,7 @@ namespace VenoXV._RootCore_.Models
             Gas = 100;
             Kms = 0;
             Race = new VehRace(this);
+            Reallife = new VehReallife(this);
         }
 
     }
