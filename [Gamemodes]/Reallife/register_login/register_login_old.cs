@@ -57,187 +57,138 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 }
                 player.Dimension = 0;
                 //ToDo : ZwischenLösung Finden! player.Transparency = 0;
-                dxLibary.VnX.SetElementFrozen(player, true);
-                if (cevent == 1)
+                Vector3 StartPosition = new Vector3();
+                Vector3 EndPosition = new Vector3();
+                int Fov = 0;
+                int time = 0;
+                Vector3 StartRotation = new Vector3();
+                Vector3 EndRotation = new Vector3();
+                switch (cevent)
                 {
-                    Vector3 StartPosition = new Vector3(411.4904f, -956.7184f, 50);
-                    Vector3 EndPosition = new Vector3(420.6378f, -1050.697f, 55);
-                    int Fov = 75;
-                    int time = 60000;
-                    Vector3 StartRotation = new Rotation(320, 0, 180);
-                    Vector3 EndRotation = new Rotation(320, 0, 220);
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(411.4904f, -956.7184f, 20);
-
+                    case 1:
+                        StartPosition = new Vector3(411.4904f, -956.7184f, 50);
+                        EndPosition = new Vector3(420.6378f, -1050.697f, 55);
+                        Fov = 75;
+                        time = 60000;
+                        StartRotation = new Rotation(320, 0, 180);
+                        EndRotation = new Rotation(320, 0, 220);
+                        break;
+                    case 2:
+                        StartPosition = new Vector3(-2283.365f, 419.0807f, 200);
+                        EndPosition = new Vector3(-2324.99f, 408.6786f, 200);
+                        StartRotation = new Rotation(320, 0, 180);
+                        EndRotation = new Rotation(320, 0, 220);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 3:
+                        StartPosition = new Vector3(-1000.456f, 197.4469f, 66.5f);
+                        EndPosition = new Vector3(-1039.38f, 200.267f, 62.56097f);
+                        StartRotation = new Vector3(0, 0, 88);
+                        EndRotation = new Vector3(0, 0, 88);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 4:
+                        StartPosition = new Vector3(-545.0013f, -950.6284f, 38f);
+                        EndPosition = new Vector3(-516.2668f, -887.1884f, 42f);
+                        StartRotation = new Vector3(320, 0, 30);
+                        EndRotation = new Vector3(320, 0, 100);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 5:
+                        StartPosition = new Vector3(902.6528f, -1068.302f, 48f);
+                        EndPosition = new Vector3(905.508f, -1020.261f, 50f);
+                        StartRotation = new Vector3(320, 0, 35);
+                        EndRotation = new Vector3(320, 0, 100);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 6:
+                        StartPosition = new Vector3(179.6578f, -644.4746f, 60.44452f);
+                        EndPosition = new Vector3(211.5414f, -657.911f, 60.07743f);
+                        StartRotation = new Vector3(320, 0, 195);
+                        EndRotation = new Vector3(320, 0, 108);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 7:
+                        StartPosition = new Vector3(-1532.188f, -59.43741f, 70.07549f);
+                        EndPosition = new Vector3(-1585.257f, -70.50438f, 70.94582f);
+                        StartRotation = new Vector3(320, 0, 147);
+                        EndRotation = new Vector3(320, 0, 220);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 8:
+                        StartPosition = new Vector3(100.4224f, -1905.601f, 40f);
+                        EndPosition = new Vector3(66.55393f, -1945.313f, 40f);
+                        StartRotation = new Vector3(320, 0, 200);
+                        EndRotation = new Vector3(320, 0, 280);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 9:
+                        StartPosition = new Vector3(528.9905f, -192.5913f, 65f);
+                        EndPosition = new Vector3(520.888f, -165.4624f, 65f);
+                        StartRotation = new Vector3(320, 0, 320);
+                        EndRotation = new Vector3(320, 0, 237);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 10:
+                        StartPosition = new Vector3(385.6806f, -541.5113f, 40f);
+                        EndPosition = new Vector3(339.2675f, -547.7947f, 40f);
+                        StartRotation = new Vector3(320, 0, 100);
+                        EndRotation = new Vector3(320, 0, 100);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 11:
+                        StartPosition = new Vector3(258.2238f, -2060.314f, 30f);
+                        EndPosition = new Vector3(290.6969f, -2113.237f, 30f);
+                        StartRotation = new Vector3(320, 0, 240);
+                        EndRotation = new Vector3(320, 0, 0);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 12:
+                        StartPosition = new Vector3(-2159.688f, -1025.8f, 10f);
+                        EndPosition = new Vector3(-2018.205f, -1115.911f, 10f);
+                        StartRotation = new Vector3(0, 0, 344);
+                        EndRotation = new Vector3(0, 0, 326);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 13:
+                        StartPosition = new Vector3(626.6843f, 1159.774f, 330.9638f);
+                        EndPosition = new Vector3(799.3394f, 1129.184f, 330.9638f);
+                        StartRotation = new Vector3(0, 0, 290);
+                        EndRotation = new Vector3(0, 0, 30);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 14:
+                        StartPosition = new Vector3(-81.49934f, -1140.647f, 35f);
+                        EndPosition = new Vector3(45.82481f, -1135.694f, 35f);
+                        StartRotation = new Vector3(335, 0, 325);
+                        EndRotation = new Vector3(335, 0, 48);
+                        time = 60000;
+                        Fov = 75;
+                        break;
+                    case 15:
+                        StartPosition = new Vector3(-555.4027f, -268.2709f, 52f);
+                        EndPosition = new Vector3(-483.5658f, -234.1534f, 52f);
+                        StartRotation = new Vector3(335, 0, 1);
+                        EndRotation = new Vector3(335, 0, 58);
+                        time = 60000;
+                        Fov = 75;
+                        break;
                 }
-                else if (cevent == 2)
-                {
-                    Vector3 StartPosition = new Vector3(-2283.365f, 419.0807f, 200);
-                    Vector3 EndPosition = new Vector3(-2324.99f, 408.6786f, 200);
-
-                    Vector3 StartRotation = new Rotation(320, 0, 180);
-                    Vector3 EndRotation = new Rotation(320, 0, 220);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-2295.875f, 377.0148f, 230);
-                }
-                else if (cevent == 3)
-                {
-                    Vector3 StartPosition = new Vector3(-1000.456f, 197.4469f, 66.5f);
-                    Vector3 EndPosition = new Vector3(-1039.38f, 200.267f, 62.56097f);
-
-                    Vector3 StartRotation = new Vector3(0, 0, 88);
-                    Vector3 EndRotation = new Vector3(0, 0, 88);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-1043.623f, 193.3604f, 60f);
-                }
-                else if (cevent == 4)
-                {
-                    Vector3 StartPosition = new Vector3(-545.0013f, -950.6284f, 38f);
-                    Vector3 EndPosition = new Vector3(-516.2668f, -887.1884f, 42f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 30);
-                    Vector3 EndRotation = new Vector3(320, 0, 100);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-545.0013f, -950.6284f, 20f);
-                }
-                else if (cevent == 5)
-                {
-                    Vector3 StartPosition = new Vector3(902.6528f, -1068.302f, 48f);
-                    Vector3 EndPosition = new Vector3(905.508f, -1020.261f, 50f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 35);
-                    Vector3 EndRotation = new Vector3(320, 0, 100);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(902.6528f, -1068.302f, 38f);
-                }
-                else if (cevent == 6)
-                {
-                    Vector3 StartPosition = new Vector3(179.6578f, -644.4746f, 60.44452f);
-                    Vector3 EndPosition = new Vector3(211.5414f, -657.911f, 60.07743f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 195);
-                    Vector3 EndRotation = new Vector3(320, 0, 108);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(170.3055f, -671.4557f, 60.14089f);
-                }
-                else if (cevent == 7)
-                {
-                    Vector3 StartPosition = new Vector3(-1532.188f, -59.43741f, 70.07549f);
-                    Vector3 EndPosition = new Vector3(-1585.257f, -70.50438f, 70.94582f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 147);
-                    Vector3 EndRotation = new Vector3(320, 0, 220);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-1532.188f, -59.43741f, 70.07549f);
-                }
-                else if (cevent == 8)
-                {
-                    Vector3 StartPosition = new Vector3(100.4224f, -1905.601f, 40f);
-                    Vector3 EndPosition = new Vector3(66.55393f, -1945.313f, 40f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 200);
-                    Vector3 EndRotation = new Vector3(320, 0, 280);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(66.55393f, -1945.313f, 50.94582f);
-                }
-                else if (cevent == 9)
-                {
-                    Vector3 StartPosition = new Vector3(528.9905f, -192.5913f, 65f);
-                    Vector3 EndPosition = new Vector3(520.888f, -165.4624f, 65f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 320);
-                    Vector3 EndRotation = new Vector3(320, 0, 237);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(528.9905f, -192.5913f, 62f);
-                }
-                else if (cevent == 10)
-                {
-                    Vector3 StartPosition = new Vector3(385.6806f, -541.5113f, 40f);
-                    Vector3 EndPosition = new Vector3(339.2675f, -547.7947f, 40f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 100);
-                    Vector3 EndRotation = new Vector3(320, 0, 100);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(339.2675f, -547.7947f, 20f);
-                }
-                else if (cevent == 11)
-                {
-                    Vector3 StartPosition = new Vector3(258.2238f, -2060.314f, 30f);
-                    Vector3 EndPosition = new Vector3(290.6969f, -2113.237f, 30f);
-
-                    Vector3 StartRotation = new Vector3(320, 0, 240);
-                    Vector3 EndRotation = new Vector3(320, 0, 0);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(258.2238f, -2060.314f, 10f);
-                }
-                else if (cevent == 12)
-                {
-                    Vector3 StartPosition = new Vector3(-2159.688f, -1025.8f, 10f);
-                    Vector3 EndPosition = new Vector3(-2018.205f, -1115.911f, 10f);
-
-                    Vector3 StartRotation = new Vector3(0, 0, 344);
-                    Vector3 EndRotation = new Vector3(0, 0, 326);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-2018.205f, -1115.911f, 20f);
-                }
-                else if (cevent == 13)
-                {
-                    Vector3 StartPosition = new Vector3(626.6843f, 1159.774f, 330.9638f);
-                    Vector3 EndPosition = new Vector3(799.3394f, 1129.184f, 330.9638f);
-
-                    Vector3 StartRotation = new Vector3(0, 0, 290);
-                    Vector3 EndRotation = new Vector3(0, 0, 30);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(626.6843f, 1159.774f, 278.9638f);
-                }
-                else if (cevent == 14)
-                {
-                    Vector3 StartPosition = new Vector3(-81.49934f, -1140.647f, 35f);
-                    Vector3 EndPosition = new Vector3(45.82481f, -1135.694f, 35f);
-
-                    Vector3 StartRotation = new Vector3(335, 0, 325);
-                    Vector3 EndRotation = new Vector3(335, 0, 48);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(45.82481f, -1135.694f, 15f);
-                }
-                else if (cevent == 15)
-                {
-                    Vector3 StartPosition = new Vector3(-555.4027f, -268.2709f, 52f);
-                    Vector3 EndPosition = new Vector3(-483.5658f, -234.1534f, 52f);
-
-                    Vector3 StartRotation = new Vector3(335, 0, 1);
-                    Vector3 EndRotation = new Vector3(335, 0, 58);
-                    int time = 60000;
-                    int Fov = 75;
-                    Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
-                    player.SetPosition = new Vector3(-555.4027f, -268.2709f, 30f);
-                }
+                Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                player.SetPosition = new Vector3(StartPosition.X, StartPosition.Y, StartPosition.Z - 200);
+                player.Freeze = true;
             }
             catch { }
         }
@@ -326,7 +277,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Spawn.spawnplayer_on_spawnpoint(player);
                 Settings.VnX.LoadSettingsData(player);
                 player.vnxSetStreamSharedElementData("HideHUD", 0);
-                AntiCheat_Allround.StartTimerTeleport(player);
                 Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
@@ -341,6 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
+
                 _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                 character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
@@ -352,39 +303,15 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     {
                         Vehicle.Dimension = 0;
                     }
-                    // JOB 
-                    if (
-                    Vehicle.Job == Constants.JOB_CITY_TRANSPORT && Vehicle.Owner == player.Username
-                    || Vehicle.Job == Constants.JOB_AIRPORT && Vehicle.Owner == player.Username
-                    || Vehicle.Job == Constants.JOB_BUS && Vehicle.Owner == player.Username
-                    )
-                    {
-                        if (Vehicle != null)
-                        {
-                            AltV.Net.Alt.RemoveVehicle(Vehicle);
-                        }
-                    }
+                }
+                // Give the weapons to the player
+                weapons.Weapons.GivePlayerWeaponItems(player);
 
-                    //Test Vehilce Delete
-                    if (Vehicle.vnxGetElementData<bool>("TEST_FAHRZEUG") == true && Vehicle.Owner == player.Username)
-                    {
-                        Vehicle.Remove();
-                    }
-                    //}
+                Alt.Server.TriggerClientEvent(player, "movecamtocurrentpos_client");
 
-
-                    int playerSqlId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-
-
-                    // Give the weapons to the player
-                    weapons.Weapons.GivePlayerWeaponItems(player);
-
-                    Alt.Server.TriggerClientEvent(player, "movecamtocurrentpos_client");
-
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
-                    {
-                        player.Health = 0;
-                    }
+                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
+                {
+                    player.Health = 0;
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
@@ -396,7 +323,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
         }
 
-        //[AltV.Net.ClientEvent("Send_Player_Where_From")]
+        [ClientEvent("Send_Player_Where_From")]
         public void Send_To_Server_Where_Player_From(Client player, string Where)
         {
             try
