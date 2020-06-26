@@ -12,13 +12,13 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
         {
             try
             {
-                int itemId = 0;
                 int playerId = player.UID;
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
                 {
-                    if (!int.TryParse(item.hash, out itemId) && item.ownerIdentifier == playerId && item.ITEM_ART == "Waffe")
+                    if (item.ownerIdentifier == playerId && item.ITEM_ART == "Waffe")
                     {
                         AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
+                        Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
                         Core.Debug.OutputDebugString(player.Username + " : " + WeaponModel);
                         RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
                     }
