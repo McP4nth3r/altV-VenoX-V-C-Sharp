@@ -1,6 +1,8 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using System;
+using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -150,8 +152,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "[Rathaus] : Helikopterschein erhalten!");
                         break;
                     case "Boat":
-
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN) == 1)
+                        if (player.Reallife.Motorbootschein == 1)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Bootsschein!");
                             return;
@@ -162,12 +163,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             return;
                         }
                         player.Reallife.Money -= 5220;
-                        player.vnxSetElementData(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, 1);
+                        player.Reallife.Motorbootschein = 1;
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "[Rathaus] : Bootsschein erhalten!");
                         break;
                     case "Fisher":
 
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN) == 1)
+                        if (player.Reallife.Angelschein == 1)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Angelschein!");
                             return;
@@ -178,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             return;
                         }
                         player.Reallife.Money -= 1150;
-                        player.vnxSetElementData(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, 1);
+                        player.Reallife.Angelschein = 1;
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "[Rathaus] : Angelschein erhalten!");
                         break;
                     case "Weapon":
@@ -199,7 +200,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             return;
                         }
                         player.Reallife.Money -= 21250;
-                        player.vnxSetElementData(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, 1);
+                        player.Reallife.Waffenschein = 1;
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Du hast soeben deinen Waffenschein erhalten, der dich zum Besitz einer Waffe berechtigt.");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
@@ -215,56 +216,115 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch { }
         }
 
+        private static List<MarkerModel> DrivingSchoolMarkers = new List<MarkerModel>();
+        private static List<ColShapeModel> DrivingSchoolColShapeClasses = new List<ColShapeModel>();
+        private static List<IColShape> DrivingSchoolCols = new List<IColShape>();
 
+        /* Usefull Functions & Calling - Events/Functions */
+
+        public static List<IColShape> CurrentDrivingSchoolColShapes = new List<IColShape>();
+        public static List<BlipModel> CurrentDrivingSchoolBlips = new List<BlipModel>();
+        public static List<MarkerModel> CurrentDrivingSchoolMarker = new List<MarkerModel>();
+        public static List<VehicleModel> CurrentDrivingSchoolVehicles = new List<VehicleModel>();
+        public static string DRIVINGSCHOOL_COLCLASS_ENTITY = "DRIVINGSCHOOL_COLCLASS_ENTITY";
+        public static string DRIVINGSCHOOL_COL_ENTITY = "DRIVINGSCHOOL_COL_ENTITY";
+        public static string DRIVINGSCHOOL_MARKER_ENTITY = "DRIVINGSCHOOL_MARKER_ENTITY";
+        public static string DRIVINGSCHOOL_BLIP_ENTITY = "DRIVINGSCHOOL_BLIP_ENTITY";
+
+        public static void CreateDrivingSchoolMarker(Client player, int BlipID, Vector3 Position, int Scale, int[] Color)
+        {
+            try
+            {
+                MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player, player.Dimension);
+                BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Schein]", Position, BlipID, 75, false, player);
+                ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
+                Alt.Server.TriggerClientEvent(player, "Player:SetWaypoint", Position.X, Position.Y);
+                player.vnxSetElementData(DRIVINGSCHOOL_MARKER_ENTITY, markerClass);
+                player.vnxSetElementData(DRIVINGSCHOOL_BLIP_ENTITY, blipClass);
+                player.vnxSetElementData(DRIVINGSCHOOL_COL_ENTITY, colClass.Entity);
+                player.vnxSetElementData(DRIVINGSCHOOL_COLCLASS_ENTITY, colClass);
+                CurrentDrivingSchoolMarker.Add(markerClass);
+                CurrentDrivingSchoolBlips.Add(blipClass);
+                CurrentDrivingSchoolColShapes.Add(colClass.Entity);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
+        }
+        public static void DestroyDrivingSchoolMarker(Client player)
+        {
+            try
+            {
+                //Remove ColShapes
+                if (CurrentDrivingSchoolColShapes.Contains(player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY)))
+                {
+                    RageAPI.RemoveColShape(player.vnxGetElementData<ColShapeModel>(DRIVINGSCHOOL_COLCLASS_ENTITY));
+                    CurrentDrivingSchoolColShapes.Remove(player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY));
+                }
+                //Remove Marker
+                if (CurrentDrivingSchoolMarker.Contains(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY)))
+                {
+                    RageAPI.RemoveMarker(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY));
+                    CurrentDrivingSchoolMarker.Remove(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY));
+                }
+                //Remove Blips
+                if (CurrentDrivingSchoolBlips.Contains(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY)))
+                {
+                    RageAPI.RemoveBlip(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY));
+                    CurrentDrivingSchoolBlips.Remove(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY));
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyDrivingSchoolMarker", ex); }
+        }
+
+        public static void OnColShapeHit(IColShape shape, Client player)
+        {
+            try
+            {
+
+            }
+            catch { }
+        }
+
+        public static VehicleModel CreateDrivingSchoolVehicle(Client player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = 0, bool WarpIntoVehicle = true)
+        {
+            try
+            {
+                VehicleModel DrivingSchoolVehicle = (VehicleModel)Alt.CreateVehicle(veh, Position, Rotation);
+                player.Dimension = Dimension;
+                DrivingSchoolVehicle.Dimension = Dimension;
+                DrivingSchoolVehicle.EngineOn = true;
+                DrivingSchoolVehicle.Owner = player.Username;
+                DrivingSchoolVehicle.Kms = 0;
+                DrivingSchoolVehicle.Gas = 100;
+                DrivingSchoolVehicle.Job = Constants.JOB_NONE;
+                DrivingSchoolVehicle.Reallife.DrivingSchoolVehicle = true;
+                DrivingSchoolVehicle.NotSave = true;
+                if (WarpIntoVehicle) { player.WarpIntoVehicle(DrivingSchoolVehicle, -1); }
+                CurrentDrivingSchoolVehicles.Add(DrivingSchoolVehicle);
+                return DrivingSchoolVehicle;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolVehicle", ex); return null; }
+        }
 
         [ClientEvent("CancelDrivingSchool")]
         public static void CancelDrivingSchhol(Client player, int speed)
         {
             try
             {
+
+
                 if (player.IsInVehicle)
                 {
-                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    if (vehicle != null && vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true)
-                    {
-                        player.vnxSetElementData("Marker_Pruefung", 0);
-                        dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                        dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
-                        Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                        player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                        player.Dimension = 0;
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
-                        player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
-                        Alt.Server.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");
-                        if (player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")
-                        {
-                            player.vnxSetElementData("PRUEFUNGS_NAME", false);
-                        }
-                        else if (player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "BIKE")
-                        {
-                            player.vnxSetElementData("PRUEFUNGS_NAME", false);
-                        }
-
-                        vehicle.Remove();
-                        ColShapeModel FührerscheinCol = Führerschein.Führerschein.Führerschein_Abgabe_Marker;
-                        ColShapeModel FührerscheinMotorradCol = Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker;
-                        if (FührerscheinMotorradCol != null && FührerscheinMotorradCol.vnxGetElementData<string>("Name") == player.Username)
-                        {
-                            RageAPI.RemoveColShape(Führerschein.Motorrad_Führerschein.Motorrad_Führerschein_Abgabe_Marker);
-                            return;
-                        }
-                        else if (FührerscheinCol != null && FührerscheinCol.vnxGetElementData<string>("Name") == player.Username)
-                        {
-                            RageAPI.RemoveColShape(FührerscheinCol);
-                            return;
-                        }
-                        return;
-                    }
+                    VehicleModel playerVeh = (VehicleModel)player.Vehicle;
+                    if (CurrentDrivingSchoolVehicles.Contains(playerVeh)) { CurrentDrivingSchoolVehicles.Remove(playerVeh); }
+                    playerVeh.Remove();
+                    player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
+                    player.Dimension = 0;
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
+                    player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
+                    DestroyDrivingSchoolMarker(player);
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
     }
 }
