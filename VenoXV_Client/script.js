@@ -17,6 +17,8 @@ import * as CharCreator from '/VenoXV_Client/Globals/Charcreator/index.js';
 import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
 import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
+import * as Settings from '/VenoXV_Client/Globals/Settings/index.js';
+
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
 import * as TacticsLobby from '/VenoXV_Client/Tactics/Lobby/index.js';

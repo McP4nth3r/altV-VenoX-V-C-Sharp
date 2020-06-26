@@ -1,5 +1,5 @@
 //----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
@@ -125,12 +125,18 @@ let cObjCounter = 0;
 alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => {
     let Entity;
     if (HashNeeded) {
-
-        alt.loadModel(game.getHashKey(Hash));
-        Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
+        let newHash = game.getHashKey(Hash);
+        if (!game.hasModelLoaded(newHash)) {
+            alt.loadModel(newHash);
+            game.requestModel(newHash);
+        }
+        Entity = game.createObjectNoOffset(newHash, Position.x, Position.y, Position.z, false, false, false);
     }
     else {
-        alt.loadModel(Hash);
+        if (!game.hasModelLoaded(Hash)) {
+            alt.loadModel(Hash);
+            game.requestModel(Hash);
+        }
         Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
     }
     game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, 2, true);
