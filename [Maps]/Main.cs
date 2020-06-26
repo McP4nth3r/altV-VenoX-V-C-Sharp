@@ -56,7 +56,7 @@ namespace VenoXV._Maps_
                     case SEVENTOWERS_MAP:
                         foreach (MapModel mapClass in SEVENTOWERSMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                         }
                         break;
                     case WUERFELPARK_MAP:
