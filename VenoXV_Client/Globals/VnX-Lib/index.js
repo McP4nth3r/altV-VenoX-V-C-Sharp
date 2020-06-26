@@ -109,6 +109,9 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
     }
     catch{ }
 }
+
+
+
 export function CreatePed(PedName, Vector3Pos, rot = 0) {
     let PedHash = game.getHashKey(PedName);
     if (!game.hasModelLoaded(PedHash)) {
