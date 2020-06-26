@@ -196,6 +196,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
                 }
+                Core.Debug.OutputDebugString("[4]Function Called!");
             }
             catch (Exception ex)
             {
@@ -262,6 +263,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     vehicle.Gas = 100;
                     Spawns.Spawned = true;
                     CurrentlyInRound.Add(player);
+                    player.SetPlayerAlpha(255);
                 }
             }
             catch (Exception ex)
@@ -275,24 +277,14 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 foreach (Client players in Globals.Main.SevenTowersPlayers)
                 {
-                    players.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat die SevenTowers Lobby betreten!");
-                }
-                if (Globals.Main.SevenTowersPlayers.Count == 1)
-                {
-                    foreach (Client otherplayer in CurrentlyInRound)
-                    {
-                        TakePlayerFromRound(otherplayer);
-                    }
-                    EndRound();
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat die SevenTowers Lobby betreten!");
                 }
                 InitializePlayerData(player);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "~ ~ ~ ~ 7 TOWERS ~ ~ ~ ~ ");
                 SpawnPlayerInRound(player);
+                player.SetPlayerAlpha(255);
             }
-            catch (Exception ex)
-            {
-                Debug.CatchExceptions("PutPlayerInRound", ex);
-            }
+            catch (Exception ex) { Debug.CatchExceptions("PutPlayerInRound", ex); }
         }
 
 
@@ -300,20 +292,24 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                if (Globals.Main.SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
+                if (Globals.Main.SevenTowersPlayers.Count <= 2)
+                {
+                    Core.Debug.OutputDebugString("[3]Function Called!");
+                    StartNewRound();
+                    return;
+                }
                 if (CanPlayerJoin())
                 {
+                    Core.Debug.OutputDebugString("[1]Function Called!");
                     PutPlayerInRound(player);
                 }
                 else
                 {
+                    Core.Debug.OutputDebugString("[0]Function Called!");
                     PutPlayerSpectate(player);
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.CatchExceptions("JoinedSevenTowers", ex);
-            }
+            catch (Exception ex) { Debug.CatchExceptions("JoinedSevenTowers", ex); }
         }
         public static void OnColShapeHit(IColShape shape, Client player)
         {
@@ -338,19 +334,18 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
         public static void TakePlayerFromRound(Client playerClass)
         {
+            if (CurrentlyInRound.Contains(playerClass)) { CurrentlyInRound.Remove(playerClass); }
             if (playerClass.SevenTowers.Spawned)
             {
+                if (playerClass.IsInVehicle) { playerClass.Vehicle.Remove(); }
                 playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
                 playerClass.DespawnPlayer();
+                playerClass.SetPlayerAlpha(0);
                 playerClass.SevenTowers.Spawned = false;
-                CurrentlyInRound.Remove(playerClass);
-                if (playerClass.IsInVehicle) { playerClass.Vehicle.Remove(); }
-                if (CurrentlyInRound.Count == 1)
-                {
-                    EndRound();
-                }
+                if (CurrentlyInRound.Count <= 1) { EndRound(); }
             }
         }
+
         public static void PlayerLeaveVehicle(VehicleModel vehicle, Client playerClass)
         {
             try

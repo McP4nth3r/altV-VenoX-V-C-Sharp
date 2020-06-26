@@ -583,6 +583,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
+                if (Vehicle.Driver == player)
+                {
+                    if (Vehicle.Godmode)
+                    {
+                        Vehicle.Godmode = false;
+                    }
+                }
                 if (Vehicle.Driver == player && player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
                     Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
@@ -697,6 +704,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 await AltAsync.Do(() =>
                 {
+                    if (Vehicle.Driver == player)
+                    {
+                        if (!Vehicle.Godmode)
+                        {
+                            Vehicle.Godmode = true;
+                        }
+                    }
                     jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
                     SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
                 });

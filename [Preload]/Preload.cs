@@ -48,6 +48,7 @@ namespace VenoXV._Preload_
             try
             {
                 player.Dimension = player.Id;
+                VenoXV.Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
                 Alt.Server.TriggerClientEvent(player, "preload_gm_list");
             }
@@ -60,53 +61,38 @@ namespace VenoXV._Preload_
         {
             player.Dimension = player.Id;
             Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
-
+            player.Gamemode = value;
+            Load.LoadGamemodeWindows(player, (Gamemodes)value);
+            player.Language = (int)_Language_.Main.Languages.German;
             switch (value)
             {
-                case 0:
-                    player.Gamemode = (int)Gamemodes.Reallife; //Reallife Gamemode Selected
-                    player.Language = (int)_Language_.Main.Languages.German;
-                    Load.LoadGamemodeWindows(player, Gamemodes.Reallife);
+                case (int)Gamemodes.Reallife:
                     Globals.Main.ReallifePlayers.Add(player);
                     _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                     break;
-                case 1:
+                case (int)Gamemodes.Zombies:
                     Globals.Main.ZombiePlayers.Add(player);
-                    player.Language = (int)_Language_.Main.Languages.English;
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
-                    player.Gamemode = (int)Gamemodes.Zombies; //Zombies Gamemode Selected
-                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Zombies);
+                    Character_Creator.Main.LoadCharacterSkin(player);
                     _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                     Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                     break;
-                case 2:
-                    player.Gamemode = (int)Gamemodes.Tactics;//Tactics Gamemode Selected
-                    player.Language = (int)_Language_.Main.Languages.German;
+                case (int)Gamemodes.Tactics:
                     Globals.Main.TacticsPlayers.Add(player);
                     _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
-                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Tactics);
                     break;
-                case 3:
-                    player.Gamemode = (int)Gamemodes.Race;
-                    player.Language = (int)_Language_.Main.Languages.German;
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
-
+                case (int)Gamemodes.Race:
+                    Character_Creator.Main.LoadCharacterSkin(player);
                     Globals.Main.RacePlayers.Add(player);
                     _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
-                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Race);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                     break;
-                case 4:
-                    Load.LoadGamemodeWindows(player, Gamemodes.SevenTowers);
-                    player.Gamemode = (int)Gamemodes.SevenTowers; //7-Towers Gamemode Selected
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
-                    player.Language = (int)_Language_.Main.Languages.German;
-                    _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
+                case (int)Gamemodes.SevenTowers:
+                    Character_Creator.Main.LoadCharacterSkin(player);
                     Globals.Main.SevenTowersPlayers.Add(player);
-                    //Load.LoadGamemodeWindows(player, (int)Gamemodes.Seventowers);
+                    _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
                 default:
@@ -142,6 +128,7 @@ namespace VenoXV._Preload_
             _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.WUERFELPARK_MAP);
         }
         [ServerEvent("GlobalSystems:PlayerReady")]
         public void PlayerConnect(Client player)

@@ -73,7 +73,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 player.Tactics.CurrentKills = 0;
                 player.Tactics.IsDead = false;
                 player.Tactics.Spawned = false;
-                Alt.Server.TriggerClientEvent(player,"LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
+                Alt.Server.TriggerClientEvent(player, "LoadTacticUI", CurrentMap.Team_A_Name, CurrentMap.Team_B_Name, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
                 RageAPI.SetPlayerVisible(player, true);
             }
             catch { }

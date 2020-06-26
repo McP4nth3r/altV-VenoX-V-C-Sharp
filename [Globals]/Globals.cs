@@ -21,6 +21,7 @@ namespace VenoXV.Globals
             try
             {
                 int Gamemode = player.Gamemode;
+                Core.Debug.OutputDebugString(player.Username + " Gamemode : " + player.Gamemode);
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
@@ -145,11 +146,11 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public void OnPlayerDisconnected(Client player, string reason)
+        public static void OnPlayerDisconnected(Client player, string reason)
         {
             try
             {
-                VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
+                RemovePlayerFromGamemodeList(player);
                 string type = string.Empty;
                 _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
                 _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);

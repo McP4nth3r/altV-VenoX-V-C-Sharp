@@ -45,6 +45,7 @@ namespace VenoXV._Preload_
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
+                    _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
                     break;
             }
         }
