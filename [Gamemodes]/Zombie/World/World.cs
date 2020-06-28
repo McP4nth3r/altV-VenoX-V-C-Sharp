@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
-                player.SendTranslatedChatMessage("Willkommen im VenoX " + Core.RageAPI.GetHexColorcode(255, 0, 0) + " Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
+                player.SendTranslatedChatMessage("Willkommen im VenoX " + RageAPI.GetHexColorcode(255, 0, 0) + " Zombie + " + RageAPI.GetHexColorcode(255, 255, 255) + "Modus");
                 player.SendTranslatedChatMessage("Kämpfe um dein Überleben!");
             }
             catch { }
@@ -40,9 +40,8 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
-                Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1500);
                 player.SpawnPlayer(PLAYER_SPAWN_NOOBSPAWN);
-                Alt.Server.TriggerClientEvent(player,"Zombie:OnResourceStart");
+                Alt.Server.TriggerClientEvent(player, "Zombie:OnResourceStart");
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 999);
@@ -74,7 +73,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 {
                     nearbyPlayers.Zombies.IsSyncer = false;
                     player.Zombies.IsSyncer = true;
-                    Alt.Server.TriggerClientEvent(player,"Zombies:Sync", false);
+                    Alt.Server.TriggerClientEvent(player, "Zombies:Sync", false);
                     nearbyPlayers.Emit("Zombies:Sync", false);
                 }
             }
@@ -86,7 +85,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 SetBestPlayerByPing(player);
                 if (player.Zombies.IsSyncer)
                 {
-                    Alt.Server.TriggerClientEvent(player,"Zombies:Sync", true);
+                    Alt.Server.TriggerClientEvent(player, "Zombies:Sync", true);
                 }
             }
         }
@@ -104,7 +103,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 }
             }
         }
-        private static void SyncZombieTargeting()
+        public static void SyncZombieTargeting()
         {
             foreach (ZombieModel zombieClass in Spawner.CurrentZombies)
             {
@@ -112,7 +111,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 {
                     if (player.Position.Distance(zombieClass.Position) < 250)
                     {
-                        Alt.Server.TriggerClientEvent(player,"Zombies:MoveToTarget", zombieClass.TargetEntity);
+                        Alt.Server.TriggerClientEvent(player, "Zombies:MoveToTarget", zombieClass.TargetEntity);
                     }
                 }
             }
