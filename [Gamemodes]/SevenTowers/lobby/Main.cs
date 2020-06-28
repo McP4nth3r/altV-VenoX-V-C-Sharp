@@ -135,42 +135,54 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
         public static bool CanPlayerJoin()
         {
-            if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
+            try
             {
+                if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
+                {
+                    return true;
+                }
+                else if (SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
+                {
+                    return false;
+                }
                 return true;
             }
-            else if (SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
-            {
-                return false;
-            }
-            return true;
+            catch { return false; }
         }
 
         public static void PutPlayerSpectate(Client player)
         {
-            player.SendTranslatedChatMessage("Du bist zuschauer!");
+            try
+            {
+                player.SendTranslatedChatMessage("Du bist zuschauer!");
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PutPlayerSpectate", ex); }
         }
 
         public static void CreateNewHitMarker()
         {
-            foreach (MarkerModel marker in MarkerModelList.ToList())
+            try
             {
-                RageAPI.RemoveMarker(marker);
-            }
-            foreach (ColShapeModel col in ColShapeModelList.ToList())
-            {
-                RageAPI.RemoveColShape(col);
-            }
-            MarkerModelList.Clear();
-            ColShapeModelList.Clear();
+                foreach (MarkerModel marker in MarkerModelList.ToList())
+                {
+                    RageAPI.RemoveMarker(marker);
+                }
+                foreach (ColShapeModel col in ColShapeModelList.ToList())
+                {
+                    RageAPI.RemoveColShape(col);
+                }
+                MarkerModelList.Clear();
+                ColShapeModelList.Clear();
 
-            Random random = new Random();
-            int RandomPosition = random.Next(0, SevenTowersCheckPoints.Count);
-            Vector3 Position = SevenTowersCheckPoints[RandomPosition];
-            MarkerModelList.Add(RageAPI.CreateMarker(1, new Vector3(Position.X, Position.Y, Position.Z - 0.5f), new Vector3(6, 6, 6), new int[] { 0, 200, 255, 255 }, null, SEVENTOWERS_DIM));
-            ColShapeModel newCol = RageAPI.CreateColShapeSphere(Position, 5, SEVENTOWERS_DIM);
-            ColShapeModelList.Add(newCol);
-            CurrentColShape = newCol.Entity;
+                Random random = new Random();
+                int RandomPosition = random.Next(0, SevenTowersCheckPoints.Count);
+                Vector3 Position = SevenTowersCheckPoints[RandomPosition];
+                MarkerModelList.Add(RageAPI.CreateMarker(1, new Vector3(Position.X, Position.Y, Position.Z - 0.5f), new Vector3(6, 6, 6), new int[] { 0, 200, 255, 255 }, null, SEVENTOWERS_DIM));
+                ColShapeModel newCol = RageAPI.CreateColShapeSphere(Position, 5, SEVENTOWERS_DIM);
+                ColShapeModelList.Add(newCol);
+                CurrentColShape = newCol.Entity;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewHitMarker", ex); }
         }
 
         public static void StartNewRound()
@@ -313,37 +325,45 @@ namespace VenoXV._Gamemodes_.SevenTowers
         }
         public static void OnColShapeHit(IColShape shape, Client player)
         {
-            if (shape == CurrentColShape)
+            try
             {
-                player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(2);
-                if (player.IsInVehicle)
+                if (shape == CurrentColShape)
                 {
-                    SevenTowersVehicles.Remove((VehicleModel)player.Vehicle);
-                    player.Vehicle.Remove();
-                    AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
-                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehicleHash, new Vector3(player.Position.X, player.Position.Y, player.Position.Z + 0.5f), player.Rotation);
-                    vehicle.Dimension = SEVENTOWERS_DIM;
-                    player.WarpIntoVehicle(vehicle, -1);
-                    SevenTowersVehicles.Add(vehicle);
-                    vehicle.EngineOn = true;
-                    vehicle.Frozen = false;
+                    player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(2);
+                    if (player.IsInVehicle)
+                    {
+                        SevenTowersVehicles.Remove((VehicleModel)player.Vehicle);
+                        player.Vehicle.Remove();
+                        AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
+                        VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehicleHash, new Vector3(player.Position.X, player.Position.Y, player.Position.Z + 0.5f), player.Rotation);
+                        vehicle.Dimension = SEVENTOWERS_DIM;
+                        player.WarpIntoVehicle(vehicle, -1);
+                        SevenTowersVehicles.Add(vehicle);
+                        vehicle.EngineOn = true;
+                        vehicle.Frozen = false;
+                    }
+                    CreateNewHitMarker();
                 }
-                CreateNewHitMarker();
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:OnColShapeHit", ex); }
         }
 
         public static void TakePlayerFromRound(Client playerClass)
         {
-            if (CurrentlyInRound.Contains(playerClass)) { CurrentlyInRound.Remove(playerClass); }
-            if (playerClass.SevenTowers.Spawned)
+            try
             {
-                if (playerClass.IsInVehicle) { playerClass.Vehicle.Remove(); }
-                playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
-                playerClass.DespawnPlayer();
-                playerClass.SetPlayerAlpha(0);
-                playerClass.SevenTowers.Spawned = false;
-                if (CurrentlyInRound.Count <= 1) { EndRound(); }
+                if (CurrentlyInRound.Contains(playerClass)) { CurrentlyInRound.Remove(playerClass); }
+                if (playerClass.SevenTowers.Spawned)
+                {
+                    if (playerClass.IsInVehicle) { playerClass.Vehicle.Remove(); }
+                    playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
+                    playerClass.DespawnPlayer();
+                    playerClass.SetPlayerAlpha(0);
+                    playerClass.SevenTowers.Spawned = false;
+                    if (CurrentlyInRound.Count <= 1) { EndRound(); }
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:TakePlayerFromRound", ex); }
         }
 
         public static void PlayerLeaveVehicle(VehicleModel vehicle, Client playerClass)
