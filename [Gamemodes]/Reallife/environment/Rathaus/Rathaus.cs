@@ -275,11 +275,26 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch (Exception ex) { Core.Debug.CatchExceptions("DestroyDrivingSchoolMarker", ex); }
         }
 
+
+        private const string DRIVINGSCHOOL_LICENSE_CAR = "DRIVINGSCHOOL_LICENSE_CAR";
+        private const string DRIVINGSCHOOL_LICENSE_BIKE = "DRIVINGSCHOOL_LICENSE_BIKE";
+        private const string DRIVINGSCHOOL_LICENSE_LKW = "DRIVINGSCHOOL_LICENSE_LKW";
         public static void OnColShapeHit(IColShape shape, Client player)
         {
             try
             {
-
+                if (player.IsInVehicle)
+                {
+                    VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                    if (vehClass.Reallife.DrivingSchoolVehicle)
+                    {
+                        switch (vehClass.Reallife.DrivingSchoolLicense)
+                        {
+                            case DRIVINGSCHOOL_LICENSE_CAR:
+                                break;
+                        }
+                    }
+                }
             }
             catch { }
         }
