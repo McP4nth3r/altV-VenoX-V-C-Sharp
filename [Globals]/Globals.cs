@@ -120,13 +120,14 @@ namespace VenoXV.Globals
 
 
         [ServerEvent("GlobalSystems:OnPlayerSyncDamage")]
-        public void OnPlayerSyncDamage(Client player, Client killer)
+        public void OnPlayerSyncDamage(Client player, Client killer, float Damage = 0)
         {
             try
             {
                 Alt.Server.TriggerClientEvent(player, "Globals:ShowBloodScreen");
                 killer.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
+                _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
             }
             catch { }
         }
@@ -154,6 +155,7 @@ namespace VenoXV.Globals
                 string type = string.Empty;
                 _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
                 _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
+                _Gamemodes_.Zombie.Globals.Events.OnPlayerDisconnect(player);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDisconnect", ex); }

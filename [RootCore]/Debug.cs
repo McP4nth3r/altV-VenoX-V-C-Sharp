@@ -22,6 +22,11 @@ namespace VenoXV.Core
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.Message);
             Console.WriteLine("[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
+
+            _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", "[EXCEPTION " + FunctionName + "] " + ex.Message);
+            _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", "[EXCEPTION " + FunctionName + "] " + ex.StackTrace);
+            _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.ResetColor();
         }
     }
