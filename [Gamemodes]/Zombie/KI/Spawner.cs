@@ -41,21 +41,21 @@ namespace VenoXV._Gamemodes_.KI
         {
             try
             {
-                foreach (ClothesModel clothes in _Gamemodes_.Reallife.Globals.Main.clothesList)
+                foreach (ClothesModel clothes in Reallife.Globals.Main.clothesList)
                 {
                     if (clothes.player == RandomSkinUID && clothes.dressed)
                     {
                         if (clothes.type == 0)
                         {
-                            Alt.Server.TriggerClientEvent(player,"Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            Alt.Server.TriggerClientEvent(player, "Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
-                            Alt.Server.TriggerClientEvent(player,"Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            Alt.Server.TriggerClientEvent(player, "Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }
-                Alt.Server.TriggerClientEvent(player,"Zombies:ApplyBloodToZombie", ZombieId);
+                Alt.Server.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyZombieClothes", ex); }
         }
@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.KI
             {
                 foreach (ZombieModel zombieClass in CurrentZombies)
                 {
-                    Alt.Server.TriggerClientEvent(player,"Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                    Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                     ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
                 }
             }
