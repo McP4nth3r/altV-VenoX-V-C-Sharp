@@ -8,7 +8,6 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
 
         public static void OnResourceStart()
         {
-            _Gamemodes_.Tactics.weapons.Combat.OnResourceStart();
         }
 
         public static void OnUpdate()
@@ -24,7 +23,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                Tactics.Lobby.Main.OnPlayerDisconnect(player, type, reason);
+                Lobby.Main.OnPlayerDisconnect(player, type, reason);
             }
             catch { }
         }
