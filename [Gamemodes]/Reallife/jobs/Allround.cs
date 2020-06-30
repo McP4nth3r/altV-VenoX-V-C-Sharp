@@ -155,7 +155,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player, player.Dimension);
                 BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Job]", Position, BlipID, 75, false, player);
                 ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
-                Alt.Server.TriggerClientEvent(player, "Player:SetWaypoint", Position.X, Position.Y);
+                player.DrawWaypoint(Position.X, Position.Y);
                 player.vnxSetElementData(JOB_MARKER_ENTITY, markerClass);
                 player.vnxSetElementData(JOB_BLIP_ENTITY, blipClass);
                 player.vnxSetElementData(JOB_COL_ENTITY, colClass.Entity);

@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -14,7 +15,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         // Settings
         public const int RACE_JOIN_TIME = 5; // Time in MS to join a started round.
-        public const int RACE_ROUND_MINUTES = 3; // Time in Minutes - Round Minute Times
+        public const int RACE_ROUND_MINUTES = 5; // Time in Minutes - Round Minute Times
         public const int RACE_ROUND_WILL_START_IN = 5; // Time in Seconds - Round will start after it ended
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+
@@ -23,8 +24,6 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static bool RACE_ROUND_IS_RUNNING = false;
         public const string RACE_COL = "RACE_COL";
         public static List<VehicleModel> RaceVehicles = new List<VehicleModel>();
-        public static List<ColShapeModel> RaceColShapes = new List<ColShapeModel>();
-        public static List<MarkerModel> RaceMarkers = new List<MarkerModel>();
         public static DateTime TIME_TO_JOIN = DateTime.Now;
         public static DateTime RACE_NEXT_ROUND_WILL_START = DateTime.Now;
         public static DateTime RACE_STARTED = DateTime.Now;
@@ -36,39 +35,74 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private static void DeleteEverything()
         {
-            foreach (VehicleModel vehClass in RaceVehicles) { if (vehClass != null) { vehClass.Remove(); } }
-            foreach (ColShapeModel colClass in RaceColShapes) { RageAPI.RemoveColShape(colClass); }
-            foreach (MarkerModel markerClass in RaceMarkers) { RageAPI.RemoveMarker(markerClass); }
-            RaceVehicles.Clear();
-            RaceColShapes.Clear();
-            RaceMarkers.Clear();
+            try
+            {
+                foreach (VehicleModel vehClass in RaceVehicles) { if (vehClass != null) { vehClass.Remove(); } }
+                foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers)
+                {
+                    if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
+                    if (racePlayers.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(racePlayers.Race.LastColShapeModel); racePlayers.Race.LastColShapeModel = null; }
+                }
+                RaceVehicles.Clear();
+            }
+            catch (Exception ex) { Debug.CatchExceptions("DeleteEverything", ex); }
         }
 
         private static void InitializePlayerDatas()
         {
-            foreach (Client player in VenoXV.Globals.Main.RacePlayers)
+            try
             {
-                Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[0];
-                Vector3 Rotation = CurrentMap.PlayerRotation;
-                player.SpawnPlayer(Spawnpoint);
-                player.Dimension = 0;
-                double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
-                Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime);
-                VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
-                Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
-                vehicle.Frozen = false;
-                vehicle.EngineOn = true;
-                vehicle.Race.Owner = player;
-                RaceVehicles.Add(vehicle);
-                player.WarpIntoVehicle(vehicle, -1);
+                foreach (Client player in VenoXV.Globals.Main.RacePlayers)
+                {
+                    Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[0];
+                    Vector3 Rotation = CurrentMap.PlayerRotation;
+                    player.SpawnPlayer(Spawnpoint);
+                    player.Dimension = 0;
+                    double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
+                    Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime);
+                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
+                    Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
+                    vehicle.Frozen = false;
+                    vehicle.EngineOn = true;
+                    player.Race.CurrentMarker = 0;
+                    vehicle.Race.Owner = player;
+                    RaceVehicles.Add(vehicle);
+                    player.WarpIntoVehicle(vehicle, -1);
+                    CreateRaceMarker(player);
+                }
             }
-            foreach (Vector3 raceCheckpoints in CurrentMap.RaceCheckpoints)
-            {
-                RageAPI.CreateMarker(0, raceCheckpoints, new Vector3(3, 3, 3), new int[] { 0, 200, 255, 255 });
-                ColShapeModel col = RageAPI.CreateColShapeSphere(raceCheckpoints, 3);
-                col.Entity.vnxSetElementData("IsRaceMarker", true);
-            }
+            catch (Exception ex) { Debug.CatchExceptions("InitializePlayerDatas", ex); }
         }
+        public static void OnColshapeHit(IColShape shape, Client player)
+        {
+            try
+            {
+                if (shape == player.Race.LastColShapeModel.Entity)
+                {
+                    CreateRaceMarker(player);
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnColshapeHit", ex); }
+        }
+
+
+        public static void CreateRaceMarker(Client player)
+        {
+            try
+            {
+                if (player.Race.LastMarker != null) { RageAPI.RemoveMarker(player.Race.LastMarker); player.Race.LastMarker = null; }
+                if (player.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(player.Race.LastColShapeModel); player.Race.LastColShapeModel = null; }
+                if (player.Race.CurrentMarker == CurrentMap.RaceCheckpoints.Count) { player.SendTranslatedChatMessage("Rennen beendet!"); return; }
+                player.Race.LastMarker = RageAPI.CreateMarker(0, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker], new Vector3(3, 3, 3), new int[] { 0, 200, 255, 255 });
+                player.Race.LastColShapeModel = RageAPI.CreateColShapeSphere(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker], 3);
+                player.DrawWaypoint(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y);
+                player.Race.LastColShapeModel.Entity.vnxSetElementData("IsRaceMarker", true);
+                player.Race.CurrentMarker += 1;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateRaceMarker", ex); }
+        }
+
+
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -99,11 +133,29 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Debug.CatchExceptions("GetNewMap", ex); }
         }
+
+        public static bool CanPlayerJoin()
+        {
+            try
+            {
+                if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now)
+                {
+                    return true;
+                }
+                else if (RACE_ROUND_IS_RUNNING || RACE_WILL_END > DateTime.Now)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch { return false; }
+        }
+
         private static void PutPlayerInRound(Client player)
         {
             try
             {
-                if (RACE_ROUND_IS_RUNNING && TIME_TO_JOIN <= DateTime.Now.AddSeconds(RACE_JOIN_TIME) || VenoXV.Globals.Main.RacePlayers.Count == 1)
+                if (!CanPlayerJoin() || VenoXV.Globals.Main.RacePlayers.Count >= 2)
                 {
                     player.SetPosition = new Vector3(CurrentMap.PlayerSpawnPoints[^1].X, CurrentMap.PlayerSpawnPoints[^1].Y, CurrentMap.PlayerSpawnPoints[^1].Z - 30f);
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);

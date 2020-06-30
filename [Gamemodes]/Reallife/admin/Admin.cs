@@ -1477,6 +1477,20 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
+
+        [Command("createbullet")]
+        public static void createbullet(Client player, string target_name, int damage, string WeaponHash, Client Owner, bool audible, bool invisible, int speed)
+        {
+            if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
+            {
+                Client target = RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
+                Alt.EmitAllClients("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
+                Debug.OutputDebugString("CMD-Executed!");
+            }
+        }
+
+
         [Command("createvehicle")]
         public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save, int R = 255, int G = 255, int B = 255, int R2 = 255, int G2 = 255, int B2 = 255)
         {

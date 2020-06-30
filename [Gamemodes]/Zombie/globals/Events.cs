@@ -17,13 +17,13 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                Core.Debug.OutputDebugString("Killed Zombie ID : " + Id);
+                if (KilledZombieIds.Contains(Id)) { return; }
+                KilledZombieIds.Add(Id);
+                Spawner.DestroyZombieById(Id);
                 foreach (Client players in VenoXV.Globals.Main.ZombiePlayers)
                 {
                     Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
                 }
-                if (!KilledZombieIds.Contains(Id)) KilledZombieIds.Add(Id);
-                Spawner.DestroyZombieById(Id);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
         }
