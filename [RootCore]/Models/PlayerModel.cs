@@ -133,7 +133,6 @@ namespace VenoXV._RootCore_.Models
     {
         private Player Player;
         public bool IsRacing { get; set; }
-        public bool IsInRound { get; set; }
         public int RoundPlace { get; set; }
         public int CurrentMarker { get; set; }
         public MarkerModel LastMarker { get; set; }
@@ -144,7 +143,6 @@ namespace VenoXV._RootCore_.Models
             {
                 Player = player;
                 IsRacing = false;
-                IsInRound = false;
                 RoundPlace = 0;
                 CurrentMarker = 0;
             }
