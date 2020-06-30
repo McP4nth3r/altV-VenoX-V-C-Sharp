@@ -2,6 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Race.model;
 using VenoXV._RootCore_.Models;
@@ -24,26 +25,34 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static bool RACE_ROUND_IS_RUNNING = false;
         public const string RACE_COL = "RACE_COL";
         public static List<VehicleModel> RaceVehicles = new List<VehicleModel>();
+        public static List<Client> RacePlayersFinished = new List<Client>();
         public static DateTime TIME_TO_JOIN = DateTime.Now;
         public static DateTime RACE_NEXT_ROUND_WILL_START = DateTime.Now;
         public static DateTime RACE_STARTED = DateTime.Now;
         public static DateTime RACE_WILL_END = DateTime.Now;
         public static MapModel LastMap = new MapModel();
         public static MapModel CurrentMap;
-        public static List<Client> PlayerModelList;
+        public static string RACE_FIRST_WINNER = String.Empty;
+        public static string RACE_SECOND_WINNER = String.Empty;
+        public static string RACE_THIRD_WINNER = String.Empty;
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private static void DeleteEverything()
         {
             try
             {
-                foreach (VehicleModel vehClass in RaceVehicles) { if (vehClass != null) { vehClass.Remove(); } }
+                foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { vehClass.Remove(); } }
                 foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers)
                 {
                     if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
                     if (racePlayers.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(racePlayers.Race.LastColShapeModel); racePlayers.Race.LastColShapeModel = null; }
+                    racePlayers.Race.IsRacing = false;
                 }
                 RaceVehicles.Clear();
+                RacePlayersFinished.Clear();
+                RACE_FIRST_WINNER = String.Empty;
+                RACE_SECOND_WINNER = String.Empty;
+                RACE_THIRD_WINNER = String.Empty;
             }
             catch (Exception ex) { Debug.CatchExceptions("DeleteEverything", ex); }
         }
@@ -54,21 +63,26 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 foreach (Client player in VenoXV.Globals.Main.RacePlayers)
                 {
-                    Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[0];
-                    Vector3 Rotation = CurrentMap.PlayerRotation;
-                    player.SpawnPlayer(Spawnpoint);
-                    player.Dimension = 0;
-                    double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
-                    Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime);
-                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
-                    Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
-                    vehicle.Frozen = false;
-                    vehicle.EngineOn = true;
-                    player.Race.CurrentMarker = 0;
-                    vehicle.Race.Owner = player;
-                    RaceVehicles.Add(vehicle);
-                    player.WarpIntoVehicle(vehicle, -1);
-                    CreateRaceMarker(player);
+                    if (!player.Race.IsRacing)
+                    {
+                        Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[0];
+                        Vector3 Rotation = CurrentMap.PlayerRotation;
+                        player.SpawnPlayer(Spawnpoint);
+                        player.Dimension = 0;
+                        double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
+                        Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime);
+                        VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
+                        Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
+                        vehicle.Frozen = false;
+                        vehicle.EngineOn = true;
+                        player.Race.CurrentMarker = 0;
+                        vehicle.Race.Owner = player;
+                        player.Race.IsRacing = true;
+                        RaceVehicles.Add(vehicle);
+                        player.WarpIntoVehicle(vehicle, -1);
+                        SyncPlayerPlaceInRound();
+                        CreateRaceMarker(player);
+                    }
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions("InitializePlayerDatas", ex); }
@@ -77,7 +91,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                if (shape == player.Race.LastColShapeModel.Entity)
+                if (shape == player.Race.LastColShapeModel.Entity && player.IsInVehicle)
                 {
                     CreateRaceMarker(player);
                 }
@@ -85,19 +99,77 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColshapeHit", ex); }
         }
 
+        public static void SendRaceMessage(string text)
+        {
+            foreach (Client players in VenoXV.Globals.Main.RacePlayers)
+            {
+                players.SendTranslatedChatMessage(text);
+            }
+        }
+        public static void SyncPlayerPlaceInRound()
+        {
+
+            int counter = 0;
+            foreach (Client players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker))
+            {
+                counter++;
+                players.Emit("Race:FillPlayerList", players.Username);
+                players.Race.RoundPlace = counter;
+            }
+        }
+
+        public static void OnClientRaceFinish(Client player)
+        {
+            try
+            {
+                if (RACE_FIRST_WINNER == String.Empty)
+                {
+                    RACE_FIRST_WINNER = player.Username;
+                }
+                else if (RACE_SECOND_WINNER == String.Empty)
+                {
+                    RACE_SECOND_WINNER = player.Username;
+                }
+                else if (RACE_THIRD_WINNER == String.Empty)
+                {
+                    RACE_THIRD_WINNER = player.Username;
+                }
+                player.Vehicle.EngineOn = false;
+                player.Freeze = true;
+                player.Race.IsRacing = false;
+                SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat das Rennen beendet!");
+                RacePlayersFinished.Add(player);
+                if (RacePlayersFinished.Count == VenoXV.Globals.Main.RacePlayers.Count)
+                {
+                    SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
+                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 1 :  " + RACE_FIRST_WINNER);
+                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 2 :  " + RACE_SECOND_WINNER);
+                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 3 :  " + RACE_THIRD_WINNER);
+                    SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
+                    StopRound();
+                }
+            }
+            catch { }
+        }
 
         public static void CreateRaceMarker(Client player)
         {
             try
             {
+                // Sync Stuff
+                SyncPlayerPlaceInRound();
+                // Delete everything
                 if (player.Race.LastMarker != null) { RageAPI.RemoveMarker(player.Race.LastMarker); player.Race.LastMarker = null; }
                 if (player.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(player.Race.LastColShapeModel); player.Race.LastColShapeModel = null; }
-                if (player.Race.CurrentMarker == CurrentMap.RaceCheckpoints.Count) { player.SendTranslatedChatMessage("Rennen beendet!"); return; }
-                player.Race.LastMarker = RageAPI.CreateMarker(0, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker], new Vector3(3, 3, 3), new int[] { 0, 200, 255, 255 });
-                player.Race.LastColShapeModel = RageAPI.CreateColShapeSphere(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker], 3);
-                player.DrawWaypoint(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y);
-                player.Race.LastColShapeModel.Entity.vnxSetElementData("IsRaceMarker", true);
+                if (player.Race.CurrentMarker == CurrentMap.RaceCheckpoints.Count) { OnClientRaceFinish(player); return; }
+                // Create New stuff
+                Vector3 newPos = new Vector3(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Z - 1f);
+                player.Race.LastMarker = RageAPI.CreateMarker(4, newPos, new Vector3(5, 5, 5), new int[] { 0, 200, 255, 255 });
+                player.Race.LastColShapeModel = RageAPI.CreateColShapeSphere(newPos, 4);
+                // Draw Waypoint & give player stuff.
+                player.DrawWaypoint(newPos.X, newPos.Y);
                 player.Race.CurrentMarker += 1;
+                player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateRaceMarker", ex); }
         }
@@ -174,6 +246,15 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Race runde betreten.");
             }
             catch (Exception ex) { Debug.CatchExceptions("OnSelectedRaceGM", ex); }
+        }
+        public static void StopRound()
+        {
+            try
+            {
+                RACE_ROUND_IS_RUNNING = false;
+                RACE_WILL_END = DateTime.Now;
+            }
+            catch { }
         }
         public static void OnUpdate()
         {
