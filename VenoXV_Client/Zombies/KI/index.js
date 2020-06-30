@@ -112,11 +112,10 @@ alt.onServer('Zombies:SetHealth', (Id, Health) => {
     if (!Zombies[Id]) { return; }
     game.setEntityHealth(Zombies[Id].Entity, Health);
     if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && Zombies[Id].Entity != null) {
-        game.deletePed(Zombies[Id].Entity);
-        /*Zombies.splice(Id, 1);*/
-        for (var i = 0; i < Zombies.length; i++) {
-            if (Zombies[i] === Id) {
+        for (var i in Zombies) {
+            if (i == Id) {
                 alt.log("Zombie wurde gelöscht.");
+                game.deletePed(Zombies[i].Entity);
                 Zombies.splice(i, 1);
             }
         }
