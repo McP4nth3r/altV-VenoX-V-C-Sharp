@@ -237,7 +237,7 @@
 /* User Tabellen */
 /* Spieler */
 
-#scoreboardplayer {
+#scoreboard-value-0 {
     position: absolute;
     color: white;
     left: 0%;
@@ -254,7 +254,7 @@
 
 /* Spielzeit */
 
-#scoreboardspielzeit {
+#scoreboard-value-1 {
     position: absolute;
     color: white;
     left: 20%;
@@ -271,7 +271,7 @@
 
 /* Status */
 
-#scoreboardstatus {
+#scoreboard-value-2 {
     position: absolute;
     color: white;
     left: 30%;
@@ -288,7 +288,7 @@
 
 /* Handynummer */
 
-#scoreboardhandy {
+#scoreboard-value-3 {
     position: absolute;
     color: white;
     left: 50%;
@@ -305,7 +305,7 @@
 
 /* VIP */
 
-#scoreboardVIP {
+#scoreboard-value-4 {
     position: absolute;
     color: white;
     left: 65%;
@@ -322,7 +322,7 @@
 
 /* Fraktion */
 
-#scoreboardfaction {
+#scoreboard-value-5 {
     position: absolute;
     color: white;
     left: 75%;
@@ -339,7 +339,7 @@
 
 /* Ping */
 
-#scoreboardping {
+#scoreboard-value-6 {
     position: absolute;
     color: white;
     left: 90%;

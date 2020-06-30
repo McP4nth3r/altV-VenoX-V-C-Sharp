@@ -279,7 +279,7 @@
 
 /* Namen Liste */
 
-#scoreboardplayer {
+#scoreboard-value-0 {
     position: absolute;
     color: white;
     left: 10%;
@@ -296,7 +296,7 @@
 
 /* Spielzeit Liste */
 
-#scoreboardspielzeit {
+#scoreboard-value-1 {
     position: absolute;
     color: white;
     left: 28%;
@@ -314,7 +314,7 @@
 
 /* Status Liste */
 
-#scoreboardstatus {
+#scoreboard-value-2 {
     position: absolute;
     color: white;
     left: 47%;
@@ -331,7 +331,7 @@
 
 /* kills Liste */
 
-#scoreboardKILLS {
+#scoreboard-value-3 {
     position: absolute;
     color: white;
     left: 65%;
@@ -348,7 +348,7 @@
 
 /* Fraktion Liste */
 
-#scoreboardtode {
+#scoreboard-value-4 {
     position: absolute;
     color: white;
     left: 82%;
@@ -365,7 +365,7 @@
 
 /* Ping Liste */
 
-#scoreboardping {
+#scoreboard-value-5 {
     position: absolute;
     color: white;
     left: 96.4%;
