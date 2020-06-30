@@ -69,6 +69,7 @@ namespace VenoXV.Globals
                 {
                     _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
                     SevenTowers.globals.Main.OnColShapeHit(shape, player);
+                    _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
                 }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
             }
