@@ -132,14 +132,21 @@ namespace VenoXV._RootCore_.Models
     public class Race
     {
         private Player Player;
-        public Client Owner { get; set; }
         public bool IsRacing { get; set; }
         public bool IsInRound { get; set; }
+        public int RoundPlace { get; set; }
+        public int CurrentMarker { get; set; }
+        public MarkerModel LastMarker { get; set; }
+        public ColShapeModel LastColShapeModel { get; set; }
         public Race(Player player)
         {
             try
             {
                 Player = player;
+                IsRacing = false;
+                IsInRound = false;
+                RoundPlace = 0;
+                CurrentMarker = 0;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RaceModel-Create", ex); }
         }
@@ -241,6 +248,7 @@ namespace VenoXV._RootCore_.Models
         public int Played { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_PLAYED); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_PLAYED, value); } }
         public bool Playing { get { return this.vnxGetElementData<bool>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING); } set { this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
         public string Vip_Paket { get; set; }
+        public void DrawWaypoint(float PosX, float PosY) { try { Alt.Server.TriggerClientEvent(this, "Player:SetWaypoint", PosX, PosY); } catch { } }
         private bool _frozen { get; set; }
         public bool Freeze { get { return _frozen; } set { _frozen = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public DateTime Vip_BisZum { get; set; }
