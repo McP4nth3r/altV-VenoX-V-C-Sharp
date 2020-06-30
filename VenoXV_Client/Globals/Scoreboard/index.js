@@ -7,7 +7,7 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { ShowCursor, GetCursorStatus, vnxCreateCEF, vnxDestroyCEF } from '../VnX-Lib';
-import { GetCurrentLobby, PLAYER_LOBBY_REALLIFE, PLAYER_LOBBY_TACTICS } from '../VnX-Lib/events';
+import { GetCurrentLobby, PLAYER_LOBBY_REALLIFE, PLAYER_LOBBY_TACTICS, PLAYER_LOBBY_7TOWERS } from '../VnX-Lib/events';
 
 let CurrentBrowser = null;
 let CurrentBrowserPath = "";
@@ -15,45 +15,52 @@ let removed = false;
 let allowed = true;
 let ReallifeScoreboardPath = "Globals/Scoreboard/reallife/tab.html";
 let TacticsScoreboardPath = "Globals/Scoreboard/tactics/tab.html";
+let SevenTowersScoreboardPath = "Globals/Scoreboard/seventowers/tab.html";
 
 
 function CheckCurrentBrowser() {
-	if (GetCurrentLobby() == PLAYER_LOBBY_REALLIFE) {
-		if (CurrentBrowserPath != ReallifeScoreboardPath) {
-			if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
-			CurrentBrowser = vnxCreateCEF("Scoreboard", ReallifeScoreboardPath);
-			CurrentBrowserPath = ReallifeScoreboardPath;
-			alt.log("Scoreboard for " + GetCurrentLobby() + " Created! ");
+	try {
+		let Lobby = GetCurrentLobby();
+		switch (Lobby) {
+			case PLAYER_LOBBY_REALLIFE:
+				if (CurrentBrowserPath != ReallifeScoreboardPath) {
+					if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
+					CurrentBrowser = vnxCreateCEF("Scoreboard", ReallifeScoreboardPath);
+					CurrentBrowserPath = ReallifeScoreboardPath;
+					alt.log("Scoreboard for " + Lobby + " Created! ");
+				}
+				break;
+			case PLAYER_LOBBY_TACTICS:
+				if (CurrentBrowserPath != TacticsScoreboardPath) {
+					if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
+					CurrentBrowser = vnxCreateCEF("Scoreboard", TacticsScoreboardPath);
+					CurrentBrowserPath = TacticsScoreboardPath;
+					alt.log("Scoreboard for " + Lobby + " Created! ");
+				}
+				break;
+			case PLAYER_LOBBY_7TOWERS:
+				if (CurrentBrowserPath != SevenTowersScoreboardPath) {
+					if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
+					CurrentBrowser = vnxCreateCEF("Scoreboard", SevenTowersScoreboardPath);
+					CurrentBrowserPath = SevenTowersScoreboardPath;
+					alt.log("Scoreboard for " + Lobby + " Created! ");
+				}
+				break;
 		}
 	}
-	else if (GetCurrentLobby() == PLAYER_LOBBY_TACTICS) {
-		if (CurrentBrowserPath != TacticsScoreboardPath) {
-			if (CurrentBrowser != null) { vnxDestroyCEF("Scoreboard"); }
-			CurrentBrowser = vnxCreateCEF("Scoreboard", TacticsScoreboardPath);
-			CurrentBrowserPath = TacticsScoreboardPath;
-			alt.log("Scoreboard for " + GetCurrentLobby() + " Created! ");
-		}
-	}
+	catch (e) { console.log(e); }
 }
 
 
-alt.onServer('UpdateScoreboard_Event', (pl_li) => {
-	CheckCurrentBrowser();
-	if (CurrentBrowser != null) {
-		CurrentBrowser.emit("FillScoreboard", pl_li);
-		//alt.log(Object.keys(pl_li));
+alt.onServer('UpdateScoreboard_Event', (pl_li, gm) => {
+	try {
+		CheckCurrentBrowser();
+		if (CurrentBrowser != null) {
+			CurrentBrowser.emit("FillScoreboard", pl_li, gm);
+		}
 	}
+	catch (e) { console.log(e); }
 });
-
-
-
-/*
-alt.onServer('ScoreBoard_Allow', () => {
-	allowed = false;
-	alt.setTimeout(function () {
-		allowed = true;
-	}, 350);
-});*/
 
 
 export function KeyDown(key) {
