@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using VenoXV._Maps_.Model;
+using VenoXV._Maps_.Models;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Maps_
@@ -25,6 +26,9 @@ namespace VenoXV._Maps_
 
         public const string SEVENTOWERS_MAP = "SEVENTOWERS";
         private static readonly List<MapModel> SEVENTOWERSMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + SEVENTOWERS_MAP + ".json"));
+
+        public const string ZOMBIES_MAP = "ZOMBIES";
+        private static readonly List<MenyooMapModel> ZOMBIESMAP = JsonConvert.DeserializeObject<List<MenyooMapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + ZOMBIES_MAP + ".json"));
 
         private static readonly int ROT_ORDER_NORMAL = 2;
         public static void LoadMap(Client playerClass, string MapName)
@@ -63,6 +67,12 @@ namespace VenoXV._Maps_
                         foreach (MapModel mapClass in WUERFELPARKMAP)
                         {
                             Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
+                        }
+                        break;
+                    case ZOMBIES_MAP:
+                        foreach (MenyooMapModel mapClass in ZOMBIESMAP)
+                        {
+                            //Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.ModelHash, new Vector3(mapClass.PositionRotation.X, mapClass.PositionRotation.Y, mapClass.PositionRotation.Z), 2, new Vector3(mapClass.PositionRotation.Pitch, mapClass.PositionRotation.Roll, mapClass.PositionRotation.Yaw), true, false, true, 0);
                         }
                         break;
                 }
