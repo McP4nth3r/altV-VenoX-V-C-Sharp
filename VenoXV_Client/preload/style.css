@@ -1,12 +1,15 @@
+//*----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------*//
 
 @font-face { font-family: 'drugs';
-             src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
+             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
 @font-face { font-family: 'robot';
-             src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }		
+             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
 @font-face { font-family: 'hangover';
-             src: url('./files/font/hangover.ttf') format('truetype'); }		 
-
-
+             src: url('./font/hangover.ttf') format('truetype'); }
 
 .all {
     -ms-user-select: None; 
@@ -15,7 +18,7 @@
     overflow: hidden;
 }
 
-
+/* Hintergrund */
 
 .background {	
 	position: absolute;
@@ -28,40 +31,51 @@
     background-position: 50% 50%;
 }
 
+/* Spielmodi Texte */
+
 .rec_text {
 	position: absolute;
-	top: 25%;
+    top: -10%;
 	width: 100%;
-	height: 2.5vw;
+	height: 100%;
 	color: white;
 	font-size: 2.5vw;
 	text-align: center;
 	font-family: arial;
-  -webkit-text-stroke-width: 0.08vw;
-  -webkit-text-stroke-color: black;		 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke-width: 0.08vw;
+    -webkit-text-stroke-color: black;		 
 }
 .rec_userinfo {
 	position: absolute;
-	top: 3vw;
-	text-align: center;
+	top: 20%;
+	height: 100%;
 	width: 100%;
+	text-align: center;
 	font-size: 0.8vw;
 	font-family: drugs;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     -webkit-text-stroke-width: 0.00vw;
-    text-shadow:  1px  1px 1px black,
-                  1px -1px 1px black,
-                 -1px  1px 1px black,
-                 -1px -1px 1px black;
+    text-shadow:  2px  2px 2px black,
+                  2px -2px 2px black,
+                 -2px  2px 2px black,
+                 -2px -2px 2px black;
 }
 
+/* Zombies */
 
 .rec_0 {
 	position: absolute;
-	left: 10vw;
-    top: 3vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/Zombie.jpg");
+	left: 20%;
+    top: 20%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/Zombie.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -69,29 +83,37 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_0:hover {transform: scale(1.1);}
+.rec_0:hover { height: 30%; width: 30%; }
+
+/* Reallife */
+
 .rec_1 {
 	position: absolute;
-	left: 40vw;
-	top: 14vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/Reallife.jpg");
+	left: 50%;
+    top: 50%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/Reallife.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
 	outline-style: solid;
 	outline-color: white;
-	animation: Contentmove 1s linear; 
+	animation: Contentmove_M 1s linear; 
 }
-.rec_1:hover {transform: scale(1.1);}
+.rec_1:hover { height: 30%; width: 30%; }
+
+/* Tactics */
+
 .rec_2 {
 	position: absolute;
-	left: 70vw;
-    top: 3vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/Tactics.jpg");
+	left: 80%;
+    top: 20%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/Tactics.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -99,14 +121,18 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_2:hover {transform: scale(1.1);}
+.rec_2:hover { height: 30%; width: 30%; }
+
+/* Race */
+
 .rec_3 {
 	position: absolute;
-	left: 10vw;
-	top: 14vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/Race.jpg");
+	left: 20%;
+    top: 50%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/Race.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -114,29 +140,37 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_3:hover {transform: scale(1.1);}
+.rec_3:hover { height: 30%; width: 30%; }
+
+/* 7-Towers */
+
 .rec_4 {
 	position: absolute;
-	left: 40vw;
-    top: 3vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/locked.png");
+	left: 50%;
+    top: 20%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/Towers.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
 	outline-style: solid;
 	outline-color: white;
-	animation: Contentmove 1s linear; 
+	animation: Contentmove_M 1s linear; 
 }
-.rec_4:hover {transform: scale(1.1);}
+.rec_4:hover { height: 30%; width: 30%; }
+
+/* Option 6 */
+
 .rec_5 {
 	position: absolute;
-	left: 70vw;
-	top: 14vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/locked.png");
+	left: 80%;
+    top: 50%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -144,14 +178,18 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_5:hover {transform: scale(1.1);}
+.rec_5:hover { height: 30%; width: 30%; }
+
+/* Option 7 */
+
 .rec_6 {
 	position: absolute;
-	left: 10vw;
-	top: 25vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/locked.png");
+	left: 20%;
+    top: 80%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -159,29 +197,37 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_6:hover {transform: scale(1.1);}
+.rec_6:hover { height: 30%; width: 30%; }
+
+/* Option 8 */
+
 .rec_7 {
 	position: absolute;
-	left: 40vw;
-	top: 25vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/locked.png");
+	left: 50%;
+    top: 80%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
 	outline-style: solid;
 	outline-color: white;
-	animation: Contentmove 1s linear; 
+	animation: Contentmove_M 1s linear; 
 }
-.rec_7:hover {transform: scale(1.1);}
+.rec_7:hover { height: 30%; width: 30%; }
+
+/* Option 9 */
+
 .rec_8 {
 	position: absolute;
-	left: 70vw;
-	top: 25vw;
-	height: 10vw;
-	width: 20.5vw;
-	background-image: url("./files/images/locked.png");
+	left: 80%;
+    top: 80%;
+	height: 25%;
+	width: 25%;
+    transform: translate(-50%, -50%);
+	background-image: url("./images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -189,39 +235,45 @@
 	outline-color: white;
 	animation: Contentmove 1s linear; 
 }
-.rec_8:hover {transform: scale(1.1);}
+.rec_8:hover { height: 30%; width: 30%; }
 
-@keyframes Contentmove{
+/* Effekte */
 
-    0%{
-        transform:translate(0%, -50%);
+@keyframes Contentmove {
+    0% {
+        transform:translate(-50%, -500%);
         opacity:0;
     }
-
+    100% {
+        opacity:1;
+    }
+}
+@keyframes Contentmove_M {
+    0% {
+        transform:translate(-50%, 500%);
+        opacity:0;
+    }
     100%{
         opacity:1;
     }
 }
-@keyframes AddBlur{
 
-    0%{
-    filter: blur(1px);
-    -webkit-filter: blur(1px);
+@keyframes AddBlur {
+    0% {
+    filter: blur(0px);
+    -webkit-filter: blur(0px);
     }
-
-    100%{
+    100% {
         filter: blur(8px);
         -webkit-filter: blur(8px);
     }
 }
-@keyframes RemoveBlur{
-
-    0%{
+@keyframes RemoveBlur {
+    0% {
         filter: blur(8px);
         -webkit-filter: blur(8px);
     }
-
-    100%{
+    100% {
         filter: blur(0px);
         -webkit-filter: blur(0px);
     }

@@ -17,43 +17,44 @@ function playAudio(v) {
 
 
 
-function OnWindowLoad() {
-    playAudio();
+function OnWindowLoad(){
+    playAudio();    
     OnHover();
     let rnumber = Math.floor((Math.random() * 6));
     $('.background').attr("src", "https://venox-reallife.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
+    console.log('called ' + rnumber);
 }
 
 let timer;
-function OnHover() {
+function OnHover(){
     var recs = document.querySelectorAll('#rectangle');
     [].forEach.call(recs, function (currentrec) {
-        $(currentrec).mouseover(function () {
-            $('.background').removeClass('blurout');
-            $(currentrec).children().children().removeClass('d-none');
-            $('.background').addClass('blurin');
-            if (timer != null) {
-                clearTimeout(timer);
+        $(currentrec).mouseover(function() {
+           $('.background').removeClass('blurout');
+           $(currentrec).children().children().removeClass('d-none');
+           $('.background').addClass('blurin');
+            if(timer != null){
+               clearTimeout(timer);
             }
-            timer = setTimeout(function () {
+           timer = setTimeout(function(){
                 $('.background').removeClass('blurin');
-                $('.background').css({ filter: "blur(8px)" });
+                $('.background').css({filter: "blur(8px)"});
                 timer = false;
-            }, 900);
+           }, 900);
         });
-
-        $(currentrec).mouseleave(function () {
-            $('.background').removeClass('blurin');
-            $('.background').addClass('blurout');
-            $(currentrec).children().children().addClass('d-none');
-            if (timer != null) {
-                clearTimeout(timer);
+            
+        $(currentrec).mouseleave(function() {
+           $('.background').removeClass('blurin');
+           $('.background').addClass('blurout');
+           $(currentrec).children().children().addClass('d-none');
+            if(timer != null){
+               clearTimeout(timer);
             }
-            timer = setTimeout(function () {
-                $('.background').css({ filter: "blur(0px)" });
+            timer = setTimeout(function(){
+                $('.background').css({filter: "blur(0px)"});
                 $('.background').removeClass('blurout');
             }, 900);
         });
     });
 }
-
+                    
