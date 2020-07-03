@@ -1,150 +1,106 @@
-.back {
-	background: rgba(10, 10, 10, 0.8);
-	position: absolute;
-	width: 35vw;
-	height: 20vw;
-    border-radius: 0.3vw;
-    top: 13vw;
-    left: 50%;
-    transform: translate(-50%);
+/*//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By LargePeach & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//*/
+
+body {
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
 }
 
-
-
-.blue_header {
-	background: rgba(0, 150, 200, 0.8);
-	position: absolute;
-	width: 35vw;
-	height: 0.3vw;
-    border-radius: 0.8vw;
-    top: 13vw;
+#back {
+    width: 40%;
+    height: 40%;
     left: 50%;
-    transform: translate(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.5vw;
 }
 
-
-
-.text_head {
-	background: rgba(10, 10, 10, 0.4);
-	position: absolute;
-	color: rgba(225,225,225,1);
-	width: 35vw;
-	font-size: 1.5vw;
-	font-family: sans-serif;
-    top: 13.4vw;
-    left: 50%;
-    transform: translate(-50%);
+#header {
+    font-size: 1.5vw;
+    border-top-left-radius: 0.5vw;
+    border-top-right-radius: 0.5vw;
+    padding: 0.3vw 0vw;
 }
 
-
-
-.text_info {
-	position: absolute;
-	color: rgba(225,225,225,1);
-	width: 35vw;
-	font-size: 1vw;
-	font-family: sans-serif;
-    top: 18.5vw;
+.duty_text {
+    position: relative;
+    color: white;
+    text-align: center;
+    width: 85%;
     left: 50%;
-    transform: translate(-50%);
-}
-
-
-
-.duty {
-	position: absolute;
-	padding: 0.5vw 1vw;
-	width: 6vw;
-	background: rgb(0, 105, 145);
-	color: white;
-	border: 0.15vw solid rgb(0, 105, 145);
-	border-radius: 0.3vw;
-	cursor: pointer;
-	transition: all ease 1s;
-    font-weight: bold;  
+    height: 50%;
+    top: 45%;
     font-size: 1vw;
-    top: 25.7vw;
-    left: 38%;
+    font-family: arial;
+    letter-spacing: 0.025vw;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#duty_button {
+    width: 25%;
+    height: 10%;
+    top: 80%;
+    left: 17.5%;
+    letter-spacing: 0.05vw;
+    cursor: pointer;
     transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 0.15vw rgb(0,150,0);
 }
-.duty:hover, .duty:active {
-    position: absolute;
-	outline: none;
-	background: rgb(0, 150, 200);
-    border: 0.15vw solid rgb(0, 150, 200);
-	color: white;
+#duty_button:hover {
+    border-top: solid 0.15vw rgb(0,200,0);
 }
 
-
-
-.noose {
-	position: absolute;
-	padding: 0.5vw 1vw;
-	width: 6vw;
-	background: rgb(0, 105, 145);
-	color: white;
-	border: 0.15vw solid rgb(0, 105, 145);
-	border-radius: 0.3vw;
-	cursor: pointer;
-	transition: all ease 1s;
-    font-weight: bold;
-    font-size: 1vw;
-    top: 25.7vw;
+#swat_button {
+    width: 25%;
+    height: 10%;
+    top: 80%;
     left: 50%;
+    letter-spacing: 0.05vw;
+    cursor: pointer;
     transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 0.15vw rgb(0,0,150);
 }
-.noose:hover, .noose:active {
-    position: absolute;
-	outline: none;
-	background: rgb(0, 150, 200);
-    border: 0.15vw solid rgb(0, 150, 200);
-	color: white;
+#swat_button:hover {
+    border-top: solid 0.15vw rgb(0,0,255);
 }
 
+#offduty_button {
+    width: 25%;
+    height: 10%;
+    top: 80%;
+    left: 82.5%;
+    letter-spacing: 0.05vw;
+    cursor: pointer;
+    transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 0.15vw rgb(150,0,0);
+}
+#offduty_button:hover {
+    border-top: solid 0.15vw rgb(200,0,0);
+}
 
-
-.offduty {
-	position: absolute;
-	padding: 0.5vw 1vw;
-	width: 6vw;
-	background: rgb(0, 105, 145);
-	color: white;
-	border: 0.15vw solid rgb(0, 105, 145);
-	border-radius: 0.3vw;
-	cursor: pointer;
-	transition: all ease 1s;
+#close {
+    font-family: arial;
+    color: rgba(255,255,255,0.6);
+    right: 3%;
+    top: 2.5%;
+}
+#close:hover {
     font-weight: bold;
-    font-size: 1vw;
-    top: 25.7vw;
-    left: 62%;
-    transform: translate(-50%);
-}
-.offduty:hover, .offduty:active {
-    position: absolute;
-	outline: none;
-	background: rgb(0, 150, 200);
-    border: 0.15vw solid rgb(0, 150, 200);
-	color: white;
-}
-
-
-
-.close {
-	position: absolute;
-    height: auto;
-	color: darkgray;
-	cursor: pointer;
-	transition: all ease 0ss;
-    font-family: sans-serif;
-    font-weight: normal;
-    font-size: 1.2vw;
-    top: 13.6vw;
-    left: 66.5%;
-    transform: translate(-50%);
-}
-.close:hover, .close:active {
-    position: absolute;
-	outline: none;
-	color: darkred;
-    font-weight: bold;
+    color: rgba(255,0,0,0.6);
 }

@@ -1,35 +1,30 @@
 <head>
-    <link href="style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
 </head>
 
-
 <body>
-    <div class="all">
-        <div class="back"></div>
-        <div class="blue_header"></div>
-        <center>
-            <div class="text_head" id="text_head"></div>
-            <div class="text_info" id="text_info"></div>
-            <div class="duty" onclick="ButtonPressed('Duty')">Duty</div>
-            <div class="noose" onclick="ButtonPressed('Swat')">S.W.A.T</div>
-            <div class="offduty" onclick="ButtonPressed('OffDuty')">Off-Duty</div>
-            <div class="close" onclick="CloseStateWindow()">X</div>
-            <script>
-                if ("alt" in window) {
-                    function ButtonPressed(button) {
-                        alt.emit("ButtonPressed", button);
-                    }
-                    function CloseStateWindow() {
-                        alt.emit("destroyDutyWindow");
-                    }
-                    alt.on('Duty:Load', (e, name) => {
-                        $('.text_head').html("Willkommen Officer " + name);
-                        $('.text_info').html(e);
-                    });
-                }
-            </script>
-        </center>
+    <div class="VnX-Window !d-none" id="back">
+        <div class="VnX-Header" id="header">Los Santos Police Department</div>
+        <div class="duty_text">Wilkommen Officer {Spieler Name}!<br><br><br>Hier kannst du dich für den Dienst melden, bei speziellen Einsätzen aber<br><br><br>auch in den SWAT gehen. Du kannst dich aber auch wieder abmelden.</div>
+        <div class="VnX-Button" id="duty_button" onclick="ButtonPressed('Duty')>Duty</div>
+        <div class="VnX-Button" id="swat_button" onclick="ButtonPressed('Swat')">SWAT</div>
+        <div class="VnX-Button" id="offduty_button" onclick="ButtonPressed('OffDuty')">Off-Duty</div>
+        <div class="VnX-Close" id="close" onclick="CloseStateWindow()">X</div>
     </div>
-
+	<script>
+	if ("alt" in window) {
+		function ButtonPressed(button) {
+			alt.emit("ButtonPressed", button);
+		}
+		function CloseStateWindow() {
+			alt.emit("destroyDutyWindow");
+		}
+		alt.on('Duty:Load', (e, name) => {
+			$('.text_head').html("Willkommen Officer " + name);
+			$('.text_info').html(e);
+		});
+	}
+</script>
 </body>
