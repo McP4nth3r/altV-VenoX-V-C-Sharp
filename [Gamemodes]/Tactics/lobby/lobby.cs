@@ -2,6 +2,7 @@
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.model;
@@ -166,6 +167,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
+                    player.DrawWaypoint(CurrentMap.Team_A_Spawnpoints[0].X, CurrentMap.Team_A_Spawnpoints[0].Y);
                 }
                 else if (Fac == EntityData.COPS_NAME)
                 {
@@ -177,6 +179,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     GivePlayerTacticWeapons(player);
                     player.Health = 200;
                     player.Armor = 100;
+                    player.DrawWaypoint(CurrentMap.Team_B_Spawnpoints[0].X, CurrentMap.Team_B_Spawnpoints[0].Y);
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 Reallife.dxLibary.VnX.SetElementFrozen(player, false);
@@ -196,47 +199,35 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 TacticVehicleList.Add(vehicle);
             }
         }
-        public static void PutPlayerInTeam(Client player)
+
+        public static void PutPlayerInTeam()
         {
             try
             {
                 // Wir Checken ob bereits eine Runde bereits läuft, falls nein dann setzen wir den Status auf True.
                 if (!IsTacticRoundRunning()) { TACTICMANAGER__ROUND_ISRUNNING = true; }
-
-                if (player.Tactics.Team == EntityData.COPS_NAME)
+                List<Client> TacticsPlayerMixed = VenoXV.Globals.Main.TacticsPlayers.ToList();
+                TacticsPlayerMixed.ShuffleList();
+                string _Team = EntityData.COPS_NAME;
+                foreach (Client p in TacticsPlayerMixed)
                 {
-                    Alt.Emit("GlobalSystems:PlayerTeam", player, 0);
-                    if (MEMBER_COUNT_BFAC <= MEMBER_COUNT_COPS) // Wenn Böse Fraktionisten in der Unterzahl sind, dann Spieler in die BFAC tun.
+                    if (_Team == EntityData.COPS_NAME)
                     {
+                        Alt.Emit("GlobalSystems:PlayerTeam", p, 0);
                         MEMBER_COUNT_BFAC += 1;
                         MEMBER_COUNT_MAX_BFAC += 1;
-                        SpawnPlayerOnPoint(player, EntityData.BFAC_NAME);
-                        InitializePlayerData(player);
+                        SpawnPlayerOnPoint(p, EntityData.BFAC_NAME);
+                        InitializePlayerData(p);
+                        _Team = EntityData.BFAC_NAME;
                     }
                     else
                     {
+                        Alt.Emit("GlobalSystems:PlayerTeam", p, 1);
                         MEMBER_COUNT_COPS += 1;
                         MEMBER_COUNT_MAX_COPS += 1;
-                        SpawnPlayerOnPoint(player, EntityData.COPS_NAME);
-                        InitializePlayerData(player);
-                    }
-                }
-                else
-                {
-                    Alt.Emit("GlobalSystems:PlayerTeam", player, 1);
-                    if (MEMBER_COUNT_COPS <= MEMBER_COUNT_BFAC) // Wenn Böse Fraktionisten in der Unterzahl sind, dann Spieler in die BFAC tun.
-                    {
-                        MEMBER_COUNT_COPS += 1;
-                        MEMBER_COUNT_MAX_COPS += 1;
-                        SpawnPlayerOnPoint(player, EntityData.COPS_NAME);
-                        InitializePlayerData(player);
-                    }
-                    else
-                    {
-                        MEMBER_COUNT_BFAC += 1;
-                        MEMBER_COUNT_MAX_BFAC += 1;
-                        SpawnPlayerOnPoint(player, EntityData.BFAC_NAME);
-                        InitializePlayerData(player);
+                        SpawnPlayerOnPoint(p, EntityData.COPS_NAME);
+                        InitializePlayerData(p);
+                        _Team = EntityData.COPS_NAME;
                     }
                 }
             }
@@ -255,13 +246,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 MEMBER_COUNT_MAX_COPS = 0;
                 CreateRandomRound();
                 SpawnMapVehicles();
+                PutPlayerInTeam();
                 // To Do : wenn runde gestartet ist = nicht machen !
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
                 {
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
                     //InitializePlayerData(players);
-                    PutPlayerInTeam(players);
                     SyncTime();
                     SyncPlayerStats();
                     SyncStats();
