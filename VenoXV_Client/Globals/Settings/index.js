@@ -22,6 +22,7 @@ alt.on('keydown', (key) => {
             SettingsBrowser.emit('Settings:Show', true);
             SettingsBrowser.focus();
             ShowCursor(true);
+            LoadClientSettings();
         }
         else {
             SettingsBrowser.emit('Settings:Show', false);
@@ -31,3 +32,20 @@ alt.on('keydown', (key) => {
         SettingsBrowserOpen = !SettingsBrowserOpen;
     }
 });
+
+//Spawnpoints : 
+
+
+SettingsBrowser.on('Settings:SelectSpawnpoint', (spawn) => {
+    alt.emitServer('Settings:SelectSpawnpoint', spawn);
+});
+
+
+function LoadClientSettings() {
+    SettingsBrowser.emit('Settings:CheckButton', 'atm', alt.Player.local.getStreamSyncedMeta('PLAYER_ATM_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'haus', alt.Player.local.getStreamSyncedMeta('PLAYER_HAUS_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'tacho', alt.Player.local.getStreamSyncedMeta('PLAYER_TACHO_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'quest', alt.Player.local.getStreamSyncedMeta('PLAYER_QUEST_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'reporter', alt.Player.local.getStreamSyncedMeta('PLAYER_REPORTER_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'global', alt.Player.local.getStreamSyncedMeta('PLAYER_GLOBALCHAT_ANZEIGEN'));
+}

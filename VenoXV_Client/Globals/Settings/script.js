@@ -4,10 +4,30 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//*/
 
+const { addToClockTime } = require("natives");
+
+
+// OnLoad : 
+let ATM_STATE = false;
+let HAUS_STATE = false;
+let TACHO_STATE = false;
+let QUEST_STATE = false;
+let REPORTER_STATE = false;
+let GLOBALCHAT_STATE = false;
+
+function LoadClientSettings() {
+
+}
+
+alt.on('Settings:CheckButton', (btn, state) => {
+	console.log(btn + " :  " + state);
+	if (state == 1) { state = true; } else { state = false; }
+	document.getElementById(btn).checked = state;
+})
+
+
 /* Show Buttons */
-
 let Button = "";
-
 function HideAll() {
 	$('.Gameplay_Window').addClass("d-none");
 	$('.Show_Window').addClass("d-none");
