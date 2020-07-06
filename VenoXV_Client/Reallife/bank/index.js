@@ -1,35 +1,38 @@
 ﻿import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF, CreateBlip } from '../../Globals/VnX-Lib';
 
 let ATM_Blips = {};
 let ATM_Tabelle = {};
 let ATM_BROWSER = null;
 alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
-	game.freezeEntityPosition(alt.Player.local.scriptID, true);
-	ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html");
-	alt.setTimeout(() => {
-		ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
-		ATM_BROWSER.focus();
-	}, 200);
-	ATM_BROWSER.on('closeATM', () => {
-		vnxDestroyCEF("ATM");
-		ShowCursor(false);
-		game.freezeEntityPosition(alt.Player.local.scriptID, false);
-	});
+	try {
+		game.freezeEntityPosition(alt.Player.local.scriptID, true);
+		ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html");
+		alt.setTimeout(() => {
+			ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
+			ATM_BROWSER.focus();
+		}, 200);
+		ATM_BROWSER.on('closeATM', () => {
+			vnxDestroyCEF("ATM");
+			ShowCursor(false);
+			game.freezeEntityPosition(alt.Player.local.scriptID, false);
+		});
 
-	ATM_BROWSER.on('atm_money_button_triggered', (btn, e) => {
-		alt.emitServer('ATM_MONEY_BUTTON_TRIGGER', btn, e);
-	});
+		ATM_BROWSER.on('atm_money_button_triggered', (btn, e) => {
+			alt.emitServer('ATM_MONEY_BUTTON_TRIGGER', btn, e);
+		});
 
-	ATM_BROWSER.on('atm_send_money', (e, v, v2) => {
-		alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
-	});
-	ATM_BROWSER.on('atm_load_money_storage', () => {
-		let money = alt.Player.local.getStreamSyncedMeta("PLAYER_BANK");
-		ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
-	});
-	ShowCursor(true);
+		ATM_BROWSER.on('atm_send_money', (e, v, v2) => {
+			alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
+		});
+		ATM_BROWSER.on('atm_load_money_storage', () => {
+			let money = alt.Player.local.getStreamSyncedMeta("PLAYER_BANK");
+			ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
+		});
+		ShowCursor(true);
+	}
+	catch{ }
 });
 
 
@@ -167,18 +170,20 @@ ATM_Tabelle[ATMCount++] = new alt.Vector3(1167.086, -456.1151, 66.79015);
 
 
 alt.onServer("ShowATMBlips", () => {
-	for (var blips in ATM_Tabelle) {
-		let NewATMBlip = new alt.PointBlip(ATM_Tabelle[blips].x, ATM_Tabelle[blips].y, ATM_Tabelle[blips].z);
-		NewATMBlip.sprite = 277;
-		NewATMBlip.color = 2;
-		NewATMBlip.shortRange = true;
-		NewATMBlip.name = "Bankautomat";
-		ATM_Blips[blips] = NewATMBlip;
+	try {
+		for (var blips in ATM_Tabelle) {
+			let Blip = CreateBlip("Bankautomat", [ATM_Tabelle[blips].x, ATM_Tabelle[blips].y, ATM_Tabelle[blips].z], 277, 2, true);
+			ATM_Blips[blips] = Blip;
+		}
 	}
+	catch{ }
 });
 
 alt.onServer("Destroy_ATMBlips", () => {
-	for (var AllBlips in ATM_Blips) ATM_Blips[AllBlips].destroy();
+	try {
+		for (var AllBlips in ATM_Blips) ATM_Blips[AllBlips].destroy();
+	}
+	catch{ }
 });
 
 
