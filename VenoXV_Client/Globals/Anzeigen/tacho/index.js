@@ -12,40 +12,47 @@ let kmS = 0;
 let gas = 0;
 
 alt.onServer('Remote_Speedo_Hide', (state) => {
-	if (state == true) {
-		speedo.emit("Tacho:Show");
+	try {
+		if (state == true) {
+			speedo.emit("Tacho:Show");
 
+		}
+		else {
+			speedo.emit("Tacho:Hide");
+		}
 	}
-	else {
-		speedo.emit("Tacho:Hide");
-	}
+	catch{ }
 });
 
 alt.setInterval(() => {
-	//ToDo : Unperformant!!
-	if (alt.Player.local.vehicle) {
-		if (showed === false) {
-			speedo.emit("Tacho:Show");
-			showed = true;
+	try {
+		//ToDo : Unperformant!!
+		if (alt.Player.local.vehicle) {
+			if (showed === false) {
+				speedo.emit("Tacho:Show");
+				showed = true;
+			}
+			/*Get vehicle infos*/
+			let vel = alt.Player.local.vehicle.speed * 3.6;
+			let rpm = alt.Player.local.vehicle.rpm * 1000;
+			gas = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_GAS');
+			kmS = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_KMS');
+			//alt.log(gas + " | " + kmS);
+			speedo.emit('Tacho:Update', vel, rpm, gas, kmS);
 		}
-		/*Get vehicle infos*/
-		let vel = alt.Player.local.vehicle.speed * 3.6;
-		let rpm = alt.Player.local.vehicle.rpm * 1000;
-		gas = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_GAS');
-		kmS = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_KMS');
-		//alt.log(gas + " | " + kmS);
-		speedo.emit('Tacho:Update', vel, rpm, gas, kmS);
-	}
-	else {
-		if (showed) {
-			speedo.emit("Tacho:Hide");
-			showed = false;
+		else {
+			if (showed) {
+				speedo.emit("Tacho:Hide");
+				showed = false;
+			}
 		}
 	}
-}, 100);
+	catch{ }
+}, 75);
 
 alt.setInterval(function () {
-	if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); }
+	try { if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); } }
+	catch{ }
 }, 5000);
 
 
