@@ -113,41 +113,44 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
 
 
 export function CreatePed(PedName, Vector3Pos, rot = 0) {
-    let PedHash = game.getHashKey(PedName);
-    if (!game.hasModelLoaded(PedHash)) {
-        alt.loadModel(PedHash);
-        game.requestModel(PedHash);
+    try {
+        let PedHash = game.getHashKey(PedName);
+        if (!game.hasModelLoaded(PedHash)) {
+            alt.loadModel(PedHash);
+            game.requestModel(PedHash);
+        }
+        if (game.hasModelLoaded(PedHash)) {
+            let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z, rot, false, false);
+            alt.setTimeout(() => { game.freezeEntityPosition(Entity, true); }, 3000);
+            cNPCList[cNPCId++] = {
+                Entity: Entity,
+                ID: cNPCId,
+                Name: PedName,
+                Hash: PedHash
+            };
+            game.setEntityAsMissionEntity(Entity, true, false); // make sure its not despawned by game engine
+            game.setBlockingOfNonTemporaryEvents(Entity, true); // make sure ped doesnt flee etc only do what its told
+            game.setPedCanBeTargetted(Entity, false);
+            game.setPedCanBeKnockedOffVehicle(Entity, 1);
+            game.setPedCanBeDraggedOut(Entity, false);
+            game.setPedSuffersCriticalHits(Entity, false);
+            game.setPedDropsWeaponsWhenDead(Entity, false);
+            game.setPedDiesInstantlyInWater(Entity, false);
+            game.setPedCanRagdoll(Entity, false);
+            game.setPedDiesWhenInjured(Entity, false);
+            game.taskSetBlockingOfNonTemporaryEvents(Entity, true);
+            game.setPedFleeAttributes(Entity, 0, false);
+            game.setPedConfigFlag(Entity, 32, false); // ped cannot fly thru windscreen
+            game.setPedConfigFlag(Entity, 281, true); // ped no writhe
+            game.setPedGetOutUpsideDownVehicle(Entity, false);
+            game.setPedCanEvasiveDive(Entity, false);
+            return Entity;
+        }
+        else {
+            alt.log("Model not Loaded " + PedHash);
+        }
     }
-    if (game.hasModelLoaded(PedHash)) {
-        let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z, rot, false, false);
-        alt.setTimeout(() => { game.freezeEntityPosition(Entity, true); }, 3000);
-        cNPCList[cNPCId++] = {
-            Entity: Entity,
-            ID: cNPCId,
-            Name: PedName,
-            Hash: PedHash
-        };
-        game.setEntityAsMissionEntity(Entity, true, false); // make sure its not despawned by game engine
-        game.setBlockingOfNonTemporaryEvents(Entity, true); // make sure ped doesnt flee etc only do what its told
-        game.setPedCanBeTargetted(Entity, false);
-        game.setPedCanBeKnockedOffVehicle(Entity, 1);
-        game.setPedCanBeDraggedOut(Entity, false);
-        game.setPedSuffersCriticalHits(Entity, false);
-        game.setPedDropsWeaponsWhenDead(Entity, false);
-        game.setPedDiesInstantlyInWater(Entity, false);
-        game.setPedCanRagdoll(Entity, false);
-        game.setPedDiesWhenInjured(Entity, false);
-        game.taskSetBlockingOfNonTemporaryEvents(Entity, true);
-        game.setPedFleeAttributes(Entity, 0, false);
-        game.setPedConfigFlag(Entity, 32, false); // ped cannot fly thru windscreen
-        game.setPedConfigFlag(Entity, 281, true); // ped no writhe
-        game.setPedGetOutUpsideDownVehicle(Entity, false);
-        game.setPedCanEvasiveDive(Entity, false);
-        return Entity;
-    }
-    else {
-        alt.log("Model not Loaded " + PedHash);
-    }
+    catch{ }
 }
 export function frontOfPlayer(distance) {
     try {
@@ -163,31 +166,37 @@ export function frontOfPlayer(distance) {
 }
 
 export function vnxCreateCEF(Name, Path) {
-    for (var Browser in cBrowserList) {
-        if (cBrowserList[Browser].Name == Name) {
-            return;
+    try {
+        for (var Browser in cBrowserList) {
+            if (cBrowserList[Browser].Name == Name) {
+                return;
+            }
         }
+        let cPath = "http://resource/VenoXV_Client/";
+        let cBrowser = new alt.WebView(cPath + Path);
+        cBrowserList[cBrowserId++] = {
+            ID: cBrowserId,
+            CEF: cBrowser,
+            Name: Name,
+            Path: Path
+        };
+        return cBrowser;
     }
-    let cPath = "http://resource/VenoXV_Client/";
-    let cBrowser = new alt.WebView(cPath + Path);
-    cBrowserList[cBrowserId++] = {
-        ID: cBrowserId,
-        CEF: cBrowser,
-        Name: Name,
-        Path: Path
-    };
-    return cBrowser;
+    catch (e) { alt.log("Error Creating CEF Window : " + e); return null; }
 }
 
 export function vnxDestroyCEF(Name) {
-    for (var Browser in cBrowserList) {
-        if (cBrowserList[Browser].Name == Name) {
-            if (cBrowserList[Browser].CEF != null) {
-                cBrowserList[Browser].CEF.destroy();
-                cBrowserList.splice(Browser, 1);
+    try {
+        for (var Browser in cBrowserList) {
+            if (cBrowserList[Browser].Name == Name) {
+                if (cBrowserList[Browser].CEF != null) {
+                    cBrowserList[Browser].CEF.destroy();
+                    cBrowserList.splice(Browser, 1);
+                }
             }
         }
     }
+    catch (e) { alt.log("Error Destroying CEF Window : " + e); return null; }
 }
 
 export function vnxDestroyAllCEF() {
