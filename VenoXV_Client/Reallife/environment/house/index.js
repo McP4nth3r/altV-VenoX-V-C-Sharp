@@ -12,16 +12,17 @@ let HouseBlip = {};
 let counter = 0;
 
 alt.onServer("ShowHouseBlips", (blippos, c, n) => {
-    counter = counter + 1;
-    let NewHouseBlip = new alt.PointBlip(blippos.x, blippos.y, blippos.z);
-    NewHouseBlip.sprite = 411;
-    NewHouseBlip.color = c;
-    NewHouseBlip.shortRange = true;
-    NewHouseBlip.name = n;
-    HouseBlip[blippos + counter] = NewHouseBlip;
+    try {
+        let Blip = CreateBlip(n, [blippos.x, blippos.y, blippos.z], 411, c, true);
+        HouseBlip[counter++] = Blip;
+    }
+    catch{ }
 });
 
 alt.onServer("Destroy_HouseBlips", () => {
-    counter = 0;
-    for (var AllBlips in HouseBlip) HouseBlip[AllBlips].destroy();
+    try {
+        counter = 0;
+        for (var AllBlips in HouseBlip) HouseBlip[AllBlips].destroy();
+    }
+    catch{ }
 });

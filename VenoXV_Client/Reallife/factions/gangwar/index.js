@@ -23,19 +23,22 @@ let currentstate = "done";
 let attackarea = null;
 let GangWarTimer = null;
 alt.onServer('gw:aa', (x, y, z, r, r1, c) => {
-    if (attackarea != null) {
-        game.removeBlip(attackarea);
-    }
-    attackarea = mp.game.ui.addBlipForRadius(x, y, z, r);
-    game.setBlipSprite(attackarea, 5);
-    game.setBlipAlpha(attackarea, alpha);
-    game.setBlipColour(attackarea, c);
-    game.setBlipRotation(attackarea, r1);
-    GangWarTimer = alt.setInterval(function () {
-        if (alpha < 220 && currentstate == "not done") { alpha = alpha + 20; if (alpha == 220) { currentstate = "done"; } }
-        else { alpha = alpha - 20; if (alpha <= 20) { currentstate = "not done"; } }
+    try {
+        if (attackarea != null) {
+            game.removeBlip(attackarea);
+        }
+        attackarea = mp.game.ui.addBlipForRadius(x, y, z, r);
+        game.setBlipSprite(attackarea, 5);
         game.setBlipAlpha(attackarea, alpha);
-    }, 50);
+        game.setBlipColour(attackarea, c);
+        game.setBlipRotation(attackarea, r1);
+        GangWarTimer = alt.setInterval(function () {
+            if (alpha < 220 && currentstate == "not done") { alpha = alpha + 20; if (alpha == 220) { currentstate = "done"; } }
+            else { alpha = alpha - 20; if (alpha <= 20) { currentstate = "not done"; } }
+            game.setBlipAlpha(attackarea, alpha);
+        }, 50);
+    }
+    catch{ }
 });
 
 alt.onServer('StopCurrentGangwar', (n) => {

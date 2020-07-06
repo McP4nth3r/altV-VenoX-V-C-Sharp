@@ -60,12 +60,15 @@ function FillTuningList() {
 }
 
 alt.onServer('Tuning:Show', () => {
-    let cTuning = vnxCreateCEF("Reallife-Tuning", "Reallife/vehicles/tuning/main.html");
-    cTuning.focus();
-    ShowCursor(true);
-    cTuning.on('Tuning:Destroy', () => {
-        vnxDestroyCEF('Reallife-Tuning');
-        alt.emitServer('Reallife-Tuning:Close');
-    });
-    FillTuningList();
+    try {
+        let cTuning = vnxCreateCEF("Reallife-Tuning", "Reallife/vehicles/tuning/main.html");
+        cTuning.focus();
+        ShowCursor(true);
+        cTuning.on('Tuning:Destroy', () => {
+            vnxDestroyCEF('Reallife-Tuning');
+            alt.emitServer('Reallife-Tuning:Close');
+        });
+        FillTuningList();
+    }
+    catch{ }
 });

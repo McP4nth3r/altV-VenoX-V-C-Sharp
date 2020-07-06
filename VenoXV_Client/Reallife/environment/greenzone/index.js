@@ -9,15 +9,18 @@ import * as game from "natives";
 
 let Greenzone = {};
 alt.onServer('Greenzone:Create', (n, x, y, z, r, c, r2) => {
-	if (Greenzone[n] != null) {
-		game.removeBlip(Greenzone[n]);
-	}
-	Greenzone[n] = game.addBlipForRadius(x, y, z, r);
+	try {
+		if (Greenzone[n] != null) {
+			game.removeBlip(Greenzone[n]);
+		}
+		Greenzone[n] = game.addBlipForRadius(x, y, z, r);
 
-	game.setBlipSprite(Greenzone[n], 5);
-	game.setBlipAlpha(Greenzone[n], 150);
-	game.setBlipColour(Greenzone[n], c);
-	game.setBlipRotation(Greenzone[n], r2);
+		game.setBlipSprite(Greenzone[n], 5);
+		game.setBlipAlpha(Greenzone[n], 150);
+		game.setBlipColour(Greenzone[n], c);
+		game.setBlipRotation(Greenzone[n], r2);
+	}
+	catch{ }
 });
 
 

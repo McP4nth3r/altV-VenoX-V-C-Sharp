@@ -12,28 +12,31 @@ let weedshop_browser = null;
 
 
 alt.onServer('showWeedShopWindow', () => {
-    weedshop_browser = vnxCreateCEF("WeedShop", "Reallife/environment/weed/main.html");
-    weedshop_browser.focus();
-    ShowCursor(true);
+    try {
+        weedshop_browser = vnxCreateCEF("WeedShop", "Reallife/environment/weed/main.html");
+        weedshop_browser.focus();
+        ShowCursor(true);
 
-    weedshop_browser.on('ButtonPressed', (value) => {
-        alt.emitServer('WeedShop_Server_Event', value);
-        if (weedshop_browser != null) {
-            vnxDestroyCEF("WeedShop");
-            weedshop_browser = null;
-            ShowCursor(false);
-            return
-        }
-    });
+        weedshop_browser.on('ButtonPressed', (value) => {
+            alt.emitServer('WeedShop_Server_Event', value);
+            if (weedshop_browser != null) {
+                vnxDestroyCEF("WeedShop");
+                weedshop_browser = null;
+                ShowCursor(false);
+                return
+            }
+        });
 
-    weedshop_browser.on('destroyWeedShopWindow', () => {
-        if (weedshop_browser != null) {
-            vnxDestroyCEF("WeedShop");
-            weedshop_browser = null;
-            ShowCursor(false);
-            return
-        }
-    });
+        weedshop_browser.on('destroyWeedShopWindow', () => {
+            if (weedshop_browser != null) {
+                vnxDestroyCEF("WeedShop");
+                weedshop_browser = null;
+                ShowCursor(false);
+                return
+            }
+        });
+    }
+    catch{ }
 });
 
 /*

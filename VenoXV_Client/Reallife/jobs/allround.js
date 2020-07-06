@@ -12,50 +12,59 @@ import { CreatePed, vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../Global
 
 
 alt.onServer('Job:ShowAcceptWindow', (headertext, boxtext, buttontext1, buttontext2) => {
-	let JobAcceptWindow = vnxCreateCEF('Reallife:JobAcceptWindow', "Reallife/jobs/accept/main.html");
-	ShowCursor(true);
-	JobAcceptWindow.focus();
-	JobAcceptWindow.on('Reallife:JobAcceptWindowDestroy', () => {
-		JobAcceptWindow.unfocus();
-		vnxDestroyCEF('Reallife:JobAcceptWindow');
-	});
-	JobAcceptWindow.on('Reallife:OnJobAcceptWindowClick', (click) => {
-		if (click == 1) { alt.emitServer('accept_job_server', headertext); }
-		JobAcceptWindow.unfocus();
-		vnxDestroyCEF('Reallife:JobAcceptWindow');
-		ShowCursor(false);
-	});
-	alt.setTimeout(() => {
-		JobAcceptWindow.emit('JobAccept:Init', headertext, boxtext, buttontext1, buttontext2);
-	}, 500);
+	try {
+		let JobAcceptWindow = vnxCreateCEF('Reallife:JobAcceptWindow', "Reallife/jobs/accept/main.html");
+		ShowCursor(true);
+		JobAcceptWindow.focus();
+		JobAcceptWindow.on('Reallife:JobAcceptWindowDestroy', () => {
+			JobAcceptWindow.unfocus();
+			vnxDestroyCEF('Reallife:JobAcceptWindow');
+		});
+		JobAcceptWindow.on('Reallife:OnJobAcceptWindowClick', (click) => {
+			if (click == 1) { alt.emitServer('accept_job_server', headertext); }
+			JobAcceptWindow.unfocus();
+			vnxDestroyCEF('Reallife:JobAcceptWindow');
+			ShowCursor(false);
+		});
+		alt.setTimeout(() => {
+			JobAcceptWindow.emit('JobAccept:Init', headertext, boxtext, buttontext1, buttontext2);
+		}, 500);
+	}
+	catch{ }
 });
 
 
 alt.onServer('Job:ShowSelection1', (headertext, boxtext, buttontext1, buttontext2, buttontext3, buttondescription1, buttondescription2, buttondescription3, joblvl) => {
-	let JobWindow = vnxCreateCEF('Reallife:JobWindow', "Reallife/jobs/selection-1/main.html");
-	ShowCursor(true);
-	JobWindow.focus();
-	JobWindow.on('Reallife:JobWindowDestroy', () => {
-		JobWindow.unfocus();
-		vnxDestroyCEF('Reallife:JobWindow');
-		ShowCursor(false);
-	});
-	JobWindow.on('job_window_1_button_c', (btn) => {
-		JobWindow.unfocus();
-		vnxDestroyCEF('Reallife:JobWindow');
-		ShowCursor(false);
-		alt.emitServer('Job:StartStage', btn);
-	})
-	alt.setTimeout(() => {
-		JobWindow.emit('Job:Init', headertext, boxtext, buttontext1, buttontext2, buttontext3, buttondescription1, buttondescription2, buttondescription3, joblvl);
-	}, 500);
+	try {
+		let JobWindow = vnxCreateCEF('Reallife:JobWindow', "Reallife/jobs/selection-1/main.html");
+		ShowCursor(true);
+		JobWindow.focus();
+		JobWindow.on('Reallife:JobWindowDestroy', () => {
+			JobWindow.unfocus();
+			vnxDestroyCEF('Reallife:JobWindow');
+			ShowCursor(false);
+		});
+		JobWindow.on('job_window_1_button_c', (btn) => {
+			JobWindow.unfocus();
+			vnxDestroyCEF('Reallife:JobWindow');
+			ShowCursor(false);
+			alt.emitServer('Job:StartStage', btn);
+		})
+		alt.setTimeout(() => {
+			JobWindow.emit('Job:Init', headertext, boxtext, buttontext1, buttontext2, buttontext3, buttondescription1, buttondescription2, buttondescription3, joblvl);
+		}, 500);
+	}
+	catch{ }
 });
 
 
 alt.onServer('BusJob:CreateTimeout', (ms) => {
-	alt.setTimeout(() => {
-		alt.emitServer("BusJob:TimeoutDone");
-	}, ms);
+	try {
+		alt.setTimeout(() => {
+			alt.emitServer("BusJob:TimeoutDone");
+		}, ms);
+	}
+	catch{ }
 });
 
 

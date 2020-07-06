@@ -10,5 +10,8 @@ import { CreateBlip } from '../../../Globals/VnX-Lib';
 
 
 alt.onServer('ShowTankstellenBlips', (Tankstellen) => {
-    CreateBlip("Tankstelle", Tankstellen, 361, 3, true);
+    try {
+        CreateBlip("Tankstelle", Tankstellen, 361, 3, true);
+    }
+    catch{ }
 });

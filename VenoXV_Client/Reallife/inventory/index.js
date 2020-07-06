@@ -12,35 +12,44 @@ let InventoryOpen = false;
 let InventoryBrowser;
 
 alt.onServer('Inventory:Load', () => {
-    if (InventoryCreated) { return; }
-    InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html");
-    InventoryCreated = true;
+    try {
+        if (InventoryCreated) { return; }
+        InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html");
+        InventoryCreated = true;
 
-    InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
-        switch (Btn) {
-            case 'use':
-                alt.emitServer('Inventory:Use', Hash);
-            case 'remove':
-                alt.emitServer('Inventory:Remove', Hash);
-        }
-    });
+        InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
+            switch (Btn) {
+                case 'use':
+                    alt.emitServer('Inventory:Use', Hash);
+                case 'remove':
+                    alt.emitServer('Inventory:Remove', Hash);
+            }
+        });
+    }
+    catch{ }
 });
 
 alt.onServer('Inventory:Unload', () => {
-    if (!InventoryCreated) { return; }
-    vnxDestroyCEF("Inventory-Reallife");
-    InventoryCreated = false;
+    try {
+        if (!InventoryCreated) { return; }
+        vnxDestroyCEF("Inventory-Reallife");
+        InventoryCreated = false;
+    }
+    catch{ }
 });
 
 
 export function OnInventoryKeyPressed(key) {
-    if (key == 0x49) {
-        if (!InventoryCreated) { return; }
-        if (GetCursorStatus() && !InventoryOpen) { return; }
-        if (!InventoryOpen) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); }
-        else { ShowCursor(false); InventoryBrowser.emit("Inventory:Close"); }
-        InventoryOpen = !InventoryOpen;
+    try {
+        if (key == 0x49) {
+            if (!InventoryCreated) { return; }
+            if (GetCursorStatus() && !InventoryOpen) { return; }
+            if (!InventoryOpen) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); }
+            else { ShowCursor(false); InventoryBrowser.emit("Inventory:Close"); }
+            InventoryOpen = !InventoryOpen;
+        }
     }
+    catch{ }
 }
 
 
@@ -139,16 +148,22 @@ function GetCompleteItemInfo(ItemName, Amount) {
 
 
 alt.onServer('Inventory:Update', (InventoryJson) => {
-    if (!InventoryCreated) { return; }
-    let InventoryItems = JSON.parse(InventoryJson);
-    for (let i = 0; i < InventoryItems.length; i++) {
-        let data = InventoryItems[i];
-        let ItemName = GetItemNameByHash(data.hash);
-        InventoryBrowser.emit('Inventory:Update', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
+    try {
+        if (!InventoryCreated) { return; }
+        let InventoryItems = JSON.parse(InventoryJson);
+        for (let i = 0; i < InventoryItems.length; i++) {
+            let data = InventoryItems[i];
+            let ItemName = GetItemNameByHash(data.hash);
+            InventoryBrowser.emit('Inventory:Update', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
+        }
     }
+    catch{ }
 });
 
 alt.onServer('Inventory:RemoveAll', () => {
-    if (!InventoryCreated) { return; }
-    InventoryBrowser.emit('Inventory:RemoveAll', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
+    try {
+        if (!InventoryCreated) { return; }
+        InventoryBrowser.emit('Inventory:RemoveAll', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
+    }
+    catch{ }
 });
