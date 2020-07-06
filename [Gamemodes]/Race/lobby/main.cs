@@ -120,11 +120,15 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
 
             int counter = 0;
-            foreach (Client players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker))
+            foreach (Client player in VenoXV.Globals.Main.RacePlayers)
             {
-                counter++;
-                players.Emit("Race:FillPlayerList", players.Username);
-                players.Race.RoundPlace = counter;
+                player.Emit("Race:ClearPlayerList", player.Username);
+                foreach (Client players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
+                {
+                    counter++;
+                    players.Race.RoundPlace = counter;
+                    player.Emit("Race:FillPlayerList", players.Username);
+                }
             }
         }
 
