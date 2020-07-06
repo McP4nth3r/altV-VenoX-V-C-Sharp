@@ -73,11 +73,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
 
             BAD_INTERIOR3_FGUNS.Dimension = Constants.FACTION_SAMCRO;
-            BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_MS13;
+            BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_NARCOS;
             //ToDo: ClientSide erstellen NAPI.
             //.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255));
             RageAPI.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 });
-            RageAPI.CreateTextLabel("LCN Ausgang", LCN_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_COSANOSTRA);
+            RageAPI.CreateTextLabel("LCN Ausgang", LCN_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_LCN);
 
             RageAPI.CreateTextLabel("Yakuza Eingang", YAKUZA_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 175, 0, 0, 255 });
             RageAPI.CreateTextLabel("Yakuza Ausgang", YAKUZA_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 175, 0, 0, 255 }, Constants.FACTION_YAKUZA);
@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             RageAPI.CreateTextLabel("Mitarbeiter Ausgang", Emergency_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new int[] { 255, 51, 51, 255 });
 
             RageAPI.CreateTextLabel("Narcos Eingang", MS13_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
-            RageAPI.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_MS13);
+            RageAPI.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NARCOS);
 
             //RageAPI.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
             //RageAPI.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_SAMCRO);
@@ -108,7 +108,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
             RageAPI.CreateTextLabel("Compton Family´s Eingang", Compton_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 });
-            RageAPI.CreateTextLabel("Compton Family´s Ausgang", Compton_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_GROVE);
+            RageAPI.CreateTextLabel("Compton Family´s Ausgang", Compton_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_COMPTON);
 
 
             //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_sm_15_office_01b");
@@ -141,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (isStateFaction(player))
                     {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
+                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
                         Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (isStateFaction(player))
                     {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
+                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
                         Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
@@ -257,9 +257,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 int player_Fraktion = player.Reallife.Faction;
                 if
-                (player_Fraktion == Constants.FACTION_COSANOSTRA || player_Fraktion == Constants.FACTION_YAKUZA ||
-                player_Fraktion == Constants.FACTION_MS13 || player_Fraktion == Constants.FACTION_SAMCRO ||
-                player_Fraktion == Constants.FACTION_BALLAS || player_Fraktion == Constants.FACTION_GROVE)
+                (player_Fraktion == Constants.FACTION_LCN || player_Fraktion == Constants.FACTION_YAKUZA ||
+                player_Fraktion == Constants.FACTION_NARCOS || player_Fraktion == Constants.FACTION_SAMCRO ||
+                player_Fraktion == Constants.FACTION_BALLAS || player_Fraktion == Constants.FACTION_COMPTON)
                 {
                     return true;
                 }
@@ -272,7 +272,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int player_Fraktion = player.Reallife.Faction;
-                if (player_Fraktion == Constants.FACTION_POLICE || player_Fraktion == Constants.FACTION_FBI || player_Fraktion == Constants.FACTION_USARMY)
+                if (player_Fraktion == Constants.FACTION_LSPD || player_Fraktion == Constants.FACTION_FBI || player_Fraktion == Constants.FACTION_USARMY)
                 {
                     return true;
                 }
@@ -285,7 +285,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int VEHICLE_Fraktion = Vehicle.Faction;
-                if (VEHICLE_Fraktion == Constants.FACTION_POLICE || VEHICLE_Fraktion == Constants.FACTION_FBI || VEHICLE_Fraktion == Constants.FACTION_USARMY)
+                if (VEHICLE_Fraktion == Constants.FACTION_LSPD || VEHICLE_Fraktion == Constants.FACTION_FBI || VEHICLE_Fraktion == Constants.FACTION_USARMY)
                 {
                     return true;
                 }
@@ -299,7 +299,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int VEHICLE_Fraktion = Vehicle.Faction;
-                if (VEHICLE_Fraktion == Constants.FACTION_COSANOSTRA || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_MS13 || VEHICLE_Fraktion == Constants.FACTION_SAMCRO || VEHICLE_Fraktion == Constants.FACTION_BALLAS || VEHICLE_Fraktion == Constants.FACTION_GROVE)
+                if (VEHICLE_Fraktion == Constants.FACTION_LCN || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_NARCOS || VEHICLE_Fraktion == Constants.FACTION_SAMCRO || VEHICLE_Fraktion == Constants.FACTION_BALLAS || VEHICLE_Fraktion == Constants.FACTION_COMPTON)
                 {
                     return true;
                 }
@@ -350,7 +350,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 int Anticheat_Teleport_MSTIME = 1000;
 
 
-                if (player_Fraktion == Constants.FACTION_COSANOSTRA || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (player_Fraktion == Constants.FACTION_LCN || isStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
                     if (LCN_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
@@ -364,10 +364,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = LCN_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_COSANOSTRA;
+                        player.Dimension = Constants.FACTION_LCN;
                         return true;
                     }
-                    else if (LCN_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_COSANOSTRA)
+                    else if (LCN_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_LCN)
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
@@ -535,7 +535,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_MS13 || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (player_Fraktion == Constants.FACTION_NARCOS || isStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
                     if (MS13_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
@@ -549,10 +549,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = MS13_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_MS13;
+                        player.Dimension = Constants.FACTION_NARCOS;
                         return true;
                     }
-                    else if (MS13_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_MS13)
+                    else if (MS13_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_NARCOS)
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {
@@ -629,7 +629,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_GROVE || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (player_Fraktion == Constants.FACTION_COMPTON || isStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
                     if (Compton_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
@@ -643,10 +643,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = Compton_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_GROVE;
+                        player.Dimension = Constants.FACTION_COMPTON;
                         return true;
                     }
-                    else if (Compton_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_GROVE)
+                    else if (Compton_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_COMPTON)
                     {
                         if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
                         {

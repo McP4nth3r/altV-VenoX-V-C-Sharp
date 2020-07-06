@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 if (shape == SWT_COL.Entity && Allround.isStateFaction(player))
                 {
-                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_POLICE);
+                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
                     Alt.Server.TriggerClientEvent(player,"ShowStaatswaffentruck_C", "Staatswaffentruck",
 
                         "Schlagstock [" + Constants.NIGHTSTICK_LAGER + "$]",

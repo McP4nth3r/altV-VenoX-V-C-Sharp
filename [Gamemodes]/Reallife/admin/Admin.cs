@@ -509,11 +509,11 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
-                for (int i = 0; i < 100; ++i)
+                for (int i = 0; i < 50; ++i)
                 {
                     RageAPI.SendTranslatedChatMessageToAll(" ");
                 }
-                vnx_stored_files.logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
+                logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
             }
         }
 
@@ -610,7 +610,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
                         targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, 0);
                         targetplayer.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
-                        Spawn.spawnplayer_on_spawnpoint(targetplayer);
+                        Spawn.SpawnPlayerOnSpawnpoint(targetplayer);
                     }
                 }
             }
@@ -1505,6 +1505,8 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 vehClass.Gas = 100;
                 vehClass.Kms = 0;
                 vehClass.Faction = Faction;
+                vehClass.Frozen = false;
+                vehClass.EngineOn = true;
                 if (Save) { Database.AddNewIVehicle(vehClass); }
             }
         }

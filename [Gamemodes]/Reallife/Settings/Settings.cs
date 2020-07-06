@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player,"LOAD_SETTINGS_VNX");
+                Alt.Server.TriggerClientEvent(player, "LOAD_SETTINGS_VNX");
             }
             catch { }
         }
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
             {
                 if (player.Settings.ShowATM == 1)
                 {
-                    Alt.Server.TriggerClientEvent(player,"ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "ShowATMBlips");
                 }
                 if (player.Settings.ShowHouse == 1)
                 {
@@ -39,11 +39,11 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 76, "Haus");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, "Haus");
                             }
                         }
                     }
@@ -63,13 +63,13 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 if (state == true)
                 {
 
-                    Alt.Server.TriggerClientEvent(player,"ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "ShowATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "ja");
                 }
                 else
                 {
 
-                    Alt.Server.TriggerClientEvent(player,"Destroy_ATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "Destroy_ATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
@@ -90,22 +90,22 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(player,"ShowHouseBlips", house.position, 76, "Haus");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, "Haus");
                             }
                         }
                     }
                 }
                 else
                 {
-                    Alt.Server.TriggerClientEvent(player,"getTableShit");
+                    Alt.Server.TriggerClientEvent(player, "getTableShit");
                     player.vnxSetStreamSharedElementData("settings_haus", "nein");
                     //foreach (HouseModel house in House.houseList)
                     // {
-                    Alt.Server.TriggerClientEvent(player,"Destroy_HouseBlips");
+                    Alt.Server.TriggerClientEvent(player, "Destroy_HouseBlips");
                     // }
                 }
             }
@@ -167,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
                     Console.WriteLine("ID : " + state);
                 }
-                Alt.Server.TriggerClientEvent(player,"Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
+                Alt.Server.TriggerClientEvent(player, "Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
             }
             catch { }
 
@@ -209,49 +209,54 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
-        //[AltV.Net.ClientEvent("onClickedSpawn")]
-        public void ChangePlayerSpawnpoint(Client player, string spawn)
+        [ClientEvent("Settings:SelectSpawnpoint")]
+        public void ChangePlayerSpawnpoint(Client player, int spawn)
         {
             try
             {
-                if (spawn == "Noobspawn")
+                switch (spawn)
                 {
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
-                }
-                else if (spawn == "Rathaus")
-                {
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Rathaus");
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Rathaus!");
-                }
-                else if (spawn == "Wuerfelpark")
-                {
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Wuerfelpark");
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Würfelpark!");
-                }
-                else if (spawn == "Basis")
-                {
-                    int playerFaction = player.Reallife.Faction;
-                    if (playerFaction > 0)
-                    {
-                        player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "Basis");
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis!");
-                    }
-                    else
-                    {
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
-                    }
-                }
-                else if (spawn == "Haus")
-                {
-                    foreach (HouseModel house in House.houseList)
-                    {
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) > 0 || player.Username == house.owner)
+                    case 0:
+                        player.Reallife.SpawnLocation = "noobspawn";
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
+                        break;
+                    case 1:
+                        player.Reallife.SpawnLocation = "Rathaus";
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Rathaus!");
+                        break;
+                    case 2:
+                        player.Reallife.SpawnLocation = "Wuerfelpark";
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Würfelpark!");
+                        break;
+                    case 3:
+                        if (player.Reallife.Faction > 0)
                         {
-                            player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "House");
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Haus!");
+                            player.Reallife.SpawnLocation = "Basis";
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis!");
                         }
-                    }
+                        else
+                        {
+                            player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
+                        }
+                        break;
+                    case 4:
+                        if (player.Reallife.Faction > 0)
+                        {
+                            if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                            {
+                                player.Reallife.SpawnLocation = "Basis-2";
+                                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Basis-2!");
+                            }
+                            else
+                            {
+                                player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Deine Fraktion hat keine zweite Base!");
+                            }
+                        }
+                        else
+                        {
+                            player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Dafür musst du in einer Fraktion sein!");
+                        }
+                        break;
                 }
             }
             catch { }

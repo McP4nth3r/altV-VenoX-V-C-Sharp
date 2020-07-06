@@ -63,9 +63,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
 
                 Fraktions_Waffenlager fraktion = Database.GetFactionWaffenlager(FID);
 
-                if (FID == Constants.FACTION_POLICE || FID == Constants.FACTION_FBI || FID == Constants.FACTION_USARMY)
+                if (FID == Constants.FACTION_LSPD || FID == Constants.FACTION_FBI || FID == Constants.FACTION_USARMY)
                 {
-                    Database.SetFactionWeaponlager(Constants.FACTION_POLICE, 0,
+                    Database.SetFactionWeaponlager(Constants.FACTION_LSPD, 0,
                     fraktion.weapon_nightstick + nightstick,
                     0, fraktion.weapon_tazer + stungun,
                     fraktion.weapon_pistol + pistol,

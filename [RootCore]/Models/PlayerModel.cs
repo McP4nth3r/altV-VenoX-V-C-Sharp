@@ -165,12 +165,12 @@ namespace VenoXV._RootCore_.Models
     public class Settings
     {
         private Player Player;
-        public int ShowATM { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
-        public int ShowHouse { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
-        public int ShowSpeedo { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
-        public int ShowQuests { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
-        public int ShowReporter { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
-        public int ShowGlobalChat { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN, value); } }
+        public int ShowATM { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN, value); } }
+        public int ShowHouse { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
+        public int ShowSpeedo { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
+        public int ShowQuests { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
+        public int ShowReporter { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
+        public int ShowGlobalChat { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN, value); } }
 
         public Settings(Player player)
         {

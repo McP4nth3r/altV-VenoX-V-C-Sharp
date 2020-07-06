@@ -129,12 +129,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             switch (factionId)
             {
-                case Constants.FACTION_COSANOSTRA: return new Rgba(80, 80, 80, 255);
+                case Constants.FACTION_LCN: return new Rgba(80, 80, 80, 255);
                 case Constants.FACTION_YAKUZA: return new Rgba(100, 0, 0, 255);
-                case Constants.FACTION_MS13: return new Rgba(225, 225, 0, 255);
+                case Constants.FACTION_NARCOS: return new Rgba(225, 225, 0, 255);
                 case Constants.FACTION_SAMCRO: return new Rgba(100, 50, 100, 255);
                 case Constants.FACTION_BALLAS: return new Rgba(138, 43, 226, 255);
-                case Constants.FACTION_GROVE: return new Rgba(85, 107, 47, 255);
+                case Constants.FACTION_COMPTON: return new Rgba(85, 107, 47, 255);
                 default: return new Rgba(255, 255, 255, 255);
             }
         }

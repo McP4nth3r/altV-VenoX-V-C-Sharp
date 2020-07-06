@@ -17,8 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
     public class Spawn : IScript
     {
 
-        //[AltV.Net.ClientEvent("SpawnPlayer_On_Spawnpoint")]
-        public static void spawnplayer_on_spawnpoint(Client player)
+        public static void SpawnPlayerOnSpawnpoint(Client player)
         {
             try
             {
@@ -36,98 +35,74 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Alt.Server.TriggerClientEvent(player, "toggleHandcuffed", false);
                     return;
                 }
-                if (player.Reallife.SpawnLocation == "noobspawn")
-                {
-                    // Noob Spawn
-                    player.SetPosition = new Vector3(-2286.745f, 356.3762f, 175.317f);
-                }
-                else if (player.Reallife.SpawnLocation == "Rathaus")
-                {
-                    player.SetPosition = new Vector3(-533.1649f, -211.0938f, 37.64977f);
-                }
-                else if (player.Reallife.SpawnLocation == "Wuerfelpark")
-                {
-                    player.SetPosition = new Vector3(180.3914f, -923.7885f, 30.68681f);
-                }
-                else
-                {
-                    if (player.Reallife.SpawnLocation == "Basis")
-                    {
-                        //Dimension für Böse Fraktionen mit mehreren Gleichen interiors einstellen!.
-                        if (Allround.isBadFaction(player))
-                        {
-                            player.Dimension = player.Reallife.Faction;
-                        }
-                        if (player.Reallife.Faction == Constants.FACTION_POLICE)
-                        {
-                            //LSPD Spawn
-                            player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_COSANOSTRA)
-                        {
-                            //Mafia Spawn
-                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_YAKUZA)
-                        {
-                            player.SetPosition = new Vector3(339.3727f, -997.0941f, -99.19626f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_TERRORCLOSED)
-                        {
-                            player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_NEWS)
-                        {
-                            player.SetPosition = new Vector3(-562.649f, -920.7836f, 23.87799f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_FBI)
-                        {
-                            player.SetPosition = new Vector3(139.1606f, -762.1356f, 45.75201f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_MS13)
-                        {
-                            player.SetPosition = new Vector3(-1283.504f, 432.7738f, 97.52215f);
-                            player.Dimension = Constants.FACTION_MS13;
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_USARMY)
-                        {
-                            if (player.Reallife.FactionRank == 0) { player.SetPosition = new Vector3(-2089.4636f, 3273.7056f, 32.801514f); }
-                            else { player.SetPosition = new Vector3(468.65933f, -3205.8594f, 9.784668f); }
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_SAMCRO)
-                        {
-                            player.SetPosition = new Vector3(982.0083f, -100.8747f, 74.84512f);
-                            //player.Dimension = Constants.FACTION_SAMCRO;
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                        {
-                            player.Dimension = Constants.FACTION_NONE;
-                            player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_MECHANIK)
-                        {
-                            player.Dimension = Constants.FACTION_NONE;
-                            player.SetPosition = new Vector3(-440.58463f, -1693.833f, 19.186768f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_BALLAS)
-                        {
-                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
-                        }
-                        else if (player.Reallife.Faction == Constants.FACTION_GROVE)
-                        {
-                            player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
-                        }
-                    }
-                    else if (player.Reallife.SpawnLocation == "HOTELLS")
-                    {
 
-                    }
-                    else if (player.Reallife.SpawnLocation == "HOTELLV")
-                    {
-
-                    }
-                    else if (player.Reallife.SpawnLocation == "House")
-                    {
+                switch (player.Reallife.SpawnLocation)
+                {
+                    case "noobspawn":
+                        player.SetPosition = new Vector3(-2286.745f, 356.3762f, 175.317f);
+                        return;
+                    case "Rathaus":
+                        player.SetPosition = new Vector3(-533.1649f, -211.0938f, 37.64977f);
+                        return;
+                    case "Wuerfelpark":
+                        player.SetPosition = new Vector3(180.3914f, -923.7885f, 30.68681f);
+                        return;
+                    case "Basis":
+                        switch (player.Reallife.Faction)
+                        {
+                            case Constants.FACTION_LSPD:
+                                player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
+                                return;
+                            case Constants.FACTION_LCN:
+                                player.Dimension = player.Reallife.Faction;
+                                player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
+                                return;
+                            case Constants.FACTION_YAKUZA:
+                                player.Dimension = player.Reallife.Faction;
+                                player.SetPosition = new Vector3(339.3727f, -997.0941f, -99.19626f);
+                                return;
+                            case Constants.FACTION_TERRORCLOSED:
+                                player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
+                                return;
+                            case Constants.FACTION_NEWS:
+                                player.SetPosition = new Vector3(-562.649f, -920.7836f, 23.87799f);
+                                return;
+                            case Constants.FACTION_FBI:
+                                player.SetPosition = new Vector3(139.1606f, -762.1356f, 45.75201f);
+                                return;
+                            case Constants.FACTION_NARCOS:
+                                player.Dimension = player.Reallife.Faction;
+                                player.SetPosition = new Vector3(-1283.504f, 432.7738f, 97.52215f);
+                                return;
+                            case Constants.FACTION_USARMY:
+                                player.SetPosition = new Vector3(468.65933f, -3205.8594f, 9.784668f);
+                                return;
+                            case Constants.FACTION_SAMCRO:
+                                player.SetPosition = new Vector3(982.0083f, -100.8747f, 74.84512f);
+                                return;
+                            case Constants.FACTION_EMERGENCY:
+                                player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
+                                return;
+                            case Constants.FACTION_MECHANIK:
+                                player.SetPosition = new Vector3(-440.58463f, -1693.833f, 19.186768f);
+                                return;
+                            case Constants.FACTION_BALLAS:
+                                player.Dimension = player.Reallife.Faction;
+                                player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
+                                return;
+                            case Constants.FACTION_COMPTON:
+                                player.Dimension = player.Reallife.Faction;
+                                player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
+                                return;
+                        }
+                        return;
+                    case "Basis-2":
+                        if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                        {
+                            player.SetPosition = new Vector3(-2089.4636f, 3273.7056f, 32.801514f);
+                        }
+                        break;
+                    case "House":
                         foreach (HouseModel house in House.houseList)
                         {
                             if (player.Reallife.HouseRent > 0 || player.Username == house.owner)
@@ -138,12 +113,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
                             }
                         }
-                    }
+                        return;
                 }
+
             }
-            catch
-            {
-            }
+            catch { }
         }
 
     }

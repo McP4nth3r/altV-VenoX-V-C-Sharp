@@ -220,13 +220,23 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             if (Pos1 == new Vector3(0, 0, 0))
             {
                 Pos1 = new Vector3(player.Position.X, player.Position.Y, POS1_Z);
-                Core.Debug.OutputDebugString("POS 1 CAMERA EVENT CREATED");
+                Debug.OutputDebugString("POS 1 CAMERA EVENT CREATED");
                 return;
+            }
+            else
+            {
+                Vector3 lastPos1 = Pos1;
+                Pos1 = new Vector3(lastPos1.X, lastPos1.Y, POS2_Z);
             }
             if (Pos2 == new Vector3(0, 0, 0))
             {
                 Pos2 = new Vector3(player.Position.X, player.Position.Y, POS2_Z);
-                Core.Debug.OutputDebugString("POS 2 CAMERA EVENT CREATED");
+                Debug.OutputDebugString("POS 2 CAMERA EVENT CREATED");
+            }
+            else
+            {
+                Vector3 lastPos2 = Pos2;
+                Pos2 = new Vector3(lastPos2.X, lastPos2.Y, POS2_Z);
             }
             player.vnxSetStreamSharedElementData("HideHUD", 1);
             AntiCheat_Allround.StopTimerTeleport(player);
@@ -246,8 +256,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             Pos1 = new Vector3();
             Pos2 = new Vector3();
-            Core.Debug.OutputDebugString("CAMERAS RESETTED!!");
-
+            Debug.OutputDebugString("CAMERAS RESETTED!!");
         }
 
 
@@ -274,7 +283,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 player.SendTranslatedChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 premium.viplevels.VIPLEVELS.SendVIPNotify(player);
-                Spawn.spawnplayer_on_spawnpoint(player);
+                Spawn.SpawnPlayerOnSpawnpoint(player);
                 Settings.VnX.LoadSettingsData(player);
                 player.vnxSetStreamSharedElementData("HideHUD", 0);
                 Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);

@@ -14,11 +14,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static string GetFactionRgba(int FID)
         {
             string Rgbacode = string.Empty;
-            if (FID == Constants.FACTION_POLICE)
+            if (FID == Constants.FACTION_LSPD)
             {
                 Rgbacode = RageAPI.GetHexColorcode(100, 100, 255);
             }
-            else if (FID == Constants.FACTION_COSANOSTRA)
+            else if (FID == Constants.FACTION_LCN)
             {
                 Rgbacode = RageAPI.GetHexColorcode(80, 80, 80);
             }
@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 Rgbacode = RageAPI.GetHexColorcode(50, 50, 255);
             }
-            else if (FID == Constants.FACTION_MS13)
+            else if (FID == Constants.FACTION_NARCOS)
             {
                 Rgbacode = RageAPI.GetHexColorcode(225, 225, 0);
             }
@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 Rgbacode = RageAPI.GetHexColorcode(138, 43, 226);
             }
-            else if (FID == Constants.FACTION_GROVE)
+            else if (FID == Constants.FACTION_COMPTON)
             {
                 Rgbacode = RageAPI.GetHexColorcode(85, 107, 47);
             }

@@ -358,24 +358,21 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public const float VIP_BONI_AUTOSTEUER_PLATIN = 0.4f;
         public const float VIP_BONI_AUTOSTEUER_TOPDONATOR = 0.5f;
 
-        // Gargabe route money
-        public const int MONEY_GARBAGE_ROUTE = 350;
-
         // Factions
         public const int FACTION_NONE = 0;
-        public const int FACTION_POLICE = 1;
-        public const int FACTION_COSANOSTRA = 2;
+        public const int FACTION_LSPD = 1;
+        public const int FACTION_LCN = 2;
         public const int FACTION_YAKUZA = 3;
-        public const int FACTION_TERRORCLOSED = 0;
+        public const int FACTION_TERRORCLOSED = 4;
         public const int FACTION_NEWS = 5;
         public const int FACTION_FBI = 6;
-        public const int FACTION_MS13 = 7;
+        public const int FACTION_NARCOS = 7;
         public const int FACTION_USARMY = 8;
         public const int FACTION_SAMCRO = 9;
         public const int FACTION_EMERGENCY = 10;
         public const int FACTION_MECHANIK = 11;
         public const int FACTION_BALLAS = 12;
-        public const int FACTION_GROVE = 13;
+        public const int FACTION_COMPTON = 13;
 
         public const string FACTION_NONE_NAME = "Zivilist";
         public const string FACTION_POLICE_NAME = "Los Santos Police Department";
@@ -392,9 +389,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public const string FACTION_BALLAS_NAME = "Rollin Height Ballas";
         public const string FACTION_GROVE_NAME = "Compton Family´s";
 
-
-        public const int FACTION_ADMIN = 90;
-        public const int MAX_FACTION_IVehicleS = 100;
 
         // Jobs
         public const string JOB_NONE = "Arbeitslos";
@@ -549,20 +543,20 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new FactionModel(Messages.FAC_NONE_M, Messages.FAC_NONE_F, FACTION_NONE, 5, 500),
 
             // Police department
-            new FactionModel(Messages.FAC_LSPD_0_M, Messages.FAC_LSPD_0_F, FACTION_POLICE, 0, 625),
-            new FactionModel(Messages.FAC_LSPD_1_M, Messages.FAC_LSPD_1_F, FACTION_POLICE, 1, 750),
-            new FactionModel(Messages.FAC_LSPD_2_M, Messages.FAC_LSPD_2_F, FACTION_POLICE, 2, 1000),
-            new FactionModel(Messages.FAC_LSPD_3_M, Messages.FAC_LSPD_3_F, FACTION_POLICE, 3, 1350),
-            new FactionModel(Messages.FAC_LSPD_4_M, Messages.FAC_LSPD_4_F, FACTION_POLICE, 4, 1500),
-            new FactionModel(Messages.FAC_LSPD_5_M, Messages.FAC_LSPD_5_F, FACTION_POLICE, 5, 1750),
+            new FactionModel(Messages.FAC_LSPD_0_M, Messages.FAC_LSPD_0_F, FACTION_LSPD, 0, 625),
+            new FactionModel(Messages.FAC_LSPD_1_M, Messages.FAC_LSPD_1_F, FACTION_LSPD, 1, 750),
+            new FactionModel(Messages.FAC_LSPD_2_M, Messages.FAC_LSPD_2_F, FACTION_LSPD, 2, 1000),
+            new FactionModel(Messages.FAC_LSPD_3_M, Messages.FAC_LSPD_3_F, FACTION_LSPD, 3, 1350),
+            new FactionModel(Messages.FAC_LSPD_4_M, Messages.FAC_LSPD_4_F, FACTION_LSPD, 4, 1500),
+            new FactionModel(Messages.FAC_LSPD_5_M, Messages.FAC_LSPD_5_F, FACTION_LSPD, 5, 1750),
 
             // Mafia 
-            new FactionModel(Messages.FAC_MAFIA_0_M, Messages.FAC_MAFIA_0_F, FACTION_COSANOSTRA, 0, 480),
-            new FactionModel(Messages.FAC_MAFIA_1_M, Messages.FAC_MAFIA_1_F, FACTION_COSANOSTRA, 1, 600),
-            new FactionModel(Messages.FAC_MAFIA_2_M, Messages.FAC_MAFIA_2_F, FACTION_COSANOSTRA, 2, 700),
-            new FactionModel(Messages.FAC_MAFIA_3_M, Messages.FAC_MAFIA_3_F, FACTION_COSANOSTRA, 3, 900),
-            new FactionModel(Messages.FAC_MAFIA_4_M, Messages.FAC_MAFIA_4_F, FACTION_COSANOSTRA, 4, 1200),
-            new FactionModel(Messages.FAC_MAFIA_5_M, Messages.FAC_MAFIA_5_F, FACTION_COSANOSTRA, 5, 1400),
+            new FactionModel(Messages.FAC_MAFIA_0_M, Messages.FAC_MAFIA_0_F, FACTION_LCN, 0, 480),
+            new FactionModel(Messages.FAC_MAFIA_1_M, Messages.FAC_MAFIA_1_F, FACTION_LCN, 1, 600),
+            new FactionModel(Messages.FAC_MAFIA_2_M, Messages.FAC_MAFIA_2_F, FACTION_LCN, 2, 700),
+            new FactionModel(Messages.FAC_MAFIA_3_M, Messages.FAC_MAFIA_3_F, FACTION_LCN, 3, 900),
+            new FactionModel(Messages.FAC_MAFIA_4_M, Messages.FAC_MAFIA_4_F, FACTION_LCN, 4, 1200),
+            new FactionModel(Messages.FAC_MAFIA_5_M, Messages.FAC_MAFIA_5_F, FACTION_LCN, 5, 1400),
 
             // YAKUZA 
             new FactionModel(Messages.FAC_YAKUZA_0_M, Messages.FAC_YAKUZA_0_F, FACTION_YAKUZA, 0, 480),
@@ -590,12 +584,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new FactionModel(Messages.FAC_FBI_5_M, Messages.FAC_FBI_5_F, FACTION_FBI, 5, 1950),
 
             // MS13 
-            new FactionModel(Messages.FAC_MS13_0_M, Messages.FAC_MS13_0_F, FACTION_MS13, 0, 480),
-            new FactionModel(Messages.FAC_MS13_1_M, Messages.FAC_MS13_1_F, FACTION_MS13, 1, 600),
-            new FactionModel(Messages.FAC_MS13_2_M, Messages.FAC_MS13_2_F, FACTION_MS13, 2, 700),
-            new FactionModel(Messages.FAC_MS13_3_M, Messages.FAC_MS13_3_F, FACTION_MS13, 3, 900),
-            new FactionModel(Messages.FAC_MS13_4_M, Messages.FAC_MS13_4_F, FACTION_MS13, 4, 1200),
-            new FactionModel(Messages.FAC_MS13_5_M, Messages.FAC_MS13_5_F, FACTION_MS13, 5, 1400),
+            new FactionModel(Messages.FAC_MS13_0_M, Messages.FAC_MS13_0_F, FACTION_NARCOS, 0, 480),
+            new FactionModel(Messages.FAC_MS13_1_M, Messages.FAC_MS13_1_F, FACTION_NARCOS, 1, 600),
+            new FactionModel(Messages.FAC_MS13_2_M, Messages.FAC_MS13_2_F, FACTION_NARCOS, 2, 700),
+            new FactionModel(Messages.FAC_MS13_3_M, Messages.FAC_MS13_3_F, FACTION_NARCOS, 3, 900),
+            new FactionModel(Messages.FAC_MS13_4_M, Messages.FAC_MS13_4_F, FACTION_NARCOS, 4, 1200),
+            new FactionModel(Messages.FAC_MS13_5_M, Messages.FAC_MS13_5_F, FACTION_NARCOS, 5, 1400),
 
             // USARMY 
             new FactionModel(Messages.FAC_USARMY_0_M, Messages.FAC_USARMY_0_F, FACTION_USARMY, 0, 0),
@@ -638,12 +632,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new FactionModel(Messages.FAC_BALLAS_5_M, Messages.FAC_BALLAS_5_F, FACTION_BALLAS, 5, 1400),
 
             // Compton 
-            new FactionModel(Messages.FAC_COMPTON_0_M, Messages.FAC_COMPTON_0_F, FACTION_GROVE, 0, 480),
-            new FactionModel(Messages.FAC_COMPTON_1_M, Messages.FAC_COMPTON_1_F, FACTION_GROVE, 1, 600),
-            new FactionModel(Messages.FAC_COMPTON_2_M, Messages.FAC_COMPTON_2_F, FACTION_GROVE, 2, 700),
-            new FactionModel(Messages.FAC_COMPTON_3_M, Messages.FAC_COMPTON_3_F, FACTION_GROVE, 3, 900),
-            new FactionModel(Messages.FAC_COMPTON_4_M, Messages.FAC_COMPTON_4_F, FACTION_GROVE, 4, 1200),
-            new FactionModel(Messages.FAC_COMPTON_5_M, Messages.FAC_COMPTON_5_F, FACTION_GROVE, 5, 1400),
+            new FactionModel(Messages.FAC_COMPTON_0_M, Messages.FAC_COMPTON_0_F, FACTION_COMPTON, 0, 480),
+            new FactionModel(Messages.FAC_COMPTON_1_M, Messages.FAC_COMPTON_1_F, FACTION_COMPTON, 1, 600),
+            new FactionModel(Messages.FAC_COMPTON_2_M, Messages.FAC_COMPTON_2_F, FACTION_COMPTON, 2, 700),
+            new FactionModel(Messages.FAC_COMPTON_3_M, Messages.FAC_COMPTON_3_F, FACTION_COMPTON, 3, 900),
+            new FactionModel(Messages.FAC_COMPTON_4_M, Messages.FAC_COMPTON_4_F, FACTION_COMPTON, 4, 1200),
+            new FactionModel(Messages.FAC_COMPTON_5_M, Messages.FAC_COMPTON_5_F, FACTION_COMPTON, 5, 1400),
         };
 
 
@@ -651,64 +645,64 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public static List<UniformModel> UNIFORM_LIST = new List<UniformModel>
         {  
             // Male police uniform
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 0, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 2, -1, -1),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 3, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 4, 35, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 5, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 6, 25, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 7, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 8, 58, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 9, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 10, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_MALE, 11, 55, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 0, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 1, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 2, -1, -1),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 3, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 4, 35, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 5, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 6, 25, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 7, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 8, 58, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 9, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 10, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_MALE, 11, 55, 0),
 
             // Female police uniform
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 0, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 2, -1, -1),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 3, 14, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 4, 34, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 5, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 6, 25, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 7, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 8, 35, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 9, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 10, 0, 0),
-            new UniformModel(0, FACTION_POLICE, SEX_FEMALE, 11, 48, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 0, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 1, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 2, -1, -1),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 3, 14, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 4, 34, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 5, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 6, 25, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 7, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 8, 35, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 9, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 10, 0, 0),
+            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 11, 48, 0),
 
 
             //////////////////////////////////////////////
 
 
             // Male Mafia uniform
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 0, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 2, -1, -1),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 3, 4, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 4, 28, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 5, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 6, 21, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 7, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 8, 33, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 9, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 10, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_MALE, 11, 29, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 0, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 1, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 2, -1, -1),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 3, 4, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 4, 28, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 5, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 6, 21, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 7, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 8, 33, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 9, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 10, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_MALE, 11, 29, 0),
 
             // Female Mafia uniform
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 0, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 2, -1, -1),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 3, 3, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 4, 37, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 5, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 6, 29, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 7, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 8, 147, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 9, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 10, 0, 0),
-            new UniformModel(0, FACTION_COSANOSTRA, SEX_FEMALE, 11, 7, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 0, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 1, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 2, -1, -1),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 3, 3, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 4, 37, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 5, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 6, 29, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 7, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 8, 147, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 9, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 10, 0, 0),
+            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 11, 7, 0),
             //////////////////////////////////////////////
 
 
@@ -811,32 +805,32 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
             
             // Male AZTECAS uniform
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 0, 8, -1),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 2, -1, -1),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 3, 11, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 4, 22, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 5, 0, -1),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 6, 21, 5),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 7, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 8, 15, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 9, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 10, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_MALE, 11,13, 1),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 0, 8, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 1, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 2, -1, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 3, 11, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 4, 22, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 5, 0, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 6, 21, 5),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 7, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 8, 15, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 9, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 10, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 11,13, 1),
 
             // Female AZTECAS uniform
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 0, -1, -1),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 2, -1, -1),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 3, 85, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 4, 96, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 5, -1, -1),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 6, 51, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 7, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 8, 129, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 9, 0, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 10, 58, 0),
-            new UniformModel(0, FACTION_MS13, SEX_FEMALE, 11, 250, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 0, -1, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 1, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 2, -1, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 3, 85, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 4, 96, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 5, -1, -1),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 6, 51, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 7, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 8, 129, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 9, 0, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 10, 58, 0),
+            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 11, 250, 0),
 
             // Male Army uniform
             new UniformModel(0, FACTION_USARMY, SEX_MALE, 0, 107, 8),
@@ -934,32 +928,32 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 11, 250, 0),
             
             // Male GROVE uniform
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 0, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 1, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 2, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 3, 5, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 4, 27, 10),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 5, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 6, 9, 1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 7, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 8, 15, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 9, 0, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 10, -1, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_MALE, 11,237,14),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 0, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 1, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 2, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 3, 5, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 4, 27, 10),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 5, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 6, 9, 1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 7, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 8, 15, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 9, 0, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 10, -1, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 11,237,14),
 
             // Female GROVE uniform
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 0, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 1, -1, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 2, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 3, 85, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 4, 96, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 5, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 6, 51, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 7, -1, -1),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 8, 129, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 9, 0, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 10, 58, 0),
-            new UniformModel(0, FACTION_GROVE, SEX_FEMALE, 11, 250, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 0, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 1, -1, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 2, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 3, 85, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 4, 96, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 5, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 6, 51, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 7, -1, -1),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 8, 129, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 9, 0, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 10, 58, 0),
+            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 11, 250, 0),
         };
 
 

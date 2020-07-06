@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         {
             try
             {
-                Spawn.spawnplayer_on_spawnpoint(player);
+                Spawn.SpawnPlayerOnSpawnpoint(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RevivePlayer", ex); }
         }
@@ -53,10 +53,10 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                     {
                         if (player.Reallife.Wanteds > 0)
                         {
-                            Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_POLICE);
+                            Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
                             if (killer.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                             {
-                                Database.SetFactionStats(Constants.FACTION_POLICE, fkasse.money + player.Reallife.Wanteds * 400, fkasse.weed, fkasse.koks, fkasse.mats);
+                                Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + player.Reallife.Wanteds * 400, fkasse.weed, fkasse.koks, fkasse.mats);
                                 player.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, player.Reallife.Wanteds * 6);
                                 killer.SendTranslatedChatMessage("{007d00}Du hast " + player.Username + " verhaftet für " + player.Reallife.Knastzeit + " Minuten! " + player.Reallife.Wanteds * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
                                 player.SendTranslatedChatMessage("{000096}Officer " + killer.Username + " hat dich eingesperrt für " + player.Reallife.Knastzeit + " Minuten!.");

@@ -75,6 +75,7 @@ namespace VenoXV._Preload_
                     Globals.Main.ZombiePlayers.Add(player);
                     Character_Creator.Main.LoadCharacterSkin(player);
                     _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
+                    _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
                     Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                     break;

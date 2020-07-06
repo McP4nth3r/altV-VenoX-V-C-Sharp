@@ -15,12 +15,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             switch (factionId)
             {
-                case Constants.FACTION_COSANOSTRA: return 55;
+                case Constants.FACTION_LCN: return 55;
                 case Constants.FACTION_YAKUZA: return 59;
-                case Constants.FACTION_MS13: return 31;
+                case Constants.FACTION_NARCOS: return 31;
                 case Constants.FACTION_SAMCRO: return 76;
                 case Constants.FACTION_BALLAS: return 7;
-                case Constants.FACTION_GROVE: return 52;
+                case Constants.FACTION_COMPTON: return 52;
                 default: return 44; // ORANGE = FEHLER !!
             }
         }
@@ -238,7 +238,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
 
                         // Respawn target
                         playerEntry._isRespawned = true;
-                        Factions.Spawn.spawnplayer_on_spawnpoint(player);
+                        Factions.Spawn.SpawnPlayerOnSpawnpoint(player);
                     }
                 }
             }

@@ -627,7 +627,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                         if (Allround.isStateIVehicle(Vehicle))
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
+                            if (player.Reallife.OnDuty != 1)
                             {
                                 if (Allround.isStateFaction(player))
                                 {
@@ -640,7 +640,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         else if (Allround.isBadIVehicle(Vehicle))
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY_BAD) != 1)
+                            if (player.Reallife.OnDutyBad != 1)
                             {
                                 if (Allround.isBadFaction(player))
                                 {
@@ -653,7 +653,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         }
                         else if (Allround.isNeutralIVehicle(Vehicle))
                         {
-                            if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY_NEUTRAL) != 1)
+                            if (player.Reallife.OnDutyNeutral != 1)
                             {
                                 if (Allround.isNeutralFaction(player))
                                 {
@@ -665,13 +665,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             }
                         }
 
-                        if (player.AdminRank == Constants.ADMINLVL_NONE && vehFaction == Constants.FACTION_ADMIN)
-                        {
-                            player.WarpOutOfVehicle();
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein teil des Admin - Teams!");
-                            return;
-                        }
-                        else if (vehFaction > 0 && playerFaction != vehFaction && vehFaction != Constants.FACTION_ADMIN)
+                        if (vehFaction > 0 && playerFaction != vehFaction)
                         {
                             player.WarpOutOfVehicle();
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Mitglied dieser Fraktion!");
@@ -715,7 +709,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
                 });
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
         }
 
         /*//[ServerEvent(Event.IVehicleDeath)]
@@ -793,12 +787,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     int playerFaction = player.Reallife.Faction;
                     int VehicleFaction = Vehicle.Faction;
 
-
-                    if (player.AdminRank == Constants.ADMINLVL_NONE && VehicleFaction == Constants.FACTION_ADMIN)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Admin!");
-                    }
-                    else if (Vehicle.Owner != player.Username && VehicleFaction != player.Reallife.Faction && VehicleFaction != Constants.FACTION_ADMIN)
+                    if (Vehicle.Owner != player.Username && VehicleFaction != player.Reallife.Faction)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Schlüssel für dieses Fahrzeug!");
                     }

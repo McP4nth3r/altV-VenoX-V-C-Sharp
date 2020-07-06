@@ -13,7 +13,7 @@ namespace VenoXV._RootCore_.Sync
     {
         //Settings
         public static int UpdateInterval = 1; // Sync Update in Seconds.
-        public static int RenderDistance = 200; // Distance to a Obj to Create.
+        public static int RenderDistance = 1000; // Distance to a Obj to Create.
 
         public static List<BlipModel> BlipList = new List<BlipModel>();
         public static List<LabelModel> LabelList = new List<LabelModel>();

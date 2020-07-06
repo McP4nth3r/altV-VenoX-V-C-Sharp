@@ -180,7 +180,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                         // Respawn target
                         IPlayerEntry._isRespawned = true;
-                        Factions.Spawn.spawnplayer_on_spawnpoint(Player);
+                        Factions.Spawn.SpawnPlayerOnSpawnpoint(Player);
                     }
                 }
             }
@@ -407,7 +407,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                     if (!playerEntry._isRespawned)
                     {
-                        Factions.Spawn.spawnplayer_on_spawnpoint(playerEntry._player);
+                        Factions.Spawn.SpawnPlayerOnSpawnpoint(playerEntry._player);
                     }
                 }
             }

@@ -67,9 +67,18 @@ namespace VenoXV.Globals
                 if (!(entity is Client player)) return;
                 if (state)
                 {
-                    _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
-                    SevenTowers.globals.Main.OnColShapeHit(shape, player);
-                    _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
+                    switch (player.Gamemode)
+                    {
+                        case (int)Preload.Gamemodes.Reallife:
+                            _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
+                            return;
+                        case (int)Preload.Gamemodes.SevenTowers:
+                            SevenTowers.globals.Main.OnColShapeHit(shape, player);
+                            return;
+                        case (int)Preload.Gamemodes.Race:
+                            _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
+                            return;
+                    }
                 }
                 else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
             }
@@ -84,7 +93,7 @@ namespace VenoXV.Globals
                 player.DespawnPlayer();
                 switch (player.Gamemode)
                 {
-                    case (int)_Preload_.Preload.Gamemodes.Tactics:
+                    case (int)Preload.Gamemodes.Tactics:
 
                         if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
                         if (Functions.IstargetInSameLobby(player, killer))
@@ -97,7 +106,7 @@ namespace VenoXV.Globals
                             RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
                         }
                         return;
-                    case (int)_Preload_.Preload.Gamemodes.Reallife:
+                    case (int)Preload.Gamemodes.Reallife:
                         {
                             if (killer == null || Functions.IstargetInSameLobby(player, killer))
                             {

@@ -181,7 +181,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             if (!Allround.isStateFaction(player)) { return; }
             FactionAllroundModel fweapon = new FactionAllroundModel();
-            foreach (FactionAllroundModel fClass in Main.FactionAllroundList) { if (fClass.FID == Constants.FACTION_POLICE) { fweapon = fClass; } }
+            foreach (FactionAllroundModel fClass in Main.FactionAllroundList) { if (fClass.FID == Constants.FACTION_LSPD) { fweapon = fClass; } }
             if (fweapon.FID == 0) { return; }
             switch (Button)
             {

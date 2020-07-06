@@ -418,7 +418,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         {
             if (Allround.isStateFaction(player))
             {
-                if (player.Reallife.Faction == Constants.FACTION_POLICE)
+                if (player.Reallife.Faction == Constants.FACTION_LSPD)
                 {
                     Alt.Server.TriggerClientEvent(player, "discord_update", "Auf Streife [L.S.P.D]", "VenoX - Reallife");
                 }

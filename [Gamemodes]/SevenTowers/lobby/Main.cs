@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // SETTINGS 
-        public static int SEVENTOWERS_ROUND_MINUTE = 3;                       // Zeit in Sekunden.
+        public static int SEVENTOWERS_ROUND_MINUTE = 30;                       // Zeit in Sekunden.
         public static int SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;          // Zeit in Sekunden.
         public static int SEVENTOWERS_ROUND_JOINTIME = 5;                     // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
         public static int SEVENTOWERS_DIM = 60;

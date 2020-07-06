@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
@@ -16,6 +15,7 @@ namespace VenoXV._Gamemodes_.KI
         private static int CurrentZombieCounter = 0;
         private static void AddNearbyZombiesIntoList()
         {
+            /*
             foreach (Client player in Main.ZombiePlayers)
             {
                 Random randomSkin = new Random();
@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.KI
                     TargetEntity = player
                 };
                 CurrentZombies.Add(zombieClass);
-            }
+            }*/
         }
 
         private static void ApplyZombieClothes(Client player, int RandomSkinUID, int ZombieId)
