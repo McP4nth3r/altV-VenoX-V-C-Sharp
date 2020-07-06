@@ -5,11 +5,11 @@
 //----------------------------------*//
 
 @font-face { font-family: 'drugs';
-             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+             src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
 @font-face { font-family: 'robot';
-             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+             src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }
 @font-face { font-family: 'hangover';
-             src: url('./font/hangover.ttf') format('truetype'); }
+             src: url('./files/font/hangover.ttf') format('truetype'); }
 
 .all {
     -ms-user-select: None; 
@@ -75,7 +75,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/Zombie.jpg");
+	background-image: url("./files/images/Zombie.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -94,7 +94,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/Reallife.jpg");
+	background-image: url("./files/images/Reallife.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -113,7 +113,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/Tactics.jpg");
+	background-image: url("./files/images/Tactics.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -132,7 +132,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/Race.jpg");
+	background-image: url("./files/images/Race.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -151,7 +151,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/Towers.jpg");
+	background-image: url("./files/images/Towers.jpg");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -170,7 +170,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/locked.png");
+	background-image: url("./files/images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -189,7 +189,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/locked.png");
+	background-image: url("./files/images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -208,7 +208,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/locked.png");
+	background-image: url("./files/images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -227,7 +227,7 @@
 	height: 25%;
 	width: 25%;
     transform: translate(-50%, -50%);
-	background-image: url("./images/locked.png");
+	background-image: url("./files/images/locked.png");
 	background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
