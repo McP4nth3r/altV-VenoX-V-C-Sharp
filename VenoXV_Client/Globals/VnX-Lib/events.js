@@ -180,24 +180,20 @@ alt.onServer('Player:SetWaypoint', (X, Y) => {
 });
 alt.onServer('Player:Alpha', (alpha) => {
     try {
-        game.setEntityAlpha(Entity.scriptID, alpha, true);
+        game.setEntityAlpha(LocalPlayer.scriptID, alpha, true);
     }
     catch{ }
 });
 
 alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
     try {
-        alt.setTimeout(() => {
+        let vehTick = alt.everyTick(() => {
+            if (!alt.Player.local.scriptID) { return; }
             game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
-            if (!LocalPlayer.vehicle) {
-                alt.setTimeout(() => {
-                    game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
-                    if (!LocalPlayer.vehicle) {
-                        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
-                    }
-                }, 500);
+            if (LocalPlayer.vehicle) {
+                alt.clearEveryTick(vehTick);
             }
-        }, 500);
+        });
     }
     catch{ }
 });
@@ -219,8 +215,10 @@ alt.onServer('start_screen_fx', (effectName, duration, looped) => {
 });
 
 alt.onServer('Vehicle:DisableEngineToggle', state => {
-    game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state);
-    alt.log('Called DisableEngineToggle');
+    try {
+        game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state);
+    }
+    catch{ }
 });
 
 alt.on('keyup', (key) => {
@@ -327,19 +325,24 @@ let Gamemodes = {
     SevenTowers: 4
 };
 alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
-    if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
-    switch (GamemodeId) {
-        case Gamemodes.Tactics:
-            TickEvent = alt.everyTick(() => {
-                OnTacticsTick();
-            });
-            break;
-    };
-
+    try {
+        if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
+        switch (GamemodeId) {
+            case Gamemodes.Tactics:
+                TickEvent = alt.everyTick(() => {
+                    OnTacticsTick();
+                });
+                break;
+        };
+    }
+    catch{ }
 });
 
 alt.setInterval(() => {
-    game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
+    try {
+        game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
+    }
+    catch{ }
 }, 1000);
 
 
@@ -390,20 +393,31 @@ function checkCamInAir() {
 
 var area = {};
 alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
-    if (area[name] != null) {
-        game.removeBlip(area[name]);
+    try {
+        if (area[name] != null) {
+            game.removeBlip(area[name]);
+        }
+        area[name] = game.addBlipForRadius(x, y, z, r);
+        game.setBlipSprite(area[name], 5);
+        game.setBlipAlpha(area[name], 150);
+        game.setBlipColour(area[name], c);
+        game.setBlipRotation(area[name], r2);
     }
-    area[name] = game.addBlipForRadius(x, y, z, r);
-    game.setBlipSprite(area[name], 5);
-    game.setBlipAlpha(area[name], 150);
-    game.setBlipColour(area[name], c);
-    game.setBlipRotation(area[name], r2);
+    catch{ }
 });
 
 alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
-    CreatePed(PedName, Vector3Pos, rot)
+    try { CreatePed(PedName, Vector3Pos, rot); }
+    catch{ }
 });
 
 alt.on("disconnect", () => {
     vnxDestroyAllCEF();
 });
+/*
+alt.onServer('Admin:ShootTest', (Position1, Position2, damage, WeaponHash, Owner, audible, invisible, speed) => {
+    let hash = game.getHashKey(WeaponHash);
+    game.shootSingleBulletBetweenCoords(Position1.x, Position1.y, Position1.z, Position2.x, Position2.y, Position2.z, damage, true, hash, Owner.scriptID, audible, invisible, speed);
+    alt.log("Called SingleBullet");
+});
+*/
