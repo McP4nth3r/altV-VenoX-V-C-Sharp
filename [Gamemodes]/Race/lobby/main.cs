@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         // Settings
         public const int RACE_JOIN_TIME = 5; // Time in MS to join a started round.
-        public const int RACE_ROUND_MINUTES = 5; // Time in Minutes - Round Minute Times
+        public const int RACE_ROUND_MINUTES = 50; // Time in Minutes - Round Minute Times
         public const int RACE_ROUND_WILL_START_IN = 5; // Time in Seconds - Round will start after it ended
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+
@@ -41,6 +41,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
+                if (CurrentMap != null) { foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList()) { if (spawn.Spawned) spawn.Spawned = false; } }
                 foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { vehClass.Remove(); } }
                 foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers)
                 {
@@ -65,8 +66,18 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 {
                     if (!player.Race.IsRacing)
                     {
-                        Vector3 Spawnpoint = CurrentMap.PlayerSpawnPoints[0];
-                        Vector3 Rotation = CurrentMap.PlayerRotation;
+                        Vector3 Spawnpoint = new Vector3();
+                        Vector3 Rotation = new Vector3();
+                        foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList())
+                        {
+                            if (!spawn.Spawned && !player.Race.IsRacing)
+                            {
+                                Spawnpoint = spawn.Position;
+                                Rotation = spawn.Rotation;
+                                spawn.Spawned = true;
+                                player.Race.IsRacing = true;
+                            }
+                        }
                         player.SpawnPlayer(Spawnpoint);
                         player.Dimension = 0;
                         double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
@@ -77,7 +88,6 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                         vehicle.EngineOn = true;
                         player.Race.CurrentMarker = 0;
                         vehicle.Race.Owner = player;
-                        player.Race.IsRacing = true;
                         RaceVehicles.Add(vehicle);
                         player.WarpIntoVehicle(vehicle, -1);
                         SyncPlayerPlaceInRound();
@@ -164,7 +174,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 if (player.Race.CurrentMarker == CurrentMap.RaceCheckpoints.Count) { OnClientRaceFinish(player); return; }
                 // Create New stuff
                 Vector3 newPos = new Vector3(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Z - 1f);
-                player.Race.LastMarker = RageAPI.CreateMarker(4, newPos, new Vector3(5, 5, 5), new int[] { 0, 200, 255, 255 });
+                player.Race.LastMarker = RageAPI.CreateMarker(4, newPos, new Vector3(5, 5, 5), new int[] { 0, 200, 255, 255 }, player);
                 player.Race.LastColShapeModel = RageAPI.CreateColShapeSphere(newPos, 4);
                 // Draw Waypoint & give player stuff.
                 player.DrawWaypoint(newPos.X, newPos.Y);
@@ -183,8 +193,8 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                GetNewMap();
                 DeleteEverything();
+                GetNewMap();
                 InitializePlayerDatas();
                 RACE_ROUND_IS_RUNNING = true;
                 RACE_STARTED = DateTime.Now;
@@ -229,7 +239,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 if (!CanPlayerJoin() || VenoXV.Globals.Main.RacePlayers.Count >= 2)
                 {
-                    player.SetPosition = new Vector3(CurrentMap.PlayerSpawnPoints[^1].X, CurrentMap.PlayerSpawnPoints[^1].Y, CurrentMap.PlayerSpawnPoints[^1].Z - 30f);
+                    player.SetPosition = new Vector3(CurrentMap.PlayerSpawnPoints[0].Position.X, CurrentMap.PlayerSpawnPoints[0].Position.Y, CurrentMap.PlayerSpawnPoints[0].Position.Z - 30f);
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + " Es läuft eine runde bereits... bitte gedulde dich!");
                     return;
