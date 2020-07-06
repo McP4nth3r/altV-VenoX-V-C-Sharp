@@ -51,9 +51,12 @@ alt.onServer('LoadTacticUI', (A_Name, B_Name, r, g, b, r1, g1, b1) => {
 });
 
 alt.onServer('Tactics:OnDeath', () => {
-    game.setFadeOutAfterDeath(false);
-    game.ignoreNextRestart(true);
-    game.displayHud(true);
+    try {
+        game.setFadeOutAfterDeath(false);
+        game.ignoreNextRestart(true);
+        game.displayHud(true);
+    }
+    catch{ }
 });
 
 alt.onServer('Tactics:UpdateMemberInfo', (L, LA, B, BA) => {
