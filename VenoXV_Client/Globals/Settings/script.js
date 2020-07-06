@@ -4,9 +4,6 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//*/
 
-const { addToClockTime } = require("natives");
-
-
 // OnLoad : 
 let ATM_STATE = false;
 let HAUS_STATE = false;

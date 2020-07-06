@@ -43,9 +43,9 @@ SettingsBrowser.on('Settings:SelectSpawnpoint', (spawn) => {
 
 function LoadClientSettings() {
     SettingsBrowser.emit('Settings:CheckButton', 'atm', alt.Player.local.getStreamSyncedMeta('PLAYER_ATM_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'haus', alt.Player.local.getStreamSyncedMeta('PLAYER_HAUS_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'house', alt.Player.local.getStreamSyncedMeta('PLAYER_HAUS_ANZEIGEN'));
     SettingsBrowser.emit('Settings:CheckButton', 'tacho', alt.Player.local.getStreamSyncedMeta('PLAYER_TACHO_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'quest', alt.Player.local.getStreamSyncedMeta('PLAYER_QUEST_ANZEIGEN'));
+    SettingsBrowser.emit('Settings:CheckButton', 'quests', alt.Player.local.getStreamSyncedMeta('PLAYER_QUEST_ANZEIGEN'));
     SettingsBrowser.emit('Settings:CheckButton', 'reporter', alt.Player.local.getStreamSyncedMeta('PLAYER_REPORTER_ANZEIGEN'));
     SettingsBrowser.emit('Settings:CheckButton', 'global', alt.Player.local.getStreamSyncedMeta('PLAYER_GLOBALCHAT_ANZEIGEN'));
 }

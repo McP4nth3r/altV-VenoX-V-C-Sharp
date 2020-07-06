@@ -135,7 +135,7 @@ alt.everyTick(() => {
             game.setPedConfigFlag(alt.Player.local.scriptID, 184, true);
         }
     }
-    catch{ }
+    catch (e) { alt.log(e); }
 });
 
 function distance(vector1, vector2) {
