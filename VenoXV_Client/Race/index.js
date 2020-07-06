@@ -52,8 +52,12 @@ alt.everyTick(() => {
     }
     catch{ }
 });
-RACE_PLAYERS = {};
-RACE_PLAYER_COUNTER = 1;
+
+alt.onServer('Race:ClearPlayerList', () => {
+    RACE_PLAYERS = {};
+    RACE_PLAYER_COUNTER = 1;
+});
+
 alt.onServer('Race:FillPlayerList', (player) => {
     try {
         RACE_PLAYERS[RACE_PLAYER_COUNTER++] = player;
