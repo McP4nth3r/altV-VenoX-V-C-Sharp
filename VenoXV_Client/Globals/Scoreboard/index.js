@@ -64,29 +64,35 @@ alt.onServer('UpdateScoreboard_Event', (pl_li, gm) => {
 
 
 export function KeyDown(key) {
-	if (key == 0x59) {
-		if (!CurrentBrowserPath) { return; }
-		if (GetCursorStatus() == false) {
-			if (removed == false) {
-				game.displayHud(false);
-				CurrentBrowser.emit("Scoreboard:Show");
-				ShowCursor(true);
-				removed = true;
-				return;
+	try {
+		if (key == 0x59) {
+			if (!CurrentBrowserPath) { return; }
+			if (GetCursorStatus() == false) {
+				if (removed == false) {
+					game.displayHud(false);
+					CurrentBrowser.emit("Scoreboard:Show");
+					ShowCursor(true);
+					removed = true;
+					return;
+				}
 			}
 		}
 	}
+	catch{ }
 }
 
 export function KeyUp(key) {
-	if (key == 0x59) {
-		if (!CurrentBrowserPath) { return; }
-		if (removed == true) {
-			game.displayHud(true);
-			CurrentBrowser.emit("Scoreboard:Hide");
-			ShowCursor(false);
-			removed = false;
-			return
+	try {
+		if (key == 0x59) {
+			if (!CurrentBrowserPath) { return; }
+			if (removed == true) {
+				game.displayHud(true);
+				CurrentBrowser.emit("Scoreboard:Hide");
+				ShowCursor(false);
+				removed = false;
+				return
+			}
 		}
 	}
+	catch{ }
 }
