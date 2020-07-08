@@ -15,8 +15,9 @@ alt.onServer('DeathScreen:Show', (time) => {
 		HospitalWindow = vnxCreateCEF("HospitalReallife", "Reallife/environment/death/main.html");
 		alt.setTimeout(() => {
 			HospitalWindow.emit('Timer:Init', time);
-		}, 400);
+		}, 500);
 		alt.setTimeout(() => {
+			HospitalWindow = null;
 			vnxDestroyCEF("HospitalReallife");
 			alt.emitServer('Reallife:Revive');
 		}, time);
