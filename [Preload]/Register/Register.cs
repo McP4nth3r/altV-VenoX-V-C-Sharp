@@ -59,17 +59,14 @@ namespace VenoXV._Preload_.Register
                 if (FoundAccountbyName(nickname)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
                 if (password != passwordwdh) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwörter sind nicht identisch!"); return; }
                 if (!evalid) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige E-Mail!"); }
-
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
-                Core.Debug.OutputDebugString("SEX" + geschlecht);
-                int UID = Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring);
+                Program.CreateForumUser(player, nickname, email, password);
+                int UID = Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring, player.Forum.UID);
                 player.Username = nickname;
                 player.UID = UID;
-                Core.Debug.OutputDebugString("Vitols UID : " + UID);
                 Database.CreateCharacter(player, player.UID);
-                _ = Program.CreateForumUser(nickname, email, password);
                 Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
                 Alt.Server.TriggerClientEvent(player, "CharCreator:Start", sex);
                 player.Playing = true;
