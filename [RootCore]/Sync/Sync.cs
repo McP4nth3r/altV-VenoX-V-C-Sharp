@@ -26,30 +26,40 @@ namespace VenoXV._RootCore_.Sync
         //BlipClass Sync
         public static void LoadBlips(Client playerClass)
         {
-            List<BlipModel> AlleBlips = new List<BlipModel>();
-            foreach (BlipModel blip in BlipList)
+            try
             {
-                if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
+                List<BlipModel> AlleBlips = new List<BlipModel>();
+                foreach (BlipModel blip in BlipList)
                 {
-                    AlleBlips.Add(blip);
+                    if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
+                    {
+                        AlleBlips.Add(blip);
+                    }
                 }
+                Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+
             }
-            Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+            catch { }
         }
+
 
         private static void SyncObjects(Client playerClass)
         {
-            Alt.Server.TriggerClientEvent(playerClass, "Sync:DestroyObjs");
-            foreach (ObjectModel obj in ObjectList)
+            try
             {
-                if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
+                Alt.Server.TriggerClientEvent(playerClass, "Sync:DestroyObjs");
+                foreach (ObjectModel obj in ObjectList)
                 {
-                    if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
+                    if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
                     {
-                        Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
+                        if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
+                        {
+                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
+                        }
                     }
                 }
             }
+            catch { }
         }
 
         // TextLabel Sync
