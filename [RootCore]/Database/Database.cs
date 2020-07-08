@@ -84,22 +84,20 @@ namespace VenoXV._RootCore_.Database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT FRAKTION_MONEY, FRAKTION_WEED, FRAKTION_MATS,FRAKTION_KOKAIN FROM fraktionskassen WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
                     command.Parameters.AddWithValue("@FRAKTION_ID", factionID);
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
+                        reader.Read();
+                        fraktion.weed = reader.GetInt32("FRAKTION_WEED");
+                        fraktion.koks = reader.GetInt32("FRAKTION_KOKAIN");
+                        fraktion.mats = reader.GetInt32("FRAKTION_MATS");
+                        fraktion.money = reader.GetInt32("FRAKTION_MONEY");
+                        /*fraktion.banreason = reader.GetString("banreason");
+                        if (!reader.IsDBNull(1))
                         {
-                            reader.Read();
-                            fraktion.weed = reader.GetInt32("FRAKTION_WEED");
-                            fraktion.koks = reader.GetInt32("FRAKTION_KOKAIN");
-                            fraktion.mats = reader.GetInt32("FRAKTION_MATS");
-                            fraktion.money = reader.GetInt32("FRAKTION_MONEY");
-                            /*fraktion.banreason = reader.GetString("banreason");
-                            if (!reader.IsDBNull(1))
-                            {
-                                account.banzeit = reader.GetDateTime("banzeit");
-                            }
-                            */
+                            account.banzeit = reader.GetDateTime("banzeit");
                         }
+                        */
                     }
                 }
                 return fraktion;
@@ -167,84 +165,80 @@ namespace VenoXV._RootCore_.Database
             int weapon_gusenberg, int weapon_rifle, int weapon_sniperrifle, int weapon_rpg, int weapon_bzgas, int weapon_molotov, int weapon_smokegrenade, int weapon_pistol_ammo, int weapon_pistol50_ammo, int weapon_revolver_ammo, int weapon_pumpshotgun_ammo, int weapon_combatpdw_ammo, int weapon_mp5_ammo, int weapon_assaultrifle_ammo,
             int weapon_carbinerifle_ammo, int weapon_advancedrifle_ammo, int weapon_gusenberg_ammo, int weapon_rifle_ammo, int weapon_sniperrifle_ammo, int weapon_rpg_ammo)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE fraktionslager SET weapon_knuckle = @weapon_knuckle, weapon_nightstick = @weapon_nightstick, weapon_baseball = @weapon_baseball, weapon_stungun = @weapon_stungun, " +
-                    "weapon_pistol50 = @weapon_pistol50, weapon_pistol50_ammo = @weapon_pistol50_ammo, weapon_revolver = @weapon_revolver, weapon_revolver_ammo = @weapon_revolver_ammo, weapon_pistol = @weapon_pistol ,weapon_pistol_ammo = @weapon_pistol_ammo, weapon_mp5 = @weapon_mp5, weapon_mp5_ammo = @weapon_mp5_ammo, weapon_combatpdw = @weapon_combatpdw, weapon_combatpdw_ammo = @weapon_combatpdw_ammo, weapon_pumpshotgun = @weapon_pumpshotgun, weapon_pumpshotgun_ammo = @weapon_pumpshotgun_ammo, " +
-                    "weapon_assaultrifle = @weapon_assaultrifle, weapon_assaultrifle_ammo = @weapon_assaultrifle_ammo, weapon_carbinerifle = @weapon_carbinerifle,weapon_carbinerifle_ammo = @weapon_carbinerifle_ammo,  weapon_advancedrifle = @weapon_advancedrifle, weapon_advancedrifle_ammo = @weapon_advancedrifle_ammo, weapon_gusenberg = @weapon_gusenberg, weapon_gusenberg_ammo = @weapon_gusenberg_ammo, weapon_rifle = @weapon_rifle, weapon_rifle_ammo = @weapon_rifle_ammo, weapon_sniperrifle = @weapon_sniperrifle, weapon_sniperrifle_ammo = @weapon_sniperrifle_ammo,  " +
-                    "weapon_rpg = @weapon_rpg, weapon_rpg_ammo = @weapon_rpg_ammo, weapon_molotov = @weapon_molotov, weapon_smokegrenade = @weapon_smokegrenade, weapon_bzgas = @weapon_bzgas  " +
-                    "WHERE FID = @FID LIMIT 1";
-                    command.Parameters.AddWithValue("@FID", factionID);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE fraktionslager SET weapon_knuckle = @weapon_knuckle, weapon_nightstick = @weapon_nightstick, weapon_baseball = @weapon_baseball, weapon_stungun = @weapon_stungun, " +
+                "weapon_pistol50 = @weapon_pistol50, weapon_pistol50_ammo = @weapon_pistol50_ammo, weapon_revolver = @weapon_revolver, weapon_revolver_ammo = @weapon_revolver_ammo, weapon_pistol = @weapon_pistol ,weapon_pistol_ammo = @weapon_pistol_ammo, weapon_mp5 = @weapon_mp5, weapon_mp5_ammo = @weapon_mp5_ammo, weapon_combatpdw = @weapon_combatpdw, weapon_combatpdw_ammo = @weapon_combatpdw_ammo, weapon_pumpshotgun = @weapon_pumpshotgun, weapon_pumpshotgun_ammo = @weapon_pumpshotgun_ammo, " +
+                "weapon_assaultrifle = @weapon_assaultrifle, weapon_assaultrifle_ammo = @weapon_assaultrifle_ammo, weapon_carbinerifle = @weapon_carbinerifle,weapon_carbinerifle_ammo = @weapon_carbinerifle_ammo,  weapon_advancedrifle = @weapon_advancedrifle, weapon_advancedrifle_ammo = @weapon_advancedrifle_ammo, weapon_gusenberg = @weapon_gusenberg, weapon_gusenberg_ammo = @weapon_gusenberg_ammo, weapon_rifle = @weapon_rifle, weapon_rifle_ammo = @weapon_rifle_ammo, weapon_sniperrifle = @weapon_sniperrifle, weapon_sniperrifle_ammo = @weapon_sniperrifle_ammo,  " +
+                "weapon_rpg = @weapon_rpg, weapon_rpg_ammo = @weapon_rpg_ammo, weapon_molotov = @weapon_molotov, weapon_smokegrenade = @weapon_smokegrenade, weapon_bzgas = @weapon_bzgas  " +
+                "WHERE FID = @FID LIMIT 1";
+                command.Parameters.AddWithValue("@FID", factionID);
 
-                    command.Parameters.AddWithValue("@weapon_knuckle", weapon_knuckle);
-                    command.Parameters.AddWithValue("@weapon_nightstick", weapon_nightstick);
-                    command.Parameters.AddWithValue("@weapon_baseball", weapon_baseball);
-                    command.Parameters.AddWithValue("@weapon_stungun", weapon_stungun);
-                    command.Parameters.AddWithValue("@weapon_pistol50", weapon_pistol50);
-                    command.Parameters.AddWithValue("@weapon_pistol50_ammo", weapon_pistol50_ammo);
-                    command.Parameters.AddWithValue("@weapon_revolver", weapon_revolver);
-                    command.Parameters.AddWithValue("@weapon_revolver_ammo", weapon_revolver_ammo);
-                    command.Parameters.AddWithValue("@weapon_pistol", weapon_pistol);
-                    command.Parameters.AddWithValue("@weapon_pistol_ammo", weapon_pistol_ammo);
-                    command.Parameters.AddWithValue("@weapon_mp5", weapon_mp5);
-                    command.Parameters.AddWithValue("@weapon_mp5_ammo", weapon_mp5_ammo);
-                    command.Parameters.AddWithValue("@weapon_combatpdw", weapon_combatpdw);
-                    command.Parameters.AddWithValue("@weapon_combatpdw_ammo", weapon_combatpdw_ammo);
-                    command.Parameters.AddWithValue("@weapon_pumpshotgun", weapon_pumpshotgun);
-                    command.Parameters.AddWithValue("@weapon_pumpshotgun_ammo", weapon_pumpshotgun_ammo);
-                    command.Parameters.AddWithValue("@weapon_assaultrifle", weapon_assaultrifle);
-                    command.Parameters.AddWithValue("@weapon_assaultrifle_ammo", weapon_assaultrifle_ammo);
-                    command.Parameters.AddWithValue("@weapon_carbinerifle", weapon_carbinerifle);
-                    command.Parameters.AddWithValue("@weapon_carbinerifle_ammo", weapon_carbinerifle_ammo);
-                    command.Parameters.AddWithValue("@weapon_advancedrifle", weapon_advancedrifle);
-                    command.Parameters.AddWithValue("@weapon_advancedrifle_ammo", weapon_advancedrifle_ammo);
-                    command.Parameters.AddWithValue("@weapon_gusenberg", weapon_gusenberg);
-                    command.Parameters.AddWithValue("@weapon_gusenberg_ammo", weapon_gusenberg_ammo);
-                    command.Parameters.AddWithValue("@weapon_rifle", weapon_rifle);
-                    command.Parameters.AddWithValue("@weapon_rifle_ammo", weapon_rifle_ammo);
-                    command.Parameters.AddWithValue("@weapon_sniperrifle", weapon_sniperrifle);
-                    command.Parameters.AddWithValue("@weapon_sniperrifle_ammo", weapon_sniperrifle_ammo);
-                    command.Parameters.AddWithValue("@weapon_rpg", weapon_rpg);
-                    command.Parameters.AddWithValue("@weapon_rpg_ammo", weapon_rpg_ammo);
-                    command.Parameters.AddWithValue("@weapon_molotov", weapon_molotov);
-                    command.Parameters.AddWithValue("@weapon_smokegrenade", weapon_smokegrenade);
-                    command.Parameters.AddWithValue("@weapon_bzgas", weapon_bzgas);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.StackTrace);
-                }
+                command.Parameters.AddWithValue("@weapon_knuckle", weapon_knuckle);
+                command.Parameters.AddWithValue("@weapon_nightstick", weapon_nightstick);
+                command.Parameters.AddWithValue("@weapon_baseball", weapon_baseball);
+                command.Parameters.AddWithValue("@weapon_stungun", weapon_stungun);
+                command.Parameters.AddWithValue("@weapon_pistol50", weapon_pistol50);
+                command.Parameters.AddWithValue("@weapon_pistol50_ammo", weapon_pistol50_ammo);
+                command.Parameters.AddWithValue("@weapon_revolver", weapon_revolver);
+                command.Parameters.AddWithValue("@weapon_revolver_ammo", weapon_revolver_ammo);
+                command.Parameters.AddWithValue("@weapon_pistol", weapon_pistol);
+                command.Parameters.AddWithValue("@weapon_pistol_ammo", weapon_pistol_ammo);
+                command.Parameters.AddWithValue("@weapon_mp5", weapon_mp5);
+                command.Parameters.AddWithValue("@weapon_mp5_ammo", weapon_mp5_ammo);
+                command.Parameters.AddWithValue("@weapon_combatpdw", weapon_combatpdw);
+                command.Parameters.AddWithValue("@weapon_combatpdw_ammo", weapon_combatpdw_ammo);
+                command.Parameters.AddWithValue("@weapon_pumpshotgun", weapon_pumpshotgun);
+                command.Parameters.AddWithValue("@weapon_pumpshotgun_ammo", weapon_pumpshotgun_ammo);
+                command.Parameters.AddWithValue("@weapon_assaultrifle", weapon_assaultrifle);
+                command.Parameters.AddWithValue("@weapon_assaultrifle_ammo", weapon_assaultrifle_ammo);
+                command.Parameters.AddWithValue("@weapon_carbinerifle", weapon_carbinerifle);
+                command.Parameters.AddWithValue("@weapon_carbinerifle_ammo", weapon_carbinerifle_ammo);
+                command.Parameters.AddWithValue("@weapon_advancedrifle", weapon_advancedrifle);
+                command.Parameters.AddWithValue("@weapon_advancedrifle_ammo", weapon_advancedrifle_ammo);
+                command.Parameters.AddWithValue("@weapon_gusenberg", weapon_gusenberg);
+                command.Parameters.AddWithValue("@weapon_gusenberg_ammo", weapon_gusenberg_ammo);
+                command.Parameters.AddWithValue("@weapon_rifle", weapon_rifle);
+                command.Parameters.AddWithValue("@weapon_rifle_ammo", weapon_rifle_ammo);
+                command.Parameters.AddWithValue("@weapon_sniperrifle", weapon_sniperrifle);
+                command.Parameters.AddWithValue("@weapon_sniperrifle_ammo", weapon_sniperrifle_ammo);
+                command.Parameters.AddWithValue("@weapon_rpg", weapon_rpg);
+                command.Parameters.AddWithValue("@weapon_rpg_ammo", weapon_rpg_ammo);
+                command.Parameters.AddWithValue("@weapon_molotov", weapon_molotov);
+                command.Parameters.AddWithValue("@weapon_smokegrenade", weapon_smokegrenade);
+                command.Parameters.AddWithValue("@weapon_bzgas", weapon_bzgas);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetFactionWeaponlager] " + ex.StackTrace);
             }
         }
 
         public static void SetFactionStats(int factionID, int money, int weed, int koks, int mats)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    //command.CommandText = "INSERT INTO fraktionskassen FRAKTION_MONEY, FRAKTION_WEED, FRAKTION_MATS,FRAKTION_KOKAIN FROM fraktionskassen WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
-                    command.CommandText = "UPDATE fraktionskassen SET FRAKTION_MONEY = @FRAKTION_MONEY, FRAKTION_WEED = @FRAKTION_WEED, FRAKTION_MATS = @FRAKTION_MATS, FRAKTION_KOKAIN = @FRAKTION_KOKAIN  WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
-                    command.Parameters.AddWithValue("@FRAKTION_ID", factionID);
-                    command.Parameters.AddWithValue("@FRAKTION_MONEY", money);
-                    command.Parameters.AddWithValue("@FRAKTION_WEED", weed);
-                    command.Parameters.AddWithValue("@FRAKTION_MATS", mats);
-                    command.Parameters.AddWithValue("@FRAKTION_KOKAIN", koks);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.StackTrace);
-                }
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                //command.CommandText = "INSERT INTO fraktionskassen FRAKTION_MONEY, FRAKTION_WEED, FRAKTION_MATS,FRAKTION_KOKAIN FROM fraktionskassen WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
+                command.CommandText = "UPDATE fraktionskassen SET FRAKTION_MONEY = @FRAKTION_MONEY, FRAKTION_WEED = @FRAKTION_WEED, FRAKTION_MATS = @FRAKTION_MATS, FRAKTION_KOKAIN = @FRAKTION_KOKAIN  WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
+                command.Parameters.AddWithValue("@FRAKTION_ID", factionID);
+                command.Parameters.AddWithValue("@FRAKTION_MONEY", money);
+                command.Parameters.AddWithValue("@FRAKTION_WEED", weed);
+                command.Parameters.AddWithValue("@FRAKTION_MATS", mats);
+                command.Parameters.AddWithValue("@FRAKTION_KOKAIN", koks);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetFactionStats] " + ex.StackTrace);
             }
         }
 
@@ -290,7 +284,7 @@ namespace VenoXV._RootCore_.Database
             catch { }
         }
 
-        public static int RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht)
+        public static int RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht, int ForumUID)
         {
             try
             {
@@ -298,7 +292,7 @@ namespace VenoXV._RootCore_.Database
                 using MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, Passwort, Geschlecht ) VALUES(@SpielerName, @SpielerSocial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht)";
+                command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, Passwort, Geschlecht, ForumUID) VALUES(@SpielerName, @SpielerSocial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht, @ForumUID)";
                 command.Parameters.AddWithValue("@SpielerName", nickname);
                 command.Parameters.AddWithValue("@SpielerSocial", SocialClub);
                 command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);
@@ -306,6 +300,7 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@email", email);
                 command.Parameters.AddWithValue("@passwort", password);
                 command.Parameters.AddWithValue("@Geschlecht", geschlecht);
+                command.Parameters.AddWithValue("@ForumUID", ForumUID);
                 RegisteredUID = (int)command.LastInsertedId;
                 command.ExecuteNonQuery();
                 return RegisteredUID;
