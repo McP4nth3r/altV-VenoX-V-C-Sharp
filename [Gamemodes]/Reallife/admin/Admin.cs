@@ -1384,7 +1384,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_STELLVP)
             {
-                _ = Program.CreateForumUser(Name, email, passwort);
+                Program.CreateForumUser(null, Name, email, passwort);
                 player.SendTranslatedChatMessage("Du hast einen Forum account namens : " + Name + " erstellt!");
             }
         }

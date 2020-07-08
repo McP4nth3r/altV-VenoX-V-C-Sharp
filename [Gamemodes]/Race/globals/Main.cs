@@ -1,6 +1,6 @@
 ﻿namespace VenoXV._Gamemodes_.Race.Globals
 {
-    class main
+    class Main
     {
         public static void OnUpdate()
         {

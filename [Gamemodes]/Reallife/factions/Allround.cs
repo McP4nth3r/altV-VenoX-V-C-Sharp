@@ -883,77 +883,53 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                int playerSex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
+                int playerSex = player.Sex;
                 int playerFaction = player.Reallife.Faction;
 
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                }
+                if (player.IsDead) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!"); return; }
 
                 if (state == "anziehen")
                 {
                     if (player.Reallife.Faction > Constants.FACTION_NONE)
                     {
-                        Database.LoadCharacterInformationById(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
-                        _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                         foreach (UniformModel uniform in Constants.UNIFORM_LIST)
                         {
                             if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
                             {
-                                Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                                RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                             }
                             else if (uniform.type == 1 && playerSex == uniform.characterSex)
                             {
-                                Core.RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                                RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                             }
                         }
-                        AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                         player.Health = 200;
                         player.Armor = 100;
                         if (isBadFaction(player))
                         {
-                            player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_BAD, 1);
+                            player.Reallife.OnDutyBad = 1;
                         }
                         else if (isNeutralFaction(player))
                         {
-                            player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_NEUTRAL, 1);
+                            player.Reallife.OnDutyNeutral = 1;
                         }
                     }
                 }
                 else
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                    }
-
                     Customization.ApplyPlayerClothes(player);
-                    player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_BAD, 0);
-
-
-                    // Load selected character
-                    Database.LoadCharacterInformationById(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
-                    _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
-
-                    //ToDo : Fix & find another Way! player.Username = character.realName;
                     player.SpawnPlayer(player.Position);
-                    player.SetPlayerSkin(player.Sex == 0 ? Alt.Hash("FreemodeMale01") : Alt.Hash("FreemodeFemale01"));
                     Customization.ApplyPlayerClothes(player);
-                    Customization.ApplyPlayerTattoos(player);
-                    AntiCheat_Allround.SetTimeOutHealth(player, 5000);
                     player.Health = 200;
                     player.Armor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
-
-
                     if (isBadFaction(player))
                     {
-                        player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_BAD, 0);
+                        player.Reallife.OnDutyBad = 0;
                     }
-                    else if (player.Reallife.Faction == Constants.FACTION_NEWS)
+                    else if (isNeutralFaction(player))
                     {
-                        player.vnxSetElementData(EntityData.PLAYER_ON_DUTY_NEUTRAL, 0);
+                        player.Reallife.OnDutyNeutral = 0;
                     }
                 }
             }

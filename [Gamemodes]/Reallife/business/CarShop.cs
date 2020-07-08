@@ -95,8 +95,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
             Blip shipShopBlip = NAPI.Blip.CreateBlip(new Position(-711.6249f, -1299.427f, 5.41f));
             shipShopBlip.Name = "Boot Händler";
             shipShopBlip.Sprite = 455;*/
-
-
         }
 
 
@@ -121,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
                     // We show the catalog
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    Alt.Server.TriggerClientEvent(player,"showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
+                    Alt.Server.TriggerClientEvent(player, "showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
                 }
             }
             catch { }
