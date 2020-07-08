@@ -1,124 +1,167 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
+using VenoXV._RootCore_.Models;
 namespace VenoXV._Gamemodes_.Reallife.Woltlab
 {
     public class Program : IScript
     {
-        public static async Task CreateForumUser(string name, string email, string Password)
-        {
-            string connString = $"server=51.38.127.227; database=forum_vnx; uid=forum_vnx; pwd=U91a$xt5U91a$xt5U91a$xt5U91a$xt5U91a$xt5";
-            using (var connection = new MySqlConnection(connString))
-            {
-                await connection.OpenAsync();
-                var transaction = await connection.BeginTransactionAsync();
 
-                bool hasError = false;
-                try
+
+        private static string connString = $"server=51.38.127.227; database=forum_vnx; uid=forum_vnx; pwd=m4V6t^l2D6m%hs202^uV7k3p";
+        private static List<(string, string)> optionsWithDefaultValue;
+        // Neue Gute Forum Sync.
+
+        public static async void CreateForumUser(Client playerClass, string name, string email, string Password)
+        {
+            try
+            {
+                await Task.Run(async () =>
                 {
-                    long userId = await AddUser(name, email, Password, languageID: 1, rankID: 3, userOnlineGroupID: 3, connection);
-                    await AddUserOptions(userId, connection);
-                    await AddUserToGroup(userId, groupId: 1, connection);
-                    await AddUserToGroup(userId, groupId: 3, connection);
-                    await AddUserToLanguage(userId, languageId: 1, connection);
-                }
-                catch (Exception ex)
-                {
-                    hasError = true;
-                    Console.WriteLine("Exception: " + ex.GetBaseException());
-                }
-                finally
-                {
-                    if (hasError)
-                        transaction.Rollback();
-                    else
-                        transaction.Commit();
-                }
+                    await AltAsync.Do(() =>
+                    {
+                        long userId = AddUser(name, email, Password, languageID: 1, rankID: 3, userOnlineGroupID: 3);
+                        //AddUserOptions(userId);
+                        AddUserToGroup(userId, groupId: 1);
+                        AddUserToGroup(userId, groupId: 3);
+                        AddUserToLanguage(userId, languageId: 1);
+                        playerClass.Forum.UID = (int)userId;
+                        Core.Debug.OutputDebugString("UserID : " + userId);
+                    });
+                });
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions("CreateForumUser", ex);
             }
         }
 
-        private static async Task<long> AddUser(string username, string email, string password, int languageID, int rankID, int userOnlineGroupID, MySqlConnection connection)
+        public static void OnResourceStart()
         {
-            string salt = GetRandomSalt();
-
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(password, salt), salt);
-            string timestamp = DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString();
-
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO wcf1_user(`username`, `email`, `password`, `languageID`, `registrationDate`, `lastActivityTime`, `rankID`, `userOnlineGroupID`)" +
-                " VALUES (@username, @email, @password, @languageID, @registrationDate, @lastActivityTime, @rankID, @userOnlineGroupID)";
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Parameters.AddWithValue("@email", email);
-            cmd.Parameters.AddWithValue("@password", hashedPassword);
-            cmd.Parameters.AddWithValue("@languageID", languageID);
-            cmd.Parameters.AddWithValue("@registrationDate", timestamp);
-            cmd.Parameters.AddWithValue("@lastActivityTime", timestamp);
-            cmd.Parameters.AddWithValue("@rankID", rankID);
-            cmd.Parameters.AddWithValue("@userOnlineGroupID", userOnlineGroupID);
-
-            await cmd.ExecuteNonQueryAsync();
-
-            long userId = cmd.LastInsertedId;
-            cmd.Dispose();
-
-            return userId;
+            GetUserOptions();
         }
 
-        private static async Task AddUserOptions(long userId, MySqlConnection connection)
+        private static long AddUser(string username, string email, string password, int languageID, int rankID, int userOnlineGroupID)
         {
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT optionID, defaultValue FROM wcf1_user_option";
-            var reader = await cmd.ExecuteReaderAsync();
-            List<(string, string)> optionsWithDefaultValue = new List<(string, string)>();
-            while (await reader.ReadAsync())
+            try
             {
-                optionsWithDefaultValue.Add(("userOption" + Convert.ToInt32(reader["optionID"]), Convert.ToString(reader["defaultValue"])));
+                //Password Hash
+                string salt = GetRandomSalt();
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(password, salt), salt);
+                string timestamp = DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1)).TotalSeconds.ToString();
+                //Connection
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+
+                command.CommandText = "INSERT INTO wcf1_user(`username`, `email`, `password`, `languageID`, `registrationDate`, `lastActivityTime`, `rankID`, `userOnlineGroupID`) VALUES (@username, @email, @password, @languageID, @registrationDate, @lastActivityTime, @rankID, @userOnlineGroupID)";
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@email", email);
+                command.Parameters.AddWithValue("@password", hashedPassword);
+                command.Parameters.AddWithValue("@languageID", languageID);
+                command.Parameters.AddWithValue("@registrationDate", timestamp);
+                command.Parameters.AddWithValue("@lastActivityTime", timestamp);
+                command.Parameters.AddWithValue("@rankID", null);
+                command.Parameters.AddWithValue("@userOnlineGroupID", userOnlineGroupID);
+                long LastUID = command.LastInsertedId;
+                command.ExecuteNonQuery();
+                connection.Close();
+                return LastUID;
             }
-            cmd.Dispose();
-
-            cmd = connection.CreateCommand();
-
-            string columnNames = string.Join("`,`", optionsWithDefaultValue.Select(o => o.Item1));
-            string atColumnNames = string.Join(", @", optionsWithDefaultValue.Select(o => o.Item1));
-
-            cmd.CommandText = $"INSERT INTO wcf1_user_option_value(`userID`, `{columnNames}`)" +
-                $" VALUES ({userId}, @{atColumnNames})";
-
-            foreach (var optionEntry in optionsWithDefaultValue)
+            catch (Exception ex)
             {
-                cmd.Parameters.AddWithValue($"@{optionEntry.Item1}", optionEntry.Item2);
+                Core.Debug.CatchExceptions("AddUser", ex);
+                return -1;
             }
-
-            await cmd.ExecuteNonQueryAsync();
-            cmd.Dispose();
         }
 
-        private static async Task AddUserToGroup(long userId, int groupId, MySqlConnection connection)
+
+        private static List<(string, string)> GetUserOptions()
         {
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO wcf1_user_to_group(`userID`, `groupID`) VALUES (@userId, @groupId)";
-            cmd.Parameters.AddWithValue("@userId", userId);
-            cmd.Parameters.AddWithValue("@groupId", groupId);
+            try
+            {
+                optionsWithDefaultValue = new List<(string, string)>();
+                //Connection
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-            await cmd.ExecuteNonQueryAsync();
-            cmd.Dispose();
+                command.CommandText = "SELECT optionID, defaultValue FROM wcf1_user_option";
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    optionsWithDefaultValue.Add(("userOption" + Convert.ToInt32(reader["optionID"]), Convert.ToString(reader["defaultValue"])));
+                }
+                Core.Debug.OutputDebugString("User Options Loaded");
+                Core.Debug.OutputDebugString("User Options Loaded - " + optionsWithDefaultValue.Count);
+                Core.Debug.OutputDebugString("User Options Loaded");
+                Core.Debug.OutputDebugString("User Options Loaded");
+                Core.Debug.OutputDebugString("User Options Loaded");
+                return optionsWithDefaultValue;
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions("GetUserOptions", ex);
+                return new List<(string, string)>();
+            }
         }
 
-        private static async Task AddUserToLanguage(long userId, int languageId, MySqlConnection connection)
+        private static void AddUserOptions(long userId)
         {
-            var cmd = connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO wcf1_user_to_language(`userID`, `languageID`) VALUES (@userId, @languageID)";
-            cmd.Parameters.AddWithValue("@userId", userId);
-            cmd.Parameters.AddWithValue("@languageID", languageId);
+            try
+            {
+                //Connection
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO wcf1_user_option_value(`userID`, `userOption16`) VALUES (@userID, @userOption16)";
+                command.Parameters.AddWithValue("@userID", userId);
+                command.Parameters.AddWithValue("@userOption16", "Europe/Berlin");
+                command.ExecuteNonQuery();
+                connection.Close();
 
-            await cmd.ExecuteNonQueryAsync();
-            cmd.Dispose();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserOptions", ex); }
+
         }
 
+        public static void AddUserToGroup(long userId, int groupId)
+        {
+            try
+            {
+                //Connection
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO wcf1_user_to_group(`userID`, `groupID`) VALUES (@userId, @groupId)";
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@groupId", groupId);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserToGroup", ex); }
+        }
+
+
+        public static void AddUserToLanguage(long userId, int languageId)
+        {
+            try
+            {
+                //Connection
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO wcf1_user_to_language(`userID`, `languageID`) VALUES (@userId, @languageID)";
+                command.Parameters.AddWithValue("@userId", userId);
+                command.Parameters.AddWithValue("@languageID", languageId);
+                command.ExecuteNonQuery();
+                connection.Close();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserToLanguage", ex); }
+        }
 
         #region Salt 
         private static string _blowfishCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./";
