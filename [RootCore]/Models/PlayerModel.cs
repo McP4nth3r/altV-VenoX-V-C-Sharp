@@ -221,6 +221,22 @@ namespace VenoXV._RootCore_.Models
         }
     }
 
+
+    public class Forum
+    {
+        private Player Player;
+        public int UID { get; set; }
+        public Forum(Player player)
+        {
+            try
+            {
+                Player = player;
+                UID = -1;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
+        }
+    }
+
     public class Client : Player
     {
         //Main
@@ -236,6 +252,7 @@ namespace VenoXV._RootCore_.Models
         public Race Race { get; }
         public Phone Phone { get; }
         public Discord Discord { get; }
+        public Forum Forum { get; }
         // Settings - Classes
         public Settings Settings { get; }
         public Position SetPosition
