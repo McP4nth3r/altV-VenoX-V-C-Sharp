@@ -25,7 +25,34 @@ alt.onServer('Globals:ShowBloodScreen', () => {
 });
 
 
+
+var seats = {
+    0: "seat_pside_f", // passanger side front
+    1: "seat_dside_r", // driver side rear
+    2: "seat_pside_r", // passanger side rear
+    3: "seat_dside_r1", // driver side rear1
+    4: "seat_pside_r1", // passanger side rear1
+    5: "seat_dside_r2", // driver side rear2
+    6: "seat_pside_r2", // passanger side rear2
+    7: "seat_dside_r3", // driver side rear3
+    8: "seat_pside_r3", // passanger side rear3
+    9: "seat_dside_r4", // driver side rear4
+    10: "seat_pside_r4", // passanger side rear4
+    11: "seat_dside_r5", // driver side rear5
+    12: "seat_pside_r5", // passanger side rear5
+    13: "seat_dside_r6", // driver side rear6
+    14: "seat_pside_r6", // passanger side rear6
+    15: "seat_dside_r7", // driver side rear7
+    16: "seat_pside_r7", // passanger side rear7
+}
+
+let NearestVehicle = [];
+let targetVeh = {
+    veh: null,
+    dist: 100
+}
 var VnXTM = 0;
+
 alt.everyTick(() => {
     try {
         game.resetPlayerStamina(alt.Player.local.scriptID);
@@ -44,108 +71,92 @@ alt.everyTick(() => {
             // G Key
         }
         */
-        //Enter Vehicle with G
+
+
+        game.enableControlAction(0, 23, true);
         game.disableControlAction(0, 58, true);
         if (game.isDisabledControlJustPressed(0, 58)) {
-            if (alt.Player.local.vehicle) return;
+            SyncVehicleList();
+            if (NearestVehicle.length > 0) {
+                let pos = alt.Player.local.pos;
+                let veh = targetVeh.veh;
+                if (veh != null) {
+                    if (game.areAnyVehicleSeatsFree(veh.scriptID)) {
+                        let toEnter = {
+                            seat: 0,
+                            dist: 99999,
+                            pos: new alt.Vector3(0, 0, 0)
+                        }
+                        let insideSeatsFree = false;
+                        let seats_count = game.getVehicleModelNumberOfSeats(veh.model);
 
-            const player = alt.Player.local;
-            let vehicle = game.getClosestVehicle(player.pos.x, player.pos.y, player.pos.z, 5.0, 0, 70);
+                        for (var i = 0; i <= seats_count; i++) {
+                            if (game.isVehicleSeatFree(veh.scriptID, i)) {
+                                if (i <= 2) {
+                                    insideSeatsFree = true;
+                                }
+                                let seat = seats[i];
+                                let seat_pos = game.getWorldPositionOfEntityBone(veh.scriptID, game.getEntityBoneIndexByName(veh.scriptID, seat));
+                                let seat_dist = game.vdist2(pos.x, pos.y, pos.z, seat_pos.x, seat_pos.y, seat_pos.z);
 
-            if (!vehicle) return;
-            if (vehicle.speed > 5) return;
-            if (!game.isVehicleSeatFree(vehicle, 0) && !game.isVehicleSeatFree(vehicle, 1) && !game.isVehicleSeatFree(vehicle, 2)) return;
+                                if ((i > 2) && (insideSeatsFree == true)) { } else {
 
-            let boneFRDoor = game.getEntityBoneIndexByName(vehicle, 'door_pside_f');//Front right
-            const posFRDoor = game.getWorldPositionOfEntityBone(vehicle, boneFRDoor);
-            const distFRDoor = distance({ x: posFRDoor.x, y: posFRDoor.y, z: posFRDoor.z }, alt.Player.local.pos);
+                                    if (veh.model == 1917016601 && i > 0) {
+                                        if ((toEnter.dist > 30)) {
+                                            toEnter.dist = 30;
+                                            toEnter.seat = i;
+                                        }
+                                    }
 
-            let boneBLDoor = game.getEntityBoneIndexByName(vehicle, 'door_dside_r');//Back Left
-            const posBLDoor = game.getWorldPositionOfEntityBone(vehicle, boneBLDoor);
-            const distBLDoor = distance({ x: posBLDoor.x, y: posBLDoor.y, z: posBLDoor.z }, alt.Player.local.pos);
-
-            let boneBRDoor = game.getEntityBoneIndexByName(vehicle, 'door_pside_r');//Back Right
-            const posBRDoor = game.getWorldPositionOfEntityBone(vehicle, boneBRDoor);
-            const distBRDoor = distance({ x: posBRDoor.x, y: posBRDoor.y, z: posBRDoor.z }, alt.Player.local.pos);
-
-            let minDist = Math.min(distFRDoor, distBLDoor, distBRDoor);
-
-            if (minDist == distFRDoor) {
-                if (minDist > 1.8) return;
-
-                if (game.isVehicleSeatFree(vehicle, 0)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, 0, 2, 1, 0);
-                } else if (game.isVehicleSeatFree(vehicle, 2)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, 2, 2, 1, 0);
-                }
-                else {
-                    return;
-                }
-            }
-            if (minDist == distBLDoor) {
-                if (minDist > 1.8) return;
-
-                if (game.isVehicleSeatFree(vehicle, 1)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, 1, 2, 1, 0);
-                } else {
-                    return;
-                }
-            }
-            if (minDist == distBRDoor) {
-                if (minDist > 1.8) return;
-
-                if (game.isVehicleSeatFree(vehicle, 2)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, 2, 2, 1, 0);
-                } else if (game.isVehicleSeatFree(vehicle, 0)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, 0, 2, 1, 0);
-                }
-                else {
-                    return;
+                                    if ((seat_dist < toEnter.dist)) {
+                                        toEnter.dist = seat_dist;
+                                        toEnter.seat = i;
+                                    }
+                                }
+                            }
+                        }
+                        if ((veh.model == 1475773103) && (toEnter.seat > 0)) { // if rumpo3
+                            game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 16, 0);
+                        } else {
+                            game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 1, 0);
+                        }
+                    }
                 }
             }
-        }
-
-        //Enter Vehicle with F
-        game.disableControlAction(0, 23, true);
-        if (game.isDisabledControlJustPressed(0, 23)) {
-            if (alt.Player.local.vehicle == null) {
-                const player = alt.Player.local;
-                let vehicle = game.getClosestVehicle(player.pos.x, player.pos.y, player.pos.z, 5.0, 0, 70);
-                if (!vehicle) return;
-                if (vehicle.speed > 5) return;
-
-                let boneFLDoor = game.getEntityBoneIndexByName(vehicle, 'door_dside_f');//Front Left
-                const posFLDoor = game.getWorldPositionOfEntityBone(vehicle, boneFLDoor);
-                const distFLDoor = distance({ x: posFLDoor.x, y: posFLDoor.y, z: posFLDoor.z }, alt.Player.local.pos);
-
-                let boneFRDoor = game.getEntityBoneIndexByName(vehicle, 'door_pside_f');//Front Right
-                const posFRDoor = game.getWorldPositionOfEntityBone(vehicle, boneFRDoor);
-                const distFRDoor = distance({ x: posFRDoor.x, y: posFRDoor.y, z: posFRDoor.z }, alt.Player.local.pos);
-
-                if (game.isVehicleSeatFree(vehicle, 0)) {
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, -1, 2, 1, 0);
-                } else {
-                    if (distFRDoor < distFLDoor) return;
-
-                    game.taskEnterVehicle(alt.Player.local.scriptID, vehicle, 5000, -1, 2, 1, 0);
-                }
-            }
-        }
-        if (alt.Player.local.vehicle != null) {
-            game.setPedConfigFlag(alt.Player.local.scriptID, 184, true);
         }
     }
     catch (e) { alt.log(e); }
 });
 
-function distance(vector1, vector2) {
-    if (vector1 === undefined || vector2 === undefined) {
-        throw new Error('AddVector => vector1 or vector2 is undefined');
-    }
 
-    return Math.sqrt(
-        Math.pow(vector1.x - vector2.x, 2) +
-        Math.pow(vector1.y - vector2.y, 2) +
-        Math.pow(vector1.z - vector2.z, 2)
-    );
+function SyncVehicleList() {
+    NearestVehicle = [];
+    targetVeh = {
+        veh: null,
+        dist: 100
+    }
+    let position = alt.Player.local.pos;
+    for (var vehCounter in alt.Vehicle.all) {
+        let vehicle = alt.Vehicle.all[vehCounter];
+        let distance = game.getDistanceBetweenCoords(position.x, position.y, position.z, vehicle.pos.x, vehicle.pos.y, vehicle.pos.z, true);
+        if (distance <= 25) {
+            NearestVehicle.push(vehicle);
+        }
+    }
+    GetNearestVehicle();
 }
+
+function GetNearestVehicle() {
+    let pos = alt.Player.local.pos;
+    for (var vehCounter in alt.Vehicle.all) {
+        let veh = alt.Vehicle.all[vehCounter];
+        let vp = veh.pos;
+        let dist = game.vdist2(pos.x, pos.y, pos.z, vp.x, vp.y, vp.z);
+        if (dist < targetVeh.dist) {
+            targetVeh.dist = dist;
+            targetVeh.veh = veh;
+        }
+    }
+}
+
+
