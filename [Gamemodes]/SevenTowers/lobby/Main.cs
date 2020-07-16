@@ -208,7 +208,6 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
                 }
-                Core.Debug.OutputDebugString("[4]Function Called!");
             }
             catch (Exception ex)
             {
@@ -306,18 +305,15 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 if (Globals.Main.SevenTowersPlayers.Count <= 2)
                 {
-                    Core.Debug.OutputDebugString("[3]Function Called!");
                     StartNewRound();
                     return;
                 }
                 if (CanPlayerJoin())
                 {
-                    Core.Debug.OutputDebugString("[1]Function Called!");
                     PutPlayerInRound(player);
                 }
                 else
                 {
-                    Core.Debug.OutputDebugString("[0]Function Called!");
                     PutPlayerSpectate(player);
                 }
             }
@@ -360,6 +356,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     playerClass.DespawnPlayer();
                     playerClass.SetPlayerAlpha(0);
                     playerClass.SevenTowers.Spawned = false;
+                    playerClass.Freeze = true;
                     if (CurrentlyInRound.Count <= 1) { EndRound(); }
                 }
             }
