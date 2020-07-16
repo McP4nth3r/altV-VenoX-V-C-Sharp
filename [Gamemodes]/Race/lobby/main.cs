@@ -81,7 +81,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                         player.SpawnPlayer(Spawnpoint);
                         player.Dimension = 0;
                         double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
-                        Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime);
+                        Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime, 3);
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
                         Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
                         vehicle.Frozen = false;
@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 if (player.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(player.Race.LastColShapeModel); player.Race.LastColShapeModel = null; }
                 if (player.Race.CurrentMarker == CurrentMap.RaceCheckpoints.Count) { OnClientRaceFinish(player); return; }
                 // Create New stuff
-                Vector3 newPos = new Vector3(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Z - 1f);
+                Vector3 newPos = new Vector3(CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].X, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Y, CurrentMap.RaceCheckpoints[player.Race.CurrentMarker].Z + 0.5f);
                 player.Race.LastMarker = RageAPI.CreateMarker(4, newPos, new Vector3(5, 5, 5), new int[] { 0, 200, 255, 255 }, player);
                 player.Race.LastColShapeModel = RageAPI.CreateColShapeSphere(newPos, 4);
                 // Draw Waypoint & give player stuff.
