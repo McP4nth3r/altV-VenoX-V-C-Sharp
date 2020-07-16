@@ -6,7 +6,7 @@
 
 import alt from 'alt-client';
 import * as game from "natives";
-import { DrawText } from '../Globals/VnX-Lib';
+import { DrawText, ShowCountdown } from '../Globals/VnX-Lib';
 
 let RACE_TIMER = null;
 let RACE_COUNTDOWN = null;
@@ -65,9 +65,10 @@ alt.onServer('Race:FillPlayerList', (player) => {
     catch{ }
 });
 
-alt.onServer('Race:StartTimer', (timer) => {
+alt.onServer('Race:StartTimer', (timer, seconds) => {
     try {
         startTimer(timer);
+        ShowCountdown(seconds);
     }
     catch{ }
 });
@@ -94,3 +95,17 @@ function startTimer(duration) {
     catch{ }
 }
 
+/*
+alt.onServer('Race:ShowCountdown', (DateTime) => {
+    let CurrentDateTime = new Date(GetCurrentDateTime());
+    DateTime = new Date(DateTime);
+    alt.log(CurrentDateTime);
+    alt.log(DateTime);
+    let Interval = alt.setInterval(() => {
+        if (CurrentDateTime <= DateTime) {
+            alt.log('Smaller than DateTime.Now');
+            alt.clearInterval(Interval);
+        }
+    }, 100);
+});
+*/
