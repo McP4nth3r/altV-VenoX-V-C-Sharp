@@ -25,6 +25,8 @@ namespace VenoXV._RootCore_.Models
         private Vehicle Vehicle;
         public bool DrivingSchoolVehicle { get; set; }
         public string DrivingSchoolLicense { get; set; }
+        public bool ActionVehicle { get; set; }
+        public int Koks { get; set; }
         public VehReallife(Vehicle vehicle)
         {
             try
