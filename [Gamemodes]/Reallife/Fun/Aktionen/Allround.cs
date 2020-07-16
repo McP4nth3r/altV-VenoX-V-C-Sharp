@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -8,14 +7,14 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Allround : IScript
     {
-        public static bool AktionAmLaufen_Server = false;
+        public static bool AKTION_AM_LAUFEN = false;
         public static DateTime AktionsTimer = DateTime.Now;
         public static DateTime AktionGestartet = DateTime.Now;
         public static bool AktionAmLaufen(Client player)
         {
             try
             {
-                if (AktionAmLaufen_Server)
+                if (AKTION_AM_LAUFEN)
                 {
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Es Läuft bereits eine Aktion!");
                     return true;
@@ -25,22 +24,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             catch { return false; }
         }
 
-        public static bool AktionAmLaufen_Server_(Client player)
-        {
-            try
-            {
-                if (AktionAmLaufen_Server)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch { return false; }
-        }
-
         public static void ChangeAktionsState(bool aktionamlaufen)
         {
-            AktionAmLaufen_Server = aktionamlaufen;
+            AKTION_AM_LAUFEN = aktionamlaufen;
         }
 
         public static bool isAktionPossible(Client player)

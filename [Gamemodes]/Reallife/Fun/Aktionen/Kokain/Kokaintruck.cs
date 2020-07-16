@@ -48,20 +48,24 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     {
                         if (player.IsInVehicle)
                         {
-                            if (player.Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
+                            VehicleModel vehClass = (VehicleModel)player.Vehicle;
+
+                            if (vehClass.Reallife.ActionVehicle)
                             {
-                                int koksimfahrzeug = player.Vehicle.vnxGetElementData<int>(EntityData.PLAYER_KOKS);
-                                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
+                                int koksimfahrzeug = vehClass.Reallife.Koks;
+                                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_KOKS);
                                 if (KOKS == null) // WEED
                                 {
-                                    KOKS = new ItemModel();
-                                    KOKS.amount = koksimfahrzeug;
-                                    KOKS.dimension = 0;
-                                    KOKS.position = new Position(0.0f, 0.0f, 0.0f);
-                                    KOKS.hash = Constants.ITEM_HASH_KOKS;
-                                    KOKS.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-                                    KOKS.ITEM_ART = "Drogen";
-                                    KOKS.objectHandle = null;
+                                    KOKS = new ItemModel
+                                    {
+                                        amount = koksimfahrzeug,
+                                        dimension = 0,
+                                        position = new Position(0.0f, 0.0f, 0.0f),
+                                        hash = Constants.ITEM_HASH_KOKS,
+                                        ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID),
+                                        ITEM_ART = "Drogen",
+                                        objectHandle = null
+                                    };
 
                                     // Add the item into the database
                                     KOKS.id = Database.AddNewItem(KOKS);
