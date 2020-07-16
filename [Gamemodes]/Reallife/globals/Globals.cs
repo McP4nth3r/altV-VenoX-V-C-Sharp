@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -199,41 +198,39 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) > 0)
+                    if (player.Reallife.Hunger > 0)
                     {
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_HUNGER, player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) - 1);
-
+                        player.Reallife.Hunger -= 1;
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 30)
-                    {
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
-                    }
-                    else if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) == 10)
+                    if (player.Reallife.Hunger == 30)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_HUNGER) <= 20)
+                    else if (player.Reallife.Hunger == 10)
+                    {
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
+                    }
+                    if (player.Reallife.Hunger <= 20)
                     {
                         player.Health -= 5;
                     }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) == 5)
+                    if (player.Reallife.Knastzeit == 5)
                     {
                         player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
                     }
 
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
+                    if (player.Reallife.Knastzeit > 0)
                     {
-                        player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) - 1);
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) == 0)
+                        player.Reallife.Knastzeit -= 1;
+                        if (player.Reallife.Knastzeit == 0)
                         {
-                            AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
-                            player.vnxSetStreamSharedElementData(EntityData.PLAYER_KAUTION, 0);
+                            player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
                     }
@@ -868,21 +865,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-        //[AltV.Net.ClientEvent("getPlayerTattoos")]
-        public void GetPlayerTattoosEvent(Client player, string target_name)
-        {
-            try
-            {
-                Client target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-                int targetId = target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-                List<TattooModel> playerTattooList = tattooList.Where(t => t.player == targetId).ToList();
-                Alt.Server.TriggerClientEvent(player, "updatePlayerTattoos", JsonConvert.SerializeObject(playerTattooList), target);
-            }
-            catch { }
-        }
-
-
 
 
         /// <summary>
@@ -1035,271 +1017,5 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
         }
 
-        /*
-        [Command("inventory")]
-        public void InventoryCommand(PlayerModel player)
-        {
-            if (GetPlayerInventoryTotal(player) > 0)
-            {
-                List<InventoryModel> inventory = GetPlayerInventory(player);
-                Alt.Server.TriggerClientEvent(player,"showPlayerInventory", JsonConvert.SerializeObject(inventory), Constants.INVENTORY_TARGET_SELF);
-            }
-            else
-            {
-                //player.SendTranslatedChatMessage(Constants.Rgba_ERROR + ErrRes.no_items_inventory);
-            }
-        }*/
-
-
-
-
-
-        /* [Command("klamotten")]
-         public void ComplementCommand(PlayerModel player, string type, string action)
-         {
-             ClothesModel clothes = null;
-             int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-
-             if (action.ToLower() == "tragen" || action.ToLower() == "Anziehen")
-             {
-                 string action_tragen = "tragen";
-                 string action_ausziehen = "ausziehen";
-                 switch (type.ToLower())
-                 {
-                     case "masken":
-                         clothes = GetDressedClothesInSlot(playerId, 0, Constants.CLOTHES_MASK);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.CLOTHES_MASK && c.type == 0).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_MASK_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_MASK_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_MASK_EQUIPED);
-                             }
-                             else
-                             {
-                                 //ToDo Sie Clientseitig Laden! : player.SetClothes(Constants.CLOTHES_MASK, 0, 0);
-                                 UndressClothes(playerId, 0, Constants.CLOTHES_MASK);
-                             }
-                         }
-                         break;
-                     case Messages.ARG_BAG:
-                         clothes = GetDressedClothesInSlot(playerId, 0, Constants.CLOTHES_BAGS);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.CLOTHES_BAGS && c.type == 0).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_BAG_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_BAG_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_BAG_EQUIPED);
-                             }
-                             else
-                             {
-                                 //ToDo Sie Clientseitig Laden! : player.SetClothes(Constants.CLOTHES_BAGS, 0, 0);
-                                 UndressClothes(playerId, 0, Constants.CLOTHES_BAGS);
-                             }
-                         }
-                         break;
-                     case Messages.ARG_ACCESSORY:
-                         clothes = GetDressedClothesInSlot(playerId, 0, Constants.CLOTHES_ACCESSORIES);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.CLOTHES_ACCESSORIES && c.type == 0).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_ACCESSORY_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_ACCESSORY_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_ACCESSORY_EQUIPED);
-                             }
-                             else
-                             {
-                                 //ToDo Sie Clientseitig Laden! : player.SetClothes(Constants.CLOTHES_ACCESSORIES, 0, 0);
-                                 UndressClothes(playerId, 0, Constants.CLOTHES_ACCESSORIES);
-                             }
-                         }
-                         break;
-                     case Messages.ARG_HAT:
-                         clothes = GetDressedClothesInSlot(playerId, 1, Constants.ACCESSORY_HATS);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.ACCESSORY_HATS && c.type == 1).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_HAT_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_HAT_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_HAT_EQUIPED);
-                             }
-                             else
-                             {
-                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_HATS, 57, 0);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_HATS, 8, 0);
-                                 }
-                                 UndressClothes(playerId, 1, Constants.ACCESSORY_HATS);
-                             }
-                         }
-                         break;
-                     case Messages.ARG_GLASSES:
-                         clothes = GetDressedClothesInSlot(playerId, 1, Constants.ACCESSORY_GLASSES);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.ACCESSORY_GLASSES && c.type == 1).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_GLASSES_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_GLASSES_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_GLASSES_EQUIPED);
-                             }
-                             else
-                             {
-                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_GLASSES, 5, 0);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_GLASSES, 0, 0);
-                                 }
-                                 UndressClothes(playerId, 1, Constants.ACCESSORY_GLASSES);
-                             }
-                         }
-                         break;
-                     case Messages.ARG_EARRINGS:
-                         clothes = GetDressedClothesInSlot(playerId, 1, Constants.ACCESSORY_EARS);
-                         if (action.ToLower() == Messages.ARG_WEAR)
-                         {
-                             if (clothes == null)
-                             {
-                                 clothes = GetPlayerClothes(playerId).Where(c => c.slot == Constants.ACCESSORY_EARS && c.type == 1).First();
-                                 if (clothes == null)
-                                 {
-                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_EAR_BOUGHT);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
-                                 }
-                             }
-                             else
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_EAR_EQUIPED);
-                             }
-                         }
-                         else
-                         {
-                             if (clothes == null)
-                             {
-                                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_EAR_EQUIPED);
-                             }
-                             else
-                             {
-                                 if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_FEMALE)
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_EARS, 12, 0);
-                                 }
-                                 else
-                                 {
-                                     player.SetAccessories(Constants.ACCESSORY_EARS, 3, 0);
-                                 }
-                                 UndressClothes(playerId, 1, Constants.ACCESSORY_EARS);
-                             }
-                         }
-                         break;
-                     default:
-                         player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_COMPLEMENT_COMMAND);
-                         break;
-                 }
-             }
-             else
-             {
-                 player.SendTranslatedChatMessage(Constants.Rgba_HELP + Messages.GEN_COMPLEMENT_COMMAND);
-             }
-         }*/
     }
 }
