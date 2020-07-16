@@ -5,7 +5,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText } from '../../Globals/VnX-Lib';
+import { DrawText, ShowCountdown } from '../../Globals/VnX-Lib';
 
 let SevenTowersTick;
 let CurrentWinner = "Noob";
@@ -20,7 +20,7 @@ export function Render7TowersLobby() {
     catch{ }
 }
 
-alt.onServer('SevenTowers:ShowWinner', (Winner, DestoryMS) => {
+alt.onServer('SevenTowers:ShowWinner', (Winner, DestroyMS) => {
     try {
         if (SevenTowersTick != null) { return; }
         alt.toggleGameControls(false);
@@ -31,9 +31,9 @@ alt.onServer('SevenTowers:ShowWinner', (Winner, DestoryMS) => {
         alt.setTimeout(() => {
             if (SevenTowersTick != null) {
                 alt.clearEveryTick(SevenTowersTick); SevenTowersTick = null; alt.toggleGameControls(true);
+                ShowCountdown(5);
             }
-
-        }, DestoryMS);
+        }, DestroyMS);
     }
     catch{ }
 });
