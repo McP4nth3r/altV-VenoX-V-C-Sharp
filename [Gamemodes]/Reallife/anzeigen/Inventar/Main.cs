@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -16,15 +17,16 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in CurrentOfflineItemList)
+                foreach (ItemModel items in CurrentOfflineItemList.ToList())
                 {
                     if (items.ownerIdentifier == player.UID)
                     {
+                        CurrentOfflineItemList.Remove(items);
                         CurrentOnlineItemList.Add(items);
                     }
                 }
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                Alt.Server.TriggerClientEvent(player,"Inventory:Update", JsonConvert.SerializeObject(inventory));
+                Alt.Server.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -32,11 +34,12 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in CurrentOnlineItemList)
+                foreach (ItemModel items in CurrentOnlineItemList.ToList())
                 {
                     if (items.ownerIdentifier == player.UID)
                     {
                         CurrentOnlineItemList.Remove(items);
+                        CurrentOfflineItemList.Add(items);
                     }
                 }
             }
@@ -47,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 UnloadPlayerItems(player);
-                Alt.Server.TriggerClientEvent(player,"Inventory:RemoveAll");
+                Alt.Server.TriggerClientEvent(player, "Inventory:RemoveAll");
             }
             catch { }
         }
