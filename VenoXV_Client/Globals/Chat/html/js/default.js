@@ -220,9 +220,11 @@ $(function () {
     $(document).keydown(function (objEvent) {
         if (objEvent.ctrlKey) {
             if (objEvent.keyCode == 65) {
-
                 return false;
             }
         }
+        if (e.keyCode == 32 && e.target == document.body) {
+            e.preventDefault();
+        }
     });
-});   
+});
