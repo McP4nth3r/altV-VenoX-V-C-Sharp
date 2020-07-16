@@ -12,7 +12,6 @@ import { GetCurrentLobby, PLAYER_LOBBY_REALLIFE, PLAYER_LOBBY_TACTICS, PLAYER_LO
 let CurrentBrowser = null;
 let CurrentBrowserPath = "";
 let removed = false;
-let allowed = true;
 let ReallifeScoreboardPath = "Globals/Scoreboard/reallife/tab.html";
 let TacticsScoreboardPath = "Globals/Scoreboard/tactics/tab.html";
 let SevenTowersScoreboardPath = "Globals/Scoreboard/seventowers/tab.html";
