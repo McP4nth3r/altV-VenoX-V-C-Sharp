@@ -205,3 +205,73 @@ export function vnxDestroyAllCEF() {
         cBrowserList.splice(i, 1);
     }
 }
+
+export function GetCurrentDateTime() {
+    var date = new Date();
+    var day = date.getDate();       // yields date
+    var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+    var year = date.getFullYear();  // yields year
+    var hour = date.getHours();     // yields hours 
+    var minute = date.getMinutes(); // yields minutes
+    var second = date.getSeconds(); // yields seconds
+
+    // After this construct a string with the above results as below
+    var time = day + "." + month + "." + year + " " + hour + ':' + minute + ':' + second;
+    //DateTime.ParseExact(YourString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+    return time;
+}
+
+export function GetCurrentDateTimeString() {
+    var date = new Date();
+    var day = date.getDate();       // yields date
+    var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
+    var year = date.getFullYear();  // yields year
+    var hour = date.getHours();     // yields hours 
+    var minute = date.getMinutes(); // yields minutes
+    var second = date.getSeconds(); // yields seconds
+
+    // After this construct a string with the above results as below
+    var time = day + "." + month + "." + year + " " + hour + ':' + minute + ':' + second;
+    return time;
+}
+
+
+let CountdownState = -1;
+let CountDownFrozen = false;
+let TimeOut;
+let CountdownRenderTick;
+export function ShowCountdown(Seconds) {
+    CountdownState = Seconds;
+    TimeOut = alt.setInterval(() => {
+        if (CountdownState > 0) {
+            CountdownState -= 1;
+            if (!CountDownFrozen) {
+                if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, true); }
+                game.freezeEntityPosition(alt.Player.local.scriptID, true);
+                alt.toggleGameControls(false);
+                CountDownFrozen = true;
+            }
+            return;
+        }
+        if (CountdownState <= 0) {
+            if (TimeOut) { alt.clearInterval(TimeOut); TimeOut = null; }
+            if (CountDownFrozen) {
+                if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, false); }
+                game.freezeEntityPosition(alt.Player.local.scriptID, false);
+                alt.toggleGameControls(true);
+                CountDownFrozen = false;
+                alt.setTimeout(() => {
+                    if (CountdownRenderTick) { alt.clearEveryTick(CountdownRenderTick); CountdownRenderTick = null; }
+                }, 1250);
+            }
+        }
+    }, 1250);
+    CountdownRenderTick = alt.everyTick(() => {
+        if (CountdownState > 0) {
+            DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+        }
+        else {
+            DrawText("GO!", [0.5, 0.5], [1, 1], 0, [0, 200, 255, 255], true, true);
+        }
+    });
+}
