@@ -312,11 +312,8 @@ namespace VenoXV.Core
         {
             try
             {
+                if (DeleteFor != null) { DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name); }
                 if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
-                if (DeleteFor != null)
-                {
-                    DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name);
-                }
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); }
         }
