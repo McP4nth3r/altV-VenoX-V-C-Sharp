@@ -12,7 +12,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 {
     public class Führerschein : IScript
     {
-        public static ColShapeModel Führerschein_Abgabe_Marker { get; set; }
 
         public static List<Position> Pruefungs_Marker = new List<Position>
         {
@@ -74,13 +73,14 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 int dim = random.Next(1, 9999);
                 player.Dimension = dim;
                 VehicleModel vehClass = Rathaus.CreateDrivingSchoolVehicle(player, AltV.Net.Enums.VehicleModel.Intruder, new Vector3(-530.3539f, -269.4501f, 35.22854f), new Vector3(0, 0, 130), dim);
+                vehClass.Reallife.DrivingSchoolLicense = Rathaus.DRIVINGSCHOOL_LICENSE_CAR;
                 vehClass.PrimaryColorRgb = new Rgba(0, 105, 145, 255);
                 vehClass.SecondaryColorRgb = new Rgba(255, 255, 255, 255);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Um die praktische Prüfung abzuschließen, musst die die vorgegebene Strecke abfahren.");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
                 Alt.Server.TriggerClientEvent(player, "destroyRathausWindow");
-                Core.VnX.SetDelayedData(player, new string[] { "PLAYER_DRIVINGSCHOOL", "true", "bool", "1400" });
+                VnX.SetDelayedData(player, new string[] { "PLAYER_DRIVINGSCHOOL", "true", "bool", "1400" });
 
                 // Prüfung starten mit Marker nr. 1
                 Rathaus.CreateDrivingSchoolMarker(player, 611, Pruefungs_Marker[0], 3, new int[] { 255, 255, 255, 255 });
@@ -90,23 +90,17 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 
 
 
-        public static void TriggerToNextPruefungsMarker(Client player, int counter)
+        public static void TriggerToNextPruefungsMarker(Client player)
         {
             try
             {
-                if (counter == 31)
+                if (player.Reallife.DrivingSchool.MarkerStage == Pruefungs_Marker.Count)
                 {
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                    player.vnxSetElementData("Marker_Pruefung", 0);
-                    if (Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.Username)
-                    {
-                        RageAPI.RemoveColShape(Führerschein_Abgabe_Marker);
-                    }
+                    player.Reallife.DrivingSchool.MarkerStage = 0;
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
-                    player.vnxSetElementData(EntityData.PLAYER_FÜHRERSCHEIN, 1);
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 10500);
+                    player.Reallife.Autofuehrerschein = 1;
+                    player.Reallife.Money -= 10500;
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
-                    Alt.Server.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");
                     player.Vehicle.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = 0;
@@ -116,13 +110,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 else
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
-                    int Abgegeben = player.vnxGetElementData<int>("Marker_Pruefung");
+                    int Abgegeben = player.Reallife.DrivingSchool.MarkerStage;
                     Position Destination = Pruefungs_Marker[Abgegeben + 1];
-                    Führerschein_Abgabe_Marker = RageAPI.CreateColShapeSphere(Destination, 2f);
-                    Führerschein_Abgabe_Marker.Dimension = player.Dimension;
-                    Führerschein_Abgabe_Marker.vnxSetElementData("Name", player.Username);
-                    dxLibary.VnX.DrawWaypoint(player, Destination.X, Destination.Y);
-                    dxLibary.VnX.DrawZielBlip(player, "Checkpoint [ Führerschein ]", Destination, 611, 3, player.Dimension);
+                    Rathaus.CreateDrivingSchoolMarker(player, 611, Destination, 3, new int[] { 0, 200, 255, 255 });
                 }
             }
             catch
@@ -136,31 +126,20 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
         {
             try
             {
-                if (shape.vnxGetElementData<string>("Name") != player.Username)
-                {
-                    return;
-                }
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    if (vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && player.vnxGetElementData<int>("Marker_Pruefung") != 31 && vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")
-                    {
-                        player.vnxSetElementData("Marker_Pruefung", player.vnxGetElementData<int>("Marker_Pruefung") + 1);
-                        int counter = player.vnxGetElementData<int>("Marker_Pruefung");
-                        dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                        Alt.RemoveColShape(shape);
-                        TriggerToNextPruefungsMarker(player, counter);
-                        return;
-                    }
+                    player.Reallife.DrivingSchool.MarkerStage += 1;
+                    Rathaus.DestroyDrivingSchoolMarker(player);
+                    TriggerToNextPruefungsMarker(player);
+                    return;
                 }
                 else
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Fahrzeug!");
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         //[ServerEvent(Event.PlayerExitIVehicle)]
@@ -181,11 +160,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     Alt.Server.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");
                     player.vnxSetElementData("PRUEFUNGS_NAME", false);
                     Vehicle.Remove();
-                    if (Führerschein_Abgabe_Marker != null && Führerschein_Abgabe_Marker.vnxGetElementData<string>("Name") == player.Username)
-                    {
-                        RageAPI.RemoveColShape(Führerschein_Abgabe_Marker);
-                    }
-                    return;
                 }
             }
             catch
