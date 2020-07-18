@@ -8,6 +8,7 @@ import alt from 'alt-client';
 import * as game from "natives";
 
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
+import * as CaseOpening from '/VenoXV_Client/Globals/Premium/Case/index.js';
 import * as Chat from '/VenoXV_Client/Globals/Chat/index.js';
 import * as ServerLibary from '/VenoXV_Client/Globals/VnX-Lib/index.js';
 import * as CameraLib from '/VenoXV_Client/Globals/VnX-Lib/camera.js';
@@ -18,6 +19,7 @@ import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
 import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
 import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
 import * as Settings from '/VenoXV_Client/Globals/Settings/index.js';
+import * as Rathaus from '/VenoXV_Client/Reallife/environment/rathaus/index.js';
 
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
