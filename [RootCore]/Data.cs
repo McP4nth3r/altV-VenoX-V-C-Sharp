@@ -15,7 +15,7 @@ namespace VenoXV.Core
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player,"UpdateHealth", player.Armor, player.Health);
+                Alt.Server.TriggerClientEvent(player, "UpdateHealth", player.Armor, player.Health);
             }
             catch { }
         }
@@ -25,27 +25,11 @@ namespace VenoXV.Core
         /// </summary>
         /// <param name="player">Der Spieler wird Definiert.</param>
         /// <param name="args">[0] = Element Name, [1] = value für die Element Data, [2] Type der Value, [3] = TimeInMS (TimeOut-JS-CS)</param>
-        public static void SetDelayedData(Client player, string[] args)
+        public static void SetDelayedData(Client player, object[] args)
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player,"delay_element_data", args[0], args[1], args[2], args[3]);
-            }
-            catch { }
-        }
-        public static void SetDelayedBoolSharedData(Client player, string element, bool value, int TimeInMS)
-        {
-            try
-            {
-                Alt.Server.TriggerClientEvent(player,"delay_element_data", element, value, "bool", TimeInMS);
-            }
-            catch { }
-        }
-        public static void SetDelayedINTSharedData(Client player, string element, int value, int TimeInMS)
-        {
-            try
-            {
-                Alt.Server.TriggerClientEvent(player,"delay_element_data", element, value, "int", TimeInMS);
+                Alt.Server.TriggerClientEvent(player, "delay_element_data", args[0], args[1], args[2], args[3]);
             }
             catch { }
         }
