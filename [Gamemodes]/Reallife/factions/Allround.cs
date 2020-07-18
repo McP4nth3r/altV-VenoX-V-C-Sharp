@@ -10,7 +10,6 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
@@ -347,36 +346,30 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     return false;
                 }
-                int Anticheat_Teleport_MSTIME = 1000;
-
-
+                int CoolDown = 3;
                 if (player_Fraktion == Constants.FACTION_LCN || isStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
                     if (LCN_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_Exit;
                         player.Dimension = Constants.FACTION_LCN;
                         return true;
                     }
                     else if (LCN_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_LCN)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_Enter;
                         player.Dimension = 0;
                         return true;
@@ -385,14 +378,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // HELI DACH
                     if (LCN_Teleport_Base_heli_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Exit;
                         player.Dimension = 0;
                         return true;
@@ -400,14 +391,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
                     if (LCN_Teleport_Base_heli_Exit.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Enter;
                         player.Dimension = 0;
                         return true;
@@ -419,28 +408,24 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (YAKUZA_Teleport_Base_Enter.Distance(player.Position) < 1.55f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = YAKUZA_Teleport_Base_Exit;
                         player.Dimension = Constants.FACTION_YAKUZA;
                         return true;
                     }
                     else if (YAKUZA_Teleport_Base_Exit.Distance(player.Position) < 1.55f && player.Dimension == Constants.FACTION_YAKUZA)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = YAKUZA_Teleport_Base_Enter;
                         player.Dimension = 0;
                         return true;
@@ -452,53 +437,45 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (FIB_Teleport_Heli_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = FIB_Teleport_Heli_Exit;
                         return true;
                     }
                     else if (FIB_Teleport_Heli_Exit.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = FIB_Teleport_Heli_Enter;
                         return true;
                     }
                     if (FIB_Teleport_Garage_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = FIB_Teleport_Garage_Exit;
                         return true;
                     }
                     else if (FIB_Teleport_Garage_Exit.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = FIB_Teleport_Garage_Enter;
                         return true;
                     }
@@ -509,27 +486,23 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (Emergency_Teleport_Heli_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = Emergency_Teleport_Heli_Exit;
                         return true;
                     }
                     else if (Emergency_Teleport_Heli_Exit.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = Emergency_Teleport_Heli_Enter;
                         return true;
                     }
@@ -540,28 +513,24 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (MS13_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_Exit;
                         player.Dimension = Constants.FACTION_NARCOS;
                         return true;
                     }
                     else if (MS13_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_NARCOS)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_Enter;
                         player.Dimension = 0;
                         return true;
@@ -570,27 +539,23 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     else if (MS13_Teleport_Base_heli_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_heli_Exit;
                         return true;
                     }
                     else if (MS13_Teleport_Base_heli_Exit.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_heli_Enter;
                         return true;
                     }
@@ -601,29 +566,26 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (Ballas_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+
                         player.SetPosition = Ballas_Teleport_Base_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.Dimension = Constants.FACTION_BALLAS;
                         return true;
                     }
                     else if (Ballas_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_BALLAS)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = Ballas_Teleport_Base_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.Dimension = 0;
                         return true;
                     }
@@ -634,29 +596,25 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     if (Compton_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = Compton_Teleport_Base_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.Dimension = Constants.FACTION_COMPTON;
                         return true;
                     }
                     else if (Compton_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_COMPTON)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
-                        Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
                         player.SetPosition = Compton_Teleport_Base_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.Dimension = 0;
                         return true;
                     }
@@ -667,28 +625,28 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Eingang
                     /*if (SAM_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if(player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        
                         player.SetPosition = SAM_Teleport_Base_Exit;
                         player.Dimension = Constants.FACTION_SAMCRO;
                         return true;
                     }
                     else if (SAM_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_SAMCRO)
                     {
-                        if (player.vnxGetElementData<bool>("TELEPORT_ANTICHEAT_COOLDOWN") == true)
+                        if(player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.vnxSetElementData("TELEPORT_ANTICHEAT_COOLDOWN", true);
+                        
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
-                        AntiCheat_Allround.SetTimeOutTeleport(player, Anticheat_Teleport_MSTIME);
+                        
                         player.SetPosition = SAM_Teleport_Base_Enter;
                         player.Dimension = 0;
                         return true;
