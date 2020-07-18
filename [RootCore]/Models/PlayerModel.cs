@@ -7,9 +7,14 @@ using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
+    public class DrivingSchool
+    {
+        public int MarkerStage { get; set; }
+    }
     public class Reallife
     {
         private Player Player;
+        public DrivingSchool DrivingSchool { get; set; }
         public int Money { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         public int Bank { get { return Player.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
         public string SocialState { get { return Player.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { Player.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
@@ -17,6 +22,7 @@ namespace VenoXV._RootCore_.Models
         public int HUD { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
         public int Hunger { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
         public int JobStage { get; set; }
+        public DateTime LastFactionTeleport { get; set; }
         public DateTime Zivizeit { get { return Player.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
         public string Job { get { return Player.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
         public int LIEFERJOB_LEVEL { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL); } set { Player.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL, value); } }
