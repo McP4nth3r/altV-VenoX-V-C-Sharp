@@ -14,10 +14,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
     {
 
         public static ColShapeModel RathausColShapeModel = RageAPI.CreateColShapeSphere(new Position(-548.8972f, -202.5477f, 38.30002f), 1.2f);
+        public static NPCModel npc = RageAPI.CreateNPC("ig_abigail", new Vector3(-550.5427f, -204.1586f, 38.29998f), new Vector3(0, 0, 290), 0, null);
         //public static Marker RathausMarkerImInterior = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-546.1301, -202.6208, 38.30002), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
+
         //public static Marker RathausMarkerEingang = //ToDo Create Marker NAPI.Marker.CreateMarker(0, new Position(-545.3177f, -203.7145f, 38.2151f), new Position(0, 0, 0), new Position(0, 0, 0), 1, new Rgba(0, 150, 200), true, 0);
         public static MarkerModel RathausMarkerImInterior = RageAPI.CreateMarker(0, new Vector3(-546.1301f, -202.6208f, 38.30002f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
-        public static MarkerModel RathausMarkerEingang = RageAPI.CreateMarker(0, new Vector3(-545.3177f, -203.7145f, 38.2151f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
+        public static MarkerModel RathausMarkerEingang = RageAPI.CreateMarker(0, new Vector3(-1285.1868f, -566.53186f, 31.706177f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
 
         public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
@@ -122,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst zuerst einen Flugschein A!");
                             return;
                         }
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN) == 1)
+                        if (player.Reallife.FlugscheinKlasseB == 1)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Flugschein B!");
                             return;
@@ -209,16 +211,12 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
                         break;
                     default:
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt!");
+                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt! : " + button);
                         break;
                 }
             }
             catch { }
         }
-
-        private static List<MarkerModel> DrivingSchoolMarkers = new List<MarkerModel>();
-        private static List<ColShapeModel> DrivingSchoolColShapeClasses = new List<ColShapeModel>();
-        private static List<IColShape> DrivingSchoolCols = new List<IColShape>();
 
         /* Usefull Functions & Calling - Events/Functions */
 
@@ -276,9 +274,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         }
 
 
-        private const string DRIVINGSCHOOL_LICENSE_CAR = "DRIVINGSCHOOL_LICENSE_CAR";
-        private const string DRIVINGSCHOOL_LICENSE_BIKE = "DRIVINGSCHOOL_LICENSE_BIKE";
-        private const string DRIVINGSCHOOL_LICENSE_LKW = "DRIVINGSCHOOL_LICENSE_LKW";
+        public const string DRIVINGSCHOOL_LICENSE_CAR = "DRIVINGSCHOOL_LICENSE_CAR";
+        public const string DRIVINGSCHOOL_LICENSE_BIKE = "DRIVINGSCHOOL_LICENSE_BIKE";
+        public const string DRIVINGSCHOOL_LICENSE_LKW = "DRIVINGSCHOOL_LICENSE_LKW";
         public static void OnColShapeHit(IColShape shape, Client player)
         {
             try
@@ -286,17 +284,33 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                    if (vehClass.Reallife.DrivingSchoolVehicle)
+                    IColShape playerShape = player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY);
+                    Core.Debug.OutputDebugString("playerShape : " + playerShape);
+                    Core.Debug.OutputDebugString("CurrentDrivingSchoolColShapes : " + CurrentDrivingSchoolColShapes.Contains(playerShape));
+                    Core.Debug.OutputDebugString("DrivingSchoolVehicle? : " + vehClass.Reallife.DrivingSchoolVehicle);
+                    Core.Debug.OutputDebugString("DrivingSchoolLicense? : " + vehClass.Reallife.DrivingSchoolLicense);
+                    if (playerShape != null && CurrentDrivingSchoolColShapes.Contains(playerShape) && shape == playerShape)
                     {
-                        switch (vehClass.Reallife.DrivingSchoolLicense)
+                        if (vehClass.Reallife.DrivingSchoolVehicle)
                         {
-                            case DRIVINGSCHOOL_LICENSE_CAR:
-                                break;
+                            switch (vehClass.Reallife.DrivingSchoolLicense)
+                            {
+                                case DRIVINGSCHOOL_LICENSE_CAR:
+                                    Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                                    break;
+                                case DRIVINGSCHOOL_LICENSE_BIKE:
+                                    Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                                    break;
+                                case DRIVINGSCHOOL_LICENSE_LKW:
+                                    Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                                    Core.Debug.OutputDebugString("Called LKW Hit Marker");
+                                    break;
+                            }
                         }
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
         }
 
         public static VehicleModel CreateDrivingSchoolVehicle(Client player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = 0, bool WarpIntoVehicle = true)
@@ -325,8 +339,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         {
             try
             {
-
-
                 if (player.IsInVehicle)
                 {
                     VehicleModel playerVeh = (VehicleModel)player.Vehicle;
