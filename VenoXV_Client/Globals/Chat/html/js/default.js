@@ -223,8 +223,8 @@ $(function () {
                 return false;
             }
         }
-        if (e.keyCode == 32 && e.target == document.body) {
-            e.preventDefault();
+        if (objEvent.keyCode == 32 && objEvent.target == document.body) {
+            objEvent.preventDefault();
         }
     });
 });
