@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using VenoXV._Gamemodes_.Reallife.business;
+using VenoXV._Gamemodes_.Reallife.Environment.Rathaus;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
@@ -104,15 +105,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 if (entity is Client player)   //We Check if the Entity is the player.
                 {
+                    factions.State.Allround.OnStateColShapeHit(shape, player);
                     CarShop.OnPlayerEnterColShapeModel(shape, player);
                     Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
                     Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.Rathaus.Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.Rathaus.Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.Rathaus.Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
                     Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
                     Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
                     events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
+                    Rathaus.OnColShapeHit(shape, player);
                     Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
                     Emergency.OnPlayerEnterColShapeModel(shape, player);
                     fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
@@ -123,13 +123,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
                     gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
                     jobs.Allround.OnColShapeHit(shape, player);
-                    factions.State.Allround.OnStateColShapeHit(shape, player);
                     Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
                     Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
                 }
-                Core.Debug.OutputDebugString("Entity : " + entity);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
         }
