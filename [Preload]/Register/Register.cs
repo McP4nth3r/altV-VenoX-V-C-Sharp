@@ -2,7 +2,6 @@
 using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
-using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -62,8 +61,9 @@ namespace VenoXV._Preload_.Register
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
-                Program.CreateForumUser(player, nickname, email, password);
-                int UID = Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring, player.Forum.UID);
+                //Program.CreateForumUser(player, nickname, email, password);
+                Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring, 0);
+                int UID = Database.GetPlayerUID(nickname);
                 player.Username = nickname;
                 player.UID = UID;
                 Database.CreateCharacter(player, player.UID);
@@ -73,6 +73,16 @@ namespace VenoXV._Preload_.Register
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 ChangeCharacterSexEvent(player, sex);
+                AccountModel account = new AccountModel
+                {
+                    UID = player.UID,
+                    HardwareId = player.HardwareIdHash.ToString(),
+                    HardwareIdExhash = player.HardwareIdExHash.ToString(),
+                    Name = nickname,
+                    Password = Login.Login.Sha256(password),
+                    SocialID = player.SocialClubId.ToString()
+                };
+                AccountList.Add(account);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); }
         }

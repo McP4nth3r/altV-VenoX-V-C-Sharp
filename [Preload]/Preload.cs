@@ -97,11 +97,10 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
                     break;
                 default:
-                    Core.Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
+                    Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
                     break;
             }
             player.Playing = true;
-            Alt.Server.TriggerClientEvent(player, "Preload:LoadTickEvents", player.Gamemode);
         }
 
 

@@ -11,7 +11,7 @@ namespace VenoXV._Preload_.Login
 {
     public class Login : IScript
     {
-        static string Sha256(string randomString)
+        public static string Sha256(string randomString)
         {
             var crypt = new SHA256Managed();
             string hash = string.Empty;

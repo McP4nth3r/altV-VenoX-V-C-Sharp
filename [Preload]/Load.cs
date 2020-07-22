@@ -20,9 +20,13 @@ namespace VenoXV._Preload_
                     Sync.LoadAllNPCs(player);
                     break;
                 case Gamemodes.Tactics:
+                    Alt.Server.TriggerClientEvent(player, "Tactics:Load");
                     break;
                 case Gamemodes.Zombies:
                     //Test
+                    break;
+                case Gamemodes.Race:
+                    Alt.Server.TriggerClientEvent(player, "Race:Load");
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
@@ -40,8 +44,12 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Reallife:UnloadHUD");
                     break;
                 case Gamemodes.Tactics:
+                    Alt.Server.TriggerClientEvent(player, "Tactics:Unload");
                     break;
                 case Gamemodes.Zombies:
+                    break;
+                case Gamemodes.Race:
+                    Alt.Server.TriggerClientEvent(player, "Race:Unload");
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
