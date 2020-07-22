@@ -285,10 +285,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 {
                     VehicleModel vehClass = (VehicleModel)player.Vehicle;
                     IColShape playerShape = player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY);
-                    Core.Debug.OutputDebugString("playerShape : " + playerShape);
-                    Core.Debug.OutputDebugString("CurrentDrivingSchoolColShapes : " + CurrentDrivingSchoolColShapes.Contains(playerShape));
-                    Core.Debug.OutputDebugString("DrivingSchoolVehicle? : " + vehClass.Reallife.DrivingSchoolVehicle);
-                    Core.Debug.OutputDebugString("DrivingSchoolLicense? : " + vehClass.Reallife.DrivingSchoolLicense);
                     if (playerShape != null && CurrentDrivingSchoolColShapes.Contains(playerShape) && shape == playerShape)
                     {
                         if (vehClass.Reallife.DrivingSchoolVehicle)
