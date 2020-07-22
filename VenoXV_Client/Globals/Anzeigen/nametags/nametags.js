@@ -84,11 +84,6 @@ function DrawNametags() {
 		let players = alt.Player.all
 		if (players.length > 0) {
 			let localPlayer = alt.Player.local;
-			if (localPlayer.vehicle) {
-				if (alt.Player.local.vehicle.speed * 3.6 >= 120) {
-					return;
-				}
-			}
 			for (var i = 0; i < players.length; i++) {
 				var player = players[i];
 				let playerPos = localPlayer.pos;
