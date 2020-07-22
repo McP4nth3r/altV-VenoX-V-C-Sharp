@@ -67,6 +67,22 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
 
+        [Command("hideh")]
+        public static void HideHUDForPlayer(Client player, bool boo)
+        {
+            player.SendTranslatedChatMessage("");
+            player.SendTranslatedChatMessage("");
+            player.SendTranslatedChatMessage("");
+            player.SendTranslatedChatMessage("");
+            player.SendTranslatedChatMessage("");
+            player.Emit("HideH", boo);
+        }
+        [Command("evalc")]
+        public static void HideHUDForPlayer(Client player, string st)
+        {
+            player.Emit("eval", st);
+        }
+
         [Command("admins")]
         public void AdminsIngameCommand(Client player)
         {
@@ -516,6 +532,29 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
             }
         }
+
+        [Command("clearc")]
+        public static void ClearCForEveryone(Client player)
+        {
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            player.SendTranslatedChatMessage(".");
+            for (int i = 0; i < 50; ++i)
+            {
+                RageAPI.SendTranslatedChatMessageToAll(" ");
+            }
+            logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
+        }
+
 
         [Command("adstate")]
         public static void SetAdState(Client player, int Werbung)
@@ -1456,7 +1495,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         [Command("vehupdate")]
         public static void ChangeCarPosition(Client player)
         {
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
             {
                 if (!player.IsInVehicle) { player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug!"); return; }
                 VehicleModel veh = (VehicleModel)player.Vehicle;

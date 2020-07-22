@@ -194,8 +194,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         // Generate the payday
                         GeneratePlayerPayday(player);
                     }
-                    player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
-
+                    player.Played += 1;
                     if (player.Reallife.Hunger > 0)
                     {
                         player.Reallife.Hunger -= 1;

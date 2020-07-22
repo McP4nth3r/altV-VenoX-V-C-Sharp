@@ -7,6 +7,24 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Allround : IScript
     {
+
+        public static DateTime ACTION_TIMER = DateTime.Now;
+
+        public static bool StartAction(Client starter)
+        {
+            try
+            {
+                if (ACTION_TIMER >= DateTime.Now)
+                {
+                    starter.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Es Läuft bereits eine Aktion!");
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("StartAction", ex); return false; }
+        }
+
+
         public static bool AKTION_AM_LAUFEN = false;
         public static DateTime AktionsTimer = DateTime.Now;
         public static DateTime AktionGestartet = DateTime.Now;
