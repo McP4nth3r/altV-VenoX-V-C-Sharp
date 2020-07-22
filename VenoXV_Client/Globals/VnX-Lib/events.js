@@ -6,7 +6,6 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { TacticsEveryTick } from '../../Tactics/Lobby';
 import { CreateBlip, ShowCursor, CreatePed, GetCursorStatus, DrawText, vnxDestroyAllCEF } from './index';
 import { KeyUp, KeyDown } from '../Scoreboard';
 import { BasicKeyBinds } from '../../preload/login';
@@ -312,40 +311,6 @@ dxLibaryEveryTick();
 OnCameraEveryTick();
 
 */
-
-function OnTacticsTick() {
-    TacticsEveryTick();
-}
-let TickEvent;
-let Gamemodes = {
-    Reallife: 0,
-    Zombies: 1,
-    Tactics: 2,
-    Race: 3,
-    SevenTowers: 4
-};
-alt.onServer('Preload:LoadTickEvents', (GamemodeId) => {
-    try {
-        if (TickEvent) { alt.clearEveryTick(TickEvent); TickEvent = null; }
-        switch (GamemodeId) {
-            case Gamemodes.Tactics:
-                TickEvent = alt.everyTick(() => {
-                    OnTacticsTick();
-                });
-                break;
-        };
-    }
-    catch{ }
-});
-
-alt.setInterval(() => {
-    try {
-        game.setEntityProofs(alt.Player.local.scriptID, true, false, false, false, false, false, false, false);
-    }
-    catch{ }
-}, 1000);
-
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
