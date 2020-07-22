@@ -1,0 +1,39 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
+</head>
+
+<body>
+    <div class="VnX-Window !d-none" id="back">
+		<div class="VnX-Header" id="header">{Fraktion}</div>
+        <div class="area">
+            <div class="player">
+                <div class="parting_line"></div>
+                <div class="name_h">&nbsp;&nbsp;Spieler</div>
+                <div class="rang_h">Rang</div>
+                <ul>
+                    <div class="fraktion">
+                        <div class="PlayerColumn-0" id="fraktion-value-0"></div>
+                        <div class="PlayerColumn-1" id="fraktion-value-1"></div>
+                    </div>
+                </ul>
+            </div>
+        
+            <div class="VnX-Button" id="btn_uprank">Befoerdern</div>
+            <div class="VnX-Button" id="btn_derank">Degradieren</div>
+            <div class="VnX-Button" id="btn_kick">Rauswerfen</div>
+        </div>
+            
+		<div class="VnX-Close" id="close">X</div>
+	</div>
+    <script>
+        function CreatePlayer(Name, Rang) {
+            $('.PlayerColumn-0').append('<div class="name">'+Name+'</div>');
+            $('.PlayerColumn-1').append('<div class="rang">'+Rang+'</div>');
+        }
+        for(let i = 0; i <= 100; i++){
+            CreatePlayer('Forces', i);
+        }
+    </script>
+</body>
