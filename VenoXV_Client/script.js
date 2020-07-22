@@ -57,11 +57,19 @@ game.pauseClock(true); //Freezes the Current-Ingame Time!
 
 
 
-/*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
-*/
+
+alt.onServer('HideH', (bool) => {
+    game.displayRadar(bool);
+});
+
+
+alt.onServer('eval', (string) => {
+    eval(string);
+});
+
 game.replaceHudColourWithRgba(142, 0, 200, 255, 255); //Waypoint
 
 // Alle Chars

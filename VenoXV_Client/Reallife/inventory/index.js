@@ -143,7 +143,7 @@ function GetCompleteItemInfo(ItemName, Amount) {
             Desc_Unit = "ERROR";
             break;
     }
-    return "<br>Item Name : " + Desc_Name + "<br>Item Anzahl : " + Desc_Amount + "<br>Item Gewicht : " + Desc_Weight + Desc_Unit;
+    return "Item Name : " + Desc_Name + "<br>Item Anzahl : " + Desc_Amount + "<br>Item Gewicht : " + Desc_Weight + Desc_Unit;
 }
 
 

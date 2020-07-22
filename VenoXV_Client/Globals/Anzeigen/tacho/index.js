@@ -32,7 +32,7 @@ alt.setInterval(() => {
 				speedo.emit("Tacho:Show");
 				showed = true;
 			}
-			/*Get vehicle infos*/
+			//Get vehicle infos
 			let vel = alt.Player.local.vehicle.speed * 3.6;
 			let rpm = alt.Player.local.vehicle.rpm * 1000;
 			gas = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_GAS');
@@ -54,5 +54,3 @@ alt.setInterval(function () {
 	try { if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); } }
 	catch{ }
 }, 5000);
-
-

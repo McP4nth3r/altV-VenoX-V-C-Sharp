@@ -4,7 +4,6 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import * as game from "natives";
 import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX-Lib';
 import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 

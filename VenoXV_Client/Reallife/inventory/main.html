@@ -1,413 +1,406 @@
-<!doctype html>
-<html>
-
 <head>
-	<link href="style.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
 </head>
 
 <body>
 	<script>
 		if ("alt" in window) {
-			alt.on("Inventory:Open", () => { $("#main").removeClass("d-none"); });
-			alt.on("Inventory:Close", () => { $("#main").addClass("d-none"); });
+			alt.on("Inventory:Open", () => { $("#back").removeClass("d-none"); });
+			alt.on("Inventory:Close", () => { $("#back").addClass("d-none"); });
 			alt.on("Inventory:RemoveAll", () => { });
 			alt.on("Inventory:Update", (hash, amount, name, iteminfo) => { OnUpdateItems(hash, amount, name, iteminfo); });
 		}
 	</script>
-	<div id="main" class="d-none all">
-		<div class="inventar_bg">
-			<div class="inventar_header"></div>
-			<div class="inventar_header_text">VenoX Inventar</div>
-			<img src="files/images/logo.png" class="inventar_icon"></img>
-			<div class="inventar_column_container">
-				<div id="columns">
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+	<div class="d-none VnX-Window" id="back">
+		<div class="VnX-Header" id="header">VenoX - Inventar
+			<img src="files/images/logo.png" id="icon">
+		</div>
+		<div class="inventar_column_container" id="columns">
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-					<div class="column">
-						<div class="column_amount"></div>
-						<div class="info d-none"></div>
-						<div class="OptionsMenu d-none">
-							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
-							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
-							</div>
-						</div>
+				</div>
+			</div>
+			<div class="column">
+				<div class="column_amount"></div>
+				<div class="info d-none"></div>
+				<div class="OptionsMenu d-none">
+					<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+					<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
 					</div>
-
 				</div>
 			</div>
 		</div>
-		<script
-			src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<script src="script.js"></script>
+	</div>
+	<script
+		src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="script.js"></script>
 </body>
-
-</html>

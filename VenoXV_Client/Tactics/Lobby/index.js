@@ -135,8 +135,27 @@ function DrawTacticCountdown() {
     }
     catch{ }
 }
+let TacticsTick;
 
-export function TacticsEveryTick() {
+alt.onServer('Tactics:Load', () => {
+    try {
+        if (TacticsTick) { return; }
+        TacticsTick = alt.everyTick(() => {
+            TacticsEveryTick();
+        });
+    }
+    catch{ }
+});
+
+alt.onServer('Tactics:Unload', () => {
+    try {
+        if (!TacticsTick) { return; }
+        alt.clearInterval(TacticsTick);
+        TacticsTick = null;
+    }
+    catch{ }
+});
+function TacticsEveryTick() {
     try {
         if (tactictimer == null) { return; }
         if (ShowWinningWindow) { Tactics_Show_Winner(); return; }

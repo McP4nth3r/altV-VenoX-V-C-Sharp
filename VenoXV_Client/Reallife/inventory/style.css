@@ -1,130 +1,125 @@
+/*----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By LargePeach & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------*/
 
-@font-face { font-family: 'drugs';
-	src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
-@font-face { font-family: 'robot';
-	src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }		
-@font-face { font-family: 'hangover';
-	src: url('./files/font/hangover.ttf') format('truetype'); }		 
-
-
-
-.all {
--ms-user-select: None; 
--moz-user-select: None; 
--webkit-user-select: None; 
+body {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
 }
 
-.inventar_bg{
-position: absolute;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -70%);
-width: 26.25vw;
-height: 24.25vw;
-background: rgba(0,0,0,0.8);
-border-top: 0.20vw solid rgb(0, 150, 200);
+/* Window */
+
+#back {
+    left: 50%;
+    top: 50%;
+    width: 26.25vw;
+    height: 24.25vw;
+    border-radius: 0.5vw;
+    transform: translate(-50%, -50%);
 }
 
-.inventar_header{
-position: absolute;
-height: 2vw;
-width: 100%;
-background: rgba(0,0,0,0.4);
-color: white;
-font-family: drugs;
-font-size: 1.5vw;
+/* Header */
+
+#header {
+    position: absolute;
+    height: 2vw;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-family: arial;
+    font-size: 1.5vw;
+    border-top-left-radius: 0.5vw;
+    border-top-right-radius: 0.5vw;
 }
-.inventar_header_text{
-position: absolute;
-height: 2vw;
-left: 10%;
-top: 0.5%;
-color: white;
-font-family: drugs;
-font-size: 1.5vw;
+
+/* VenoX Icon */
+
+#icon {
+    position: absolute;
+    left: 1%;
+    height: 2vw;
 }
-.inventar_icon{
-position: absolute;
-height: 2vw;
-color: white;	
-}
-/* Prevent the text contents of draggable elements from being selectable. */
+
+/* Verschieben */
+
 [draggable] {
--moz-user-select: none;
--khtml-user-select: none;
--webkit-user-select: none;
-user-select: none;
-/* Required to make elements draggable in old WebKit */
--khtml-user-drag: element;
--webkit-user-drag: element;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
 }
+
+/* Inventar Felder */
+
 .column {
-height: 3vw;
-margin-top: 0.5vw;
-margin-left: 0.5vw;
-z-index: 1;
-width: 3vw;
-float: left;
-
-background-color: rgba(40,40,40,0.8);
-color: transparent;
-text-align: center;
-cursor: move;
-background-image: url("");background-repeat:no-repeat;background-size:contain;
+    height: 3vw;
+    margin-top: 0.5vw;
+    margin-left: 0.5vw;
+    z-index: 1;
+    width: 3vw;
+    float: left;
+    background-color: rgba(40,40,40,0.8);
+    color: transparent;
+    text-align: center;
+    cursor: move;
+    background-image: url("");
+    background-repeat:no-repeat;
+    background-size:contain;
 }
-
+.column:hover {
+    color: white;  
+    background-color: rgba(0,150,200,0.8);
+}
 
 .column.over {
--webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
--moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
-overflow: hidden;
+    -webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+    -moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+    box-shadow:inset 0px 0px 0px 2px rgb(0,105,0);
+    overflow: hidden;
 }
 
-.column:hover {color: white;  background-color: rgba(0,150,200,0.8);}
-
 .column_amount {
-z-index: 10;
-color: rgb(0,200,255);
-margin-top: 70%;
-background-color: rgba(0,0,0,0.7);
-border-radius: 1vw;
-margin-left: 50%;
-width: 1.6vw;
-font-family: arial;
-
-font-size: 0.7vw;
+    z-index: 10;
+    color: rgb(0,200,255);
+    margin-top: 70%;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 1vw;
+    margin-left: 50%;
+    width: 1.6vw;
+    font-family: arial;
+    font-size: 0.7vw;
 }
 
 .info {
-position: relative;
-left: -24%;
-top: -10%;
-color: white;
-background-color: rgba(0,0,0,0.9);
-border-radius: 1vw;
-width: 8.5vw;
-height: 4vw;
-font-family: drugs;
-z-index: 10;
--webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
--moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+    position: relative;
+    left: -24%;
+    top: -10%;
+    color: white;
+    background-color: rgba(0,0,0,0.9);
+    border-radius: 1vw;
+    width: 8.5vw;
+    height: 4vw;
+    font-family: arial;
+    z-index: 10;
+    -webkit-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+    -moz-box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
+    box-shadow:inset 0px 0px 0px 2px rgb(0,105,145);
 }
 
-.inventar_column_container{
-position: absolute;
-left: 2.5%;
-top: 10%;
-width: 95%;
-height: 87.5%;
+.inventar_column_container {
+    position: absolute;
+    left: 2.5%;
+    top: 10%;
+    width: 95%;
+    height: 87.5%;
 }
 
-.d-none {	
-display: none;
-}
-
-.OptionsMenu{
+.OptionsMenu {
 	position: relative;
 	width: 7.5vw;
 	height: 4.05vw;
@@ -132,22 +127,23 @@ display: none;
 	top: -10%;
 	background-color: rgba(0,0,0,0.9);
 	z-index: 11;
-	font-family: drugs;
+	font-family: arial;
 }
-.OptionsButtonsUse{
+
+.OptionsButtonsUse {
 	background-color: rgba(0,125,0,0.4);
 	padding: 0.5vw 0.5vw;
 	color:white;
 }
-.OptionsButtonsUse:hover{
+.OptionsButtonsUse:hover {
 	background-color: rgba(0,255,0,0.4);
 }
-.OptionsButtonsDelete
-{
+
+.OptionsButtonsDelete {
 	background-color: rgba(125,0,0,0.4);
 	padding: 0.5vw 0.5vw;
 	color:white;
 }
-.OptionsButtonsDelete:hover{
+.OptionsButtonsDelete:hover {
 	background-color: rgba(255,0,0,0.4);
 }
