@@ -1,5 +1,5 @@
 //----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
@@ -15,6 +15,7 @@ alt.onServer('Ammunation:Show', () => {
 		cef.focus();
 		cef.on('Ammunation:Hide', () => {
 			cef.unfocus();
+			ShowCursor(false);
 			vnxDestroyCEF("Ammunation");
 		});
 		cef.on('Ammunation:BuyWeapon', (item) => {
