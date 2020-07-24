@@ -4,9 +4,6 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
-import * as alt from 'alt-client';
-import * as game from "natives";
-
 export function GetWeaponData(e, v) {
     try {
         switch (e) {
@@ -768,10 +765,10 @@ export function GetWeaponData(e, v) {
                 }
             default:
                 if (v == "Name") {
-                    return "ERROR";
+                    return "ERROR : " + e;
                 }
                 else {
-                    return "0";
+                    return "" + e;
                 }
         }
     }

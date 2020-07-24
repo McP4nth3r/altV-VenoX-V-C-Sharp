@@ -45,6 +45,8 @@ import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
 import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
 import * as SevenTowers from '/VenoXV_Client/SevenTowers/Lobby/index.js';
+
+
 alt.setStat('stamina', 100);
 alt.setStat('strength', 100);
 alt.setStat('lung_capacity', 100);
@@ -55,12 +57,11 @@ alt.setStat('stealth_ability', 100);
 
 game.pauseClock(true); //Freezes the Current-Ingame Time! 
 
-
-
+/*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
 game.scaleformMovieMethodAddParamInt(3);
 game.endScaleformMovieMethod();
-
+*/
 alt.onServer('HideH', (bool) => {
     game.displayRadar(bool);
 });

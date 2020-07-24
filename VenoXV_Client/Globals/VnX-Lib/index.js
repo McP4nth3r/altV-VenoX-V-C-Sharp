@@ -114,7 +114,6 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
 
 export function CreatePed(PedName, Vector3Pos, rot = 0) {
     try {
-        return;
         let PedHash = game.getHashKey(PedName);
         if (!game.hasModelLoaded(PedHash)) {
             alt.loadModel(PedHash);
@@ -203,6 +202,7 @@ export function vnxDestroyCEF(Name) {
 export function vnxDestroyAllCEF() {
     let i = cBrowserList.length;
     while (i--) {
+        cBrowserList[i].CEF.destroy();
         cBrowserList.splice(i, 1);
     }
 }

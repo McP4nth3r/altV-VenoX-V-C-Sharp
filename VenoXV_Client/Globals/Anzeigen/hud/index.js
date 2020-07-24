@@ -78,15 +78,15 @@ function CheckHUDUpdate() {
 		let LocalEntityScriptId = alt.Player.local.scriptID;
 		let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
 		let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
-		let CurrentHunger = LocalEntity.getStreamSyncedMeta('PLAYER_HUNGER');
+		let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
 		if (CurrentHealth <= 0) {
 			CurrentArmor = 0;
 			CurrentHealth = 0;
 			CurrentHunger = 0;
 		}
-		let CurrentFaction = LocalEntity.getStreamSyncedMeta('PLAYER_FACTION');
-		let CurrentMoney = LocalEntity.getStreamSyncedMeta('PLAYER_MONEY');
-		let CurrentWanteds = LocalEntity.getStreamSyncedMeta('PLAYER_WANTEDS');
+		let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
+		let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
+		let CurrentWanteds = LocalEntity.getSyncedMeta('PLAYER_WANTEDS');
 		let CurrentVoiceState = LocalEntity.isTalking;
 		let CurrentLocation = game.getNameOfZone(LocalEntity.pos.x, LocalEntity.pos.y, LocalEntity.pos.z);
 		if (CurrentArmor != LastArmor) {
@@ -138,6 +138,7 @@ alt.everyTick(() => {
 	try {
 		DrawText("International Venox V." + GamemodeVersion + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
 		let player = alt.Player.local;
+		game.setPedConfigFlag(player.scriptID, 429, true);
 		game.displayAmmoThisFrame(false);
 		if (game.isPedSprinting(player.scriptID)) {
 			game.restorePlayerStamina(player.scriptID, 100);

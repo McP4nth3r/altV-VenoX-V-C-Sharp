@@ -198,7 +198,7 @@ function TacticsEveryTick() {
 
         //game.drawRect(0.9, 0.15, 0.20, 0.15, 0, 0, 0, 175);
 
-        DrawText("German Venox Tactics " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
+        //DrawText("German Venox Tactics " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
         //DrawText("Alt:V " + RageMP_version, 0.927, 0.96, 0.6, 0, 225, 225, 225, 135, true, true);
     }
     catch{ }
