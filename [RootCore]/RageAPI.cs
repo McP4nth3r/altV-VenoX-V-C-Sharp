@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -235,7 +234,7 @@ namespace VenoXV.Core
             {
                 foreach (Client players in Alt.GetAllPlayers())
                 {
-                    players.SendChatMessage(text);
+                    _Language_.Main.SendTranslatedChatMessage(players, text);
                 }
             }
             catch { }

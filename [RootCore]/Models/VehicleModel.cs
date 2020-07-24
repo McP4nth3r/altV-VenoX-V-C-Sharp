@@ -79,6 +79,7 @@ namespace VenoXV._RootCore_.Models
             Kms = 0;
             Race = new VehRace(this);
             Reallife = new VehReallife(this);
+            ManualEngineControl = true;
         }
 
     }
