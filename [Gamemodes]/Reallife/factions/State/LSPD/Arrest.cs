@@ -8,7 +8,6 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
@@ -35,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Kaution in Höhe von " + kaution + "$ bezahlt!");
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kaution);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
-                            AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
+                            //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
@@ -47,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + kaution, fkasse.weed, fkasse.koks, fkasse.mats);
                             Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Kaution in Höhe von " + kaution + "$ bezahlt!");
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - kaution);
-                            AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
+                            //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
                             player.Dimension = 0;
@@ -236,7 +235,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                                 if (Allround.isStateIVehicle(vehicle))
                                 {
                                     Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
-                                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
+                                    //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                                     if (kaution == "1")
                                     {
                                         //Kaution Code

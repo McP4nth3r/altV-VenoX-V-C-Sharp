@@ -15,7 +15,6 @@ using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.admin
@@ -235,7 +234,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (target != null)
                 {
                     // Change player's position and dimension
-                    AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
+                    //AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                     player.SetPosition = target.Position;
                     player.Dimension = target.Dimension;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast dich zu " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "teleportiert!");
@@ -259,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (target != null)
                 {
                     // Change target's position and dimension
-                    AntiCheat_Allround.SetTimeOutTeleport(target, 2000);
+                    //AntiCheat_Allround.SetTimeOutTeleport(target, 2000);
                     target.SetPosition = player.Position;
                     target.Dimension = player.Dimension;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + " zu dir teleportiert!");
@@ -358,7 +357,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     if (Target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                     {
-                        AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
+                        //AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
                         Target.SpawnPlayer(Target.Position);
                         Target.vnxSetStreamSharedElementData(EntityData.PLAYER_KILLED, 0);
                         player.SendTranslatedChatMessage("~g~Du hast " + Target.Username + " wiederbelebt.");
@@ -409,7 +408,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         }
                         if (targetplayer != null)
                         {
-                            AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
+                            //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
                             targetplayer.Dimension = 0;
                             targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                             anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
@@ -643,7 +642,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     }
                     if (targetplayer != null)
                     {
-                        AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
+                        //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
                         targetplayer.Dimension = 0;
                         targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                         anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
@@ -762,7 +761,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
+                //AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                 player.Dimension = 0;
                 player.SetPosition = new Position(posX, posY, posZ);
                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
@@ -1249,7 +1248,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     if (area.Name == name)
                     {
-                        Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
+                        //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
                         player.SendTranslatedChatMessage("[GW] Teleported to '" + area.Name + "'.");
                         player.SetPosition = area.TK;
                         player.Dimension = 0;
@@ -1439,7 +1438,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
                 else if (value == "health")
                 {
-                    AntiCheat_Allround.SetTimeOutHealth(target, 1000);
+                    //AntiCheat_Allround.SetTimeOutHealth(target, 1000);
                     target.Health = valuea;
                 }
                 Core.VnX.UpdateHUDArmorHealth(target);

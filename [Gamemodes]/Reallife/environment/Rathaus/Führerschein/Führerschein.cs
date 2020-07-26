@@ -149,7 +149,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
             {
                 if (Vehicle.vnxGetElementData<bool>("PRUEFUNGS_AUTO") == true && Vehicle.vnxGetElementData<string>("PRUEFUNGS_AUTO_BESITZER") == player.Username && player.vnxGetElementData<int>("Marker_Pruefung") >= 0 && player.vnxGetSharedData<bool>("PLAYER_DRIVINGSCHOOL") == true && player.vnxGetElementData<string>("PRUEFUNGS_NAME") == "AUTO")
                 {
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
+                    //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
                     player.vnxSetElementData("Marker_Pruefung", 0);
                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                     dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);

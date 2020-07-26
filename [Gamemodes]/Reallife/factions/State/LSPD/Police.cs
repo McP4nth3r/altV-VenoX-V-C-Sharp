@@ -860,7 +860,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (target.Reallife.Knastzeit > 0)
                     {
-                        Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
+                        //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                         target.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
                         target.Dimension = 0;

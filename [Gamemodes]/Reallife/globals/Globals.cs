@@ -14,7 +14,6 @@ using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Globals
@@ -766,13 +765,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         if (player.Position.Distance(interior.entrancePosition) < 1.5f)
                         {
-                            AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
+                            //AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                             player.SetPosition = interior.exitPosition;
                             return;
                         }
                         else if (player.Position.Distance(interior.exitPosition) < 1.5f)
                         {
-                            AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
+                            //AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                             player.SetPosition = interior.entrancePosition;
                             return;
                         }
@@ -796,7 +795,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         {
                             if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
                             {
-                                AntiCheat_Allround.SetTimeOutTeleport(player, 8000);
+                                //AntiCheat_Allround.SetTimeOutTeleport(player, 8000);
                                 if (!House.HasPlayerHouseKeys(player, house) && house.locked)
                                 {
                                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Das Haus ist abgeschlossen!");
@@ -814,7 +813,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             }
                             else if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == house.id)
                             {
-                                AntiCheat_Allround.SetTimeOutTeleport(player, 1250);
+                                //AntiCheat_Allround.SetTimeOutTeleport(player, 1250);
                                 Position exitPosition = House.GetHouseExitPoint(house.ipl);
                                 if (player.Position.Distance(exitPosition) < 2.5f)
                                 {

@@ -300,7 +300,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                //AntiCheat_Allround.SetTimeOutHealth(player, 3000);
+                ////AntiCheat_Allround.SetTimeOutHealth(player, 3000);
                 //AntiCheat_Allround.StartTimerTeleport(player);
                 InitializePlayerSavedData(player);
                 player.Tactics.Team = "NULL";

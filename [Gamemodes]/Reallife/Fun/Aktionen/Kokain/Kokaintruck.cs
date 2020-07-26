@@ -9,7 +9,6 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun
@@ -163,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du hast nicht genug geld! für " + koks + " G Kokain brauchst du " + kokskosten + " $");
                             return;
                         }
-                        AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
+                        //AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
                         Allround.ChangeAktionsState(true);
                         ColShapeModel Kokaintruck_Col_Abgabe = RageAPI.CreateColShapeSphere(new Position(2536.999f, 2578.391f, 0), 3f);
                         Kokaintruck_Col_Abgabe.vnxSetElementData("AKTION_COL", true);

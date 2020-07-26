@@ -32,13 +32,13 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                     }
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
-                    Anti_Cheat.AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
+                    //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                     player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
                     dxLibary.VnX.SetElementFrozen(player, true);
                     player.Rotation = new Rotation(0f, 0f, 160f);
                     player.vnxSetStreamSharedElementData("HideHUD", 1);
                     player.Dimension = dim;
-                    Alt.Server.TriggerClientEvent(player,"showClothesMenu", "Klamottenshop ", 1);
+                    Alt.Server.TriggerClientEvent(player, "showClothesMenu", "Klamottenshop ", 1);
                     dxLibary.VnX.CreateDiscordUpdate(player, "Kauft grad neue Klamotten", "VenoX - Reallife");
                 }
             }

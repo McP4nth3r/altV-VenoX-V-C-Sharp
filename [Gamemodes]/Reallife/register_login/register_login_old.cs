@@ -12,7 +12,6 @@ using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
-using VenoXV.Anti_Cheat;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.register_login
@@ -198,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         public static void CreateCameraTestEvent(Client player, float x, float y, float z, int rotx, int roty, int rotz)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 1);
-            AntiCheat_Allround.StopTimerTeleport(player);
+            //AntiCheat_Allround.StopTimerTeleport(player);
             Position LastPosition = player.Position;
             Position StartPosition = LastPosition;
             Position EndPosition = new Position(x, y, z);
@@ -239,7 +238,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Pos2 = new Vector3(lastPos2.X, lastPos2.Y, POS2_Z);
             }
             player.vnxSetStreamSharedElementData("HideHUD", 1);
-            AntiCheat_Allround.StopTimerTeleport(player);
+            //AntiCheat_Allround.StopTimerTeleport(player);
             Position LastPosition = player.Position;
             Position StartPosition = Pos1;
             Position EndPosition = Pos2;
