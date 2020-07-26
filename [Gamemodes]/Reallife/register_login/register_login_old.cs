@@ -328,7 +328,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         public static void OnSelectedReallifeGM(Client player)
         {
             try { LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
         }
 
         [ClientEvent("Send_Player_Where_From")]
