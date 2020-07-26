@@ -4,10 +4,10 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-let preloadbrowser = null;
+let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../Globals/VnX-Lib';
+import { ShowCursor, vnxCreateCEF } from '../Globals/VnX-Lib';
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -26,12 +26,10 @@ alt.onServer('Preload:UnloadGamemode', (Id) => {
 
 alt.onServer('preload_gm_list', () => {
 	try {
-		vnxDestroyCEF("Preload");
-		preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
+		preloadbrowser.emit('Load:ShowPreload');
 		ShowCursor(true);
 		preloadbrowser.focus();
 		preloadbrowser.on('load_selected_gm', (v) => {
-			vnxDestroyCEF("Preload");
 			alt.emitServer("Load_selected_gm_server", v);
 			game.setEntityAlpha(alt.Player.local.scriptID, 255);
 			game.freezeEntityPosition(alt.Player.local.scriptID, false);
@@ -47,6 +45,13 @@ alt.onServer('preload_gm_list', () => {
 alt.onServer('LoadPreloadUserInfo', (z, r, t) => {
 	alt.emit("Load:UserInfo", z, r, t);
 	//preloadbrowser.execute(`document.getElementById('rec_0_userinfo').innerHTML="` + z + `";document.getElementById('rec_1_userinfo').innerHTML="` + r + `";document.getElementById('rec_2_userinfo').innerHTML="` + t + `";`);
+});
+
+alt.onServer('LoadingScreen:Show', MS => {
+	preloadbrowser.emit('LoadingScreen:Show', MS);
+	alt.setTimeout(() => {
+		alt.emitServer('Loading:OnClientFinished');
+	}, MS);
 });
 
 

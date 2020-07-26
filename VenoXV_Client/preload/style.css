@@ -1,8 +1,8 @@
-//*----------------------------------//
+/*----------------------------------//
 ///// VenoX Gaming & Fun 2019 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
-//----------------------------------*//
+//----------------------------------*/
 
 @font-face { font-family: 'drugs';
              src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
@@ -287,4 +287,207 @@
 }
 .d-none {	
 	display: none;
+}
+
+
+/* Loading Screen */
+
+body {
+	overflow: hidden;
+	-ms-user-select: None;
+	-moz-user-select: None;
+	-webkit-user-select: None;
+	background-color: rgb(10, 10, 10, 1);
+}
+
+.VnX-LoadingBar-Asset {
+	position: absolute;
+	left: 80%;
+	top: 4%;
+	transform: translateZ(0) scale(0.25);
+}
+
+.VnX-LoadingBar-Parent {
+	position: absolute;
+	left: 82%;
+	top: 91.5%;
+	color: white;
+	width: 15vw;
+	height: 0.9vw;
+	font-size: 0.9vw;
+	font-family: arial;
+	padding: 1vw;
+	background: rgb(0, 0, 0, 0.8);
+	border-radius: 1vw;
+	border-top: solid 0.03vw rgb(0, 105, 145);
+    z-index: 1;
+}
+
+.InformationText1-Header {
+	position: absolute;
+	left: 50%;
+	top: 6%;
+	text-align: center;
+	font-size: 1.2vw;
+	transform: translate(-50%);
+	width: 50vw;
+	font-family: arial;
+	color: white;
+}
+
+.InformationText1 {
+	position: absolute;
+	left: 50%;
+	top: 10%;
+	font-size: 0.65vw;
+	transform: translate(-50%);
+	height: 25vw;
+	overflow: auto;
+	width: 50vw;
+	font-family: arial;
+	color: white;
+}
+
+.Logo-View {
+	position: absolute;
+	left: 50%;
+	height: 50%;
+	transform: translate(-50%);
+	width: 35vw;
+	height: 35vw;
+}
+
+
+.Loading-Background{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-image: url(files/images/wallpaper/bg-1.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.Loading-Ped-0{
+    position: absolute;
+    left: 5vw;
+    top: 30%;
+    width: 35vw;
+    opacity: 1;
+    animation: LeftToRight 10s;
+}
+
+.Loading-Ped-1{
+    position: absolute;
+    right: 15vw;
+    top: 70%;
+    width: 35vw;
+    opacity: 1;
+    animation: RightToLeft 10s;
+}
+.Loading-Ped-2{
+    position: absolute;
+    right: 15vw;
+    top: 60%;
+    width: 35vw;
+    opacity: 1;
+    animation: RightToLeft 10s;
+}
+.Loading-Ped-3{
+    position: absolute;
+    right: 15vw;
+    top: 30%;
+    width: 35vw;
+    opacity: 1;
+    animation: RightToLeft 10s;
+}
+.Loading-Ped-4{
+    position: absolute;
+    right: 15vw;
+    top: 30%;
+    width: 35vw;
+    opacity: 1;
+    animation: RightToLeft 10s;
+}
+.Loading-Ped-5{
+    position: absolute;
+    right: 15vw;
+    top: 30%;
+    width: 35vw;
+    opacity: 1;
+    animation: RightToLeft 10s;
+}
+
+
+.Anim_InAndOut{
+	animation: InAndOut 5s;
+	opacity: 0;
+}
+
+.Anim_In{
+    animation: In 2s;
+    opacity: 1;
+}
+.Anim_Out{
+    animation: Out 2s;
+    opacity: 0;
+}
+
+.Anim_LeftToRight{
+    position: absolute;
+    animation: LeftToRight 10s;
+    left: 5vw;
+}
+
+.Anim_RightToLeft{
+    position: absolute;
+    animation: RightToLeft 10s;
+    right: 15vw;
+}
+
+
+/* Animations */
+@keyframes InAndOut {
+    0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes In {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes Out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes LeftToRight {
+	0% {
+		left: 0vw;
+	}
+	100% {
+		left: 5vw;
+	}
+}
+@keyframes RightToLeft {
+	0% {
+		right: 10vw;
+	}
+	100% {
+		right: 15vw;
+	}
 }
