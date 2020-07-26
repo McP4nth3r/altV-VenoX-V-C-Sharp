@@ -71,7 +71,7 @@ namespace VenoXV._Preload_.Login
             }
             Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
             if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); }
-            Alt.Server.TriggerClientEvent(player, "preload_gm_list");
+            Preload.ShowPreloadList(player);
         }
     }
 }

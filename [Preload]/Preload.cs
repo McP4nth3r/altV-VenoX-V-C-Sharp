@@ -42,6 +42,11 @@ namespace VenoXV._Preload_
             SevenTowers = 4,
         };
 
+        public static void ShowPreloadList(Client player)
+        {
+            Alt.Server.TriggerClientEvent(player, "preload_gm_list");
+        }
+
         [Command("leave")]
         public static void ShowGamemodeSelection(Client player)
         {
@@ -50,7 +55,7 @@ namespace VenoXV._Preload_
                 player.Dimension = player.Id;
                 VenoXV.Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
-                Alt.Server.TriggerClientEvent(player, "preload_gm_list");
+                ShowPreloadList(player);
             }
             catch { }
         }
@@ -123,22 +128,13 @@ namespace VenoXV._Preload_
             catch { }
         }
 
-        private static void LoadReallifeMaps(Client player)
-        {
-            _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.WUERFELPARK_MAP);
-        }
+
         [ServerEvent("GlobalSystems:PlayerReady")]
         public void PlayerConnect(Client player)
         {
             try
             {
-                LoadReallifeMaps(player);
-                Alt.Server.TriggerClientEvent(player, "showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
-                player.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, Globals.EntityData.GAMEMODE_NONE); // None Gamemode
-                _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
+                Loading.Main.ShowLoadingScreen(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }
