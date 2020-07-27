@@ -11,7 +11,6 @@ using VenoXV._Gamemodes_.Reallife.gangwar.v2;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Preload_.Character_Creator;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_.Models;
@@ -52,7 +51,8 @@ namespace VenoXV._RootCore_.Database
                     _Gamemodes_.Reallife.Globals.Main.tunningList = LoadAllTunning();
 
                     // IVehicle loading
-                    Vehicles.LoadDatabaseVehicles();
+                    LoadAllVehicles();
+
 
                     // Item loading
                     //Inventory.LoadDatabaseItems();
@@ -1350,6 +1350,7 @@ namespace VenoXV._RootCore_.Database
                         vehClass.EngineOn = false;
                         vehClass.Frozen = true;
                         vehClass.Godmode = true;
+                        vehClass.NPC = false;
                         if (vehClass.Faction > Constants.FACTION_NONE)
                         {
                             vehClass.LockState = AltV.Net.Enums.VehicleLockState.Unlocked;
