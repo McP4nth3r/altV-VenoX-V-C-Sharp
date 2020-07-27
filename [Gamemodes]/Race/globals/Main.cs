@@ -4,7 +4,11 @@
     {
         public static void OnUpdate()
         {
-            try { Lobby.Main.OnUpdate(); }
+            try
+            {
+                if (VenoXV.Globals.Main.RacePlayers.Count <= 0) { return; }
+                Lobby.Main.OnUpdate();
+            }
             catch { }
         }
     }

@@ -84,6 +84,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
         public static void OnUpdate()
         {
+            if (VenoXV.Globals.Main.ReallifePlayers.Count <= 0) { return; }
             gangwar.Allround.OnUpdate();
             Fun.Aktionen.Shoprob.Shoprob.OnUpdate();
             environment.NPC.NPC.OnUpdate();

@@ -4,10 +4,10 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._RootCore_.Database;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -271,7 +271,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     List<string> clothesNames = Main.GetClothesNames(clothesList);
 
                     // Show player's clothes
-                    Alt.Server.TriggerClientEvent(player,"showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
+                    Alt.Server.TriggerClientEvent(player, "showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
                 }
                 else
                 {

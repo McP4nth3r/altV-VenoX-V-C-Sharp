@@ -14,6 +14,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
+                if (VenoXV.Globals.Main.TacticsPlayers.Count <= 0) { return; }
                 Lobby.Main.OnUpdate();
             }
             catch { }

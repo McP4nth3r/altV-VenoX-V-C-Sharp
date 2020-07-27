@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using System;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Zombie.Globals
 {
@@ -10,7 +9,12 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
 
         public static void OnUpdate()
         {
-            World.Main.OnUpdate();
+            try
+            {
+                if (VenoXV.Globals.Main.ZombiePlayers.Count <= 0) { return; }
+                World.Main.OnUpdate();
+            }
+            catch { }
         }
 
         [ClientEvent("OnZombieKill")]
@@ -18,7 +22,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                player.vnxSetElementData(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS, player.vnxGetElementData<int>(_Gamemodes_.Zombie.Globals.EntityData.PLAYER_ZOMBIE_KILLS) + 1);
+                player.Zombies.Zombie_kills += 1;
                 Console.WriteLine(player.Username + " hat einen Zombie Getötet!");
             }
             catch { }

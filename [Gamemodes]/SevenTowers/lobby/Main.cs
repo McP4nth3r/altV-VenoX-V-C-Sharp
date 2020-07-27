@@ -379,28 +379,27 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                if (Globals.Main.SevenTowersPlayers.Count > 0)
+                if (Globals.Main.SevenTowersPlayers.Count <= 0) { return; }
+
+                if (SEVENTOWERS_ROUND_END <= DateTime.Now && SEVENTOWERS_ROUND_IS_RUNNING)
                 {
-                    if (SEVENTOWERS_ROUND_END <= DateTime.Now && SEVENTOWERS_ROUND_IS_RUNNING)
+                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
                     {
-                        foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
+                        TakePlayerFromRound(playerClass);
+                    }
+                    EndRound();
+                }
+                else if (!SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
+                {
+                    StartNewRound();
+                }
+                else if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
+                {
+                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
+                    {
+                        if (playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned)
                         {
                             TakePlayerFromRound(playerClass);
-                        }
-                        EndRound();
-                    }
-                    else if (!SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
-                    {
-                        StartNewRound();
-                    }
-                    else if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
-                    {
-                        foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
-                        {
-                            if (playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned)
-                            {
-                                TakePlayerFromRound(playerClass);
-                            }
                         }
                     }
                 }

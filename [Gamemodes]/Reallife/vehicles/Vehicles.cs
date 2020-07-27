@@ -21,10 +21,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
     {
         public static string INFO_VEHICLE_TURNED_ON = "Motor Angeschaltet!";
         public static string INFO_VEHICLE_TURNED_OFF = "Motor Ausgeschaltet!";
-        public static void LoadDatabaseVehicles()
-        {
-            Database.LoadAllVehicles();
-        }
 
         public static void OnResourceStart()
         {

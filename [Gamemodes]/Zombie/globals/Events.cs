@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                 if (KilledZombieIds.Contains(Id)) { return; }
                 KilledZombieIds.Add(Id);
                 Spawner.DestroyZombieById(Id);
-                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers)
+                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
                 }
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers)
+                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     if (players.Zombies.NearbyPlayers.Contains(player)) { player.Zombies.NearbyPlayers.Remove(player); }
                 }
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                foreach (ZombieModel zombieClass in KI.Spawner.CurrentZombies)
+                foreach (ZombieModel zombieClass in KI.Spawner.CurrentZombies.ToList())
                 {
                     if (zombieClass.ID == ZombieId)
                     {
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                         foreach (Client nearbyClients in player.Zombies.NearbyPlayers.ToList())
                         {
                             if (nearbyClients == null) { player.Zombies.NearbyPlayers.Remove(nearbyClients); }
-                            else { nearbyClients?.Emit("Zombies:SetPosition", ZombieId, ZombiePosX, ZombiePosY, ZombiePosZ); }
+                            else { nearbyClients.Emit("Zombies:SetPosition", ZombieId, ZombiePosX, ZombiePosY, ZombiePosZ); }
                         }
                     }
                 }
