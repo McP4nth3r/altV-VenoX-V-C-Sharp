@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 
@@ -47,15 +48,15 @@ namespace VenoXV.Core
             {
                 if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape.Entity); Sync.ColShapeList.Remove(ColShape); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RemoveColShape", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("RemoveColShape", ex); }
         }
-        public static void SendTranslatedChatMessage(this Client element, string msg)
+        public static Task SendTranslatedChatMessage(this Client element, string msg)
         {
             try
             {
-                _Language_.Main.SendTranslatedChatMessage(element, msg);
+                return _Language_.Main.SendTranslatedChatMessage(element, msg);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("SendTranslatedChatMessage", ex); return Task.CompletedTask; }
         }
         public static void SpawnPlayer(this Client element, Vector3 pos, uint DelayInMS = 0)
         {
@@ -229,13 +230,13 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SendTranslatedChatMessageToAll(string text)
+        public static async Task SendTranslatedChatMessageToAll(string text)
         {
             try
             {
                 foreach (Client players in Alt.GetAllPlayers())
                 {
-                    _Language_.Main.SendTranslatedChatMessage(players, text);
+                    await _Language_.Main.SendTranslatedChatMessage(players, text);
                 }
             }
             catch { }

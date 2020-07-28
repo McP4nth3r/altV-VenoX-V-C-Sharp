@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -62,7 +63,7 @@ namespace VenoXV._Preload_
 
 
         [ClientEvent("Load_selected_gm_server")]
-        public static void Load_selected_gm_server(Client player, int value)
+        public static async Task Load_selected_gm_server(Client player, int value)
         {
             player.Dimension = player.Id;
             Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
@@ -86,13 +87,13 @@ namespace VenoXV._Preload_
                     break;
                 case (int)Gamemodes.Tactics:
                     Globals.Main.TacticsPlayers.Add(player);
-                    _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
+                    await _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                     break;
                 case (int)Gamemodes.Race:
                     Character_Creator.Main.LoadCharacterSkin(player);
                     Globals.Main.RacePlayers.Add(player);
-                    _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
+                    await _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                     Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                     break;
                 case (int)Gamemodes.SevenTowers:

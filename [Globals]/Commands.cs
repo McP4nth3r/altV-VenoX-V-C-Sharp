@@ -2,6 +2,7 @@
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -10,7 +11,7 @@ namespace VenoXV._Globals_
     public class Commands : IScript
     {
         [Command("skipround")]
-        public static void SkipRound(Client player, string gm)
+        public static async Task SkipRound(Client player, string gm)
         {
             string Gamemode = gm.ToLower();
             switch (Gamemode)
@@ -21,7 +22,7 @@ namespace VenoXV._Globals_
                 case "tactics":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat die Tactic Runde übersprungen!");
+                        await _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat die Tactic Runde übersprungen!");
                         _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " hat die Runde übersprungen!");
                         _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!");
                     }
@@ -29,7 +30,7 @@ namespace VenoXV._Globals_
                 case "race":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + " hat das Rennen übersprungen!");
+                        await _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + " hat das Rennen übersprungen!");
                         _Gamemodes_.Race.Lobby.Main.StartNewRound();
                     }
                     break;

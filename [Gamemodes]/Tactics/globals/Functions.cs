@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -6,13 +8,13 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
 {
     public class Functions
     {
-        public static void SendTacticRoundMessage(string text)
+        public static async Task SendTacticRoundMessage(string text)
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players?.SendTranslatedChatMessage(text);
+                    await players?.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
