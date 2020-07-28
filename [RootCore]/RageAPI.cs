@@ -234,7 +234,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in Alt.GetAllPlayers().ToList())
                 {
                     await _Language_.Main.SendTranslatedChatMessage(players, text);
                 }

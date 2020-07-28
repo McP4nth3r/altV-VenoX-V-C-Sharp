@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Linq;
 using System.Numerics;
 using System.Timers;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -83,7 +84,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 player.Vehicle.Remove();
                                 Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
+                                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                                 {
                                     if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))
                                     {
@@ -122,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 if (Factions.Allround.isBadFaction(player))
                 {
                     int cops = 0;
-                    foreach (Client Spieler in VenoXV.Globals.Main.ReallifePlayers)
+                    foreach (Client Spieler in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (Factions.Allround.isStateFaction(Spieler))
                         {
@@ -180,7 +181,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         Kokaintruckveh.Gas = 100;
                         Kokaintruckveh.SetSyncedMetaData(EntityData.PLAYER_KOKS, koks);
                         Kokaintruckveh.NotSave = false;
-                        foreach (Client target in VenoXV.Globals.Main.ReallifePlayers)
+                        foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))
                             {

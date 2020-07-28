@@ -272,7 +272,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 player.Tactics.Deaths -= 1;
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " ist Disconnected!");
                 }
@@ -337,7 +337,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
                     players.Emit("Tactics:LoadTimer", (int)leftTime);
@@ -349,7 +349,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     players.Emit("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
                 }
@@ -360,7 +360,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     float DamageDone = players.Tactics.CurrentDamage;
                     int KillsDone = players.Tactics.CurrentKills;
@@ -373,7 +373,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers)
+                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     players.RemoveAllPlayerWeapons();
                     players.Emit("Tactics:OnTacticEndRound", text);

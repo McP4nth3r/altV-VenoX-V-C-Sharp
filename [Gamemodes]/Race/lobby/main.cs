@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 if (CurrentMap != null) { foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList()) { if (spawn.Spawned) spawn.Spawned = false; } }
                 foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { vehClass.Remove(); } }
-                foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers)
+                foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
                     if (racePlayers.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(racePlayers.Race.LastColShapeModel); racePlayers.Race.LastColShapeModel = null; }
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.RacePlayers)
+                foreach (Client player in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     if (!player.Race.IsRacing)
                     {
@@ -112,7 +112,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         public static void SendRaceMessage(string text)
         {
-            foreach (Client players in VenoXV.Globals.Main.RacePlayers)
+            foreach (Client players in VenoXV.Globals.Main.RacePlayers.ToList())
             {
                 players.SendTranslatedChatMessage(text);
             }
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
 
             int counter = 0;
-            foreach (Client player in VenoXV.Globals.Main.RacePlayers)
+            foreach (Client player in VenoXV.Globals.Main.RacePlayers.ToList())
             {
                 player.Emit("Race:ClearPlayerList", player.Username);
                 foreach (Client players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())

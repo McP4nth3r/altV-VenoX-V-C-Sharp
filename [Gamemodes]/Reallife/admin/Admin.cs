@@ -365,7 +365,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         logfile.WriteLogs("admin", player.Username + " hat " + Target.Username + " wiederbelebt!");
                         Target.Emit("destroyKrankenhausTimer");
                         Target.Emit("VnX_DestroyIPlayerSideTimer_KH");
-                        foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
+                        foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                             {

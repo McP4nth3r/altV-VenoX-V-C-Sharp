@@ -1359,6 +1359,7 @@ namespace VenoXV._RootCore_.Database
                         {
                             vehClass.LockState = AltV.Net.Enums.VehicleLockState.Locked;
                         }
+                        VenoXV.Globals.Main.ReallifeVehicles.Add(vehClass);
                     }
                 }
 

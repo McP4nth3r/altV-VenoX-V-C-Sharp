@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -168,7 +169,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers)
+                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     foreach (ColShapeModel col in ShopColShapeModels)
                     {

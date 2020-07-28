@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 {
                     Spawns.Spawned = false;
                 }
-                foreach (Client player in Globals.Main.SevenTowersPlayers)
+                foreach (Client player in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
@@ -220,7 +220,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 SEVENTOWERS_ROUND_IS_RUNNING = false;
                 SEVENTOWERS_ROUND_WILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_START_AFTER_LOADING);
-                foreach (Client player in Globals.Main.SevenTowersPlayers)
+                foreach (Client player in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     if (CurrentlyInRound.Count == 1)
                     {
@@ -286,7 +286,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                foreach (Client players in Globals.Main.SevenTowersPlayers)
+                foreach (Client players in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat die SevenTowers Lobby betreten!");
                 }
@@ -383,7 +383,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
                 if (SEVENTOWERS_ROUND_END <= DateTime.Now && SEVENTOWERS_ROUND_IS_RUNNING)
                 {
-                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
+                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers.ToList())
                     {
                         TakePlayerFromRound(playerClass);
                     }
@@ -395,7 +395,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 }
                 else if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
                 {
-                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers)
+                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers.ToList())
                     {
                         if (playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned)
                         {

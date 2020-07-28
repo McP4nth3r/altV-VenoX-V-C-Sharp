@@ -7,6 +7,7 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -1122,7 +1123,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers)
+                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
@@ -1166,7 +1167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         target.SendTranslatedChatMessage("{007d00}Officer " + player.Username + " hat deine Akte Gelöscht!");
                         anzeigen.Usefull.VnX.onWantedChange(target);
 
-                        foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers)
+                        foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             if (targetsingame.Reallife.Faction == 1)
                             {

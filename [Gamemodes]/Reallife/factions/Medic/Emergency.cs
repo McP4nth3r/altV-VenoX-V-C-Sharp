@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -55,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
+                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -69,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
+                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -85,7 +86,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         //[AltV.Net.ClientEvent("DestroyForAllMedicBlip")]
         public void DestroyMedicBlipAfterSpawn(Client player)
         {
-            foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
+            foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
             {
                 if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
@@ -119,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 target.Emit("destroyKrankenhausTimer");
                                 target.Emit("VnX_DestroyIPlayerSideTimer_KH");
 
-                                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers)
+                                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                                 {
                                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                     {

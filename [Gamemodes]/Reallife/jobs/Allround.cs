@@ -272,9 +272,5 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
             catch { }
         }
-        public static void OnResourceStart()
-        {
-            Bus.Bus.OnResourceStart();
-        }
     }
 }

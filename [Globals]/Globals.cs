@@ -16,6 +16,10 @@ namespace VenoXV.Globals
         public static List<Client> ZombiePlayers = new List<Client>();
         public static List<Client> RacePlayers = new List<Client>();
         public static List<Client> SevenTowersPlayers = new List<Client>();
+
+        public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
+
+
         public static void RemovePlayerFromGamemodeList(Client player)
         {
             try

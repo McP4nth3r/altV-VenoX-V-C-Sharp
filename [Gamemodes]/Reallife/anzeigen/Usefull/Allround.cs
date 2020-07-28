@@ -383,7 +383,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.ReallifePlayers)
+                foreach (Client players in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {

@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -73,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
             {
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers)
+                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
@@ -104,7 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
                     Client target = RageAPI.GetPlayerFromName(targetName);
                     player.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers)
+                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
