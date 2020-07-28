@@ -188,16 +188,20 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         }
         private static void SpawnMapVehicles()
         {
-            foreach (IVehicle veh in TacticVehicleList) { if (veh != null) { veh.Remove(); } }
-            TacticVehicleList = new List<IVehicle>();
-            foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles)
+            try
             {
-                VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
-                vehicle.Frozen = false;
-                vehicle.Godmode = false;
-                vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
-                TacticVehicleList.Add(vehicle);
+                foreach (IVehicle veh in TacticVehicleList) { if (veh != null) { veh.Remove(); } }
+                TacticVehicleList = new List<IVehicle>();
+                foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles)
+                {
+                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
+                    vehicle.Frozen = false;
+                    vehicle.Godmode = false;
+                    vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
+                    TacticVehicleList.Add(vehicle);
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnMapVehicles", ex); }
         }
 
         public static void PutPlayerInTeam()
