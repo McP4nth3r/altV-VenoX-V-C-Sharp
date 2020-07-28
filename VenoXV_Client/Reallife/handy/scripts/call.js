@@ -3,13 +3,16 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
+
 // Call Events
+
 let SelectedObj;
 let SelectedObjName;
 let SelectedObjTelnr;
 let IsCallInProcess;
 
 /*-------------------------------------------------------------*/
+
 function OnCallGridClick(element) {
     if (SelectedObj) { $(SelectedObj).removeClass('callscreenlineSelected'); }
     $(element).addClass('callscreenlineSelected');
@@ -25,6 +28,7 @@ function OnCallGridClick(element) {
 function ShowCallOutgoing() {
     IsCallInProcess = true;
     $('#PhoneCallScreen').addClass('d-none');
+    $('#PhoneWriteSMSScreen').addClass('d-none');
     $('#PhoneCallScreenActive').removeClass('d-none');
     $('.PhoneCallActiveHangup').removeClass('d-none');
     //Blur
@@ -38,6 +42,7 @@ function ShowCallOutgoing() {
 function ShowCallIncoming() {
     IsCallInProcess = true;
     $('#PhoneCallScreen').addClass('d-none');
+    $('#PhoneWriteSMSScreen').addClass('d-none');
     $('#PhoneCallScreenActive').removeClass('d-none');
     $('.PhoneCallActiveAccept').removeClass('d-none');
     $('.PhoneCallActiveDeny').removeClass('d-none');
@@ -48,9 +53,13 @@ function ShowCallIncoming() {
     ChangeCallingState("Eingehender Anruf...", "rgb(255,255,255)");
 }
 
-
-
 $('.call_button').click(function () {
+    if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
+    ShowCallOutgoing();
+    //ShowCallIncoming();
+});
+
+$('.ChatCall').click(function () {
     if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
     ShowCallOutgoing();
     //ShowCallIncoming();
@@ -86,7 +95,6 @@ $('.PhoneCallActiveAccept').click(function () {
     alt.emit('Phone:CallAccepted', SelectedObjName);
 });
 
-
 $('.PhoneCallActiveHangup').click(function () {
     if (!SelectedObjName || !SelectedObjTelnr) { Console.log(SelectedObjName + " | " + SelectedObjTelnr); return; }
     $('.PhoneCallActiveHangup').addClass('d-none');
@@ -103,6 +111,7 @@ $('.PhoneCallActiveHangup').click(function () {
 });
 
 /*-------------------------------------------------------------*/
+
 function ChangeCallingState(state, RGB) {
     $('.PhoneCallActiveStatus').html(state);
     $('.PhoneCallActiveStatus').css("color", RGB);
@@ -111,10 +120,10 @@ function ChangeCallingState(state, RGB) {
 let c = 0;
 function AddPlayertoCallList(username, telnr) {
     if (c == 0) {
-        $('.callscreenGridbg').append('<div class="callscreenline"><div class="Username">' + username + '</div><div class="Telnr">' + telnr + '</div></div>'); c++;
+        $('.callscreenGridbg').append('<div class="screenline"><div class="Username">' + username + '</div><div class="Telnr">' + telnr + '</div></div>'); c++;
     }
     else {
-        $('.callscreenGridbg').append('<div class="callscreenlinedark"><div class="Username">' + username + '</div><div class="Telnr">' + telnr + '</div></div>');
+        $('.callscreenGridbg').append('<div class="screenlinedark"><div class="Username">' + username + '</div><div class="Telnr">' + telnr + '</div></div>');
         c--;
     }
 }
@@ -128,8 +137,8 @@ if ('alt' in window) {
             let data = p[i];
             AddPlayertoCallList(data.Username, data.Phone.Number);
         }
-        $('.callscreenlinedark').click(function () { OnCallGridClick(this); }); // Event
-        $('.callscreenline').click(function () { OnCallGridClick(this); }); // Event
+        $('.screenlinedark').click(function () { OnCallGridClick(this); }); // Event
+        $('.screenline').click(function () { OnCallGridClick(this); }); // Event
     });
     alt.on('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
         $('.PhoneCallActiveAvatarImage').css("background-image", "url(https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png)");
@@ -154,3 +163,7 @@ if ('alt' in window) {
 }
 
 /*-------------------------------------------------------------*/
+
+for(let i = 0; i <= 100; i++) {
+    AddPlayertoCallList('Forces', '153114');
+}

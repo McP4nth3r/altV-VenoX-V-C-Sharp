@@ -80,11 +80,12 @@ game.requestAnimDict("special_ped@zombie@monologue_6@monologue_6a");
 alt.onServer('Zombies:SpawnKI', (Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) => {
     try {
         if (Zombies[Id]) { return; }
-        if (!game.hasModelLoaded(game.getHashKey(Hash))) {
+        Hash = alt.hash(Hash);
+        if (!game.hasModelLoaded(Hash)) {
             alt.loadModel(ZombieHash);
             game.requestModel(ZombieHash);
         }
-        let zombieEntity = game.createPed(2, game.getHashKey(Hash), Position.x, Position.y, Position.z, 0, false, false);
+        let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
         Zombies[Id] = {
             Id: Id,
             Entity: zombieEntity,
@@ -132,13 +133,9 @@ alt.onServer('Zombies:SetHealth', (Id, Health) => {
         if (!Zombies[Id]) { return; }
         game.setEntityHealth(Zombies[Id].Entity, Health);
         if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && Zombies[Id].Entity != null) {
-            for (var i in Zombies) {
-                if (i == Id) {
-                    alt.log("Zombie wurde gelöscht.");
-                    game.deletePed(Zombies[i].Entity);
-                    Zombies.splice(i, 1);
-                }
-            }
+            //alt.log("Zombie wurde gelöscht.");
+            game.deletePed(Zombies[Id].Entity);
+            Zombies.splice(Id, 1);
         }
     }
     catch{ }
@@ -153,7 +150,13 @@ alt.onServer("Zombies:SetPosition", (Id, PosX, PosY, PosZ) => {
     catch{ }
 });
 
-
+alt.on("resourceStop", () => {
+    for (var Id in Zombies) {
+        if (Zombies[Id].Entity != null) {
+            game.deletePed(Zombies[Id].Entity);
+        }
+    };
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,30 +182,15 @@ function CheckZombieDamage(Zombie) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-alt.onServer('Zombies:MoveToTarget', (TargetEntity) => {
-    for (var counter in Zombies) {
-        let Zombie = Zombies[counter];
-        Zombie.TargetEntity = TargetEntity;
-        let playerPos = game.getEntityCoords(Zombie.TargetEntity.scriptID, true);
-        game.taskGoToCoordAnyMeans(Zombie.Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
-        //game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
+alt.onServer('Zombies:MoveToTarget', (ID, TargetEntity) => {
+    if (!Zombies[ID]) { return; }
+    let Zombie = Zombies[ID];
+    Zombie.TargetEntity = TargetEntity;
+    let playerPos = game.getEntityCoords(Zombie.TargetEntity.scriptID, true);
+    game.taskGoToCoordAnyMeans(Zombie.Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
+    //game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
+    if (game.getEntityHealth(Zombie.Entity) <= 0 && !Zombie.IsDead) {
+        Zombie.IsDead = true;
+        alt.emitServer("Zombies:OnZombieDeath", ID);
     }
 });
-
-
-function MoveZombiesToPlayers() {
-    for (var counter in Zombies) {
-        let Zombie = Zombies[counter];
-        if (Zombie.Entity != null) {
-            if (game.getEntityHealth(Zombie.Entity) <= 0 && !Zombie.IsDead) {
-                Zombie.IsDead = true;
-                alt.emitServer("Zombies:OnZombieDeath", Zombie.Id);
-            }
-        }
-    }
-}
-
-alt.setInterval(() => {
-    MoveZombiesToPlayers();
-}, 250);
-

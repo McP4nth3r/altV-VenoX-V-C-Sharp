@@ -292,7 +292,7 @@
 
 /* Loading Screen */
 
-body {
+#Main{
 	overflow: hidden;
 	-ms-user-select: None;
 	-moz-user-select: None;

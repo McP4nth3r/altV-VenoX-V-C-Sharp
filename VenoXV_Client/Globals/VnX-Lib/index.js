@@ -99,12 +99,14 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
 }
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     try {
-        let blip = new alt.PointBlip(pos[0], pos[1], pos[2]);
-        blip.alpha = 255;
-        blip.sprite = sprite;
-        blip.color = color;
-        blip.shortRange = shortrange;
-        blip.name = name;
+        let blip = game.addBlipForCoord(pos[0], pos[1], pos[2]);
+        game.setBlipAlpha(blip, 255);
+        game.setBlipSprite(blip, sprite);
+        game.setBlipColour(blip, color);
+        game.setBlipAsShortRange(blip, shortrange);
+        game.beginTextCommandSetBlipName("STRING");
+        game.addTextComponentSubstringPlayerName(name);
+        game.endTextCommandSetBlipName(blip);
         return blip;
     }
     catch{ }
@@ -152,6 +154,8 @@ export function CreatePed(PedName, Vector3Pos, rot = 0) {
     }
     catch{ }
 }
+
+
 export function frontOfPlayer(distance) {
     try {
         var result = game.getEntityForwardVector(player.scriptID);

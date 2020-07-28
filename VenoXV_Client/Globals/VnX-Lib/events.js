@@ -94,7 +94,7 @@ alt.onServer("movecamtocurrentpos_client", () => {
     catch{ }
 });
 
-let BlipList = {};
+let BlipList = [];
 let BlipC = 0;
 alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
     try {
@@ -103,13 +103,14 @@ alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
             let data_blip = Blip[i];
             //alt.log("Datas : " + data_blip.Name + " | " + [data_blip.posX, data_blip.posY, data_blip.posZ] + " | " + data_blip.Sprite + " | " + data_blip.Color + " | " + data_blip.ShortRange);
             let cBlip = CreateBlip(data_blip.Name, [data_blip.posX, data_blip.posY, data_blip.posZ], data_blip.Sprite, data_blip.Color, data_blip.ShortRange);
-            BlipList[BlipC++] = {
+            BlipList[BlipC] = {
                 Entity: cBlip,
                 Name: data_blip.Name,
                 X: data_blip.posX,
                 Y: data_blip.posY,
                 Z: data_blip.posZ
             };
+            BlipC++
         }
     }
     catch{ }

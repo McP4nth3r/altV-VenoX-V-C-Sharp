@@ -11,61 +11,61 @@
         <div class="parting_line_down"></div>
 
         <input type="radio" id="PERSO_BTN" name="radio-group">
-        <label for="PERSO_BTN" id="PERSO_BTN_" onclick="alt.emit('Selected_Button', 'Perso');"></label>
+        <label for="PERSO_BTN" id="PERSO_BTN_" onclick="EmitToClient( 'Perso');"></label>
         <section id="perso">
             <div class="perso_text" id="perso_text"></div>
         </section>
 
-        <input type="radio" id="CAR_BTN" onclick="alt.emit('Selected_Button', 'Auto');" name="radio-group">
+        <input type="radio" id="CAR_BTN" onclick="EmitToClient( 'Auto');" name="radio-group">
         <label for="CAR_BTN" id="CAR_BTN_"></label>
         <section id="car">
             <div class="car_text" id="car_text"></div>
         </section>
 
         <input type="radio" id="LKW_BTN" name="radio-group">
-        <label for="LKW_BTN" id="LKW_BTN_" onclick="alt.emit('Selected_Button', 'LKW');"></label>
+        <label for="LKW_BTN" id="LKW_BTN_" onclick="EmitToClient( 'LKW');"></label>
         <section id="lkw">
             <div class="lkw_text" id="lkw_text"></div>
         </section>
 
         <input type="radio" id="BIKE_BTN" name="radio-group">
-        <label for="BIKE_BTN" id="BIKE_BTN_" onclick="alt.emit('Selected_Button', 'Bike');"></label>
+        <label for="BIKE_BTN" id="BIKE_BTN_" onclick="EmitToClient( 'Bike');"></label>
         <section id="bike">
             <div class="bike_text" id="bike_text"></div>
         </section>
 
         <input type="radio" id="PLANE_A_BTN" name="radio-group">
-        <label for="PLANE_A_BTN" id="PLANE_A_BTN_" onclick="alt.emit('Selected_Button', 'Plane_A');"></label>
+        <label for="PLANE_A_BTN" id="PLANE_A_BTN_" onclick="EmitToClient( 'Plane_A');"></label>
         <section id="plane_a">
             <div class="plane_a_text" id="plane_a_text"></div>
         </section>
 
         <input type="radio" id="PLANE_B_BTN" name="radio-group">
-        <label for="PLANE_B_BTN" id="PLANE_B_BTN_" onclick="alt.emit('Selected_Button', 'Plane_B');"></label>
+        <label for="PLANE_B_BTN" id="PLANE_B_BTN_" onclick="EmitToClient( 'Plane_B');"></label>
         <section id="plane_b">
             <div class="plane_b_text" id="plane_b_text"></div>
         </section>
 
         <input type="radio" id="HELICOPTER_BTN" name="radio-group">
-        <label for="HELICOPTER_BTN" id="HELICOPTER_BTN_" onclick="alt.emit('Selected_Button', 'Heli');"></label>
+        <label for="HELICOPTER_BTN" id="HELICOPTER_BTN_" onclick="EmitToClient( 'Heli');"></label>
         <section id="helicopter">
             <div class="helicopter_text" id="helicopter_text"></div>
         </section>
 
         <input type="radio" id="BOAT_BTN" name="radio-group">
-        <label for="BOAT_BTN" id="BOAT_BTN_" onclick="alt.emit('Selected_Button', 'Boat');"></label>
+        <label for="BOAT_BTN" id="BOAT_BTN_" onclick="EmitToClient( 'Boat');"></label>
         <section id="boat">
             <div class="boat_text" id="boat_text"></div>
         </section>
 
         <input type="radio" id="FISHER_BTN" name="radio-group">
-        <label for="FISHER_BTN" id="FISHER_BTN_" onclick="alt.emit('Selected_Button', 'Fisher');"></label>
+        <label for="FISHER_BTN" id="FISHER_BTN_" onclick="EmitToClient( 'Fisher');"></label>
         <section id="fisher">
             <div class="fisher_text" id="fisher_text"></div>
         </section>
 
         <input type="radio" id="WEAPON_BTN" name="radio-group">
-        <label for="WEAPON_BTN" id="WEAPON_BTN_" onclick="alt.emit('Selected_Button', 'Weapon');"></label>
+        <label for="WEAPON_BTN" id="WEAPON_BTN_" onclick="EmitToClient( 'Weapon');"></label>
         <section id="weapon">
             <div class="perso_text" id="weapon_text"></div>
         </section>
@@ -80,6 +80,10 @@
     </div>
     <script>
         if ('alt' in window) {
+            function EmitToClient(Name) {
+                alt.emit('Selected_Button', Name);
+            }
+
             alt.on('Rathaus:Load', (HEADER, PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN, PLANE_A_BTN, PLANE_B_BTN, HELICOPTER_BTN, BOAT_BTN, FISHER_BTN, WEAPON_BTN, perso, fuehrer, lkw, bike, fa, fb, heli, boot, angel, waffen) => {
                 document.getElementById('header').innerHTML = HEADER;
                 document.getElementById('PERSO_BTN_').innerHTML = PERSO_BTN;

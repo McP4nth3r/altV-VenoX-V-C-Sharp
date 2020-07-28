@@ -3,11 +3,22 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
-
-let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { ShowCursor, vnxCreateCEF } from '../Globals/VnX-Lib';
+
+let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
+
+preloadbrowser.on('load_selected_gm', (v) => {
+	alt.emitServer("Load_selected_gm_server", v);
+	game.setEntityAlpha(alt.Player.local.scriptID, 255);
+	game.freezeEntityPosition(alt.Player.local.scriptID, false);
+	game.displayRadar(true);
+	game.displayHud(true);
+	ShowCursor(false);
+});
+
+
 /*
 dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
 
@@ -29,14 +40,7 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser.emit('Load:ShowPreload');
 		ShowCursor(true);
 		preloadbrowser.focus();
-		preloadbrowser.on('load_selected_gm', (v) => {
-			alt.emitServer("Load_selected_gm_server", v);
-			game.setEntityAlpha(alt.Player.local.scriptID, 255);
-			game.freezeEntityPosition(alt.Player.local.scriptID, false);
-			game.displayRadar(true);
-			game.displayHud(true);
-			ShowCursor(false);
-		});
+
 	}
 	catch{ }
 });

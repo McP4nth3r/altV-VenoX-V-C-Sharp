@@ -11,10 +11,10 @@
 				$('.rec_2_userinfo').html(t);
 			});
 			alt.on('Load:ShowPreload', () => {
-				('#Main').removeClass('d-none');
+				$('#Main').removeClass('d-none');
 			})
 			alt.on('Load:HidePreload', () => {
-				('#Main').addClass('d-none');
+				$('#Main').addClass('d-none');
 			})
 		}
 	</script>
@@ -75,7 +75,7 @@
 		<script>
 			function TriggerSelectedGM(number) {
 				if ("alt" in window) {
-					('#Main').addClass('d-none');
+					$('#Main').addClass('d-none');
 					alt.emit("load_selected_gm", number);
 				}
 			}
