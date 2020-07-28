@@ -254,7 +254,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 DestroyJobMarker(player);
-                foreach (VehicleModel vehClass in Alt.GetAllVehicles().ToList())
+                foreach (VehicleModel vehClass in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     if (vehClass.Job == player.Reallife.Job && vehClass.Owner == player.Reallife.Job)
                     {

@@ -974,7 +974,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Position.Distance(player.Position) < 20 && Vehicle.Faction <= Constants.FACTION_NONE)
                         {
@@ -997,7 +997,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 DateTime AktionPossible = Fun.Allround.AktionsTimer;
                 if (AktionPossible > DateTime.Now)
                 {
-                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                         {

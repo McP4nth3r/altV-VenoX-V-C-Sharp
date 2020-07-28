@@ -7,6 +7,7 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -132,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= FAGGIO_COSTS)
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
-                        Alt.Server.TriggerClientEvent(player,"VnX_UpdateRent", player);
+                        Alt.Server.TriggerClientEvent(player, "VnX_UpdateRent", player);
                     }
                     else
                     {
@@ -144,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= PANTO_COSTS)
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
-                        Alt.Server.TriggerClientEvent(player,"VnX_UpdateRent", player);
+                        Alt.Server.TriggerClientEvent(player, "VnX_UpdateRent", player);
                     }
                     else
                     {
@@ -162,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     if (Vehicle.Rented && Vehicle.Owner == player.Username)
                     {

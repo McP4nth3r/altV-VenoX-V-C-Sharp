@@ -108,7 +108,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 VehicleModel Vehicle = null;
 
-                foreach (VehicleModel veh in Alt.GetAllVehicles())
+                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     if (veh.ID == VehicleId)
                     {
@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 int fraktionsID = player.Reallife.Faction;
                 if (fraktionsID > 0)
                 {
-                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Faction == fraktionsID && Vehicle.Driver == null)
                         {

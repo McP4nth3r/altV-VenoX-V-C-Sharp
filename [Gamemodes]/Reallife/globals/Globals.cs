@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 VehicleModel vehicle = null;
-                foreach (VehicleModel veh in Alt.GetAllVehicles())
+                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     Position vehPos = veh.Position;
                     float distanceIVehicleToPlayer = player.Position.Distance(vehPos);
@@ -416,7 +416,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Bankzinsen : " + RageAPI.GetHexColorcode(255, 255, 255) + +bankInterest + " $");
                 }
 
-                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
                     if (Vehicle.Owner == player.Username && Vehicle.NotSave != true)
@@ -720,7 +720,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 jobs.Allround.OnPlayerDisconnect(player);
                 if (player.Playing == true)
                 {
-                    foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Owner == player.Username && Vehicle.Faction == Constants.FACTION_NONE)
                         {

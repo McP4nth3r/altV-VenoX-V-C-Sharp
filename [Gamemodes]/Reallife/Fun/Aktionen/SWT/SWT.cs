@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using System;
+using System.Linq;
 using System.Timers;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -22,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
         public static void ChangeActionStateSWT(object unused, ElapsedEventArgs e)
         {
             SWTTimer.Stop();
-            foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+            foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
             {
                 if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                 {

@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -304,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);
                 Sync.LoadBlips(player);
-                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     string owner = Vehicle.Owner;
                     if (owner != null && owner == player.Username)

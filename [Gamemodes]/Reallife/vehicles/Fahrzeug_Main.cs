@@ -1,8 +1,8 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         return;
                     }
-                    Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
+                    Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
                 else
@@ -39,7 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     else
                     {
-                        Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
+                        Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
                         player.vnxSetElementData("HideHUD", 1);
                     }
                     // Player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug! ");
@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    Alt.Server.TriggerClientEvent(player,"showIVehicleMenu");
+                    Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
             }
@@ -84,9 +84,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     return;
                 }
                 player.SendTranslatedChatMessage("---------------Fahrzeuge---------------");
-                foreach (IVehicle vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
-                    VehicleModel veh = (VehicleModel)vehicle;
                     if (veh != null && veh.Owner == player.Username)
                     {
                         Random random = new Random();

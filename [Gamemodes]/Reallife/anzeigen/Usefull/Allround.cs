@@ -465,7 +465,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 List<VehicleModel> IVehicleList = new List<VehicleModel>();
 
-                foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     if (Vehicle.Owner != null)
                     {

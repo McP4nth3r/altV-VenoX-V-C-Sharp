@@ -211,7 +211,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static void ChangeActionStateKT(object unused, ElapsedEventArgs e)
         {
             KTTimer.Stop();
-            foreach (VehicleModel Vehicle in Alt.GetAllVehicles())
+            foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
             {
                 if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                 {
