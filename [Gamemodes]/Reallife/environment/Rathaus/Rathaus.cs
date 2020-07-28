@@ -233,10 +233,10 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         {
             try
             {
+                player.DrawWaypoint(Position.X, Position.Y);
                 MarkerModel markerClass = RageAPI.CreateMarker(30, Position, new Vector3(Scale), Color, player, player.Dimension);
                 BlipModel blipClass = RageAPI.CreateBlip("Abgabe [Schein]", Position, BlipID, 75, false, player);
                 ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
-                Alt.Server.TriggerClientEvent(player, "Player:SetWaypoint", Position.X, Position.Y);
                 player.vnxSetElementData(DRIVINGSCHOOL_MARKER_ENTITY, markerClass);
                 player.vnxSetElementData(DRIVINGSCHOOL_BLIP_ENTITY, blipClass);
                 player.vnxSetElementData(DRIVINGSCHOOL_COL_ENTITY, colClass.Entity);
@@ -245,29 +245,45 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 CurrentDrivingSchoolBlips.Add(blipClass);
                 CurrentDrivingSchoolColShapes.Add(colClass.Entity);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolMarker", ex); }
         }
         public static void DestroyDrivingSchoolMarker(Client player)
         {
             try
             {
                 //Remove ColShapes
-                if (CurrentDrivingSchoolColShapes.Contains(player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY)))
+                IColShape col = player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY);
+                if (col != null)
                 {
-                    RageAPI.RemoveColShape(player.vnxGetElementData<ColShapeModel>(DRIVINGSCHOOL_COLCLASS_ENTITY));
-                    CurrentDrivingSchoolColShapes.Remove(player.vnxGetElementData<IColShape>(DRIVINGSCHOOL_COL_ENTITY));
+                    if (CurrentDrivingSchoolColShapes.Contains(col))
+                    {
+                        ColShapeModel ColModel = player.vnxGetElementData<ColShapeModel>(DRIVINGSCHOOL_COLCLASS_ENTITY);
+                        if (ColModel != null) { RageAPI.RemoveColShape(ColModel); }
+                        else { Alt.RemoveColShape(col); }
+                        CurrentDrivingSchoolColShapes.Remove(col);
+                    }
                 }
+
                 //Remove Marker
-                if (CurrentDrivingSchoolMarker.Contains(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY)))
+                MarkerModel MarkerModel = player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY);
+                if (MarkerModel != null)
                 {
-                    RageAPI.RemoveMarker(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY));
-                    CurrentDrivingSchoolMarker.Remove(player.vnxGetElementData<MarkerModel>(DRIVINGSCHOOL_MARKER_ENTITY));
+                    if (CurrentDrivingSchoolMarker.Contains(MarkerModel))
+                    {
+                        RageAPI.RemoveMarker(MarkerModel);
+                        CurrentDrivingSchoolMarker.Remove(MarkerModel);
+                    }
                 }
+
                 //Remove Blips
-                if (CurrentDrivingSchoolBlips.Contains(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY)))
+                BlipModel BlipModel = player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY);
+                if (BlipModel != null)
                 {
-                    RageAPI.RemoveBlip(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY));
-                    CurrentDrivingSchoolBlips.Remove(player.vnxGetElementData<BlipModel>(DRIVINGSCHOOL_BLIP_ENTITY));
+                    if (CurrentDrivingSchoolBlips.Contains(BlipModel))
+                    {
+                        RageAPI.RemoveBlip(BlipModel, player);
+                        CurrentDrivingSchoolBlips.Remove(BlipModel);
+                    }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("DestroyDrivingSchoolMarker", ex); }
@@ -293,13 +309,18 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             {
                                 case DRIVINGSCHOOL_LICENSE_CAR:
                                     Führerschein.Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                                    Debug.OutputDebugString("Called Car Hit Marker");
                                     break;
                                 case DRIVINGSCHOOL_LICENSE_BIKE:
                                     Führerschein.Motorrad_Führerschein.OnPlayerEnterColShapeModel(shape, player);
+                                    Debug.OutputDebugString("Called Bike Hit Marker");
                                     break;
                                 case DRIVINGSCHOOL_LICENSE_LKW:
                                     Führerschein.LKW_Führerschein.OnPlayerEnterColShapeModel(shape, player);
-                                    Core.Debug.OutputDebugString("Called LKW Hit Marker");
+                                    Debug.OutputDebugString("Called LKW Hit Marker");
+                                    break;
+                                default:
+                                    Debug.OutputDebugString("Called " + vehClass.Reallife.DrivingSchoolLicense);
                                     break;
                             }
                         }

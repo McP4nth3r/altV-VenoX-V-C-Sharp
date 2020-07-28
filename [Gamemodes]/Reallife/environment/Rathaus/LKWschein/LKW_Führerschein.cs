@@ -65,6 +65,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 Random random = new Random();
                 int dim = random.Next(1, 9999);
                 player.Dimension = dim;
+                Rathaus.CreateDrivingSchoolMarker(player, 611, Pruefungs_Marker_LKW[0], 3, new int[] { 0, 200, 255, 255 });
                 VehicleModel PruefungsAuto = Rathaus.CreateDrivingSchoolVehicle(player, AltV.Net.Enums.VehicleModel.Mule3, new Position(-498.1969f, -256.5472f, 35.81237f), new Rotation(0, 0, 120f), dim);
                 PruefungsAuto.Reallife.DrivingSchoolLicense = Rathaus.DRIVINGSCHOOL_LICENSE_LKW;
 
@@ -73,15 +74,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Drücke K und H, um Licht oder Motor ein- oder aus zu schalten!");
 
                 Alt.Server.TriggerClientEvent(player, "destroyRathausWindow");
-                //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, PruefungsAuto, -1);
-                //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, PruefungsAuto, -1);
-
-
-                // Prüfung starten mit Marker nr. 1
                 player.Reallife.DrivingSchool.MarkerStage = 0;
-                Rathaus.CreateDrivingSchoolMarker(player, 611, Pruefungs_Marker_LKW[0], 3, new int[] { 0, 200, 255, 255 });
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("StartLKWFührerschein", ex); }
         }
 
 
