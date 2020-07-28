@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
                         break;
                 }
-                player.SetData(BUSJOB_LEVEL, 0);
+                player.Reallife.BUSJOB_LEVEL = 0;
                 player.Reallife.JobStage = value;
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Mach VenoX Mobil!");
                 player.vnxSetElementData(BUSJOB_LEVEL, 0);
@@ -98,13 +98,13 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             {
                 if (player.IsInVehicle)
                 {
-                    int CurrentBusStation = player.vnxGetElementData<int>(BUSJOB_LEVEL);
+                    int CurrentBusStation = player.Reallife.BUSJOB_LEVEL;
                     if (CurrentBusStation == AbgabepunkteLVLONE.Count)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
                         player.Reallife.Money += BUSJOB_ROUND_BONUS;
-                        player.vnxSetElementData(BUSJOB_LEVEL, 0);
+                        player.Reallife.BUSJOB_LEVEL = 0;
                     }
                     else { player.vnxSetElementData(BUSJOB_LEVEL, CurrentBusStation + 1); }
 
@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                     player.Reallife.BUSJOB_LEVEL += 1;
                     player.Reallife.Money += JobMoney;
                     Allround.DestroyJobMarker(player);
-                    Vector3 Destination = AbgabepunkteLVLONE[player.vnxGetElementData<int>(BUSJOB_LEVEL)];
+                    Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];
                     VehicleModel vehClass = (VehicleModel)player.Vehicle;
                     Alt.Server.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
                     vehClass.Frozen = true;

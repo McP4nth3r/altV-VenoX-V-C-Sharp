@@ -191,22 +191,36 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 //Remove ColShapes
-                if (CurrentJobColShapes.Contains(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY)))
+                IColShape col = player.vnxGetElementData<IColShape>(JOB_COL_ENTITY);
+                if (col != null)
                 {
-                    RageAPI.RemoveColShape(player.vnxGetElementData<ColShapeModel>(JOB_COLCLASS_ENTITY));
-                    CurrentJobColShapes.Remove(player.vnxGetElementData<IColShape>(JOB_COL_ENTITY));
+                    if (CurrentJobColShapes.Contains(col))
+                    {
+                        ColShapeModel ColModel = player.vnxGetElementData<ColShapeModel>(JOB_COLCLASS_ENTITY);
+                        if (ColModel != null) { RageAPI.RemoveColShape(ColModel); }
+                        else { Alt.RemoveColShape(col); }
+                        CurrentJobColShapes.Remove(col);
+                    }
                 }
                 //Remove Marker
-                if (CurrentJobMarker.Contains(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY)))
+                MarkerModel MarkerModel = player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY);
+                if (MarkerModel != null)
                 {
-                    RageAPI.RemoveMarker(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY));
-                    CurrentJobMarker.Remove(player.vnxGetElementData<MarkerModel>(JOB_MARKER_ENTITY));
+                    if (CurrentJobMarker.Contains(MarkerModel))
+                    {
+                        RageAPI.RemoveMarker(MarkerModel);
+                        CurrentJobMarker.Remove(MarkerModel);
+                    }
                 }
                 //Remove Blips
-                if (CurrentJobBlips.Contains(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY)))
+                BlipModel BlipModel = player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY);
+                if (BlipModel != null)
                 {
-                    RageAPI.RemoveBlip(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY));
-                    CurrentJobBlips.Remove(player.vnxGetElementData<BlipModel>(JOB_BLIP_ENTITY));
+                    if (CurrentJobBlips.Contains(BlipModel))
+                    {
+                        RageAPI.RemoveBlip(BlipModel, player);
+                        CurrentJobBlips.Remove(BlipModel);
+                    }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("DestroyJobMarker", ex); }
@@ -216,7 +230,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         {
             try
             {
-                OnPlayerEnterJobStartShape(col, player);
                 if (CurrentJobColShapes.Contains(col) && player.vnxGetElementData<IColShape>(JOB_COL_ENTITY) == col)
                 {
                     switch (player.Reallife.Job)
@@ -232,6 +245,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                             break;
                     }
                 }
+                else { OnPlayerEnterJobStartShape(col, player); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeJobHit", ex); }
         }
