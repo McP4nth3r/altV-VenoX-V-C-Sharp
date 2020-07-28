@@ -10,11 +10,19 @@ namespace VenoXV._RootCore_.Models
     public class DrivingSchool
     {
         public int MarkerStage { get; set; }
+        public DrivingSchool(Player player)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create-DrivingSchool", ex); }
+        }
     }
     public class Reallife
     {
         private Player client;
-        public DrivingSchool DrivingSchool { get; set; }
+        public DrivingSchool DrivingSchool { get; }
         public int Money { get { return client.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { client.vnxSetSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         public int Bank { get { return client.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
         public string SocialState { get { return client.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
@@ -55,6 +63,7 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
+                DrivingSchool = new DrivingSchool(player);
                 client = player;
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 Money = 0;
