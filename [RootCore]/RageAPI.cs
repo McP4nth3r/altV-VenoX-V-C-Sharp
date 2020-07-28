@@ -50,13 +50,16 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveColShape", ex); }
         }
-        public static Task SendTranslatedChatMessage(this Client element, string msg)
+        public static async void SendTranslatedChatMessage(this Client element, string msg)
         {
             try
             {
-                return _Language_.Main.SendTranslatedChatMessage(element, msg);
+                await Task.Run(async () =>
+                {
+                    await _Language_.Main.SendTranslatedChatMessage(element, msg);
+                });
             }
-            catch (Exception ex) { Debug.CatchExceptions("SendTranslatedChatMessage", ex); return Task.CompletedTask; }
+            catch (Exception ex) { Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
         }
         public static void SpawnPlayer(this Client element, Vector3 pos, uint DelayInMS = 0)
         {
@@ -230,14 +233,17 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static async Task SendTranslatedChatMessageToAll(string text)
+        public static async void SendTranslatedChatMessageToAll(string text)
         {
             try
             {
-                foreach (Client players in Alt.GetAllPlayers().ToList())
+                await Task.Run(async () =>
                 {
-                    await _Language_.Main.SendTranslatedChatMessage(players, text);
-                }
+                    foreach (Client players in Alt.GetAllPlayers().ToList())
+                    {
+                        await _Language_.Main.SendTranslatedChatMessage(players, text);
+                    }
+                });
             }
             catch { }
         }

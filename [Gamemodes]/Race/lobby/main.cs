@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Race.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -253,12 +252,12 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Debug.CatchExceptions("PutPlayerInRound", ex); }
         }
-        public static async Task OnSelectedRaceGM(Client player)
+        public static void OnSelectedRaceGM(Client player)
         {
             try
             {
                 PutPlayerInRound(player);
-                await Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Race runde betreten.");
+                Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Race runde betreten.");
             }
             catch (Exception ex) { Debug.CatchExceptions("OnSelectedRaceGM", ex); }
         }

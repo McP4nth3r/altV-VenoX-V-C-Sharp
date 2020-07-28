@@ -255,8 +255,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 SpawnMapVehicles();
                 _ = PutPlayerInTeam();
                 // To Do : wenn runde gestartet ist = nicht machen !
-                _ = Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                _ = Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
+                Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
+                Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     //InitializePlayerData(players);
@@ -303,7 +303,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static async Task OnSelectedTacticsGM(Client player)
+        public static void OnSelectedTacticsGM(Client player)
         {
             try
             {
@@ -323,7 +323,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         player.DespawnPlayer();
                         _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                         player.RemoveAllPlayerWeapons();
-                        await player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
                 }
                 else
