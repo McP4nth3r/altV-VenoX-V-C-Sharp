@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using VenoXV._RootCore_.Models;
@@ -312,9 +313,10 @@ namespace VenoXV.Core
             try
             {
                 if (DeleteFor != null) { DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name); }
+                else { Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.Name); }
                 if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("RemoveBlip", ex); }
         }
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, Client VisibleOnlyFor = null)
         {
@@ -332,7 +334,7 @@ namespace VenoXV.Core
                     VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
-                foreach (Client players in Globals.Main.ReallifePlayers)
+                foreach (Client players in Alt.GetAllPlayers().ToList())
                 {
                     Sync.LoadBlips(players);
                 }
