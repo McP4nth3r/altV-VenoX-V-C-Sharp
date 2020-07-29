@@ -1,13 +1,36 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.chat
+namespace VenoXV._Gamemodes_.Reallife.Chat
 {
+    public static class ReallifeChat
+    {
+        public static void SendReallifeMessage(this Client player, string text)
+        {
+            try
+            {
+                player.SendChatMessage(text);
+            }
+            catch { }
+        }
+        public static void SendReallifeMessageToAll(string text)
+        {
+            try
+            {
+                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                {
+                    player.SendChatMessage(text);
+                }
+            }
+            catch { }
+        }
+    }
     public class Chat : IScript
     {
         [CommandEvent(CommandEventType.CommandNotFound)]
@@ -33,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                     message = message.Remove(Constants.CHAT_LENGTH, secondMessage.Length);
                 }
 
-                foreach (Client target in Alt.GetAllPlayers())
+                foreach (Client target in Alt.GetAllPlayers().ToList())
                 {
                     if (target.Playing && player.Dimension == target.Dimension)
                     {
@@ -48,24 +71,24 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                                 switch (type)
                                 {
                                     case Constants.MESSAGE_TALK:
-                                        target.SendTranslatedChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " sagt : " + message + "..." : chatMessageRgba + player.Username + " sagt : " + message);
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " sagt : " + message + "..." : chatMessageRgba + player.Username + " sagt : " + message);
                                         if (secondMessage.Length > 0)
                                         {
-                                            target.SendTranslatedChatMessage(chatMessageRgba + secondMessage);
+                                            target.SendChatMessage(chatMessageRgba + secondMessage);
                                         }
                                         break;
                                     case Constants.MESSAGE_YELL:
-                                        target.SendTranslatedChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " schreit : " + message + "..." : chatMessageRgba + player.Username + " schreit : " + message + "!!!");
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " schreit : " + message + "..." : chatMessageRgba + player.Username + " schreit : " + message + "!!!");
                                         if (secondMessage.Length > 0)
                                         {
-                                            target.SendTranslatedChatMessage(chatMessageRgba + secondMessage + "!!!");
+                                            target.SendChatMessage(chatMessageRgba + secondMessage + "!!!");
                                         }
                                         break;
                                     case Constants.MESSAGE_WHISPER:
-                                        target.SendTranslatedChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " flüstert : " + message + "..." : chatMessageRgba + player.Username + " flüstert : " + message);
+                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " flüstert : " + message + "..." : chatMessageRgba + player.Username + " flüstert : " + message);
                                         if (secondMessage.Length > 0)
                                         {
-                                            target.SendTranslatedChatMessage(chatMessageRgba + secondMessage);
+                                            target.SendChatMessage(chatMessageRgba + secondMessage);
                                         }
                                         break;
                                 }
@@ -118,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
                 }
                 else if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.SevenTowers)
                 {
-                    _Gamemodes_.SevenTowers.globals.Chat.OnChatMessage(player, message);
+                    SevenTowers.globals.Chat.OnChatMessage(player, message);
                 }
                 else if (player.Playing == false)
                 {
@@ -161,7 +184,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
+                if (player.IsDead)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
@@ -179,7 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.chat
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0)
+                if (player.IsDead)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
