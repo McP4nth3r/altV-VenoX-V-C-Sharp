@@ -8,22 +8,21 @@ import * as alt from 'alt-client';
 import { GetCursorStatus, ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
 let Phone;
-let PhoneOpen = false;
 alt.onServer('Phone:Load', () => {
-    try {
-        if (Phone) { return; }
-        Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
-        Phone.on('Phone:CallingTarget', (Name) => {
-            alt.emitServer('VenoXPhone:CallTarget', Name);
-        });
-        Phone.on('Phone:CallAccepted', (Name) => {
-            alt.emitServer('VenoXPhone:CallAccepted', Name);
-        });
-        Phone.on('Phone:CallDenied', (Name) => {
-            alt.emitServer('VenoXPhone:CallDenied', Name);
-        });
-    }
-    catch{ }
+    if (Phone) { return; }
+    Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
+    Phone.on('Phone:CallingTarget', (Name) => {
+        alt.emitServer('VenoXPhone:CallTarget', Name);
+    });
+    Phone.on('Phone:CallAccepted', (Name) => {
+        alt.emitServer('VenoXPhone:CallAccepted', Name);
+    });
+    Phone.on('Phone:CallDenied', (Name) => {
+        alt.emitServer('VenoXPhone:CallDenied', Name);
+    });
+    Phone.on('Phone:OnSMSMessageSend', (Name, Message) => {
+        alt.emitServer('Phone:OnSMSMessageSend', Name, Message);
+    });
 });
 
 alt.onServer('Phone:Unload', () => {
@@ -36,14 +35,16 @@ alt.onServer('Phone:Unload', () => {
 });
 
 alt.onServer('Phone:LoadPlayerList', (Phonelist) => {
-    try {
-        if (!Phone) { return; }
-        alt.setTimeout(() => {
-            Phone.emit('CallList:Init', Phonelist);
-            //alt.log(Phonelist);
-        }, 500);
-    }
-    catch{ }
+    if (!Phone) { return; }
+    alt.setTimeout(() => {
+        Phone.emit('Phone:AddNewPlayerEntry', Phonelist);
+        alt.log(Phonelist);
+    }, 500);
+});
+
+alt.onServer('Phone:AddNewSMS', (From, Message) => {
+    if (!Phone) { return; }
+    Phone.emit('Phone:AddNewSMS', From, Message);
 });
 
 
@@ -77,12 +78,10 @@ alt.onServer('Phone:Show', (Show) => {
         if (!Phone) { return; }
         if (Show) {
             Phone.focus();
-            PhoneOpen = true;
             Phone.emit('Phone:Show', true);
         }
         else {
             Phone.unfocus();
-            PhoneOpen = false;
             Phone.emit('Phone:Show', false);
         }
     }
@@ -92,19 +91,18 @@ alt.onServer('Phone:Show', (Show) => {
 alt.on('keyup', (key) => {
     try {
         if (key == 'O'.charCodeAt()) {
+            if (!Phone) { return; }
             if (!GetCursorStatus()) {
                 Phone.focus();
-                PhoneOpen = true;
                 ShowCursor(true);
                 Phone.emit('Phone:Show', true);
             }
             else if (PhoneOpen) {
                 Phone.unfocus();
-                PhoneOpen = false;
                 ShowCursor(false);
                 Phone.emit('Phone:Show', false);
             }
         }
     }
-    catch{ }
+    catch (e) { alt.log(e); }
 });

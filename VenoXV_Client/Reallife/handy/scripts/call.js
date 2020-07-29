@@ -127,19 +127,7 @@ function AddPlayertoCallList(username, telnr) {
         c--;
     }
 }
-
 if ('alt' in window) {
-    alt.on('CallList:Init', (List) => {
-        c = 0;
-        $(".callscreenGridbg").empty();
-        let p = JSON.parse(List);
-        for (let i = 0; i < p.length; i++) {
-            let data = p[i];
-            AddPlayertoCallList(data.Username, data.Phone.Number);
-        }
-        $('.screenlinedark').click(function () { OnCallGridClick(this); }); // Event
-        $('.screenline').click(function () { OnCallGridClick(this); }); // Event
-    });
     alt.on('Phone:ChangeCallTargetAvatar', (ID, Avatar) => {
         $('.PhoneCallActiveAvatarImage').css("background-image", "url(https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png)");
         console.log("https://cdn.discordapp.com/avatars/" + ID + "/" + Avatar + ".png");
@@ -162,8 +150,6 @@ if ('alt' in window) {
     });
 }
 
+
 /*-------------------------------------------------------------*/
 
-for(let i = 0; i <= 100; i++) {
-    AddPlayertoCallList('Forces', '153114');
-}

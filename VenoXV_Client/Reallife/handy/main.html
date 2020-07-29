@@ -5,28 +5,28 @@
     <link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
-    
+
 <body>
-    <div class="all d-none">
+    <div class="all d-nne">
         <div id="PhoneIndex" class="PhoneIndex" src="./files/images/vnxphone.png">
             <div class="HomeButton" onclick="DrawHomeScreen();"></div>
             <div class="PhoneScreen">
-                
+
                 <div id="PhoneOffScreen" class="d-none">
                     <div class="Off_Text">Dein Handy<br><br>ist derzeitig<br><br>ausgeschaltet</div>
                     <div class="On_Button" onclick="TurnPhoneOn(true)">Einschalten</div>
                 </div>
-                
+
                 <div id="PhoneHomeScreen" class="d-none">
                     <div class="PhoneBackground"></div>
-                    
+
                     <div class="PhoneAppBar">
                         <div class="Phone_App_Call" onclick="OnAppClick('PhoneCallScreen');"></div>
                         <div class="Phone_App_SMS" onclick="OnAppClick('PhoneSMSScreen');"></div>
                         <div class="Phone_App_MUSIC" onclick="OnAppClick('PhoneMusicScreen');"></div>
                         <div class="Phone_App_Safari" onclick="OnAppClick('PhoneSafariScreen');"></div>
                     </div>
-                    
+
                     <div class="PhoneAppHome">
                         <div class="Phone_App_TurnOff" onclick="TurnPhoneOn(false)"></div>
                         <div class="Phone_App_Ammunation"></div>
@@ -65,11 +65,11 @@
                             <div class="Telnr">Tel.</div>
                         </div>
                         <div class="chatscreenGridbg"></div>
-                        <div class="sms_new" onclick="OnAppClick('PhoneNewSMSScreen');">Chat starten</div>
+                        <div class="sms_new" onclick="OnAppClick('PhoneNewSMSScreen');">Neuer Chat</div>
                         <div class="sms_button">Chat öffnen</div>
                     </div>
                 </div>
-                
+
                 <div id="PhoneNewSMSScreen" class="d-none">
                     <div class="PhoneSMSBackground">
                         <div class="SMSScreenHeader">Neue Unterhaltung
@@ -80,28 +80,27 @@
                         <div class="sms_button">Schreiben</div>
                     </div>
                 </div>
-                
+
                 <div id="PhoneWriteSMSScreen" class="d-none">
                     <div class="PhoneSMSBackground">
                         <div class="ChatScreenHeader"></div>
                         <div class="ChatCall">
                             <i id="up" class="fas fa-phone"></i>
                         </div>
-                        <div class="ChatArea"></div>
                         <input id="message" placeholder="Nachricht eingeben..." rows="1" maxlength="50">
                         <div class="send_button">
                             <i id="send" class="fas fa-paper-plane"></i>
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="PhoneMusicScreen" class="d-none">
                     <div class="PhoneMusicBackground">
                         <div class="MusicScreenHeader">Musik Streams</div>
                         <div class="musicscreenGridbg"></div>
                         <input id="NewMusicName" placeholder="Streaming Name einfügen..." rows="1">
                         <input id="NewMusicLink" placeholder="Streaming Link einfügen..." rows="1">
-                        <div class="AddMusic" tooltip="Stream hinzufügen!">
+                        <div class="AddMusic" tooltip="Stream hinzufügen">
                             <i id="createmusic" class="fa fa-plus-square"></i>
                         </div>
                         <div class="MusicVolumeDown MusicVolumeClick" id="0">
@@ -116,6 +115,9 @@
                     </div>
                 </div>
 
+                <div id="PhoneSafariScreen" class="d-none">
+                </div>
+
             </div>
         </div>
     </div>
@@ -123,5 +125,5 @@
     <script src="scripts/call.js"></script>
     <script src="scripts/sms.js"></script>
     <script src="scripts/music.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
 </body>
-

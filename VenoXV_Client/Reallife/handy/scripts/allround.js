@@ -19,6 +19,7 @@ function DestroyAllScreens() {
 	$("#PhoneOffScreen").addClass("d-none");
 	$("#PhoneMusicScreen").addClass("d-none");
 	$("#PhoneWriteSMSScreen").addClass("d-none");
+	$('.SMS-Chats').addClass("d-none");
 }
 
 /*-------------------------------------------------------------*/
@@ -35,24 +36,36 @@ function DrawHomeScreen() {
 }
 
 function OnAppClick(appbtn) {
-    DestroyAllScreens();
+	DestroyAllScreens();
 	$("#" + appbtn).removeClass("d-none");
 }
 
 function TurnPhoneOn(State) {
-    DestroyAllScreens();
-    PhoneState = State;
-	if(!State) { $("#PhoneOffScreen").removeClass("d-none"); }
-    else { DestroyAllScreens(); DrawHomeScreen(); }
+	DestroyAllScreens();
+	PhoneState = State;
+	if (!State) { $("#PhoneOffScreen").removeClass("d-none"); }
+	else { DestroyAllScreens(); DrawHomeScreen(); }
 }
 
 /*-------------------------------------------------------------*/
 
 //alt:V Events.
-
 if ('alt' in window) {
-	alt.on('Call:CreateGridEntry', (Name, Tel) => {
-		AddPlayertoCallList(Name, Tel);
+	alt.on('Phone:AddNewPlayerEntry', (List) => {
+		c = 0;
+		d = 0;
+		$(".callscreenGridbg").empty();
+		$(".smsscreenGridbg").empty();
+		$(".chatscreenGridbg").empty();
+		let p = JSON.parse(List);
+		for (let i = 0; i < p.length; i++) {
+			let data = p[i];
+			AddPlayertoCallList(data.Username, data.Phone.Number);
+			AddPlayertoChatList(data.Username, data.Phone.Number, false);
+		}
+		console.log('Called AddNewPlayerEntry');
+		$('.screenlinedark').click(function () { OnCallGridClick(this); }); // Event
+		$('.screenline').click(function () { OnCallGridClick(this); }); // Event
 	});
 	alt.on('Phone:Show', (State) => {
 		if (State) {
@@ -60,10 +73,10 @@ if ('alt' in window) {
 		} else {
 			$('.all').addClass('d-none');
 		}
+		console.log('Called Phone:Show + ' + State);
 	});
+
+	$(".PhoneIndex").draggable({ disabled: false });
 }
-
-
-$(".PhoneIndex").draggable({ disabled: false });
 
 /*-------------------------------------------------------------*/
