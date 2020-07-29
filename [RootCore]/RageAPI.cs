@@ -247,6 +247,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
+
         public static void SetClothes(this Client element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             try
@@ -311,6 +312,7 @@ namespace VenoXV.Core
         {
             try
             {
+                if (labelClass == null) { return; }
                 if (Sync.LabelList.Contains(labelClass)) { Sync.LabelList.Remove(labelClass); }
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
@@ -319,6 +321,7 @@ namespace VenoXV.Core
         {
             try
             {
+                if (blipClass == null) { return; }
                 if (DeleteFor != null) { DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name); }
                 else { Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.Name); }
                 if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
