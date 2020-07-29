@@ -994,32 +994,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                DateTime AktionPossible = Fun.Allround.AktionsTimer;
-                if (AktionPossible > DateTime.Now)
-                {
-                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
-                    {
-                        if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
-                        {
 
-                            Fun.Allround.ChangeAktionsTimer(DateTime.Now);
-                            Fun.Allround.ChangeAktionsState(false);
-                            Vehicle.Remove();
-                        }
-                    }
-                    Fun.Allround.ChangeAktionsTimer(DateTime.Now);
-                    Fun.Allround.ChangeAktionsState(false);
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[VnX]" + player.Username + " hat alle Aktionen Resettet!");
-                }
-                else
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es sind Aktionen bereits verfügbar!");
-                }
             }
-            else
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
-            }
+            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!"); }
         }
 
 

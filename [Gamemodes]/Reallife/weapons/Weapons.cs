@@ -1,5 +1,7 @@
 ﻿using AltV.Net;
 using System;
+using System.Linq;
+using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -13,14 +15,17 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
+                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
-                    if (item.ownerIdentifier == playerId && item.ITEM_ART == "Waffe")
+                    if (item.ownerIdentifier == playerId)
                     {
-                        AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
-                        Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
-                        Core.Debug.OutputDebugString(player.Username + " : " + WeaponModel);
-                        RageAPI.GivePlayerWeapon(player, WeaponModel, 0);
+                        if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
+                        {
+                            AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
+                            Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
+                            Core.Debug.OutputDebugString(player.Username + " : " + WeaponModel);
+                            RageAPI.GivePlayerWeapon(player, WeaponModel, item.amount);
+                        }
                     }
                 }
             }

@@ -60,7 +60,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 List<InventoryModel> inventory = new List<InventoryModel>();
                 int playerId = player.UID;
-                foreach (ItemModel item in CurrentOnlineItemList)
+                foreach (ItemModel item in CurrentOnlineItemList.ToList())
                 {
                     if (item.ownerIdentifier == playerId)
                     {
@@ -87,7 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in CurrentOnlineItemList)
+                foreach (ItemModel item in CurrentOnlineItemList.ToList())
                 {
                     if (item.ownerIdentifier == playerId)
                     {
