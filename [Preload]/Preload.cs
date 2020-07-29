@@ -68,7 +68,7 @@ namespace VenoXV._Preload_
             Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
             player.Gamemode = value;
             Load.LoadGamemodeWindows(player, (Gamemodes)value);
-            player.Language = (int)_Language_.Main.Languages.German;
+            player.Language = (int)_Language_.Main.Languages.France;
             switch (value)
             {
                 case (int)Gamemodes.Reallife:
