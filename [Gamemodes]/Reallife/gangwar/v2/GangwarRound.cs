@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -98,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 GangwarArea.SetOwner(winnerId);
                 GangwarArea.RemoveElements();
 
-                gangwar.Allround._gangwarManager.currentArea = null;
+                Allround._gangwarManager.currentArea = null;
 
                 ResetPlayer();
                 Alt.EmitAllClients("StopCurrentGangwar", this.GangwarArea.Name);
@@ -202,7 +203,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                         this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
                         informDefender();
                         SyncTime();
-                        Alt.EmitAllClients("gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
+                        foreach (Client _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        {
+                            Alt.Server.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
+                        }
                     }
                 }
 
@@ -303,7 +307,14 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void InformAllThatPlayerJoined()
         {
-            Alt.EmitAllClients("gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+            try
+            {
+                foreach (Client _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                {
+                    Alt.Server.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("InformAllThatPlayerJoined", ex); }
         }
 
         public void SyncTime()

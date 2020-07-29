@@ -13,16 +13,16 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
     {
         public static int GetFactionFactionBlipRgba(int factionId)
         {
-            switch (factionId)
+            return factionId switch
             {
-                case Constants.FACTION_LCN: return 55;
-                case Constants.FACTION_YAKUZA: return 59;
-                case Constants.FACTION_NARCOS: return 31;
-                case Constants.FACTION_SAMCRO: return 76;
-                case Constants.FACTION_BALLAS: return 7;
-                case Constants.FACTION_COMPTON: return 52;
-                default: return 44; // ORANGE = FEHLER !!
-            }
+                Constants.FACTION_LCN => 55,
+                Constants.FACTION_YAKUZA => 59,
+                Constants.FACTION_NARCOS => 31,
+                Constants.FACTION_SAMCRO => 76,
+                Constants.FACTION_BALLAS => 7,
+                Constants.FACTION_COMPTON => 52,
+                _ => 44,// ORANGE = FEHLER !!
+            };
         }
 
         public static GangwarManager _gangwarManager { get; set; }
@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
 
         public static void ProcessDamage(Client source, Client target, float damage)
         {
-            // _gangwarManager.ProcessDamage(source, target.vnxGetElementData<int>( damage);
+            //_gangwarManager.ProcessDamage(source, target.vnxGetElementData<int>(damage));
         }
 
         public static void ProcessKill(Client source, Client target)
@@ -215,7 +215,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         }
 
         //[ServerEvent(Event.PlayerDeath)]
-        public void OnPlayerDeath(Client player, Client killer, uint reason)
+        public static void OnPlayerDeath(Client player, Client killer, uint reason)
         {
             try
             {
