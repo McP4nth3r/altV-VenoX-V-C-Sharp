@@ -81,13 +81,16 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             int cevent = random.Next(min, max);
             return cevent;
         }
-
         public static void OnUpdate()
         {
-            if (VenoXV.Globals.Main.ReallifePlayers.Count <= 0) { return; }
-            gangwar.Allround.OnUpdate();
-            Fun.Aktionen.Shoprob.Shoprob.OnUpdate();
-            environment.NPC.NPC.OnUpdate();
+            try
+            {
+                if (VenoXV.Globals.Main.ReallifePlayers.ToList().Count <= 0) { return; }
+                gangwar.Allround.OnUpdate();
+                Fun.Allround.OnUpdate();
+                environment.NPC.NPC.OnUpdate();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
         }
 
         public static void OnPlayerExitColShapeModel(IColShape shape, Client player)
@@ -103,6 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
+                if (shape == null || entity == null) { return; }
                 if (entity is Client player)   //We Check if the Entity is the player.
                 {
                     factions.State.Allround.OnStateColShapeHit(shape, player);
@@ -117,10 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     Emergency.OnPlayerEnterColShapeModel(shape, player);
                     fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
                     Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
-                    Fun.Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
-                    Fun.Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
-                    Fun.Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
-                    Fun.Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
+                    Fun.Allround.OnClientEnterColShape(shape, player);
                     gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
                     jobs.Allround.OnColShapeHit(shape, player);
                     Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
@@ -150,17 +151,17 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         //weather = 13;
                         weather = GetRandomWeather(0, 3);
-                        if (weather == 0)
+                        switch (weather)
                         {
-                            weather = 0;
-                        }
-                        else if (weather == 1)
-                        {
-                            weather = 1;
-                        }
-                        else if (weather == 2)
-                        {
-                            weather = 9;
+                            case 0:
+                                weather = 0;
+                                break;
+                            case 1:
+                                weather = 1;
+                                break;
+                            case 2:
+                                weather = 9;
+                                break;
                         }
                     }
                     WEATHER_COUNTER = 0;
@@ -172,10 +173,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     player.SetWeather((AltV.Net.Enums.WeatherType)WEATHER_CURRENT);
                     WEATHER_COUNTER += 1;
-                }
-                if (Fun.Allround.AktionsTimer <= DateTime.Now)
-                {
-                    Fun.Allround.ChangeAktionsState(false);
                 }
             }
             catch { }
@@ -190,24 +187,24 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     int played = player.Played;
                     if (played > 0 && played % 60 == 0)
                     {
-
                         // Generate the payday
                         GeneratePlayerPayday(player);
                     }
                     player.Played += 1;
+                    switch (player.Reallife.Hunger)
+                    {
+                        case 30:
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
+                            break;
+                        case 10:
+                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
+                            break;
+                    }
                     if (player.Reallife.Hunger > 0)
                     {
                         player.Reallife.Hunger -= 1;
-                    }
-                    if (player.Reallife.Hunger == 30)
-                    {
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
-                    }
-                    else if (player.Reallife.Hunger == 10)
-                    {
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bekommst hunger... Besorg dir was zu Essen!");
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                     }
                     if (player.Reallife.Hunger <= 20)
                     {
@@ -218,8 +215,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
                     }
-
-
                     if (player.Reallife.Knastzeit > 0)
                     {
                         player.Reallife.Knastzeit -= 1;
@@ -245,13 +240,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
+                int played = player.Played;
                 if (played > 0 && played % 60 == 0)
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
-
+                player.Played += 1;
                 anzeigen.Usefull.VnX.SavePlayerDatas(player);
             }
             catch (Exception ex)
@@ -565,7 +559,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 ItemModel itemModel = null;
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList)
+                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
                     if (item.ownerIdentifier == playerId && item.hash == hash)
                     {
