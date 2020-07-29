@@ -11,7 +11,6 @@ namespace VenoXV.SevenTowers.globals
             try
             {
                 _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
-                Globals.Main.SevenTowersPlayers.Remove(player);
             }
             catch { }
         }

@@ -37,7 +37,6 @@ namespace VenoXV._RootCore_.Sync
                     }
                 }
                 Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
-
             }
             catch { }
         }

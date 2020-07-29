@@ -1,11 +1,11 @@
 ﻿using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.model;
 using VenoXV._RootCore_.Models;
@@ -67,7 +67,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        private static async Task InitializePlayerData(Client player)
+        private static async void InitializePlayerData(Client player)
         {
             try
             {
@@ -77,7 +77,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 player.Tactics.IsDead = false;
                 player.Tactics.Spawned = false;
                 string Pair = _Language_.Main.GetClientLanguagePair(player);
-                await player.EmitAsync("LoadTacticUI", _Language_.Main.TranslateText(CurrentMap.Team_A_Name, "de", Pair), _Language_.Main.TranslateText(CurrentMap.Team_B_Name, "de", Pair), CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
+                string TEAM_A_NAME = await _Language_.Main.TranslateText(CurrentMap.Team_A_Name, "de", Pair);
+                string TEAM_B_NAME = await _Language_.Main.TranslateText(CurrentMap.Team_B_Name, "de", Pair);
+                player.EmitLocked("LoadTacticUI", TEAM_A_NAME, TEAM_B_NAME, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
                 RageAPI.SetPlayerVisible(player, true);
             }
             catch { }
@@ -207,7 +209,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             catch (Exception ex) { Core.Debug.CatchExceptions("SpawnMapVehicles", ex); }
         }
 
-        public static async Task PutPlayerInTeam()
+        public static void PutPlayerInTeam()
         {
             try
             {
@@ -216,7 +218,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 List<Client> TacticsPlayerMixed = VenoXV.Globals.Main.TacticsPlayers.ToList();
                 TacticsPlayerMixed.ShuffleList();
                 string _Team = EntityData.COPS_NAME;
-                foreach (Client p in TacticsPlayerMixed)
+                foreach (Client p in TacticsPlayerMixed.ToList())
                 {
                     if (_Team == EntityData.COPS_NAME)
                     {
@@ -224,7 +226,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         MEMBER_COUNT_BFAC += 1;
                         MEMBER_COUNT_MAX_BFAC += 1;
                         SpawnPlayerOnPoint(p, EntityData.BFAC_NAME);
-                        await InitializePlayerData(p);
+                        InitializePlayerData(p);
                         _Team = EntityData.BFAC_NAME;
                     }
                     else
@@ -233,14 +235,14 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         MEMBER_COUNT_COPS += 1;
                         MEMBER_COUNT_MAX_COPS += 1;
                         SpawnPlayerOnPoint(p, EntityData.COPS_NAME);
-                        await InitializePlayerData(p);
+                        InitializePlayerData(p);
                         _Team = EntityData.COPS_NAME;
                     }
                 }
             }
             catch { }
         }
-        public static void StartNewTacticRound()
+        public static async void StartNewTacticRound()
         {
             try
             {
@@ -253,12 +255,12 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 MEMBER_COUNT_MAX_COPS = 0;
                 CreateRandomRound();
                 SpawnMapVehicles();
-                _ = PutPlayerInTeam();
+                PutPlayerInTeam();
                 // To Do : wenn runde gestartet ist = nicht machen !
-                Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
+                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + _Language_.Main.TranslateText("Eine neue Runde startet.", "de", _Language_.Main.GetClientLanguagePair(players)));
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + await _Language_.Main.TranslateText(CurrentMap.Map_Name, "de", _Language_.Main.GetClientLanguagePair(players)));
                     //InitializePlayerData(players);
                     SyncTime();
                     SyncPlayerStats();

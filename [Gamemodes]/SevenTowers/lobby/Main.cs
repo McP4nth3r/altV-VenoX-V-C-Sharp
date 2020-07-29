@@ -228,6 +228,10 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         {
                             if (winner.SevenTowers.Spawned == true)
                             {
+                                if (Globals.Main.SevenTowersPlayers.ToList().Count > 1)
+                                {
+                                    winner.SevenTowers.Wins += 1;
+                                }
                                 CURRENT_WINNER = winner.Username;
                                 TakePlayerFromRound(player);
                             }

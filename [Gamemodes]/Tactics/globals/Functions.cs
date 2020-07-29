@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AltV.Net.Resources.Chat.Api;
+using System;
 using System.Linq;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
 {
@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
             {
                 foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players?.SendTranslatedChatMessage(text);
+                    players?.SendChatMessage(text);
                 }
             }
             catch { }
