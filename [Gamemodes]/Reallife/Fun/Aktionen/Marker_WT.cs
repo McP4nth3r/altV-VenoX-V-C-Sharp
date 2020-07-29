@@ -149,12 +149,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
                                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Der " + CURRENT_WEAPONTRUCK + " wurde abgegeben!");
                                     if (CURRENT_WEAPONTRUCK == "Staatswaffentruck")
                                     {
-                                        SWT.FinishSWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
+                                        //SWT.FinishSWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
                                         RageAPI.RemoveColShape(LSPD_COL);
                                     }
                                     else
                                     {
-                                        WT.WT.FinishWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
+                                        //WT.WT.FinishWT(player, vehicle, (int)shape.vnxGetElementData<int>("WT_COL_FACTION"));
                                         RageAPI.RemoveColShape(MAFIA_COL);
                                         RageAPI.RemoveColShape(YAKUZA_COL);
                                         RageAPI.RemoveColShape(VATOSLOCOS_COL);

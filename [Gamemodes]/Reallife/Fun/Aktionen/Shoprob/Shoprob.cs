@@ -46,26 +46,28 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                ShopSkins = new Dictionary<Position, int>();
-                ShopSkins.Add(new Position(24.24327f, -1346.118f, 29.49702f), 270);
-                ShopSkins.Add(new Position(372.7189f, 328.0656f, 103.5664f), 244);
-                ShopSkins.Add(new Position(-1819.942f, 794.4971f, 138.0827f), 129);
-                ShopSkins.Add(new Position(549.4589f, 2670.45f, 42.15649f), 100);
-                ShopSkins.Add(new Position(1959.275f, 3740.932f, 32.34375f), 302);
-                ShopSkins.Add(new Position(1697.698f, 4922.631f, 42.06367f), 312);
-                ShopSkins.Add(new Position(1728.447f, 6416.808f, 35.03723f), 244);
-                ShopSkins.Add(new Position(2676.558f, 3280.039f, 55.24113f), 336);
-                ShopSkins.Add(new Position(-3040.581f, 583.8331f, 7.908929f), 16);
-                ShopSkins.Add(new Position(-3243.882f, 999.9205f, 12.8307f), 355);
-                ShopSkins.Add(new Position(2555.6470f, 380.6631f, 108.6230f), 359);
-                ShopSkins.Add(new Position(-46.37407f, -1758.421f, 29.42101f), 45);
-                ShopSkins.Add(new Position(1165.225f, -322.968f, 69.20506f), 90);
-                ShopSkins.Add(new Position(-705.5671f, -913.6476f, 19.21559f), 90);
-                ShopSkins.Add(new Position(-1221.789f, -908.7315f, 12.32635f), 41);
-                ShopSkins.Add(new Position(-1485.897f, -377.8762f, 40.16339f), 134);
-                ShopSkins.Add(new Position(-2966.026f, 391.2458f, 15.04331f), 91);
-                ShopSkins.Add(new Position(1133.733f, -982.4885f, 46.41581f), 280);
-                ShopSkins.Add(new Position(1391.8386f, 3606.2598f, 34.9809f), 200);
+                ShopSkins = new Dictionary<Position, int>
+                {
+                    { new Position(24.24327f, -1346.118f, 29.49702f), 270 },
+                    { new Position(372.7189f, 328.0656f, 103.5664f), 244 },
+                    { new Position(-1819.942f, 794.4971f, 138.0827f), 129 },
+                    { new Position(549.4589f, 2670.45f, 42.15649f), 100 },
+                    { new Position(1959.275f, 3740.932f, 32.34375f), 302 },
+                    { new Position(1697.698f, 4922.631f, 42.06367f), 312 },
+                    { new Position(1728.447f, 6416.808f, 35.03723f), 244 },
+                    { new Position(2676.558f, 3280.039f, 55.24113f), 336 },
+                    { new Position(-3040.581f, 583.8331f, 7.908929f), 16 },
+                    { new Position(-3243.882f, 999.9205f, 12.8307f), 355 },
+                    { new Position(2555.6470f, 380.6631f, 108.6230f), 359 },
+                    { new Position(-46.37407f, -1758.421f, 29.42101f), 45 },
+                    { new Position(1165.225f, -322.968f, 69.20506f), 90 },
+                    { new Position(-705.5671f, -913.6476f, 19.21559f), 90 },
+                    { new Position(-1221.789f, -908.7315f, 12.32635f), 41 },
+                    { new Position(-1485.897f, -377.8762f, 40.16339f), 134 },
+                    { new Position(-2966.026f, 391.2458f, 15.04331f), 91 },
+                    { new Position(1133.733f, -982.4885f, 46.41581f), 280 },
+                    { new Position(1391.8386f, 3606.2598f, 34.9809f), 200 }
+                };
 
                 int SHOP_ID_COUNTER = 0;
                 foreach (var ShopCoord in ShopSkins)
