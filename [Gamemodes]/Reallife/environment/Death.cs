@@ -100,14 +100,5 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                 Core.Debug.CatchExceptions("OnReallifeDeath", ex);
             }
         }
-        //[AltV.Net.ClientEvent("OnDeath_DMG")]
-        public static void OnDeath_DMG(Client killer, Client player)
-        {
-            try
-            {
-                OnPlayerDeath(player, killer, 0);
-            }
-            catch { }
-        }
     }
 }
