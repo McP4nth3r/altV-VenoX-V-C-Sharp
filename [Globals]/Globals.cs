@@ -90,14 +90,20 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
-        public static void OnPlayerDeath(Client player, Client killer, uint reason)
+        public static void OnPlayerDeath(Client player, IEntity entity, uint reason)
         {
             try
             {
                 player.DespawnPlayer();
+                Client killer = null;
+                if (entity is Client entity_k)
+                {
+                    killer = entity_k;
+                }
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:
+
 
                         if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
                         if (Functions.IstargetInSameLobby(player, killer))
@@ -115,6 +121,7 @@ namespace VenoXV.Globals
                             if (killer == null || Functions.IstargetInSameLobby(player, killer))
                             {
                                 _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                                _Gamemodes_.Reallife.gangwar.Allround.OnPlayerDeath(player, killer, reason);
                             }
                         }
                         return;
@@ -124,8 +131,8 @@ namespace VenoXV.Globals
                         }
                         return;
                     default:
-                        Core.Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
-                        Core.RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                        Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
                         return;
                 }
             }
