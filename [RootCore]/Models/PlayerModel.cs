@@ -166,6 +166,7 @@ namespace VenoXV._RootCore_.Models
     }
     public class SevenTowers
     {
+        public int Wins { get; set; }
         public bool Spawned { get; set; }
         public DateTime SpawnedTime { get; set; }
         public SevenTowers(Player player)
