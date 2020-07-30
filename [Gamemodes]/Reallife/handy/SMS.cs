@@ -28,8 +28,9 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             {
                 Client Receiver = FindPlayerByName(Name);
                 if (Receiver == null) { return; }
+                Core.Debug.OutputDebugString(player.Username + " hat " + Receiver.Username + " SMS geschickt : " + Message);
                 if (Receiver == player) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du kannst nicht mit dir selbst Chatten..."); return; }
-                Alt.Server.TriggerClientEvent(Receiver, "Phone:AddNewSMS", player.Username, Message);
+                Alt.Server.TriggerClientEvent(Receiver, "Phone:AddNewSMS", player.Username, player.Phone.Number, Message);
             }
             catch { }
         }
