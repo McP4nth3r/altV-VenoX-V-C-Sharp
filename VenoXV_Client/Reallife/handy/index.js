@@ -5,9 +5,12 @@
 //----------------------------------//
 
 import * as alt from 'alt-client';
+import * as game from "natives";
+
 import { GetCursorStatus, ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
 let Phone;
+let PhoneOpen = false;
 alt.onServer('Phone:Load', () => {
     if (Phone) { return; }
     Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
@@ -38,13 +41,12 @@ alt.onServer('Phone:LoadPlayerList', (Phonelist) => {
     if (!Phone) { return; }
     alt.setTimeout(() => {
         Phone.emit('Phone:AddNewPlayerEntry', Phonelist);
-        alt.log(Phonelist);
     }, 500);
 });
 
-alt.onServer('Phone:AddNewSMS', (From, Message) => {
+alt.onServer('Phone:AddNewSMS', (From, Telnr, Message) => {
     if (!Phone) { return; }
-    Phone.emit('Phone:AddNewSMS', From, Message);
+    Phone.emit('Phone:AddNewSMS', From, Telnr, Message);
 });
 
 
@@ -94,11 +96,13 @@ alt.on('keyup', (key) => {
             if (!Phone) { return; }
             if (!GetCursorStatus()) {
                 Phone.focus();
+                PhoneOpen = true;
                 ShowCursor(true);
                 Phone.emit('Phone:Show', true);
             }
             else if (PhoneOpen) {
                 Phone.unfocus();
+                PhoneOpen = false;
                 ShowCursor(false);
                 Phone.emit('Phone:Show', false);
             }

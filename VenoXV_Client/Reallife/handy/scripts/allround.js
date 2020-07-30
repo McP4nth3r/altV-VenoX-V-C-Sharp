@@ -51,6 +51,14 @@ function TurnPhoneOn(State) {
 
 //alt:V Events.
 if ('alt' in window) {
+	alt.on('Phone:Show', (State) => {
+		if (State) {
+			$('.all').removeClass('d-none');
+		} else {
+			$('.all').addClass('d-none');
+		}
+		console.log('Called Phone:Show + ' + State);
+	});
 	alt.on('Phone:AddNewPlayerEntry', (List) => {
 		c = 0;
 		d = 0;
@@ -67,16 +75,8 @@ if ('alt' in window) {
 		$('.screenlinedark').click(function () { OnCallGridClick(this); }); // Event
 		$('.screenline').click(function () { OnCallGridClick(this); }); // Event
 	});
-	alt.on('Phone:Show', (State) => {
-		if (State) {
-			$('.all').removeClass('d-none');
-		} else {
-			$('.all').addClass('d-none');
-		}
-		console.log('Called Phone:Show + ' + State);
-	});
-
-	$(".PhoneIndex").draggable({ disabled: false });
 }
+$(".PhoneIndex").draggable({ disabled: false });
+
 
 /*-------------------------------------------------------------*/

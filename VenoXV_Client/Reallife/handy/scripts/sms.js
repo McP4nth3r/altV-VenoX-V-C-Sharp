@@ -22,6 +22,8 @@ function AddPlayertoChatList(Name, Telnr, ChatOpen = true) {
             $('.smsscreenGridbg').append('<div class="screenlinedark"><div class="Username">' + Name + '</div><div class="Telnr">' + Telnr + '</div></div>');
             d--;
         }
+        $('.screenlinedark').click(function () { OnCallGridClick(this); });
+        $('.screenline').click(function () { OnCallGridClick(this); });
     }
     else {
         if (d == 0) {
@@ -32,17 +34,16 @@ function AddPlayertoChatList(Name, Telnr, ChatOpen = true) {
             $('.chatscreenGridbg').append('<div class="screenlinedark"><div class="Username">' + Name + '</div><div class="Telnr">' + Telnr + '</div></div>');
             d--;
         }
+        ChatOpenPlayers[_cCounter++] = {
+            Name: Name,
+            Telnr: Telnr
+        };
+        $('.screenlinedark').click(function () { OnCallGridClick(this); });
+        $('.screenline').click(function () { OnCallGridClick(this); });
+        return;
     }
     $('#PhoneWriteSMSScreen').append('<div id="Chat_' + Name + '" class="SMS-Chats d-none" ><div class="ChatArea"></div></div>');
-    ChatOpenPlayers[_cCounter++] = {
-        Name: Name,
-        Telnr: Telnr
-    };
 }
-
-
-$('.screenlinedark').click(function () { OnCallGridClick(this); });
-$('.screenline').click(function () { OnCallGridClick(this); });
 
 function ShowSMSChat() {
     $('#PhoneSMSScreen').addClass('d-none');
@@ -74,11 +75,10 @@ function AddSendMessagetoSMSList(Message) {
 }
 
 function OnMessageReceived(From, TelNr, Message) {
-    if (!SelectedObj || !SelectedObjName || !SelectedObjTelnr) { return; }
     $('#Chat_' + From).children('.ChatArea').append('<div class="sbleft">' + Message + '</div>');
     let found = false;
     for (var _c in ChatOpenPlayers) {
-        if (ChatOpenPlayers[_c].Name == From) { found = true; }
+        if (ChatOpenPlayers[_c].Name == SelectedObjName) { found = true; }
     }
     if (found) { return; }
     AddPlayertoChatList(From, TelNr, true);
