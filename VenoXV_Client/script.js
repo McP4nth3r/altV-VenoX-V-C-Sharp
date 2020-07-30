@@ -22,6 +22,8 @@ import * as Settings from '/VenoXV_Client/Globals/Settings/index.js';
 import * as Rathaus from '/VenoXV_Client/Reallife/environment/rathaus/index.js';
 
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
+import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
+
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
 import * as TacticsLobby from '/VenoXV_Client/Tactics/Lobby/index.js';
 import * as TacticsSpectator from '/VenoXV_Client/Tactics/Spectator/index.js';
@@ -39,7 +41,6 @@ import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/index.js';
 import * as Death from '/VenoXV_Client/Reallife/environment/death/index.js';
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
-import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
