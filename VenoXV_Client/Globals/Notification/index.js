@@ -25,7 +25,7 @@ alt.onServer('Globals:ShowBloodScreen', () => {
 });
 
 
-
+/*
 var seats = {
     0: "seat_pside_f", // passanger side front
     1: "seat_dside_r", // driver side rear
@@ -51,6 +51,7 @@ let targetVeh = {
     veh: null,
     dist: 100
 }
+*/
 var VnXTM = 0;
 
 alt.everyTick(() => {
@@ -72,63 +73,64 @@ alt.everyTick(() => {
         }
         */
 
-
-        game.enableControlAction(0, 23, true);
-        game.disableControlAction(0, 58, true);
-        if (game.isDisabledControlJustPressed(0, 58)) {
-            SyncVehicleList();
-            if (NearestVehicle.length > 0) {
-                let pos = alt.Player.local.pos;
-                let veh = targetVeh.veh;
-                if (veh != null) {
-                    if (game.areAnyVehicleSeatsFree(veh.scriptID)) {
-                        let toEnter = {
-                            seat: 0,
-                            dist: 99999,
-                            pos: new alt.Vector3(0, 0, 0)
-                        }
-                        let insideSeatsFree = false;
-                        let seats_count = game.getVehicleModelNumberOfSeats(veh.model);
-
-                        for (var i = 0; i <= seats_count; i++) {
-                            if (game.isVehicleSeatFree(veh.scriptID, i)) {
-                                if (i <= 2) {
-                                    insideSeatsFree = true;
+        /*
+                game.enableControlAction(0, 23, true);
+                game.disableControlAction(0, 58, true);
+                if (game.isDisabledControlJustPressed(0, 58)) {
+                    SyncVehicleList();
+                    if (NearestVehicle.length > 0) {
+                        let pos = alt.Player.local.pos;
+                        let veh = targetVeh.veh;
+                        if (veh != null) {
+                            if (game.areAnyVehicleSeatsFree(veh.scriptID)) {
+                                let toEnter = {
+                                    seat: 0,
+                                    dist: 99999,
+                                    pos: new alt.Vector3(0, 0, 0)
                                 }
-                                let seat = seats[i];
-                                let seat_pos = game.getWorldPositionOfEntityBone(veh.scriptID, game.getEntityBoneIndexByName(veh.scriptID, seat));
-                                let seat_dist = game.vdist2(pos.x, pos.y, pos.z, seat_pos.x, seat_pos.y, seat_pos.z);
-
-                                if ((i > 2) && (insideSeatsFree == true)) { } else {
-
-                                    if (veh.model == 1917016601 && i > 0) {
-                                        if ((toEnter.dist > 30)) {
-                                            toEnter.dist = 30;
-                                            toEnter.seat = i;
+                                let insideSeatsFree = false;
+                                let seats_count = game.getVehicleModelNumberOfSeats(veh.model);
+        
+                                for (var i = 0; i <= seats_count; i++) {
+                                    if (game.isVehicleSeatFree(veh.scriptID, i)) {
+                                        if (i <= 2) {
+                                            insideSeatsFree = true;
+                                        }
+                                        let seat = seats[i];
+                                        let seat_pos = game.getWorldPositionOfEntityBone(veh.scriptID, game.getEntityBoneIndexByName(veh.scriptID, seat));
+                                        let seat_dist = game.vdist2(pos.x, pos.y, pos.z, seat_pos.x, seat_pos.y, seat_pos.z);
+        
+                                        if ((i > 2) && (insideSeatsFree == true)) { } else {
+        
+                                            if (veh.model == 1917016601 && i > 0) {
+                                                if ((toEnter.dist > 30)) {
+                                                    toEnter.dist = 30;
+                                                    toEnter.seat = i;
+                                                }
+                                            }
+        
+                                            if ((seat_dist < toEnter.dist)) {
+                                                toEnter.dist = seat_dist;
+                                                toEnter.seat = i;
+                                            }
                                         }
                                     }
-
-                                    if ((seat_dist < toEnter.dist)) {
-                                        toEnter.dist = seat_dist;
-                                        toEnter.seat = i;
-                                    }
+                                }
+                                if ((veh.model == 1475773103) && (toEnter.seat > 0)) { // if rumpo3
+                                    game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 16, 0);
+                                } else {
+                                    game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 1, 0);
                                 }
                             }
                         }
-                        if ((veh.model == 1475773103) && (toEnter.seat > 0)) { // if rumpo3
-                            game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 16, 0);
-                        } else {
-                            game.taskEnterVehicle(alt.Player.local.scriptID, veh.scriptID, 5000, toEnter.seat, 2.0, 1, 0);
-                        }
                     }
                 }
-            }
-        }
+                */
     }
     catch (e) { alt.log(e); }
 });
 
-
+/*
 function SyncVehicleList() {
     NearestVehicle = [];
     targetVeh = {
@@ -158,5 +160,6 @@ function GetNearestVehicle() {
         }
     }
 }
+*/
 
 
