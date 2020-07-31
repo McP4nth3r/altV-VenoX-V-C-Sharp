@@ -110,6 +110,7 @@ function CheckHUDUpdate() {
 }
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
+	if (!HUD_BROWSER) { return; }
 	if (Entity == alt.Player.local) {
 		let LocalEntity = alt.Player.local;
 		let LocalEntityScriptId = alt.Player.local.scriptID;
@@ -134,7 +135,7 @@ let GamemodeVersion = "1.0.0";
 alt.onServer('Gameversion:Update', (version) => {
 	GamemodeVersion = version;
 });
-
+let isGW = false;
 alt.everyTick(() => {
 	try {
 		DrawText("International Venox V." + GamemodeVersion + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
@@ -147,6 +148,7 @@ alt.everyTick(() => {
 		game.setPlayerHealthRechargeMultiplier(player.scriptID, 0.0);
 		DrawSafezone();
 		CheckHUDUpdate();
+		if (isGW) { drawGW(); }
 		let waffe = game.getSelectedPedWeapon(player.scriptID);
 		let ammo = "" + game.getAmmoInPedWeapon(player.scriptID, waffe);
 		var weapon = GetWeaponData(waffe, "Name");
@@ -200,4 +202,126 @@ alt.everyTick(() => {
 		}
 	}
 	catch{ }
+});
+
+
+
+
+let GW_COUNTDOWN = "";
+
+let gwtimer = null;
+function startTimer(duration) {
+	var timer = duration, minutes, seconds;
+	if (gwtimer != null) { alt.clearInterval(gwtimer); }
+	gwtimer = alt.setInterval(function () {
+		minutes = parseInt(timer / 60, 10);
+		seconds = parseInt(timer % 60, 10);
+
+		minutes = minutes < 10 ? "0" + minutes : minutes;
+		seconds = seconds < 10 ? "0" + seconds : seconds;
+
+		GW_COUNTDOWN = minutes + ":" + seconds;
+
+		if (--timer < 0) {
+			timer = duration;
+		}
+	}, 1000);
+}
+/*
+alt.onServer("playerQuit", (p, t, r) => {
+	if (p == mp.players.local)
+	{
+		if(gwtimer != null){ clearInterval(gwtimer);}
+	}
+});
+*/
+let countdownexec = false;
+let Current_Damage = 0;
+let Current_Kills = 0;
+let fn1 = "ERROR_1";
+let fn2 = "ERROR_2";
+let cma = "ERROR_3";
+let cmd = "ERROR_4";
+let atr = 255;
+let atg = 255;
+let atb = 255;
+let dfr = 255;
+let dfg = 255;
+let dfb = 255;
+let ap = 175;
+function drawGW() {
+	game.drawRect(0.846, 0.30, 0.06, 0.035, 0, 0, 0, 175);
+	game.drawRect(0.9105, 0.30, 0.06, 0.035, 0, 0, 0, 175);
+	game.drawRect(0.975, 0.30, 0.06, 0.035, 0, 0, 0, 175);
+
+	game.drawRect(0.916, 0.2818, 0.20, 0.003, 0, 150, 200, 175);
+
+	if (!game.hasStreamedTextureDictLoaded("mpinventory")) {
+		game.requestStreamedTextureDict("mpinventory", true);
+	}
+
+	if (!game.hasStreamedTextureDictLoaded("mpleaderboard")) {
+		game.requestStreamedTextureDict("mpleaderboard", true);
+	}
+
+	if (game.hasStreamedTextureDictLoaded("mpinventory") && game.hasStreamedTextureDictLoaded("mpleaderboard")) {
+		game.drawSprite("mpinventory", "deathmatch", 0.826, 0.30, 0.025, 0.025, 0, 255, 255, 255, 255);
+		DrawText(Current_Kills.toString() + " KILLS", [0.850, 0.289], [0.35, 0.33], 4, [225, 225, 225, 255], true, true);
+
+		game.drawSprite("mpinventory", "mp_specitem_weapons", 0.8935, 0.30, 0.0215, 0.0215, 0, 255, 255, 255, 255);
+		DrawText(Math.ceil(Current_Damage.toString()) + " DMG", [0.92, 0.289], [0.4, 0.33], 4, [225, 225, 225, 255], true, true);
+
+		game.drawSprite("mpleaderboard", "leaderboard_time_icon", 0.956, 0.30, 0.027, 0.027, 0, 255, 255, 255, 255);
+		DrawText(GW_COUNTDOWN, [0.979, 0.289], [0.5, 0.33], 4, [225, 225, 225, 255], true, true);
+	}
+	game.drawRect(0.86, 0.36, 0.09, 0.06, atr, atg, atb, ap);
+	DrawText(fn1, [0.86, 0.326], [0.5, 0.33], 4, [225, 225, 225, 255], false, true);
+	DrawText(cma, [0.86, 0.35], [0.7, 0.53], 4, [225, 225, 225, 255], false, true);
+	game.drawRect(0.953, 0.36, 0.09, 0.06, dfr, dfg, dfb, ap);
+	DrawText(fn2, [0.953, 0.326], [0.5, 0.33], 4, [225, 225, 225, 255], false, true);
+	DrawText(cmd, [0.953, 0.35], [0.7, 0.53], 4, [225, 225, 225, 255], false, true);
+}
+
+
+alt.onServer('gw:updateStats', (e, e1, cma_, cmd_) => {
+	Current_Damage = e;
+	Current_Kills = e1;
+	cma = cma_;
+	cmd = cmd_;
+
+});
+
+alt.onServer('gw:updateTime', (v) => {
+	startTimer(v);
+});
+
+alt.onServer('gw:joinedPlayer', (cma_, cmd_) => {
+	cma = cma_;
+	cmd = cmd_;
+});
+
+alt.onServer('gw:showUp', (e, fn1_, fn2_, atr_, atg_, atb_, dfr_, dfg_, dfb_) => {
+	if (e) {
+		isGW = e;
+		fn1 = fn1_;
+		fn2 = fn2_;
+		atr = atr_;
+		atg = atg_;
+		atb = atb_;
+		dfr = dfr_;
+		dfg = dfg_;
+		dfb = dfb_;
+	} else {
+		alt.setTimeout(function () {
+			isGW = e;
+			fn1 = fn1_;
+			fn2 = fn2_;
+			atr = atr_;
+			atg = atg_;
+			atb = atb_;
+			dfr = dfr_;
+			dfg = dfg_;
+			dfb = dfb_;
+		}, 30 * 1000);
+	}
 });
