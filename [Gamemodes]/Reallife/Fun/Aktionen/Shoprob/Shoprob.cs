@@ -266,7 +266,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (ColShapeModel col in Alt.GetAllColShapes())
+                return;
+                foreach (IColShape col in Alt.GetAllColShapes())
                 {
                     if (col.vnxGetElementData<bool>(SHOP_IS_COL) == true)
                     {
