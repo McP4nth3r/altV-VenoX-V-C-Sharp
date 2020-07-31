@@ -202,10 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                             break;
                     }
-                    if (player.Reallife.Hunger > 0)
-                    {
-                        player.Reallife.Hunger -= 1;
-                    }
+                    if (player.Reallife.Hunger > 0) { player.Reallife.Hunger -= 1; }
                     if (player.Reallife.Hunger <= 20)
                     {
                         player.Health -= 5;
@@ -226,14 +223,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
                     }
-                    anzeigen.Usefull.VnX.SavePlayerDatas(player);
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.Message);
-                Console.WriteLine("[EXCEPTION OnMinuteSpentReallifeGM] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentReallifeGM", ex); }
+
         }
 
         public static void OnMinuteSpentTacticGM(Client player)
@@ -246,13 +239,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     GeneratePlayerPayday(player);
                 }
                 player.Played += 1;
-                anzeigen.Usefull.VnX.SavePlayerDatas(player);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
-                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentTacticGM", ex); }
         }
 
         public static void OnMinuteSpentZombieGM(Client player)
@@ -264,16 +252,9 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     GeneratePlayerPayday(player);
                 }
-                player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PLAYED, played + 1);
-
-
-                anzeigen.Usefull.VnX.SavePlayerDatas(player);
+                player.Played += 1;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.Message);
-                Console.WriteLine("[EXCEPTION OnMinuteSpentTacticGM] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentZombieGM", ex); }
         }
 
         public static void OnMinuteSpent(object unused)
@@ -288,20 +269,21 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 }
-                foreach (Client player in Alt.GetAllPlayers())
+                foreach (Client player in Alt.GetAllPlayers().ToList())
                 {
-                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
+                    switch (player.Gamemode)
                     {
-                        OnMinuteSpentReallifeGM(player);
+                        case (int)_Preload_.Preload.Gamemodes.Reallife:
+                            OnMinuteSpentReallifeGM(player);
+                            break;
+                        case (int)_Preload_.Preload.Gamemodes.Tactics:
+                            OnMinuteSpentTacticGM(player);
+                            break;
+                        case (int)_Preload_.Preload.Gamemodes.Zombies:
+                            OnMinuteSpentZombieGM(player);
+                            break;
                     }
-                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
-                    {
-                        OnMinuteSpentTacticGM(player);
-                    }
-                    if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Zombies)
-                    {
-                        OnMinuteSpentZombieGM(player);
-                    }
+                    anzeigen.Usefull.VnX.SavePlayerDatas(player);
                     player.SetDateTime(DateTime.Now);
                     SyncWeather(player);
                 }
@@ -309,11 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 anzeigen.Usefull.VnX.SaveIVehicleDatas();
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION Global_OnMinuteSpent] " + ex.Message);
-                Console.WriteLine("[EXCEPTION Global_OnMinuteSpent] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpent", ex); }
         }
 
         public static bool CheckBadElementDatas(string elementdata)
