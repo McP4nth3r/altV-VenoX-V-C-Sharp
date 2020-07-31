@@ -91,7 +91,7 @@ function startTimer(duration) {
 function Tactics_Show_Winner() {
     try {
         if (BG_AP < 255) { BG_AP += 1; }
-        if (BG_AP >= 40) { game.freezeEntityPosition(alt.Player.local.scriptID, true); alt.toggleGameControls(false); }
+        if (BG_AP >= 40) { game.freezeEntityPosition(alt.Player.local.scriptID, true); }
         DrawText(WinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, BG_AP], false, true);
         DrawText("VenoX Tactics", [0.5, 0.57], [0.9, 0.9], 1, [0, 200, 255, BG_AP], true, true);
         game.drawRect(0, 0, 10, 10, 0, 0, 0, BG_AP);
