@@ -61,7 +61,6 @@ alt.onServer('LoadingScreen:Show', MS => {
 
 alt.onServer("Charselector:setCorrectSkin", (facefeaturesarray, headblendsarray, headoverlaysarray) => {
 	try {
-		alt.log(facefeaturesarray);
 		let facefeatures = JSON.parse(facefeaturesarray);
 		let headblends = JSON.parse(headblendsarray);
 		let headoverlays = JSON.parse(headoverlaysarray);
