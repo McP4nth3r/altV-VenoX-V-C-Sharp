@@ -19,29 +19,32 @@ namespace VenoXV.Globals
 
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
-
         public static void RemovePlayerFromGamemodeList(Client player)
         {
             try
             {
+                if (player == null) { Core.Debug.OutputDebugString("Player got Removed?! "); return; }
                 int Gamemode = player.Gamemode;
                 Core.Debug.OutputDebugString(player.Username + " Gamemode : " + player.Gamemode);
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
-                        ReallifePlayers.Remove(player);
+                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Tactics:
-                        TacticsPlayers.Remove(player);
+                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Zombies:
-                        ZombiePlayers.Remove(player);
+                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Race:
-                        RacePlayers.Remove(player);
+                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        SevenTowersPlayers.Remove(player);
+                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); }
+                        break;
+                    default:
+                        Debug.OutputDebugString(player.Username + " Gamemode - 2 : " + player.Gamemode);
                         break;
                 }
             }
@@ -103,8 +106,6 @@ namespace VenoXV.Globals
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:
-
-
                         if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
                         if (Functions.IstargetInSameLobby(player, killer))
                         {
@@ -185,10 +186,7 @@ namespace VenoXV.Globals
         [ScriptEvent(ScriptEventType.PlayerDamage)]
         public static void PlayerDamage(IPlayer source, IPlayer attacker, uint weapon, ushort damage)
         {
-            try
-            {
-                source?.Emit("Globals:ShowBloodScreen");
-            }
+            try { source?.Emit("Globals:ShowBloodScreen"); }
             catch { }
         }
 
