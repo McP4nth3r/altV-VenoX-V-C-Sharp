@@ -79,11 +79,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                                 ++_gangwarManager.attacksCount;
 
                                                 // Notify all player about this event
-                                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Ein Gangwar wird vorbereitet!");
+                                                Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Ein Gangwar wird vorbereitet!");
                                                 factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat einen Gangwar gegen " + factions.Faction.GetFactionNameById(_gangwarManager.currentArea.GetCurrentRound().DefenderId) + " gestartet!");
                                                 return;
                                             }
-                                            else { RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
+                                            else { Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
                                         }
                                         else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
                                     }

@@ -12,45 +12,52 @@ using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
-    public class fraktionskassen : IScript
+    public class Fraktionskassen : IScript
     {
         public static void OnResourceStart()
         {
-            /*
-            ColShapeModel fkassencolLSPD = RageAPI.CreateColShapeSphere(new Position(452.5833f, -982.6306f, 30.68959f), 1);
-            fkassencolLSPD.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_POLICE);
+
+            ColShapeModel fkassencolLSPD = RageAPI.CreateColShapeSphere(new Position(452.5833f, -982.6306f, 30.68959f), 0.3f);
+            fkassencolLSPD.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LSPD);
+            Core.RageAPI.CreateTextLabel("LSPD - Kasse", new Position(452.5833f, -982.6306f, 30.68959f), 20.0f, 0.75f, 4, new int[] { 0, 0, 200, 255 });
             //////////////////////////////      
-            ColShapeModel fkassencolLCN = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_COSANOSTRA));
-            fkassencolLCN.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COSANOSTRA);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(40, 40, 40), true, fkassencolLCN.Dimension);
+            ColShapeModel fkassencolLCN = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_LCN);
+            fkassencolLCN.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolLCN.Position, 20.0f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, fkassencolLCN.Dimension);
             //////////////////////////////      
-            ///
-            /// //////////////////////////////      
-            ColShapeModel fkassencolYAKUZA = RageAPI.CreateColShapeSphere(new Position(345.3037f, -995.8774f, 1, 0.3f, Constants.FACTION_YAKUZA));
-            fkassencolYAKUZA.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
+
+            ColShapeModel fkassencolYAKUZA = RageAPI.CreateColShapeSphere(new Position(345.3037f, -995.8774f, -99f), 0.3f, Constants.FACTION_YAKUZA);
+            fkassencolYAKUZA.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolYAKUZA.Position, 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fkassencolYAKUZA.Dimension);
+
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(345.3037f, -995.8774f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fkassencolYAKUZA.Dimension);
             //////////////////////////////
             ///
 
-            ColShapeModel fkassencolBallas = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_BALLAS));
-            fkassencolBallas.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(138, 43, 226), true, fkassencolBallas.Dimension);
-            //////////////////////////////
-            ColShapeModel fkassencolCompton = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, 1, 0.3f, Constants.FACTION_GROVE));
-            fkassencolCompton.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_GROVE);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(259.6794f, -1004.043f, -99f), 20.0f, 0.75f, 4, new Rgba(0, 152, 0), true, fkassencolCompton.Dimension);
             //////////////////////////////      
-            ///
-            ////////////////////////////////
-            ColShapeModel fkassencolMS13 = RageAPI.CreateColShapeSphere(new Position(-1287.002f, 456.257f, 1, 0.3f, Constants.FACTION_MS13));
-            fkassencolMS13.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MS13);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(-1287.002f, 456.257f, 90.29469f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolMS13.Dimension);
-            //////////////////////////////            
-            /////////////////////////////////// 
-            ColShapeModel fkassencolSAMCRO = RageAPI.CreateColShapeSphere(new Position(971.9218f, -98.68291f, 1, 0.3f, Constants.FACTION_SAMCRO));
-            fkassencolSAMCRO.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(971.9218f, -98.68291f, 74.84641f), 20.0f, 0.75f, 4, new Rgba(175, 175, 0), true, fkassencolSAMCRO.Dimension);
-            //////////////////////////////     */
+            ColShapeModel fkassencolBallas = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_BALLAS);
+            fkassencolBallas.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, fkassencolBallas.Dimension);
+            //////////////////////////////      
+
+            //////////////////////////////      
+            ColShapeModel fkassencolCompton = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_COMPTON);
+            fkassencolCompton.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COMPTON);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, fkassencolCompton.Dimension);
+            //////////////////////////////      
+
+
+            //////////////////////////////      
+            ColShapeModel fkassencolMS13 = RageAPI.CreateColShapeSphere(new Position(-1287.002f, 456.257f, 90.29469f), 0.3f, Constants.FACTION_NARCOS);
+            fkassencolMS13.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NARCOS);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 220, 220, 220, 255 }, fkassencolMS13.Dimension);
+            //////////////////////////////      
+
+            //////////////////////////////      
+            ColShapeModel fkassencolSAMCRO = RageAPI.CreateColShapeSphere(new Position(971.9218f, -98.68291f, 74.84641f), 0.3f, Constants.FACTION_SAMCRO);
+            fkassencolSAMCRO.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, fkassencolSAMCRO.Dimension);
+            //////////////////////////////      
 
 
             ///////////////////////////////////
@@ -64,13 +71,18 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             fskincolNEWS.Entity.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(-575.1335f, -939.9796f, 23.8616f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 }, fskincolNEWS.Dimension);
             //////////////////////////////               
+            //////////////////////////////////////
+            ColShapeModel fskincolMechanik = RageAPI.CreateColShapeSphere(new Position(472.56262f, -1309.5428f, 29.229248f), 2);
+            fskincolMechanik.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MECHANIK);
+            fskincolMechanik.Entity.vnxSetElementData("NEUTRALMARKER", true);
+            RageAPI.CreateTextLabel("Fraktion - Skin", new Position(472.56262f, -1309.5428f, 29.229248f), 20.0f, 0.75f, 4, new int[] { 200, 200, 200, 255 });
+            //////////////////////////////               
             /////////////////////////////////////////
             ColShapeModel fskincolMEDIC = RageAPI.CreateColShapeSphere(new Position(326.3686f, -559.8064f, 28.74379f), 2);
             fskincolMEDIC.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
             fskincolMEDIC.Entity.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(326.3686f, -559.8064f, 28.74379f), 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolMEDIC.Dimension);
             //////////////////////////////            
-
 
             //////////////////////////////      
             ColShapeModel fskincolLCN = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
@@ -151,9 +163,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     if (player.Reallife.Faction == 0)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht befugt!");
-                        Console.WriteLine("ColShape Player hit : " + player.Username);
-                        Console.WriteLine("FID" + player.Reallife.Faction);
-                        Console.WriteLine("FID COL " + shape.vnxGetElementData<int>(EntityData.PLAYER_FACTION));
                     }
                     else
                     {
@@ -188,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
 
-        //[AltV.Net.ClientEvent("StoreFactionDatasServer")]
+        [ClientEvent("StoreFactionDatasServer")]
         public void StoreFactionDatas(Client player, int money, int mats, int koks, int weed, string state)
         {
             try
@@ -355,7 +364,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Database.SetFactionStats(player.Reallife.Faction, finalwertmoney, finalwertweed, finalwertkoks, finalwertmats);
                     Faction.CreateFactionInformation(player.Reallife.Faction, player.Username + " hat " + RageAPI.GetHexColorcode(0, 200, 255) + " " + money + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + weed + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Weed, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + " " + RageAPI.GetHexColorcode(255, 255, 255) + "G Kokain, " + RageAPI.GetHexColorcode(0, 200, 255) + " " + mats + RageAPI.GetHexColorcode(255, 255, 255) + " Stk. Mats aus dem Depot genommen!");
                     vnx_stored_files.logfile.WriteLogs("fkasse", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + money + " $, " + weed + " G Weed, " + koks + " G Kokain, " + mats + " Stk. Mats aus dem Depot genommen!");
-
 
                     //Dem Spieler die  Items geben die er verdient hat nahui
                     if (weed > 0)

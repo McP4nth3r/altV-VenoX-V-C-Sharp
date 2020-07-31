@@ -3,7 +3,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
-using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -25,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             {
                 if (shape == ClothesShape.Entity)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1 || player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY_NEUTRAL) == 1)
+                    if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
                         return;

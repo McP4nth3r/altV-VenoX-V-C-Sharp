@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
+using System;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -16,10 +17,14 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
 
         public static void OnStateColShapeHit(IColShape colShape, Client player)
         {
-            if (!Factions.Allround.isStateFaction(player)) { return; }
-            if (colShape == LSPDDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
-            if (colShape == FBIDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
-            if (colShape == ARMYDuty.Entity || colShape == ARMY2Duty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
+            try
+            {
+                if (!Factions.Allround.isStateFaction(player)) { return; }
+                if (colShape == LSPDDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
+                if (colShape == FBIDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
+                if (colShape == ARMYDuty.Entity || colShape == ARMY2Duty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); return; }
+            }
+            catch (Exception ex) { Debug.CatchExceptions("OnStateColShapeHit", ex); }
         }
     }
 }

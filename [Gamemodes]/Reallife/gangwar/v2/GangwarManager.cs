@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public static int GW_PREPARE_TIME = 3;
         public static int GW_RUNNING_TIME = 15;
         public static int GW_ATTACK_CD = 60;
-        public static int MIN_COUNT_PLAYER = 2;
+        public static int MIN_COUNT_PLAYER = 1;
         public static int MIN_RANK_ATTACK = 3;
         public static int MIN_DIST = 100;
         public static int MAX_ATTACKS_DAY = 16;

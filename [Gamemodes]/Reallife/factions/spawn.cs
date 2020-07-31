@@ -50,6 +50,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     case "Basis":
                         switch (player.Reallife.Faction)
                         {
+                            case Constants.FACTION_NONE:
+                                Alt.Emit("GlobalSystems:PlayerTeam", player, player.Id + 153);
+                                break;
                             case Constants.FACTION_LSPD:
                                 player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                                 return;
@@ -84,7 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
                                 return;
                             case Constants.FACTION_MECHANIK:
-                                player.SetPosition = new Vector3(-440.58463f, -1693.833f, 19.186768f);
+                                player.SetPosition = new Vector3(482.47913f, -1312.9846f, 29.195557f);
                                 return;
                             case Constants.FACTION_BALLAS:
                                 player.Dimension = player.Reallife.Faction;

@@ -899,6 +899,21 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 10, 58, 0),
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 11, 250, 0),
 
+
+            // Male paramedic uniform
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 0, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 1, 0, 0),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 2, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 3, 0, 0),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 4, 36, 0),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 5, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 6, 27, 0),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 7, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 8, 59, 0),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 9, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 10, -1, -1),
+            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 11, 273, 0),
+
             // Male BALLAS uniform
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 1, -1, -1),

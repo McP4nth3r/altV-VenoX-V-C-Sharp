@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,11 +107,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
+                    Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
                 else
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
+                    Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
             }
             catch { }
@@ -289,13 +290,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 anzeigen.Usefull.VnX.RemoveAllBadGWWeapons(player);
                 // Add player to the round
-                var playerEntry = new PlayerEntry(player);
+                PlayerEntry playerEntry = new PlayerEntry(player);
                 player.Dimension = GangwarManager.GW_DIM;
                 this.PlayerList.Add(playerEntry);
 
-                // Display IPlayer DX for joinen Player 
-                var AttackRGB = GangwarArea.GangwarIVehicleRgbas(this.AttackerId);
-                var DefenderRGB = GangwarArea.GangwarIVehicleRgbas(this.DefenderId);
+                // Display Player DX for joined Player 
+                Rgba AttackRGB = GangwarArea.GangwarIVehicleRgbas(this.AttackerId);
+                Rgba DefenderRGB = GangwarArea.GangwarIVehicleRgbas(this.DefenderId);
                 Alt.Server.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(this.AttackerId), Faction.GetFactionNameById(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
                 SyncStats(player, playerEntry);
                 InformAllThatPlayerJoined();

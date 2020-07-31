@@ -113,13 +113,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     CarShop.OnPlayerEnterColShapeModel(shape, player);
                     Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
                     Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.Rathaus.Rathaus.OnPlayerEnterColShapeModel(shape, player);
+                    Rathaus.OnPlayerEnterColShapeModel(shape, player);
                     Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
                     events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
                     Rathaus.OnColShapeHit(shape, player);
                     Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
                     Emergency.OnPlayerEnterColShapeModel(shape, player);
-                    fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
+                    Fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
                     Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
                     Fun.Allround.OnClientEnterColShape(shape, player);
                     gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
@@ -660,7 +660,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Clothes.Clothes.OnResourceStart();
                 Environment.ammunation.Ammunation.OnResourceStart();
                 Allround.OnResourceStart(); // Label - Faction Loading !
-                fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
+                Fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 Fun.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 premium.vnxcase.VenoXCases.OnResourceStart();
                 Vehicles.PaynSpray.OnResourceStart();
