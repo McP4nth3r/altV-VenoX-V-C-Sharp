@@ -59,53 +59,75 @@ namespace VenoXV._Preload_
             }
             catch { }
         }
-
+        [Command("home")]
+        public static void ShowGamemodeSelectionHome(Client player)
+        {
+            try { ShowGamemodeSelection(player); }
+            catch { }
+        }
+        [Command("lobby")]
+        public static void ShowGamemodeSelectionLobby(Client player)
+        {
+            try { ShowGamemodeSelection(player); }
+            catch { }
+        }
+        [Command("hub")]
+        public static void ShowGamemodeSelectionHub(Client player)
+        {
+            try { ShowGamemodeSelection(player); }
+            catch { }
+        }
 
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(Client player, int value)
         {
-            player.Dimension = player.Id;
-            Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
-            player.Gamemode = value;
-            Load.LoadGamemodeWindows(player, (Gamemodes)value);
-            player.Language = (int)_Language_.Main.Languages.France;
-            switch (value)
+            try
             {
-                case (int)Gamemodes.Reallife:
-                    Globals.Main.ReallifePlayers.Add(player);
-                    _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
-                    Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
-                    break;
-                case (int)Gamemodes.Zombies:
-                    Globals.Main.ZombiePlayers.Add(player);
-                    Character_Creator.Main.LoadCharacterSkin(player);
-                    _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
-                    _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
-                    Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
-                    Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
-                    break;
-                case (int)Gamemodes.Tactics:
-                    Globals.Main.TacticsPlayers.Add(player);
-                    _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
-                    Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
-                    break;
-                case (int)Gamemodes.Race:
-                    Character_Creator.Main.LoadCharacterSkin(player);
-                    Globals.Main.RacePlayers.Add(player);
-                    _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
-                    Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
-                    break;
-                case (int)Gamemodes.SevenTowers:
-                    Character_Creator.Main.LoadCharacterSkin(player);
-                    Globals.Main.SevenTowersPlayers.Add(player);
-                    _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
-                    Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
-                    break;
-                default:
-                    Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
-                    break;
+                player.Dimension = player.Id;
+                Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
+                player.Gamemode = value;
+                Load.LoadGamemodeWindows(player, (Gamemodes)value);
+                player.Language = (int)_Language_.Main.Languages.German;
+                switch (value)
+                {
+                    case (int)Gamemodes.Reallife:
+                        if (!Globals.Main.ReallifePlayers.Contains(player)) { Globals.Main.ReallifePlayers.Add(player); }
+                        _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
+                        break;
+                    case (int)Gamemodes.Zombies:
+                        if (!Globals.Main.ZombiePlayers.Contains(player)) { Globals.Main.ZombiePlayers.Add(player); }
+                        Character_Creator.Main.LoadCharacterSkin(player);
+                        _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
+                        _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
+                        Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
+                        break;
+                    case (int)Gamemodes.Tactics:
+                        player.Language = (int)_Language_.Main.Languages.France;
+                        if (!Globals.Main.TacticsPlayers.Contains(player)) { Globals.Main.TacticsPlayers.Add(player); }
+                        _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
+                        break;
+                    case (int)Gamemodes.Race:
+                        if (!Globals.Main.RacePlayers.Contains(player)) { Globals.Main.RacePlayers.Add(player); }
+                        Character_Creator.Main.LoadCharacterSkin(player);
+                        _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
+                        break;
+                    case (int)Gamemodes.SevenTowers:
+                        if (!Globals.Main.SevenTowersPlayers.Contains(player)) { Globals.Main.SevenTowersPlayers.Add(player); }
+                        Character_Creator.Main.LoadCharacterSkin(player);
+                        _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
+                        break;
+                    default:
+                        Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
+                        break;
+                }
+                player.Playing = true;
             }
-            player.Playing = true;
+            catch { }
         }
 
 
@@ -137,17 +159,6 @@ namespace VenoXV._Preload_
                 Loading.Main.ShowLoadingScreen(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
-        }
-
-
-        [ClientEvent("TriggerClientsideVehicle")]
-        public static void GetTriggeredVehicle(Client player, IVehicle veh)
-        {
-            try
-            {
-                Core.Debug.OutputDebugString(player.Name + " : Das Fahrzeug hast du bekommen : " + veh.PrimaryColorRgb.R);
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("TriggerClientsideVehicle", ex); }
         }
     }
 }

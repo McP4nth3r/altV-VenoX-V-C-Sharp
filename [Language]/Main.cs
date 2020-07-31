@@ -1,7 +1,8 @@
 ﻿using AltV.Net.Resources.Chat.Api;
-using GoogleTranslateFreeApi;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using VenoXV._Preload_;
 using VenoXV._RootCore_.Models;
 
@@ -31,20 +32,20 @@ namespace VenoXV._Language_
             catch { return "en"; }
         }
 
-        private static readonly GoogleTranslator Translator = new GoogleTranslator();
-        public static async Task<string> TranslateText(string word, string fromPair, string toPair)
-        {
-            try
-            {
-                //Language From = GoogleTranslator.GetLanguageByISO(fromPair); // you could also use ISO639 value
-                //Language To = GoogleTranslator.GetLanguageByISO(toPair); // you could also use ISO639 value
+        /* private static readonly GoogleTranslator Translator = new GoogleTranslator();
+         public static async Task<string> TranslateText(string word, string fromPair, string toPair)
+         {
+             try
+             {
+                 //Language From = GoogleTranslator.GetLanguageByISO(fromPair); // you could also use ISO639 value
+                 //Language To = GoogleTranslator.GetLanguageByISO(toPair); // you could also use ISO639 value
 
-                TranslationResult result = Translator.TranslateAsync(word, Language.German, Language.English).GetAwaiter().GetResult();
-                return $"Result 1: {result.MergedTranslation}";
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
-        }
-        /*
+                 TranslationResult result = Translator.TranslateAsync(word, Language.German, Language.English).GetAwaiter().GetResult();
+                 return $"Result 1: {result.MergedTranslation}";
+             }
+             catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
+         }
+         */
         static readonly HttpClient webClient = new HttpClient();
         public static async Task<string> TranslateText(string word, string fromPair, string toPair)
         {
@@ -61,7 +62,7 @@ namespace VenoXV._Language_
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
         }
-        */
+
 
         public static async Task SendTranslatedChatMessage(Client playerClass, string text)
         {
@@ -74,7 +75,7 @@ namespace VenoXV._Language_
                         break;
                     case (int)Languages.German:
                         if (playerClass.Gamemode == (int)Preload.Gamemodes.Reallife) { playerClass.SendChatMessage(text); return; }
-                        playerClass.SendChatMessage(await TranslateText(text, "de", GetClientLanguagePair(playerClass)));
+                        playerClass.SendChatMessage(text);
                         break;
                     default:
                         playerClass.SendChatMessage("ERROR " + text);
