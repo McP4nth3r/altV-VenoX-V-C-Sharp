@@ -13,7 +13,7 @@ let RACE_COUNTDOWN = null;
 let RACE_PLAYER_COUNTER = 1;
 let RACE_PLAYERS = {};
 let RACE_PLAYER_CURRENT_PLACE = 10;
-/*
+
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Solid_Snake";
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Sheby";
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "LastAttacker";
@@ -24,8 +24,8 @@ RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Bonus";
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Heron";
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "Slade";
 RACE_PLAYERS[RACE_PLAYER_COUNTER++] = "LuisSnake";
-*/
-/*
+
+
 alt.onServer('Race:Unload', () => {
     if (RaceTimer) {
         alt.clearEveryTick(RaceTimer);
@@ -124,4 +124,3 @@ alt.onServer('Race:ShowCountdown', (DateTime) => {
         }
     }, 100);
 });
-*/
