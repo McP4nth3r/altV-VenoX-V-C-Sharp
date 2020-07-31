@@ -65,10 +65,6 @@ let zoneNames = ["Los Santos International Airport", "Alamo Sea", "Alta", "Fort 
 let LastLocation = "";
 let LastHealth = 100;
 let LastArmor = 100;
-let LastHunger = 100;
-let LastFaction = 0;
-let LastMoney = 0;
-let LastWanteds = 0;
 let LastVoiceState = false;
 function CheckHUDUpdate() {
 	try {
@@ -78,15 +74,11 @@ function CheckHUDUpdate() {
 		let LocalEntityScriptId = alt.Player.local.scriptID;
 		let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
 		let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
-		let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
 		if (CurrentHealth <= 0) {
 			CurrentArmor = 0;
 			CurrentHealth = 0;
 			CurrentHunger = 0;
 		}
-		let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
-		let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
-		let CurrentWanteds = LocalEntity.getSyncedMeta('PLAYER_WANTEDS');
 		let CurrentVoiceState = LocalEntity.isTalking;
 		let CurrentLocation = game.getNameOfZone(LocalEntity.pos.x, LocalEntity.pos.y, LocalEntity.pos.z);
 		if (CurrentArmor != LastArmor) {
@@ -97,19 +89,10 @@ function CheckHUDUpdate() {
 			Update = true;
 			LastHealth = CurrentHealth;
 		}
-		if (CurrentHunger != LastHunger) {
-			Update = true;
-			LastHunger = CurrentHunger;
-		}
-		if (CurrentFaction != LastFaction) {
-			Update = true;
-			LastFaction = CurrentFaction;
-		}
-		if (CurrentMoney != LastMoney) {
-			Update = true;
-			LastMoney = CurrentMoney;
-		}
 		if (Update) {
+			let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
+			let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
+			let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
 			if (CurrentHealth <= 0) { CurrentHealth = 100; }
 			HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
 		}
@@ -118,10 +101,6 @@ function CheckHUDUpdate() {
 			let realZoneName = zoneNames[zoneID];
 			HUD_BROWSER.emit('HUD:UpdateLocation', realZoneName);
 		}
-		if (CurrentWanteds != LastWanteds) {
-			LastWanteds = CurrentWanteds;
-			HUD_BROWSER.emit('HUD:UpdateWanteds', CurrentWanteds);
-		}
 		if (CurrentVoiceState != LastVoiceState) {
 			LastVoiceState = CurrentVoiceState;
 			HUD_BROWSER.emit('HUD:UpdateVoiceState', CurrentVoiceState);
@@ -129,6 +108,28 @@ function CheckHUDUpdate() {
 	}
 	catch{ }
 }
+
+alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
+	if (Entity == alt.Player.local) {
+		let LocalEntity = alt.Player.local;
+		let LocalEntityScriptId = alt.Player.local.scriptID;
+		switch (key) {
+			case 'PLAYER_HUNGER': case 'PLAYER_FACTION': case 'PLAYER_MONEY':
+				let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
+				let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
+				let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
+				let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
+				let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
+				HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
+				break;
+			case 'PLAYER_WANTEDS':
+				let CurrentWanteds = LocalEntity.getSyncedMeta('PLAYER_WANTEDS');
+				HUD_BROWSER.emit('HUD:UpdateWanteds', CurrentWanteds);
+
+		}
+	}
+})
+
 let GamemodeVersion = "1.0.0";
 alt.onServer('Gameversion:Update', (version) => {
 	GamemodeVersion = version;
@@ -172,15 +173,17 @@ alt.everyTick(() => {
 				}
 
 			}
-
-			if (player.getSyncedMeta("PLAYER_KNASTZEIT") > 0) {
-				game.drawRect(0.91, 0.337, 0.17, 0.005, 0, 105, 145, 175);
-				game.drawRect(0.91, 0.350, 0.17, 0.02, 0, 0, 0, 175);
-				game.drawRect(0.91, 0.37, 0.17, 0.06, 0, 0, 0, 175);
-				DrawText("VenoX Police Department", [0.91, 0.338], [0.4, 0.4], 1, [200, 200, 200, 255], true, true);
-				DrawText("Du bist noch " + player.getSyncedMeta("PLAYER_KNASTZEIT") + " Minuten im Knast.", [0.91, 0.367], [0.3, 0.3], 0, [200, 200, 200, 255], false, true);
-			}
 		}
+		/*
+		if (player.getSyncedMeta("PLAYER_KNASTZEIT") > 0) {
+			game.drawRect(0.91, 0.337, 0.17, 0.005, 0, 105, 145, 175);
+			game.drawRect(0.91, 0.350, 0.17, 0.02, 0, 0, 0, 175);
+			game.drawRect(0.91, 0.37, 0.17, 0.06, 0, 0, 0, 175);
+			DrawText("VenoX Police Department", [0.91, 0.338], [0.4, 0.4], 1, [200, 200, 200, 255], true, true);
+			DrawText("Du bist noch " + player.getSyncedMeta("PLAYER_KNASTZEIT") + " Minuten im Knast.", [0.91, 0.367], [0.3, 0.3], 0, [200, 200, 200, 255], false, true);
+		}
+
+		*/
 		if (handcuffed) {
 			game.disableControlAction(alt.Player.local.scriptID, 2, 12, true);
 			game.disableControlAction(alt.Player.local.scriptID, 2, 13, true);
