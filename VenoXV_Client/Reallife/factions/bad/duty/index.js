@@ -9,29 +9,28 @@ import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX-Lib';
 
 
-let duty_browser = null;
+let dutybadbrowser = null;
 alt.onServer('show_duty_window_bad', (e) => {
-    try {
-        FreezeClient(true);
+    if (dutybadbrowser) { return; }
+    FreezeClient(true);
+    dutybadbrowser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html");
+    alt.setTimeout(() => {
+        dutybadbrowser.focus();
+        ShowCursor(true);
+        if (e == true) { dutybadbrowser.emit("Duty:Load"); }
+    }, 500);
+    dutybadbrowser.on('destroy_duty_window_bad', () => {
+        dutybadbrowser = null;
+        FreezeClient(false);
         vnxDestroyCEF("DutyBad");
-        duty_browser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html");
-        alt.setTimeout(() => {
-            duty_browser.focus();
-            ShowCursor(true);
-            if (e == true) { duty_browser.emit("Duty:Load"); }
-        }, 200);
-        duty_browser.on('destroy_duty_window_bad', () => {
-            FreezeClient(false);
-            vnxDestroyCEF("DutyBad");
-            ShowCursor(false);
-        });
-        duty_browser.on('duty_window_bad_btn_pressed', (state) => {
-            alt.emitServer('goDUTYBADServer', state);
-            vnxDestroyCEF("DutyBad");
-            ShowCursor(false);
-            FreezeClient(false);
-        });
-    }
-    catch{ }
+        ShowCursor(false);
+    });
+    dutybadbrowser.on('duty_window_bad_btn_pressed', (state) => {
+        dutybadbrowser = null;
+        alt.emitServer('goDUTYBADServer', state);
+        vnxDestroyCEF("DutyBad");
+        ShowCursor(false);
+        FreezeClient(false);
+    });
 });
 

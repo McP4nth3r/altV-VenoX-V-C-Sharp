@@ -35,6 +35,9 @@ import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
 import * as StateFguns from '/VenoXV_Client/Reallife/factions/state/fguns/index.js';
 import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
 import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js';
+import * as Gangwar from '/VenoXV_Client/Reallife/factions/gangwar/index.js';
+import * as Fkasse from '/VenoXV_Client/Reallife/factions/fkasse/index.js';
+
 import * as Inventory from '/VenoXV_Client/Reallife/inventory/index.js';
 import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/index.js';
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
