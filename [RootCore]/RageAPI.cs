@@ -122,6 +122,7 @@ namespace VenoXV.Core
         {
             try
             {
+                if (element == null) { return default; }
                 if (element.GetData(key, out T value)) { return value; }
                 return default;
             }
@@ -129,13 +130,18 @@ namespace VenoXV.Core
         }
         public static void vnxSetElementData(this IBaseObject element, string key, object value)
         {
-            try { element.SetData(key, value); }
+            try
+            {
+                if (element == null) { return; }
+                element.SetData(key, value);
+            }
             catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetElementData", ex); }
         }
         public static void vnxSetSharedElementData<T>(this IEntity element, string key, T value)
         {
             try
             {
+                if (element == null) { return; }
                 element.SetData(key, value);
                 element.SetSyncedMetaData(key, value);
             }
@@ -145,6 +151,7 @@ namespace VenoXV.Core
         {
             try
             {
+                if (element == null) { return; }
                 element.SetData(key, value);
                 element.SetStreamSyncedMetaData(key, value);
             }
@@ -162,6 +169,7 @@ namespace VenoXV.Core
         {
             try
             {
+                if (element == null) { return default; }
                 if (element.GetSyncedMetaData(key, out T value))
                 {
                     return value;
