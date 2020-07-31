@@ -254,7 +254,7 @@ export function ShowCountdown(Seconds) {
                 if (!CountDownFrozen) {
                     if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, true); }
                     game.freezeEntityPosition(alt.Player.local.scriptID, true);
-                    alt.toggleGameControls(false);
+                    //alt.toggleGameControls(false);
                     CountDownFrozen = true;
                 }
                 return;
@@ -264,7 +264,7 @@ export function ShowCountdown(Seconds) {
                 if (CountDownFrozen) {
                     if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, false); }
                     game.freezeEntityPosition(alt.Player.local.scriptID, false);
-                    alt.toggleGameControls(true);
+                    //alt.toggleGameControls(true);
                     CountDownFrozen = false;
                     alt.setTimeout(() => {
                         if (CountdownRenderTick) { alt.clearEveryTick(CountdownRenderTick); CountdownRenderTick = null; }
