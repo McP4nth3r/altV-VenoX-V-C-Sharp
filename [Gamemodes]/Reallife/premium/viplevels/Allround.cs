@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                Client VipL = Database.GetPlayerVIP(player, player.UID);
                 if (VipL.Vip_BisZum > DateTime.Now)
                 {
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "---------- VIP Level : " + GetVIPRangName(VipL.Vip_Paket) + " " + RageAPI.GetHexColorcode(0, 175, 0) + " ----------");
@@ -75,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                Client VipL = Database.GetPlayerVIP(player, player.UID);
                 if (GetVIPRangName(VipL.Vip_Paket) != "Abgelaufen" || GetVIPRangName(VipL.Vip_Paket).Length > 3)
                 {
                     Alt.Server.TriggerClientEvent(player, "CreateVIPWindow");
@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                Client VipL = Database.GetPlayerVIP(player, player.UID);
                 if (paket == VIP_BRONZE)
                 {
                     if (GetVIPRangName(VipL.Vip_Paket) == VIP_BRONZE || GetVIPRangName(VipL.Vip_Paket) == VIP_SILVER || GetVIPRangName(VipL.Vip_Paket) == VIP_GOLD || GetVIPRangName(VipL.Vip_Paket) == VIP_PLATIN || GetVIPRangName(VipL.Vip_Paket) == VIP_ULTIMATE_RED || GetVIPRangName(VipL.Vip_Paket) == VIP_TOP_DONATOR)
@@ -242,7 +242,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 500);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Waffe gekauft.");
-                            int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                            int playerId = player.UID;
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage == null)
                             {
@@ -271,7 +271,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 150);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Magazin gekauft.");
-                            int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                            int playerId = player.UID;
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage != null)
                             {
@@ -300,7 +300,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 800);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Mini - SMG gekauft.");
-                            int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                            int playerId = player.UID;
                             ItemModel MINISMG = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                             if (MINISMG == null)
                             {
@@ -329,7 +329,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                         {
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 300);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Magazin gekauft.");
-                            int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                            int playerId = player.UID;
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                             if (Vintage != null)
                             {
