@@ -20,20 +20,18 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             try
             {
                 player.RemoveAllPlayerWeapons();
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
-                foreach (ItemModel waffen in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+                int playerId = player.UID;
+                foreach (ItemModel waffen in Inventar.Main.CurrentOnlineItemList.ToList())
                 {
                     if (waffen.ITEM_ART == Constants.ITEM_ART_WAFFE && waffen.ownerIdentifier == playerId)
                     {
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(waffen);
+                        Inventar.Main.CurrentOnlineItemList.Remove(waffen);
                     }
                 }
                 Database.RemoveAllItemsByArt(playerId, Constants.ITEM_ART_WAFFE);
                 Database.RemoveAllItemsByArt(playerId, Constants.ITEM_ART_MAGAZIN);
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public static void RemoveAllBadGWWeapons(Client player)
@@ -42,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllPlayerWeapons();
 
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
 
                 ItemModel Switchblade = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SWITCHBLADE);
                 ItemModel Nightstick = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_NIGHTSTICK);
