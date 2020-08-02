@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -53,7 +54,7 @@ namespace VenoXV._Preload_
             try
             {
                 player.Dimension = player.Id;
-                VenoXV.Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
+                Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
                 ShowPreloadList(player);
             }
@@ -88,6 +89,7 @@ namespace VenoXV._Preload_
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
                 player.Language = (int)_Language_.Main.Languages.German;
+                if (!Globals.Main.AllPlayers.Contains(player)) { Globals.Main.AllPlayers.Add(player); }
                 switch (value)
                 {
                     case (int)Gamemodes.Reallife:
@@ -139,7 +141,7 @@ namespace VenoXV._Preload_
                 int ZombiePlayers = 0;
                 int ReallifePlayers = 0;
                 int TacticsPlayers = 0;
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoX.GetAllPlayers())
                 {
                     if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_REALLIFE) { ReallifePlayers += 1; }
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }
