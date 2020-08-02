@@ -9,28 +9,17 @@ namespace VenoXV.Globals
 {
     public class Functions : IScript
     {
-        public static bool IstargetInSameLobby(Client player, IPlayer target)
+        public static bool IstargetInSameLobby(Client player, Client target)
         {
             try
             {
-                string CurrentPlayerLobby = player.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE);
-                string CurrenttargetLobby = target.vnxGetElementData<string>(EntityData.PLAYER_CURRENT_GAMEMODE);
-                if (CurrentPlayerLobby == CurrenttargetLobby)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (player.Gamemode == target.Gamemode) { return true; }
+                else { return false; }
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
-        public static IVehicle CreateVehicle(AltV.Net.Enums.VehicleModel model, Vector3 position, Vector3 rotation, byte[] Color1RGB, byte[] Color2RGB, int dimension)
+        public static VehicleModel CreateVehicle(AltV.Net.Enums.VehicleModel model, Vector3 position, Vector3 rotation, byte[] Color1RGB, byte[] Color2RGB, int dimension)
         {
             IVehicle veh = Alt.CreateVehicle(model, position, rotation);
             veh.PrimaryColorRgb = new AltV.Net.Data.Rgba(Color1RGB[0], Color1RGB[1], Color1RGB[2], 255);
@@ -38,7 +27,7 @@ namespace VenoXV.Globals
             veh.Dimension = dimension;
             veh.EngineOn = false;
 
-            return Alt.CreateVehicle(model, position, rotation);
+            return (VehicleModel)Alt.CreateVehicle(model, position, rotation);
         }
 
         /// <param name="player">The Owner of the IVehicle.</param>
@@ -59,7 +48,7 @@ namespace VenoXV.Globals
                 VehicleModel CreatedVehicle = (VehicleModel)Alt.CreateVehicle(vehName, coord, new Rotation(0, 0, rot));
                 if (WarpPlayerIntoVeh == true)
                 {
-                    //ToDo : Fix Warp Ped! NAPI.Player.SetPlayerIntoIVehicle(player, CreatedIVehicle, -1); 
+                    player.WarpIntoVehicle(CreatedVehicle, -1);
                 }
 
                 CreatedVehicle.PrimaryColorRgb = new Rgba(primaryC.R, primaryC.G, primaryC.B, 255);
