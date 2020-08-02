@@ -2,6 +2,7 @@
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -26,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
                             return;
                         }
-                        foreach (Client onlinespieler in Alt.GetAllPlayers().ToList())
+                        foreach (Client onlinespieler in VenoX.GetAllPlayers().ToList())
                         {
                             //if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) > 6000)
                             //{
@@ -70,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (Global_Admin_Status == "Ausgeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Ausgeschaltet";
-                    foreach (Client onlinespieler in Alt.GetAllPlayers())
+                    foreach (Client onlinespieler in VenoX.GetAllPlayers())
                     {
                         onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " hat den Globalchat augeschaltet!");
                     }
@@ -88,7 +89,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (Global_Admin_Status == "Angeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Angeschaltet";
-                    foreach (Client onlinespieler in Alt.GetAllPlayers())
+                    foreach (Client onlinespieler in VenoX.GetAllPlayers())
                     {
                         onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" + player.Username + " hat den Globalchat angeschaltet!");
                     }
