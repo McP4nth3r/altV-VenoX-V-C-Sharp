@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, Position, Rotation);
-                veh.Action = true;
+                veh.Reallife.ActionVehicle = true;
                 veh.NotSave = true;
                 veh.Owner = ACTION_VEHICLE;
                 veh.EngineOn = true;
@@ -106,7 +106,6 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                             Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
                             return;
                         case ACTION_WAFFENTRUCK:
-                            Aktionen.SWT.Marker_WT.OnPlayerEnterColShapeModel(shape, player);
                             break;
                         default:
                             Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);

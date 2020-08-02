@@ -38,13 +38,13 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
             {
                 if (Day == 8)
                 {
-                    Database.SetVIPStats((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Bronze", 3);
+                    Database.SetVIPStats((int)player.UID, "Bronze", 3);
                     player.SendTranslatedChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_BRONZE + RageAPI.GetHexColorcode(255, 255, 255) + " für 3 Tage bekommen!");
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (Day == 9)
                 {
-                    ItemModel Snack = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_TANKSTELLENSNACK);
+                    ItemModel Snack = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_TANKSTELLENSNACK);
                     if (Snack == null) // Kanister
                     {
                         Snack = new ItemModel();
@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         Snack.dimension = 0;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
-                        Snack.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        Snack.ownerIdentifier = player.UID;
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
 
@@ -82,13 +82,13 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 }
                 else if (Day == 13)
                 {
-                    Database.SetVIPStats((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Gold", 3);
+                    Database.SetVIPStats((int)player.UID, "Gold", 3);
                     player.SendTranslatedChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_GOLD + RageAPI.GetHexColorcode(255, 255, 255) + " für 3 Tage bekommen!");
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (Day == 14)
                 {
-                    ItemModel Snack = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_HEISSESCHOKOLADE);
+                    ItemModel Snack = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_HEISSESCHOKOLADE);
                     if (Snack == null) // Kanister
                     {
                         Snack = new ItemModel();
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         Snack.dimension = 0;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_HEISSESCHOKOLADE;
-                        Snack.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        Snack.ownerIdentifier = player.UID;
                         Snack.ITEM_ART = "NUTZ_ITEM";
                         Snack.objectHandle = null;
 
@@ -112,7 +112,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 }
                 else if (Day == 15)
                 {
-                    Database.SetVIPStats((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "TOP DONATOR", 2);
+                    Database.SetVIPStats((int)player.UID, "TOP DONATOR", 2);
                     player.SendTranslatedChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_TOP_DONATOR + RageAPI.GetHexColorcode(255, 255, 255) + " für 2 Tage bekommen!");
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }
@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 300, false);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + 75000);
-                    Database.SetVIPStats((int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "TOP DONATOR", 7);
+                    Database.SetVIPStats((int)player.UID, "TOP DONATOR", 7);
                     player.SendTranslatedChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_TOP_DONATOR + RageAPI.GetHexColorcode(255, 255, 255) + " für 7 Tage bekommen!");
                     player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Heute ist Solids Geburtstag :D Gönn dir ruhig mal auf sein nacken 75.000$ + 7 Tage TOP Donator ;).");

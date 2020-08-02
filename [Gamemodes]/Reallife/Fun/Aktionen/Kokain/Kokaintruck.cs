@@ -7,8 +7,6 @@ using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Chat;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -51,31 +49,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                             if (vehClass.Reallife.ActionVehicle)
                             {
                                 int koksimfahrzeug = vehClass.Reallife.Koks;
-                                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_KOKS);
-                                if (KOKS == null) // WEED
-                                {
-                                    KOKS = new ItemModel
-                                    {
-                                        amount = koksimfahrzeug,
-                                        dimension = 0,
-                                        position = new Position(0.0f, 0.0f, 0.0f),
-                                        hash = Constants.ITEM_HASH_KOKS,
-                                        ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID),
-                                        ITEM_ART = "Drogen",
-                                        objectHandle = null
-                                    };
-
-                                    // Add the item into the database
-                                    KOKS.id = Database.AddNewItem(KOKS);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Add(KOKS);
-                                }
-                                else
-                                {
-                                    KOKS.amount += koksimfahrzeug;
-                                    // Update the amount into the database
-                                    Database.UpdateItem(KOKS);
-                                }
-
+                                Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, Constants.ITEM_ART_DROGEN, vehClass.Reallife.Koks, true);
+                                // Add the item into the database
                                 RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
                                 player.WarpOutOfVehicle();
                                 player.Vehicle.Remove();
@@ -106,8 +81,6 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             }
         }
 
-        public static IVehicle Kokaintruckveh { get; set; }
-
         [Command("kokaintruck")]
         public void StartKokaintruck(Client player, int koks)
         {
@@ -115,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (Factions.Allround.isBadFaction(player))
                 {
-                    if (!Fun.Allround.StartAction(player, 3)) { return; }
+                    if (!Fun.Allround.StartAction(player, 0)) { return; }
                     if (koks <= 1) { return; }
                     if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f) { player.SendTranslatedChatMessage("[Kokaintruck] : Du bist hier Falsch..."); return; }
                     if (koks > 1000) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "Maximal nur 1000 G möglich!"); return; }
@@ -125,7 +98,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "[Illegal] : Ein Kokaintruck wurde beladen!");
                     player.SendReallifeMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast einen Kokaintruck mit " + RageAPI.GetHexColorcode(0, 200, 255) + " " + koks + "g " + RageAPI.GetHexColorcode(255, 255, 255) + "Kokain für " + RageAPI.GetHexColorcode(0, 200, 255) + " " + kokskosten + " " + RageAPI.GetHexColorcode(255, 255, 255) + "$ gestartet.");
                     player.Reallife.Money -= kokskosten;
-                    Allround.CreateActionVehicle(player, AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0), true);
+                    VehicleModel KT = Allround.CreateActionVehicle(player, AltV.Net.Enums.VehicleModel.Pounder, new Position(-1249.692f, -3437.256f, 13.94016f), new Rotation(0, 0, 0), true);
+                    KT.Reallife.Koks = koks;
                     Allround.CreateTargetMarker("Kokaintruck - Abgabe", new Position(2536.999f, 2578.391f, 38), 315, 59, false, Allround.ACTION_KOKAINTRUCK);
                     player.DrawWaypoint(2536.999f, 2578.391f);
                 }

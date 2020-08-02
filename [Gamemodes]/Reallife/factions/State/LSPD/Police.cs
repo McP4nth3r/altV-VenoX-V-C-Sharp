@@ -350,7 +350,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (Allround.isBadFaction(player))
                 {
                     int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
-                    int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    int playerId = player.UID;
 
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
                     //Waffen Datas = 

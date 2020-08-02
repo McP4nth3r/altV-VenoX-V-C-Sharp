@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     int finalwertkoks = fkasse.koks;
                     int finalwertmats = fkasse.mats;
                     int finalwertmoney = fkasse.money;
-                    int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    int playerId = player.UID;
                     ItemModel KOKS = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KOKS);
                     ItemModel WEED = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_WEED);
                     ItemModel MATS = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MATS);
@@ -334,7 +334,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         return;
                     }
                     Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
-                    int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    int playerId = player.UID;
                     if (fkasse.weed < weed)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Nicht genug Weed in der Kasse!");

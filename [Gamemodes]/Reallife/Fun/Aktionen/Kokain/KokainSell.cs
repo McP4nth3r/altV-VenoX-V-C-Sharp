@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
         {
             try
             {
-                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
+                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_KOKS);
                 if (KOKS != null)
                 {
                     if (value > 0)

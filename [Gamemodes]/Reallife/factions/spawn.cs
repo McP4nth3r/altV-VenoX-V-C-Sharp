@@ -35,6 +35,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Alt.Server.TriggerClientEvent(player, "toggleHandcuffed", false);
                     return;
                 }
+                if (player.Reallife.Faction != Constants.FACTION_NONE) { player.SetTeam(player.Reallife.Faction); }
+                else { player.SetTeam(player.Id + 153); }
 
                 switch (player.Reallife.SpawnLocation)
                 {
@@ -50,9 +52,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     case "Basis":
                         switch (player.Reallife.Faction)
                         {
-                            case Constants.FACTION_NONE:
-                                Alt.Emit("GlobalSystems:PlayerTeam", player, player.Id + 153);
-                                break;
                             case Constants.FACTION_LSPD:
                                 player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                                 return;
