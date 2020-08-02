@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -56,7 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     message = message.Remove(Constants.CHAT_LENGTH, secondMessage.Length);
                 }
 
-                foreach (Client target in Alt.GetAllPlayers().ToList())
+                foreach (Client target in VenoX.GetAllPlayers().ToList())
                 {
                     if (target.Playing && player.Dimension == target.Dimension)
                     {
