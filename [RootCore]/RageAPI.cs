@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 
@@ -161,7 +162,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (Client player in Alt.GetAllPlayers()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
+                foreach (Client player in VenoX.GetAllPlayers()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -197,7 +198,7 @@ namespace VenoXV.Core
             try
             {
                 name = name.ToLower();
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.Username.ToLower() == name)
                     {
@@ -247,7 +248,7 @@ namespace VenoXV.Core
             {
                 await Task.Run(async () =>
                 {
-                    foreach (Client players in Alt.GetAllPlayers().ToList())
+                    foreach (Client players in VenoX.GetAllPlayers().ToList())
                     {
                         await _Language_.Main.SendTranslatedChatMessage(players, text);
                     }
@@ -352,7 +353,7 @@ namespace VenoXV.Core
                     VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
-                foreach (Client players in Alt.GetAllPlayers().ToList())
+                foreach (Client players in VenoX.GetAllPlayers().ToList())
                 {
                     Sync.LoadBlips(players);
                 }
@@ -426,7 +427,7 @@ namespace VenoXV.Core
                     Position = Position,
                     Rotation = Rotation
                 };
-                foreach (Client players in Alt.GetAllPlayers())
+                foreach (Client players in VenoX.GetAllPlayers())
                 {
                     if (players.Playing)
                     {
