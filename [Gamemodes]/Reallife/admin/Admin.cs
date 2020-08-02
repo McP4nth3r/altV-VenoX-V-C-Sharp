@@ -13,6 +13,7 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -30,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
         public static void sendAdminNotification(string text)
         {
-            foreach (Client admin in Alt.GetAllPlayers())
+            foreach (Client admin in VenoX.GetAllPlayers())
             {
                 if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
@@ -43,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                foreach (Client admin in Alt.GetAllPlayers())
+                foreach (Client admin in VenoX.GetAllPlayers())
                 {
                     if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -87,10 +88,10 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                //foreach (string target_namesingame in Alt.GetAllPlayers())
+                //foreach (string target_namesingame in VenoX.GetAllPlayers())
                 player.SendTranslatedChatMessage("---------------------------------------------------------");
                 player.SendTranslatedChatMessage("Folgende Admins sind grade Online : ");
-                foreach (Client targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
+                foreach (Client targetsingame in VenoX.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
                 {
                     if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -172,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                foreach (Client targetsingame in Alt.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
+                foreach (Client targetsingame in VenoX.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
                 {
                     if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -897,7 +898,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 else
                 {
                     //NAPI.World.SetWeather((Weather)weather);
-                    foreach (Client players in Alt.GetAllPlayers())
+                    foreach (Client players in VenoX.GetAllPlayers())
                     {
                         players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                     }
@@ -1062,90 +1063,76 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     Client target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
-                    if (faction > 13 || faction < 0)
+                    switch (faction)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Fraktions ID nur zwischen 0-13 möglich!");
-                        return;
+                        case 0:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Bürger gemacht.");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 1:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Chief of Police ernannt! Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 2:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Don der La Cosa Nostra von Venox City - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 3:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Yakuza von Venox City - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 4:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [GESPERRT ] Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 5:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Chefredakteur der Venox City News - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 6:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Direktor des Federal Investigation Bureau - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 7:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Boss der Venox City Vatos Locos - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 8:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Commander der Venox U.S Army - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 9:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der President der SAMCRO Redwoods Original´s - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 10:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader der Venox Medic's - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 11:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader von den Venox City Mechaniker - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 12:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Du bist nun der Banger der Venox City Ballas - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        case 13:
+                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Venox City Grove Street - Für mehr Infos öffne das Hilfemenue!");
+                            sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                            break;
+                        default:
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Fraktions ID nur zwischen 0-13 möglich!");
+                            break;
+
+
                     }
-                    if (faction == 0)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Bürger gemacht.");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 1)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Chief of Police ernannt! Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 2)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Don der La Cosa Nostra von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 3)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Yakuza von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 4)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [GESPERRT ] Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 5)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Chefredakteur der Venox City News - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 6)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Direktor des Federal Investigation Bureau - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 7)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Boss der Venox City Vatos Locos - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 8)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Commander der Venox U.S Army - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 9)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der President der SAMCRO Redwoods Original´s - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 10)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader der Venox Medic's - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 11)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader von den Venox City Mechaniker - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 12)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "Du bist nun der Banger der Venox City Ballas - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    else if (faction == 13)
-                    {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Venox City Grove Street - Für mehr Infos öffne das Hilfemenue!");
-                        sendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                    }
-                    target.vnxSetStreamSharedElementData(EntityData.PLAYER_FACTION, faction);
+                    target.Reallife.Faction = faction;
                     target.Reallife.FactionRank = 5;
-                    anzeigen.Usefull.VnX.OnFactionChange(target);
                     logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         [Command("setrank")]
@@ -1182,7 +1169,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
                 if (weapon == "mp5")
                 {
                     Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 200, true);
@@ -1270,19 +1256,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 }
             }
         }
-
-
-        [Command("getserial")]
-        public static void GetAdminSerial(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
-            {
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + target.Username + " hat serial : " + target.HardwareIdHash);
-            }
-        }
-
 
 
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
