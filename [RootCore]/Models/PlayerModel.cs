@@ -280,6 +280,7 @@ namespace VenoXV._RootCore_.Models
         public bool Playing { get { return this.vnxGetElementData<bool>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING); } set { this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
         public string Vip_Paket { get; set; }
         public void DrawWaypoint(float PosX, float PosY) { try { Alt.Server.TriggerClientEvent(this, "Player:SetWaypoint", PosX, PosY); } catch { } }
+        public void SetTeam(int Team) { try { Alt.Emit("GlobalSystems:PlayerTeam", this, Team); } catch { } }
         private bool _frozen { get; set; }
         public bool Freeze { get { return _frozen; } set { _frozen = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public DateTime Vip_BisZum { get; set; }
