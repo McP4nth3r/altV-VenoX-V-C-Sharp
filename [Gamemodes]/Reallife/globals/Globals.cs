@@ -12,6 +12,7 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -184,6 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 if (player.Playing)
                 {
+                    SyncDatabaseItems(player);
                     int played = player.Played;
                     if (played > 0 && played % 60 == 0)
                     {
@@ -256,6 +258,17 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentZombieGM", ex); }
         }
+        public static void SyncDatabaseItems(Client player)
+        {
+            try
+            {
+                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+                {
+                    Database.UpdateItem(item);
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SyncDatabaseItems", ex); }
+        }
 
         public static void OnMinuteSpent(object unused)
         {
@@ -269,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 }
-                foreach (Client player in Alt.GetAllPlayers().ToList())
+                foreach (Client player in VenoX.GetAllPlayers().ToList())
                 {
                     switch (player.Gamemode)
                     {
@@ -344,11 +357,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 int total = 0;
-                int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK);
+                int bank = player.Reallife.Bank;
                 int playerRank = player.Reallife.FactionRank;
                 int playerFaction = player.Reallife.Faction;
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                Client VipL = Database.GetPlayerVIP(player, (int)player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID));
+                Client VipL = Database.GetPlayerVIP(player, (int)player.UID);
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
                 {
@@ -688,7 +701,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 gangwar.Allround.OnPlayerDisconnected(player, type, reason);
                 Fun.Aktionen.Shoprob.Shoprob.OnPlayerDisconnected(player, type, reason);
                 anzeigen.Inventar.Main.OnPlayerDisconnect(player, type, reason);
-                VenoXV.Globals.Main.RemovePlayerFromGamemodeList(player);
                 jobs.Allround.OnPlayerDisconnect(player);
                 if (player.Playing == true)
                 {
@@ -798,7 +810,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                     player.Dimension = 0;
                                     player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                                     /*
-                                    foreach (Client target in Alt.GetAllPlayers())
+                                    foreach (Client target in VenoX.GetAllPlayers())
                                     {
                                         if (target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) && target.vnxGetElementData(EntityData.PLAYER_IPL) && target != player)
                                         {
@@ -869,16 +881,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         }
                         else
                         {
-                            if (AddierenFallsVorhanden)
-                            {
-                                Item.amount += ItemAmount;
-                                Database.UpdateItem(Item);
-                            }
-                            else
-                            {
-                                Item.amount = ItemAmount;
-                                Database.UpdateItem(Item);
-                            }
+                            if (AddierenFallsVorhanden) { Item.amount += ItemAmount; }
+                            else { Item.amount = ItemAmount; }
                         }
                     }
                     if (ItemArt == Constants.ITEM_ART_WAFFE)
