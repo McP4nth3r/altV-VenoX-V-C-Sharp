@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV._Preload_;
@@ -11,6 +12,7 @@ namespace VenoXV.Globals
 {
     public class Main : IScript
     {
+        public static List<Client> AllPlayers = new List<Client>();
         public static List<Client> ReallifePlayers = new List<Client>();
         public static List<Client> TacticsPlayers = new List<Client>();
         public static List<Client> ZombiePlayers = new List<Client>();
@@ -23,25 +25,27 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (player == null) { Core.Debug.OutputDebugString("Player got Removed?! "); return; }
+                if (player == null) { Debug.OutputDebugString("Player got Removed?! "); return; }
                 int Gamemode = player.Gamemode;
+                if (AllPlayers.Contains(player)) { AllPlayers.Remove(player); }
                 Core.Debug.OutputDebugString(player.Username + " Gamemode : " + player.Gamemode);
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
-                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); }
+                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:ReallifePlayers."); }
+                        Core.Debug.OutputDebugString(Gamemode + " : " + ReallifePlayers.Count);
                         break;
                     case (int)Preload.Gamemodes.Tactics:
-                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); }
+                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:TacticsPlayers."); }
                         break;
                     case (int)Preload.Gamemodes.Zombies:
-                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); }
+                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:ZombiePlayers."); }
                         break;
                     case (int)Preload.Gamemodes.Race:
-                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); }
+                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:RacePlayers."); }
                         break;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); }
+                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:SevenTowersPlayers."); }
                         break;
                     default:
                         Debug.OutputDebugString(player.Username + " Gamemode - 2 : " + player.Gamemode);
@@ -49,6 +53,32 @@ namespace VenoXV.Globals
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions("RemovePlayerFromGamemodeList", ex); }
+        }
+
+        [Command("getuserinfo")]
+        public static void GetUserInfo(Client player, int ID)
+        {
+            switch (ID)
+            {
+                case (int)Preload.Gamemodes.Reallife:
+                    Core.Debug.OutputDebugString(ID + " : " + ReallifePlayers.Count);
+                    break;
+                case (int)Preload.Gamemodes.Tactics:
+                    Core.Debug.OutputDebugString(ID + " : " + TacticsPlayers.Count);
+                    break;
+                case (int)Preload.Gamemodes.Zombies:
+                    Core.Debug.OutputDebugString(ID + " : " + ZombiePlayers.Count);
+                    break;
+                case (int)Preload.Gamemodes.Race:
+                    Core.Debug.OutputDebugString(ID + " : " + RacePlayers.Count);
+                    break;
+                case (int)Preload.Gamemodes.SevenTowers:
+                    Core.Debug.OutputDebugString(ID + " : " + SevenTowersPlayers.Count);
+                    break;
+                default:
+                    Core.Debug.OutputDebugString(ID + " : " + 0);
+                    break;
+            }
         }
 
 
