@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 using VenoXV.Core;
 
@@ -20,6 +21,20 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("RaceVehicleModel-Create", ex); }
         }
     }
+
+    public class Weapons
+    {
+        private Vehicle Vehicle;
+        public static List<AltV.Net.Enums.WeaponModel> List = new List<AltV.Net.Enums.WeaponModel>();
+        public Weapons(Vehicle vehicle)
+        {
+            try
+            {
+                Vehicle = vehicle;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("ReallifeVehicleModelWeapons-Create", ex); }
+        }
+    }
     public class VehReallife
     {
         private Vehicle Vehicle;
@@ -27,6 +42,7 @@ namespace VenoXV._RootCore_.Models
         public string DrivingSchoolLicense { get; set; }
         public bool ActionVehicle { get; set; }
         public int Koks { get; set; }
+        public Weapons Weapons { get; set; }
         public VehReallife(Vehicle vehicle)
         {
             try
@@ -50,7 +66,6 @@ namespace VenoXV._RootCore_.Models
         public bool Locked { get; set; }
         public int Price { get; set; }
         public string Job { get; set; }
-        public bool Action { get; set; }
         public bool NotSave { get; set; }
         private bool vehGodmode { get; set; }
         public bool NPC { get; set; }
@@ -78,9 +93,11 @@ namespace VenoXV._RootCore_.Models
             Owner = "";
             Gas = 100;
             Kms = 0;
-            Action = false;
             Race = new VehRace(this);
-            Reallife = new VehReallife(this);
+            Reallife = new VehReallife(this)
+            {
+                Weapons = new Weapons(this)
+            };
             ManualEngineControl = true;
             NPC = true;
         }
