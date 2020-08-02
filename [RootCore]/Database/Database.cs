@@ -1907,24 +1907,31 @@ namespace VenoXV._RootCore_.Database
             }
         }
 
-        public static void RemoveAllItemsByArt(int SQLID, string ItemArt)
+        public static async void RemoveAllItemsByArt(int SQLID, string ItemArt)
         {
-            using MySqlConnection connection = new MySqlConnection(connectionString);
             try
             {
-                connection.Open();
-                MySqlCommand command = connection.CreateCommand();
+                await Task.Run(() =>
+                {
+                    using MySqlConnection connection = new MySqlConnection(connectionString);
+                    try
+                    {
+                        connection.Open();
+                        MySqlCommand command = connection.CreateCommand();
 
-                command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
-                command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
-                command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
-                command.ExecuteNonQuery();
+                        command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
+                        command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
+                        command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
+                        Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
+                    }
+                });
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
-                Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("RemoveAllItemsByArt", ex); }
         }
 
         public static void RemoveAllItems(int SQLID)
