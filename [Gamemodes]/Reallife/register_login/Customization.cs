@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
             try
             {
                 // Get the tattoos from the player
-                /*int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                /*int playerId = player.UID;
                 List<TattooModel> playerTattoos = Main.tattooList.Where(t => t.player == playerId).ToList();
 
                 foreach (TattooModel tattoo in playerTattoos)

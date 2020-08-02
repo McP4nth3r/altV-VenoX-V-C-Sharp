@@ -25,6 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                             Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
                             Core.Debug.OutputDebugString(player.Username + " : " + WeaponModel);
                             RageAPI.GivePlayerWeapon(player, WeaponModel, item.amount);
+                            player.GiveWeapon((uint)WeaponModel, item.amount, false);
                         }
                     }
                 }
@@ -62,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                
                     if (oldWeapon == AltV.Net.Enums.WeaponModel.Snowballs)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Snowball = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNOWBALL);
                         if (Snowball != null)
                         {
@@ -77,7 +78,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Snowball)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Snowball = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNOWBALL);
                         if (Snowball == null)
                         {
@@ -89,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Hammer)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Bottle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_HAMMER);
                         if (Bottle == null)
                         {
@@ -101,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                                        
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Bottle)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Bottle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_BROKENBOTTLE);
                         if (Bottle == null)
                         {
@@ -113,7 +114,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.BaseballBat)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Baseball = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_BASEBALL);
                         if (Baseball == null)
                         {
@@ -125,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Nightstick)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Nightstick = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_NIGHTSTICK);
                         if (Nightstick == null)
                         {
@@ -137,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.StunGun)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel TAZER = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_TAZER);
                         if (TAZER == null)
                         {
@@ -149,7 +150,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.SwitchBlade)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel KNIFE = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SWITCHBLADE);
                         if (KNIFE == null)
                         {
@@ -161,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.VintagePistol)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Pistole = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
                         if (Pistole != null)
                         {
@@ -179,7 +180,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }                   
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Pistol)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Pistole = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
                         if (Pistole != null)
                         {
@@ -197,7 +198,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Pistol50)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Pistole50 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE50);
                         if (Pistole50 != null)
                         {
@@ -215,7 +216,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.HeavyRevolver)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Revolver = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_REVOLVER);
                         if (Revolver != null)
                         {
@@ -233,7 +234,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.PumpShotgun)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel PumpShotgun = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SHOTGUN);
                         if (PumpShotgun != null)
                         {
@@ -243,7 +244,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.CombatPDW)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel PDW = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PDW);
                         if (PDW != null)
                         {
@@ -257,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.SMG)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel MP5 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MP5);
                         if (MP5 != null)
                         {
@@ -271,7 +272,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }                    
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.MiniSMG)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel MP5 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                         if (MP5 != null)
                         {
@@ -285,7 +286,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.CarbineRifle)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KARABINER);
                         if (Rifle != null)
                         {
@@ -299,7 +300,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.AdvancedRifle)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_ADVANCEDRIFLE);
                         if (Rifle != null)
                         {
@@ -313,7 +314,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.AssaultRifle)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_AK47);
                         if (Rifle != null)
                         {
@@ -327,7 +328,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.SniperRifle)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Sniperrifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNIPERRIFLE);
                         if (Sniperrifle != null)
                         {
@@ -341,7 +342,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Musket)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_RIFLE);
                         if (Rifle != null)
                         {
@@ -355,7 +356,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.RPG)
                     {
-                        int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                        int playerId = player.UID;
                         ItemModel RPG = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_RPG);
                         if (RPG != null)
                         {
@@ -392,7 +393,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                 {
                     return;
                 }
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 ItemModel Pistoleold = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
                 //player.SendTranslatedChatMessage("Dein Alter wert war : " + Pistoleold.amount);
                 // player.SendTranslatedChatMessage("Dein Alter wert war : " + weapon);

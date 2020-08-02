@@ -1,0 +1,127 @@
+/*//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By LargePeach & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//*/
+
+body {
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    color: white;
+}
+
+/* Window */
+
+#back {
+    top: 50%;
+    height: 60%;
+    left: 50%;
+    width: 40%;
+    border-radius: 0.5vw;
+    transform: translate(-50%, -50%);
+}
+
+/* Header */
+
+#header {
+    height: 8%;
+    font-size: 1.5vw;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 0.5vw;
+    border-top-right-radius: 0.5vw;
+}
+
+/* Window Innenbereich */
+
+.area {
+    position: absolute;
+    width: 100%;
+    height: 91%;
+    top: 8%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/* Themen überschriften */
+
+.cartype {
+    position: relative;
+    background: rgba(100,100,100,0.6);
+    width: 80%;
+    left: 50%;
+    height: 10%;
+    top: 0;
+    font-family: arial;
+    font-size: 1vw;
+    margin-bottom: 1vw;
+    border-radius: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%)
+}
+#compacts { margin-top: 1.1vw; }
+
+/* Coloum */
+
+.vehcolumn {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    left: 6.5%;
+    margin-right: 6.25%;
+    margin-bottom: 1.1vw;
+    text-align: center;
+    border-top-left-radius: 0.5vw;
+    border-top-right-radius: 0.5vw;
+}
+
+.vehcolumnbutton {
+    width: 100%;
+    height: 10%;
+    background: rgba(0,0,0,0.6);
+    border-top: solid 0.15vw rgb(0,150,200);
+    font-family: arial;
+    font-size: 1vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+}
+.vehcolumnbutton:hover {
+    border-color: rgb(0,200,255);
+}
+
+/* Images */
+
+img { 
+    width: 100%;
+    height: 20%;
+}
+
+/* Close Button */
+
+#close {
+    font-family: arial;
+    color: rgba(255,255,255,0.6);
+    top: 1.5%;
+    right: 2%;
+}
+#close:hover {
+    font-weight: bold;
+    color: rgba(255,0,0,0.6);
+}
+
+
+
+
+
+::-webkit-scrollbar {
+    width: 1vw;
+}

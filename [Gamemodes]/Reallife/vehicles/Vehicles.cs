@@ -235,6 +235,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (player.IsInVehicle)
                     {
                         VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                        if (vehicle.NPC) { return; }
                         float Gas = vehicle.Gas;
                         float kostenberechnung = 100f - Gas;
                         kostenWindow = (int)kostenberechnung * 15;
@@ -260,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
                 player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 6);
                 player.SendTranslatedChatMessage("Du hast einen Tankstellen " + RageAPI.GetHexColorcode(0, 200, 255) + " Snack " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft.");
-                ItemModel Snack = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_TANKSTELLENSNACK);
+                ItemModel Snack = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_TANKSTELLENSNACK);
                 if (Snack == null) // Kanister
                 {
                     Snack = new ItemModel();
@@ -268,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     Snack.dimension = 0;
                     Snack.position = new Position(0.0f, 0.0f, 0.0f);
                     Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
-                    Snack.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    Snack.ownerIdentifier = player.UID;
                     Snack.ITEM_ART = "NUTZ_ITEM";
                     Snack.objectHandle = null;
 
@@ -300,7 +301,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 450)
             {
-                ItemModel Kanister = Main.GetPlayerItemModelFromHash(player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_BENZINKANNISTER);
+                ItemModel Kanister = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_BENZINKANNISTER);
                 if (Kanister == null) // Kanister
                 {
                     Kanister = new ItemModel();
@@ -308,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     Kanister.dimension = 0;
                     Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                     Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                    Kanister.ownerIdentifier = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    Kanister.ownerIdentifier = player.UID;
                     Kanister.ITEM_ART = "NUTZ_ITEM";
                     Kanister.objectHandle = null;
 
@@ -808,59 +809,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch { }
         }
-
-
-
-        /*
-        [Command(Messages.COM_HOOD)]
-        public void HoodCommand(PlayerModel player)
-        {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) != 0
-            {
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-            }
-            else
-            {
-                VehicleModel vehicle = Main.GetClosestIVehicle(player, 3.75f);
-                if (Vehicle != null)
-                {
-                    if (HasPlayerIVehicleKeys(player, IVehicle) == false && player.vnxGetElementData<string>(EntityData.PLAYER_JOB) != Constants.JOB_MECHANIC)
-                    {
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NOT_CAR_KEYS);
-                    }
-                    else if (IVehicle.IsDoorOpen(Constants.VEHICLE_HOOD) == false)
-                    {
-                        IVehicle.OpenDoor(Constants.VEHICLE_HOOD);
-                        player.SendTranslatedChatMessage(Constants.Rgba_INFO + Messages.INF_HOOD_OPENED);
-                    }
-                    else
-                    {
-                        IVehicle.CloseDoor(Constants.VEHICLE_HOOD);
-                        player.SendTranslatedChatMessage(Constants.Rgba_INFO + Messages.INF_HOOD_CLOSED);
-                    }
-                }
-                else
-                {
-                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + Messages.ERR_NO_IVehicleS_NEAR);
-                }
-            }
-        }
-        */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }

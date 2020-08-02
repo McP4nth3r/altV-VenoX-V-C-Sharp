@@ -45,6 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (!player.IsInVehicle) { return; }
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    if (vehicle.NPC) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du kannst kein NPC-Fahrzeug Reparieren!"); return; }
                     int playerMoney = player.Reallife.Money;
                     if (playerMoney >= 180)
                     {

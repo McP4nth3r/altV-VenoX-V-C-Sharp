@@ -9,9 +9,11 @@
 
 input::-webkit-input-placeholder { color: white; }
 
-body {
+/* Window */
+body{
     background-color: rgba(0,0,0,0) !important;
 }
+
 
 /* Window */
 

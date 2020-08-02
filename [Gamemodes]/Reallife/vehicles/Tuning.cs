@@ -255,7 +255,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 // Get the IVehicle's id
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
                 int IVehicleId = vehClass.ID;
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 TunningModel Tunning = Main.GetIVehicleTuningBySlot();
                 if (Tunning != null && Tunning.slot == slot)
                 {

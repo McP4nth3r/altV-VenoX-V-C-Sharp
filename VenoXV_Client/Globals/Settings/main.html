@@ -5,19 +5,20 @@
 </head>
 
 <body>
-    <div class="VnX-Window !d-none">
+    <div class="VnX-Window d-none">
         <div class="VnX-Header">Settings</div>
         <div class="VnX-Close" onclick="alt.emit('Settings:Hide');">X</div>
         <div class="parting"></div>
         <div class="SettingsSidebar">
             <div id="Gameplay" class="SettingsButton">Gameplay</div>
             <div id="Show" class="SettingsButton">Show</div>
+            <div id="Voice" class="SettingsButton">Voice</div>
             <div id="Account" class="SettingsButton">Account</div>
             <div id="Information" class="SettingsButton">Information</div>
         </div>
 
 
-        <div class="Gameplay_Window d-none">
+        <div class="Gameplay_Window $d-none">
             <div class="Area">
                 <div class="dropdown_h">
                     <button class="dropbtn_h">Reallife HUD</button>
@@ -151,7 +152,7 @@
         </div>   
 -->        
         
-        <div class="Account_Window d-none">
+        <div class="Account_Window !d-none">
             <div class="Area">
                 <form method="post" id="password_change">
                     <input type="password" class="password1" id="password1" placeholder="Neues Passwort...">

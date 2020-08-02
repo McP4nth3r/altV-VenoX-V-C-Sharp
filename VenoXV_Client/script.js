@@ -48,6 +48,7 @@ import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
 import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
+import * as VehCatalog from '/VenoXV_Client/Reallife/vehicles/catalog/index.js';
 import * as SevenTowers from '/VenoXV_Client/SevenTowers/Lobby/index.js';
 
 

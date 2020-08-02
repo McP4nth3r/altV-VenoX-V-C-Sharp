@@ -328,7 +328,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
         public static void OnSelectedReallifeGM(Client player)
         {
-            try { LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
+            try { player.RemoveAllPlayerWeapons(); LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
             catch (Exception ex) { Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
         }
 
