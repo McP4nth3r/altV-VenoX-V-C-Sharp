@@ -118,7 +118,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 if (NextSyncTick <= DateTime.Now)
                 {
-                    foreach (Client playerClass in Alt.GetAllPlayers())
+                    foreach (Client playerClass in VenoX.GetAllPlayers())
                     {
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);
