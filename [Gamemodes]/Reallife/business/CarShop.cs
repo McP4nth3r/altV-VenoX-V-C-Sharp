@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -15,7 +15,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
     public class CarShop : IScript
     {
         public static ColShapeModel carShopTextLabel; // Eig Text label!
-
 
         private int GetClosestCarShop(Client player, float distance = 2.0f)
         {
@@ -99,7 +98,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         public static ColShapeModel CARSHOP = RageAPI.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
-
         public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
         {
             try
@@ -108,28 +106,16 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 {
                     List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
 
+                    int Max = carList.Count;
+                    Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Show");
                     // Getting the speed for each IVehicle in the list
                     foreach (CarShopVehicleModel carShopVehicle in carList)
                     {
-                        AltV.Net.Enums.VehicleModel vehicle = (AltV.Net.Enums.VehicleModel)uint.Parse(carShopVehicle.model);
-
-
-                        // carShopIVehicle.speed = (int)Math.Round(NAPI.Vehicle.GetIVehicleMaxSpeed(VehicleModel) * 3.6f);
+                        Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, Max);
                     }
-
-                    // We show the catalog
-                    player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    Alt.Server.TriggerClientEvent(player, "showIVehicleCatalog", JsonConvert.SerializeObject(carList), 0);
                 }
             }
-            catch { }
-        }
-
-
-        //[AltV.Net.ClientEvent("showhudagain")]
-        public void ShowHUDAgain(Client player)
-        {
-            player.vnxSetStreamSharedElementData("HideHUD", 0);
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShapeModel", ex); }
         }
     }
 }
