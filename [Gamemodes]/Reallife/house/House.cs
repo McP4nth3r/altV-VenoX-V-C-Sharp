@@ -261,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
                 int sex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
 
                 List<ClothesModel> clothesList = Main.GetPlayerClothes(playerId).Where(c => c.type == type && c.slot == slot).ToList();
@@ -286,7 +286,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             try
             {
-                int playerId = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                int playerId = player.UID;
 
                 // Replace player clothes for the new ones
                 foreach (ClothesModel clothes in Main.clothesList)
