@@ -7,10 +7,14 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
+using System.Collections.Generic;
 using System.Linq;
+using VenoXV._Gamemodes_.Reallife.Chat;
 using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.factions.State.LSPD;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -889,6 +893,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             catch { }
         }
 
+
+        public static List<WantedModel> WantedList = new List<WantedModel>
+        {
+            new WantedModel("kpv", 1),
+        };
+
+
         [Command("su", true)]
         public void GivePlayerStars(Client player, string target_name, string action)
         {
@@ -901,13 +912,18 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
+                if (!Allround.isStateFaction(player))
+                {
+                    player.SendChatMessage("Du bist kein Staatsfraktionist!");
+                    return;
+                }
 
-                if (target != null && target.Playing == true)
+                if (target.Playing)
                 {
                     action = action.ToLower();
                     if (target.Reallife.Wanteds == 6 || target.Reallife.Wanteds > 6)
                     {
-                        player.SendTranslatedChatMessage("{007d00}Der Spieler hat bereits 6 Wanteds!");
+                        player.SendChatMessage("!{#007d00}Der Spieler hat bereits 6 Wanteds!");
                         return;
                     }
                     int SpielerWanteds = target.Reallife.Wanteds;
@@ -917,49 +933,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     /////////////////////////////// 1 STAR ///////////////////////////////
                     /////////////////////////////// 1 STAR ///////////////////////////////
                     /////////////////////////////// 1 STAR ///////////////////////////////
-
-                    switch (action)
-                    {
-                        case "kpv":
-                        case "körperverletzung":
-                        case "behind":
-                        case "beamtenbehinderung":
-                        case "behinderung":
-                        case "beläst":
-                        case "beamtenbelästigung":
-                        case "belästigung":
-                        case "belei":
-                        case "beamtenbeleidigung":
-                        case "beleidigung":
-                        case "vkk":
-                        case "flucht":
-                        case "kontrolle":
-                        case "dieb":
-                        case "diebstahl":
-                        case "vdieb":
-                        case "sb":
-                        case "sachbeschädigung":
-                        case "beschädigung":
-                        case "werb":
-                        case "illegale werbung":
-                        case "werbung":
-                        case "rennen":
-                        case "straßenrennen":
-                        case "tat":
-                        case "tatsachen":
-                        case "fof":
-                        case "fahrerlaubnis":
-                        case "besitz1":
-                        case "illegal1":
-                            target.Reallife.Wanteds += 1;
-                            break;
-                        default:
-                            player.SendTranslatedChatMessage("Falsches Wantedkürzel");
-                            break;
-
-                    }
-
-
                     if (
                        action == "kpv" || action == "körperverletzung"
                     || action == "beamtenbehinderung" || action == "behind"
@@ -996,7 +969,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         else if (action == "koks1") { wantedgrund = "Koksinbesitz (10 - 49g)"; }
                         else if (action == "mats1") { wantedgrund = "Matsbesitz (10 - 49Stk.)"; }
 
-                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
                     }
                     /////////////////////////////// 2 STAR /////////////////////////////// 
                     /////////////////////////////// 2 STAR /////////////////////////////// 
@@ -1039,8 +1012,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         else if (action == "koks2") { wantedgrund = "Koksinbesitz (50 - 149g)"; }
                         else if (action == "mats2") { wantedgrund = "Matsbesitz (50 - 149Stk.)"; }
 
-
-                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
 
 
                     }
@@ -1077,7 +1049,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         else if (action == "koks3") { wantedgrund = "Koksinbesitz (150g und mehr)"; }
                         else if (action == "mats3") { wantedgrund = "Matsbesitz (150 Stk. und mehr)"; }
 
-                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
                     }
 
                     /////////////////////////////// 4 STAR /////////////////////////////// 
@@ -1097,7 +1069,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         if (action == "br") { wantedgrund = "Bankraub"; }
                         else if (action == "geisel") { wantedgrund = "Geiselnahme"; }
 
-                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
                     }
                     /////////////////////////////// 6 STAR /////////////////////////////// 
                     else if (
@@ -1116,31 +1088,29 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         if (action == "fib") { wantedgrund = "Einbruch beim FIB"; }
                         else if (action == "pd") { wantedgrund = "Einbruch beim LSPD"; }
 
-                        target.SendTranslatedChatMessage("{ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
+                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
                     }
                     else
                     {
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
+                        player.SendReallifeMessage("{175,0,0}Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (Client targetsingame in VenoX.GetAllPlayers().ToList())
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
-                            targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat das Fahndungslevel von " + target.Username + " erhöht auf " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "! Grund : " + wantedgrund);
-
+                            targetsingame.SendChatMessage("!{0,145,200}" + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " hat das Fahndungslevel von " + target.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
                         }
                     }
-                    //IPlayer seitig bei ihm Ändern.
-                    anzeigen.Usefull.VnX.onWantedChange(target);
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " ist grade am Connecten....");
+                    player.SendChatMessage("!{200,0,0}" + target.Name + " ist grade am Connecten....");
                 }
             }
             catch { }
         }
+
         [Command("clear", true)]
         public void Clearuserwanteds(Client player, string target_name)
         {
