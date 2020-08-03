@@ -27,7 +27,7 @@ let CURSOR_KEY = 18;
 
 
 export function GetCurrentLobby() { try { return CurrentLobby; } catch{ } }
-export function FreezeClient(bool) { try { game.freezeEntityPosition(alt.Player.local.scriptID, bool); } catch{ } }
+export function FreezeClient(bool) { try { game.freezeEntityPosition(LocalPlayer.scriptID, bool); } catch{ } }
 export function SetEntityAlpha(Entity, alpha) { try { game.setEntityAlpha(Entity.scriptID, alpha, true); } catch{ } }
 
 alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { try { CurrentLobby = Lobby; } catch{ } });
@@ -79,39 +79,32 @@ alt.onServer("movecamtocurrentpos_client", () => {
             alt.emitServer('load_data_login');
             CalledToSpawn = true;
             ShowCursor(false);
-        }, 6000);
-
-        alt.setTimeout(() => {
-            moveFromToAir(alt.Player.local, 'down');
             alt.setTimeout(() => {
                 FreezeClient(false);
-                alt.setTimeout(() => {
-                    CalledToSpawn = false;
-                }, 5000);
-            }, 8000);
-        }, 8000);
+                moveFromToAir(alt.Player.local, 'down');
+                CalledToSpawn = false;
+            }, 2000);
+        }, 6000);
     }
     catch{ }
 });
 
 let BlipList = [];
 let BlipC = 0;
-alt.onServer("BlipClass:CreateBlip", (BlipJson) => {
+alt.onServer("BlipClass:CreateBlip", (Name, X, Y, Z, Sprite, Color, ShortRange) => {
     try {
-        let Blip = JSON.parse(BlipJson);
-        for (let i = 0; i < Blip.length; i++) {
-            let data_blip = Blip[i];
-            //alt.log("Datas : " + data_blip.Name + " | " + [data_blip.posX, data_blip.posY, data_blip.posZ] + " | " + data_blip.Sprite + " | " + data_blip.Color + " | " + data_blip.ShortRange);
-            let cBlip = CreateBlip(data_blip.Name, [data_blip.posX, data_blip.posY, data_blip.posZ], data_blip.Sprite, data_blip.Color, data_blip.ShortRange);
-            BlipList[BlipC] = {
-                Entity: cBlip,
-                Name: data_blip.Name,
-                X: data_blip.posX,
-                Y: data_blip.posY,
-                Z: data_blip.posZ
-            };
-            BlipC++
-        }
+        for (var _c in BlipList) { if (BlipList[_c].Name == Name && BlipList[_c].X == X && BlipList[_c].Y == Y && BlipList[_c].Z == Z) { return; } }
+        let cBlip = CreateBlip(Name, [X, Y, Z], Sprite, Color, ShortRange);
+        BlipList[BlipC++] = {
+            Entity: cBlip,
+            Name: Name,
+            X: X,
+            Y: Y,
+            Z: Z,
+            Sprite: Sprite,
+            Color: Color,
+            ShortRange: ShortRange
+        };
     }
     catch{ }
 });
@@ -121,7 +114,6 @@ alt.onServer('BlipClass:RemoveBlip', (Name) => {
         if (BlipList[c_].Name == Name) {
             //game.deleteObject(BlipList[c_].Entity);
             game.removeBlip(BlipList[c_].Entity);
-            alt.log("Remove Blip : " + Name);
             BlipList.splice(c_, 1);
         }
     }
@@ -172,6 +164,12 @@ alt.onServer('Player:Visible', (bool) => {
     }
     catch{ }
 });
+
+alt.onServer('Player:DefaultComponentVariation', () => {
+    game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
+    alt.log("DefaultVariationGotCalledBro");
+});
+
 alt.onServer('Player:SetWaypoint', (X, Y) => {
     try {
         game.setNewWaypoint(X, Y);
@@ -324,7 +322,7 @@ function moveFromToAir(player, moveTo, switchType, showGui) {
                     //mp.gui.chat.show(showGui);
                     gui = 'false';
                 };
-                game.switchOutPlayer(player.scriptID, 0, parseInt(switchType));
+                game.switchOutPlayer(player.scriptID, 0, switchType);
                 break;
             case 'down':
                 if (gui == 'false') {

@@ -124,8 +124,7 @@ alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
 				HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
 				break;
 			case 'PLAYER_WANTEDS':
-				let CurrentWanteds = LocalEntity.getSyncedMeta('PLAYER_WANTEDS');
-				HUD_BROWSER.emit('HUD:UpdateWanteds', CurrentWanteds);
+				HUD_BROWSER.emit('HUD:UpdateWanteds', value);
 
 		}
 	}

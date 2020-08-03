@@ -354,7 +354,7 @@ p#charcreatorerror {
 div.creatorBox>button {
     margin-top: 10px;
     border: 0px;
-    background: linear-gradient(to right, #020202 0%, #fefeff 100%) !important;
+    background: linear-gradient(to right, rgb(0,100,150) 0%,rgb(0,200,255) 100%) !important;
     opacity: .25;
     font-family: PEL;
     transition: all 0.3s ease-in-out;

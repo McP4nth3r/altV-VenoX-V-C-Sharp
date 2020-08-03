@@ -6,7 +6,7 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { ShowCursor, vnxCreateCEF } from '../VnX-Lib';
+import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../VnX-Lib';
 
 let CharCreator;
 let loginCamera;
@@ -78,8 +78,15 @@ alt.onServer('CharCreator:Start', (gender = 1) => {
 alt.onServer('CharCreator:Close', () => {
     if (CharCreator) {
         CharCreator.destroy();
-        CharCreator = false;
+        vnxDestroyCEF('CharCreator');
+        CharCreator = null;
         game.deletePed(charcreatorPedHandle);
+        game.setCamActive(loginCamera, false);
+        game.renderScriptCams(false, false, 0, true, false);
+        game.destroyCam(loginCamera, true);
+        game.destroyAllCams(true);
+        game.setFollowPedCamViewMode(1);
+        game.clearFocus();
     }
 });
 

@@ -62,6 +62,7 @@ if ('alt' in window) {
     });
     alt.on('HUD:UpdateWanteds', (Wanteds) => {
         UpdateHUDWanteds(Wanteds);
+        console.log('Called Wanted-Change : ' + Wanteds);
     });
     alt.on('HUD:UpdateLocation', (Location) => {
         UpdateLocation(Location);
