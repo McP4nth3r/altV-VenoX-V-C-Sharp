@@ -5,6 +5,7 @@
 //----------------------------------//
 using AltV.Net;
 using System;
+using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
@@ -37,7 +38,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 if (player.Reallife.Faction != Constants.FACTION_NONE) { player.SetTeam(player.Reallife.Faction); }
                 else { player.SetTeam(player.Id + 153); }
-
                 switch (player.Reallife.SpawnLocation)
                 {
                     case "noobspawn":
@@ -105,7 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         break;
                     case "House":
-                        foreach (HouseModel house in House.houseList)
+                        foreach (HouseModel house in House.houseList.ToList())
                         {
                             if (player.Reallife.HouseRent > 0 || player.Username == house.owner)
                             {
