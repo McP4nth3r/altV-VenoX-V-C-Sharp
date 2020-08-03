@@ -292,7 +292,7 @@
 
 /* Loading Screen */
 
-#Main{
+.Loading-Screen-Main{
 	position: absolute;
 	left: 0;
 	top: 0;
