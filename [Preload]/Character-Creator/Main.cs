@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using System.Collections.Generic;
+using System.Linq;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -12,53 +13,68 @@ namespace VenoXV._Preload_.Character_Creator
         [ClientEvent("CharCreator:Create")]
         public static void OnCharCreatorCreateCall(Client player, string facefeatures, string headblends, string headoverlays)
         {
-            int UID = Database.GetPlayerUID(player.Username);
-            player.UID = UID;
+            try
+            {
+                int UID = Database.GetPlayerUID(player.Username);
+                //int UID = player.UID;
 
-            Core.Debug.OutputDebugString("----------------");
-            Core.Debug.OutputDebugString(facefeatures);
-            Core.Debug.OutputDebugString(headblends);
-            Core.Debug.OutputDebugString(headoverlays);
-            Core.Debug.OutputDebugString("" + player.UID);
-            Core.Debug.OutputDebugString("----------------");
-            CharacterModel playerClassSkin = new CharacterModel
-            {
-                UID = player.UID,
-                FaceFeatures = facefeatures,
-                HeadBlendData = headblends,
-                HeadOverlays = headoverlays
-            };
-            foreach (CharacterModel skin in CharacterSkins)
-            {
-                if (skin.UID == player.UID) { return; }
+                Debug.OutputDebugString("----------------");
+                Debug.OutputDebugString(facefeatures);
+                Debug.OutputDebugString(headblends);
+                Debug.OutputDebugString(headoverlays);
+                Debug.OutputDebugString("" + player.UID);
+                Debug.OutputDebugString("----------------");
+                CharacterModel playerClassSkin = new CharacterModel
+                {
+                    UID = player.UID,
+                    FaceFeatures = facefeatures,
+                    HeadBlendData = headblends,
+                    HeadOverlays = headoverlays
+                };
+                foreach (CharacterModel skin in CharacterSkins.ToList())
+                {
+                    if (skin.UID == player.UID) { return; }
+                }
+                CharacterSkins.Add(playerClassSkin);
+                Database.CreateCharacterSkin(player.UID, facefeatures, headblends, headoverlays);
+                Alt.Server.TriggerClientEvent(player, "CharCreator:Close");
+                Database.LoadCharacterInformationById(player, UID);
+                player.Reallife.SpawnLocation = "Wuerfelpark";
+                player.SpawnPlayer(player.Position);
+                Preload.ShowPreloadList(player);
+                if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
             }
-            player.DespawnPlayer();
-            CharacterSkins.Add(playerClassSkin);
-            Database.CreateCharacterSkin(player.UID, facefeatures, headblends, headoverlays);
-            Preload.ShowPreloadList(player);
-            Alt.Server.TriggerClientEvent(player, "CharCreator:Close");
-            Database.LoadCharacterInformationById(player, UID);
+            catch { }
         }
 
         public static bool PlayerHaveSkin(Client player)
         {
-            foreach (CharacterModel skin in CharacterSkins)
+            try
             {
-                if (skin.UID == player.UID) { return true; }
+                foreach (CharacterModel skin in CharacterSkins.ToList())
+                {
+                    if (skin.UID == player.UID) { return true; }
+                }
+                return false;
             }
-            return false;
+            catch { return false; }
         }
 
         public static void LoadCharacterSkin(Client player)
         {
-            player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
-            foreach (CharacterModel skins in CharacterSkins)
+            try
             {
-                if (skins.UID == player.UID)
+                player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
+                Alt.Server.TriggerClientEvent(player, "Player:DefaultComponentVariation");
+                foreach (CharacterModel skins in CharacterSkins)
                 {
-                    Alt.Server.TriggerClientEvent(player, "Charselector:setCorrectSkin", skins.FaceFeatures, skins.HeadBlendData, skins.HeadOverlays);
+                    if (skins.UID == player.UID)
+                    {
+                        Alt.Server.TriggerClientEvent(player, "Charselector:setCorrectSkin", skins.FaceFeatures, skins.HeadBlendData, skins.HeadOverlays);
+                    }
                 }
             }
+            catch { }
         }
     }
 }

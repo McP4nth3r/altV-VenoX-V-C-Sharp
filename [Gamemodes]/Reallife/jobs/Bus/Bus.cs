@@ -50,7 +50,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 // Erstellt für jede Koordinate in der Tabelle eine Bus - Station.
                 foreach (Vector3 BusCoord in AbgabepunkteLVLONE)
                 {
-                    Core.RageAPI.CreateObject("BusJob", "3272282878", new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1), new Vector3(0, 0, 0), new Quaternion());
+                    RageAPI.CreateObject("BusJob", "3272282878", new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1), new Vector3(0, 0, 0), new Quaternion());
+
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnResourceStart", ex); }
@@ -106,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         player.Reallife.Money += BUSJOB_ROUND_BONUS;
                         player.Reallife.BUSJOB_LEVEL = 0;
                     }
-                    else { player.vnxSetElementData(BUSJOB_LEVEL, CurrentBusStation + 1); }
+                    else { player.Reallife.BUSJOB_LEVEL += 1; }
 
                     int JobMoney = 0;
                     switch (player.Reallife.JobStage)
@@ -121,7 +122,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                             JobMoney = BUSJOB_LEVEL_THREE_MONEY;
                             break;
                     }
-                    player.Reallife.BUSJOB_LEVEL += 1;
                     player.Reallife.Money += JobMoney;
                     Allround.DestroyJobMarker(player);
                     Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];

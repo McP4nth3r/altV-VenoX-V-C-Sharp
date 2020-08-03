@@ -285,7 +285,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 premium.viplevels.VIPLEVELS.SendVIPNotify(player);
                 Spawn.SpawnPlayerOnSpawnpoint(player);
                 Settings.VnX.LoadSettingsData(player);
-                player.vnxSetStreamSharedElementData("HideHUD", 0);
                 Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
@@ -300,7 +299,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
-
+                player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
                 _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                 character.Customization.ApplyPlayerClothes(player);
                 anzeigen.Inventar.Main.OnPlayerConnect(player);

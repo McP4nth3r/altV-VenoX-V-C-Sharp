@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         // Settings
         public const int RACE_JOIN_TIME = 5; // Time in MS to join a started round.
-        public const int RACE_ROUND_MINUTES = 50; // Time in Minutes - Round Minute Times
+        public const int RACE_ROUND_MINUTES = 5; // Time in Minutes - Round Minute Times
         public const int RACE_ROUND_WILL_START_IN = 5; // Time in Seconds - Round will start after it ended
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+

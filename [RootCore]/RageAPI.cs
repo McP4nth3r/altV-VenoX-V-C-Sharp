@@ -17,7 +17,6 @@ namespace VenoXV.Core
     public static class RageAPI
     {
         //RageAPI.CreateColShapeSphere(new Position(732.712f, -1088.656f, 21.77967f), 2);
-
         public static List<ColShapeModel> GetAllColShapes()
         {
             try { return Sync.ColShapeList; }
@@ -162,7 +161,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (Client player in VenoX.GetAllPlayers()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
+                foreach (Client player in VenoX.GetAllPlayers().ToList()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -427,7 +426,7 @@ namespace VenoXV.Core
                     Position = Position,
                     Rotation = Rotation
                 };
-                foreach (Client players in VenoX.GetAllPlayers())
+                foreach (Client players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.Playing)
                     {

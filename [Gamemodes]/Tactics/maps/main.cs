@@ -532,40 +532,6 @@ namespace VenoXV._Gamemodes_.Tactics.maps
                 Custom_Weapon_Mode_Name = "",
                 Custom_Vehicles = new List<MapVehicleModel>(),
                 Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
-            },
-            new RoundModel
-            {
-                Map_Name = "Italian-Coast",
-                Team_A_Name = "Refugees",
-                Team_A_Skin = "Tramp01AMO",
-                Team_A_WinnerText = "Die Flüchtlinge gewinnen die Runde.",
-                Team_A_Color = new int[] { 192, 192, 192 },
-                Team_A_Spawnpoints = new List<Vector3>{
-                    new Vector3(1311.6923f, 4313.288f, 38.058594f),
-                    new Vector3(1312.2329f, 4315.0815f, 38.125977f),
-                    new Vector3(1311.4813f, 4315.5825f, 38.07544f),
-                    new Vector3(1310.5978f, 4315.2793f, 37.974365f),
-                },
-                Team_B_Name = "Border-Control",
-                Team_B_Skin = "s_m_y_hwaycop_01",
-                Team_B_WinnerText = "Die Border-Control gewinnen die Runde.",
-                Team_B_Color = new int[] { 255, 160, 122 },
-                Team_B_Spawnpoints = new List<Vector3>{
-                    new Vector3(-1772.294f, -730.7077f, 9.969971f),
-                    new Vector3(-1775.419f, -727.0813f, 9.986816f),
-                    new Vector3(-1773.745f, -728.8879f, 9.969971f),
-                    new Vector3(-1770.734f, -732.3569f, 9.953125f),
-                },
-                Custom_Weapon_Map = false,
-                Custom_Weapon_Mode_Name = "",
-                Custom_Vehicles = new List<MapVehicleModel>
-                {
-                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Dinghy,Vehicle_Position = new Vector3(-863.0242f,  -3204.5671f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Dinghy,Vehicle_Position = new Vector3(-867.87695f, -3212.2417f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Dinghy,Vehicle_Position = new Vector3(-873.6f,     -3216.7913f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                    new MapVehicleModel{Vehicle_Hash = AltV.Net.Enums.VehicleModel.Dinghy,Vehicle_Position = new Vector3(-878.38684f, -3224.6638f, 13.9296875f),Vehicle_Rotation = new Vector3(0,0,0)},
-                },
-                Custom_Weapons = new List<AltV.Net.Enums.WeaponModel>(),
             }
         };
     }

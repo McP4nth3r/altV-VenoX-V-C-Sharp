@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,15 +27,16 @@ namespace VenoXV._RootCore_.Sync
         {
             try
             {
-                List<BlipModel> AlleBlips = new List<BlipModel>();
-                foreach (BlipModel blip in BlipList)
+                //List<BlipModel> AlleBlips = new List<BlipModel>();
+                foreach (BlipModel blip in BlipList.ToList())
                 {
                     if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
                     {
-                        AlleBlips.Add(blip);
+                        //AlleBlips.Add(blip);
+                        Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
                     }
                 }
-                Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                //Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             }
             catch { }
         }
@@ -47,7 +47,7 @@ namespace VenoXV._RootCore_.Sync
             try
             {
                 Alt.Server.TriggerClientEvent(playerClass, "Sync:DestroyObjs");
-                foreach (ObjectModel obj in ObjectList)
+                foreach (ObjectModel obj in ObjectList.ToList())
                 {
                     if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
                     {
@@ -67,7 +67,7 @@ namespace VenoXV._RootCore_.Sync
             try
             {
                 Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveLabels");
-                foreach (LabelModel labels in LabelList)
+                foreach (LabelModel labels in LabelList.ToList())
                 {
                     if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= RenderDistance && labels.Dimension == playerClass.Dimension)
                     {
@@ -87,7 +87,7 @@ namespace VenoXV._RootCore_.Sync
             try
             {
                 Alt.Server.TriggerClientEvent(playerClass, "Sync:RemoveMarkers");
-                foreach (MarkerModel marker in MarkerList)
+                foreach (MarkerModel marker in MarkerList.ToList())
                 {
                     if (playerClass.Position.Distance(marker.Position) <= RenderDistance && marker.Dimension == playerClass.Dimension)
                     {
@@ -104,7 +104,7 @@ namespace VenoXV._RootCore_.Sync
         {
             try
             {
-                foreach (NPCModel npcClass in NPCList)
+                foreach (NPCModel npcClass in NPCList.ToList())
                 {
                     Alt.Server.TriggerClientEvent(playerClass, "NPC:Create", npcClass.Name, npcClass.Position, npcClass.Rotation.Z);
                 }
@@ -118,7 +118,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 if (NextSyncTick <= DateTime.Now)
                 {
-                    foreach (Client playerClass in VenoX.GetAllPlayers())
+                    foreach (Client playerClass in VenoX.GetAllPlayers().ToList())
                     {
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);

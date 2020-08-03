@@ -10,6 +10,34 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Weapons : IScript
     {
+
+        public static AltV.Net.Enums.WeaponModel GetWeaponByHashName(string HashName)
+        {
+            switch (HashName)
+            {
+                case Constants.ITEM_HASH_PISTOLE:
+                    return AltV.Net.Enums.WeaponModel.Pistol;
+                case Constants.ITEM_HASH_PISTOLE50:
+                    return AltV.Net.Enums.WeaponModel.Pistol50;
+                case Constants.ITEM_HASH_REVOLVER:
+                    return AltV.Net.Enums.WeaponModel.HeavyRevolver;
+                case Constants.ITEM_HASH_PDW:
+                    return AltV.Net.Enums.WeaponModel.CombatPDW;
+                case Constants.ITEM_HASH_MP5:
+                    return AltV.Net.Enums.WeaponModel.SMG;
+                case Constants.ITEM_HASH_ADVANCEDRIFLE:
+                    return AltV.Net.Enums.WeaponModel.AdvancedRifle;
+                case Constants.ITEM_HASH_KARABINER:
+                    return AltV.Net.Enums.WeaponModel.CarbineRifle;
+                case Constants.ITEM_HASH_RIFLE:
+                    return AltV.Net.Enums.WeaponModel.Musket;
+                case Constants.ITEM_HASH_AK47:
+                    return AltV.Net.Enums.WeaponModel.AssaultRifle;
+                default:
+                    break;
+            }
+            return AltV.Net.Enums.WeaponModel.Fist;
+        }
         public static void GivePlayerWeaponItems(Client player)
         {
             try
@@ -21,11 +49,8 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     {
                         if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
                         {
-                            AltV.Net.Enums.WeaponModel WeaponModel = (AltV.Net.Enums.WeaponModel)Alt.Hash(item.hash);
                             Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
-                            Core.Debug.OutputDebugString(player.Username + " : " + WeaponModel);
-                            RageAPI.GivePlayerWeapon(player, WeaponModel, item.amount);
-                            player.GiveWeapon((uint)WeaponModel, item.amount, false);
+                            RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.hash), item.amount);
                         }
                     }
                 }

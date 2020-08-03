@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Linq;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -45,7 +46,8 @@ namespace VenoXV._Preload_
 
         public static void ShowPreloadList(Client player)
         {
-            Alt.Server.TriggerClientEvent(player, "preload_gm_list");
+            try { Alt.Server.TriggerClientEvent(player, "preload_gm_list"); }
+            catch { }
         }
 
         [Command("leave")]
@@ -84,6 +86,7 @@ namespace VenoXV._Preload_
         {
             try
             {
+                if (player == null) { return; }
                 player.Dimension = player.Id;
                 Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
@@ -106,7 +109,6 @@ namespace VenoXV._Preload_
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
                     case (int)Gamemodes.Tactics:
-                        player.Language = (int)_Language_.Main.Languages.France;
                         if (!Globals.Main.TacticsPlayers.Contains(player)) { Globals.Main.TacticsPlayers.Add(player); }
                         _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
@@ -141,7 +143,7 @@ namespace VenoXV._Preload_
                 int ZombiePlayers = 0;
                 int ReallifePlayers = 0;
                 int TacticsPlayers = 0;
-                foreach (Client players in VenoX.GetAllPlayers())
+                foreach (Client players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_REALLIFE) { ReallifePlayers += 1; }
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }

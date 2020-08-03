@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using System;
+using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
@@ -13,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
             try
             {
                 int playerId = player.UID;
-                foreach (ClothesModel clothes in Main.clothesList)
+                foreach (ClothesModel clothes in Main.clothesList.ToList())
                 {
                     if (clothes.player == playerId && clothes.dressed)
                     {

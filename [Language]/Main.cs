@@ -51,6 +51,7 @@ namespace VenoXV._Language_
         {
             try
             {
+                return word;
                 string fromLanguage = fromPair;
                 string toLanguage = toPair;
                 string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(word)}";

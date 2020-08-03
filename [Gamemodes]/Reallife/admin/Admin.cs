@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
         public static void sendAdminNotification(string text)
         {
-            foreach (Client admin in VenoX.GetAllPlayers())
+            foreach (Client admin in VenoX.GetAllPlayers().ToList())
             {
                 if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                foreach (Client admin in VenoX.GetAllPlayers())
+                foreach (Client admin in VenoX.GetAllPlayers().ToList())
                 {
                     if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -88,10 +88,10 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                //foreach (string target_namesingame in VenoX.GetAllPlayers())
+                //foreach (string target_namesingame in VenoX.GetAllPlayers().ToList())
                 player.SendTranslatedChatMessage("---------------------------------------------------------");
                 player.SendTranslatedChatMessage("Folgende Admins sind grade Online : ");
-                foreach (Client targetsingame in VenoX.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
+                foreach (Client targetsingame in VenoX.GetAllPlayers().ToList().OrderBy(p => p.AdminRank).Reverse())
                 {
                     if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -173,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                foreach (Client targetsingame in VenoX.GetAllPlayers().OrderBy(p => p.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK)))
+                foreach (Client targetsingame in VenoX.GetAllPlayers().ToList())
                 {
                     if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -898,7 +898,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 else
                 {
                     //NAPI.World.SetWeather((Weather)weather);
-                    foreach (Client players in VenoX.GetAllPlayers())
+                    foreach (Client players in VenoX.GetAllPlayers().ToList())
                     {
                         players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                     }
@@ -1412,7 +1412,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                //ToDo Sie Clientseitig Laden! : player.SetClothes(slot, drawable, texture);
+                player.SetClothes(slot, drawable, texture);
             }
         }
 
@@ -1512,21 +1512,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin
              }
              catch { }
          }*/
-
-        [Command("giveweapons")]
-        public static void GiveTestWeapons(Client player)
-        {
-            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.BullpupRifleMkII, 200);
-            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.BullpupRifleMkII, 2);
-
-            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Pistol50, 200);
-            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.Pistol50, 3);
-
-            RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 200);
-            player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.AssaultRifle, 2);
-        }
-
-
 
         // DrugsMichaelAliensFightIn == Sollten wir verwenden für drogen system ^^
     }

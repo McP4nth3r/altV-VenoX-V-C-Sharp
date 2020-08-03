@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -16,6 +17,13 @@ namespace VenoXV._Preload_.Register
         public static bool PlayerHaveAlreadyAccount(Client playerClass)
         {
             bool state = false;
+            foreach (AccountModel accClass in AccountList)
+            {
+                if (playerClass.HardwareIdHash.ToString() == accClass.HardwareId || playerClass.HardwareIdExHash.ToString() == accClass.HardwareIdExhash || playerClass.SocialClubId.ToString() == accClass.SocialID)
+                {
+                    state = true;
+                }
+            }
             return state;
         }
 
@@ -36,9 +44,10 @@ namespace VenoXV._Preload_.Register
             try
             {
                 player.SetPlayerSkin(sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
-                player.SetClothes(11, 15, 0);
+                Alt.Server.TriggerClientEvent(player, "Player:DefaultComponentVariation");
+                /*player.SetClothes(11, 15, 0);
                 player.SetClothes(3, 15, 0);
-                player.SetClothes(8, 15, 0);
+                player.SetClothes(8, 15, 0);*/
                 player.Sex = sex;
             }
             catch (Exception ex)
@@ -61,7 +70,6 @@ namespace VenoXV._Preload_.Register
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
-                //Program.CreateForumUser(player, nickname, email, password);
                 Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring, 0);
                 int UID = Database.GetPlayerUID(nickname);
                 player.Username = nickname;
@@ -83,6 +91,7 @@ namespace VenoXV._Preload_.Register
                     SocialID = player.SocialClubId.ToString()
                 };
                 AccountList.Add(account);
+                Program.CreateForumUser(player, nickname, email, password);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); }
         }

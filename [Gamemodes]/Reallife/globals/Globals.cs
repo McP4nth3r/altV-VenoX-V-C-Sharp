@@ -810,7 +810,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                     player.Dimension = 0;
                                     player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                                     /*
-                                    foreach (Client target in VenoX.GetAllPlayers())
+                                    foreach (Client target in VenoX.GetAllPlayers().ToList())
                                     {
                                         if (target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) && target.vnxGetElementData(EntityData.PLAYER_IPL) && target != player)
                                         {
