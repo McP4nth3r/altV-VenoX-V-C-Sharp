@@ -108,8 +108,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 else
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
+                    player.Reallife.DrivingSchool.MarkerStage += 1;
                     int Abgegeben = player.Reallife.DrivingSchool.MarkerStage;
-                    Position Destination = Pruefungs_Marker_Motorrad[Abgegeben + 1];
+                    Position Destination = Pruefungs_Marker_Motorrad[Abgegeben];
                     Rathaus.CreateDrivingSchoolMarker(player, 611, Destination, 3, new int[] { 0, 200, 255, 255 });
                 }
             }

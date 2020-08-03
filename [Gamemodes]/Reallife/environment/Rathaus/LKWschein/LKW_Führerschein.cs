@@ -99,8 +99,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 }
                 else
                 {
+                    player.Reallife.DrivingSchool.MarkerStage += 1;
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
-                    Position Destination = Pruefungs_Marker_LKW[player.Reallife.DrivingSchool.MarkerStage + 1];
+                    Position Destination = Pruefungs_Marker_LKW[player.Reallife.DrivingSchool.MarkerStage];
                     Rathaus.CreateDrivingSchoolMarker(player, 611, Destination, 3, new int[] { 0, 200, 255, 255 });
                 }
             }
@@ -118,7 +119,6 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
             {
                 if (player.IsInVehicle)
                 {
-                    player.Reallife.DrivingSchool.MarkerStage += 1;
                     Rathaus.DestroyDrivingSchoolMarker(player);
                     TriggerToNextPruefungsMarker(player);
                     return;
