@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
@@ -54,7 +55,7 @@ namespace VenoXV._Globals_.Scoreboard
         public static void UpdateScoreboard()
         {
             AllPlayers = new List<ScoreboardModel>();
-            foreach (Client player in VenoX.GetAllPlayers())
+            foreach (Client player in VenoX.GetAllPlayers().ToList())
             {
                 switch (player.Gamemode)
                 {
@@ -76,7 +77,7 @@ namespace VenoXV._Globals_.Scoreboard
             {
                 UpdateScoreboard();
                 List<ScoreboardModel> AlleSpieler = AllPlayers;
-                foreach (Client player in VenoX.GetAllPlayers())
+                foreach (Client player in VenoX.GetAllPlayers().ToList())
                 {
                     Alt.Server.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler), player.Gamemode);
                 }
