@@ -17,7 +17,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static ColShapeModel CITY_TRANSPORT_Col = RageAPI.CreateColShapeSphere(new Vector3(864.2459f, -2312.139f, 30), 2);
         public static ColShapeModel AIRPORT_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(-1047.312f, -2744.564f, 21.3594f), 2);
         public static ColShapeModel BUS_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(438.2896f, -626.1547f, 28.70835f), 2);
-
         public static void OnPlayerEnterJobStartShape(IColShape shape, Client player)
         {
             try
@@ -269,6 +268,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 Airport.Airport.OnPlayerExitVehicle(vehClass, player);
+                Bus.Bus.OnPlayerLeaveVehicle(vehClass, player);
+
             }
             catch { }
         }
