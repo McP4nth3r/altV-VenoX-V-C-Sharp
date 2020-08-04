@@ -683,10 +683,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (player.Reallife.Faction != Constants.FACTION_NONE)
                 {
                     Faction.CreateFactionInformation(player.Reallife.Faction, player.Username + " hat die Fraktion verlassen...");
-                    player.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NONE);
-                    anzeigen.Usefull.VnX.OnFactionChange(player);
-                    player.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                    player.vnxSetElementData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
+                    player.Reallife.Faction = Constants.FACTION_NONE;
+                    player.Reallife.SpawnLocation = "noobspawn";
+                    player.Reallife.Zivizeit = DateTime.Now.AddDays(1);
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dich selbst uninvitet!");
                 }
             }
@@ -695,21 +694,20 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("invite")]
-        private void InvitePlayerToFaction(Client player, string target_name)
+        public static void InvitePlayerToFaction(Client player, string target_name)
         {
             try
             {
+                Client target = RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
-                    if (target == null) { return; }
                     if (target.Reallife.Faction == Constants.FACTION_NONE)
                     {
-                        if (target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
+                        if (target.Reallife.Zivizeit < DateTime.Now)
                         {
-                            target.vnxSetElementData(EntityData.PLAYER_FACTION, player.Reallife.Faction);
+                            target.Reallife.Faction = player.Reallife.Faction;
                             target.Reallife.FactionRank = 0;
-                            anzeigen.Usefull.VnX.OnFactionChange(target);
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast den Spieler " + target.Username + " in deine Fraktion aufgenommen!");
                         }
@@ -732,14 +730,14 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("uninvite")]
-        private void UninviteFromFactionPlayer(Client player, string target_name)
+        public static void UninviteFromFactionPlayer(Client player, string target_name)
         {
             try
             {
+                Client target = RageAPI.GetPlayerFromName(target_name);
+                if (target == null) { return; }
                 if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
-                    if (target == null) { return; }
                     if (target.Reallife.Faction == player.Reallife.Faction)
                     {
                         if (target.Username == player.Username)
@@ -749,11 +747,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         if (target.Reallife.FactionRank < 5)
                         {
-                            target.vnxSetElementData(EntityData.PLAYER_FACTION, 0);
+                            target.Reallife.Faction = 0;
                             target.Reallife.FactionRank = 0;
-                            target.vnxSetElementData(EntityData.PLAYER_SPAWNPOINT, "noobspawn");
-                            anzeigen.Usefull.VnX.OnFactionChange(target);
-                            player.vnxSetElementData(EntityData.PLAYER_ZIVIZEIT, DateTime.Now.AddDays(1));
+                            target.Reallife.SpawnLocation = "noobspawn";
+                            target.Reallife.Zivizeit = DateTime.Now.AddDays(1);
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast den Spieler " + target.Username + " aus deiner Fraktion entfernt!");
                         }
@@ -809,14 +806,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (factionModel.faction == player.Reallife.Faction && factionModel.rank == number)
                         {
-                            rankString = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
+                            rankString = player.Sex == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
                             break;
                         }
                     }
                     if (target.Reallife.FactionRank < number)
                     {
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Glückwunsch, du wurdest soeben von " + player.Username + " zum " + rankString + " befördert!");
-
                     }
                     else
                     {
