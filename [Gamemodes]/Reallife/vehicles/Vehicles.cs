@@ -576,10 +576,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
-        public void OnPlayerEnterVehicle(VehicleModel Vehicle, Client player, byte seat)
+        public static void OnPlayerEnterVehicle(VehicleModel Vehicle, Client player, byte seat)
         {
             try
             {
+                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife && Vehicle.Driver != player) { Alt.Server.TriggerClientEvent(player, "OnPlayerEnterVehicle", 2500); }
                 if (Vehicle.Driver == player)
                 {
                     if (Vehicle.Godmode)
@@ -589,11 +590,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 if (Vehicle.Driver == player && player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
-                    Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
-                    if (Vehicle.Godmode)
-                    {
-                        Vehicle.Godmode = false;
-                    }
+                    //Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     Vehicle.Frozen = false;
 
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Drücke K um den Motor zu starten.");
@@ -641,7 +638,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Allround.isBadFaction(player))
                                 {
-                                    // player.WarpOutOfVehicle();
                                     player.WarpOutOfVehicle();
                                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Gang-Skin an!");
                                     return;
@@ -654,7 +650,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             {
                                 if (Allround.isNeutralFaction(player))
                                 {
-                                    // player.WarpOutOfVehicle();
                                     player.WarpOutOfVehicle();
                                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Fraktion´s-Skin an!");
                                     return;
@@ -669,7 +664,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             return;
                         }
                         Vehicle.Frozen = false;
-                        if (player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN) == 0)
+                        if (player.Reallife.Autofuehrerschein == 0)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
                         }
@@ -681,12 +676,21 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     Alt.Server.TriggerClientEvent(player, "initializeSpeedometer", kms, gas, Vehicle.EngineOn);
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.Message);
-                Console.WriteLine("[EXCEPTION IVehicles_OnPlayerEnterIVehicle] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterVehicle", ex); }
         }
+        [ClientEvent("OnPlayerEnterVehicleCall")]
+        public static void OnPlayerEnterVehicleCall(Client player)
+        {
+            try
+            {
+                if (player.IsInVehicle)
+                {
+                    OnPlayerEnterVehicle((VehicleModel)player.Vehicle, player, 0);
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterVehicleCall", ex); }
+        }
+
 
         [AsyncScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
         public static async Task OnPlayerExitIVehicle(VehicleModel Vehicle, Client player, byte seat)
