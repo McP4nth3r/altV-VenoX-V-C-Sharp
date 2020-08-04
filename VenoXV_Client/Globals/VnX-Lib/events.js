@@ -71,7 +71,7 @@ alt.onServer('Vehicle:Repair', (veh) => {
 let CalledToSpawn = false;
 alt.onServer("movecamtocurrentpos_client", () => {
     try {
-        moveFromToAir(alt.Player.local, 'up', 1, false);
+        moveFromToAir(LocalPlayer, 'up', 1, false);
         FreezeClient(true);
 
         alt.setTimeout(() => {
@@ -81,9 +81,9 @@ alt.onServer("movecamtocurrentpos_client", () => {
             ShowCursor(false);
             alt.setTimeout(() => {
                 FreezeClient(false);
-                moveFromToAir(alt.Player.local, 'down');
+                moveFromToAir(LocalPlayer, 'down');
                 CalledToSpawn = false;
-            }, 2000);
+            }, 8000);
         }, 6000);
     }
     catch{ }
@@ -373,6 +373,12 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
 alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
     try { CreatePed(PedName, Vector3Pos, rot); }
     catch{ }
+});
+
+alt.onServer('OnPlayerEnterVehicle', (ms) => {
+    alt.setTimeout(() => {
+        alt.emitServer('OnPlayerEnterVehicleCall');
+    }, ms);
 });
 
 alt.on("disconnect", () => {

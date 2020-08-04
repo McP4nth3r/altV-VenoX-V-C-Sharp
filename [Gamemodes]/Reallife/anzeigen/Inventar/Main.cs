@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -78,8 +79,8 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { return new List<InventoryModel>(); }
         }
-        public static void OnPlayerDisconnect(Client player, string type, string reason) { UnloadPlayerItems(player); }
-        public static void OnPlayerConnect(Client player) { LoadPlayerItems(player); }
+        public static void OnPlayerDisconnect(Client player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
+        public static void OnPlayerConnect(Client player) { try { LoadPlayerItems(player); } catch { } }
 
         [ClientEvent("Inventory:Use")]
         public static void OnInventoryUseButtonClicked(Client player, string ClickedHash)
@@ -93,26 +94,34 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                     {
                         if (item.hash == ClickedHash)
                         {
-                            UseItem(player, ClickedHash);
+                            UseItem(player, item);
                         }
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnInventoryButtonUse", ex); }
         }
 
-        public static void UseItem(Client player, string ItemHash)
+        public static void UseItem(Client player, ItemModel item)
         {
-            switch (ItemHash)
+            try
             {
-                case Constants.ITEM_HASH_BENZINKANNISTER:
-                    break;
-                case Constants.ITEM_HASH_KOKS:
-                    break;
-                default:
-                    player.SendTranslatedChatMessage("Dein ItemHash : " + ItemHash);
-                    break;
+                switch (item.hash)
+                {
+                    case Constants.ITEM_HASH_TANKSTELLENSNACK:
+                        player.Reallife.Hunger += 10;
+                        item.amount -= 1;
+                        break;
+                    case Constants.ITEM_HASH_BENZINKANNISTER:
+                        break;
+                    case Constants.ITEM_HASH_KOKS:
+                        break;
+                    default:
+                        player.SendTranslatedChatMessage("Dein ItemHash : " + item.hash);
+                        break;
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("UseItem", ex); }
         }
     }
 }

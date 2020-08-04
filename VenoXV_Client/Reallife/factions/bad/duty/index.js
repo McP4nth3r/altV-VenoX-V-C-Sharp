@@ -10,14 +10,14 @@ import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX
 
 
 let dutybadbrowser = null;
-alt.onServer('show_duty_window_bad', (e) => {
+alt.onServer('show_duty_window_bad', (Name, Neutral) => {
     if (dutybadbrowser) { return; }
     FreezeClient(true);
     dutybadbrowser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html");
     alt.setTimeout(() => {
         dutybadbrowser.focus();
         ShowCursor(true);
-        if (e == true) { dutybadbrowser.emit("Duty:Load"); }
+        dutybadbrowser.emit("Duty:Load", Name, Neutral);
     }, 500);
     dutybadbrowser.on('destroy_duty_window_bad', () => {
         dutybadbrowser = null;
