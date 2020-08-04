@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -85,21 +86,20 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             //////////////////////////////            
 
             //////////////////////////////      
-            ColShapeModel fskincolLCN = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolLCN.Entity.Dimension = Constants.FACTION_LCN;
+            ColShapeModel fskincolLCN = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f, Constants.FACTION_LCN);
             fskincolLCN.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
             fskincolLCN.Entity.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_LCN);
 
             //////////////////////////////       
-            /*
+
             /// //////////////////////////////      
-            ColShapeModel fskincolYAKUZA = RageAPI.CreateColShapeSphere(new Position(344.0552f, -1003.21f, 1, 0.3f, Constants.FACTION_YAKUZA));
+            ColShapeModel fskincolYAKUZA = RageAPI.CreateColShapeSphere(new Vector3(344.0552f, -1003.21f, -99f), 0.3f, Constants.FACTION_YAKUZA);
             fskincolYAKUZA.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
             fskincolYAKUZA.vnxSetElementData("GANGSKINMARKER", true);
-            //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Skin", new Position(344.0552f, -1003.21f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fskincolYAKUZA.Dimension);
-           
-            */
+            RageAPI.CreateTextLabel("Gang - Skin", fskincolYAKUZA.Position, 20f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolYAKUZA.Dimension);
+            /// //////////////////////////////      
+
 
             ColShapeModel fskincolBallas = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
             fskincolBallas.Entity.Dimension = Constants.FACTION_BALLAS;
@@ -168,12 +168,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (shape.vnxGetElementData<bool>("GANGSKINMARKER") == true)
                         {
-                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad");
+                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad", player.Username);
                             return;
                         }
                         else if (shape.vnxGetElementData<bool>("NEUTRALMARKER") == true)
                         {
-                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad", true);
+                            Alt.Server.TriggerClientEvent(player, "show_duty_window_bad", player.Username, true);
                             return;
                         }
                         Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);

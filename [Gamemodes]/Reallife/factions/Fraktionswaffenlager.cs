@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (shape == SWT_COL.Entity && Allround.isStateFaction(player))
                 {
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
-                    Alt.Server.TriggerClientEvent(player,"ShowStaatswaffentruck_C", "Staatswaffentruck",
+                    Alt.Server.TriggerClientEvent(player, "ShowStaatswaffentruck_C", "Staatswaffentruck",
 
                         "Schlagstock [" + Constants.NIGHTSTICK_LAGER + "$]",
                         "Tazer [" + Constants.STUNGUN_LAGER + "$]",
@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 else if (shape == WT_COL && Allround.isBadFaction(player))
                 {
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
-                    Alt.Server.TriggerClientEvent(player,"ShowWaffentruck_C", "Waffentruck",
+                    Alt.Server.TriggerClientEvent(player, "ShowWaffentruck_C", "Waffentruck",
 
                         "Baseball [" + Constants.NIGHTSTICK_LAGER + "$]",
 
@@ -164,8 +164,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         "Molotov = " + fweapon.weapon_molotov + "/" + Constants.MOLOTOV_MAX_LAGER,
 
                         "Kaufliste löschen"
-
-
                         );
                 }
             }

@@ -103,7 +103,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                 {
                     Client target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) != 1)
+                    if (player.Reallife.OnDuty != 1)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Staatsfraktionist im Dienst!");
                         return;
