@@ -6,9 +6,9 @@
 
 body {
     background-color: transparent;
-	-ms-user-select: auto; 
-    -moz-user-select: auto; 
-    -webkit-user-select: auto; 
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
 }
 
 *::-webkit-scrollbar {
@@ -17,7 +17,7 @@ body {
 
 .chat-box {
     margin: 5px 0 0 5px;
-    width: 50vw;
+    width: 40%;
 }
 
 .chat-box .chat-messages-list {
@@ -41,9 +41,9 @@ body {
     height: 40px;
     padding: 0 10px 0 10px;
     margin-top: 10px;
-	-ms-user-select: auto; 
-    -moz-user-select: auto; 
-    -webkit-user-select: auto; 
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
 }
 
 .chat-input-bar-length {
