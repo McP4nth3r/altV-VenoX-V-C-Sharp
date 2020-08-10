@@ -33,6 +33,17 @@ alt.on('keydown', (key) => {
     }
 });
 
+alt.onServer('Settings:Show', () => {
+    if (!SettingsBrowserOpen) {
+        SettingsBrowser.emit('Settings:Show', true);
+        SettingsBrowser.focus();
+        SettingsBrowserOpen = true;
+        alt.setTimeout(() => {
+            ShowCursor(true);
+            LoadClientSettings();
+        }, 500);
+    }
+});
 //Spawnpoints : 
 
 
