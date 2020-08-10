@@ -27,6 +27,8 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
                             return;
                         }
+                        string BlueColor = RageAPI.GetHexColorcode(0, 200, 255);
+                        string WhiteColor = RageAPI.GetHexColorcode(255, 255, 255);
                         foreach (Client onlinespieler in VenoX.GetAllPlayers().ToList())
                         {
                             //if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) > 6000)
@@ -35,17 +37,16 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                             {
                                 if (pl_adminlvl > 0)
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + Clantag + player.Username + " : " + text);
+                                    onlinespieler.SendChatMessage(BlueColor + "[GLOBAL]" + Clantag + player.Username + " : " + text);
                                 }
                                 else
                                 {
-                                    onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[GLOBAL]" + RageAPI.GetHexColorcode(255, 255, 255) + player.Username + " : " + text);
+                                    onlinespieler.SendChatMessage(BlueColor + "[GLOBAL]" + WhiteColor + player.Username + " : " + text);
                                 }
                             }
                             //}
                         }
                         vnx_stored_files.logfile.WriteLogs("globalchat", "[" + player.Username + "] : " + text);
-
                     }
                     else
                     {
