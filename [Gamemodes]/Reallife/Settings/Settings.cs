@@ -15,10 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         [Command("settings")]
         public static void LoadSettingsWindow(Client player)
         {
-            try
-            {
-                Alt.Server.TriggerClientEvent(player, "LOAD_SETTINGS_VNX");
-            }
+            try { Alt.Server.TriggerClientEvent(player, "Settings:Show"); }
             catch { }
         }
 
