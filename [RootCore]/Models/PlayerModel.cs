@@ -23,49 +23,59 @@ namespace VenoXV._RootCore_.Models
     {
         private Player client;
         public DrivingSchool DrivingSchool { get; }
-        public int Money { get { return client.vnxGetElementData<int>(Globals.EntityData.PLAYER_MONEY); } set { client.vnxSetSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
-        public int Bank { get { return client.vnxGetElementData<int>(Globals.EntityData.PLAYER_BANK); } set { client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
-        public string SocialState { get { return client.vnxGetElementData<string>(Globals.EntityData.PLAYER_STATUS); } set { client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
-        public int Faction { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION); } set { client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
-        public int HUD { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD); } set { client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
-        public int Hunger { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER); } set { client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
+        private int _Money { get; set; }
+        public int Money { get { return _Money; } set { _Money = value; client.vnxSetSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
+        private int _Bank { get; set; }
+        public int Bank { get { return _Bank; } set { _Bank = value; client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
+        private string _SocialState { get; set; }
+        public string SocialState { get { return _SocialState; } set { _SocialState = value; client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
+        private int _Faction { get; set; }
+        public int Faction { get { return _Faction; } set { _Faction = value; client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
+        private int _HUD { get; set; }
+        public int HUD { get { return _HUD; } set { _HUD = value; client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
+        private int _Hunger { get; set; }
+        public int Hunger { get { return _Hunger; } set { _Hunger = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, value); } }
         public int JobStage { get; set; }
         public int JobMarker { get; set; }
         public DateTime LastFactionTeleport { get; set; }
-        public DateTime Zivizeit { get { return client.vnxGetElementData<DateTime>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ZIVIZEIT, value); } }
-        public string Job { get { return client.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_JOB, value); } }
-        public int LIEFERJOB_LEVEL { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LIEFERJOB_LEVEL, value); } }
-        public int AIRPORTJOB_LEVEL { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_AIRPORTJOB_LEVEL); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_AIRPORTJOB_LEVEL, value); } }
-        public int BUSJOB_LEVEL { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSJOB_LEVEL); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSJOB_LEVEL, value); } }
-        public int FactionRank { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION_RANK); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION_RANK, value); } }
-        public int OnDuty { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY, value); } }
-        public int OnDutyBad { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY_BAD); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY_BAD, value); } }
-        public int OnDutyNeutral { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY_NEUTRAL); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ON_DUTY_NEUTRAL, value); } }
-        public int HouseRent { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_RENT_HOUSE); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_RENT_HOUSE, value); } }
-        public int HouseEntered { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HOUSE_ENTERED); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HOUSE_ENTERED, value); } }
-        public int BusinessEntered { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSINESS_ENTERED); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_BUSINESS_ENTERED, value); } }
-        public int Personalausweis { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PERSONALAUSWEIS); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PERSONALAUSWEIS, value); } }
-        public int Autofuehrerschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FÜHRERSCHEIN, value); } }
-        public int Motorradfuehrerschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN, value); } }
-        public int LKWfuehrerschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LKW_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_LKW_FÜHRERSCHEIN, value); } }
-        public int Helikopterfuehrerschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN, value); } }
-        public int FlugscheinKlasseA { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN, value); } }
-        public int FlugscheinKlasseB { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN, value); } }
-        public int Motorbootschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN, value); } }
-        public int Angelschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ANGEL_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ANGEL_FÜHRERSCHEIN, value); } }
-        public int Waffenschein { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN, value); } }
-        public string SpawnLocation { get { return client.vnxGetElementData<string>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SPAWNPOINT); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_SPAWNPOINT, value); } }
-        public int Quests { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS, value); } }
-        public int Wanteds { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS); } set { client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
-        public int Knastzeit { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT, value); } }
-        public int Kaution { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION, value); } }
-        public int Adventskalender { get { return client.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER); } set { client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ADVENTSKALENEDER, value); } }
+        public DateTime Zivizeit { get; set; }
+        public string Job { get; set; }
+        public int LIEFERJOB_LEVEL { get; set; }
+        public int AIRPORTJOB_LEVEL { get; set; }
+        public int BUSJOB_LEVEL { get; set; }
+        public int FactionRank { get; set; }
+        public int OnDuty { get; set; }
+        public int OnDutyBad { get; set; }
+        public int OnDutyNeutral { get; set; }
+        public int HouseRent { get; set; }
+        public int HouseEntered { get; set; }
+        public int BusinessEntered { get; set; }
+        public int Personalausweis { get; set; }
+        public int Autofuehrerschein { get; set; }
+        public int Motorradfuehrerschein { get; set; }
+        public int LKWfuehrerschein { get; set; }
+        public int Helikopterfuehrerschein { get; set; }
+        public int FlugscheinKlasseA { get; set; }
+        public int FlugscheinKlasseB { get; set; }
+        public int Motorbootschein { get; set; }
+        public int Angelschein { get; set; }
+        public int Waffenschein { get; set; }
+        public string SpawnLocation { get; set; }
+        private int _Quests { get; set; }
+        public int Quests { get { return _Quests; } set { _Quests = value; client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS, value); } }
+        private int _Wanteds { get; set; }
+        public int Wanteds { get { return _Wanteds; } set { _Wanteds = value; client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
+        public int _Knastzeit { get; set; }
+        public int Knastzeit { get { return _Knastzeit; } set { _Knastzeit = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT, value); } }
+        private int _Kaution { get; set; }
+        public int Kaution { get { return _Kaution; } set { _Kaution = value; client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KAUTION, value); } }
+        public int Adventskalender { get; set; }
         public Reallife(Player player)
         {
             try
             {
-                DrivingSchool = new DrivingSchool(player);
                 client = player;
+                DrivingSchool = new DrivingSchool(player);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 Money = 0;
                 HUD = 0;
@@ -182,12 +192,18 @@ namespace VenoXV._RootCore_.Models
     public class Settings
     {
         private Player Player;
-        public int ShowATM { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN, value); } }
-        public int ShowHouse { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
-        public int ShowSpeedo { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
-        public int ShowQuests { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
-        public int ShowReporter { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
-        public int ShowGlobalChat { get { return Player.vnxGetElementData<int>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN); } set { Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN, value); } }
+        private int _ShowATM { get; set; }
+        public int ShowATM { get { return _ShowATM; } set { _ShowATM = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_ATM_ANZEIGEN, value); } }
+        private int _ShowHouse { get; set; }
+        public int ShowHouse { get { return _ShowHouse; } set { _ShowHouse = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HAUS_ANZEIGEN, value); } }
+        private int _ShowSpeedo { get; set; }
+        public int ShowSpeedo { get { return _ShowSpeedo; } set { _ShowSpeedo = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
+        private int _ShowQuests { get; set; }
+        public int ShowQuests { get { return _ShowQuests; } set { _ShowQuests = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
+        private int _ShowReporter { get; set; }
+        public int ShowReporter { get { return _ShowReporter; } set { _ShowReporter = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
+        private int _ShowGlobalChat { get; set; }
+        public int ShowGlobalChat { get { return _ShowGlobalChat; } set { _ShowGlobalChat = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_GLOBALCHAT_ANZEIGEN, value); } }
 
         public Settings(Player player)
         {
@@ -213,7 +229,6 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("PhoneModel-Create", ex); }
         }
     }
-
     public class Discord
     {
         private Player Player;
@@ -237,8 +252,6 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
         }
     }
-
-
     public class Forum
     {
         private Player Player;
@@ -253,13 +266,14 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
         }
     }
-
     public class Client : Player
     {
         //Main
         public int UID { get; set; }
-        public string Username { get { return this.vnxGetElementData<string>(Globals.EntityData.PLAYER_NAME); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
-        public int AdminRank { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_ADMIN_RANK); } set { this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
+        private string _Username { get; set; }
+        public string Username { get { return _Username; } set { _Username = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
+        private int _AdminRank { get; set; }
+        public int AdminRank { get { return _AdminRank; } set { _AdminRank = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
         public int Language { get; set; }
         // Gamemode Classes
         public Reallife Reallife { get; }
@@ -272,18 +286,21 @@ namespace VenoXV._RootCore_.Models
         public Forum Forum { get; }
         // Settings - Classes
         public Settings Settings { get; }
-        public Position SetPosition
-        { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
-        public int Sex { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_SEX); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_SEX, value); } }
-        public int Gamemode { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, value); } }
-        public int Dead { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_DEAD); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_DEAD, value); } }
-        public int Played { get { return this.vnxGetElementData<int>(Globals.EntityData.PLAYER_PLAYED); } set { this.vnxSetElementData(Globals.EntityData.PLAYER_PLAYED, value); } }
-        public bool Playing { get { return this.vnxGetElementData<bool>(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING); } set { this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
+        public Position SetPosition { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
+        private int _Sex { get; set; }
+        public int Sex { get { return _Sex; } set { _Sex = value; } }
+        private int _Gamemode { get; set; }
+        public int Gamemode { get { return _Gamemode; } set { _Gamemode = value; this.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, value); } }
+        public int Dead { get; set; }
+        private int _Played { get; set; }
+        public int Played { get { return _Played; } set { _Played = value; } }
+        private bool _Playing { get; set; }
+        public bool Playing { get { return _Playing; } set { _Playing = value; this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
         public string Vip_Paket { get; set; }
         public void DrawWaypoint(float PosX, float PosY) { try { Alt.Server.TriggerClientEvent(this, "Player:SetWaypoint", PosX, PosY); } catch { } }
         public void SetTeam(int Team) { try { Alt.Emit("GlobalSystems:PlayerTeam", this, Team); } catch { } }
-        private bool _frozen { get; set; }
-        public bool Freeze { get { return _frozen; } set { _frozen = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
+        private bool _Freeze { get; set; }
+        public bool Freeze { get { return _Freeze; } set { _Freeze = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
         public Client(IntPtr nativePointer, ushort id) : base(nativePointer, id)
@@ -304,12 +321,11 @@ namespace VenoXV._RootCore_.Models
                 Dimension = Id;
                 Health = 200;
                 Armor = 0;
+                Reallife.Hunger = 60;
                 this.RemoveAllPlayerWeapons();
                 this.vnxSetStreamSharedElementData("settings_reporter", "ja");
                 this.vnxSetStreamSharedElementData("settings_globalchat", "ja");
                 this.vnxSetStreamSharedElementData("SocialState_NAMETAG", "VenoX");
-                this.vnxSetStreamSharedElementData("HideHUD", 1);
-                this.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_HUNGER, 60);
                 this.vnxSetElementData(_Gamemodes_.Reallife.Vehicles.Verleih.HAVE_PLAYER_RENTED_VEHICLE, 0);
                 Username = "Random-Player";
                 Playing = false;
@@ -319,7 +335,6 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }
     }
-
     public class MyPlayerFactory : IEntityFactory<IPlayer>
     {
         public IPlayer Create(IntPtr playerPointer, ushort id)
