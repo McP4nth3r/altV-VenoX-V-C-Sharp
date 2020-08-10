@@ -34,6 +34,6 @@ alt.onServer('VehicleCatalog:Show', () => {
     VehCatalogBrowser = vnxCreateCEF('VehCatalog', 'Reallife/vehicles/catalog/main.html');
     ShowCursor(true);
     VehCatalogBrowser.focus();
-    VehCatalogBrowser.on('VehCatalog:Destroy', () => { vnxDestroyCEF('VehCatalog'); VehCatalogBrowser.unfocus(); });
+    VehCatalogBrowser.on('VehCatalog:Destroy', () => { VehCatalogBrowser.unfocus(); vnxDestroyCEF('VehCatalog'); ShowCursor(false); VehCatalogBrowser = null; });
     FillWindowWithStuff();
 });
