@@ -229,7 +229,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     if (factionModel.faction == faction && factionModel.rank == rank)
                     {
-                        rankString = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX) == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
+                        rankString = player.Sex == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
                         break;
                     }
                 }

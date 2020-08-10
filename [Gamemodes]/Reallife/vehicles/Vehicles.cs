@@ -196,7 +196,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         string target_name = RageAPI.GetPlayerFromName(Vehicle.Owner);
                         if(target != null)
                         {
-                            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= player.vnxGetElementData<string>(FahrzeugID.ToString()))
+                            if (player.Reallife.Money >= player.vnxGetElementData<string>(FahrzeugID.ToString()))
                             {
                                 if (Vehicle.ID == FahrzeugID)
                                 {
@@ -204,8 +204,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                     vehicle.vnxSetSharedElementData(VenoXV.Globals.EntityData.VEHICLE_OWNER,player.Username);
                                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast das Fahrzeug von " + target.Username + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Fahrzeug " + Vehicle.Model.ToString() + " an " +player.Username + " für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ verkauft!");
-                                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - player.vnxGetElementData(FahrzeugID.ToString()));
-                                    Target.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + player.vnxGetElementData(FahrzeugID.ToString()));
+                                    player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - player.vnxGetElementData(FahrzeugID.ToString()));
+                                    Target.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, target.Reallife.Money + player.vnxGetElementData(FahrzeugID.ToString()));
                                     player.vnxSetElementData(FahrzeugID.ToString(), null);
                                     vnx_stored_files.logfile.WriteLogs("IVehicle",player.Username + " hat das Fahrzeug von " + target.Username + "(" + Vehicle.Model.ToString() + ") für " + player.vnxGetElementData(FahrzeugID.ToString()) + " $ gekauft!");
                                 }
@@ -256,10 +256,10 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         [ClientEvent("Buy_Snack_Server")]
         public void Give_Snack_Func(Client player)
         {
-            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 6)
+            if (player.Reallife.Money >= 6)
             {
                 anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
-                player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 6);
+                player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 6);
                 player.SendTranslatedChatMessage("Du hast einen Tankstellen " + RageAPI.GetHexColorcode(0, 200, 255) + " Snack " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft.");
                 ItemModel Snack = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_TANKSTELLENSNACK);
                 if (Snack == null) // Kanister
@@ -299,7 +299,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         [ClientEvent("Buy_Kanister_Server")]
         public void Give_Kanister_Func(Client player)
         {
-            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 450)
+            if (player.Reallife.Money >= 450)
             {
                 ItemModel Kanister = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_BENZINKANNISTER);
                 if (Kanister == null) // Kanister
@@ -316,7 +316,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     // Add the item into the database
                     Kanister.id = Database.AddNewItem(Kanister);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 450);
                     player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                 }
                 else
@@ -324,7 +324,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (Kanister.amount == 10)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast die Maximale anzahl an Kannister schon erreicht!");
-                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 450);
+                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 450);
                         player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                         return;
                     }
@@ -387,12 +387,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
                         return;
                     }
-                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < kosten)
+                    if (player.Reallife.Money < kosten)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kosten);
+                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - kosten);
 
                     Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
                     Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
@@ -422,7 +422,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
                             return;
                         }
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < kosten)
+                        if (player.Reallife.Money < kosten)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                             return;

@@ -62,11 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN) == 1)
-                {
-                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast bereits einen Führerschein!");
-                    return;
-                }
+                if (player.Reallife.Motorradfuehrerschein == 1) { player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast bereits einen Führerschein!"); return; }
                 Random random = new Random();
                 int dim = random.Next(1, 9999);
                 player.Dimension = dim;

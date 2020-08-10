@@ -36,45 +36,42 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (player.Position.Distance(target.Position) < 5)
                 {
                     string Lizenzen = "";
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Führerschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Führerschein  [ ✘ ]"; }
+                    if (player.Reallife.Autofuehrerschein == 1) { Lizenzen += Lizenzen + " Führerschein  [ ✔ ]"; }
+                    else { Lizenzen += " Führerschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORRAD_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Motorradschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Motorradschein  [ ✘ ]"; }
+                    if (player.Reallife.Motorradfuehrerschein == 1) { Lizenzen += Lizenzen + " Motorradschein  [ ✔ ]"; }
+                    else { Lizenzen += " Motorradschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_LKW_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " LKW-Führerschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " LKW-Führerschein  [ ✘ ]"; }
+                    if (player.Reallife.LKWfuehrerschein == 1) { Lizenzen += Lizenzen + " LKW-Führerschein  [ ✔ ]"; }
+                    else { Lizenzen += " LKW-Führerschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_WAFFEN_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Waffenschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Waffenschein  [ ✘ ]"; }
+                    if (player.Reallife.Waffenschein == 1) { Lizenzen += Lizenzen + " Waffenschein  [ ✔ ]"; }
+                    else { Lizenzen += " Waffenschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_MOTORBOOT_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Bootsführerschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Bootsführerschein  [ ✘ ]"; }
+                    if (player.Reallife.Motorbootschein == 1) { Lizenzen += Lizenzen + " Bootsführerschein  [ ✔ ]"; }
+                    else { Lizenzen += " Bootsführerschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_A_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Flugschein A  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Flugschein A  [ ✘ ]"; }
+                    if (player.Reallife.FlugscheinKlasseA == 1) { Lizenzen += Lizenzen + " Flugschein A  [ ✔ ]"; }
+                    else { Lizenzen += " Flugschein A  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_FLUGSCHEIN_B_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Flugschein B  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Flugschein B  [ ✘ ]"; }
+                    if (player.Reallife.FlugscheinKlasseB == 1) { Lizenzen += Lizenzen + " Flugschein B  [ ✔ ]"; }
+                    else { Lizenzen += Lizenzen + " Flugschein B  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_HELIKOPTER_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Helikopterschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Helikopterschein  [ ✘ ]"; }
+                    if (player.Reallife.Helikopterfuehrerschein == 1) { Lizenzen = Lizenzen + " Helikopterschein  [ ✔ ]"; }
+                    else { Lizenzen += " Helikopterschein  [ ✘ ]"; }
 
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_ANGEL_FÜHRERSCHEIN) == 1) { Lizenzen = Lizenzen + " Angelschein  [ ✔ ]"; }
-                    else { Lizenzen = Lizenzen + " Angelschein  [ ✘ ]"; }
+                    if (player.Reallife.Angelschein == 1) { Lizenzen += " Angelschein  [ ✔ ]"; }
+                    else { Lizenzen += Lizenzen + " Angelschein  [ ✘ ]"; }
 
-
-                    player.SendTranslatedChatMessage("Du hast " + target.Username + " deine Lizenzen gezeigt!");
-                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 200) + "Vorhandene Lizenzen von " + player.Username + " : " + RageAPI.GetHexColorcode(200, 200, 0) + " Lizenzen");
+                    player.SendReallifeMessage("Du hast " + target.Username + " deine Lizenzen gezeigt!");
+                    target.SendReallifeMessage(RageAPI.GetHexColorcode(200, 0, 200) + "Vorhandene Lizenzen von " + player.Username + " : " + RageAPI.GetHexColorcode(200, 200, 0) + " Lizenzen");
                 }
                 else
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zu weit von " + target.Username + " entfernt!");
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
 
@@ -89,9 +86,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
-                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
-                    ItemModel WEED = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_WEED);
-                    ItemModel MATS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_MATS);
+                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_KOKS);
+                    ItemModel WEED = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_WEED);
+                    ItemModel MATS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_MATS);
                     int kokain = 0;
                     int mats = 0;
                     int weed = 0;
@@ -136,9 +133,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         {
                             string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
-                            ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_KOKS);
-                            ItemModel WEED = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_WEED);
-                            ItemModel MATS = Main.GetPlayerItemModelFromHash(target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), Constants.ITEM_HASH_MATS);
+                            ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_KOKS);
+                            ItemModel WEED = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_WEED);
+                            ItemModel MATS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_MATS);
                             if (KOKS != null)
                             {
                                 // Remove the item from the database
@@ -353,7 +350,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 if (Allround.isBadFaction(player))
                 {
-                    int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                    int playermoney = player.Reallife.Money;
                     int playerId = player.UID;
 
                     Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
@@ -1124,7 +1121,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 Client target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
-                if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                if (target != null && target.Playing == true)
                 {
                     if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
                     {

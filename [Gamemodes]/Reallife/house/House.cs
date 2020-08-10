@@ -182,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
                         Database.UpdateHouse(house);
                         player.SendTranslatedChatMessage( RageAPI.GetHexColorcode(0,200,0) + "Du hast dein Haus für " + moneyget + " verkauft!");
-                        player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + moneyget);
+                        player.vnxSetStreamSharedElementData( VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + moneyget);
                         return;
                     }
                     else
@@ -262,7 +262,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             try
             {
                 int playerId = player.UID;
-                int sex = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SEX);
+                int sex = player.Sex;
 
                 List<ClothesModel> clothesList = Main.GetPlayerClothes(playerId).Where(c => c.type == type && c.slot == slot).ToList();
 
@@ -381,13 +381,13 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dieses Haus steht nicht zur Vermietung!");
                         }
-                        else if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < house.rental)
+                        else if (player.Reallife.Money < house.rental)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                         else
                         {
-                            int money = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - house.rental;
+                            int money = player.Reallife.Money - house.rental;
                             player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, house.id);
                             player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, money);
                             //house.tenants--;

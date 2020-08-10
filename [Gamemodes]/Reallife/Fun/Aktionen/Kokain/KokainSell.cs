@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                         {
                             int koksverkauf = value * 30;
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + koksverkauf);
+                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + koksverkauf);
                             dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
                             KOKS.amount -= value;
                             // Update the amount into the database

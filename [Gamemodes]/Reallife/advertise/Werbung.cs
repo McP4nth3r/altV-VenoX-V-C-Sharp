@@ -17,14 +17,14 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
         [Command("ad", true)]
         public static void CreateAD(Client player, string text)
         {
-            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) >= MINDEST_SPIELZEIT_)
+            if (player.Played >= MINDEST_SPIELZEIT_)
             {
                 if (ADS_ACTIVATED)
                 {
                     if (WERBUNG_COOLDOWN <= DateTime.Now)
                     {
                         int FINAL_AD_COSTS = text.Length * AD_COSTS;
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) > FINAL_AD_COSTS)
+                        if (player.Reallife.Money > FINAL_AD_COSTS)
                         {
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " [Werbung] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
                             RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 200, 255) + " __________________________________________");
                             WERBUNG_COOLDOWN = DateTime.Now.AddMinutes(WERBUNG_MINUTES_COOLDOWN);
 
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - FINAL_AD_COSTS);
+                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - FINAL_AD_COSTS);
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + FINAL_AD_COSTS + " $ für deine Werbung Gezahlt!");
                         }
                         else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast nicht genug Geld!"); }

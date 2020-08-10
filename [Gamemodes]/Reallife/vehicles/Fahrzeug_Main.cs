@@ -212,7 +212,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     IVehicle localVehicle = (VehicleModel)player.Vehicle;
                     if (localVehicle.Owner ==player.Username)
                     {
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
+                        if (player.Reallife.Money >= 200)
                         {
                             if (localVehicle.Occupants.Count > 0)
                             {
@@ -222,7 +222,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             localIVehicle.Repair();
                             localIVehicle.position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                             localIVehicle.Rotation = localVehicle.SpawnRot;
-                            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
+                            player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 200);
                             Core.VnX.VehiclevnxSetSharedData(localIVehicle,"VEHICLE_HEALTH_SERVER", 1000);
                             Player.SendTranslatedChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
@@ -247,12 +247,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         if (localVehicle.Owner ==player.Username)
                         {
-                            if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
+                            if (player.Reallife.Money >= 200)
                             {
                                 localIVehicle.Repair();
                                 localIVehicle.position = localVehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                                 localIVehicle.Rotation = localVehicle.SpawnRot;
-                                player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
+                                player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.Reallife.Money - 200);
                                 Player.SendTranslatedChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                             }
                             else
@@ -282,14 +282,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (Vehicle.Owner ==player.Username)
                     {
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= 200)
+                        if (player.Reallife.Money >= 200)
                         {
                             IVehicle.Repair();
                             IVehicle.position = Vehicle.vnxGetElementData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER);
                             IVehicle.Rotation = Vehicle.SpawnRot;
                             Vehicle.Dimension = (uint)Vehicle.vnxGetElementData<int>(VenoXV.Globals.EntityData.VEHICLE_DIMENSION);
                             Vehicle.vnxSetStreamSharedElementData("VEHICLE_HEALTH_SERVER", 1000);
-                            player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
+                            player.vnxSetStreamSharedElementData( Core.VnX.PLAYER_MONEY, player.Reallife.Money - 200);
                             player.SendTranslatedChatMessage("~g~Du hast dein Fahrzeug Respawnt!");
                         }
                         else

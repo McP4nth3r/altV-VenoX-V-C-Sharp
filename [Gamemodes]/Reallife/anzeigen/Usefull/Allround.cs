@@ -255,7 +255,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 {
                     if (playerquest == QUEST_VENOXRENTALS)
                     {
-                        int playerMoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                        int playerMoney = player.Reallife.Money;
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney + QUEST_MONEY_VENOXRENTALS);
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, 1);
                     }
@@ -265,7 +265,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_STADTHALLE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_STADTHALLE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_STADTHALLE);
                     }
                 }
 
@@ -274,7 +274,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_PERSO)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_PERSO);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_PERSO);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOSCHEIN)
@@ -282,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_AUTOSCHEIN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOSCHEIN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_AUTOSCHEIN);
                     }
                 }
                 else if (QUESTDONE == QUEST_ATM_EINZAHLEN)
@@ -290,7 +290,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_ATM_EINZAHLEN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_ATM_EINZAHLEN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_ATM_EINZAHLEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GAS_SNACK)
@@ -298,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GAS_SNACK)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GAS_SNACK);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_GAS_SNACK);
                     }
                 }
                 else if (QUESTDONE == QUEST_AUTOKAUFEN)
@@ -306,7 +306,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_AUTOKAUFEN)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_AUTOKAUFEN);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_AUTOKAUFEN);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET100K)
@@ -314,7 +314,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GET100K)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GET100K);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_GET100K);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETWEAPONLICENSE)
@@ -322,7 +322,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GETWEAPONLICENSE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GETWEAPONLICENSE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_GETWEAPONLICENSE);
                     }
                 }
                 else if (QUESTDONE == QUEST_GETADVANCEDRIFLE)
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GETADVANCEDRIFLE)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GETADVANCEDRIFLE);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_GETADVANCEDRIFLE);
                     }
                 }
                 else if (QUESTDONE == QUEST_START_SHOPROB)
@@ -338,7 +338,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_START_SHOPROB)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_START_SHOPROB);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_START_SHOPROB);
                     }
                 }
                 else if (QUESTDONE == QUEST_GET225)
@@ -346,7 +346,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                     if (playerquest == QUEST_GET225)
                     {
                         player.vnxSetStreamSharedElementData(EntityData.PLAYER_QUESTS, player.Reallife.Quests + 1);
-                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) + QUEST_MONEY_GET225);
+                        player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, player.Reallife.Money + QUEST_MONEY_GET225);
                     }
                 }
             }

@@ -26,6 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 player.Reallife.Hunger = 100;
                 Alt.Server.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
                 player.Dimension = 0;
+                player.Freeze = true;
                 if (player.Reallife.Knastzeit > 0)
                 {
                     Random random = new Random();

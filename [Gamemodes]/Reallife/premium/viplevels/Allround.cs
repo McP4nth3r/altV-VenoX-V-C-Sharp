@@ -173,18 +173,18 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
         {
             try
             {
-                int playermoney = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                int playermoney = player.Reallife.Money;
                 if (value == 1)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
                     if (vehicle != null)
                     {
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) < 200)
+                        if (player.Reallife.Money < 200)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                             return;
                         }
-                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - 200);
+                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 200);
                         vehicle.Gas = 100;
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dein Auto voll getankt!");
                     }

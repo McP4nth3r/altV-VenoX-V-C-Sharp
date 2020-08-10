@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         {
                             anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_ATM_EINZAHLEN);
                         }
-                        if (value > player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY))
+                        if (value > player.Reallife.Money)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                             return;
@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     {
                         string SpielerNameNormal = Database.GetAccountSpielerName(Database.GetCharakterSocialName(name));
                         Client target = RageAPI.GetPlayerFromName(SpielerNameNormal);
-                        if (target == null || target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) != true)
+                        if (target == null || target.Playing != true)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht Online!");
                             return;

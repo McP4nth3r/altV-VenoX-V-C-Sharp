@@ -249,7 +249,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int played = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED);
+                int played = player.Played;
                 if (played > 0 && played % 60 == 0)
                 {
                     GeneratePlayerPayday(player);
@@ -363,10 +363,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
                 Client VipL = Database.GetPlayerVIP(player, (int)player.UID);
 
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) > 0)
-                {
-                    player.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) - 1);
-                }
+                if (player.Reallife.Wanteds > 0) { player.Reallife.Wanteds -= 1; }
                 if (playerFaction > 0)
                 {
                     foreach (FactionModel faction in Constants.FACTION_RANK_LIST)
@@ -454,7 +451,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Immobiliensteuer :  " + RageAPI.GetHexColorcode(255, 255, 255) + house.name + ": -" + houseTaxes + "$");
                             total -= houseTaxes;
                         }
-                        if (house.id == player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE))
+                        if (house.id == player.Reallife.HouseRent)
                         {
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Miete " + house.name + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +house.rental + "$");
                             Database.TransferMoneyToPlayer(house.owner, house.rental);
@@ -507,11 +504,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
                 if (total < 0)
                 {
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - Math.Abs(total));
+                    player.Reallife.Bank -= Math.Abs(total);
                 }
                 else
                 {
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) + total);
+                    player.Reallife.Bank += Math.Abs(total);
+
                 }
             }
             catch (Exception ex)
@@ -739,7 +737,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (player.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                if (player.Playing == true)
                 {
                     if (Factions.Allround.IsNearFactionTeleporter(player))
                     {
@@ -767,7 +765,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
-                            Alt.Server.TriggerClientEvent(player, "showATM", player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK), "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
+                            Alt.Server.TriggerClientEvent(player, "showATM", player.Reallife.Bank, "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
                             return;
                         }
                     }
@@ -796,31 +794,30 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 }
                                 return;
                             }
-                            else if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == house.id)
+                            else if (player.Reallife.HouseEntered == house.id)
                             {
-                                //AntiCheat_Allround.SetTimeOutTeleport(player, 1250);
                                 Position exitPosition = House.GetHouseExitPoint(house.ipl);
                                 if (player.Position.Distance(exitPosition) < 2.5f)
                                 {
-                                    /*if (!House.HasPlayerHouseKeys(player, house) && house.locked)
+                                    if (!House.HasPlayerHouseKeys(player, house) && house.locked)
                                     {
                                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Das Haus ist abgeschlossen!");
-                                    }*/
+                                    }
                                     player.SetPosition = house.position;
                                     player.Dimension = 0;
-                                    player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
-                                    /*
-                                    foreach (Client target in VenoX.GetAllPlayers().ToList())
+                                    player.Reallife.HouseEntered = 0;
+
+                                    /*foreach (Client target in VenoX.GetAllPlayers().ToList())
                                     {
-                                        if (target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) && target.vnxGetElementData(EntityData.PLAYER_IPL) && target != player)
+                                        if (target.Playing && target.vnxGetElementData(EntityData.PLAYER_IPL) && target != player)
                                         {
                                             if (target.vnxGetElementData(EntityData.PLAYER_IPL) == house.ipl)
                                             {
                                                 return;
                                             }
                                         }
-                                    }*/
-                                    //NAPI.World.RemoveIpl(house.ipl);
+                                    }
+                                    //NAPI.World.RemoveIpl(house.ipl);*/
 
                                 }
                                 return;
@@ -832,7 +829,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("reset_drug_state")]
+        [ClientEvent("reset_drug_state")]
         public static void ResetDrugState(Client player, int drug)
         {
             try

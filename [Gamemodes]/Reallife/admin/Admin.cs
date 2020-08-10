@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 foreach (Client targetsingame in VenoX.GetAllPlayers().ToList())
                 {
-                    if (targetsingame.vnxGetElementData<int>(EntityData.PLAYER_ADMIN_RANK) >= Constants.ADMINLVL_TSUPPORTER)
+                    if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
                         if (player.AdminRank == 7)
                         {
@@ -283,7 +283,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
                 {
                     // We check whether the player is connected
-                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                    if (target != null && target.Playing == true)
                     {
                         if (int.TryParse(amount, out int value) == true)
                         {
@@ -356,7 +356,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (Target != null)
                 {
-                    if (Target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
+                    if (Target.Dead == 1)
                     {
                         //AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
                         Target.SpawnPlayer(Target.Position);
@@ -734,7 +734,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (target == null) { return; }
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    int targetId = target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID);
+                    int targetId = target.UID;
                     if (targetId > 0)
                     {
                         foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
@@ -771,16 +771,15 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("sstate")]
-        public static void SetSocialStatePlayer(Client player, string target_name, string element)
+        public static void SetSocialStatePlayer(Client player, string target_name, string value)
         {
             Client target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_STATUS, element);
-                target.SetStreamSyncedMetaData(VenoXV.Globals.EntityData.PLAYER_STATUS, element);
-                sendAdminNotification(player.Username + " hat " + target.Username + " Sozialen Status geändert zu " + element + ".");
-                logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " sozialen status auf " + element + " geändert!");
+                target.Reallife.SocialState = value;
+                sendAdminNotification(player.Username + " hat " + target.Username + " Sozialen Status geändert zu " + value + ".");
+                logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " sozialen status auf " + value + " geändert!");
             }
         }
 
@@ -838,43 +837,43 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (PaketNr == 0)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Abgelaufen", 0);
+                    Database.SetVIPStats((int)target.UID, "Abgelaufen", 0);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "-");
                 }
                 else if (PaketNr == 1)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Bronze", Tage);
+                    Database.SetVIPStats((int)target.UID, "Bronze", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (PaketNr == 2)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Silber", Tage);
+                    Database.SetVIPStats((int)target.UID, "Silber", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Silber");
                 }
                 else if (PaketNr == 3)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Gold", Tage);
+                    Database.SetVIPStats((int)target.UID, "Gold", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (PaketNr == 4)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "UltimateRed", Tage);
+                    Database.SetVIPStats((int)target.UID, "UltimateRed", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
                 }
                 else if (PaketNr == 5)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "Platin", Tage);
+                    Database.SetVIPStats((int)target.UID, "Platin", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Platin");
                 }
                 else if (PaketNr == 6)
                 {
-                    Database.SetVIPStats((int)target.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_SQL_ID), "TOP DONATOR", Tage);
+                    Database.SetVIPStats((int)target.UID, "TOP DONATOR", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
                     target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }

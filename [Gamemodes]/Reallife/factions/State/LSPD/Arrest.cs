@@ -27,12 +27,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                 {
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
                     {
-                        if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) >= kaution)
+                        if (player.Reallife.Money >= kaution)
                         {
                             Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
                             Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + kaution, fkasse.weed, fkasse.koks, fkasse.mats);
                             Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Kaution in Höhe von " + kaution + "$ bezahlt!");
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY) - kaution);
+                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - kaution);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
@@ -216,7 +216,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                         return;
                     }
                     // We check whether the player is connected
-                    if (target != null && target.vnxGetElementData<bool>(EntityData.PLAYER_PLAYING) == true)
+                    if (target != null && target.Playing == true)
                     {
                         if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
                         {

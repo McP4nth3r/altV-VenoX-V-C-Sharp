@@ -411,7 +411,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (!playerEntry._isLeft)
                 {
                     Alt.Server.TriggerClientEvent(playerEntry._player, "gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
-                    int playerMoney = playerEntry._player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_MONEY);
+                    int playerMoney = playerEntry._player.Reallife.Money;
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
                     playerEntry._player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
 

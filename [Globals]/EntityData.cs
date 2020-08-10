@@ -16,18 +16,15 @@ namespace VenoXV.Globals
         public const string GAMEMODE_SEVENTOWERS = "GAMEMODE_SEVENTOWERS";
 
 
-
-
-
-        public const string PLAYER_SQL_ID = "PLAYER_SQL_ID";
         public const string PLAYER_NAME = "PLAYER_NAME";
         public const string PLAYER_HEALTH = "PLAYER_HEALTH";
         public const string PLAYER_ARMOR = "PLAYER_ARMOR";
         public const string PLAYER_BANK = "PLAYER_BANK";
         public const string PLAYER_VIP_LEVEL = "PLAYER_VIP_LEVEL";
         public const string PLAYER_MONEY = "PLAYER_MONEY";
-        public const string PLAYER_SEX = "PLAYER_SEX";
         public const string PLAYER_ADMIN_RANK = "PLAYER_ADMIN_RANK";
+        public const string PLAYER_STATUS = "PLAYER_SOCIALSTATE";
+
         //Prison
         public const string PLAYER_PRISON_TIME = "PLAYER_PRISON_TIME";
         public const string PLAYER_PRISON_GRUND = "PLAYER_PRISON_GRUND";
@@ -54,9 +51,5 @@ namespace VenoXV.Globals
         public const string WEAPON_RPG_AMMO = "WEAPON_RPG_AMMO";
         public const string WEAPON_MOLOTOV = "WEAPON_MOLOTOV";
 
-        public const string PLAYER_RANK = "PLAYER_RANK";
-        public const string PLAYER_PLAYED = "PLAYER_PLAYED";
-        public const string PLAYER_STATUS = "PLAYER_SOCIALSTATE";
-        public const string PLAYER_DEAD = "PLAYER_DEAD";
     }
 }
