@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
     public class TicketSystem : IScript
     {
         //[AltV.Net.ClientEvent("requestNewTicket")]
-        public void CreateNewTicket(Client player, string betreff, string text)
+        public void CreateNewTicket(VnXPlayer player, string betreff, string text)
         {
             try
             {

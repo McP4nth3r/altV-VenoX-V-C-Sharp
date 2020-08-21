@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 
 
 
-        public static void Start_LKW_Führerschein(Client player)
+        public static void Start_LKW_Führerschein(VnXPlayer player)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
 
 
 
-        public static void TriggerToNextPruefungsMarker(Client player)
+        public static void TriggerToNextPruefungsMarker(VnXPlayer player)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {

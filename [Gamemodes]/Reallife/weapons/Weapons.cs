@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             }
             return AltV.Net.Enums.WeaponModel.Fist;
         }
-        public static void GivePlayerWeaponItems(Client player)
+        public static void GivePlayerWeaponItems(VnXPlayer player)
         {
             try
             {

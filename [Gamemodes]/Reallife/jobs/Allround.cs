@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static ColShapeModel CITY_TRANSPORT_Col = RageAPI.CreateColShapeSphere(new Vector3(864.2459f, -2312.139f, 30), 2);
         public static ColShapeModel AIRPORT_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(-1047.312f, -2744.564f, 21.3594f), 2);
         public static ColShapeModel BUS_JOB_Col = RageAPI.CreateColShapeSphere(new Vector3(438.2896f, -626.1547f, 28.70835f), 2);
-        public static void OnPlayerEnterJobStartShape(IColShape shape, Client player)
+        public static void OnPlayerEnterJobStartShape(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 {
                     if (player.Reallife.Job == Constants.JOB_CITY_TRANSPORT)
                     {
-                        dxLibary.VnX.DrawJobWindow(player, "Venox City Transport", "Wähle dein Fahrzeug aus", "Van<br>[Ab LvL 0]", "Transporter<br>[Ab LvL 50]", "LkW<br>[Ab LvL 100]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_LIEFERJOB_LEVEL));
+                        dxLibary.VnX.DrawJobWindow(player, "Venox City Transport", "Wähle dein Fahrzeug aus", "Van<br>[Ab LvL 0]", "Transporter<br>[Ab LvL 50]", "LkW<br>[Ab LvL 100]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.Reallife.LIEFERJOB_LEVEL);
                     }
                     else if (player.Reallife.Job == "Arbeitslos")
                     {
@@ -40,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 {
                     if (player.Reallife.Job == Constants.JOB_AIRPORT)
                     {
-                        dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_AIRPORTJOB_LEVEL));
+                        dxLibary.VnX.DrawJobWindow(player, "Los Santos Airport", "Wähle dein Flugzeug aus", "Dodo<br>[Ab LvL 0]", "Shamal<br>[Ab LvL 50]", "JET<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.Reallife.AIRPORTJOB_LEVEL);
                     }
                     else if (player.Reallife.Job == Constants.JOB_NONE)
                     {
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 {
                     if (player.Reallife.Job == Constants.JOB_BUS)
                     {
-                        dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.vnxGetElementData<int>(EntityData.PLAYER_BUSJOB_LEVEL));
+                        dxLibary.VnX.DrawJobWindow(player, "VenoX Busdepot", "Wähle dein Bus aus", "Bus<br>[Ab LvL 0]", "Airbus<br>[Ab LvL 50]", "Coach<br>[Ab LvL 150]", "Verfügbar ab LvL 0<br>", "Verfügbar ab LvL 50<br>", "Verfügbar ab LvL 150<br>", "Dein Job-level beträgt : " + player.Reallife.BUSJOB_LEVEL);
                     }
                     else if (player.Reallife.Job == Constants.JOB_NONE)
                     {
@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
         // Wenn der Spieler seinen Job annimmt im Marker.
         [ClientEvent("accept_job_server")]
-        public void Accept_job(Client player, string windowname)
+        public void Accept_job(VnXPlayer player, string windowname)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         [ClientEvent("Job:StartStage")]
-        public void trigger_job_window_1_buttons(Client player, int stage)
+        public void trigger_job_window_1_buttons(VnXPlayer player, int stage)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
 
         [Command("quitjob")]
-        public static void QuitJobServer(Client player)
+        public static void QuitJobServer(VnXPlayer player)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         public static string JOB_MARKER_ENTITY = "JOB_MARKER_ENTITY";
         public static string JOB_BLIP_ENTITY = "JOB_BLIP_ENTITY";
 
-        public static void CreateJobMarker(Client player, int BlipID, Vector3 Position, int Scale, int[] Color)
+        public static void CreateJobMarker(VnXPlayer player, int BlipID, Vector3 Position, int Scale, int[] Color)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
         }
 
-        public static VehicleModel CreateJobVehicle(Client player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = 0, bool WarpIntoVehicle = true)
+        public static VehicleModel CreateJobVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = 0, bool WarpIntoVehicle = true)
         {
             try
             {
@@ -185,7 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobVehicle", ex); return null; }
         }
 
-        public static void DestroyJobMarker(Client player)
+        public static void DestroyJobMarker(VnXPlayer player)
         {
             try
             {
@@ -225,7 +225,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions("DestroyJobMarker", ex); }
         }
 
-        public static void OnColShapeHit(IColShape col, Client player)
+        public static void OnColShapeHit(IColShape col, VnXPlayer player)
         {
             try
             {
@@ -248,7 +248,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeJobHit", ex); }
         }
-        public static void OnPlayerDisconnect(Client player)
+        public static void OnPlayerDisconnect(VnXPlayer player)
         {
             try
             {
@@ -263,7 +263,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             }
             catch (Exception ex) { Debug.CatchExceptions("OnPlayerDisconnect", ex); }
         }
-        public static void OnPlayerLeaveVehicle(VehicleModel vehClass, Client player, byte Seat)
+        public static void OnPlayerLeaveVehicle(VehicleModel vehClass, VnXPlayer player, byte Seat)
         {
             try
             {

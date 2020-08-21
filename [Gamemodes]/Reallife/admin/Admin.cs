@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
         public static void sendAdminNotification(string text)
         {
-            foreach (Client admin in VenoX.GetAllPlayers().ToList())
+            foreach (VnXPlayer admin in VenoX.GetAllPlayers().ToList())
             {
                 if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                foreach (Client admin in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer admin in VenoX.GetAllPlayers().ToList())
                 {
                     if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -57,7 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             }
         }
 
-        public static bool HaveAdminRights(Client player)
+        public static bool HaveAdminRights(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
             {
@@ -68,7 +68,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("hideh")]
-        public static void HideHUDForPlayer(Client player, bool boo)
+        public static void HideHUDForPlayer(VnXPlayer player, bool boo)
         {
             player.SendTranslatedChatMessage("");
             player.SendTranslatedChatMessage("");
@@ -78,20 +78,20 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             player.Emit("HideH", boo);
         }
         [Command("evalc")]
-        public static void HideHUDForPlayer(Client player, string st)
+        public static void HideHUDForPlayer(VnXPlayer player, string st)
         {
             player.Emit("eval", st);
         }
 
         [Command("admins")]
-        public void AdminsIngameCommand(Client player)
+        public void AdminsIngameCommand(VnXPlayer player)
         {
             try
             {
                 //foreach (string target_namesingame in VenoX.GetAllPlayers().ToList())
                 player.SendTranslatedChatMessage("---------------------------------------------------------");
                 player.SendTranslatedChatMessage("Folgende Admins sind grade Online : ");
-                foreach (Client targetsingame in VenoX.GetAllPlayers().ToList().OrderBy(p => p.AdminRank).Reverse())
+                foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers().ToList().OrderBy(p => p.AdminRank).Reverse())
                 {
                     if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
@@ -145,373 +145,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
 
-        /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
-        /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
-        /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
-        /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
-        /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
-
-        [Command("kick", true)]
-        public static void KickPlayer(Client player, string target_name, string reason)
-        {
-            try
-            {
-                Client target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-                if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
-                {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " wurde von " + player.Username + " gekickt! Grund : " + reason);
-                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + target.SocialClubId + "][" + target.Username + "] gekickt! Grund : " + reason);
-                    target.Kick("~r~Grund : ~h~" + reason);
-                }
-            }
-            catch { }
-        }
-
-        [Command("achat", true)]
-        public void ACommand(Client player, string message)
-        {
-            try
-            {
-                foreach (Client targetsingame in VenoX.GetAllPlayers().ToList())
-                {
-                    if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
-                    {
-                        if (player.AdminRank == 7)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {B40000}Projektleitung " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Projektleitung " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 6)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {EC0000}Stellv.Projektleitung " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Stellv.Projektleitung " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 5)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {E8AE00}Administrator " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Administrator " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 4)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {002DE0}Moderator " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Moderator " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 3)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {006600}Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Supporter " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 2)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {C800C8}Ticket-Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Ticket-Supporter " + player.Username + ": " + message + " }} ");
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
 
 
 
 
 
-        /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
-        /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
-        /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
-        /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
-        /////////////////////////////////////////////////SUPPORTER/////////////////////////////////////////////////
 
-
-        [Command("goto", true)]
-        public void TpCommand(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-            {
-                // We get the player from the input string
-                if (target != null)
-                {
-                    // Change player's position and dimension
-                    //AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
-                    player.SetPosition = target.Position;
-                    player.Dimension = target.Dimension;
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast dich zu " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "teleportiert!");
-                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VnX]" + player.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "hat sich zu dir teleportiert!");
-                    logfile.WriteLogs("admin", player.Username + " hat sich zu " + target.Username + " geportet!");
-                }
-                else
-                {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "[Admin - Info]" + RageAPI.GetHexColorcode(255, 255, 255) + " : Spieler wurde nicht gefunden!");
-                }
-            }
-        }
-
-        [Command("gethere", true)]
-        public void BringCommand(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-            {
-                if (target != null)
-                {
-                    // Change target's position and dimension
-                    //AntiCheat_Allround.SetTimeOutTeleport(target, 2000);
-                    target.SetPosition = player.Position;
-                    target.Dimension = player.Dimension;
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + " zu dir teleportiert!");
-                    target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VnX]" + player.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "hat dich zu ihm teleportiert!");
-                    logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " zu sich geportet!");
-                }
-                else
-                {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "[Admin - Info]" + RageAPI.GetHexColorcode(255, 255, 255) + " : Spieler wurde nicht gefunden!");
-                }
-            }
-        }
-
-        [Command("charakter")]
-        public void CharacterCommand(Client player, string action, string target_name, string amount)
-        {
-            try
-            {
-                Client target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-                if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
-                {
-                    // We check whether the player is connected
-                    if (target != null && target.Playing == true)
-                    {
-                        if (int.TryParse(amount, out int value) == true)
-                        {
-                            string message = string.Empty;
-                            switch (action.ToLower())
-                            {
-                                case "bank":
-                                    if (player.AdminRank > Constants.ADMINLVL_STELLVP)
-                                    {
-                                        target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_BANK, value);
-                                        player.SendTranslatedChatMessage("~g~Du hast das Bankgeld von " + target.Username + " auf : " + value + " gesetzt!");
-                                        target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + "hat dein Bankgeld auf : " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.Username + " hat das Bankgeld von " + target.Username + " Auf " + value + " gesetzt!");
-                                    }
-                                    break;
-                                case "money":
-                                    if (player.AdminRank > Constants.ADMINLVL_STELLVP)
-                                    {
-                                        target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, value);
-                                        player.SendTranslatedChatMessage("~g~Du hast das Bargeld von " + target.Username + " auf : " + value + " gesetzt!");
-                                        target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat dein Bargeld auf : " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.Username + " hat das Bargeld von " + target.Username + " Auf " + value + " gesetzt!");
-                                    }
-                                    break;
-                                case "dimension":
-                                    if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
-                                    {
-                                        target.Dimension = value;
-                                        player.SendTranslatedChatMessage("~g~Du hast " + target.Username + " Dimension auf " + value + " gesetzt!");
-                                        target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat deine Dimension auf :  " + value + " gesetzt!");
-                                        logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.Username + " hat " + target.Username + " in die Dimension " + value + " verschoben!");
-
-                                    }
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "SPIELER NICHT GEFUNDEN");
-                    }
-
-                }
-            }
-            catch { }
-        }
-
-        [Command("getdim")]
-        public static void GetAdminDimension(Client player, string target_name)
-        {
-            Client target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
-            if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
-            {
-                player.SendTranslatedChatMessage(target.Username + " hat dimension : " + target.Dimension);
-            }
-        }
-
-
-        [Command("revive")]
-        public void ReviveCommand(Client player, string target_name)
-        {
-            Client Target = RageAPI.GetPlayerFromName(target_name);
-            if (Target == null) { return; }
-            if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-            {
-                if (Target != null)
-                {
-                    if (Target.Dead == 1)
-                    {
-                        //AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
-                        Target.SpawnPlayer(Target.Position);
-                        Target.vnxSetStreamSharedElementData(EntityData.PLAYER_KILLED, 0);
-                        player.SendTranslatedChatMessage("~g~Du hast " + Target.Username + " wiederbelebt.");
-                        Target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat dich wiederbelebt.");
-                        logfile.WriteLogs("admin", player.Username + " hat " + Target.Username + " wiederbelebt!");
-                        Target.Emit("destroyKrankenhausTimer");
-                        Target.Emit("VnX_DestroyIPlayerSideTimer_KH");
-                        foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
-                        {
-                            if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                            {
-                                medics.Emit("Destroy_MedicBlips", Target.Username);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        [Command("prison")]
-        public void JailCommand(Client player, string target, int zeit, string grund)
-        {
-            try
-            {
-                if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    bool Found = Database.FindCharacterByName(target);
-                    if (Found)
-                    {
-                        string SocialClubId = Database.GetCharakterSocialName(target);
-                        string SpielerName = Database.GetAccountSpielerName(SocialClubId);
-                        Client targetplayer = RageAPI.GetPlayerFromName(SpielerName);
-                        int UID = Database.GetCharakterUID(SpielerName);
-                        if (Database.FindCharakterPrison(SpielerName))
-                        {
-                            int PrisonTime = Database.GetCharakterPrisonTime(SpielerName);
-                            Database.UpdatePlayerPrisonTime(UID, PrisonTime + zeit, grund, player.Username, DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                        }
-                        else
-                        {
-                            Database.AddPlayerToPrison(UID, SpielerName, zeit, grund, player.Username, DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + target + "] für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Minuten ins Prison gesteckt! Grund : " + grund);
-                        }
-                        if (targetplayer != null)
-                        {
-                            //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                            targetplayer.Dimension = 0;
-                            targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
-                            anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
-                            targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, zeit);
-                        }
-                    }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
-                    }
-                }
-                else
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
-                }
-            }
-            catch { }
-        }
-
-        [Command("timeban")]
-        public void timeban_player(Client player, string target, int zeit, string grund)
-        {
-            try
-            {
-                if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    bool Found = Database.FindCharacterByName(target);
-                    if (Found)
-                    {
-                        string SocialClubId = Database.GetCharakterSocialName(target);
-                        string SpielerName = Database.GetAccountSpielerName(SocialClubId);
-                        string SpielerSerial = Database.GetAccountSpielerSerial(SocialClubId);
-                        Client targetplayer = RageAPI.GetPlayerFromName(SpielerName);
-                        int UID = Database.GetCharakterUID(SpielerName);
-
-                        if (Database.FindCharacterBan(SocialClubId.ToString()))
-                        {
-                            Accountbans ban = Database.GetAccountbans(SocialClubId.ToString());
-                            if (ban.banzeit > DateTime.Now)
-                            {
-                                Database.UpdatePlayerTimeBan(UID, grund, player.Username, ban.banzeit.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            }
-                            else
-                            {
-                                Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund, player.Username, DateTime.Now.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            }
-                        }
-                        else
-                        {
-                            Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund, player.Username, DateTime.Now.AddHours(zeit), DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                        }
-                        if (targetplayer != null)
-                        {
-                            targetplayer.Kick("~r~Grund : ~h~" + grund);
-                        }
-                    }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
-                    }
-                }
-                else
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
-                }
-            }
-            catch { }
-        }
-
-
-
-        [Command("spec")]
-        public void ReconCommand(Client player, string target_name)
-        {
-            try
-            {
-                Client target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-                if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
-                {
-                    //anzeigen.Usefull.VnX.SpectatePlayer(player, target, 0);
-                    sendAdminInformation(player.Username + " spectatet grade " + target.Username + "!");
-                }
-            }
-            catch { }
-        }
-
-        [Command("specoff")]
-        public void RecoffCommand(Client player)
-        {
-            if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
-            {
-                //anzeigen.Usefull.VnX.SpectatePlayer(player, player, 1);
-                sendAdminInformation(player.Username + " hat aufgehört " + player.Username + " zu spectaten!");
-            }
-        }
 
 
         /////////////////////////////////////////////////MODERATOR/////////////////////////////////////////////////
@@ -521,7 +160,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         /////////////////////////////////////////////////MODERATOR/////////////////////////////////////////////////
 
         [Command("clearchat")]
-        public static void ClearChatForEveryone(Client player)
+        public static void ClearChatForEveryone(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
@@ -534,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("clearc")]
-        public static void ClearCForEveryone(Client player)
+        public static void ClearCForEveryone(VnXPlayer player)
         {
             player.SendTranslatedChatMessage(".");
             player.SendTranslatedChatMessage(".");
@@ -557,7 +196,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("adstate")]
-        public static void SetAdState(Client player, int Werbung)
+        public static void SetAdState(VnXPlayer player, int Werbung)
         {
             if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
@@ -578,7 +217,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("ochat", true)]
-        public void OchatCommand(Client player, string message)
+        public void OchatCommand(VnXPlayer player, string message)
         {
             try
             {
@@ -622,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("unprison")]
-        public static void UnPrisonPlayer(Client player, string target)
+        public static void UnPrisonPlayer(VnXPlayer player, string target)
         {
             if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
@@ -631,7 +270,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 {
                     string SocialClubId = Database.GetCharakterSocialName(target);
                     string SpielerName = Database.GetAccountSpielerName(SocialClubId);
-                    Client targetplayer = RageAPI.GetPlayerFromName(SpielerName);
+                    VnXPlayer targetplayer = RageAPI.GetPlayerFromName(SpielerName);
                     int UID = Database.GetCharakterUID(SpielerName);
                     if (Database.FindCharakterPrison(SpielerName))
                     {
@@ -659,7 +298,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("permaban", true)]
-        public void permaban_player(Client player, string target, string grund)
+        public void permaban_player(VnXPlayer player, string target, string grund)
         {
             try
             {
@@ -671,7 +310,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         string SocialClubId = Database.GetCharakterSocialName(target);
                         string SpielerName = Database.GetAccountSpielerName(SocialClubId);
                         string SpielerSerial = Database.GetAccountSpielerSerial(SocialClubId);
-                        Client targetplayer = RageAPI.GetPlayerFromName(SpielerName);
+                        VnXPlayer targetplayer = RageAPI.GetPlayerFromName(SpielerName);
                         int UID = Database.GetCharakterUID(SpielerName);
 
                         if (Database.FindCharacterBan(SocialClubId))
@@ -717,20 +356,20 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("updateinventar")]
-        public static void UpdateTargetInventar(Client player, string target_name)
+        public static void UpdateTargetInventar(VnXPlayer player, string target_name)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(target);
             target.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
 
         [Command("clearinventar")]
-        public static void ClearTargetPlayerInventar(Client player, string target_name)
+        public static void ClearTargetPlayerInventar(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
@@ -758,7 +397,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("coord")]
-        public void CoordCommand(Client player, float posX, float posY, float posZ)
+        public void CoordCommand(VnXPlayer player, float posX, float posY, float posZ)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -771,9 +410,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("sstate")]
-        public static void SetSocialStatePlayer(Client player, string target_name, string value)
+        public static void SetSocialStatePlayer(VnXPlayer player, string target_name, string value)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -785,9 +424,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("triggersound")]
-        public static void TriggerSoundEffect(Client player, string target_name, string SoundName, string SoundSetName)
+        public static void TriggerSoundEffect(VnXPlayer player, string target_name, string SoundName, string SoundSetName)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -796,9 +435,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("triggermp3")]
-        public static void Triggeraudio(Client player, string target_name, string audioclass)
+        public static void Triggeraudio(VnXPlayer player, string target_name, string audioclass)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -807,9 +446,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("triggerfx")]
-        public static void Triggerfx(Client player, string target_name, string effect, int duration, bool loop)
+        public static void Triggerfx(VnXPlayer player, string target_name, string effect, int duration, bool loop)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -818,9 +457,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("stopfx")]
-        public static void StopfxAdmin(Client player, string target_name, string effect)
+        public static void StopfxAdmin(VnXPlayer player, string target_name, string effect)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -829,9 +468,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("setpremium")]
-        public static void GivePremiumToPlayer(Client player, string target_name, int PaketNr, int Tage)
+        public static void GivePremiumToPlayer(VnXPlayer player, string target_name, int PaketNr, int Tage)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -886,7 +525,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("weather")]
-        public void WeatherCommand(Client player, int weather)
+        public void WeatherCommand(VnXPlayer player, int weather)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -897,7 +536,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 else
                 {
                     //NAPI.World.SetWeather((Weather)weather);
-                    foreach (Client players in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                     {
                         players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                     }
@@ -910,7 +549,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("unban")]
-        public static void UnbanPlayerByName(Client player, string target)
+        public static void UnbanPlayerByName(VnXPlayer player, string target)
         {
             try
             {
@@ -936,7 +575,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("vehicle")]
-        public static void IVehicleCommand(Client player, int IVehicleid, string action)
+        public static void IVehicleCommand(VnXPlayer player, int IVehicleid, string action)
         {
             try
             {
@@ -968,7 +607,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("crespawnarea")]
-        public static void DespawnAllIVehiclesInArea(Client player)
+        public static void DespawnAllIVehiclesInArea(VnXPlayer player)
         {
             try
             {
@@ -990,7 +629,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("resetaktion")]
-        public static void AdminResetAktion(Client player)
+        public static void AdminResetAktion(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1001,7 +640,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("createhouse")]
-        public void CreateNewHausmarker(Client player, string name, int preis, int interior)
+        public void CreateNewHausmarker(VnXPlayer player, string name, int preis, int interior)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1035,7 +674,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("removehouse")]
-        public void DeleteHausmarker(Client player)
+        public void DeleteHausmarker(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1054,13 +693,13 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("makeleader")]
-        public void MakeLeader_AdminFunc(Client player, string target_name, int faction)
+        public void MakeLeader_AdminFunc(VnXPlayer player, string target_name, int faction)
         {
             try
             {
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
+                    VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     switch (faction)
                     {
@@ -1135,11 +774,11 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("setrank")]
-        public void setUserRank(Client player, string target_name, int rank)
+        public void setUserRank(VnXPlayer player, string target_name, int rank)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (target.Reallife.Faction == Constants.FACTION_NONE)
                 {
@@ -1164,7 +803,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("giveweapon", true)]
-        public static void GiveAdminWeapons(Client player, string weapon)
+        public static void GiveAdminWeapons(VnXPlayer player, string weapon)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1183,7 +822,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("changepw")]
-        public static void ChangeUserPasswort(Client player, string name, string passwort)
+        public static void ChangeUserPasswort(VnXPlayer player, string name, string passwort)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1202,7 +841,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("gotogw")]
-        public static void Teleport2TK(Client player, string name)
+        public static void Teleport2TK(VnXPlayer player, string name)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1221,7 +860,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("stopgw")]
-        public static void StopGangwar(Client player)
+        public static void StopGangwar(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1231,7 +870,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("getgw")]
-        public static void GetInfo(Client player, string name)
+        public static void GetInfo(VnXPlayer player, string name)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1244,7 +883,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("setgwowner")]
-        public static void SetGangwarOwner(Client player, string name, int factionId)
+        public static void SetGangwarOwner(VnXPlayer player, string name, int factionId)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1264,9 +903,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         /////////////////////////////////////////////////STELLV.PROJEKTLEITUNG/////////////////////////////////////////////////
         [Command("vnxgetelementdata")]
-        public static void GetElementDataAdmin(Client player, string target_name, string element)
+        public static void GetElementDataAdmin(VnXPlayer player, string target_name, string element)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_STELLVP)
             {
@@ -1276,7 +915,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("vnxvehgetelementdata")]
-        public static void GetElementDataAdmin(Client player, string element)
+        public static void GetElementDataAdmin(VnXPlayer player, string element)
         {
             try
             {
@@ -1293,7 +932,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("vnxvehgetshareddata")]
-        public static void GetSharedElementDataAdmin(Client player, string element)
+        public static void GetSharedElementDataAdmin(VnXPlayer player, string element)
         {
             try
             {
@@ -1312,7 +951,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("hauschange")]
-        public void ChangeHausData(Client player, string element, int value)
+        public void ChangeHausData(VnXPlayer player, string element, int value)
         {
             string e = element.ToLower();
             if (player.Reallife.Faction > Constants.ADMINLVL_STELLVP)
@@ -1355,9 +994,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("sethunger")]
-        public static void SetPlayerAdminHunger(Client player, string target_name, int value)
+        public static void SetPlayerAdminHunger(VnXPlayer player, string target_name, int value)
         {
-            Client target = RageAPI.GetPlayerFromName(target_name);
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_STELLVP)
             {
@@ -1367,7 +1006,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("createforumuser")]
-        public static void CreateForumUser_Admin_CMD(Client player, string Name, string email, string passwort)
+        public static void CreateForumUser_Admin_CMD(VnXPlayer player, string Name, string email, string passwort)
         {
             if (player.AdminRank >= Constants.ADMINLVL_STELLVP)
             {
@@ -1407,7 +1046,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("askin")]
-        public static void ChangeSkin(Client player, int slot, int drawable, int texture)
+        public static void ChangeSkin(VnXPlayer player, int slot, int drawable, int texture)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1416,7 +1055,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("aprop")]
-        public static void ChangeProp(Client player, int slot, int drawable, int texture)
+        public static void ChangeProp(VnXPlayer player, int slot, int drawable, int texture)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1425,7 +1064,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("changecar")]
-        public static void ChangeCarModel(Client player, string modelName)
+        public static void ChangeCarModel(VnXPlayer player, string modelName)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -1441,7 +1080,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("vehupdate")]
-        public static void ChangeCarPosition(Client player)
+        public static void ChangeCarPosition(VnXPlayer player)
         {
             if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
             {
@@ -1455,7 +1094,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         }
 
         [Command("createobj")]
-        public static void CreateObj(Client player, string ObjName)
+        public static void CreateObj(VnXPlayer player, string ObjName)
         {
             if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
             {
@@ -1466,11 +1105,11 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("createbullet")]
-        public static void createbullet(Client player, string target_name, int damage, string WeaponHash, Client Owner, bool audible, bool invisible, int speed)
+        public static void createbullet(VnXPlayer player, string target_name, int damage, string WeaponHash, VnXPlayer Owner, bool audible, bool invisible, int speed)
         {
             if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 Alt.EmitAllClients("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
                 Debug.OutputDebugString("CMD-Executed!");
@@ -1479,7 +1118,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
 
 
         [Command("createvehicle")]
-        public static void CreateAdminVehicle(Client player, string Model, int Faction, bool Save, int R = 255, int G = 255, int B = 255, int R2 = 255, int G2 = 255, int B2 = 255)
+        public static void CreateAdminVehicle(VnXPlayer player, string Model, int Faction, bool Save, int R = 255, int G = 255, int B = 255, int R2 = 255, int G2 = 255, int B2 = 255)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {

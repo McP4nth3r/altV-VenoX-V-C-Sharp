@@ -5,8 +5,8 @@ namespace VenoXV._Gamemodes_.Reallife.handy.model
 {
     public class CallModel
     {
-        public Client Caller { get; set; }
-        public Client Target { get; set; }
+        public VnXPlayer Caller { get; set; }
+        public VnXPlayer Target { get; set; }
         public IVoiceChannel CurrentCallChannel { get; set; }
     }
 }

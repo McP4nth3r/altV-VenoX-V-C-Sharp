@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         // BASIC TEAMCHAT
         [Command("t", true)]
-        public void SendFactionChatMessage(Client player, string text)
+        public void SendFactionChatMessage(VnXPlayer player, string text)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("teamsay", true)]
-        public void SendFactionChatMessage_Kuerzung(Client player, string text)
+        public void SendFactionChatMessage_Kuerzung(VnXPlayer player, string text)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         // Staatschat
         [Command("g", true)]
-        public void SendStateChatMessage(Client player, string text)
+        public void SendStateChatMessage(VnXPlayer player, string text)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         // BadFactionchat
         [Command("b", true)]
-        public void SendBadChatMessage(Client player, string text)
+        public void SendBadChatMessage(VnXPlayer player, string text)
         {
             try
             {

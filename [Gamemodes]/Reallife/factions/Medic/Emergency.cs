@@ -14,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         public static ColShapeModel EmergencyReviveCol = RageAPI.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -52,11 +52,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
             }
         }
-        public static void DestroyEmergencyDeathNotify(Client player)
+        public static void DestroyEmergencyDeathNotify(VnXPlayer player)
         {
             try
             {
-                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -66,11 +66,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
             catch { }
         }
-        public static void CreateEmergencyDeathNotify(Client player, int time)
+        public static void CreateEmergencyDeathNotify(VnXPlayer player, int time)
         {
             try
             {
-                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -84,9 +84,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         //[AltV.Net.ClientEvent("DestroyForAllMedicBlip")]
-        public void DestroyMedicBlipAfterSpawn(Client player)
+        public void DestroyMedicBlipAfterSpawn(VnXPlayer player)
         {
-            foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
             {
                 if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
@@ -98,11 +98,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("heal")]
-        public void HealIPlayerMedic(Client player, string target_name)
+        public void HealIPlayerMedic(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 target.Emit("destroyKrankenhausTimer");
                                 target.Emit("VnX_DestroyIPlayerSideTimer_KH");
 
-                                foreach (Client medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                                 {
                                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                     {

@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         public const int KostenProWanted = 350;
 
         [Command("bail")]
-        public static void BailPayPlayer(Client player)
+        public static void BailPayPlayer(VnXPlayer player)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
             catch { }
         }
         [Command("bailinfo")]
-        public static void BailInfoPlayer(Client player)
+        public static void BailInfoPlayer(VnXPlayer player)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
             catch { }
         }
         [Command("jailtime")]
-        public static void GetPlayerJailTime(Client player)
+        public static void GetPlayerJailTime(VnXPlayer player)
         {
             try
             {
@@ -95,13 +95,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         }
 
         [Command("tie")]
-        public static void TiePlayerinIVehicle(Client player, string target_name)
+        public static void TiePlayerinIVehicle(VnXPlayer player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
+                    VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.Reallife.OnDuty != 1)
                     {
@@ -171,13 +171,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
 
 
         [Command("grab")]
-        public static void GrabPlayer(Client player, string target_name)
+        public static void GrabPlayer(VnXPlayer player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
+                    VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.IsInVehicle)
                     {
@@ -201,11 +201,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
 
 
         [Command("arrest", true)]
-        public void ArrestPlayerCMD(Client player, string target_name, string kaution)
+        public void ArrestPlayerCMD(VnXPlayer player, string target_name, string kaution)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 Position arrestpositioncar = new Position(479.1359f, -1021.734f, 28.00093f);
                 if (player.Position.Distance(arrestpositioncar) < 3.5f)
@@ -291,7 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         }
 
         public static ColShapeModel stellenColShapeModel = RageAPI.CreateColShapeSphere(new Position(441.0676f, -981.1415f, 30.68959f), 1);
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -305,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
 
 
         [ClientEvent("Stellen_Server_Event")]
-        public void Stellen_server_event(Client player)
+        public void Stellen_server_event(VnXPlayer player)
         {
             try
             {

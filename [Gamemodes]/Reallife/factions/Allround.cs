@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -250,7 +250,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             catch { }
         }
 
-        public static bool isBadFaction(Client player)
+        public static bool isBadFaction(VnXPlayer player)
         {
             try
             {
@@ -266,7 +266,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
             catch { return false; }
         }
-        public static bool isStateFaction(Client player)
+        public static bool isStateFaction(VnXPlayer player)
         {
             try
             {
@@ -321,7 +321,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
 
-        public static bool isNeutralFaction(Client player)
+        public static bool isNeutralFaction(VnXPlayer player)
         {
             try
             {
@@ -336,7 +336,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
 
-        public static bool IsNearFactionTeleporter(Client player)
+        public static bool IsNearFactionTeleporter(VnXPlayer player)
         {
             try
             {
@@ -659,7 +659,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("zivizeit")]
-        public static void Zivizeit(Client player)
+        public static void Zivizeit(VnXPlayer player)
         {
             try
             {
@@ -676,7 +676,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("selfuninvite")]
-        public static void Selfuninvite(Client player)
+        public static void Selfuninvite(VnXPlayer player)
         {
             try
             {
@@ -694,11 +694,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("invite")]
-        public static void InvitePlayerToFaction(Client player, string target_name)
+        public static void InvitePlayerToFaction(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
@@ -730,11 +730,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("uninvite")]
-        public static void UninviteFromFactionPlayer(Client player, string target_name)
+        public static void UninviteFromFactionPlayer(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
                 {
@@ -774,11 +774,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("giverank")]
-        public static void SetPlayerFraktionsRang(Client player, string target_name, int number)
+        public static void SetPlayerFraktionsRang(VnXPlayer player, string target_name, int number)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (number > 4 || number < 0)
                 {
@@ -833,7 +833,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [ClientEvent("goDUTYBADServer")]
-        public void GoDUTYBADServer(Client player, string state)
+        public void GoDUTYBADServer(VnXPlayer player, string state)
         {
             try
             {
@@ -893,7 +893,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [ClientEvent("goDUTYServer")]
-        public void GoDutyIPlayer(Client player)
+        public void GoDutyIPlayer(VnXPlayer player)
         {
             try
             {
@@ -927,7 +927,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [ClientEvent("goSWATServer")]
-        public void goSWATDutyPlayer(Client player)
+        public void goSWATDutyPlayer(VnXPlayer player)
         {
             try
             {
@@ -955,7 +955,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [ClientEvent("goOFFDUTYServer")]
-        public void OffDuty_Server_EVENT(Client player)
+        public void OffDuty_Server_EVENT(VnXPlayer player)
         {
             try
             {

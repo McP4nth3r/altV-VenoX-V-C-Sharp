@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
         public static ColShapeModel ARMYDuty = RageAPI.CreateColShapeSphere(new Vector3(467.07693f, -3220.4834f, 7.0549316f), 1.5f);
         public static ColShapeModel ARMY2Duty = RageAPI.CreateColShapeSphere(new Vector3(-2172.7913f, 3255.9692f, 32.801514f), 1.5f);
 
-        public static void OnStateColShapeHit(IColShape colShape, Client player)
+        public static void OnStateColShapeHit(IColShape colShape, VnXPlayer player)
         {
             try
             {

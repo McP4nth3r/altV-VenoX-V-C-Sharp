@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
     {
         public static ColShapeModel carShopTextLabel; // Eig Text label!
 
-        private int GetClosestCarShop(Client player, float distance = 2.0f)
+        private int GetClosestCarShop(VnXPlayer player, float distance = 2.0f)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         public static ColShapeModel CARSHOP = RageAPI.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {

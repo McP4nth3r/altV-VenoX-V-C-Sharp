@@ -318,19 +318,19 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public const int VEHICLE_Rgba_TYPE_CUSTOM = 1;
 
         // IVehicle types
-        public const string VEHICLE_CLASS_COMPACTS = "compacts";
-        public const string VEHICLE_CLASS_SEDANS = "sedans";
-        public const string VEHICLE_CLASS_SUVS = "suvs";
-        public const string VEHICLE_CLASS_COUPES = "coupes";
-        public const string VEHICLE_CLASS_MUSCLE = "muscles";
-        public const string VEHICLE_CLASS_SPORTS = "sports";
-        public const string VEHICLE_CLASS_CLASSICS = "sportsclassics";
-        public const string VEHICLE_CLASS_SUPER = "supers";
+        public const string VEHICLE_CLASS_COMPACTS = "compact";
+        public const string VEHICLE_CLASS_SEDANS = "sedan";
+        public const string VEHICLE_CLASS_SUVS = "suv";
+        public const string VEHICLE_CLASS_COUPES = "coupe";
+        public const string VEHICLE_CLASS_MUSCLE = "muscle";
+        public const string VEHICLE_CLASS_SPORTS = "sport";
+        public const string VEHICLE_CLASS_CLASSICS = "sportsclassic";
+        public const string VEHICLE_CLASS_SUPER = "super";
         public const int VEHICLE_CLASS_MOTORCYCLES = 8;
         public const string VEHICLE_CLASS_OFFROAD = "offroads";
         public const int VEHICLE_CLASS_INDUSTRIAL = 10;
         public const int VEHICLE_CLASS_UTILITY = 11;
-        public const string VEHICLE_CLASS_VANS = "vans";
+        public const string VEHICLE_CLASS_VANS = "van";
         public const int VEHICLE_CLASS_CYCLES = 13;
         public const int VEHICLE_CLASS_BOATS = 14;
         public const int VEHICLE_CLASS_HELICOPTERS = 15;

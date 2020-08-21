@@ -27,11 +27,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("zeigen")]
-        public static void ShowToPlayerLicense(Client player, string target_name)
+        public static void ShowToPlayerLicense(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Position.Distance(target.Position) < 5)
                 {
@@ -76,11 +76,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("frisk")]
-        public static void FriskPlayer(Client player, string target_name)
+        public static void FriskPlayer(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Position.Distance(target.Position) < 5)
                 {
@@ -119,13 +119,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("takeillegal")]
-        public static void Takeillegal(Client player, string target_name)
+        public static void Takeillegal(VnXPlayer player, string target_name)
         {
             try
             {
                 if (Allround.isStateFaction(player))
                 {
-                    Client target = RageAPI.GetPlayerFromName(target_name);
+                    VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                     if (target == null) { return; }
                     if (player.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                     {
@@ -179,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [ClientEvent("Reallife:OnPoliceWeaponSelect")]
-        public static void GivePlayerStateFactionWeapon(Client player, string Button)
+        public static void GivePlayerStateFactionWeapon(VnXPlayer player, string Button)
         {
             if (!Allround.isStateFaction(player)) { return; }
             FactionAllroundModel fweapon = new FactionAllroundModel();
@@ -344,7 +344,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         //[AltV.Net.ClientEvent("triggerBadWeaponWindowBtn_S")]
-        public static void GivePlayerBadFactionWeapon(Client player, string button)
+        public static void GivePlayerBadFactionWeapon(VnXPlayer player, string button)
         {
             try
             {
@@ -847,7 +847,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("ausknasten")]
-        public void RemovePlayerFromKnast(Client player, string target_name)
+        public void RemovePlayerFromKnast(VnXPlayer player, string target_name)
         {
             try
             {
@@ -856,7 +856,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Reallife.FactionRank >= 3)
                 {
@@ -881,7 +881,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("suspect", true)]
-        public void GivePlayerStars_LongVersion(Client player, string target_name, string action)
+        public void GivePlayerStars_LongVersion(VnXPlayer player, string target_name, string action)
         {
             try
             {
@@ -898,7 +898,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("su", true)]
-        public void GivePlayerStars(Client player, string target_name, string action)
+        public void GivePlayerStars(VnXPlayer player, string target_name, string action)
         {
             try
             {
@@ -907,7 +907,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     player.SendTranslatedChatMessage("Du bist kein Staatsfraktionist!");
                     return;
                 }
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (!Allround.isStateFaction(player))
                 {
@@ -1092,7 +1092,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         player.SendReallifeMessage("{175,0,0}Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    foreach (Client targetsingame in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers().ToList())
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
@@ -1109,7 +1109,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("clear", true)]
-        public void Clearuserwanteds(Client player, string target_name)
+        public void Clearuserwanteds(VnXPlayer player, string target_name)
         {
             try
             {
@@ -1118,7 +1118,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
 
                 if (target != null && target.Playing == true)
@@ -1134,7 +1134,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         target.SendTranslatedChatMessage("{007d00}Officer " + player.Username + " hat deine Akte Gelöscht!");
                         anzeigen.Usefull.VnX.onWantedChange(target);
 
-                        foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             if (targetsingame.Reallife.Faction == 1)
                             {

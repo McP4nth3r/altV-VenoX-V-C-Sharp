@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
 
 
 
-        public static void CreateShopRobPedsIPlayer(Client player)
+        public static void CreateShopRobPedsIPlayer(VnXPlayer player)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             catch { }
         }
 
-        public static void OnShopRobClickServer(Client player)
+        public static void OnShopRobClickServer(VnXPlayer player)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     foreach (ColShapeModel col in ShopColShapeModels)
                     {
@@ -237,7 +237,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             catch { }
         }
 
-        public static void OnPlayerDisconnected(Client player, string type, string reason)
+        public static void OnPlayerDisconnected(VnXPlayer player, string type, string reason)
         {
             try
             {
@@ -286,7 +286,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         }
 
         //[AltV.Net.ClientEvent("OnShopWindowBTNClickServer")]
-        public static void OnShopWindowBTNClickServer(Client player, int value)
+        public static void OnShopWindowBTNClickServer(VnXPlayer player, int value)
         {
             try
             {

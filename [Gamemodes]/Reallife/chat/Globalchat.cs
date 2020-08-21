@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
     {
         public static string Global_Admin_Status = "Angeschaltet";
         [Command("global", true)]
-        public static void SendGlobalMessage(Client player, string text)
+        public static void SendGlobalMessage(VnXPlayer player, string text)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                         }
                         string BlueColor = RageAPI.GetHexColorcode(0, 200, 255);
                         string WhiteColor = RageAPI.GetHexColorcode(255, 255, 255);
-                        foreach (Client onlinespieler in VenoX.GetAllPlayers().ToList())
+                        foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
                         {
                             //if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PLAYED) > 6000)
                             //{
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("global_aus")]
-        public void setGlobal_status_on(Client player)
+        public void setGlobal_status_on(VnXPlayer player)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (Global_Admin_Status == "Ausgeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Ausgeschaltet";
-                    foreach (Client onlinespieler in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
                     {
                         onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " hat den Globalchat augeschaltet!");
                     }
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("global_an")]
-        public void setGlobal_status_off(Client player)
+        public void setGlobal_status_off(VnXPlayer player)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (Global_Admin_Status == "Angeschaltet") { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
                     Global_Admin_Status = "Angeschaltet";
-                    foreach (Client onlinespieler in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
                     {
                         onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "[VnX]" + player.Username + " hat den Globalchat angeschaltet!");
                     }

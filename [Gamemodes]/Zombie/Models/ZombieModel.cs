@@ -14,6 +14,6 @@ namespace VenoXV._Gamemodes_.Zombie.Models
         public string SkinName { get; set; }
         public Vector3 Position { get; set; }
         public bool IsDead { get; set; }
-        public Client TargetEntity { get; set; }
+        public VnXPlayer TargetEntity { get; set; }
     }
 }

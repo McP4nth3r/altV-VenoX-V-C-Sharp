@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             Core.RageAPI.CreateBlip("Pay'n'Spray", new Vector3(-1155.225f, -2005.886f, 13.1803f), 72, 0, true);
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape forpaynspray, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape forpaynspray, VnXPlayer player)
         {
             try
             {

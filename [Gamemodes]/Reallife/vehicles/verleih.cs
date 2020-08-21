@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
         /// <param name="player">Player who´s the Owner</param>
         /// <param name="Roller">Is it A Roller? If No it should be a Panto.</param>
-        public static void GetNearestRentalsSpawn(Client player, bool Roller)
+        public static void GetNearestRentalsSpawn(VnXPlayer player, bool Roller)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //Function will be called by Lib.
-        public static void GivePlayerRentedIVehicle(Client player, int value)
+        public static void GivePlayerRentedIVehicle(VnXPlayer player, int value)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [Command("updaterent")]
-        public void Update_VenoX_Rentals(Client player)
+        public void Update_VenoX_Rentals(VnXPlayer player)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("Destroy_Verleih_Rentals")]
-        public void destroy_Fahrzeug_verleih(Client player)
+        public void destroy_Fahrzeug_verleih(VnXPlayer player)
         {
             try
             {
@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [Command("stoprent")]
-        public void stop_Fahrzeug_Verleih(Client player)
+        public void stop_Fahrzeug_Verleih(VnXPlayer player)
         {
             try
             {
@@ -193,7 +193,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {

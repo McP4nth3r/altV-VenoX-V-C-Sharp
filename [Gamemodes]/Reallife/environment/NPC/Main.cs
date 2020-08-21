@@ -145,13 +145,13 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         }
 
         [Command("createnewnpc")]
-        public static void CreateNewNPCs(Client player)
+        public static void CreateNewNPCs(VnXPlayer player)
         {
             NPC_NextUpdate_Pos = DateTime.Now;
         }
 
         [Command("countcolshapes")]
-        public static void countcolshapes(Client player)
+        public static void countcolshapes(VnXPlayer player)
         {
             player.SendChatMessage("" + NPC_Cols.Count);
         }
@@ -336,7 +336,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         }
         */
 
-        public static void OnClickedButton(Client player, string button)
+        public static void OnClickedButton(VnXPlayer player, string button)
         {
             if (button == "button_1")
             {
@@ -346,7 +346,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         }
 
 
-        public static void NPC_StartAction(Client player, int Data)
+        public static void NPC_StartAction(VnXPlayer player, int Data)
         {
             if (Data == 0)
             {
@@ -399,7 +399,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         }
 
         [ClientEvent("NPC:OnFinishedMission")]
-        public static void NPC_OnFinishedMission(Client player, string Event)
+        public static void NPC_OnFinishedMission(VnXPlayer player, string Event)
         {
             if (Event == "TargetNPC:Killed")
             {

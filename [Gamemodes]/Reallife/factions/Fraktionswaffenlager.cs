@@ -14,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
     public class Fraktionswaffenlager : IScript
     {
         [Command("fweapons")]
-        public void FWeapons_CMD(Client player)
+        public void FWeapons_CMD(VnXPlayer player)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static ColShapeModel SWT_COL = RageAPI.CreateColShapeSphere(new Position(1853.666f, 3688.104f, 34f), 1);
         public static ColShapeModel WT_COL = RageAPI.CreateColShapeSphere(new Position(2853.49f, 1502.488f, 24.72436f), 1);
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {

@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
         }
 
         [ClientEvent("Ammunation:BuyAmmo")]
-        public void BuyWeaponAmmuAmmunation(Client player, string item)
+        public void BuyWeaponAmmuAmmunation(VnXPlayer player, string item)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
 
         [ClientEvent("Ammunation:BuyWeapon")]
-        public void BuyWeaponAmmunation(Client player, string item)
+        public void BuyWeaponAmmunation(VnXPlayer player, string item)
         {
             try
             {
@@ -388,7 +388,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
 
         public static ColShapeModel AmmunationCOL = RageAPI.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {

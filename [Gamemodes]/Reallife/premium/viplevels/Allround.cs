@@ -48,11 +48,11 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
         }
 
         [Command("viptime")]
-        public static void SendVIPNotify(Client player)
+        public static void SendVIPNotify(VnXPlayer player)
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.UID);
+                VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
                 if (VipL.Vip_BisZum > DateTime.Now)
                 {
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "---------- VIP Level : " + GetVIPRangName(VipL.Vip_Paket) + " " + RageAPI.GetHexColorcode(0, 175, 0) + " ----------");
@@ -71,11 +71,11 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
 
 
         [Command("vip")]
-        public static void ShowPlayerVIPWindow(Client player)
+        public static void ShowPlayerVIPWindow(VnXPlayer player)
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.UID);
+                VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
                 if (GetVIPRangName(VipL.Vip_Paket) != "Abgelaufen" || GetVIPRangName(VipL.Vip_Paket).Length > 3)
                 {
                     Alt.Server.TriggerClientEvent(player, "CreateVIPWindow");
@@ -87,11 +87,11 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
 
 
 
-        public static bool HaveVIPRights(Client player, string paket)
+        public static bool HaveVIPRights(VnXPlayer player, string paket)
         {
             try
             {
-                Client VipL = Database.GetPlayerVIP(player, player.UID);
+                VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
                 if (paket == VIP_BRONZE)
                 {
                     if (GetVIPRangName(VipL.Vip_Paket) == VIP_BRONZE || GetVIPRangName(VipL.Vip_Paket) == VIP_SILVER || GetVIPRangName(VipL.Vip_Paket) == VIP_GOLD || GetVIPRangName(VipL.Vip_Paket) == VIP_PLATIN || GetVIPRangName(VipL.Vip_Paket) == VIP_ULTIMATE_RED || GetVIPRangName(VipL.Vip_Paket) == VIP_TOP_DONATOR)
@@ -169,7 +169,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
 
 
         [AltV.Net.ClientEvent("TriggerVIPButtonToServer")]
-        public void VIP_Button_Pressed(Client player, int value, string betrag)
+        public void VIP_Button_Pressed(VnXPlayer player, int value, string betrag)
         {
             try
             {

@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         [ClientEvent("Reallife-Tuning:Close")]
-        public static void CloseTunningWindow(Client player)
+        public static void CloseTunningWindow(VnXPlayer player)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("modifyIVehicle")]
-        public void ModifyIVehicleEvent(Client player, int slot, int component)
+        public void ModifyIVehicleEvent(VnXPlayer player, int slot, int component)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("cancelIVehicleModification")]
-        public void CancelIVehicleModificationEvent(Client player)
+        public void CancelIVehicleModificationEvent(VnXPlayer player)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("confirmIVehicleModification")]
-        public void ConfirmIVehicleModificationEvent(Client player, int slot, int mod)
+        public void ConfirmIVehicleModificationEvent(VnXPlayer player, int slot, int mod)
         {
             try
             {

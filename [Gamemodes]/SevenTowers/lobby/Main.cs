@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
         // Saved Datas
         public static bool SEVENTOWERS_ROUND_IS_RUNNING = false;
-        public static List<Client> CurrentlyInRound = new List<Client>();
+        public static List<VnXPlayer> CurrentlyInRound = new List<VnXPlayer>();
         public static List<VehicleModel> SevenTowersVehicles = new List<VehicleModel>();
         public static List<ColShapeModel> ColShapeModelList = new List<ColShapeModel>();
         public static IColShape CurrentColShape;
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private static void InitializePlayerData(Client player)
+        private static void InitializePlayerData(VnXPlayer player)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             catch { return false; }
         }
 
-        public static void PutPlayerSpectate(Client player)
+        public static void PutPlayerSpectate(VnXPlayer player)
         {
             try
             {
@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 {
                     Spawns.Spawned = false;
                 }
-                foreach (Client player in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer player in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
@@ -220,11 +220,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 SEVENTOWERS_ROUND_IS_RUNNING = false;
                 SEVENTOWERS_ROUND_WILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_START_AFTER_LOADING);
-                foreach (Client player in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer player in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     if (CurrentlyInRound.Count == 1)
                     {
-                        foreach (Client winner in CurrentlyInRound.ToList())
+                        foreach (VnXPlayer winner in CurrentlyInRound.ToList())
                         {
                             if (winner.SevenTowers.Spawned == true)
                             {
@@ -246,7 +246,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             }
         }
 
-        public static void SpawnPlayerInRound(Client player)
+        public static void SpawnPlayerInRound(VnXPlayer player)
         {
             try
             {
@@ -286,11 +286,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 Debug.CatchExceptions("SpawnPlayerInRound", ex);
             }
         }
-        public static void PutPlayerInRound(Client player)
+        public static void PutPlayerInRound(VnXPlayer player)
         {
             try
             {
-                foreach (Client players in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList())
                 {
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat die SevenTowers Lobby betreten!");
                 }
@@ -303,7 +303,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         }
 
 
-        public static void JoinedSevenTowers(Client player)
+        public static void JoinedSevenTowers(VnXPlayer player)
         {
             try
             {
@@ -323,7 +323,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             }
             catch (Exception ex) { Debug.CatchExceptions("JoinedSevenTowers", ex); }
         }
-        public static void OnColShapeHit(IColShape shape, Client player)
+        public static void OnColShapeHit(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:OnColShapeHit", ex); }
         }
 
-        public static void TakePlayerFromRound(Client playerClass)
+        public static void TakePlayerFromRound(VnXPlayer playerClass)
         {
             try
             {
@@ -367,7 +367,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:TakePlayerFromRound", ex); }
         }
 
-        public static void PlayerLeaveVehicle(VehicleModel vehicle, Client playerClass)
+        public static void PlayerLeaveVehicle(VehicleModel vehicle, VnXPlayer playerClass)
         {
             try
             {
@@ -387,7 +387,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
                 if (SEVENTOWERS_ROUND_END <= DateTime.Now && SEVENTOWERS_ROUND_IS_RUNNING)
                 {
-                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers.ToList())
+                    foreach (VnXPlayer playerClass in Globals.Main.SevenTowersPlayers.ToList())
                     {
                         TakePlayerFromRound(playerClass);
                     }
@@ -399,7 +399,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 }
                 else if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
                 {
-                    foreach (Client playerClass in Globals.Main.SevenTowersPlayers.ToList())
+                    foreach (VnXPlayer playerClass in Globals.Main.SevenTowersPlayers.ToList())
                     {
                         if (playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned)
                         {

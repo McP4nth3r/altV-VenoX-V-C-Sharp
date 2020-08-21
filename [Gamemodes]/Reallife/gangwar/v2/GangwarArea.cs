@@ -49,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             Alt.EmitAllClients("AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
-        public void Update(Client player)
+        public void Update(VnXPlayer player)
         {
             // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.Username + " )");
             AltV.Net.Alt.Server.TriggerClientEvent(player, "AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             return DateTime.Now - this.Cooldown;
         }
 
-        public void Inform(Client player)
+        public void Inform(VnXPlayer player)
         {
             string Gang_Rgba_Chat = Factions.FactionChat.GetFactionRgba(this.IDOwner);
             player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
@@ -197,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.GetCurrentRound().Stop();
         }
 
-        public void Attack(Client player)
+        public void Attack(VnXPlayer player)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void AddPlayer(Client player)
+        public void AddPlayer(VnXPlayer player)
         {
             try
             {

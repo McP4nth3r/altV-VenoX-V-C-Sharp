@@ -8,7 +8,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
     public class XMenu : IScript
     {
 
-        private static bool IsVehicleOwner(Client player, VehicleModel vehicle)
+        private static bool IsVehicleOwner(VnXPlayer player, VehicleModel vehicle)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         }
 
         [ClientEvent("XMenu:ApplyServerButtonVehicle")]
-        public static void OnXMenuButtonPressedVehicle(Client player, int Button, VehicleModel vehicle)
+        public static void OnXMenuButtonPressedVehicle(VnXPlayer player, int Button, VehicleModel vehicle)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         }
 
         [ClientEvent("XMenu:ApplyServerButton")]
-        public static void OnXMenuButtonPressed(Client player, int Button, Client target)
+        public static void OnXMenuButtonPressed(VnXPlayer player, int Button, VnXPlayer target)
         {
             try
             {

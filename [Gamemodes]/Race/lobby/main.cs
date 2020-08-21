@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         public static bool RACE_ROUND_IS_RUNNING = false;
         public const string RACE_COL = "RACE_COL";
         public static List<VehicleModel> RaceVehicles = new List<VehicleModel>();
-        public static List<Client> RacePlayersFinished = new List<Client>();
+        public static List<VnXPlayer> RacePlayersFinished = new List<VnXPlayer>();
         public static DateTime TIME_TO_JOIN = DateTime.Now;
         public static DateTime RACE_NEXT_ROUND_WILL_START = DateTime.Now;
         public static DateTime RACE_STARTED = DateTime.Now;
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 if (CurrentMap != null) { foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList()) { if (spawn.Spawned) spawn.Spawned = false; } }
                 foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { vehClass.Remove(); } }
-                foreach (Client racePlayers in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer racePlayers in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
                     if (racePlayers.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(racePlayers.Race.LastColShapeModel); racePlayers.Race.LastColShapeModel = null; }
@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     if (!player.Race.IsRacing)
                     {
@@ -97,7 +97,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Debug.CatchExceptions("InitializePlayerDatas", ex); }
         }
-        public static void OnColshapeHit(IColShape shape, Client player)
+        public static void OnColshapeHit(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         public static void SendRaceMessage(string text)
         {
-            foreach (Client players in VenoXV.Globals.Main.RacePlayers.ToList())
+            foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
             {
                 players.SendTranslatedChatMessage(text);
             }
@@ -120,10 +120,10 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
 
             int counter = 0;
-            foreach (Client player in VenoXV.Globals.Main.RacePlayers.ToList())
+            foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
             {
                 player.Emit("Race:ClearPlayerList", player.Username);
-                foreach (Client players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
                 {
                     counter++;
                     players.Race.RoundPlace = counter;
@@ -132,7 +132,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
         }
 
-        public static void OnClientRaceFinish(Client player)
+        public static void OnClientRaceFinish(VnXPlayer player)
         {
             try
             {
@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             catch { }
         }
 
-        public static void CreateRaceMarker(Client player)
+        public static void CreateRaceMarker(VnXPlayer player)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             catch { return false; }
         }
 
-        private static void PutPlayerInRound(Client player)
+        private static void PutPlayerInRound(VnXPlayer player)
         {
             try
             {
@@ -252,7 +252,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
             catch (Exception ex) { Debug.CatchExceptions("PutPlayerInRound", ex); }
         }
-        public static void OnSelectedRaceGM(Client player)
+        public static void OnSelectedRaceGM(VnXPlayer player)
         {
             try
             {

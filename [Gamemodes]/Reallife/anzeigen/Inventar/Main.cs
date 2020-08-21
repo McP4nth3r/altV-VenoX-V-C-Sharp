@@ -14,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
     {
         public static List<ItemModel> CurrentOnlineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Online sind.
         public static List<ItemModel> CurrentOfflineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Offline sind.
-        public static void LoadPlayerItems(Client player)
+        public static void LoadPlayerItems(VnXPlayer player)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void UnloadPlayerItems(Client player)
+        public static void UnloadPlayerItems(VnXPlayer player)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static void RemoveAllItems(Client player)
+        public static void RemoveAllItems(VnXPlayer player)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static List<InventoryModel> GetPlayerInventory(Client player)
+        public static List<InventoryModel> GetPlayerInventory(VnXPlayer player)
         {
             try
             {
@@ -79,11 +79,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { return new List<InventoryModel>(); }
         }
-        public static void OnPlayerDisconnect(Client player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
-        public static void OnPlayerConnect(Client player) { try { LoadPlayerItems(player); } catch { } }
+        public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
+        public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch { } }
 
         [ClientEvent("Inventory:Use")]
-        public static void OnInventoryUseButtonClicked(Client player, string ClickedHash)
+        public static void OnInventoryUseButtonClicked(VnXPlayer player, string ClickedHash)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             catch (Exception ex) { Core.Debug.CatchExceptions("OnInventoryButtonUse", ex); }
         }
 
-        public static void UseItem(Client player, ItemModel item)
+        public static void UseItem(VnXPlayer player, ItemModel item)
         {
             try
             {

@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { return new Position(0, 0, 0); }
         }
 
-        public static VehicleModel GetClosestIVehicle(Client player, float distance = 3.5f)
+        public static VehicleModel GetClosestIVehicle(VnXPlayer player, float distance = 3.5f)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
         }
 
-        public static void OnPlayerExitColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerExitColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 if (shape == null || entity == null) { return; }
-                if (entity is Client player)   //We Check if the Entity is the player.
+                if (entity is VnXPlayer player)   //We Check if the Entity is the player.
                 {
                     factions.State.Allround.OnStateColShapeHit(shape, player);
                     CarShop.OnPlayerEnterColShapeModel(shape, player);
@@ -137,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
 
-        public static void SyncWeather(Client player)
+        public static void SyncWeather(VnXPlayer player)
         {
             try
             {
@@ -179,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void OnMinuteSpentReallifeGM(Client player)
+        public static void OnMinuteSpentReallifeGM(VnXPlayer player)
         {
             try
             {
@@ -231,7 +231,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
         }
 
-        public static void OnMinuteSpentTacticGM(Client player)
+        public static void OnMinuteSpentTacticGM(VnXPlayer player)
         {
             try
             {
@@ -245,7 +245,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentTacticGM", ex); }
         }
 
-        public static void OnMinuteSpentZombieGM(Client player)
+        public static void OnMinuteSpentZombieGM(VnXPlayer player)
         {
             try
             {
@@ -258,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentZombieGM", ex); }
         }
-        public static void SyncDatabaseItems(Client player)
+        public static void SyncDatabaseItems(VnXPlayer player)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 }
-                foreach (Client player in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
                     switch (player.Gamemode)
                     {
@@ -318,7 +318,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_INT")]
-        public static void Store_Delayed_ElementData_INT(Client player, string elementdata, int value)
+        public static void Store_Delayed_ElementData_INT(VnXPlayer player, string elementdata, int value)
         {
             try
             {
@@ -329,7 +329,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_STRING")]
-        public static void Store_Delayed_ElementData_INT(Client player, string elementdata, string value)
+        public static void Store_Delayed_ElementData_INT(VnXPlayer player, string elementdata, string value)
         {
             try
             {
@@ -341,7 +341,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("Store_Delayed_Element_Data_BOOL")]
-        public static void Store_Delayed_ElementData_BOOL(Client player, string elementdata, bool value)
+        public static void Store_Delayed_ElementData_BOOL(VnXPlayer player, string elementdata, bool value)
         {
             try
             {
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void GeneratePlayerPayday(Client player)
+        public static void GeneratePlayerPayday(VnXPlayer player)
         {
             try
             {
@@ -361,7 +361,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 int playerRank = player.Reallife.FactionRank;
                 int playerFaction = player.Reallife.Faction;
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                Client VipL = Database.GetPlayerVIP(player, (int)player.UID);
+                VnXPlayer VipL = Database.GetPlayerVIP(player, (int)player.UID);
 
                 if (player.Reallife.Wanteds > 0) { player.Reallife.Wanteds -= 1; }
                 if (playerFaction > 0)
@@ -692,7 +692,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-        public static void OnPlayerDisconnected(Client player, string type, string reason)
+        public static void OnPlayerDisconnected(VnXPlayer player, string type, string reason)
         {
             try
             {
@@ -733,7 +733,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         [ClientEvent("checkPlayerEventKey")]
-        public void CheckPlayerEventKeyEvent(Client player)
+        public void CheckPlayerEventKeyEvent(VnXPlayer player)
         {
             try
             {
@@ -830,7 +830,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
         [ClientEvent("reset_drug_state")]
-        public static void ResetDrugState(Client player, int drug)
+        public static void ResetDrugState(VnXPlayer player, int drug)
         {
             try
             {
@@ -852,7 +852,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         /// <param name="ItemHash">Item - Hash in Constants.cs</param>
         /// <param name="ItemArt">Waffe, Magazin,Fallschirm, Business, NUTZ_ITEM, Drogen</param>
         /// <param name="ItemAmount">Item Anzahl! Sollte der Spieler das Item besitzen , so wird es Addiert!</param>
-        public static void GivePlayerItem(Client player, string ItemHash, string ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
+        public static void GivePlayerItem(VnXPlayer player, string ItemHash, string ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
         {
             try
             {

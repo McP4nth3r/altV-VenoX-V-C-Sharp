@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
     public class Fahrzeug_Main : IScript
     {
         [Command("car")]
-        public void showIVehicleMenu(Client player)
+        public void showIVehicleMenu(VnXPlayer player)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("showIVehicleMenu")]
-        public static void showIVehicleMenuClicked(Client player, VehicleModel Vehicle)
+        public static void showIVehicleMenuClicked(VnXPlayer player, VehicleModel Vehicle)
         {
             try
             {
@@ -68,13 +68,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         //[AltV.Net.ClientEvent("ResetIVehicleTimer")]
-        public static void ResetIVehicleAktionsTimer(Client player)
+        public static void ResetIVehicleAktionsTimer(VnXPlayer player)
         {
             player.vnxSetElementData("vehinfos_done_cmd", false);
         }
 
         [Command("vehinfos")]
-        public void IVehiclelist(Client player)
+        public void IVehiclelist(VnXPlayer player)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("LockIVehicleServer")]
-        public void LockLocalIVehicle(Client player)
+        public void LockLocalIVehicle(VnXPlayer player)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
         [ClientEvent("ParkVehicleServer")]
-        public void ParkLocalIVehicle(Client player)
+        public void ParkLocalIVehicle(VnXPlayer player)
         {
             try
             {

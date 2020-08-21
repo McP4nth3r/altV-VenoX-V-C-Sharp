@@ -57,7 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch (Exception ex) { Core.Debug.CatchExceptions("OnResourceStart", ex); }
         }
 
-        public static void StartBusJob(Client player, int value)
+        public static void StartBusJob(VnXPlayer player, int value)
         {
             try
             {   // Die punkte abfragen!
@@ -93,7 +93,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch (Exception ex) { Core.Debug.CatchExceptions("StartBusJob", ex); }
         }
 
-        public static void OnJobMarkerHit(Client player)
+        public static void OnJobMarkerHit(VnXPlayer player)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
         }
 
         [ClientEvent("BusJob:TimeoutDone")]
-        public static void BusJobTimeOut(Client player)
+        public static void BusJobTimeOut(VnXPlayer player)
         {
             if (player.IsInVehicle)
             {
@@ -146,7 +146,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             }
         }
 
-        public static void OnPlayerLeaveVehicle(VehicleModel vehClass, Client player)
+        public static void OnPlayerLeaveVehicle(VehicleModel vehClass, VnXPlayer player)
         {
             if (player.Reallife.Job == Constants.JOB_BUS && player.Reallife.JobStage > 0)
             {

@@ -13,14 +13,14 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
     {
         public static List<int> KilledZombieIds = new List<int>();
         [ClientEvent("Zombies:OnZombieDeath")]
-        public static void OnZombieDeath(Client player, int Id)
+        public static void OnZombieDeath(VnXPlayer player, int Id)
         {
             try
             {
                 if (KilledZombieIds.Contains(Id)) { return; }
                 KilledZombieIds.Add(Id);
                 Spawner.DestroyZombieById(Id);
-                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
                 }
@@ -28,11 +28,11 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
         }
 
-        public static void OnPlayerDisconnect(Client player)
+        public static void OnPlayerDisconnect(VnXPlayer player)
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     if (players.Zombies.NearbyPlayers.Contains(player)) { player.Zombies.NearbyPlayers.Remove(player); }
                 }
@@ -41,7 +41,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         }
 
         [ClientEvent("Zombies:OnSyncerCall")]
-        public static void OnZombiesSyncerCall(Client player, int ZombieId, float ZombiePosX, float ZombiePosY, float ZombiePosZ)
+        public static void OnZombiesSyncerCall(VnXPlayer player, int ZombieId, float ZombiePosX, float ZombiePosY, float ZombiePosZ)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                     if (zombieClass.ID == ZombieId)
                     {
                         zombieClass.Position = new Vector3(ZombiePosX, ZombiePosY, ZombiePosZ);
-                        foreach (Client nearbyClients in player.Zombies.NearbyPlayers.ToList())
+                        foreach (VnXPlayer nearbyClients in player.Zombies.NearbyPlayers.ToList())
                         {
                             if (nearbyClients == null) { player.Zombies.NearbyPlayers.Remove(nearbyClients); }
                             else { nearbyClients.Emit("Zombies:SetPosition", ZombieId, ZombiePosX, ZombiePosY, ZombiePosZ); }

@@ -9,7 +9,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
 {
     public class Customization : IScript
     {
-        public static void ApplyPlayerClothes(Client player)
+        public static void ApplyPlayerClothes(VnXPlayer player)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
         }
 
-        public static void ApplyPlayerTattoos(Client player)
+        public static void ApplyPlayerTattoos(VnXPlayer player)
         {
             try
             {

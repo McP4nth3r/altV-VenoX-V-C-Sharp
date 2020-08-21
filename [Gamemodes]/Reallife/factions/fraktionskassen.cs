@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         [Command("fstate")]
         //GetFactionStats
-        public void Fstatefunc(Client player)
+        public void Fstatefunc(VnXPlayer player)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -198,7 +198,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [ClientEvent("StoreFactionDatasServer")]
-        public void StoreFactionDatas(Client player, int money, int mats, int koks, int weed, string state)
+        public void StoreFactionDatas(VnXPlayer player, int money, int mats, int koks, int weed, string state)
         {
             try
             {

@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
             catch { }
         }
 
-        public static void OnPlayerDisconnect(Client player, string type, string reason)
+        public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
         {
             try
             {

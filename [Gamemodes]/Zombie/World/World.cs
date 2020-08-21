@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
 
 
 
-        public static void SendPlayerWelcomeNotify(Client player)
+        public static void SendPlayerWelcomeNotify(VnXPlayer player)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         }
 
 
-        public static void OnSelectedZombieGM(Client player)
+        public static void OnSelectedZombieGM(VnXPlayer player)
         {
             try
             {
@@ -51,20 +51,20 @@ namespace VenoXV._Gamemodes_.Zombie.World
             catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedZombieGM", ex); }
         }
 
-        private static void SetBestPlayerByPing(Client player)
+        private static void SetBestPlayerByPing(VnXPlayer player)
         {
             try
             {
                 uint BestPing = player.Ping;
                 player.Zombies.NearbyPlayers.Clear();
-                foreach (Client otherplayers in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer otherplayers in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     if (otherplayers.Position.Distance(player.Position) <= 100)
                     {
                         player.Zombies.NearbyPlayers.Add(otherplayers);
                     }
                 }
-                foreach (Client nearbyPlayers in player.Zombies.NearbyPlayers.ToList())
+                foreach (VnXPlayer nearbyPlayers in player.Zombies.NearbyPlayers.ToList())
                 {
                     if (BestPing < nearbyPlayers.Ping)
                     {
@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     SetBestPlayerByPing(player);
                     if (player.Zombies.IsSyncer)
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
             {
                 foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
                 {
-                    foreach (Client player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
                     {
                         if (player.Position.Distance(zombieClass.Position) < 50)
                         {
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
             {
                 foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
                 {
-                    foreach (Client player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
                     {
                         if (player.Position.Distance(zombieClass.Position) < 250)
                         {

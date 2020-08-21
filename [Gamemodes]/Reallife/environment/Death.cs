@@ -13,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
     public class Death : IScript
     {
         const int DeathScreenTime = 120000;
-        public static void CreateKrankenhausTimer(Client player)
+        public static void CreateKrankenhausTimer(VnXPlayer player)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         }
 
         [ClientEvent("Reallife:Revive")]
-        public static void RevivePlayer(Client player)
+        public static void RevivePlayer(VnXPlayer player)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             catch (Exception ex) { Core.Debug.CatchExceptions("RevivePlayer", ex); }
         }
 
-        public static void OnPlayerDeath(Client player, Client killer, uint weapon)
+        public static void OnPlayerDeath(VnXPlayer player, VnXPlayer killer, uint weapon)
         {
             try
             {

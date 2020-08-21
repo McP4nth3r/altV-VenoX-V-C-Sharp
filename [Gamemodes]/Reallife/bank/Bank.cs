@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
     {
 
         [ClientEvent("ATM_MONEY_BUTTON_TRIGGER")]
-        public static void ATM_BUTTON_TRIGGERED(Client player, string button, string v)
+        public static void ATM_BUTTON_TRIGGERED(VnXPlayer player, string button, string v)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
         }
 
         [ClientEvent("ATM_MONEY_SEND_TO")]
-        public static void SendToPlayerMoney_ATM(Client player, string name, string svalue, string reason)
+        public static void SendToPlayerMoney_ATM(VnXPlayer player, string name, string svalue, string reason)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     if (charakterexestiert)
                     {
                         string SpielerNameNormal = Database.GetAccountSpielerName(Database.GetCharakterSocialName(name));
-                        Client target = RageAPI.GetPlayerFromName(SpielerNameNormal);
+                        VnXPlayer target = RageAPI.GetPlayerFromName(SpielerNameNormal);
                         if (target == null || target.Playing != true)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht Online!");

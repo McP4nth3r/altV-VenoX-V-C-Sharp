@@ -32,18 +32,18 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             _gangwarManager = new GangwarManager();
         }
 
-        public static void ProcessDamage(Client source, Client target, float damage)
+        public static void ProcessDamage(VnXPlayer source, VnXPlayer target, float damage)
         {
             //_gangwarManager.ProcessDamage(source, target.vnxGetElementData<int>(damage));
         }
 
-        public static void ProcessKill(Client source, Client target)
+        public static void ProcessKill(VnXPlayer source, VnXPlayer target)
         {
             _gangwarManager.ProcessKill(source, target);
         }
 
         [Command("attack")]
-        public static void AtackGangwarArea(Client player)
+        public static void AtackGangwarArea(VnXPlayer player)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         }
 
         [Command("defend")]
-        public static void DefendGangwarArea(Client player)
+        public static void DefendGangwarArea(VnXPlayer player)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -198,7 +198,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             catch { }
         }
 
-        public static void OnPlayerDisconnected(Client player, string type, string reason)
+        public static void OnPlayerDisconnected(VnXPlayer player, string type, string reason)
         {
             try
             {
@@ -215,7 +215,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         }
 
         //[ServerEvent(Event.PlayerDeath)]
-        public static void OnPlayerDeath(Client player, Client killer, uint reason)
+        public static void OnPlayerDeath(VnXPlayer player, VnXPlayer killer, uint reason)
         {
             try
             {

@@ -6,7 +6,7 @@ namespace VenoXV.SevenTowers.globals
 {
     public class Main : IScript
     {
-        public static void OnPlayerDisconnect(Client player)
+        public static void OnPlayerDisconnect(VnXPlayer player)
         {
             try
             {
@@ -14,7 +14,7 @@ namespace VenoXV.SevenTowers.globals
             }
             catch { }
         }
-        public static void OnColShapeHit(IColShape shape, Client player)
+        public static void OnColShapeHit(IColShape shape, VnXPlayer player)
         {
             VenoXV._Gamemodes_.SevenTowers.Main.OnColShapeHit(shape, player);
         }

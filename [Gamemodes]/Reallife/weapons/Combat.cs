@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 
 
         //[AltV.Net.ClientEvent("OnHittedEntity")]
-        public static void OnHittedEntity(Client player, string target_name, string currentWeapon, string hitBone)
+        public static void OnHittedEntity(VnXPlayer player, string target_name, string currentWeapon, string hitBone)
         {
             try
             {

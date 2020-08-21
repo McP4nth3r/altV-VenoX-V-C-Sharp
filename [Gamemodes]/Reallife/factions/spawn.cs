@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
     public class Spawn : IScript
     {
 
-        public static void SpawnPlayerOnSpawnpoint(Client player)
+        public static void SpawnPlayerOnSpawnpoint(VnXPlayer player)
         {
             try
             {

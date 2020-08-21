@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 {
     public class VnX : IScript
     {
-        public static void RemoveAllWeapons(Client player)
+        public static void RemoveAllWeapons(VnXPlayer player)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             catch { }
         }
 
-        public static void RemoveAllBadGWWeapons(Client player)
+        public static void RemoveAllBadGWWeapons(VnXPlayer player)
         {
             try
             {
@@ -94,16 +94,16 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void onWantedChange(Client player)
+        public static void onWantedChange(VnXPlayer player)
         {
             Alt.Server.TriggerClientEvent(player, "UpdateStars", (int)player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"));
         }
-        public static void OnFactionChange(Client player)
+        public static void OnFactionChange(VnXPlayer player)
         {
             Alt.Server.TriggerClientEvent(player, "UpdateFaction", Faction.GetFactionNameById((int)player.Reallife.Faction), Faction.GetPlayerFactionRank(player), (int)player.Reallife.Faction);
         }
 
-        public static void CreateCarGhostMode(Client player, int playeralpha, int IVehiclealpha, int timervalue)
+        public static void CreateCarGhostMode(VnXPlayer player, int playeralpha, int IVehiclealpha, int timervalue)
         {
             Alt.Server.TriggerClientEvent(player, "VnX_CreateGhostModeTimer", playeralpha, IVehiclealpha, timervalue);
         }
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         public const int QUEST_GETADVANCEDRIFLE = 9;
         public const int QUEST_START_SHOPROB = 10;
         public const int QUEST_GET225 = 11;
-        public static string GetQuestContainerText(Client player)
+        public static string GetQuestContainerText(VnXPlayer player)
         {
             if (player.Reallife.Quests == QUEST_VENOXRENTALS)
             {
@@ -189,7 +189,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         public const int QUEST_MONEY_GETADVANCEDRIFLE = 15000;
         public const int QUEST_MONEY_START_SHOPROB = 4500;
         public const int QUEST_MONEY_GET225 = 10000; //125K event Iggno
-        public static string GetQuestWinText(Client player)
+        public static string GetQuestWinText(VnXPlayer player)
         {
             if (player.Reallife.Quests == QUEST_VENOXRENTALS)
             {
@@ -243,7 +243,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
 
 
-        public static void UpdateQuestLVL(Client player, int QUESTDONE)
+        public static void UpdateQuestLVL(VnXPlayer player, int QUESTDONE)
         {
             try
             {
@@ -355,7 +355,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         [Command("resethud")]
-        public static void ResetHUD(Client player)
+        public static void ResetHUD(VnXPlayer player)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 0);
         }
@@ -377,11 +377,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         [Command("me")]
-        public static void SendMessageNearPlayers(Client player, string text)
+        public static void SendMessageNearPlayers(VnXPlayer player, string text)
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
@@ -394,13 +394,13 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             catch { }
         }
 
-        public static void SpectatePlayer(Client player, string target_name, int einsfürfalse)
+        public static void SpectatePlayer(VnXPlayer player, string target_name, int einsfürfalse)
         {
             // Alt.Server.TriggerClientEvent(player,"VnX_Start_S", Target, einsfürfalse);
         }
 
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
-        public static void CreateTypingEffect(Client player, bool state)
+        public static void CreateTypingEffect(VnXPlayer player, bool state)
         {
             if (state == true)
             {
@@ -412,7 +412,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void ResetDiscordData(Client player)
+        public static void ResetDiscordData(VnXPlayer player)
         {
             if (Allround.isStateFaction(player))
             {
@@ -433,7 +433,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
 
         //[AltV.Net.ClientEvent("VnX_PutPlayerInRandomDim")]
-        public static void PutPlayerInRandomDim(Client player)
+        public static void PutPlayerInRandomDim(VnXPlayer player)
         {
             try
             {
@@ -448,7 +448,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         }
 
 
-        public static void SavePlayerDatas(Client player)
+        public static void SavePlayerDatas(VnXPlayer player)
         {
             try
             {

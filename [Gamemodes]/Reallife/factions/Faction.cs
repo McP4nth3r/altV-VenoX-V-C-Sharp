@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -54,7 +54,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target))
                     {
@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target))
                     {
@@ -86,7 +86,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isBadFaction(target) && target.Reallife.Faction == UID)
                     {
@@ -98,7 +98,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
             }
         }
-        public static void CreateFactionMessage(int FID, string text, string Rgba, Client player)
+        public static void CreateFactionMessage(int FID, string text, string Rgba, VnXPlayer player)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 {
                     return;
                 }
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID)
                     {
@@ -120,11 +120,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static void CreateStateMessage(string text, string Rgba, Client player)
+        public static void CreateStateMessage(string text, string Rgba, VnXPlayer player)
         {
             try
             {
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
                     {
@@ -138,11 +138,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static void CreateBadMessage(string text, string Rgba, Client player)
+        public static void CreateBadMessage(string text, string Rgba, VnXPlayer player)
         {
             try
             {
-                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isBadFaction(target))
                     {
@@ -218,7 +218,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         }
 
 
-        public static string GetPlayerFactionRank(Client player)
+        public static string GetPlayerFactionRank(VnXPlayer player)
         {
             try
             {

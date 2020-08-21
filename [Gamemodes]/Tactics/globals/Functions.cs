@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     players?.SendChatMessage(text);
                 }

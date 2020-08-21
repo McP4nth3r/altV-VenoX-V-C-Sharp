@@ -20,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             Core.RageAPI.CreateBlip("Dealer", new Vector3(140.425f, -239.0754f, 51.52684f), 51, 27, true);
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
             }
             catch { }
         }
-        public static void SellKokain(Client player, int value)
+        public static void SellKokain(VnXPlayer player, int value)
         {
             try
             {

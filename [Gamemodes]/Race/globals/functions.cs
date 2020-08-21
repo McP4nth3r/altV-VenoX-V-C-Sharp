@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Race.Globals
         {
             try
             {
-                foreach (Client players in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     players?.SendTranslatedChatMessage(text);
                 }

@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             return house;
         }
 
-        public static HouseModel GetClosestHouse(Client player, float distance = 1.5f)
+        public static HouseModel GetClosestHouse(VnXPlayer player, float distance = 1.5f)
         {
             HouseModel house = null;
             foreach (HouseModel houseModel in houseList)
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return new Position(0, 0, 0); }
         }
 
-        public static bool HasPlayerHouseKeys(Client player, HouseModel house)
+        public static bool HasPlayerHouseKeys(VnXPlayer player, HouseModel house)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return ""; }
         }
 
-        public static void BuyHouseS(Client player, HouseModel house)
+        public static void BuyHouseS(VnXPlayer player, HouseModel house)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("buyhouse")]
-        public void BuyHouseIPlayer(Client player)
+        public void BuyHouseIPlayer(VnXPlayer player)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("hlock")]
-        public void HouseLockIPlayer(Client player)
+        public void HouseLockIPlayer(VnXPlayer player)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         [Command("houseinfos")]
-        public void GetHouseInfos(Client player)
+        public void GetHouseInfos(VnXPlayer player)
         {
             try
             {
@@ -257,7 +257,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         //[AltV.Net.ClientEvent("getPlayerPurchasedClothes")]
-        public void GetPlayerPurchasedClothesEvent(Client player, int type, int slot)
+        public void GetPlayerPurchasedClothesEvent(VnXPlayer player, int type, int slot)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
         //[AltV.Net.ClientEvent("wardrobeClothesItemSelected")]
-        public void WardrobeClothesItemSelectedEvent(Client player, int clothesId)
+        public void WardrobeClothesItemSelectedEvent(VnXPlayer player, int clothesId)
         {
             try
             {
@@ -320,7 +320,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("setrent")]
-        public void RentableCommand(Client player, int amount = 0)
+        public void RentableCommand(VnXPlayer player, int amount = 0)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == 0)
             {
@@ -369,7 +369,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
 
         [Command("renthouse")]
-        public void RentCommand(Client player)
+        public void RentCommand(VnXPlayer player)
         {
             foreach (HouseModel house in houseList)
             {
@@ -420,7 +420,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
         [Command("unrenthouse")]
 
-        public static void UnrentFromHaus(Client player)
+        public static void UnrentFromHaus(VnXPlayer player)
         {
             if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
             {

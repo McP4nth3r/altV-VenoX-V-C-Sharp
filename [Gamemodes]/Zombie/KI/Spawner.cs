@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.KI
         private static int CurrentZombieCounter = 0;
         private static void AddNearbyZombiesIntoList()
         {
-            foreach (Client player in Main.ZombiePlayers.ToList())
+            foreach (VnXPlayer player in Main.ZombiePlayers.ToList())
             {
                 Random randomSkin = new Random();
                 int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.KI
             }
         }
 
-        private static void ApplyZombieClothes(Client player, int RandomSkinUID, int ZombieId)
+        private static void ApplyZombieClothes(VnXPlayer player, int RandomSkinUID, int ZombieId)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.KI
 
         private static void SpawnZombiesArroundPlayers()
         {
-            foreach (Client player in Main.ZombiePlayers.ToList())
+            foreach (VnXPlayer player in Main.ZombiePlayers.ToList())
             {
                 foreach (ZombieModel zombieClass in CurrentZombies.ToList())
                 {

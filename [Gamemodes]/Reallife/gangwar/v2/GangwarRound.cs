@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public class PlayerEntry
         {
-            public Client _player;
+            public VnXPlayer _player;
             public float _totalDamage;
             public int _totalKills;
             public bool _isInTK;
@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             public bool _isKilled;
             public bool _isLeft;
 
-            public PlayerEntry(Client player)
+            public PlayerEntry(VnXPlayer player)
             {
                 _player = player;
                 _totalDamage = 0.0f;
@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             this.TKCooldown = time;
         }
 
-        public void Inform(Client player)
+        public void Inform(VnXPlayer player)
         {
             //player.SendTranslatedChatMessage("[GW-ROUND] " + StartTime + " started; " + StopTime + " stopped; State: " + CurrentState + "; Count: " + PlayerList.Count);
         }
@@ -143,7 +143,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return "999 / 999"; }
         }
 
-        public void ProcessDamage(Client source, Client Player, float damage)
+        public void ProcessDamage(VnXPlayer source, VnXPlayer Player, float damage)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(Client source, Client Player)
+        public void ProcessKill(VnXPlayer source, VnXPlayer Player)
         {
             try
             {
@@ -204,7 +204,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                         this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
                         informDefender();
                         SyncTime();
-                        foreach (Client _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             Alt.Server.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
                         }
@@ -284,7 +284,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 225, 0) + "Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
         }
 
-        public void AddPlayer(Client player)
+        public void AddPlayer(VnXPlayer player)
         {
             try
             {
@@ -310,7 +310,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (Client _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     Alt.Server.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
                 }
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncTime(Client player)
+        public void SyncTime(VnXPlayer player)
         {
             try
             {
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void SyncStats(Client player, PlayerEntry playerEntry)
+        public void SyncStats(VnXPlayer player, PlayerEntry playerEntry)
         {
             try
             {
@@ -360,7 +360,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public PlayerEntry GetPlayerEntry(Client player)
+        public PlayerEntry GetPlayerEntry(VnXPlayer player)
         {
             try
             {
@@ -374,7 +374,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return null; }
         }
 
-        public bool isPlayerJoined(Client player)
+        public bool isPlayerJoined(VnXPlayer player)
         {
             try
             {

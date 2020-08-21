@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         }
 
         [Command("createweedplants")]
-        public static void CreateWeedPlants(Client player, int count)
+        public static void CreateWeedPlants(VnXPlayer player, int count)
         {
             for (int i = 0; i <= count; i++)
             {

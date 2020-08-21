@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         public static MarkerModel RathausMarkerImInterior = RageAPI.CreateMarker(0, new Vector3(-546.1301f, -202.6208f, 38.30002f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
         public static MarkerModel RathausMarkerEingang = RageAPI.CreateMarker(0, new Vector3(-1285.1868f, -566.53186f, 31.706177f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         }
 
         [ClientEvent("On_Clicked_Button_Rathaus")]
-        public static void OnClickedButton_Rathaus(Client player, string button)
+        public static void OnClickedButton_Rathaus(VnXPlayer player, string button)
         {
             try
             {
@@ -229,7 +229,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         public static string DRIVINGSCHOOL_MARKER_ENTITY = "DRIVINGSCHOOL_MARKER_ENTITY";
         public static string DRIVINGSCHOOL_BLIP_ENTITY = "DRIVINGSCHOOL_BLIP_ENTITY";
 
-        public static void CreateDrivingSchoolMarker(Client player, int BlipID, Vector3 Position, int Scale, int[] Color)
+        public static void CreateDrivingSchoolMarker(VnXPlayer player, int BlipID, Vector3 Position, int Scale, int[] Color)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolMarker", ex); }
         }
-        public static void DestroyDrivingSchoolMarker(Client player)
+        public static void DestroyDrivingSchoolMarker(VnXPlayer player)
         {
             try
             {
@@ -293,7 +293,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         public const string DRIVINGSCHOOL_LICENSE_CAR = "DRIVINGSCHOOL_LICENSE_CAR";
         public const string DRIVINGSCHOOL_LICENSE_BIKE = "DRIVINGSCHOOL_LICENSE_BIKE";
         public const string DRIVINGSCHOOL_LICENSE_LKW = "DRIVINGSCHOOL_LICENSE_LKW";
-        public static void OnColShapeHit(IColShape shape, Client player)
+        public static void OnColShapeHit(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
         }
 
-        public static VehicleModel CreateDrivingSchoolVehicle(Client player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = 0, bool WarpIntoVehicle = true)
+        public static VehicleModel CreateDrivingSchoolVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = 0, bool WarpIntoVehicle = true)
         {
             try
             {
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         }
 
         [ClientEvent("CancelDrivingSchool")]
-        public static void CancelDrivingSchhol(Client player, int speed)
+        public static void CancelDrivingSchhol(VnXPlayer player, int speed)
         {
             try
             {

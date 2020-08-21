@@ -29,12 +29,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public const string ACTION_KOKAINTRUCK = "ACTION_KOKAINTRUCK";
         public const string ACTION_WAFFENTRUCK = "ACTION_WAFFENTRUCK";
 
-        public static bool StartAction(Client player, int CopCount = 0)
+        public static bool StartAction(VnXPlayer player, int CopCount = 0)
         {
             try
             {
                 int cops = 0;
-                foreach (Client Spieler in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer Spieler in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Factions.Allround.isStateFaction(Spieler))
                     {
@@ -61,7 +61,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             catch (Exception ex) { Core.Debug.CatchExceptions("StartAction", ex); return false; }
         }
 
-        public static VehicleModel CreateActionVehicle(Client player, AltV.Net.Enums.VehicleModel vehClass, Vector3 Position, Vector3 Rotation, bool WarpPlayer)
+        public static VehicleModel CreateActionVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehClass, Vector3 Position, Vector3 Rotation, bool WarpPlayer)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     Core.RageAPI.CreateBlip(Name, Position, Sprite, Color, ShortRange, player);
                     Core.RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }, player);
@@ -93,7 +93,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTargetMarker", ex); }
         }
 
-        public static void OnClientEnterColShape(IColShape shape, Client player)
+        public static void OnClientEnterColShape(IColShape shape, VnXPlayer player)
         {
             try
             {

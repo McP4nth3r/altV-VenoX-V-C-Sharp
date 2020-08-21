@@ -11,11 +11,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
     public class WeazelNews : IScript
     {
         [Command("requestlive")]
-        public void SendIPlayerLiveOffer(Client player, string target_name)
+        public void SendIPlayerLiveOffer(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.Reallife.Faction == Constants.FACTION_NEWS)
                 {
@@ -41,11 +41,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
         }
 
         [Command("acceptlive")]
-        public void AcceptLiveOffcer(Client player, string target_name)
+        public void AcceptLiveOffcer(VnXPlayer player, string target_name)
         {
             try
             {
-                Client target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
                 if (player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON") == target.Username)
                 {
@@ -68,13 +68,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
         }
 
         [Command("live", true)]
-        public void SendLiveMessage(Client player, string text)
+        public void SendLiveMessage(VnXPlayer player, string text)
         {
             try
             {
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
@@ -93,7 +93,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
         }
 
         [Command("endlive")]
-        public void EndLiveReporter(Client player)
+        public void EndLiveReporter(VnXPlayer player)
         {
             try
             {
@@ -102,10 +102,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
                 {
                     string targetName = player.vnxGetElementData<string>("LIVE_ANFRAGE_ERHALTEN_VON");
                     //RageAPI.SendTranslatedChatMessageToAll("Live Anfrage ist von : " + player.vnxGetElementData("LIVE_ANFRAGE_ERHALTEN_VON"));
-                    Client target = RageAPI.GetPlayerFromName(targetName);
+                    VnXPlayer target = RageAPI.GetPlayerFromName(targetName);
                     player.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
-                    foreach (Client targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {

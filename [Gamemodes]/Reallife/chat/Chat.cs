@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
 {
     public static class ReallifeChat
     {
-        public static void SendReallifeMessage(this Client player, string text)
+        public static void SendReallifeMessage(this VnXPlayer player, string text)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         {
             try
             {
-                foreach (Client player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     player.SendChatMessage(text);
                 }
@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
     public class Chat : IScript
     {
         [CommandEvent(CommandEventType.CommandNotFound)]
-        public static void OnPlayerCommandNotFoundHandler(Client player, string Command)
+        public static void OnPlayerCommandNotFoundHandler(VnXPlayer player, string Command)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
             }
             catch { }
         }
-        public static void SendMessageToNearbyPlayers(Client player, string message, int type, float range, bool excludePlayer = false)
+        public static void SendMessageToNearbyPlayers(VnXPlayer player, string message, int type, float range, bool excludePlayer = false)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     message = message.Remove(Constants.CHAT_LENGTH, secondMessage.Length);
                 }
 
-                foreach (Client target in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer target in VenoX.GetAllPlayers().ToList())
                 {
                     if (target.Playing && player.Dimension == target.Dimension)
                     {
@@ -130,7 +130,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
 
         //[ServerEvent(Event.ChatMessage)]
         [ClientEvent("chat:message")]
-        public void OnChatMessage(Client player, string message)
+        public void OnChatMessage(VnXPlayer player, string message)
         {
             try
             {
@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("say", true)]
-        public void DecirCommand(Client player, string message)
+        public void DecirCommand(VnXPlayer player, string message)
         {
             try
             {
@@ -181,7 +181,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("s", true)]
-        public void GritarCommand(Client player, string message)
+        public void GritarCommand(VnXPlayer player, string message)
         {
             try
             {
@@ -199,7 +199,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("l", true)]
-        public void SusurrarCommand(Client player, string message)
+        public void SusurrarCommand(VnXPlayer player, string message)
         {
             try
             {

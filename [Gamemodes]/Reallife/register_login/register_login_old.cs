@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         }
 
         //[AltV.Net.ClientEvent("HelpButtonPressed_Login")]
-        public void SendAllAdminsLoginHelpNotify(Client player)
+        public void SendAllAdminsLoginHelpNotify(VnXPlayer player)
         {
             admin.Admin.sendAdminNotification("[" + player.Username + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
             logfile.WriteLogs("connect", player.Username + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
         [ClientEvent("Load_New_Login_Cam")]
-        public static void CreateNewLogin_Cam(Client player, int number, int new_lastNumber)
+        public static void CreateNewLogin_Cam(VnXPlayer player, int number, int new_lastNumber)
         {
             try
             {
@@ -195,7 +195,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
         [Command("createcameraevent")]
-        public static void CreateCameraTestEvent(Client player, float x, float y, float z, int rotx, int roty, int rotz)
+        public static void CreateCameraTestEvent(VnXPlayer player, float x, float y, float z, int rotx, int roty, int rotz)
         {
             player.vnxSetStreamSharedElementData("HideHUD", 1);
             //AntiCheat_Allround.StopTimerTeleport(player);
@@ -215,7 +215,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         public static Vector3 Pos1;
         public static Vector3 Pos2;
         [Command("createfullcameraevent")]
-        public static void CreateFullCameraTestEvent(Client player, float POS1_Z, float POS2_Z, int rot1x, int rot1y, int rot1z, int rot2x, int rot2y, int rot2z, int time, int Fov)
+        public static void CreateFullCameraTestEvent(VnXPlayer player, float POS1_Z, float POS2_Z, int rot1x, int rot1y, int rot1z, int rot2x, int rot2y, int rot2z, int time, int Fov)
         {
             if (Pos1 == new Vector3(0, 0, 0))
             {
@@ -252,7 +252,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         }
 
         [Command("resetcamera")]
-        public static void ResetCamera(Client player)
+        public static void ResetCamera(VnXPlayer player)
         {
             Pos1 = new Vector3();
             Pos2 = new Vector3();
@@ -263,7 +263,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
         [Command("stopcameraevent")]
-        public static void StopCurrentCameraEvent(Client player)
+        public static void StopCurrentCameraEvent(VnXPlayer player)
         {
             Alt.Server.TriggerClientEvent(player, "DestroyCamera_Event");
         }
@@ -271,7 +271,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
         [ClientEvent("load_data_login")]
-        public static void LoadDatasRemote(Client player)
+        public static void LoadDatasRemote(VnXPlayer player)
         {
             try
             {
@@ -295,7 +295,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         }
 
 
-        public static void LoadDatasAfterLogin(Client player)
+        public static void LoadDatasAfterLogin(VnXPlayer player)
         {
             try
             {
@@ -325,14 +325,14 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             catch (Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
         }
 
-        public static void OnSelectedReallifeGM(Client player)
+        public static void OnSelectedReallifeGM(VnXPlayer player)
         {
             try { player.RemoveAllPlayerWeapons(); LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
             catch (Exception ex) { Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
         }
 
         [ClientEvent("Send_Player_Where_From")]
-        public void Send_To_Server_Where_Player_From(Client player, string Where)
+        public void Send_To_Server_Where_Player_From(VnXPlayer player, string Where)
         {
             try
             {

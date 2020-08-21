@@ -22,7 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, Client player)
+        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 player.Vehicle.Remove();
                                 Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
-                                foreach (Client target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                                 {
                                     if (Factions.Allround.isBadFaction(target) || Factions.Allround.isStateFaction(target))
                                     {
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
         [Command("kokaintruck")]
-        public void StartKokaintruck(Client player, int koks)
+        public void StartKokaintruck(VnXPlayer player, int koks)
         {
             try
             {

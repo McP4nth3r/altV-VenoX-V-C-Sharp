@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
         public const int MONEY_STAGE_2 = 265;
         public const int MONEY_STAGE_3 = 425;
         public static Vector3 AIRPORT_HOME_SPAWN = new Vector3(-1037.645f, -2737.8f, 20.16929f);
-        public static void OnJobMarkerHit(Client player)
+        public static void OnJobMarkerHit(VnXPlayer player)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
             catch (Exception ex) { Debug.CatchExceptions("OnJobMarkerHit", ex); }
         }
 
-        public static void OnPlayerExitVehicle(VehicleModel vehClass, Client player)
+        public static void OnPlayerExitVehicle(VehicleModel vehClass, VnXPlayer player)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
         };
 
         //  /coord -1037.697 -1397.189 5
-        public static void Airport_job_start(Client player, int stage)
+        public static void Airport_job_start(VnXPlayer player, int stage)
         {
             try
             {
@@ -97,6 +97,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                 }
                 else if (stage == 2)
                 {
+                    if (player.Reallife.AIRPORTJOB_LEVEL <= 50) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du brauchst mindestens Job-Level 50!"); return; }
                     int randomjobdim = anzeigen.Usefull.VnX.GetRandomNumber(1, 99999);
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Flieg zum Abgabepunkt!");
                     Random random = new Random();

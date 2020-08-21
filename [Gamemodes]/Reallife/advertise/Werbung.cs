@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
         public static int AD_COSTS = 5;
 
         [Command("ad", true)]
-        public static void CreateAD(Client player, string text)
+        public static void CreateAD(VnXPlayer player, string text)
         {
             if (player.Played >= MINDEST_SPIELZEIT_)
             {
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.advertise
         }
 
         [Command("werbung", true)]
-        public static void CreateWerbung(Client player, string text)
+        public static void CreateWerbung(VnXPlayer player, string text)
         {
             CreateAD(player, text);
         }

@@ -13,14 +13,14 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
     {
 
         [Command("settings")]
-        public static void LoadSettingsWindow(Client player)
+        public static void LoadSettingsWindow(VnXPlayer player)
         {
             try { Alt.Server.TriggerClientEvent(player, "Settings:Show"); }
             catch { }
         }
 
 
-        public static void LoadSettingsData(Client player)
+        public static void LoadSettingsData(VnXPlayer player)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("ATM_STATE_CHANGE_SERVER")]
-        public void ATM_STATE_CHANGE_SERVER(Client player, bool state)
+        public void ATM_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("HAUS_STATE_CHANGE_SERVER")]
-        public void HAUS_STATE_CHANGE_SERVER(Client player, bool state)
+        public void HAUS_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("TACHO_STATE_CHANGE_SERVER")]
-        public void TACHO_STATE_CHANGE_SERVER(Client player, bool state)
+        public void TACHO_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("QUEST_STATE_CHANGE_SERVER")]
-        public void QUEST_STATE_CHANGE_SERVER(Client player, bool state)
+        public void QUEST_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -148,7 +148,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("HUD_STATE_CHANGE_SERVER")]
-        public void HUD_STATE_CHANGE_SERVER(Client player, int state)
+        public void HUD_STATE_CHANGE_SERVER(VnXPlayer player, int state)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         //[AltV.Net.ClientEvent("REPORTER_STATE_CHANGE_SERVER")]
-        public void REPORTER_STATE_CHANGE_SERVER(Client player, bool state)
+        public void REPORTER_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
         //[AltV.Net.ClientEvent("GLOBALCHAT_STATE_CHANGE_SERVER")]
-        public void GLOBALCHAT_STATE_CHANGE_SERVER(Client player, bool state)
+        public void GLOBALCHAT_STATE_CHANGE_SERVER(VnXPlayer player, bool state)
         {
             try
             {
@@ -207,7 +207,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
 
         [ClientEvent("Settings:SelectSpawnpoint")]
-        public void ChangePlayerSpawnpoint(Client player, int spawn)
+        public void ChangePlayerSpawnpoint(VnXPlayer player, int spawn)
         {
             try
             {
