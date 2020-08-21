@@ -6,10 +6,10 @@ namespace VenoXV._RootCore_
 {
     public class VenoX
     {
-        public static List<Client> GetAllPlayers()
+        public static List<VnXPlayer> GetAllPlayers()
         {
             try { return Globals.Main.AllPlayers; }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetAllPlayers", ex); return new List<Client>(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GetAllPlayers", ex); return new List<VnXPlayer>(); }
         }
     }
 }

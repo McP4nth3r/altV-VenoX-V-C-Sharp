@@ -14,7 +14,7 @@ namespace VenoXV._Globals_.Premium
         public const string TYPE_MYTHICAL = "VenoX Mythical";
         public const string TYPE_LEGENDARY = "VenoX Legendary";
         public const string TYPE_ULTIMATE_LEGENDARY = "VenoX ULTIMATE Legendary";
-        public static void LoadCaseChances(Client player)
+        public static void LoadCaseChances(VnXPlayer player)
         {
             List<CaseChances> CaseChances = new List<CaseChances>
             {
@@ -51,7 +51,7 @@ namespace VenoXV._Globals_.Premium
             };
             Alt.Server.TriggerClientEvent(player, "CaseOpening:LoadChances", JsonConvert.SerializeObject(CaseChances));
         }
-        public static void LoadCase(Client player, string Case)
+        public static void LoadCase(VnXPlayer player, string Case)
         {
             List<CaseItemModel> CaseItems = new List<CaseItemModel>
             {
@@ -274,7 +274,7 @@ namespace VenoXV._Globals_.Premium
 
 
         [Command("opencase")]
-        public static void OpenCase(Client player)
+        public static void OpenCase(VnXPlayer player)
         {
             Alt.Server.TriggerClientEvent(player, "CaseOpening:Show");
             LoadCaseChances(player);

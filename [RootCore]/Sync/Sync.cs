@@ -23,7 +23,7 @@ namespace VenoXV._RootCore_.Sync
         public static DateTime NextSyncTick = DateTime.Now;
 
         //BlipClass Sync
-        public static void LoadBlips(Client playerClass)
+        public static void LoadBlips(VnXPlayer playerClass)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace VenoXV._RootCore_.Sync
         }
 
 
-        private static void SyncObjects(Client playerClass)
+        private static void SyncObjects(VnXPlayer playerClass)
         {
             try
             {
@@ -62,7 +62,7 @@ namespace VenoXV._RootCore_.Sync
         }
 
         // TextLabel Sync
-        private static void SyncTextLabels(Client playerClass)
+        private static void SyncTextLabels(VnXPlayer playerClass)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace VenoXV._RootCore_.Sync
         }
 
         // Marker Sync
-        private static void SyncMarker(Client playerClass)
+        private static void SyncMarker(VnXPlayer playerClass)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace VenoXV._RootCore_.Sync
             }
             catch { }
         }
-        public static void LoadAllNPCs(Client playerClass)
+        public static void LoadAllNPCs(VnXPlayer playerClass)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 if (NextSyncTick <= DateTime.Now)
                 {
-                    foreach (Client playerClass in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer playerClass in VenoX.GetAllPlayers().ToList())
                     {
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);

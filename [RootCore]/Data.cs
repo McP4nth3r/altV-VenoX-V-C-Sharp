@@ -11,7 +11,7 @@ namespace VenoXV.Core
         public static string PLAYER_BANKMONEY = VenoXV.Globals.EntityData.PLAYER_BANK;
 
 
-        public static void UpdateHUDArmorHealth(Client player)
+        public static void UpdateHUDArmorHealth(VnXPlayer player)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace VenoXV.Core
         /// </summary>
         /// <param name="player">Der Spieler wird Definiert.</param>
         /// <param name="args">[0] = Element Name, [1] = value für die Element Data, [2] Type der Value, [3] = TimeInMS (TimeOut-JS-CS)</param>
-        public static void SetDelayedData(Client player, object[] args)
+        public static void SetDelayedData(VnXPlayer player, object[] args)
         {
             try
             {

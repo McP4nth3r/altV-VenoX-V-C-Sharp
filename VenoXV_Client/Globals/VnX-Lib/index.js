@@ -241,10 +241,13 @@ export function GetCurrentDateTimeString() {
 }
 
 
+
+
+
 let CountdownState = -1;
 let CountDownFrozen = false;
 let TimeOut;
-let CountdownRenderTick;
+let CountdownRenderTick = false;
 export function ShowCountdown(Seconds) {
     try {
         CountdownState = Seconds;
@@ -252,8 +255,8 @@ export function ShowCountdown(Seconds) {
             if (CountdownState > 0) {
                 CountdownState -= 1;
                 if (!CountDownFrozen) {
-                    if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, true); }
-                    game.freezeEntityPosition(alt.Player.local.scriptID, true);
+                    if (player.vehicle) { game.freezeEntityPosition(player.vehicle.scriptID, true); }
+                    game.freezeEntityPosition(player.scriptID, true);
                     //alt.toggleGameControls(false);
                     CountDownFrozen = true;
                 }
@@ -262,24 +265,27 @@ export function ShowCountdown(Seconds) {
             if (CountdownState <= 0) {
                 if (TimeOut) { alt.clearInterval(TimeOut); TimeOut = null; }
                 if (CountDownFrozen) {
-                    if (alt.Player.local.vehicle) { game.freezeEntityPosition(alt.Player.local.vehicle.scriptID, false); }
-                    game.freezeEntityPosition(alt.Player.local.scriptID, false);
+                    if (player.vehicle) { game.freezeEntityPosition(player.vehicle.scriptID, false); }
+                    game.freezeEntityPosition(player.scriptID, false);
                     //alt.toggleGameControls(true);
                     CountDownFrozen = false;
                     alt.setTimeout(() => {
-                        if (CountdownRenderTick) { alt.clearEveryTick(CountdownRenderTick); CountdownRenderTick = null; }
+                        if (CountdownRenderTick) { CountdownRenderTick = false; }
                     }, 1250);
                 }
             }
         }, 1250);
-        CountdownRenderTick = alt.everyTick(() => {
-            if (CountdownState > 0) {
-                DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
-            }
-            else {
-                DrawText("GO!", [0.5, 0.5], [1, 1], 0, [0, 200, 255, 255], true, true);
-            }
-        });
+        CountdownRenderTick = true;
     }
     catch{ }
 }
+
+alt.everyTick(() => {
+    if (!CountdownRenderTick) { return; }
+    if (CountdownState > 0) {
+        DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
+    }
+    else {
+        DrawText("GO!", [0.5, 0.5], [1, 1], 0, [0, 200, 255, 255], true, true);
+    }
+});

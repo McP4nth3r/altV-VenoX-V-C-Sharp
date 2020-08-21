@@ -31,7 +31,7 @@ namespace VenoXV._Maps_
         private static readonly List<MenyooMapModel> ZOMBIESMAP = JsonConvert.DeserializeObject<List<MenyooMapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + ZOMBIES_MAP + ".json"));
 
         private static readonly int ROT_ORDER_NORMAL = 2;
-        public static void LoadMap(Client playerClass, string MapName)
+        public static void LoadMap(VnXPlayer playerClass, string MapName)
         {
             try
             {
@@ -79,18 +79,18 @@ namespace VenoXV._Maps_
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("LoadMap", ex); }
         }
-        public static void UnloadMap(Client playerClass, string MapName)
+        public static void UnloadMap(VnXPlayer playerClass, string MapName)
         {
             Alt.Server.TriggerClientEvent(playerClass, "Sync:UnloadMap", MapName);
         }
 
         [Command("loadmap")]
-        public static void LoadMapCMD(Client playerClass, string Map)
+        public static void LoadMapCMD(VnXPlayer playerClass, string Map)
         {
             LoadMap(playerClass, Map);
         }
         [Command("unloadmap")]
-        public static void UnloadMapCMD(Client playerClass, string Map)
+        public static void UnloadMapCMD(VnXPlayer playerClass, string Map)
         {
             UnloadMap(playerClass, Map);
         }

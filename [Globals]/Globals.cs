@@ -12,43 +12,41 @@ namespace VenoXV.Globals
 {
     public class Main : IScript
     {
-        public static List<Client> AllPlayers = new List<Client>();
-        public static List<Client> ReallifePlayers = new List<Client>();
-        public static List<Client> TacticsPlayers = new List<Client>();
-        public static List<Client> ZombiePlayers = new List<Client>();
-        public static List<Client> RacePlayers = new List<Client>();
-        public static List<Client> SevenTowersPlayers = new List<Client>();
+        public static List<VnXPlayer> AllPlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> ReallifePlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> TacticsPlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> ZombiePlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> RacePlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> SevenTowersPlayers = new List<VnXPlayer>();
 
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
-        public static void RemovePlayerFromGamemodeList(Client player)
+        public static void RemovePlayerFromGamemodeList(VnXPlayer player)
         {
             try
             {
                 if (player == null) { Debug.OutputDebugString("Player got Removed?! "); return; }
                 int Gamemode = player.Gamemode;
                 if (AllPlayers.Contains(player)) { AllPlayers.Remove(player); }
-                Core.Debug.OutputDebugString(player.Username + " Gamemode : " + player.Gamemode);
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
-                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:ReallifePlayers."); }
-                        Core.Debug.OutputDebugString(Gamemode + " : " + ReallifePlayers.Count);
+                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Tactics:
-                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:TacticsPlayers."); }
+                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Zombies:
-                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:ZombiePlayers."); }
+                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.Race:
-                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:RacePlayers."); }
+                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); }
                         break;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); Core.Debug.OutputDebugString(player.Username + " got Removed:SevenTowersPlayers."); }
+                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); }
                         break;
                     default:
-                        Debug.OutputDebugString(player.Username + " Gamemode - 2 : " + player.Gamemode);
+                        Debug.OutputDebugString(player.Username + " Gamemode got Removed without getting Current GM : " + player.Gamemode);
                         break;
                 }
             }
@@ -56,7 +54,7 @@ namespace VenoXV.Globals
         }
 
         [Command("getuserinfo")]
-        public static void GetUserInfo(Client player, int ID)
+        public static void GetUserInfo(VnXPlayer player, int ID)
         {
             switch (ID)
             {
@@ -101,7 +99,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (!(entity is Client player)) return;
+                if (!(entity is VnXPlayer player)) return;
                 if (state)
                 {
                     switch (player.Gamemode)
@@ -123,20 +121,20 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
-        public static void OnPlayerDeath(Client player, IEntity entity, uint reason)
+        public static void OnPlayerDeath(VnXPlayer player, IEntity entity, uint reason)
         {
             try
             {
                 player.DespawnPlayer();
-                Client killer = null;
-                if (entity is Client entity_k)
+                VnXPlayer killer = null;
+                if (entity is VnXPlayer entity_k)
                 {
                     killer = entity_k;
                 }
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:
-                        if (killer == null) { killer = player.vnxGetElementData<Client>("VenoX:LastDamaged"); }
+                        if (killer == null) { killer = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged"); }
                         if (Functions.IstargetInSameLobby(player, killer))
                         {
                             _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
@@ -172,7 +170,7 @@ namespace VenoXV.Globals
 
 
         [ServerEvent("GlobalSystems:OnPlayerSyncDamage")]
-        public void OnPlayerSyncDamage(Client player, Client killer, float Damage = 0)
+        public void OnPlayerSyncDamage(VnXPlayer player, VnXPlayer killer, float Damage = 0)
         {
             try
             {
@@ -199,7 +197,7 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-        public static void OnPlayerDisconnected(Client player, string reason)
+        public static void OnPlayerDisconnected(VnXPlayer player, string reason)
         {
             try
             {
@@ -221,7 +219,7 @@ namespace VenoXV.Globals
         }
 
         [ClientEvent("Discord:Auth")]
-        public static void LoadDiscordInformations(Client player, bool IsOpen, string Id, string Name, string Avatar, string Discriminator)
+        public static void LoadDiscordInformations(VnXPlayer player, bool IsOpen, string Id, string Name, string Avatar, string Discriminator)
         {
             try
             {

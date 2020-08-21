@@ -2,7 +2,6 @@
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using System.Numerics;
-using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -11,7 +10,7 @@ namespace VenoXV._Globals_
     public class Commands : IScript
     {
         [Command("skipround")]
-        public static async void SkipRound(Client player, string gm)
+        public static async void SkipRound(VnXPlayer player, string gm)
         {
             string Gamemode = gm.ToLower();
             switch (Gamemode)
@@ -22,31 +21,25 @@ namespace VenoXV._Globals_
                 case "tactics":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        await Task.Run(async () =>
-                        {
-                            string text = await _Language_.Main.TranslateText("hat die Tactic Runde übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
-                            _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " " + text);
-                            _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + text);
-                            _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + text);
-                        });
+                        string text = await _Language_.Main.TranslateText("hat die Tactic Runde übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
+                        _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " " + text);
+                        _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + text);
+                        _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + text);
                     }
                     break;
                 case "race":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        await Task.Run(async () =>
-                        {
-                            string text = await _Language_.Main.TranslateText(" hat das Rennen übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
-                            _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
-                            _Gamemodes_.Race.Lobby.Main.StartNewRound();
-                        });
+                        string text = await _Language_.Main.TranslateText(" hat das Rennen übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
+                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
+                        _Gamemodes_.Race.Lobby.Main.StartNewRound();
                     }
                     break;
             }
         }
 
         [Command("pos")]
-        public static void GetPlayerPos(Client player)
+        public static void GetPlayerPos(VnXPlayer player)
         {
             Core.Debug.OutputDebugString("Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
             Vector3 rot = player.Rotation;
@@ -61,7 +54,7 @@ namespace VenoXV._Globals_
         }
 
         public static List<CameraModel> CurrentPlayerCameras = new List<CameraModel>();
-        private static int GetCameraCount(Client player)
+        private static int GetCameraCount(VnXPlayer player)
         {
             try
             {
@@ -76,7 +69,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("createcam1")]
-        public static void CreateEasyCameraMovement(Client player, double x, double y, double z, double rot_start, double rot_stop, int duration)
+        public static void CreateEasyCameraMovement(VnXPlayer player, double x, double y, double z, double rot_start, double rot_stop, int duration)
         {
             int ID = GetCameraCount(player);
             if (ID > 3)
@@ -98,14 +91,14 @@ namespace VenoXV._Globals_
             Alt.Server.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
         }
         [Command("stopcam")]
-        public static void StopCurrentCamera(Client player)
+        public static void StopCurrentCamera(VnXPlayer player)
         {
             player?.Emit("Player:DestroyCamera");
         }
 
 
         [Command("deletallcams")]
-        public static void DeleteAllCams(Client player)
+        public static void DeleteAllCams(VnXPlayer player)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -118,7 +111,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("deletecam")]
-        public static void DeletePlayerCameras(Client player, int ID)
+        public static void DeletePlayerCameras(VnXPlayer player, int ID)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -131,7 +124,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("getallcams")]
-        public static void GetAllPlayerCams(Client player)
+        public static void GetAllPlayerCams(VnXPlayer player)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
@@ -143,7 +136,7 @@ namespace VenoXV._Globals_
         }
 
         [Command("playcam")]
-        public static void PlayCamByID(Client player, int ID)
+        public static void PlayCamByID(VnXPlayer player, int ID)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {

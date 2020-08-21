@@ -266,7 +266,7 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
         }
     }
-    public class Client : Player
+    public class VnXPlayer : Player
     {
         //Main
         public int UID { get; set; }
@@ -303,7 +303,7 @@ namespace VenoXV._RootCore_.Models
         public bool Freeze { get { return _Freeze; } set { _Freeze = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
-        public Client(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+        public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
             {
@@ -341,10 +341,9 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
-                return new Client(playerPointer, id);
+                return new VnXPlayer(playerPointer, id);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
         }
     }
 }
-

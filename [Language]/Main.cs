@@ -1,8 +1,11 @@
 ﻿using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using VenoXV._Language_.Models;
 using VenoXV._Preload_;
 using VenoXV._RootCore_.Models;
 
@@ -17,7 +20,7 @@ namespace VenoXV._Language_
             France = 3
         };
 
-        public static string GetClientLanguagePair(Client player)
+        public static string GetClientLanguagePair(VnXPlayer player)
         {
             try
             {
@@ -32,40 +35,41 @@ namespace VenoXV._Language_
             catch { return "en"; }
         }
 
-        /* private static readonly GoogleTranslator Translator = new GoogleTranslator();
-         public static async Task<string> TranslateText(string word, string fromPair, string toPair)
-         {
-             try
-             {
-                 //Language From = GoogleTranslator.GetLanguageByISO(fromPair); // you could also use ISO639 value
-                 //Language To = GoogleTranslator.GetLanguageByISO(toPair); // you could also use ISO639 value
-
-                 TranslationResult result = Translator.TranslateAsync(word, Language.German, Language.English).GetAwaiter().GetResult();
-                 return $"Result 1: {result.MergedTranslation}";
-             }
-             catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
-         }
-         */
+        public static List<LanguageModel> TranslatedText = new List<LanguageModel>();
         static readonly HttpClient webClient = new HttpClient();
-        public static async Task<string> TranslateText(string word, string fromPair, string toPair)
+        public static async Task<string> TranslateText(string Text, string fromPair, string toPair)
         {
             try
             {
-                return word;
+                foreach (LanguageModel languageClass in TranslatedText.ToList())
+                {
+                    if (languageClass.Text.ToLower() == Text.ToLower() && languageClass.Pair == toPair)
+                    {
+                        return languageClass.TranslatedText;
+                    }
+                }
+                //return word;
                 string fromLanguage = fromPair;
                 string toLanguage = toPair;
-                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(word)}";
+                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(Text)}";
                 HttpResponseMessage response = await webClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 string result = await response.Content.ReadAsStringAsync();
                 result = result[4..result.IndexOf("\"", 4, StringComparison.Ordinal)];
+                LanguageModel newEntry = new LanguageModel()
+                {
+                    Pair = toPair,
+                    Text = Text,
+                    TranslatedText = result
+                };
+                TranslatedText.Add(newEntry);
                 return result;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
         }
 
 
-        public static async Task SendTranslatedChatMessage(Client playerClass, string text)
+        public static async Task SendTranslatedChatMessage(VnXPlayer playerClass, string text)
         {
             try
             {
@@ -79,7 +83,8 @@ namespace VenoXV._Language_
                         playerClass.SendChatMessage(text);
                         break;
                     default:
-                        playerClass.SendChatMessage("ERROR " + text);
+                        playerClass.SendChatMessage(await TranslateText(text, "de", GetClientLanguagePair(playerClass)));
+                        //playerClass.SendChatMessage("ERROR " + text);
                         break;
                 }
             }

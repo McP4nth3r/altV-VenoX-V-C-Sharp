@@ -44,14 +44,14 @@ namespace VenoXV._Preload_
             SevenTowers = 4,
         };
 
-        public static void ShowPreloadList(Client player)
+        public static void ShowPreloadList(VnXPlayer player)
         {
             try { Alt.Server.TriggerClientEvent(player, "preload_gm_list"); }
             catch { }
         }
 
         [Command("leave")]
-        public static void ShowGamemodeSelection(Client player)
+        public static void ShowGamemodeSelection(VnXPlayer player)
         {
             try
             {
@@ -63,26 +63,26 @@ namespace VenoXV._Preload_
             catch { }
         }
         [Command("home")]
-        public static void ShowGamemodeSelectionHome(Client player)
+        public static void ShowGamemodeSelectionHome(VnXPlayer player)
         {
             try { ShowGamemodeSelection(player); }
             catch { }
         }
         [Command("lobby")]
-        public static void ShowGamemodeSelectionLobby(Client player)
+        public static void ShowGamemodeSelectionLobby(VnXPlayer player)
         {
             try { ShowGamemodeSelection(player); }
             catch { }
         }
         [Command("hub")]
-        public static void ShowGamemodeSelectionHub(Client player)
+        public static void ShowGamemodeSelectionHub(VnXPlayer player)
         {
             try { ShowGamemodeSelection(player); }
             catch { }
         }
 
         [ClientEvent("Load_selected_gm_server")]
-        public static void Load_selected_gm_server(Client player, int value)
+        public static void Load_selected_gm_server(VnXPlayer player, int value)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace VenoXV._Preload_
                 Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
-                player.Language = (int)_Language_.Main.Languages.German;
+                player.Language = (int)_Language_.Main.Languages.France;
                 if (!Globals.Main.AllPlayers.Contains(player)) { Globals.Main.AllPlayers.Add(player); }
                 switch (value)
                 {
@@ -136,14 +136,14 @@ namespace VenoXV._Preload_
 
 
 
-        public static void GetAllPlayersInAllGamemodes(Client player)
+        public static void GetAllPlayersInAllGamemodes(VnXPlayer player)
         {
             try
             {
                 int ZombiePlayers = 0;
                 int ReallifePlayers = 0;
                 int TacticsPlayers = 0;
-                foreach (Client players in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_REALLIFE) { ReallifePlayers += 1; }
                     else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }
@@ -156,7 +156,7 @@ namespace VenoXV._Preload_
 
 
         [ServerEvent("GlobalSystems:PlayerReady")]
-        public void PlayerConnect(Client player)
+        public void PlayerConnect(VnXPlayer player)
         {
             try
             {

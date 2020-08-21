@@ -14,7 +14,7 @@ namespace VenoXV._Preload_.Register
 
         public static List<AccountModel> AccountList;
 
-        public static bool PlayerHaveAlreadyAccount(Client playerClass)
+        public static bool PlayerHaveAlreadyAccount(VnXPlayer playerClass)
         {
             bool state = false;
             foreach (AccountModel accClass in AccountList)
@@ -39,7 +39,7 @@ namespace VenoXV._Preload_.Register
             return false;
         }
 
-        public static void ChangeCharacterSexEvent(Client player, int sex)
+        public static void ChangeCharacterSexEvent(VnXPlayer player, int sex)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace VenoXV._Preload_.Register
         }
 
         [ClientEvent("Account:Register")]
-        public static void OnRegisterCall(Client player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
+        public static void OnRegisterCall(VnXPlayer player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
         {
             try
             {

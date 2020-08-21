@@ -24,7 +24,7 @@ namespace VenoXV._Globals_.Scoreboard
         }
         public static List<ScoreboardModel> AllPlayers = new List<ScoreboardModel>();
 
-        public static void InitializeTacticsEntrys(Client player)
+        public static void InitializeTacticsEntrys(VnXPlayer player)
         {
             TimeSpan spielzeittab = TimeSpan.FromMinutes(player.Played);
             string Spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
@@ -38,7 +38,7 @@ namespace VenoXV._Globals_.Scoreboard
             };
             AllPlayers.Add(pClass);
         }
-        public static void InitializeReallifeEntrys(Client player)
+        public static void InitializeReallifeEntrys(VnXPlayer player)
         {
             TimeSpan spielzeittab = TimeSpan.FromMinutes(player.Played);
             string Spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
@@ -55,7 +55,7 @@ namespace VenoXV._Globals_.Scoreboard
         public static void UpdateScoreboard()
         {
             AllPlayers = new List<ScoreboardModel>();
-            foreach (Client player in VenoX.GetAllPlayers().ToList())
+            foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
             {
                 switch (player.Gamemode)
                 {
@@ -77,7 +77,7 @@ namespace VenoXV._Globals_.Scoreboard
             {
                 UpdateScoreboard();
                 List<ScoreboardModel> AlleSpieler = AllPlayers;
-                foreach (Client player in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
                     Alt.Server.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler), player.Gamemode);
                 }

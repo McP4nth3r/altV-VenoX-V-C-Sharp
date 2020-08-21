@@ -9,7 +9,7 @@ namespace VenoXV.Globals
 {
     public class Functions : IScript
     {
-        public static bool IstargetInSameLobby(Client player, Client target)
+        public static bool IstargetInSameLobby(VnXPlayer player, VnXPlayer target)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace VenoXV.Globals
         /// <param name="isRentedIVehicle">Is it a Rented IVehicle?</param>
         /// <param name="Job">IVehicle Job?</param>
         /// <param name="NumberplateText">Numberlpate of the IVehicle</param>
-        public static VehicleModel CreateVehicle(Client player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
+        public static VehicleModel CreateVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
         {
             try
             {

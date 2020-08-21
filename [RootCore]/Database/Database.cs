@@ -372,7 +372,7 @@ namespace VenoXV._RootCore_.Database
             }
         }
 
-        public static int CreateCharacter(Client player, int UID)
+        public static int CreateCharacter(VnXPlayer player, int UID)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -396,7 +396,7 @@ namespace VenoXV._RootCore_.Database
             return UID;
         }
 
-        public static void LoadCharacterInformationById(Client character, int characterId)
+        public static void LoadCharacterInformationById(VnXPlayer character, int characterId)
         {
             try
             {
@@ -476,7 +476,7 @@ namespace VenoXV._RootCore_.Database
         }
 
 
-        public static void SaveCharacterInformation(Client player)
+        public static void SaveCharacterInformation(VnXPlayer player)
         {
             using MySqlConnection connection = new MySqlConnection(connectionString);
             try
@@ -1072,7 +1072,7 @@ namespace VenoXV._RootCore_.Database
             catch { return "ERROR"; }
         }
 
-        public static Client GetPlayerVIP(Client spieler, int UID)
+        public static VnXPlayer GetPlayerVIP(VnXPlayer spieler, int UID)
         {
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))

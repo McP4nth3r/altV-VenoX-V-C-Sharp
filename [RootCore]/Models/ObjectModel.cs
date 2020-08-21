@@ -12,7 +12,7 @@ namespace VenoXV._RootCore_.Models
         public Quaternion Quaternion { get; set; }
         public bool HashNeeded { get; set; }
         public int Dimension { get; set; }
-        public Client VisibleOnlyFor { get; set; }
+        public VnXPlayer VisibleOnlyFor { get; set; }
 
     }
 }

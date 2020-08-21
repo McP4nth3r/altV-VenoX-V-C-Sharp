@@ -5,14 +5,14 @@ namespace VenoXV._Preload_.Loading
     public class Main : IScript
     {
         public const int LoadingTimer = 45000; //LoadingTimer In MS
-        private static void LoadReallifeMaps(Client player)
+        private static void LoadReallifeMaps(VnXPlayer player)
         {
             _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.WUERFELPARK_MAP);
         }
-        public static void ShowLoadingScreen(Client player)
+        public static void ShowLoadingScreen(VnXPlayer player)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace VenoXV._Preload_.Loading
             catch { }
         }
         [ClientEvent("Loading:OnClientFinished")]
-        public static void OnClientFinished(Client player)
+        public static void OnClientFinished(VnXPlayer player)
         {
             try
             {

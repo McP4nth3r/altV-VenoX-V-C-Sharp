@@ -56,7 +56,7 @@ namespace VenoXV._Preload_.Login
         }
 
         [ClientEvent("LoginAccount")]
-        public static void LoginAccountEvent(Client player, string Nickname, string Password)
+        public static void LoginAccountEvent(VnXPlayer player, string Nickname, string Password)
         {
             AccountModel accClass;
             if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Falscher Nutzername/Password"); return; }

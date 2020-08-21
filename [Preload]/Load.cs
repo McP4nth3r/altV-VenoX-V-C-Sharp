@@ -8,7 +8,7 @@ namespace VenoXV._Preload_
     public class Load : IScript
     {
 
-        public static void LoadGamemodeWindows(Client player, Gamemodes Gamemode)
+        public static void LoadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
             switch (Gamemode)
             {
@@ -33,7 +33,7 @@ namespace VenoXV._Preload_
                     break;
             }
         }
-        public static void UnloadGamemodeWindows(Client player, Gamemodes Gamemode)
+        public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
             switch (Gamemode)
             {

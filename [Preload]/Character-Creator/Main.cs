@@ -11,7 +11,7 @@ namespace VenoXV._Preload_.Character_Creator
     {
         public static List<CharacterModel> CharacterSkins;
         [ClientEvent("CharCreator:Create")]
-        public static void OnCharCreatorCreateCall(Client player, string facefeatures, string headblends, string headoverlays)
+        public static void OnCharCreatorCreateCall(VnXPlayer player, string facefeatures, string headblends, string headoverlays)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace VenoXV._Preload_.Character_Creator
             catch { }
         }
 
-        public static bool PlayerHaveSkin(Client player)
+        public static bool PlayerHaveSkin(VnXPlayer player)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace VenoXV._Preload_.Character_Creator
             catch { return false; }
         }
 
-        public static void LoadCharacterSkin(Client player)
+        public static void LoadCharacterSkin(VnXPlayer player)
         {
             try
             {

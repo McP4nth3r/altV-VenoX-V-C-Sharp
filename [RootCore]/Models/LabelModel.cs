@@ -15,7 +15,7 @@
         public int ColorA { get; set; }
         public int Dimension { get; set; }
         public float Range { get; set; }
-        public Client VisibleOnlyFor { get; set; }
+        public VnXPlayer VisibleOnlyFor { get; set; }
 
 
         /*

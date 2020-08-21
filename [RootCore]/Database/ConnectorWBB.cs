@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
         private static List<(string, string)> optionsWithDefaultValue;
         // Neue Gute Forum Sync.
 
-        public static async void CreateForumUser(Client playerClass, string name, string email, string Password)
+        public static async void CreateForumUser(VnXPlayer playerClass, string name, string email, string Password)
         {
             try
             {

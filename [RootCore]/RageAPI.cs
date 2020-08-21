@@ -50,7 +50,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveColShape", ex); }
         }
-        public static async void SendTranslatedChatMessage(this Client element, string msg)
+        public static async void SendTranslatedChatMessage(this VnXPlayer element, string msg)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
         }
-        public static void SpawnPlayer(this Client element, Vector3 pos, uint DelayInMS = 0)
+        public static void SpawnPlayer(this VnXPlayer element, Vector3 pos, uint DelayInMS = 0)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void DespawnPlayer(this Client element)
+        public static void DespawnPlayer(this VnXPlayer element)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetPlayerSkin(this Client element, uint SkinHash)
+        public static void SetPlayerSkin(this VnXPlayer element, uint SkinHash)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static uint GetPlayerSkin(this Client element)
+        public static uint GetPlayerSkin(this VnXPlayer element)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (Client player in VenoX.GetAllPlayers().ToList()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
+                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
         }
@@ -183,21 +183,21 @@ namespace VenoXV.Core
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-        public static void WarpIntoVehicle(this Client player, IVehicle veh, int seat)
+        public static void WarpIntoVehicle(this VnXPlayer player, IVehicle veh, int seat)
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
         }
-        public static void WarpOutOfVehicle(this Client player)
+        public static void WarpOutOfVehicle(this VnXPlayer player)
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
         }
-        public static Client GetPlayerFromName(string name)
+        public static VnXPlayer GetPlayerFromName(string name)
         {
-            Client player = null;
+            VnXPlayer player = null;
             try
             {
                 name = name.ToLower();
-                foreach (Client players in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.Username.ToLower() == name)
                     {
@@ -208,7 +208,7 @@ namespace VenoXV.Core
             }
             catch { return player; }
         }
-        public static void GivePlayerWeapon(this Client player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void GivePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
             {
@@ -216,7 +216,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerWeapon", ex); }
         }
-        public static void RemovePlayerWeapon(this Client player, AltV.Net.Enums.WeaponModel weapon)
+        public static void RemovePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon)
         {
             try
             {
@@ -224,7 +224,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void RemoveAllPlayerWeapons(this Client player)
+        public static void RemoveAllPlayerWeapons(this VnXPlayer player)
         {
             try
             {
@@ -233,7 +233,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetWeaponAmmo(this Client player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void SetWeaponAmmo(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
             try
             {
@@ -247,7 +247,7 @@ namespace VenoXV.Core
             {
                 await Task.Run(async () =>
                 {
-                    foreach (Client players in VenoX.GetAllPlayers().ToList())
+                    foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                     {
                         await _Language_.Main.SendTranslatedChatMessage(players, text);
                     }
@@ -256,7 +256,7 @@ namespace VenoXV.Core
             catch { }
         }
 
-        public static void SetClothes(this Client element, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void SetClothes(this VnXPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             try
             {
@@ -265,7 +265,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("SetClothes", ex); }
         }
-        public static void SetProp(this Client element, int propID, int drawableID, int textureID)
+        public static void SetProp(this VnXPlayer element, int propID, int drawableID, int textureID)
         {
             try
             {
@@ -279,18 +279,18 @@ namespace VenoXV.Core
             try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
-        public static void SetPlayerVisible(this Client element, bool trueOrFalse)
+        public static void SetPlayerVisible(this VnXPlayer element, bool trueOrFalse)
         {
             try { element.Emit("Player:Visible", trueOrFalse); }
             catch { }
         }
-        public static void SetPlayerAlpha(this Client element, int alpha)
+        public static void SetPlayerAlpha(this VnXPlayer element, int alpha)
         {
             try { element.Emit("Player:Alpha", alpha); }
             catch { }
         }
         private static int TextLabelCounter = 0;
-        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0, Client VisibleOnlyFor = null)
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
@@ -325,7 +325,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
         }
-        public static void RemoveBlip(BlipModel blipClass, Client DeleteFor = null)
+        public static void RemoveBlip(BlipModel blipClass, VnXPlayer DeleteFor = null)
         {
             try
             {
@@ -336,7 +336,7 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveBlip", ex); }
         }
-        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, Client VisibleOnlyFor = null)
+        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
@@ -352,7 +352,7 @@ namespace VenoXV.Core
                     VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
-                foreach (Client players in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
                     Sync.LoadBlips(players);
                 }
@@ -361,7 +361,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
-        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, Client VisibleOnlyFor = null, int Dimension = 0)
+        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, VnXPlayer VisibleOnlyFor = null, int Dimension = 0)
         {
             try
             {
@@ -390,7 +390,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("RemoveMarker", ex); }
         }
         private static int ObjectCounter = 0;
-        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = 0, Client VisibleOnlyFor = null)
+        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = 0, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
@@ -412,7 +412,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("CreateObject", ex); return new ObjectModel(); }
         }
 
-        public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, Client VisibleOnlyFor = null)
+        public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
@@ -426,7 +426,7 @@ namespace VenoXV.Core
                     Position = Position,
                     Rotation = Rotation
                 };
-                foreach (Client players in VenoX.GetAllPlayers().ToList())
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.Playing)
                     {

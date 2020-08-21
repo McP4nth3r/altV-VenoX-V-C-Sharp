@@ -11,7 +11,7 @@ namespace VenoXV._RootCore_.Models
     public class VehRace
     {
         private Vehicle Vehicle;
-        public Client Owner { get; set; }
+        public VnXPlayer Owner { get; set; }
         public VehRace(Vehicle vehicle)
         {
             try
@@ -21,7 +21,6 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("RaceVehicleModel-Create", ex); }
         }
     }
-
     public class Weapons
     {
         private Vehicle Vehicle;
@@ -69,18 +68,17 @@ namespace VenoXV._RootCore_.Models
         public bool NotSave { get; set; }
         private bool vehGodmode { get; set; }
         public bool NPC { get; set; }
-        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; AltV.Net.Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
+        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
         public bool Testing { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
-        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; AltV.Net.Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
+        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
         private float vehGas { get; set; }
         public float Gas { get { return vehGas; } set { vehGas = value; this.vnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
         private float vehKms { get; set; }
         public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
         public VehRace Race { get; }
         public VehReallife Reallife { get; }
-
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
         {
 
@@ -101,9 +99,9 @@ namespace VenoXV._RootCore_.Models
             ManualEngineControl = true;
             NPC = true;
         }
+        public List<VnXPlayer> Passenger = new List<VnXPlayer>();
 
     }
-
     public class MyVehicleFactory : IEntityFactory<IVehicle>
     {
         public IVehicle Create(IntPtr playerPointer, ushort id)

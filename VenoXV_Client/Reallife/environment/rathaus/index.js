@@ -4,6 +4,7 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
+
 import * as alt from 'alt-client';
 import * as game from "natives";
 import { vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../../Globals/VnX-Lib';
@@ -23,6 +24,15 @@ alt.onServer('showRathausWindow', (HEADER, PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN
     });
     RathausBrowser.on('Buy_Button_Rathaus', () => {
         alt.emitServer('On_Clicked_Button_Rathaus', Rathaus_Button_State);
+    });
+    RathausBrowser.on('destroyRathausWindow', () => {
+        if (RathausBrowser != null) {
+            vnxDestroyCEF('Rathaus');
+            RathausBrowser = null;
+            game.freezeEntityPosition(alt.Player.local.scriptID, false);
+            ShowCursor(false);
+            return
+        }
     });
     game.freezeEntityPosition(alt.Player.local.scriptID, true);
     alt.setTimeout(() => {
