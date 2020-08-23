@@ -45,6 +45,7 @@ alt.onServer('Player:Freeze', (bool) => {
 alt.onServer('Player:Spawn', () => {
     try {
         game.displayHud(true);
+        game.clearPedBloodDamage(LocalPlayer.scriptID);
     }
     catch{ }
 });
@@ -167,7 +168,6 @@ alt.onServer('Player:Visible', (bool) => {
 
 alt.onServer('Player:DefaultComponentVariation', () => {
     game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
-    alt.log("DefaultVariationGotCalledBro");
 });
 
 alt.onServer('Player:SetWaypoint', (X, Y) => {
