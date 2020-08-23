@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
@@ -693,7 +692,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [AsyncScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
+        [ScriptEvent(ScriptEventType.PlayerLeaveVehicle)]
         public static void OnPlayerExitIVehicle(VehicleModel Vehicle, VnXPlayer player, byte seat)
         {
             try
