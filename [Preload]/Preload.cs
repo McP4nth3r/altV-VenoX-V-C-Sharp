@@ -7,6 +7,7 @@ using System.Linq;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Globals;
 
 namespace VenoXV._Preload_
 {
@@ -34,7 +35,7 @@ namespace VenoXV._Preload_
     }
     public class Preload : IScript
     {
-        public const string CURRENT_VERSION = "1.5.0";
+        public const string CURRENT_VERSION = "2.0.1";
         public enum Gamemodes
         {
             Reallife = 0,
@@ -55,6 +56,7 @@ namespace VenoXV._Preload_
         {
             try
             {
+                GetAllPlayersInAllGamemodes(player);
                 player.Dimension = player.Id;
                 Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
@@ -91,7 +93,7 @@ namespace VenoXV._Preload_
                 Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
-                player.Language = (int)_Language_.Main.Languages.France;
+                player.Language = (int)_Language_.Main.Languages.German;
                 if (!Globals.Main.AllPlayers.Contains(player)) { Globals.Main.AllPlayers.Add(player); }
                 switch (value)
                 {
@@ -140,16 +142,7 @@ namespace VenoXV._Preload_
         {
             try
             {
-                int ZombiePlayers = 0;
-                int ReallifePlayers = 0;
-                int TacticsPlayers = 0;
-                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
-                {
-                    if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_REALLIFE) { ReallifePlayers += 1; }
-                    else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_TACTICS) { TacticsPlayers += 1; }
-                    else if (players.vnxGetElementData<string>(Globals.EntityData.PLAYER_CURRENT_GAMEMODE) == Globals.EntityData.GAMEMODE_ZOMBIE) { ZombiePlayers += 1; }
-                }
-                Alt.Server.TriggerClientEvent(player, "LoadPreloadUserInfo", ZombiePlayers + " Online.", ReallifePlayers + " Online.", TacticsPlayers + " Online.");
+                Alt.Server.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.REALLIFE_MAX_PLAYERS, Main.TacticsPlayers.Count, Main.TACTICS_MAX_PLAYERS, Main.ZombiePlayers.Count, Main.ZOMBIES_MAX_PLAYERS, Main.RacePlayers.Count, Main.RACE_MAX_PLAYERS, Main.SevenTowersPlayers.Count, Main.SEVENTOWERS_MAX_PLAYERS);
             }
             catch { }
         }
