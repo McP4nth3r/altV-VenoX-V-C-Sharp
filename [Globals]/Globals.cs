@@ -12,6 +12,14 @@ namespace VenoXV.Globals
 {
     public class Main : IScript
     {
+        // Settings
+        public static int REALLIFE_MAX_PLAYERS = 1000;
+        public static int TACTICS_MAX_PLAYERS = 20;
+        public static int RACE_MAX_PLAYERS = 5;
+        public static int SEVENTOWERS_MAX_PLAYERS = 20;
+        public static int ZOMBIES_MAX_PLAYERS = 200;
+
+        // Const 
         public static List<VnXPlayer> AllPlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> ReallifePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> TacticsPlayers = new List<VnXPlayer>();
@@ -180,6 +188,26 @@ namespace VenoXV.Globals
                 _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
             }
             catch { }
+        }
+
+        [ServerEvent("GlobalSystems:OnVehicleSyncDamage")]
+        public void OnPlayerVehicleDamage(VnXPlayer player, VehicleModel vehicle, float Damage = 0)
+        {
+            try
+            {
+                if (vehicle.Godmode) { return; }
+                player.Emit("Globals:PlayHitsound");
+                player.vnxSetElementData("VenoX:LastDamagedVehicle", vehicle);
+                Core.Debug.OutputDebugString(player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! DMG : " + Damage);
+                string DriverName = "niemand";
+                if (vehicle.Driver != null)
+                {
+                    VnXPlayer _Driver = (VnXPlayer)vehicle.Driver;
+                    DriverName = _Driver.Username;
+                }
+                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("vehdmg", player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! | Fahrer falls vorhanden : " + DriverName + " | DMG : " + Damage);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerVehicleDamage", ex); }
         }
 
         public static void OnUpdate(object unused)
