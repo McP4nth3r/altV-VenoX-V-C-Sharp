@@ -679,7 +679,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Vehicles.Verleih.OnResourceStart();
                 Vehicles.Vehicles.OnResourceStart();
                 gangwar.Allround.OnResourceStart();
-                weapons.Combat.OnResourceStart();
                 Club.RussianClub.OnResourceStart();
                 Bus.OnResourceStart();
 
