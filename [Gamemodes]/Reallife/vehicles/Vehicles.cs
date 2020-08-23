@@ -593,7 +593,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     //Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     Vehicle.Frozen = false;
 
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Drücke K um den Motor zu starten.");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Drücke X um den Motor zu starten.");
 
                     if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                     {
