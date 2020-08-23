@@ -13,7 +13,7 @@ if ('alt' in window) {
 	alt.on('VehCatalog:Fill', (vehArray) => {
 		for (var _c in vehArray) {
 			InsertVehicle(vehArray[_c].row, vehArray[_c].name, vehArray[_c].cost);
+			console.log(vehArray[_c].row + " | " + vehArray[_c].name + " | " + vehArray[_c].cost);
 		}
-		console.log(vehArray);
 	});
 }

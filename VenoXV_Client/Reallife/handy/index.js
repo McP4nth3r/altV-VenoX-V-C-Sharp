@@ -13,7 +13,7 @@ let Phone;
 let PhoneOpen = false;
 alt.onServer('Phone:Load', () => {
     if (Phone) { return; }
-    Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html");
+    Phone = vnxCreateCEF("VenoXPhone", "Reallife/handy/main.html", "Reallife");
     Phone.on('Phone:CallingTarget', (Name) => {
         alt.emitServer('VenoXPhone:CallTarget', Name);
     });

@@ -61,7 +61,7 @@ function FillTuningList() {
 
 alt.onServer('Tuning:Show', () => {
     try {
-        let cTuning = vnxCreateCEF("Reallife-Tuning", "Reallife/vehicles/tuning/main.html");
+        let cTuning = vnxCreateCEF("Reallife-Tuning", "Reallife/vehicles/tuning/main.html", "Reallife");
         cTuning.focus();
         ShowCursor(true);
         cTuning.on('Tuning:Destroy', () => {

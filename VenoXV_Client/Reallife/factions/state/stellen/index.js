@@ -8,7 +8,7 @@ let stellen_browser = null;
 alt.onServer('showStellenWindow', (e) => {
 	try {
 		vnxDestroyCEF("Stellen");
-		stellen_browser = vnxCreateCEF("Stellen", "Reallife/factions/state/stellen/main.html");
+		stellen_browser = vnxCreateCEF("Stellen", "Reallife/factions/state/stellen/main.html", "Reallife");
 
 		alt.setTimeout(() => {
 			stellen_browser.emit("Duty:Load", e, alt.Player.local.getSyncedMeta("PLAYER_NAME"));

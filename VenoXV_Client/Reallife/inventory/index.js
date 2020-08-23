@@ -13,7 +13,7 @@ let InventoryBrowser;
 alt.onServer('Inventory:Load', () => {
     try {
         if (InventoryCreated) { return; }
-        InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html");
+        InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html", "Reallife");
         InventoryCreated = true;
 
         InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {

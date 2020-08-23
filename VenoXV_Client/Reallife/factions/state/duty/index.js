@@ -10,7 +10,7 @@ import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 let duty_browser = null;
 alt.onServer('showDutyWindow', (e, pname) => {
     if (duty_browser) { return; }
-    duty_browser = vnxCreateCEF("LSPD-Duty", "Reallife/factions/state/duty/main.html");
+    duty_browser = vnxCreateCEF("LSPD-Duty", "Reallife/factions/state/duty/main.html", "Reallife");
     alt.setTimeout(() => {
         duty_browser.focus();
         ShowCursor(true);

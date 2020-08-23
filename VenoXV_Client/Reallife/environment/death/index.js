@@ -12,7 +12,7 @@ let HospitalWindow;
 alt.onServer('DeathScreen:Show', (time) => {
 	try {
 		if (HospitalWindow != null) { return; }
-		HospitalWindow = vnxCreateCEF("HospitalReallife", "Reallife/environment/death/main.html");
+		HospitalWindow = vnxCreateCEF("HospitalReallife", "Reallife/environment/death/main.html", "Reallife");
 		alt.setTimeout(() => {
 			HospitalWindow.emit('Timer:Init', time);
 		}, 500);

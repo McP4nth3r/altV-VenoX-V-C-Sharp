@@ -13,7 +13,7 @@ import { CreatePed, vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../Global
 
 alt.onServer('Job:ShowAcceptWindow', (headertext, boxtext, buttontext1, buttontext2) => {
 	try {
-		let JobAcceptWindow = vnxCreateCEF('Reallife:JobAcceptWindow', "Reallife/jobs/accept/main.html");
+		let JobAcceptWindow = vnxCreateCEF('Reallife:JobAcceptWindow', "Reallife/jobs/accept/main.html", "Reallife");
 		ShowCursor(true);
 		JobAcceptWindow.focus();
 		JobAcceptWindow.on('Reallife:JobAcceptWindowDestroy', () => {
@@ -36,7 +36,7 @@ alt.onServer('Job:ShowAcceptWindow', (headertext, boxtext, buttontext1, buttonte
 
 alt.onServer('Job:ShowSelection1', (headertext, boxtext, buttontext1, buttontext2, buttontext3, buttondescription1, buttondescription2, buttondescription3, joblvl) => {
 	try {
-		let JobWindow = vnxCreateCEF('Reallife:JobWindow', "Reallife/jobs/selection-1/main.html");
+		let JobWindow = vnxCreateCEF('Reallife:JobWindow', "Reallife/jobs/selection-1/main.html", "Reallife");
 		ShowCursor(true);
 		JobWindow.focus();
 		JobWindow.on('Reallife:JobWindowDestroy', () => {

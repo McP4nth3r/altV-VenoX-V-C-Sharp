@@ -11,7 +11,7 @@ let FactionWindow;
 //Basics : 
 alt.onServer('FactionMenu:Show', (Json) => {
     if (FactionWindow) { return; }
-    FactionWindow = vnxCreateCEF('Reallife-FactionWindow', 'Reallife/factions/menu/main.html');
+    FactionWindow = vnxCreateCEF('Reallife-FactionWindow', 'Reallife/factions/menu/main.html', "Reallife");
     FactionWindow.focus();
     ShowCursor(true);
     FactionWindow.on('FactionWindow:Select', (kaufen) => {

@@ -10,7 +10,7 @@ import { vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../../Globals/VnX-Li
 
 alt.onServer('createGasWindow', (GasPrice) => {
 	vnxDestroyCEF("GasStation");
-	let GasWindow = vnxCreateCEF("GasStation", "Reallife/environment/tankstellen/main.html");
+	let GasWindow = vnxCreateCEF("GasStation", "Reallife/environment/tankstellen/main.html", "Reallife");
 	alt.setTimeout(() => {
 		GasWindow.emit('Window:Load', GasPrice);
 		GasWindow.focus();

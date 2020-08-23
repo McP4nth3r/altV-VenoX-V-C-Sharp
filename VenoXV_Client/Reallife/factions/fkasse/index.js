@@ -9,7 +9,7 @@ import { vnxCreateCEF, ShowCursor, vnxDestroyCEF } from '../../../Globals/VnX-Li
 let FactionStuffBrowser = null;
 alt.onServer('showFactionStuff', (fraktionsnamen, koks, mats, money, weed) => {
 	if (FactionStuffBrowser) { return; }
-	FactionStuffBrowser = vnxCreateCEF('FraktionskassenWindow', 'Reallife/factions/fkasse/main.html');
+	FactionStuffBrowser = vnxCreateCEF('FraktionskassenWindow', 'Reallife/factions/fkasse/main.html', "Reallife");
 	FactionStuffBrowser.focus();
 	ShowCursor(true);
 	alt.setTimeout(() => {

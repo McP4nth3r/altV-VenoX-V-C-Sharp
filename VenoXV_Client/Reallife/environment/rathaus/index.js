@@ -15,7 +15,7 @@ let Rathaus_Button_State;
 
 alt.onServer('showRathausWindow', (HEADER, PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN, PLANE_A_BTN, PLANE_B_BTN, HELICOPTER_BTN, BOAT_BTN, FISHER_BTN, WEAPON_BTN, perso, fuehrer, lkw, bike, fa, fb, heli, boot, angel, waffen) => {
     if (RathausBrowser) { return; }
-    RathausBrowser = vnxCreateCEF('Rathaus', 'Reallife/environment/rathaus/main.html');
+    RathausBrowser = vnxCreateCEF('Rathaus', 'Reallife/environment/rathaus/main.html', "Reallife");
     RathausBrowser.focus();
     ShowCursor(true);
 

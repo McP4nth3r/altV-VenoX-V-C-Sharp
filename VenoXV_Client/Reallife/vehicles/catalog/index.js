@@ -11,7 +11,7 @@ let vehcatalog = [];
 let vehcounter = 0;
 let VehCatalogBrowser;
 alt.onServer('VehicleCatalog:Fill', (row, name, cost, max) => {
-    if (vehcounter == max) { FillWindowWithStuff(); return; }
+    if (vehcounter >= max) { FillWindowWithStuff(); return; }
     vehcatalog[vehcounter++] = {
         row: row,
         name: name,
@@ -31,9 +31,11 @@ function FillWindowWithStuff() {
 
 alt.onServer('VehicleCatalog:Show', () => {
     if (VehCatalogBrowser) { return; }
-    VehCatalogBrowser = vnxCreateCEF('VehCatalog', 'Reallife/vehicles/catalog/main.html');
+    VehCatalogBrowser = vnxCreateCEF('VehCatalog', 'Reallife/vehicles/catalog/main.html', "Reallife");
     ShowCursor(true);
     VehCatalogBrowser.focus();
     VehCatalogBrowser.on('VehCatalog:Destroy', () => { VehCatalogBrowser.unfocus(); vnxDestroyCEF('VehCatalog'); ShowCursor(false); VehCatalogBrowser = null; });
-    FillWindowWithStuff();
+    alt.setTimeout(() => {
+        FillWindowWithStuff();
+    }, 500);
 });

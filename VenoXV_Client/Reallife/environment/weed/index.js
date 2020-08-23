@@ -13,7 +13,7 @@ let weedshop_browser = null;
 
 alt.onServer('showWeedShopWindow', () => {
     try {
-        weedshop_browser = vnxCreateCEF("WeedShop", "Reallife/environment/weed/main.html");
+        weedshop_browser = vnxCreateCEF("WeedShop", "Reallife/environment/weed/main.html", "Reallife");
         weedshop_browser.focus();
         ShowCursor(true);
 

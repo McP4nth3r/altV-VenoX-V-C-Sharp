@@ -13,7 +13,7 @@ alt.onServer('showStateWeaponWindow', (s, t, p, p2, s2, p3, k, r, s3, i, st) => 
 	try {
 		vnxDestroyCEF("Staats-Fguns");
 		game.freezeEntityPosition(alt.Player.local.scriptID, true);
-		StateFguns_Browser = vnxCreateCEF("Staats-Fguns", "Reallife/factions/state/fguns/main.html");
+		StateFguns_Browser = vnxCreateCEF("Staats-Fguns", "Reallife/factions/state/fguns/main.html", "Reallife");
 		alt.setTimeout(() => {
 			StateFguns_Browser.focus();
 			ShowCursor(true);

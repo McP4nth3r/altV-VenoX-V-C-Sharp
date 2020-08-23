@@ -13,7 +13,7 @@ let dutybadbrowser = null;
 alt.onServer('show_duty_window_bad', (Name, Neutral) => {
     if (dutybadbrowser) { return; }
     FreezeClient(true);
-    dutybadbrowser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html");
+    dutybadbrowser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html", "Reallife");
     alt.setTimeout(() => {
         dutybadbrowser.focus();
         ShowCursor(true);
