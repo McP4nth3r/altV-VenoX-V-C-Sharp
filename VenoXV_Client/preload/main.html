@@ -5,11 +5,6 @@
 	<script src="script.js"></script>
 	<script>
 		if ("alt" in window) {
-			alt.on('Load:UserInfo', (z, r, t) => {
-				$('.rec_0_userinfo').html(z);
-				$('.rec_1_userinfo').html(r);
-				$('.rec_2_userinfo').html(t);
-			});
 			alt.on('Load:ShowPreload', () => {
 				$('#Main').removeClass('d-none');
 			})
@@ -63,12 +58,12 @@
 			</div>
 			<div id="rectangle" class="rec_7" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
 				<div class="rec_text">Closed
-					<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online</div>
+					<div class="rec_userinfo d-none" id="rec_7_userinfo">0 / 0 Online</div>
 				</div>
 			</div>
 			<div id="rectangle" class="rec_8" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(5);">
 				<div class="rec_text">Closed
-					<div class="rec_userinfo d-none" id="rec_6_userinfo">0 / 0 Online</div>
+					<div class="rec_userinfo d-none" id="rec_8_userinfo">0 / 0 Online</div>
 				</div>
 			</div>
 		</div>

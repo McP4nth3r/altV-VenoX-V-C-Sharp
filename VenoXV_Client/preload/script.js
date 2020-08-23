@@ -16,7 +16,6 @@ function playAudio(v) {
 }
 
 
-
 function OnWindowLoad() {
     playAudio();
     OnHover();
@@ -113,5 +112,13 @@ if ('alt' in window) {
         setTimeout(() => {
             $('.Loading-Screen-Main').addClass('d-none');
         }, MS);
+    });
+
+    alt.on('Load:RefreshGamemodeStats', (AllPlayers, AllPlayersMax, ReallifePlayers, ReallifePlayersMax, TacticPlayers, TacticPlayersMax, ZombiePlayers, ZombiePlayersMax, RacePlayers, RacePlayersMax, SevenTowersPlayers, SevenTowersPlayersMax) => {
+        $('#rec_0_userinfo').text(ZombiePlayers + ' / ' + ZombiePlayersMax + ' Online');
+        $('#rec_1_userinfo').text(ReallifePlayers + ' / ' + ReallifePlayersMax + ' Online');
+        $('#rec_2_userinfo').text(TacticPlayers + ' / ' + TacticPlayersMax + ' Online');
+        $('#rec_3_userinfo').text(RacePlayers + ' / ' + RacePlayersMax + ' Online');
+        $('#rec_4_userinfo').text(SevenTowersPlayers + ' / ' + SevenTowersPlayersMax + ' Online');
     });
 }

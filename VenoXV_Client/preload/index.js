@@ -31,10 +31,6 @@ dxClass.vnxDrawText("RollerText", "Roller Vermietungs Text lol", "Hello Alt:V,\n
 //dxClass.vnxDrawWindow("FynnZeigt", "Info für FynnScheisst", "Fynnzeigts erstes Window", 0, 0, 0.3, 0.2, penis);
 
 
-alt.onServer('Preload:UnloadGamemode', (Id) => {
-
-});
-
 alt.onServer('preload_gm_list', () => {
 	try {
 		preloadbrowser.emit('Load:ShowPreload');
@@ -46,9 +42,8 @@ alt.onServer('preload_gm_list', () => {
 });
 
 
-alt.onServer('LoadPreloadUserInfo', (z, r, t) => {
-	alt.emit("Load:UserInfo", z, r, t);
-	//preloadbrowser.execute(`document.getElementById('rec_0_userinfo').innerHTML="` + z + `";document.getElementById('rec_1_userinfo').innerHTML="` + r + `";document.getElementById('rec_2_userinfo').innerHTML="` + t + `";`);
+alt.onServer('LoadPreloadUserInfo', (AllPlayers, AllPlayersMax, ReallifePlayers, ReallifePlayersMax, TacticPlayers, TacticPlayersMax, ZombiePlayers, ZombiePlayersMax, RacePlayers, RacePlayersMax, SevenTowersPlayers, SevenTowersPlayersMax) => {
+	preloadbrowser.emit('Load:RefreshGamemodeStats', AllPlayers, AllPlayersMax, ReallifePlayers, ReallifePlayersMax, TacticPlayers, TacticPlayersMax, ZombiePlayers, ZombiePlayersMax, RacePlayers, RacePlayersMax, SevenTowersPlayers, SevenTowersPlayersMax);
 });
 
 alt.onServer('LoadingScreen:Show', MS => {
