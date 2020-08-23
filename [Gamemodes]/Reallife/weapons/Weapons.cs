@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Enums;
 using System;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -10,33 +11,60 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Weapons : IScript
     {
-
-        public static AltV.Net.Enums.WeaponModel GetWeaponByHashName(string HashName)
+        public static WeaponModel GetWeaponByHashName(string HashName)
         {
+            Debug.OutputDebugString(HashName);
             switch (HashName)
             {
                 case Constants.ITEM_HASH_PISTOLE:
-                    return AltV.Net.Enums.WeaponModel.Pistol;
+                    return WeaponModel.Pistol;
                 case Constants.ITEM_HASH_PISTOLE50:
-                    return AltV.Net.Enums.WeaponModel.Pistol50;
+                    return WeaponModel.Pistol50;
                 case Constants.ITEM_HASH_REVOLVER:
-                    return AltV.Net.Enums.WeaponModel.HeavyRevolver;
+                    return WeaponModel.HeavyRevolver;
                 case Constants.ITEM_HASH_PDW:
-                    return AltV.Net.Enums.WeaponModel.CombatPDW;
+                    return WeaponModel.CombatPDW;
                 case Constants.ITEM_HASH_MP5:
-                    return AltV.Net.Enums.WeaponModel.SMG;
+                    return WeaponModel.SMG;
                 case Constants.ITEM_HASH_ADVANCEDRIFLE:
-                    return AltV.Net.Enums.WeaponModel.AdvancedRifle;
+                    return WeaponModel.AdvancedRifle;
                 case Constants.ITEM_HASH_KARABINER:
-                    return AltV.Net.Enums.WeaponModel.CarbineRifle;
+                    return WeaponModel.CarbineRifle;
                 case Constants.ITEM_HASH_RIFLE:
-                    return AltV.Net.Enums.WeaponModel.Musket;
+                    return WeaponModel.Musket;
                 case Constants.ITEM_HASH_AK47:
-                    return AltV.Net.Enums.WeaponModel.AssaultRifle;
+                    return WeaponModel.AssaultRifle;
                 default:
+                    Debug.OutputDebugString("Not Found " + HashName);
                     break;
             }
-            return AltV.Net.Enums.WeaponModel.Fist;
+            return WeaponModel.Fist;
+        }
+
+        private static void GivePistolAmmo(VnXPlayer player, int ammo)
+        {
+            int playerId = player.UID;
+            foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+            {
+                if (item.ownerIdentifier == playerId)
+                {
+                    if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
+                    {
+                        switch (item.hash)
+                        {
+                            case Constants.ITEM_HASH_PISTOLE:
+                                RageAPI.GivePlayerWeapon(player, WeaponModel.Pistol, ammo);
+                                break;
+                            case Constants.ITEM_HASH_PISTOLE50:
+                                RageAPI.GivePlayerWeapon(player, WeaponModel.Pistol50, ammo);
+                                break;
+                            case Constants.ITEM_HASH_REVOLVER:
+                                RageAPI.GivePlayerWeapon(player, WeaponModel.HeavyRevolver, ammo);
+                                break;
+                        }
+                    }
+                }
+            }
         }
         public static void GivePlayerWeaponItems(VnXPlayer player)
         {
@@ -49,8 +77,8 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     {
                         if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
                         {
-                            Core.Debug.OutputDebugString(player.Username + " : " + item.hash);
-                            RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.hash), item.amount);
+                            if (item.hash == Constants.ITEM_HASH_PISTOL_AMMO) { GivePistolAmmo(player, item.amount); }
+                            else { RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.hash), item.amount); }
                         }
                     }
                 }
@@ -61,11 +89,6 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                 Console.WriteLine("[EXCEPTION GivePlayerWeaponItems] " + ex.StackTrace);
             }
         }
-
-
-
-
-
 
 
         /*[ScriptEvent(ScriptEventType.PlayerWeap)]
@@ -85,7 +108,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                         //Tactics.lobby.Anticheat_Weapon.LoadTacticsAnticheat(player, oldWeapon, AltV.Net.Enums.WeaponModel);
                         return;
                     }
-               
+
                     if (oldWeapon == AltV.Net.Enums.WeaponModel.Snowballs)
                     {
                         int playerId = player.UID;
@@ -124,7 +147,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                         }
                         return;
                     }                    
-                                       
+
                     else if (WeaponModel == AltV.Net.Enums.WeaponModel.Bottle)
                     {
                         int playerId = player.UID;
@@ -444,7 +467,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                     }
                     return;
                 }
-                                
+
                 else if (WeaponModel == AltV.Net.Enums.WeaponModel.StunGun)
                 {
                     ItemModel TAZER = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_TAZER);
