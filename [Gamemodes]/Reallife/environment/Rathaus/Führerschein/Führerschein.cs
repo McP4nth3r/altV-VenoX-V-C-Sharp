@@ -156,9 +156,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     Vehicle.Remove();
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
     }
 }
