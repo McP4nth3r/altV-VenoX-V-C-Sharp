@@ -10,7 +10,7 @@ CreatePed("s_m_y_ammucity_01", new alt.Vector3(21.88107, -1105.19, 29.79704), 16
 
 alt.onServer('Ammunation:Show', () => {
 	try {
-		let cef = vnxCreateCEF("Ammunation", "Reallife/ammunation/main.html");
+		let cef = vnxCreateCEF("Ammunation", "Reallife/ammunation/main.html", "Reallife");
 		ShowCursor(true);
 		cef.focus();
 		cef.on('Ammunation:Hide', () => {
