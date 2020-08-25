@@ -1,21 +1,28 @@
-﻿using AltV.Net.Elements.Entities;
+﻿using AltV.Net;
+using AltV.Net.Elements.Entities;
+using System;
 using System.Numerics;
 
 namespace VenoXV._RootCore_.Models
 {
-    public class ColShapeModel
+    public class ColShapeModel : ColShape
     {
-        public IColShape Entity { get; set; }
-        public Vector3 Position { get; set; }
+        public Vector3 CurrentPosition { get; set; }
         public float Radius { get; set; }
-        public int Dimension { get; set; }
-        public void vnxSetElementData(string element, object value)
+        public ColShapeModel(IntPtr nativePointer) : base(nativePointer)
         {
-            Core.RageAPI.vnxSetElementData(Entity, element, value);
+
         }
-        public T vnxGetElementData<T>(string key)
+    }
+    public class MyColShapeFactory : IBaseObjectFactory<IColShape>
+    {
+        public IColShape Create(IntPtr playerPointer)
         {
-            return Core.RageAPI.vnxGetElementData<T>(Entity, key);
+            try
+            {
+                return new ColShapeModel(playerPointer);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("VehicleFactory:Create", ex); return null; }
         }
     }
 }
