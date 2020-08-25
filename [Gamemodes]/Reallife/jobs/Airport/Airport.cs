@@ -51,12 +51,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
             {
                 if (player.Reallife.Job == Constants.JOB_AIRPORT && player.Reallife.JobStage > 0)
                 {
-                    player.WarpOutOfVehicle();
+                    RageAPI.DeleteVehicleThreadSafe(vehClass);
                     Allround.DestroyJobMarker(player);
-                    vehClass.Remove();
                     player.SetPosition = AIRPORT_HOME_SPAWN;
                     player.Reallife.JobStage = 0;
                     player.Dimension = 0;
+                    Core.Debug.OutputDebugString("JobStage 2: " + player.Reallife.JobStage);
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions("OnPlayerExitVehicle", ex); }

@@ -150,11 +150,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
         {
             if (player.Reallife.Job == Constants.JOB_BUS && player.Reallife.JobStage > 0)
             {
-                player.WarpOutOfVehicle();
+                RageAPI.DeleteVehicleThreadSafe(vehClass);
                 Allround.DestroyJobMarker(player);
-                vehClass.Remove();
                 player.SetPosition = AbgabepunkteLVLONE[0];
                 player.Reallife.JobStage = 0;
+                Core.Debug.OutputDebugString("JobStage : " + player.Reallife.JobStage);
             }
         }
     }

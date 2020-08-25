@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         {
             try
             {
-                if (shape == CITY_TRANSPORT_Col.Entity)
+                if (shape == CITY_TRANSPORT_Col)
                 {
                     if (player.Reallife.Job == Constants.JOB_CITY_TRANSPORT)
                     {
@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
-                else if (shape == AIRPORT_JOB_Col.Entity)
+                else if (shape == AIRPORT_JOB_Col)
                 {
                     if (player.Reallife.Job == Constants.JOB_AIRPORT)
                     {
@@ -51,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast bereits einen Job! Nutze /quitjob um deinen Job zu beenden!");
                     }
                 }
-                else if (shape == BUS_JOB_Col.Entity)
+                else if (shape == BUS_JOB_Col)
                 {
                     if (player.Reallife.Job == Constants.JOB_BUS)
                     {
@@ -157,11 +157,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
                 player.vnxSetElementData(JOB_MARKER_ENTITY, markerClass);
                 player.vnxSetElementData(JOB_BLIP_ENTITY, blipClass);
-                player.vnxSetElementData(JOB_COL_ENTITY, colClass.Entity);
+                player.vnxSetElementData(JOB_COL_ENTITY, colClass);
                 player.vnxSetElementData(JOB_COLCLASS_ENTITY, colClass);
                 CurrentJobMarker.Add(markerClass);
                 CurrentJobBlips.Add(blipClass);
-                CurrentJobColShapes.Add(colClass.Entity);
+                CurrentJobColShapes.Add(colClass);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
         }
@@ -269,9 +269,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             {
                 Airport.Airport.OnPlayerExitVehicle(vehClass, player);
                 Bus.Bus.OnPlayerLeaveVehicle(vehClass, player);
-
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerLeaveVehicle", ex); }
         }
     }
 }
