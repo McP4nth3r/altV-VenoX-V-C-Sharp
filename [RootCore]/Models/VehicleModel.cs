@@ -77,6 +77,7 @@ namespace VenoXV._RootCore_.Models
         public float Gas { get { return vehGas; } set { vehGas = value; this.vnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
         private float vehKms { get; set; }
         public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
+        public bool MarkedForDelete { get; set; }
         public VehRace Race { get; }
         public VehReallife Reallife { get; }
         public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
@@ -92,6 +93,7 @@ namespace VenoXV._RootCore_.Models
             Gas = 100;
             Kms = 0;
             Race = new VehRace(this);
+            MarkedForDelete = false;
             Reallife = new VehReallife(this)
             {
                 Weapons = new Weapons(this)
