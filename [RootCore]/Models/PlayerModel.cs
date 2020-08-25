@@ -266,6 +266,19 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
         }
     }
+
+    public class Usefull
+    {
+        public DateTime LastVehicleLeaveEventCall { get; set; }
+        public Usefull(Player player)
+        {
+            try
+            {
+                LastVehicleLeaveEventCall = DateTime.Now;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("UsefullModel-Create", ex); }
+        }
+    }
     public class VnXPlayer : Player
     {
         //Main
@@ -284,6 +297,7 @@ namespace VenoXV._RootCore_.Models
         public Phone Phone { get; }
         public Discord Discord { get; }
         public Forum Forum { get; }
+        public Usefull Usefull { get; }
         // Settings - Classes
         public Settings Settings { get; }
         public Position SetPosition { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
@@ -314,6 +328,8 @@ namespace VenoXV._RootCore_.Models
                 Race = new Race(this);
                 SevenTowers = new SevenTowers(this);
                 Phone = new Phone(this);
+                Forum = new Forum(this);
+                Usefull = new Usefull(this);
                 Discord = new Discord(this);
                 this.SpawnPlayer(Position);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
