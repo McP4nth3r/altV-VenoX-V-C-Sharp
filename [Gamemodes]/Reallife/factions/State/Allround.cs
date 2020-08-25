@@ -20,9 +20,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
             try
             {
                 if (!Factions.Allround.isStateFaction(player)) { return; }
-                if (colShape == LSPDDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
-                else if (colShape == FBIDuty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
-                else if (colShape == ARMYDuty.Entity || colShape == ARMY2Duty.Entity) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
+                if (colShape == LSPDDuty) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
+                else if (colShape == FBIDuty) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
+                else if (colShape == ARMYDuty || colShape == ARMY2Duty) { Alt.Server.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
             }
             catch (Exception ex) { Debug.CatchExceptions("OnStateColShapeHit", ex); }
         }

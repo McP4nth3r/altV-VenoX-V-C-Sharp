@@ -14,15 +14,15 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player,"Greenzone:Create", "LSPD_COL", LSPD_COL_POS.X, LSPD_COL_POS.Y, LSPD_COL_POS.Z, 50, 2, 0);
+                Alt.Server.TriggerClientEvent(player, "Greenzone:Create", "LSPD_COL", LSPD_COL_POS.X, LSPD_COL_POS.Y, LSPD_COL_POS.Z, 50, 2, 0);
             }
             catch { }
         }
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
-            if (shape == LSPD_Col.Entity)
+            if (shape == LSPD_Col)
             {
-                Alt.Server.TriggerClientEvent(player,"Greenzone:ChangeStatus", true);
+                Alt.Server.TriggerClientEvent(player, "Greenzone:ChangeStatus", true);
                 if (player.vnxGetElementData<int>("settings_quest") == 1)
                 {
                     player.vnxSetStreamSharedElementData("settings_quest", "nein");
@@ -35,14 +35,14 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
         {
             try
             {
-                if (shape == LSPD_Col.Entity)
+                if (shape == LSPD_Col)
                 {
                     if (player.vnxGetElementData<bool>("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT") == true)
                     {
                         player.vnxSetStreamSharedElementData("settings_quest", "ja");
                         player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
                     }
-                    Alt.Server.TriggerClientEvent(player,"Greenzone:ChangeStatus", false);
+                    Alt.Server.TriggerClientEvent(player, "Greenzone:ChangeStatus", false);
                 }
             }
             catch { }

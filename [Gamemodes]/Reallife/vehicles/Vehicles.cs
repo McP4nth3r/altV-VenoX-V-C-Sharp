@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 foreach (Position Tankstellen in Constants.AUTO_ZAPF_LIST)
                 {
                     ColShapeModel TankstellenCol = RageAPI.CreateColShapeSphere(Tankstellen, 2);
-                    TankstellenCol.Entity.vnxSetElementData("TANKSTELLEN_COL", true);
+                    TankstellenCol.vnxSetElementData("TANKSTELLEN_COL", true);
                     /*Console.WriteLine("Tankstelle [" + counter + "] wurde erstellt! Pos : " + Tankstellen);
                     counter++;*/
                 }
@@ -224,7 +224,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         */
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
@@ -697,16 +697,20 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                Vehicle.Passenger.Remove(player);
-                if (Vehicle.Driver == player)
+                if (player.Usefull.LastVehicleLeaveEventCall < DateTime.Now)
                 {
-                    if (!Vehicle.Godmode)
+                    Vehicle.Passenger.Remove(player);
+                    if (Vehicle.Driver == player)
                     {
-                        Vehicle.Godmode = true;
+                        if (!Vehicle.Godmode)
+                        {
+                            Vehicle.Godmode = true;
+                        }
                     }
+                    jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
+                    SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
+                    player.Usefull.LastVehicleLeaveEventCall = DateTime.Now.AddSeconds(3);
                 }
-                jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
-                SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
             }
             catch (Exception ex) { Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
         }

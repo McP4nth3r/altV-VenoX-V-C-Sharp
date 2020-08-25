@@ -132,11 +132,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == LSPDCOL_FGUNS.Entity)
+                if (shape == LSPDCOL_FGUNS)
                 {
                     if (isStateFaction(player))
                     {
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         player.Reallife.FactionRank);
                     }
                 }
-                else if (shape == FBICOL_FGUNS.Entity)
+                else if (shape == FBICOL_FGUNS)
                 {
                     if (isStateFaction(player))
                     {

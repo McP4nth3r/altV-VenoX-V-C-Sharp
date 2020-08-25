@@ -21,7 +21,10 @@ namespace VenoXV._Preload_
         {
             return new MyVehicleFactory();
         }
-
+        public override IBaseObjectFactory<IColShape> GetColShapeFactory()
+        {
+            return new MyColShapeFactory();
+        }
         public override void OnStart()
         {
             Globals.Main.OnResourceStart();

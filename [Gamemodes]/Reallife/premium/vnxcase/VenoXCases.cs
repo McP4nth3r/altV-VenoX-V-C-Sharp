@@ -22,7 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
         }*/
 
         /*//[ServerEvent(Event.PlayerEnterColShapeModel)]
-        public void OnPlayerEnterColShapeModel(IColShape shape, PlayerModel player)
+        public void OnPlayerEnterColShapeModel(ColShapeModel shape, PlayerModel player)
         {
             if (shape == col)
             {

@@ -1,4 +1,4 @@
-﻿namespace VenoXV._Globals_.EntityDatas
+﻿namespace VenoXV._Globals_Datas
 {
     class Reallife
     {

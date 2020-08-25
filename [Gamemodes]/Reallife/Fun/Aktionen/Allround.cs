@@ -88,12 +88,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     Core.RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }, player);
                 }
                 ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f);
-                col.Entity.vnxSetElementData(ACTION_COLSHAPE, Action);
+                col.vnxSetElementData(ACTION_COLSHAPE, Action);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateTargetMarker", ex); }
         }
 
-        public static void OnClientEnterColShape(IColShape shape, VnXPlayer player)
+        public static void OnClientEnterColShape(ColShapeModel shape, VnXPlayer player)
         {
             try
             {

@@ -27,6 +27,7 @@ namespace VenoXV.Globals
         public static List<VnXPlayer> RacePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> SevenTowersPlayers = new List<VnXPlayer>();
 
+        public static List<VehicleModel> AllVehicles = new List<VehicleModel>();
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
         public static void RemovePlayerFromGamemodeList(VnXPlayer player)
@@ -103,7 +104,7 @@ namespace VenoXV.Globals
 
 
         [ScriptEvent(ScriptEventType.ColShape)]
-        public static void OnColShape(IColShape shape, IEntity entity, bool state)
+        public static void OnColShape(ColShapeModel shape, IEntity entity, bool state)
         {
             try
             {
@@ -123,9 +124,9 @@ namespace VenoXV.Globals
                             return;
                     }
                 }
-                else { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
+                if (state == false) { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]

@@ -180,7 +180,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 MarkerModelList.Add(RageAPI.CreateMarker(1, new Vector3(Position.X, Position.Y, Position.Z - 0.5f), new Vector3(6, 6, 6), new int[] { 0, 200, 255, 255 }, null, SEVENTOWERS_DIM));
                 ColShapeModel newCol = RageAPI.CreateColShapeSphere(Position, 5, SEVENTOWERS_DIM);
                 ColShapeModelList.Add(newCol);
-                CurrentColShape = newCol.Entity;
+                CurrentColShape = newCol;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewHitMarker", ex); }
         }

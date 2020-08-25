@@ -23,12 +23,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
 
-                if (shape == TuningGaragenTeleport.Entity)
+                if (shape == TuningGaragenTeleport)
                 {
                     // _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
                     //return;

@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             try
             {
                 int carShop = -1;
-                if (player.Position.Distance(carShopTextLabel.Position) < distance)
+                if (player.Position.Distance(carShopTextLabel.CurrentPosition) < distance)
                 {
                     carShop = 0;
                 }
@@ -98,11 +98,11 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         public static ColShapeModel CARSHOP = RageAPI.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == CARSHOP.Entity)
+                if (shape == CARSHOP)
                 {
                     List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
 

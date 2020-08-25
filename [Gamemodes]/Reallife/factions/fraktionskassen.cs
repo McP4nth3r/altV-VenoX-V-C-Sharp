@@ -19,17 +19,17 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
 
             ColShapeModel fkassencolLSPD = RageAPI.CreateColShapeSphere(new Position(452.5833f, -982.6306f, 30.68959f), 0.3f);
-            fkassencolLSPD.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LSPD);
+            fkassencolLSPD.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LSPD);
             Core.RageAPI.CreateTextLabel("LSPD - Kasse", new Position(452.5833f, -982.6306f, 30.68959f), 20.0f, 0.75f, 4, new int[] { 0, 0, 200, 255 });
             //////////////////////////////      
             ColShapeModel fkassencolLCN = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_LCN);
-            fkassencolLCN.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolLCN.Position, 20.0f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, fkassencolLCN.Dimension);
+            fkassencolLCN.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolLCN.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, fkassencolLCN.Dimension);
             //////////////////////////////      
 
             ColShapeModel fkassencolYAKUZA = RageAPI.CreateColShapeSphere(new Position(345.3037f, -995.8774f, -99f), 0.3f, Constants.FACTION_YAKUZA);
-            fkassencolYAKUZA.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolYAKUZA.Position, 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fkassencolYAKUZA.Dimension);
+            fkassencolYAKUZA.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolYAKUZA.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fkassencolYAKUZA.Dimension);
 
             //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("Gang - Kasse", new Position(345.3037f, -995.8774f, -99.19618f), 20.0f, 0.75f, 4, new Rgba(200, 0, 0), true, fkassencolYAKUZA.Dimension);
             //////////////////////////////
@@ -37,58 +37,58 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
             //////////////////////////////      
             ColShapeModel fkassencolBallas = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_BALLAS);
-            fkassencolBallas.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, fkassencolBallas.Dimension);
+            fkassencolBallas.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, fkassencolBallas.Dimension);
             //////////////////////////////      
 
             //////////////////////////////      
             ColShapeModel fkassencolCompton = RageAPI.CreateColShapeSphere(new Position(259.6794f, -1004.043f, -99f), 0.3f, Constants.FACTION_COMPTON);
-            fkassencolCompton.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COMPTON);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, fkassencolCompton.Dimension);
+            fkassencolCompton.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COMPTON);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, fkassencolCompton.Dimension);
             //////////////////////////////      
 
 
             //////////////////////////////      
             ColShapeModel fkassencolMS13 = RageAPI.CreateColShapeSphere(new Position(-1287.002f, 456.257f, 90.29469f), 0.3f, Constants.FACTION_NARCOS);
-            fkassencolMS13.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NARCOS);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 220, 220, 220, 255 }, fkassencolMS13.Dimension);
+            fkassencolMS13.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NARCOS);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 220, 220, 220, 255 }, fkassencolMS13.Dimension);
             //////////////////////////////      
 
             //////////////////////////////      
             ColShapeModel fkassencolSAMCRO = RageAPI.CreateColShapeSphere(new Position(971.9218f, -98.68291f, 74.84641f), 0.3f, Constants.FACTION_SAMCRO);
-            fkassencolSAMCRO.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
-            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.Position, 20.0f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, fkassencolSAMCRO.Dimension);
+            fkassencolSAMCRO.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            Core.RageAPI.CreateTextLabel("Gang - Kasse", fkassencolBallas.CurrentPosition, 20.0f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, fkassencolSAMCRO.Dimension);
             //////////////////////////////      
 
 
             ///////////////////////////////////
             ColShapeModel fkassencolNEWS = RageAPI.CreateColShapeSphere(new Position(-537.0566f, -886.5463f, 25.20651f), 2);
-            fkassencolNEWS.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fkassencolNEWS.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
             Core.RageAPI.CreateTextLabel("News - Kasse", new Position(-537.0566f, -886.5463f, 25.20651f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 });
             //////////////////////////////      
             //////////////////////////////////////
             ColShapeModel fskincolNEWS = RageAPI.CreateColShapeSphere(new Position(-575.1335f, -939.9796f, 23.8616f), 2);
-            fskincolNEWS.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
-            fskincolNEWS.Entity.vnxSetElementData("NEUTRALMARKER", true);
+            fskincolNEWS.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NEWS);
+            fskincolNEWS.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(-575.1335f, -939.9796f, 23.8616f), 20.0f, 0.75f, 4, new int[] { 200, 200, 0, 255 }, fskincolNEWS.Dimension);
             //////////////////////////////               
             //////////////////////////////////////
             ColShapeModel fskincolMechanik = RageAPI.CreateColShapeSphere(new Position(472.56262f, -1309.5428f, 29.229248f), 2);
-            fskincolMechanik.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MECHANIK);
-            fskincolMechanik.Entity.vnxSetElementData("NEUTRALMARKER", true);
+            fskincolMechanik.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_MECHANIK);
+            fskincolMechanik.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(472.56262f, -1309.5428f, 29.229248f), 20.0f, 0.75f, 4, new int[] { 200, 200, 200, 255 });
             //////////////////////////////               
             /////////////////////////////////////////
             ColShapeModel fskincolMEDIC = RageAPI.CreateColShapeSphere(new Position(326.3686f, -559.8064f, 28.74379f), 2);
-            fskincolMEDIC.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
-            fskincolMEDIC.Entity.vnxSetElementData("NEUTRALMARKER", true);
+            fskincolMEDIC.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_EMERGENCY);
+            fskincolMEDIC.vnxSetElementData("NEUTRALMARKER", true);
             RageAPI.CreateTextLabel("Fraktion - Skin", new Position(326.3686f, -559.8064f, 28.74379f), 20.0f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolMEDIC.Dimension);
             //////////////////////////////            
 
             //////////////////////////////      
             ColShapeModel fskincolLCN = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f, Constants.FACTION_LCN);
-            fskincolLCN.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
-            fskincolLCN.Entity.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolLCN.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_LCN);
+            fskincolLCN.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_LCN);
 
             //////////////////////////////       
@@ -97,31 +97,31 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             ColShapeModel fskincolYAKUZA = RageAPI.CreateColShapeSphere(new Vector3(344.0552f, -1003.21f, -99f), 0.3f, Constants.FACTION_YAKUZA);
             fskincolYAKUZA.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_YAKUZA);
             fskincolYAKUZA.vnxSetElementData("GANGSKINMARKER", true);
-            RageAPI.CreateTextLabel("Gang - Skin", fskincolYAKUZA.Position, 20f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolYAKUZA.Dimension);
+            RageAPI.CreateTextLabel("Gang - Skin", fskincolYAKUZA.CurrentPosition, 20f, 0.75f, 4, new int[] { 200, 0, 0, 255 }, fskincolYAKUZA.Dimension);
             /// //////////////////////////////      
 
 
             ColShapeModel fskincolBallas = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolBallas.Entity.Dimension = Constants.FACTION_BALLAS;
-            fskincolBallas.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
-            fskincolBallas.Entity.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolBallas.Dimension = Constants.FACTION_BALLAS;
+            fskincolBallas.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_BALLAS);
+            fskincolBallas.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 138, 43, 226, 255 }, Constants.FACTION_BALLAS);
 
             ColShapeModel fskincolCompton = RageAPI.CreateColShapeSphere(new Position(265.5594f, -995.382f, -99f), 0.3f);
-            fskincolCompton.Entity.Dimension = Constants.FACTION_COMPTON;
-            fskincolCompton.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COMPTON);
-            fskincolCompton.Entity.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolCompton.Dimension = Constants.FACTION_COMPTON;
+            fskincolCompton.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_COMPTON);
+            fskincolCompton.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_COMPTON);
 
             ColShapeModel fskincolMS13 = RageAPI.CreateColShapeSphere(new Position(-1285.856f, 446.7924f, 97.89468f), 0.3f);
-            fskincolMS13.Entity.Dimension = Constants.FACTION_NARCOS;
-            fskincolMS13.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NARCOS);
-            fskincolMS13.Entity.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolMS13.Dimension = Constants.FACTION_NARCOS;
+            fskincolMS13.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_NARCOS);
+            fskincolMS13.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(265.5594f, -995.382f, -99f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_NARCOS);
 
             ColShapeModel fskincolSAMCRO = RageAPI.CreateColShapeSphere(new Position(983.1344f, -98.7942f, 74.84556f), 0.3f);
-            fskincolSAMCRO.Entity.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
-            fskincolSAMCRO.Entity.vnxSetElementData("GANGSKINMARKER", true);
+            fskincolSAMCRO.vnxSetElementData(EntityData.PLAYER_FACTION, Constants.FACTION_SAMCRO);
+            fskincolSAMCRO.vnxSetElementData("GANGSKINMARKER", true);
             RageAPI.CreateTextLabel("Gang - Skin", new Position(983.1344f, -98.7942f, 74.84556f), 20f, 0.75f, 4, new int[] { 175, 175, 0, 255 }, Constants.FACTION_SAMCRO);
         }
 
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {

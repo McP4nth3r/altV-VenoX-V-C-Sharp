@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.SWT
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {

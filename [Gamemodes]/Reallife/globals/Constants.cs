@@ -3422,7 +3422,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new CarShopVehicleModel("Nero", AltV.Net.Enums.VehicleModel.Nero, 0, VEHICLE_CLASS_SPORTS, 380000),
             new CarShopVehicleModel("XA21", AltV.Net.Enums.VehicleModel.XA21, 0, VEHICLE_CLASS_SPORTS, 389000),
             new CarShopVehicleModel("FMJ", AltV.Net.Enums.VehicleModel.FMJ, 0, VEHICLE_CLASS_SPORTS, 347000),
-            new CarShopVehicleModel("EntityXF", AltV.Net.Enums.VehicleModel.EntityXF, 0, VEHICLE_CLASS_SPORTS, 325000),
+            new CarShopVehicleModel("EntityXF", AltV.Net.Enums.VehicleModelXF, 0, VEHICLE_CLASS_SPORTS, 325000),
             new CarShopVehicleModel("Cheetah", AltV.Net.Enums.VehicleModel.Cheetah, 0, VEHICLE_CLASS_SPORTS, 260000),
             new CarShopVehicleModel("Adder", AltV.Net.Enums.VehicleModel.Adder, 0, VEHICLE_CLASS_SPORTS, 310000),
             new CarShopVehicleModel("Sheava", AltV.Net.Enums.VehicleModel.Sheava, 0, VEHICLE_CLASS_SPORTS, 368000),

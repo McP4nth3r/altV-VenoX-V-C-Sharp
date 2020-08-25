@@ -21,11 +21,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         public static MarkerModel RathausMarkerImInterior = RageAPI.CreateMarker(0, new Vector3(-546.1301f, -202.6208f, 38.30002f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
         public static MarkerModel RathausMarkerEingang = RageAPI.CreateMarker(0, new Vector3(-1285.1868f, -566.53186f, 31.706177f), new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 });
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == RathausColShapeModel.Entity)
+                if (shape == RathausColShapeModel)
                 {
                     string PERSO_BTN = "Personalausweis";
                     string CAR_BTN = "Führerschein";
@@ -239,11 +239,11 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 ColShapeModel colClass = RageAPI.CreateColShapeSphere(Position, Scale, player.Dimension);
                 player.vnxSetElementData(DRIVINGSCHOOL_MARKER_ENTITY, markerClass);
                 player.vnxSetElementData(DRIVINGSCHOOL_BLIP_ENTITY, blipClass);
-                player.vnxSetElementData(DRIVINGSCHOOL_COL_ENTITY, colClass.Entity);
+                player.vnxSetElementData(DRIVINGSCHOOL_COL_ENTITY, colClass);
                 player.vnxSetElementData(DRIVINGSCHOOL_COLCLASS_ENTITY, colClass);
                 CurrentDrivingSchoolMarker.Add(markerClass);
                 CurrentDrivingSchoolBlips.Add(blipClass);
-                CurrentDrivingSchoolColShapes.Add(colClass.Entity);
+                CurrentDrivingSchoolColShapes.Add(colClass);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolMarker", ex); }
         }
@@ -293,7 +293,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
         public const string DRIVINGSCHOOL_LICENSE_CAR = "DRIVINGSCHOOL_LICENSE_CAR";
         public const string DRIVINGSCHOOL_LICENSE_BIKE = "DRIVINGSCHOOL_LICENSE_BIKE";
         public const string DRIVINGSCHOOL_LICENSE_LKW = "DRIVINGSCHOOL_LICENSE_LKW";
-        public static void OnColShapeHit(IColShape shape, VnXPlayer player)
+        public static void OnColShapeHit(ColShapeModel shape, VnXPlayer player)
         {
             try
             {

@@ -122,7 +122,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                         int rotation = NPC_Spawns.ElementAt(RandomEntry).Value;
                         foreach (ColShapeModel col in NPC_Cols)
                         {
-                            if (col.Position == position) // Doppelte Erstellung verhindern.
+                            if (col.CurrentPosition == position) // Doppelte Erstellung verhindern.
                             {
                                 CreateNewNPC();
                                 return;
@@ -130,11 +130,11 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                         }
                         int GetRandomNPCs = GetRandomNPC();
                         ColShapeModel Col = RageAPI.CreateColShapeSphere(position, 2.25f);
-                        Col.Entity.SetData(NPC_COLSHAPE, true);
-                        Col.Entity.SetData(NPC_COLSHAPE_ID, RandomEntry);
-                        Col.Entity.SetData(NPC_POSITION, position);
-                        Col.Entity.SetData(NPC_ROTATION, rotation);
-                        Col.Entity.SetData(NPC_RANDOM_ID, GetRandomNPCs);
+                        Col.vnxSetElementData(NPC_COLSHAPE, true);
+                        Col.vnxSetElementData(NPC_COLSHAPE_ID, RandomEntry);
+                        Col.vnxSetElementData(NPC_POSITION, position);
+                        Col.vnxSetElementData(NPC_ROTATION, rotation);
+                        Col.vnxSetElementData(NPC_RANDOM_ID, GetRandomNPCs);
                         NPC_Cols.Add(Col);
                         CreateRandomNPC(Col, rotation);
                         Debug.OutputDebugString("[NPC-System] : Spawned at " + position + " with Rotation : " + rotation + " | " + GetRandomNPCs);
@@ -182,9 +182,9 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         {
             try
             {
-                int Data = col.Entity.vnxGetElementData<int>(NPC_RANDOM_ID);
-                Vector3 coord = col.Entity.vnxGetElementData<Vector3>(NPC_POSITION);
-                int Rotation = col.Entity.vnxGetElementData<int>(NPC_ROTATION);
+                int Data = col.vnxGetElementData<int>(NPC_RANDOM_ID);
+                Vector3 coord = col.vnxGetElementData<Vector3>(NPC_POSITION);
+                int Rotation = col.vnxGetElementData<int>(NPC_ROTATION);
                 string SkinHashKey = "";
                 string SkinKarmaEntity = "";
                 string SkinWindowText = "";
@@ -292,14 +292,14 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                     SkinButton2Text = "Ablehnen";
 
                 }
-                col.Entity.SetData(NPC_ENTITY_SKINHASHKEY, SkinHashKey);
-                col.Entity.SetData(NPC_ENTITY_KARMA, SkinKarmaEntity);
-                col.Entity.SetData(NPC_ENTITY_LABEL, SkinTextLabel);
-                col.Entity.SetData(NPC_ENTITY_WINDOW_TEXT, SkinWindowText);
-                col.Entity.SetData(NPC_ENTITY_BUTTON1_TEXT, SkinButton1Text);
-                col.Entity.SetData(NPC_ENTITY_BUTTON2_TEXT, SkinButton2Text);
-                NPCPeds.Add(RageAPI.CreateNPC(SkinHashKey, new Vector3(col.Position.X, col.Position.Y, col.Position.Z + 0.5f), new Vector3(0, 0, rotation), 0, null));
-                NPCLabels.Add(RageAPI.CreateTextLabel(SkinTextLabel, new Vector3(col.Position.X, col.Position.Y, col.Position.Z + 1.25f), 10f, 0.6f, 0, new int[] { 255, 255, 255, 255 }, 0));
+                col.vnxSetElementData(NPC_ENTITY_SKINHASHKEY, SkinHashKey);
+                col.vnxSetElementData(NPC_ENTITY_KARMA, SkinKarmaEntity);
+                col.vnxSetElementData(NPC_ENTITY_LABEL, SkinTextLabel);
+                col.vnxSetElementData(NPC_ENTITY_WINDOW_TEXT, SkinWindowText);
+                col.vnxSetElementData(NPC_ENTITY_BUTTON1_TEXT, SkinButton1Text);
+                col.vnxSetElementData(NPC_ENTITY_BUTTON2_TEXT, SkinButton2Text);
+                NPCPeds.Add(RageAPI.CreateNPC(SkinHashKey, new Vector3(col.CurrentPosition.X, col.CurrentPosition.Y, col.CurrentPosition.Z + 0.5f), new Vector3(0, 0, rotation), 0, null));
+                NPCLabels.Add(RageAPI.CreateTextLabel(SkinTextLabel, new Vector3(col.CurrentPosition.X, col.CurrentPosition.Y, col.CurrentPosition.Z + 1.25f), 10f, 0.6f, 0, new int[] { 255, 255, 255, 255 }, 0));
             }
             catch { }
         }

@@ -22,11 +22,11 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == Kokaintruck_Col.Entity)
+                if (shape == Kokaintruck_Col)
                 {
                     if (Factions.Allround.isBadFaction(player))
                     {

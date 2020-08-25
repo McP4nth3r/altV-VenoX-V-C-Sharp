@@ -101,7 +101,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                if (shape == player.Race.LastColShapeModel.Entity && player.IsInVehicle)
+                if (shape == player.Race.LastColShapeModel && player.IsInVehicle)
                 {
                     CreateRaceMarker(player);
                 }

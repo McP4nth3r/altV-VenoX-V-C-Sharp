@@ -103,7 +103,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, IEntity entity)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, IEntity entity)
         {
             try
             {
@@ -133,8 +133,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
         }
-
-
+        private static void DeleteVehicleThreadSafe()
+        {
+            foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
+            {
+                if (vehClass.MarkedForDelete) { vehClass.Remove(); }
+                if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass)) { VenoXV.Globals.Main.AllVehicles.Remove(vehClass); }
+            }
+        }
 
 
         public static void SyncWeather(VnXPlayer player)
@@ -302,6 +308,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 }
                 Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
                 anzeigen.Usefull.VnX.SaveIVehicleDatas();
+                DeleteVehicleThreadSafe();
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpent", ex); }

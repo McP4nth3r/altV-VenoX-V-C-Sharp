@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
@@ -18,11 +17,11 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         }
 
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == ClothesShape.Entity)
+                if (shape == ClothesShape)
                 {
                     if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
                     {

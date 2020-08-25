@@ -14,15 +14,15 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
         //Marker Adventskalender_Marker = //ToDo Create Marker NAPI.Marker.CreateMarker(0, Adventskalender_Col.position, new Position(0, 0, 0), new Position(0, 0, 0), 2, new Rgba(0, 150, 200), true, 0);
         public static ColShapeModel Markt_Col = RageAPI.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
 
-        public static void OnPlayerEnterColShapeModel(IColShape shape, VnXPlayer player)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == Markt_Col.Entity)
+                if (shape == Markt_Col)
                 {
                     Alt.Server.TriggerClientEvent(player, "CreateChristmasMarketWindow");
                 }
-                else if (shape == Adventskalender_Col.Entity)
+                else if (shape == Adventskalender_Col)
                 {
                     Alt.Server.TriggerClientEvent(player, "CreateAdventskalenderWindow");
                 }

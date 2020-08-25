@@ -21,12 +21,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static ColShapeModel PaynSpray_3 = RageAPI.CreateColShapeSphere(new Position(1174.6108f, 2641.1277f, 37.0905f), 2);
         public static ColShapeModel PaynSpray_4 = RageAPI.CreateColShapeSphere(new Position(-1155.225f, -2005.886f, 13.1803f), 2);
 
-        private static readonly List<IColShape> PaynSprayList = new List<IColShape>
+        private static readonly List<ColShapeModel> PaynSprayList = new List<ColShapeModel>
         {
-            PaynSpray_1.Entity,
-            PaynSpray_2.Entity,
-            PaynSpray_3.Entity,
-            PaynSpray_4.Entity
+            PaynSpray_1,
+            PaynSpray_2,
+            PaynSpray_3,
+            PaynSpray_4
         };
 
         public static void OnResourceStart()
@@ -41,7 +41,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                if (PaynSprayList.Contains(forpaynspray))
+                if (PaynSprayList.Contains((ColShapeModel)forpaynspray))
                 {
                     if (!player.IsInVehicle) { return; }
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
