@@ -26,27 +26,19 @@ namespace VenoXV.Core
         {
             try
             {
-                IColShape Entity = Alt.CreateColShapeSphere(Position, Radius);
+                ColShapeModel Entity = (ColShapeModel)Alt.CreateColShapeSphere(Position, Radius);
                 Entity.Dimension = Dimension;
-                ColShapeModel ColShape = new ColShapeModel
-                {
-
-                    Entity = Entity,
-                    Position = Position,
-                    Radius = Radius,
-                    Dimension = Dimension
-                };
-                Sync.ColShapeList.Add(ColShape);
-                return ColShape;
+                Sync.ColShapeList.Add(Entity);
+                return Entity;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateColShapeSphere", ex); return new ColShapeModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateColShapeSphere", ex); return null; }
         }
 
         public static void RemoveColShape(ColShapeModel ColShape)
         {
             try
             {
-                if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape.Entity); Sync.ColShapeList.Remove(ColShape); }
+                if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape); Sync.ColShapeList.Remove(ColShape); }
             }
             catch (Exception ex) { Debug.CatchExceptions("RemoveColShape", ex); }
         }
@@ -410,6 +402,21 @@ namespace VenoXV.Core
                 return obj;
             }
             catch (Exception ex) { Debug.CatchExceptions("CreateObject", ex); return new ObjectModel(); }
+        }
+
+        public static void DeleteVehicleThreadSafe(VehicleModel vehicleClass)
+        {
+            try
+            {
+                if (vehicleClass is null) { return; }
+                vehicleClass.Dimension = 99998;
+                vehicleClass.EngineOn = false;
+                vehicleClass.Locked = true;
+                vehicleClass.MarkedForDelete = true;
+                if (!Globals.Main.AllVehicles.Contains(vehicleClass)) { Globals.Main.AllVehicles.Add(vehicleClass); }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DeleteVehicleThreadSafe", ex); }
+
         }
 
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, VnXPlayer VisibleOnlyFor = null)
