@@ -58,10 +58,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                     }
                 }
-                else
-                {
-                    Core.Debug.OutputDebugString("OnPlayerEnterColShape : " + forpaynspray);
-                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShapeModel", ex); }
         }

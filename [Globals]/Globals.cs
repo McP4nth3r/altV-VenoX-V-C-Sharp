@@ -108,9 +108,10 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (!(entity is VnXPlayer player)) return;
+                if (!(entity is VnXPlayer player)) { Core.Debug.OutputDebugString("Other Entity : " + entity); return; }
                 if (state)
                 {
+                    Debug.OutputDebugString(player.Username + " Entered a ColShape");
                     switch (player.Gamemode)
                     {
                         case (int)Preload.Gamemodes.Reallife:
@@ -124,7 +125,11 @@ namespace VenoXV.Globals
                             return;
                     }
                 }
-                if (state == false) { _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player); }
+                if (state == false)
+                {
+                    Core.Debug.OutputDebugString(player.Username + " Left a ColShape");
+                    _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
+                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
         }

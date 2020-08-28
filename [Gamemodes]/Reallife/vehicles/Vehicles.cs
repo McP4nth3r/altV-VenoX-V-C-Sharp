@@ -134,6 +134,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         if (Vehicle.Faction == fraktionsID && Vehicle.Driver == null)
                         {
+                            foreach (VnXPlayer passenger in Vehicle.Passenger.ToList()) { if (passenger != null) passenger.WarpOutOfVehicle(); }
                             Vehicle.Position = Vehicle.SpawnCoord;
                             Vehicle.Rotation = Vehicle.SpawnRot;
                             Vehicle.Kms = 0;
@@ -141,7 +142,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                             Vehicle.Frozen = true;
                             Vehicle.Repair();
                         }
-                        foreach (VnXPlayer passenger in Vehicle.Passenger.ToList()) { passenger.WarpOutOfVehicle(); }
                     }
                     Faction.CreateFactionInformation(fraktionsID, player.Username + " hat die Fraktion´s Fahrzeuge Respawned!");
                 }

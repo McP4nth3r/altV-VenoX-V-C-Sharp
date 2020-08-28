@@ -103,33 +103,29 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, IEntity entity)
+        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == null || entity == null) { return; }
-                if (entity is VnXPlayer player)   //We Check if the Entity is the player.
-                {
-                    factions.State.Allround.OnStateColShapeHit(shape, player);
-                    CarShop.OnPlayerEnterColShapeModel(shape, player);
-                    Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
-                    Rathaus.OnPlayerEnterColShapeModel(shape, player);
-                    Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
-                    events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
-                    Rathaus.OnColShapeHit(shape, player);
-                    Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
-                    Emergency.OnPlayerEnterColShapeModel(shape, player);
-                    Fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
-                    Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
-                    Fun.Allround.OnClientEnterColShape(shape, player);
-                    gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
-                    jobs.Allround.OnColShapeHit(shape, player);
-                    Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
-                    Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
-                    Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
-                    Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
-                }
+                factions.State.Allround.OnStateColShapeHit(shape, player);
+                CarShop.OnPlayerEnterColShapeModel(shape, player);
+                Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
+                Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
+                Rathaus.OnPlayerEnterColShapeModel(shape, player);
+                Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
+                events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
+                Rathaus.OnColShapeHit(shape, player);
+                Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
+                Emergency.OnPlayerEnterColShapeModel(shape, player);
+                Fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
+                Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
+                Fun.Allround.OnClientEnterColShape(shape, player);
+                gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
+                jobs.Allround.OnColShapeHit(shape, player);
+                Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
+                Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
         }

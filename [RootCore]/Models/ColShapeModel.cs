@@ -9,9 +9,14 @@ namespace VenoXV._RootCore_.Models
     {
         public Vector3 CurrentPosition { get; set; }
         public float Radius { get; set; }
+        public int Faction { get; set; }
+        public bool GangSkinCol { get; set; }
+        public bool NeutralSkinCol { get; set; }
         public ColShapeModel(IntPtr nativePointer) : base(nativePointer)
         {
-
+            Faction = 0;
+            GangSkinCol = false;
+            NeutralSkinCol = false;
         }
     }
     public class MyColShapeFactory : IBaseObjectFactory<IColShape>
