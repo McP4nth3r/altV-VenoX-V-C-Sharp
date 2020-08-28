@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.admin;
@@ -264,7 +263,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralFaction", ex); return false; }
         }
         public static bool isStateFaction(VnXPlayer player)
         {
@@ -277,7 +276,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("IsStateFaction", ex); return false; }
         }
         public static bool isStateIVehicle(VehicleModel Vehicle)
         {
@@ -290,7 +289,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("isStateIVehicle", ex); return false; }
         }
 
         public static bool isBadIVehicle(VehicleModel Vehicle)
@@ -304,7 +303,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("isBadIVehicle", ex); return false; }
         }
         public static bool isNeutralIVehicle(VehicleModel Vehicle)
         {
@@ -317,7 +316,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralIVehicle", ex); return false; }
         }
 
 
@@ -332,7 +331,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralFaction", ex); return false; }
         }
 
 
