@@ -4,6 +4,7 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
+import * as game from "natives";
 import { vnxCreateCEF } from '../../VnX-Lib';
 
 let speedo = vnxCreateCEF("Tacho", "Globals/Anzeigen/tacho/speedometer.html");
@@ -33,7 +34,7 @@ alt.setInterval(() => {
 				showed = true;
 			}
 			//Get vehicle infos
-			let vel = alt.Player.local.vehicle.speed * 3.6;
+			let vel = (game.getEntitySpeed(alt.Player.local.vehicle.scriptID) * 3.6);
 			let rpm = alt.Player.local.vehicle.rpm * 1000;
 			gas = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_GAS');
 			kmS = alt.Player.local.vehicle.getStreamSyncedMeta('VEHICLE_KMS');
