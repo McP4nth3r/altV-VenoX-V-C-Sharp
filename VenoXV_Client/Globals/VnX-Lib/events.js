@@ -41,6 +41,15 @@ alt.onServer('Player:Freeze', (bool) => {
     }
     catch{ }
 });
+alt.onServer('Player:FreezeAfterMS', (MS, bool) => {
+    try {
+        alt.setTimeout(() => {
+            game.freezeEntityPosition(LocalPlayer.scriptID, bool);
+        }, MS);
+    }
+    catch{ }
+});
+
 
 alt.onServer('Player:Spawn', () => {
     try {
@@ -81,7 +90,6 @@ alt.onServer("movecamtocurrentpos_client", () => {
             CalledToSpawn = true;
             ShowCursor(false);
             alt.setTimeout(() => {
-                FreezeClient(false);
                 moveFromToAir(LocalPlayer, 'down');
                 CalledToSpawn = false;
             }, 8000);
