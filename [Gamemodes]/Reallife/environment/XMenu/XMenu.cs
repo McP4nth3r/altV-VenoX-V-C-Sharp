@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
+using System;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -21,17 +22,18 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         }
 
         [ClientEvent("XMenu:ApplyServerButtonVehicle")]
-        public static void OnXMenuButtonPressedVehicle(VnXPlayer player, int Button, VehicleModel vehicle)
+        public static void OnXMenuButtonPressedVehicle(VnXPlayer player, int Button, VehicleModel vehicle = null)
         {
             try
             {
                 if (vehicle == null) { return; }
-                if (!IsVehicleOwner(player, vehicle)) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nicht der Besitzer dieses Fahrzeuges!"); return; }
+                if (!IsVehicleOwner(player, vehicle)) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nicht der Besitzer dieses Fahrzeuges!"); return; }
+                if (vehicle.Gas <= 0) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "[Fehler] : Fahrzeug tank ist leer..."); return; }
                 switch (Button)
                 {
                     case 9900:
-                        if (vehicle.LockState == AltV.Net.Enums.VehicleLockState.Locked) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 150, 0) + "Fahrzeug aufgeschlossen!"); vehicle.LockState = AltV.Net.Enums.VehicleLockState.Unlocked; }
-                        else { vehicle.LockState = AltV.Net.Enums.VehicleLockState.Locked; player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(150, 0, 0) + "Fahrzeug abgeschlossen!"); }
+                        if (vehicle.LockState == AltV.Net.Enums.VehicleLockState.Locked) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Fahrzeug aufgeschlossen!"); vehicle.LockState = AltV.Net.Enums.VehicleLockState.Unlocked; }
+                        else { vehicle.LockState = AltV.Net.Enums.VehicleLockState.Locked; player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + "Fahrzeug abgeschlossen!"); }
                         break;
 
                     case 9901:
@@ -47,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
                         break;
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("OnXMenuButtonPressedVehicle", ex); }
         }
 
         [ClientEvent("XMenu:ApplyServerButton")]
