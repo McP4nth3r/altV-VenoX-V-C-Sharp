@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         public static DateTime SEVENTOWERS_ROUND_WILL_START = DateTime.Now;
         public static DateTime SEVENTOWERS_ROUND_JOINTIME_TILL_START = DateTime.Now;
         public static List<SpawnModel> SevenTowerSpawns = maps.main.Spawns.SpawnCoords;
-        public static string CURRENT_WINNER = "Niemand ";
+        public static string CURRENT_WINNER = "Niemand";
 
         public static readonly List<Vector3> SevenTowersCheckPoints = new List<Vector3>()
         {
@@ -355,7 +355,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 if (CurrentlyInRound.Contains(playerClass)) { CurrentlyInRound.Remove(playerClass); }
                 if (playerClass.SevenTowers.Spawned)
                 {
-                    if (playerClass.IsInVehicle) { playerClass.Vehicle.Remove(); }
+                    if (playerClass.IsInVehicle) Core.RageAPI.DeleteVehicleThreadSafe((VehicleModel)playerClass.Vehicle);
                     playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
                     playerClass.DespawnPlayer();
                     playerClass.SetPlayerAlpha(0);
@@ -364,7 +364,10 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     if (CurrentlyInRound.Count <= 1) { EndRound(); }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:TakePlayerFromRound", ex); }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions("SevenTowers:TakePlayerFromRound", ex);
+            }
         }
 
         public static void PlayerLeaveVehicle(VehicleModel vehicle, VnXPlayer playerClass)
@@ -372,9 +375,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             try
             {
                 if (playerClass.SevenTowers.Spawned && playerClass.SevenTowers.SpawnedTime <= DateTime.Now)
-                {
                     TakePlayerFromRound(playerClass);
-                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerLeaveVehicle", ex); }
         }

@@ -141,10 +141,7 @@ namespace VenoXV.Globals
             {
                 player.DespawnPlayer();
                 VnXPlayer killer = null;
-                if (entity is VnXPlayer entity_k)
-                {
-                    killer = entity_k;
-                }
+                if (entity is VnXPlayer entity_k) { killer = entity_k; }
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:

@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -11,34 +12,25 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
 {
     public class Weapons : IScript
     {
+        public static Dictionary<string, WeaponModel> WeaponHashList = new Dictionary<string, WeaponModel>
+        {
+            { Constants.ITEM_HASH_SWITCHBLADE, WeaponModel.Switchblade },
+            { Constants.ITEM_HASH_NIGHTSTICK, WeaponModel.Nightstick },
+            { Constants.ITEM_HASH_TAZER, WeaponModel.StunGun },
+            { Constants.ITEM_HASH_PISTOLE, WeaponModel.Pistol },
+            { Constants.ITEM_HASH_PISTOLE50, WeaponModel.Pistol50 },
+            { Constants.ITEM_HASH_REVOLVER, WeaponModel.HeavyRevolver },
+            { Constants.ITEM_HASH_PDW, WeaponModel.CombatPDW },
+            { Constants.ITEM_HASH_MP5, WeaponModel.SMG },
+            { Constants.ITEM_HASH_ADVANCEDRIFLE, WeaponModel.AdvancedRifle },
+            { Constants.ITEM_HASH_KARABINER, WeaponModel.CarbineRifle },
+            { Constants.ITEM_HASH_AK47, WeaponModel.AssaultRifle },
+            { Constants.ITEM_HASH_RIFLE, WeaponModel.Musket },
+        };
         public static WeaponModel GetWeaponByHashName(string HashName)
         {
-            Debug.OutputDebugString(HashName);
-            switch (HashName)
-            {
-                case Constants.ITEM_HASH_PISTOLE:
-                    return WeaponModel.Pistol;
-                case Constants.ITEM_HASH_PISTOLE50:
-                    return WeaponModel.Pistol50;
-                case Constants.ITEM_HASH_REVOLVER:
-                    return WeaponModel.HeavyRevolver;
-                case Constants.ITEM_HASH_PDW:
-                    return WeaponModel.CombatPDW;
-                case Constants.ITEM_HASH_MP5:
-                    return WeaponModel.SMG;
-                case Constants.ITEM_HASH_ADVANCEDRIFLE:
-                    return WeaponModel.AdvancedRifle;
-                case Constants.ITEM_HASH_KARABINER:
-                    return WeaponModel.CarbineRifle;
-                case Constants.ITEM_HASH_RIFLE:
-                    return WeaponModel.Musket;
-                case Constants.ITEM_HASH_AK47:
-                    return WeaponModel.AssaultRifle;
-                default:
-                    Debug.OutputDebugString("Not Found " + HashName);
-                    break;
-            }
-            return WeaponModel.Fist;
+            if (!WeaponHashList.ContainsKey(HashName)) { Debug.OutputDebugString("Weapon not Found : " + HashName); return WeaponModel.Fist; }
+            return WeaponHashList[HashName];
         }
 
         private static void GivePistolAmmo(VnXPlayer player, int ammo)

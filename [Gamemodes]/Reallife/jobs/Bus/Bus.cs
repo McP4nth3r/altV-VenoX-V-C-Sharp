@@ -154,7 +154,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 Allround.DestroyJobMarker(player);
                 player.SetPosition = AbgabepunkteLVLONE[0];
                 player.Reallife.JobStage = 0;
-                Core.Debug.OutputDebugString("JobStage : " + player.Reallife.JobStage);
             }
         }
     }

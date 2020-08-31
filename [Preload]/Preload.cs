@@ -157,6 +157,7 @@ namespace VenoXV._Preload_
             try
             {
                 Loading.Main.ShowLoadingScreen(player);
+                GetAllPlayersInAllGamemodes(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
         }

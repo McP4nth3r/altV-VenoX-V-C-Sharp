@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             try
             {
                 if (CurrentMap != null) { foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList()) { if (spawn.Spawned) spawn.Spawned = false; } }
-                foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { vehClass.Remove(); } }
+                foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { RageAPI.DeleteVehicleThreadSafe(vehClass); } }
                 foreach (VnXPlayer racePlayers in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
                     if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
