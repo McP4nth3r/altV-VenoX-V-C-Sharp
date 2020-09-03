@@ -7,7 +7,6 @@ using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -139,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (isStateFaction(player))
                     {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
+                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
                         Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
@@ -175,7 +174,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (isStateFaction(player))
                     {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(Constants.FACTION_LSPD);
+                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
                         Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
 
                         "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
@@ -211,7 +210,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     if (isBadFaction(player))
                     {
-                        Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
+                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
                         Alt.Server.TriggerClientEvent(player, "showBadWeaponWindow",
 
                         "Baseball [" + fweapon.weapon_baseball + "/" + Constants.BASEBALL_MAX_LAGER + "]",
@@ -370,7 +369,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_Enter;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
 
@@ -384,7 +383,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Exit;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
 
@@ -397,7 +396,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Enter;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
                 }
@@ -426,7 +425,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = YAKUZA_Teleport_Base_Enter;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
                 }
@@ -531,7 +530,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_Enter;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
 
@@ -585,7 +584,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.SetPosition = Ballas_Teleport_Base_Enter;
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
                 }
@@ -614,7 +613,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.SetPosition = Compton_Teleport_Base_Enter;
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }
                 }
@@ -647,7 +646,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         Core.VnX.SetDelayedBoolSharedData(player, "TELEPORT_ANTICHEAT_COOLDOWN", false, 3000);
                         
                         player.SetPosition = SAM_Teleport_Base_Enter;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         return true;
                     }*/
                 }

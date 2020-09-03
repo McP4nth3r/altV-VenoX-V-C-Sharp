@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
         }
 
-        public static VehicleModel CreateDrivingSchoolVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = 0, bool WarpIntoVehicle = true)
+        public static VehicleModel CreateDrivingSchoolVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, bool WarpIntoVehicle = true)
         {
             try
             {
@@ -362,7 +362,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     if (CurrentDrivingSchoolVehicles.Contains(playerVeh)) { CurrentDrivingSchoolVehicles.Remove(playerVeh); }
                     playerVeh.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = 0;
+                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     DestroyDrivingSchoolMarker(player);

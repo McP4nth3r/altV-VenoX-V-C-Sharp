@@ -49,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             try
             {
                 player.vnxSetStreamSharedElementData("HideHUD", 0);
-                player.Dimension = 0;
+                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                 anzeigen.Usefull.VnX.ResetDiscordData(player);
                 dxLibary.VnX.SetElementFrozen(player, false);
             }

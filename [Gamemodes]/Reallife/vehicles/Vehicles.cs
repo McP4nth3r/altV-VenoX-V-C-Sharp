@@ -264,8 +264,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (Snack == null) // Kanister
                 {
                     Snack = new ItemModel();
-                    Snack.amount = Snack.amount + 1;
-                    Snack.dimension = 0;
+                    Snack.amount += 1;
+                    Snack.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     Snack.position = new Position(0.0f, 0.0f, 0.0f);
                     Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
                     Snack.ownerIdentifier = player.UID;
@@ -305,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     Kanister = new ItemModel();
                     Kanister.amount = Kanister.amount + 1;
-                    Kanister.dimension = 0;
+                    Kanister.dimension = 1;
                     Kanister.position = new Position(0.0f, 0.0f, 0.0f);
                     Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
                     Kanister.ownerIdentifier = player.UID;

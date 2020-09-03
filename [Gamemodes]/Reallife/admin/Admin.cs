@@ -283,7 +283,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                     if (targetplayer != null)
                     {
                         //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                        targetplayer.Dimension = 0;
+                        targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                         anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
                         targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, 0);
@@ -402,7 +402,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 //AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                player.Dimension = 0;
+                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                 player.SetPosition = new Position(posX, posY, posZ);
                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                 player.vnxSetElementData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
@@ -852,7 +852,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
                         player.SendTranslatedChatMessage("[GW] Teleported to '" + area.Name + "'.");
                         player.SetPosition = area.TK;
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     }
                 }
 

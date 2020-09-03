@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     CreateNewLogin_Cam(player, GetRandomNumber(), new_lastNumber);
                     return;
                 }
-                player.Dimension = 0;
+                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                 //ToDo : ZwischenLösung Finden! player.Transparency = 0;
                 Vector3 StartPosition = new Vector3();
                 Vector3 EndPosition = new Vector3();
@@ -309,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     string owner = Vehicle.Owner;
                     if (owner != null && owner == player.Username)
                     {
-                        Vehicle.Dimension = 0;
+                        Vehicle.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     }
                 }
                 // Give the weapons to the player

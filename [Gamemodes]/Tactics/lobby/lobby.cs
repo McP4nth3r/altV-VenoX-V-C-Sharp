@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         public static int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
         public static int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
         public static int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
-        public static int TACTIC_PLAYER_DIMENSION = 10;
+        public static int TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 

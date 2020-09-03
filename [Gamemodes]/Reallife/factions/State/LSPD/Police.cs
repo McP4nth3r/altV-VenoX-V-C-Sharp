@@ -353,7 +353,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     int playermoney = player.Reallife.Money;
                     int playerId = player.UID;
 
-                    Fraktions_Waffenlager fweapon = Database.GetFactionWaffenlager(player.Reallife.Faction);
+                    WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
                     //Waffen Datas = 
 
                     int weapon_knuckle = fweapon.weapon_knuckle;
@@ -411,7 +411,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 BASEBALL = new ItemModel();
                                 BASEBALL.amount = 0;
-                                BASEBALL.dimension = 0;
+                                BASEBALL.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 BASEBALL.position = new Position(0.0f, 0.0f, 0.0f);
                                 BASEBALL.hash = Constants.ITEM_HASH_BASEBALL;
                                 BASEBALL.ownerIdentifier = playerId;
@@ -442,7 +442,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 PISTOLE = new ItemModel();
                                 PISTOLE.amount = 0;
-                                PISTOLE.dimension = 0;
+                                PISTOLE.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 PISTOLE.position = new Position(0.0f, 0.0f, 0.0f);
                                 PISTOLE.hash = Constants.ITEM_HASH_PISTOLE;
                                 PISTOLE.ownerIdentifier = playerId;
@@ -470,7 +470,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     PistolenMagazin = new ItemModel();
                                     PistolenMagazin.amount = 12;
-                                    PistolenMagazin.dimension = 0;
+                                    PistolenMagazin.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                     PistolenMagazin.position = new Position(0.0f, 0.0f, 0.0f);
                                     PistolenMagazin.hash = Constants.ITEM_HASH_PISTOL_AMMO;
                                     PistolenMagazin.ownerIdentifier = playerId;
@@ -505,7 +505,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 PISTOLE50 = new ItemModel();
                                 PISTOLE50.amount = 0;
-                                PISTOLE50.dimension = 0;
+                                PISTOLE50.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 PISTOLE50.position = new Position(0.0f, 0.0f, 0.0f);
                                 PISTOLE50.hash = Constants.ITEM_HASH_PISTOLE50;
                                 PISTOLE50.ownerIdentifier = playerId;
@@ -533,7 +533,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     PistolenMagazin = new ItemModel();
                                     PistolenMagazin.amount = 12;
-                                    PistolenMagazin.dimension = 0;
+                                    PistolenMagazin.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                     PistolenMagazin.position = new Position(0.0f, 0.0f, 0.0f);
                                     PistolenMagazin.hash = Constants.ITEM_HASH_PISTOL_AMMO;
                                     PistolenMagazin.ownerIdentifier = playerId;
@@ -567,7 +567,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 REVOLVER = new ItemModel();
                                 REVOLVER.amount = 0;
-                                REVOLVER.dimension = 0;
+                                REVOLVER.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 REVOLVER.position = new Position(0.0f, 0.0f, 0.0f);
                                 REVOLVER.hash = Constants.ITEM_HASH_REVOLVER;
                                 REVOLVER.ownerIdentifier = playerId;
@@ -595,7 +595,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     PistolenMagazin = new ItemModel();
                                     PistolenMagazin.amount = 12;
-                                    PistolenMagazin.dimension = 0;
+                                    PistolenMagazin.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                     PistolenMagazin.position = new Position(0.0f, 0.0f, 0.0f);
                                     PistolenMagazin.hash = Constants.ITEM_HASH_PISTOL_AMMO;
                                     PistolenMagazin.ownerIdentifier = playerId;
@@ -630,7 +630,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 MP5 = new ItemModel();
                                 MP5.amount = 0;
-                                MP5.dimension = 0;
+                                MP5.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 MP5.position = new Position(0.0f, 0.0f, 0.0f);
                                 MP5.hash = Constants.ITEM_HASH_MP5;
                                 MP5.ownerIdentifier = playerId;
@@ -674,7 +674,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 AK47 = new ItemModel();
                                 AK47.amount = 0;
-                                AK47.dimension = 0;
+                                AK47.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 AK47.position = new Position(0.0f, 0.0f, 0.0f);
                                 AK47.hash = Constants.ITEM_HASH_AK47;
                                 AK47.ownerIdentifier = playerId;
@@ -716,7 +716,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 RIFLE = new ItemModel();
                                 RIFLE.amount = 0;
-                                RIFLE.dimension = 0;
+                                RIFLE.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 RIFLE.position = new Position(0.0f, 0.0f, 0.0f);
                                 RIFLE.hash = Constants.ITEM_HASH_RIFLE;
                                 RIFLE.ownerIdentifier = playerId;
@@ -758,7 +758,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 SNIPER = new ItemModel();
                                 SNIPER.amount = 0;
-                                SNIPER.dimension = 0;
+                                SNIPER.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 SNIPER.position = new Position(0.0f, 0.0f, 0.0f);
                                 SNIPER.hash = Constants.ITEM_HASH_SNIPERRIFLE;
                                 SNIPER.ownerIdentifier = playerId;
@@ -800,7 +800,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 RPG = new ItemModel();
                                 RPG.amount = 0;
-                                RPG.dimension = 0;
+                                RPG.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                 RPG.position = new Position(0.0f, 0.0f, 0.0f);
                                 RPG.hash = Constants.ITEM_HASH_RPG;
                                 RPG.ownerIdentifier = playerId;
@@ -865,7 +865,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                         target.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                        target.Dimension = 0;
+                        target.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 105, 145) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat " + target.Username + " ausgeknastet.");
                     }

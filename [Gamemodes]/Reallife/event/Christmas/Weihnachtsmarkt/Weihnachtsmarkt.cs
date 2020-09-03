@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -49,7 +48,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                     {
                         Snack = new ItemModel();
                         Snack.amount = 50;
-                        Snack.dimension = 0;
+                        Snack.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
                         Snack.ownerIdentifier = player.UID;
@@ -93,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                     {
                         Snack = new ItemModel();
                         Snack.amount = 50;
-                        Snack.dimension = 0;
+                        Snack.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         Snack.position = new Position(0.0f, 0.0f, 0.0f);
                         Snack.hash = Constants.ITEM_HASH_HEISSESCHOKOLADE;
                         Snack.ownerIdentifier = player.UID;

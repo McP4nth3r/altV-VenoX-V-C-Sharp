@@ -79,7 +79,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                             }
                         }
                         player.SpawnPlayer(Spawnpoint);
-                        player.Dimension = 0;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
                         Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime, 3);
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);

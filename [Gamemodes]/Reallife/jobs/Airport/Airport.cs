@@ -40,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                 player.SetPosition = AIRPORT_HOME_SPAWN;
                 player.Reallife.JobStage = 0;
                 player.Reallife.AIRPORTJOB_LEVEL += 1;
-                player.Dimension = 0;
+                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
             }
             catch (Exception ex) { Debug.CatchExceptions("OnJobMarkerHit", ex); }
         }
@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     Allround.DestroyJobMarker(player);
                     player.SetPosition = AIRPORT_HOME_SPAWN;
                     player.Reallife.JobStage = 0;
-                    player.Dimension = 0;
+                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     Core.Debug.OutputDebugString("JobStage 2: " + player.Reallife.JobStage);
                 }
             }

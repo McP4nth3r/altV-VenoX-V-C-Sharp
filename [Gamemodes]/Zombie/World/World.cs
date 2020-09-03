@@ -42,6 +42,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
             try
             {
                 player.SpawnPlayer(PLAYER_SPAWN_NOOBSPAWN);
+                player.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
                 Alt.Server.TriggerClientEvent(player, "Zombie:OnResourceStart");
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 999);
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 999);

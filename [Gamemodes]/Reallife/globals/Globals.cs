@@ -118,7 +118,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
                 Emergency.OnPlayerEnterColShapeModel(shape, player);
                 Fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
-                Fraktionswaffenlager.OnPlayerEnterColShapeModel(shape, player);
                 Fun.Allround.OnClientEnterColShape(shape, player);
                 gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
                 jobs.Allround.OnColShapeHit(shape, player);
@@ -222,7 +221,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         if (player.Reallife.Knastzeit == 0)
                         {
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = 0;
+                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
@@ -716,7 +715,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                  foreach (var spielerimauto in playersInCar)
                                  {
                                      spielerimauto.WarpOutOfIVehicle();
-                                     spielerimauto.Dimension = 0;
+                                     spielerimauto.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                  }
 
                              }*/
@@ -806,7 +805,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Das Haus ist abgeschlossen!");
                                     }
                                     player.SetPosition = house.position;
-                                    player.Dimension = 0;
+                                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                                     player.Reallife.HouseEntered = 0;
 
                                     /*foreach (Client target in VenoX.GetAllPlayers().ToList())
@@ -868,7 +867,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             Item = new ItemModel
                             {
                                 amount = ItemAmount,
-                                dimension = 0,
+                                dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION,
                                 position = new Position(0.0f, 0.0f, 0.0f),
                                 hash = ItemHash,
                                 ownerIdentifier = playerId,
