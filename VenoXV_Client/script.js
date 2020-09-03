@@ -1,3 +1,5 @@
+/// <reference types="@altv/types-client" />
+/// <reference types="@altv/types-natives" />
 //----------------------------------//
 ///// VenoX Gaming & Fun 2019 © ///////
 //////By Solid_Snake & VnX RL Crew////
@@ -6,6 +8,8 @@
 
 import alt from 'alt-client';
 import * as game from "natives";
+
+
 
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
 import * as CaseOpening from '/VenoXV_Client/Globals/Premium/Case/index.js';

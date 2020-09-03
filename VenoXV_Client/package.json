@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@altv/native-types": "^1.0.3",
-    "@altv/types": "^1.0.10"
+    "@altv/types-client": "^1.1.0",
+    "@altv/types-natives": "^1.1.0"
   }
 }

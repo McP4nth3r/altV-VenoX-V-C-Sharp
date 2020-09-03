@@ -8,7 +8,7 @@ let ATM_BROWSER = null;
 alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
 	try {
 		game.freezeEntityPosition(alt.Player.local.scriptID, true);
-		ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html","Reallife");
+		ATM_BROWSER = vnxCreateCEF("ATM", "Reallife/bank/main.html", "Reallife");
 		alt.setTimeout(() => {
 			ATM_BROWSER.emit("Bank:Load", k, k1, k2, k3, u1, u2, u3);
 			ATM_BROWSER.focus();

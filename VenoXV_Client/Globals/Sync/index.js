@@ -7,7 +7,6 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 import { Draw3DText } from '../VnX-Lib';
 
-
 let muted = true;
 export function OnVoiceKeyDown(key) {
     try {
@@ -42,27 +41,6 @@ alt.on("gameEntityCreate", entity => {
     }
     catch{ }
 });
-
-
-function loadModel(model) {
-    try {
-        if (!game.isModelValid(model)) { return; }
-
-        if (!game.isModelInCdimage(model)) { return; }
-
-        if (game.hasModelLoaded(model)) { return; }
-
-        game.requestModel(model);
-
-        let interval = alt.setInterval(() => {
-            if (game.hasModelLoaded(model)) {
-                alt.clearInterval(interval);
-            }
-        }, 5);
-    }
-    catch{ }
-}
-
 
 /* Sync : TextLabels */
 
