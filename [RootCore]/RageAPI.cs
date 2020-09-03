@@ -22,7 +22,7 @@ namespace VenoXV.Core
             try { return Sync.ColShapeList; }
             catch (Exception ex) { Core.Debug.CatchExceptions("GetAllColShapes", ex); return new List<ColShapeModel>(); }
         }
-        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = 0)
+        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = Globals.Main.REALLIFE_DIMENSION)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace VenoXV.Core
             catch { }
         }
         private static int TextLabelCounter = 0;
-        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = 0, VnXPlayer VisibleOnlyFor = null)
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Globals.Main.REALLIFE_DIMENSION, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
@@ -353,7 +353,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
-        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, VnXPlayer VisibleOnlyFor = null, int Dimension = 0)
+        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, VnXPlayer VisibleOnlyFor = null, int Dimension = Globals.Main.REALLIFE_DIMENSION)
         {
             try
             {
@@ -382,7 +382,7 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions("RemoveMarker", ex); }
         }
         private static int ObjectCounter = 0;
-        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = 0, VnXPlayer VisibleOnlyFor = null)
+        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = Globals.Main.REALLIFE_DIMENSION, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {

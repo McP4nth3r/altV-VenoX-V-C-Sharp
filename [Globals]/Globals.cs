@@ -26,9 +26,14 @@ namespace VenoXV.Globals
         public static List<VnXPlayer> ZombiePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> RacePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> SevenTowersPlayers = new List<VnXPlayer>();
-
         public static List<VehicleModel> AllVehicles = new List<VehicleModel>();
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
+
+        public const int RACE_DIMENSION = 0;
+        public const int REALLIFE_DIMENSION = 1;
+        public const int TACTICS_DIMENSION = 2;
+        public const int SEVENTOWERS_DIMENSION = 4;
+        public const int ZOMBIES_DIMENSION = 5;
 
         public static void RemovePlayerFromGamemodeList(VnXPlayer player)
         {
@@ -210,7 +215,7 @@ namespace VenoXV.Globals
                 }
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("vehdmg", player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! | Fahrer falls vorhanden : " + DriverName + " | DMG : " + Damage);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerVehicleDamage", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("OnPlayerVehicleDamage", ex); }
         }
 
         public static void OnUpdate(object unused)
@@ -224,7 +229,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Zombie.Globals.Main.OnUpdate();
                 Sync.OnSyncTick();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("OnUpdate", ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
