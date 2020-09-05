@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
@@ -143,14 +144,13 @@ namespace VenoXV._RootCore_.Models
         public int Zombie_tode { get; set; }
         public bool IsSyncer { get; set; }
         public List<Player> NearbyPlayers { get; set; }
+        public List<ZombieModel> NearbyZombies { get; set; }
         public Zombies(Player player)
         {
             try
             {
-                NearbyPlayers = new List<Player>
-                {
-
-                };
+                NearbyPlayers = new List<Player>();
+                NearbyZombies = new List<ZombieModel>();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
         }

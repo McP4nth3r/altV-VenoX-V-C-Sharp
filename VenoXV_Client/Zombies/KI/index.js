@@ -6,6 +6,7 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
+import { DrawText } from '../../Globals/VnX-Lib';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -45,6 +46,7 @@ function SetZombieCorrectSkin(zombieEntity, facefeaturesarray, headblendsarray, 
     catch{ }
 }
 
+
 alt.onServer('Zombies:ApplyBloodToZombie', (Id) => {
     try {
         let zombieEntity = Zombies[Id].Entity;
@@ -68,11 +70,24 @@ alt.onServer('Zombies:Sync', (state) => {
                         alt.emitServer('Zombies:OnSyncerCall', Zombie.Id, zombiePos.x, zombiePos.y, zombiePos.z);
                     }
                 };
-            }, 1000);
+            }, 1500);
         }
     }
     catch{ }
 });
+
+async function loadModel(dict) {
+    return new Promise(resolve => {
+        if (game.hasModelLoaded(dict)) resolve(true);
+        game.requestModel(dict);
+        let inter = alt.setInterval(() => {
+            if (game.hasModelLoaded(dict)) {
+                resolve(true);
+                alt.clearInterval(inter);
+            }
+        }, 5);
+    });
+}
 
 
 let Zombies = [];
@@ -81,32 +96,34 @@ alt.onServer('Zombies:SpawnKI', (Id, Hash, FaceFeatures, HeadBlendData, HeadOver
     try {
         if (Zombies[Id]) { return; }
         Hash = alt.hash(Hash);
-        if (!game.hasModelLoaded(Hash)) {
-            alt.loadModel(ZombieHash);
-            game.requestModel(ZombieHash);
-        }
-        let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
-        Zombies[Id] = {
-            Id: Id,
-            Entity: zombieEntity,
-            IsZombieKI: true,
-            Position: Position,
-            IsDead: false,
-            TargetEntity: Target,
-        }
-        game.setPedCanRagdoll(Zombies[Id].Entity, true);
-        game.setEntityCanBeDamaged(Zombies[Id].Entity, true);
-        game.setEntityOnlyDamagedByPlayer(Zombies[Id].Entity, false);
-        game.setPedRagdollOnCollision(Zombies[Id].Entity, true);
-        game.setPedCanRagdollFromPlayerImpact(Zombies[Id].Entity, true)
-        game.setPedCombatMovement(Zombies[Id].Entity, 100);
-        game.setPedCombatAbility(Zombies[Id].Entity, 100);
-        game.setPedFleeAttributes(Zombies[Id].Entity, 0, false);
-        game.setPedCombatAttributes(Zombies[Id].Entity, 16, true);
-        game.setPedCombatAttributes(Zombies[Id].Entity, 17, true);
-        game.setBlockingOfNonTemporaryEvents(Zombies[Id].Entity, true);
-        game.setEntityProofs(Zombies[Id].Entity, false, true, false, true, false, false, false, false);
-        SetZombieCorrectSkin(Zombies[Id].Entity, FaceFeatures, HeadBlendData, HeadOverlays);
+        let res = loadModel(Hash);
+        res.then(() => {
+            let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
+            Zombies[Id] = {
+                Id: Id,
+                Entity: zombieEntity,
+                IsZombieKI: true,
+                Position: Position,
+                IsDead: false,
+                Frozen: true,
+                TargetEntity: Target,
+            }
+            game.freezeEntityPosition(Zombies[Id].Entity, true);
+            game.setEntityAsMissionEntity(Zombies[Id].Entity, true, false);
+            game.setPedCanRagdoll(Zombies[Id].Entity, false);
+            game.setEntityCanBeDamaged(Zombies[Id].Entity, true);
+            game.setEntityOnlyDamagedByPlayer(Zombies[Id].Entity, false);
+            game.setPedRagdollOnCollision(Zombies[Id].Entity, true);
+            game.setPedCanRagdollFromPlayerImpact(Zombies[Id].Entity, true)
+            game.setPedCombatMovement(Zombies[Id].Entity, 100);
+            game.setPedCombatAbility(Zombies[Id].Entity, 100);
+            game.setPedFleeAttributes(Zombies[Id].Entity, 0, false);
+            game.setPedCombatAttributes(Zombies[Id].Entity, 16, true);
+            game.setPedCombatAttributes(Zombies[Id].Entity, 17, true);
+            game.setBlockingOfNonTemporaryEvents(Zombies[Id].Entity, true);
+            game.setEntityProofs(Zombies[Id].Entity, false, true, false, true, false, false, false, false);
+            SetZombieCorrectSkin(Zombies[Id].Entity, FaceFeatures, HeadBlendData, HeadOverlays);
+        });
     }
     catch{ }
 });
@@ -128,29 +145,52 @@ alt.onServer("Zombies:AccessoriesLoad", (Id, clothesslot, clothesdrawable, cloth
 
 
 
-alt.onServer('Zombies:SetHealth', (Id, Health) => {
-    try {
-        if (!Zombies[Id]) { return; }
-        game.setEntityHealth(Zombies[Id].Entity, Health);
-        if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && Zombies[Id].Entity != null) {
-            //alt.log("Zombie wurde gelöscht.");
-            game.deletePed(Zombies[Id].Entity);
-            Zombies.splice(Id, 1);
+let DestroyedOne = false;
+alt.setInterval(() => {
+    if (DestroyedOne) { DestroyedOne = false; return; }
+    if (!DestroyedOne) {
+        for (var _c in Zombies) {
+            if (Zombies[_c].IsDead == true) {
+                DestroyedOne = true;
+                alt.log('Zombies[_c].IsDead 0 : ' + Zombies[_c].IsDead + " | Other ID : " + _c);
+                alt.log('Zombie Log Called : ' + Zombies[_c].Id);
+                if (game.doesEntityExist(Zombies[_c].Entity)) {
+                    game.deleteEntity(Zombies[_c].Entity);
+                    if (game.doesEntityExist(Zombies[_c].Entity)) {
+                        game.deletePed(Zombies[_c].Entity);
+                    }
+                }
+                Zombies.splice(DeadZombieId, 1);
+            }
         }
     }
-    catch{ }
+}, 500);
+
+
+alt.onServer('Zombies:SetHealth', (Id, Health) => {
+    for (var _c in Zombies) {
+        if (Zombies[_c].Id == Id) {
+            game.setEntityHealth(Zombies[_c].Entity, parseInt(Health));
+            if (game.getEntityHealth(Zombies[_c].Entity) <= 0 && Zombies[_c].Entity != null && !Zombies[_c].IsDead) {
+                Zombies[_c].IsDead = true;
+                game.setEntityAsMissionEntity(Zombies[_c].Entity, false, true);
+                game.setEntityAsNoLongerNeeded(Zombies[_c].Entity);
+                alt.log('Zombies[_c].IsDead 1 : ' + Zombies[_c].IsDead);
+            }
+        }
+    }
 });
 
 let SyncInterval;
 alt.onServer("Zombies:SetPosition", (Id, PosX, PosY, PosZ) => {
     try {
         if (!Zombies[Id]) { return; }
-        game.setEntityCoords(Zombies[Id].Entity, PosX, PosY, PosZ - 1);
+        //game.setEntityCoords(Zombies[Id].Entity, PosX, PosY, PosZ);
     }
     catch{ }
 });
 
-alt.on("resourceStop", () => {
+alt.on("disconnect", () => {
     for (var Id in Zombies) {
         if (Zombies[Id].Entity != null) {
             game.deletePed(Zombies[Id].Entity);
@@ -162,13 +202,47 @@ alt.on("resourceStop", () => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+function CheckZombieHealths() {
+    for (var Id in Zombies) {
+        if (Zombies[Id].Entity != null) {
+            if (game.getEntityHealth(Zombies[Id].Entity) <= 0) {
+                if (!Zombies[Id].IsDead) {
+                    alt.log('CS : Zombies:OnZombieDeath | State : ' + Zombies[Id].IsDead);
+                    Zombies[Id].IsDead = true;
+                    game.setEntityAsMissionEntity(Zombies[Id].Entity, false, true);
+                    game.setEntityAsNoLongerNeeded(Zombies[Id].Entity);
+                    alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id));
+                }
+            }
+        }
+    };
+}
+
+
+function DrawNametags() {
+    for (var Id in Zombies) {
+        if (Zombies[Id].Entity != null) {
+            let playerPos2 = game.getEntityCoords(Zombies[Id].Entity);
+            let distance = game.getDistanceBetweenCoords(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
+            let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
+            //if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
+            if (distance <= 30) {
+                DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~r~" + Zombies[Id].IsDead + "\n~w~Frozen : ~r~" + Zombies[Id].Frozen, [screenPos[1], screenPos[2] - 0.045], [0.65, 0.65], 4, [255, 255, 255, 255], true, true);
+            }
+        }
+    }
+}
+alt.everyTick(() => {
+    DrawNametags();
+});
+
 
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
-
+ 
 function CheckZombieDamage(Zombie) {
     if (game.hasEntityBeenDamagedByEntity(Zombie.Entity, alt.Player.local.scriptID, true)) {
         game.clearEntityLastDamageEntity(Zombie.Entity);
@@ -183,14 +257,15 @@ function CheckZombieDamage(Zombie) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 alt.onServer('Zombies:MoveToTarget', (ID, TargetEntity) => {
-    if (!Zombies[ID]) { return; }
+    if (!Zombies[ID]) return;
+    if (Zombies[ID].IsDead) return;
     let Zombie = Zombies[ID];
+    if (Zombie.Frozen) {
+        game.freezeEntityPosition(Zombie.Entity, false); Zombie.Frozen = false;
+    }
     Zombie.TargetEntity = TargetEntity;
     let playerPos = game.getEntityCoords(Zombie.TargetEntity.scriptID, true);
     game.taskGoToCoordAnyMeans(Zombie.Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
-    //game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
-    if (game.getEntityHealth(Zombie.Entity) <= 0 && !Zombie.IsDead) {
-        Zombie.IsDead = true;
-        alt.emitServer("Zombies:OnZombieDeath", ID);
-    }
+    game.taskPutPedDirectlyIntoMelee(Zombie.Entity, Zombie.TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
+    CheckZombieHealths();
 });

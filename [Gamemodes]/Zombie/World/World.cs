@@ -151,6 +151,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 TIME_TO_DELETE_ZOMBIES = DateTime.Now.AddSeconds(TIME_INTERVAL_DELETE_ZOMBIES);
                 if (Globals.Events.KilledZombieIds.Count > 0)
                 {
+                    Core.Debug.OutputDebugString("TIME_TO_DELETE_ZOMBIES Called!");
                     foreach (int Id in Globals.Events.KilledZombieIds)
                     {
                         Spawner.DestroyZombieById(Id);

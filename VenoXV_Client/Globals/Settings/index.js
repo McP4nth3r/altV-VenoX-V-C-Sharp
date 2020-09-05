@@ -5,6 +5,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
+/*
 import { vnxCreateCEF, ShowCursor } from '../VnX-Lib';
 
 let SettingsBrowser = vnxCreateCEF("SettingsWindow", "Globals/Settings/main.html");
@@ -44,7 +45,7 @@ alt.onServer('Settings:Show', () => {
         }, 500);
     }
 });
-//Spawnpoints : 
+//Spawnpoints :
 
 
 SettingsBrowser.on('Settings:SelectSpawnpoint', (spawn) => {
@@ -60,3 +61,5 @@ function LoadClientSettings() {
     SettingsBrowser.emit('Settings:CheckButton', 'reporter', alt.Player.local.getStreamSyncedMeta('PLAYER_REPORTER_ANZEIGEN'));
     SettingsBrowser.emit('Settings:CheckButton', 'global', alt.Player.local.getStreamSyncedMeta('PLAYER_GLOBALCHAT_ANZEIGEN'));
 }
+
+*/

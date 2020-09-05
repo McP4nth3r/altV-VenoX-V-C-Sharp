@@ -7,12 +7,19 @@ namespace VenoXV.Core
     {
         public static bool DEBUG_MODE_ENABLED = true;
         public static bool DEBUG_MODE_LOG = true;
-        public static void OutputDebugString(string text)
+        public static void OutputDebugString(string textt)
         {
             try
             {
                 if (!DEBUG_MODE_ENABLED) { return; }
-                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + text);
+                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + textt);
+                string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
+                if (DEBUG_MODE_LOG)
+                {
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[1]);
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                }
             }
             catch { }
         }

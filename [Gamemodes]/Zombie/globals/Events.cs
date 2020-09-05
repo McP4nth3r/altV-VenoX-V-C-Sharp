@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using VenoXV._Gamemodes_.KI;
 using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
 
@@ -17,13 +16,10 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                if (KilledZombieIds.Contains(Id)) { return; }
+                Core.Debug.OutputDebugString("Zombies:OnZombieDeath with ID : " + Id + " called");
+                if (KilledZombieIds.Contains(Id)) return;
                 KilledZombieIds.Add(Id);
-                Spawner.DestroyZombieById(Id);
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                {
-                    Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
-                }
+                //Spawner.DestroyZombieById(Id);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
         }

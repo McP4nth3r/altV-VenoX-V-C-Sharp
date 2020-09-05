@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Gamemodes_.Zombie.Globals;
 using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
-using VenoXV.Globals;
 
 namespace VenoXV._Gamemodes_.KI
 {
@@ -14,9 +14,10 @@ namespace VenoXV._Gamemodes_.KI
     {
         public static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
         private static int CurrentZombieCounter = 0;
-        private static void AddNearbyZombiesIntoList()
+        //
+        private static void CreateNewRandomZombie(VnXPlayer player)
         {
-            foreach (VnXPlayer player in Main.ZombiePlayers.ToList())
+            try
             {
                 Random randomSkin = new Random();
                 int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
@@ -30,11 +31,34 @@ namespace VenoXV._Gamemodes_.KI
                     HeadOverlays = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays,
                     Sex = 0,
                     IsDead = false,
-                    Position = new Vector3(player.Position.X + 5, player.Position.Y + 5, player.Position.Z),
+                    Position = new Vector3(player.Position.X + (player.Zombies.NearbyZombies.Count / 2), player.Position.Y + (player.Zombies.NearbyZombies.Count / 2), player.Position.Z - 0.5f),
                     TargetEntity = player
                 };
+                player.Zombies.NearbyZombies.Add(zombieClass);
                 CurrentZombies.Add(zombieClass);
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewRandomZombie", ex); }
+        }
+
+        private static void AddNearbyZombiesIntoList()
+        {
+            try
+            {
+                foreach (VnXPlayer player in Globals.Main.ZombiePlayers.ToList())
+                {
+                    if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < 80)
+                    {
+                        CreateNewRandomZombie(player);
+                        //Create Zombies for nearbyPlayers.
+                        foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
+                        {
+                            CreateNewRandomZombie(player);
+                        }
+                    }
+                    else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("AddNearbyZombiesIntoList", ex); }
         }
 
         private static void ApplyZombieClothes(VnXPlayer player, int RandomSkinUID, int ZombieId)
@@ -62,44 +86,46 @@ namespace VenoXV._Gamemodes_.KI
 
         private static void SpawnZombiesArroundPlayers()
         {
-            foreach (VnXPlayer player in Main.ZombiePlayers.ToList())
+            try
             {
-                foreach (ZombieModel zombieClass in CurrentZombies.ToList())
+                foreach (VnXPlayer player in Globals.Main.ZombiePlayers.ToList())
                 {
-                    Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
-                    ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
+                    foreach (ZombieModel zombieClass in CurrentZombies.ToList())
+                    {
+                        Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                        ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
+                    }
                 }
             }
-        }
-        private static void CheckTargetEntityForZombies()
-        {
-            foreach (ZombieModel zombieClass in CurrentZombies)
-            {
-                if (zombieClass.TargetEntity == null)
-                {
-                    CurrentZombies.Remove(zombieClass);
-                }
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnZombiesArroundPlayers", ex); }
         }
         public static void SpawnZombiesForEveryPlayer()
         {
-            AddNearbyZombiesIntoList();
-            SpawnZombiesArroundPlayers();
+            try
+            {
+                AddNearbyZombiesIntoList();
+                SpawnZombiesArroundPlayers();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnZombiesForEveryPlayer", ex); }
         }
         public static void DestroyZombieById(int Id)
         {
-            foreach (ZombieModel zombies in CurrentZombies.ToList())
+            try
             {
-                if (zombies.ID == Id)
+                ZombieModel zombies = CurrentZombies.FirstOrDefault(z => z.ID == Id);
+                if (zombies != null)
                 {
-                    /*
-                    foreach (Client players in Main.ZombiePlayers)
+                    foreach (VnXPlayer players in Globals.Main.ZombiePlayers.ToList())
                     {
-                        players.Emit("Zombies:DeleteZombieById", Id);
-                    }*/
+                        foreach (ZombieModel zombieClass in players.Zombies.NearbyZombies.ToList())
+                            if (zombieClass.ID == Id) players.Zombies.NearbyZombies.Remove(zombieClass);
+                        Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
+                    }
+                    Events.KilledZombieIds.Remove(zombies.ID);
                     CurrentZombies.Remove(zombies);
                 }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyZombieById", ex); }
         }
 
     }
