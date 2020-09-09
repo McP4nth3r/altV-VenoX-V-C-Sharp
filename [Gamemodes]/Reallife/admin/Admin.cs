@@ -587,6 +587,15 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                         vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
                         player.SendTranslatedChatMessage("Erfolgreich despawned!");
                     }
+                    else if (action == "test")
+                    {
+                        VehicleModel veh = (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.T20, player.Position, player.Rotation);
+                        veh.ManualEngineControl = false;
+                        veh.Faction = player.Reallife.Faction;
+                        veh.Dimension = player.Dimension;
+                        player.WarpIntoVehicle(veh, -1);
+                        veh.EngineOn = true;
+                    }
                     else if (action == "gethere")
                     {
                         vehicle.Position = player.Position;
