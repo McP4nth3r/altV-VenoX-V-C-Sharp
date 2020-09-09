@@ -14,11 +14,32 @@ namespace VenoXV._Gamemodes_.KI
     {
         public static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
         private static int CurrentZombieCounter = 0;
+        private static int PositionCounter = 0;
+        private static int DIST_ZOMBIES = 10;
+
         //
         private static void CreateNewRandomZombie(VnXPlayer player)
         {
             try
             {
+                Vector3 Position = new Vector3();
+                switch (PositionCounter)
+                {
+                    case 0:
+                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y + DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        break;
+                    case 1:
+                        Position = new Vector3(player.Position.X - DIST_ZOMBIES, player.Position.Y + DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        break;
+                    case 2:
+                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y - DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        break;
+                    case 3:
+                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y - DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        PositionCounter = 0;
+                        break;
+                }
+                PositionCounter++;
                 Random randomSkin = new Random();
                 int randomSkinPicked = randomSkin.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.Count);
                 ZombieModel zombieClass = new ZombieModel
@@ -31,7 +52,7 @@ namespace VenoXV._Gamemodes_.KI
                     HeadOverlays = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays,
                     Sex = 0,
                     IsDead = false,
-                    Position = new Vector3(player.Position.X + (player.Zombies.NearbyZombies.Count / 2), player.Position.Y + (player.Zombies.NearbyZombies.Count / 2), player.Position.Z - 0.5f),
+                    Position = Position,
                     TargetEntity = player
                 };
                 player.Zombies.NearbyZombies.Add(zombieClass);
@@ -46,16 +67,24 @@ namespace VenoXV._Gamemodes_.KI
             {
                 foreach (VnXPlayer player in Globals.Main.ZombiePlayers.ToList())
                 {
-                    if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < 80)
+                    if (player != null)
                     {
-                        CreateNewRandomZombie(player);
-                        //Create Zombies for nearbyPlayers.
-                        foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
+                        if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < 80)
                         {
+                            Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             CreateNewRandomZombie(player);
+                            Core.Debug.OutputDebugString(player.Username + " | Syncer State : " + player.Zombies.IsSyncer);
+                            //Create Zombies for nearbyPlayers.
+                            //Core.Debug.OutputDebugString("[Zombies] : " + Globals.Main.ZombiePlayers.ToList().Count + " | ");
+                            foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
+                            {
+                                CreateNewRandomZombie(nearbyPlayer);
+                                Core.Debug.OutputDebugString(nearbyPlayer.Username + " | Syncer State : " + nearbyPlayer.Zombies.IsSyncer);
+                            }
+                            Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
+                        else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
                     }
-                    else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("AddNearbyZombiesIntoList", ex); }
@@ -79,7 +108,7 @@ namespace VenoXV._Gamemodes_.KI
                         }
                     }
                 }
-                Alt.Server.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
+                //Alt.Server.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions("ApplyZombieClothes", ex); }
         }
@@ -92,8 +121,11 @@ namespace VenoXV._Gamemodes_.KI
                 {
                     foreach (ZombieModel zombieClass in CurrentZombies.ToList())
                     {
-                        Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
-                        ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
+                        if (player.Position.Distance(zombieClass.Position) < 150)
+                        {
+                            Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                            ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
+                        }
                     }
                 }
             }
