@@ -113,7 +113,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (!(entity is VnXPlayer player)) { Core.Debug.OutputDebugString("Other Entity : " + entity); return; }
+                if (!(entity is VnXPlayer player)) return;
                 if (state)
                 {
                     Debug.OutputDebugString(player.Username + " Entered a ColShape");
@@ -162,18 +162,17 @@ namespace VenoXV.Globals
                         }
                         return;
                     case (int)Preload.Gamemodes.Reallife:
+                        if (killer == null || Functions.IstargetInSameLobby(player, killer))
                         {
-                            if (killer == null || Functions.IstargetInSameLobby(player, killer))
-                            {
-                                _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
-                                _Gamemodes_.Reallife.gangwar.Allround.OnPlayerDeath(player, killer, reason);
-                            }
+                            _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                            _Gamemodes_.Reallife.gangwar.Allround.OnPlayerDeath(player, killer, reason);
                         }
                         return;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        {
-                            _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
-                        }
+                        _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
+                        return;
+                    case (int)Preload.Gamemodes.Zombies:
+                        _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                         return;
                     default:
                         Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
