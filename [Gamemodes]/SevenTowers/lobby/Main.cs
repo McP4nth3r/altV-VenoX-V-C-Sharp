@@ -345,7 +345,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     CreateNewHitMarker();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SevenTowers:OnColShapeHit", ex); }
+            catch (Exception ex) { Debug.CatchExceptions("SevenTowers:OnColShapeHit", ex); }
         }
 
         public static void TakePlayerFromRound(VnXPlayer playerClass)
@@ -355,7 +355,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 if (CurrentlyInRound.Contains(playerClass)) { CurrentlyInRound.Remove(playerClass); }
                 if (playerClass.SevenTowers.Spawned)
                 {
-                    if (playerClass.IsInVehicle) Core.RageAPI.DeleteVehicleThreadSafe((VehicleModel)playerClass.Vehicle);
+                    if (playerClass.IsInVehicle) RageAPI.DeleteVehicleThreadSafe((VehicleModel)playerClass.Vehicle);
                     playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
                     playerClass.DespawnPlayer();
                     playerClass.SetPlayerAlpha(0);
