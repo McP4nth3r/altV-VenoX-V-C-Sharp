@@ -1329,7 +1329,8 @@ namespace VenoXV._RootCore_.Database
                         vehClass.Faction = reader.GetInt32("faction");
                         if (vehClass.Faction > 0)
                         {
-                            vehClass.Dimension = reader.GetInt32("dimension");
+                            //vehClass.Dimension = reader.GetInt32("dimension");
+                            vehClass.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                         }
                         else
                         {
