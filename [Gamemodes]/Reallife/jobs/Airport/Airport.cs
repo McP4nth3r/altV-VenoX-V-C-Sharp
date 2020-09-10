@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                         break;
                 }
                 Allround.DestroyJobMarker(player);
-                player.Vehicle.Remove();
+                RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                 player.SetPosition = AIRPORT_HOME_SPAWN;
                 player.Reallife.JobStage = 0;
                 player.Reallife.AIRPORTJOB_LEVEL += 1;

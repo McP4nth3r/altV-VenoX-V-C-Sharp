@@ -5,7 +5,6 @@
 //----------------------------------//
 using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -168,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     if (Vehicle.Rented && Vehicle.Owner == player.Username)
                     {
                         player.vnxSetStreamSharedElementData(HAVE_PLAYER_RENTED_VEHICLE, 0);
-                        Vehicle.Remove();
+                        RageAPI.DeleteVehicleThreadSafe(Vehicle);
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VenoX Rental] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Dein Mietverhältnis wurde beendet!");
                     }
                 }

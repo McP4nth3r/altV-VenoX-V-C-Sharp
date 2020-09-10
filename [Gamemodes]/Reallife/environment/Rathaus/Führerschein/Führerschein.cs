@@ -101,7 +101,8 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     player.Reallife.Autofuehrerschein = 1;
                     player.Reallife.Money -= 10500;
                     player.vnxSetSharedElementData("PLAYER_DRIVINGSCHOOL", false);
-                    player.Vehicle.Remove();
+                    RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
+                    //player.Vehicle.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
@@ -152,7 +153,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     Alt.Server.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");
                     player.vnxSetElementData("PRUEFUNGS_NAME", false);
-                    Vehicle.Remove();
+                    RageAPI.DeleteVehicleThreadSafe(Vehicle);
                 }
             }
             catch { }

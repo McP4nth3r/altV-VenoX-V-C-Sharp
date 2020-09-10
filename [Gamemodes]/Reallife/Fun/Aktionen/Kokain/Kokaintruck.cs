@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
@@ -53,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                                 // Add the item into the database
                                 RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
                                 player.WarpOutOfVehicle();
-                                player.Vehicle.Remove();
+                                RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                                 Alt.RemoveColShape(shape);
                                 dxLibary.VnX.DestroyRadarElement(player, "Blip");
                                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())

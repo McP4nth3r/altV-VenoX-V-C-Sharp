@@ -257,7 +257,8 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 {
                     if (vehClass.Job == player.Reallife.Job && vehClass.Owner == player.Reallife.Job)
                     {
-                        vehClass.Remove();
+                        RageAPI.DeleteVehicleThreadSafe(vehClass);
+                        //vehClass.Remove();
                     }
                 }
             }

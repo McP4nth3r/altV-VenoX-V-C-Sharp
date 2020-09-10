@@ -47,6 +47,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Tactics:Unload");
                     break;
                 case Gamemodes.Zombies:
+                    _Gamemodes_.Zombie.Globals.Events.OnPlayerDisconnect(player);
                     break;
                 case Gamemodes.Race:
                     Alt.Server.TriggerClientEvent(player, "Race:Unload");

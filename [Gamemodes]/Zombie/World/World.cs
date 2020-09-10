@@ -18,6 +18,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         public static int TIME_INTERVAL_DELETE_ZOMBIES = 5;
         public static int TIME_INTERVAL_SYNCER_UPDATE = 1; // Time in Minutes
         public static int TIME_INTERVAL_TARGET_UPDATE = 1; // Time in Seconds
+        public static int MAX_ZOMBIE_RANGE = 150;
         // ENTITYDATAS & TIMER
         public static DateTime TIME_TO_SPAWN_ZOMBIES = DateTime.Now;
         public static DateTime TIME_TO_DELETE_ZOMBIES = DateTime.Now;
@@ -63,7 +64,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 player.Zombies.NearbyPlayers.Clear();
                 foreach (VnXPlayer otherplayers in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
-                    if (otherplayers.Position.Distance(player.Position) <= 100 && player != otherplayers)
+                    if (otherplayers.Position.Distance(player.Position) <= MAX_ZOMBIE_RANGE && player != otherplayers)
                     {
                         player.Zombies.NearbyPlayers.Add(otherplayers);
                     }

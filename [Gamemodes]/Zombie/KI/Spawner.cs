@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.KI
                 {
                     foreach (ZombieModel zombieClass in CurrentZombies.ToList())
                     {
-                        if (player.Position.Distance(zombieClass.Position) < 150)
+                        if (player.Position.Distance(zombieClass.Position) < Zombie.World.Main.MAX_ZOMBIE_RANGE)
                         {
                             Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                             ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);

@@ -60,8 +60,8 @@ namespace VenoXV._Preload_
             try
             {
                 GetAllPlayersInAllGamemodes(player);
-                player.Dimension = player.Id;
-                Globals.Main.OnPlayerDisconnected(player, "lobby-leave");
+                player.Dimension = 9000 + player.Id;
+                Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
                 ShowPreloadList(player);
             }

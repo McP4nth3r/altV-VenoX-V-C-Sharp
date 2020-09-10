@@ -93,7 +93,8 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     player.Reallife.DrivingSchool.MarkerStage = 0;
                     player.Reallife.Motorradfuehrerschein = 1;
                     player.Reallife.Money -= 8750;
-                    player.Vehicle.Remove();
+                    RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
+                    //player.Vehicle.Remove();
                     player.vnxSetStreamSharedElementData("PLAYER_DRIVINGSCHOOL", false);
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;

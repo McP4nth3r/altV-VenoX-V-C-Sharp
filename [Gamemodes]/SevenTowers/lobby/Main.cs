@@ -333,7 +333,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     if (player.IsInVehicle)
                     {
                         SevenTowersVehicles.Remove((VehicleModel)player.Vehicle);
-                        player.Vehicle.Remove();
+                        RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                         AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehicleHash, new Vector3(player.Position.X, player.Position.Y, player.Position.Z + 0.5f), player.Rotation);
                         vehicle.Dimension = SEVENTOWERS_DIM;

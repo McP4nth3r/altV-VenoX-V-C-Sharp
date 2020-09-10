@@ -360,7 +360,8 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 {
                     VehicleModel playerVeh = (VehicleModel)player.Vehicle;
                     if (CurrentDrivingSchoolVehicles.Contains(playerVeh)) { CurrentDrivingSchoolVehicles.Remove(playerVeh); }
-                    playerVeh.Remove();
+                    RageAPI.DeleteVehicleThreadSafe((VehicleModel)playerVeh);
+                    //playerVeh.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du bist zu schnell gefahren! Km/h : " + speed);

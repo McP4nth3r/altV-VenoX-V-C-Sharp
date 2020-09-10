@@ -28,6 +28,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
+                player.Zombies.IsSyncer = false;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
                 {
                     if (players.Zombies.NearbyPlayers.Contains(player)) { player.Zombies.NearbyPlayers.Remove(player); }

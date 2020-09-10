@@ -132,8 +132,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
             {
-                if (vehClass.MarkedForDelete) { vehClass.Remove(); }
-                if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass)) { VenoXV.Globals.Main.AllVehicles.Remove(vehClass); }
+                if (vehClass.MarkedForDelete) vehClass.Remove();
+                if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass)) VenoXV.Globals.Main.AllVehicles.Remove(vehClass);
             }
         }
 

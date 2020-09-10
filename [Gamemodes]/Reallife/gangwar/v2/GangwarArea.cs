@@ -169,7 +169,8 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 foreach (var veh in this.IVehicles)
                 {
-                    veh.Remove();
+                    //veh.Remove();
+                    RageAPI.DeleteVehicleThreadSafe(veh);
                 }
             }
             catch { }

@@ -126,7 +126,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 {
                     foreach (VehicleModel vehClass in ActionVehicles.ToList())
                     {
-                        vehClass.Remove();
+                        RageAPI.DeleteVehicleThreadSafe((VehicleModel)vehClass);
                     }
                     ActionVehicles.Clear();
                     ActionCooldown = DateTime.Now.AddMinutes(ACTION_COOLDOWN);
