@@ -65,7 +65,7 @@ namespace VenoXV._RootCore_.Models
         private int _Quests { get; set; }
         public int Quests { get { return _Quests; } set { _Quests = value; client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS, value); } }
         private int _Wanteds { get; set; }
-        public int Wanteds { get { return _Wanteds; } set { _Wanteds = value; client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
+        public int Wanteds { get { return _Wanteds; } set { _Wanteds = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
         public int _Knastzeit { get; set; }
         public int Knastzeit { get { return _Knastzeit; } set { _Knastzeit = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_KNASTZEIT, value); } }
         private int _Kaution { get; set; }
