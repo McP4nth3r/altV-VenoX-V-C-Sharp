@@ -68,7 +68,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         public static void OnResourceStart()
         {
-
+            //Wantedgründe Laden : 
+            Police.AddToWantedDictionary();
+            //
             BAD_INTERIOR3_FGUNS.Dimension = Constants.FACTION_SAMCRO;
             BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_NARCOS;
             //ToDo: ClientSide erstellen NAPI.

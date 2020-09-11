@@ -320,7 +320,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                     BailInfoPlayer(player);
                     player.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
                     anzeigen.Usefull.VnX.RemoveAllWeapons(player);
-                    anzeigen.Usefull.VnX.onWantedChange(player);
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;

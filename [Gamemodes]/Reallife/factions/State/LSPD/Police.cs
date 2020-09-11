@@ -7,8 +7,8 @@
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Chat;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.factions.State.LSPD;
@@ -891,225 +891,107 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
 
-        public static List<WantedModel> WantedList = new List<WantedModel>
+        private static List<WantedModel> WantedList = new List<WantedModel>
         {
-            new WantedModel("kpv", 1),
+            // 1 Stars
+            new WantedModel("körperverletzung",                     1,  new string[]{ "kpv" },      "Körperverletzung"),
+            new WantedModel("beamtenbehinderung",                   1,  new string[]{ "behind" },   "Beamtenbehinderung"),
+            new WantedModel("beamtenbelästigung",                   1,  new string[]{ "beläst" },   "Beamtenbelästigung"),
+            new WantedModel("beleidigung",                          1,  new string[]{ "belei" },    "Beleidigung"),
+            new WantedModel("flucht vor kontrolle",                 1,  new string[]{ "vkk" },      "Flucht vor/aus Kontrolle"),
+            new WantedModel("diebstahl",                            1,  new string[]{ "dieb" },     "Diebstahl"),
+            new WantedModel("versuchter diebstahl",                 1,  new string[]{ "vdieb" },    "Versuchter Diebstahl"),
+            new WantedModel("sachbeschädigung",                     1,  new string[]{ "sb" },       "Sachbeschädigung"),
+            new WantedModel("illegale werbung",                     1,  new string[]{ "werb" },     "Illegale Werbung"),
+            new WantedModel("illegales straßenrennen",              1,  new string[]{ "rennen" },   "Illegales straßenrennen"),
+            new WantedModel("vortäuschen falscher tatsachen",       1,  new string[]{ "tat" },      "Vortäuschen falscher Tatsachen"),
+            new WantedModel("fahren ohne fahrerlaubnis",            1,  new string[]{ "fof" },      "Fahren ohne Fahrerlaubnis"),
+            new WantedModel("drogenbesitz1",                        1,  new string[]{ "drug1" },    "Drogenbesitz (10 - 49g)"),
+            new WantedModel("kokainbesitz1",                        1,  new string[]{ "koks1" },    "Koksinbesitz (10 - 49g)"),
+            new WantedModel("matsbesitz1",                          1,  new string[]{ "mats1" },    "Matsbesitz (10 - 49Stk.)"),
+
+            // 2 Stars
+            new WantedModel("verweigerung der durchsuchung",        2,  new string[]{ "verweig" },  "Verweigerung der Durchsuchung"),
+            new WantedModel("schusswaffengebrauch",                 2,  new string[]{ "waffe" },    "Schusswaffengebrauch"),
+            new WantedModel("körperverletzung durch schusswaffen",  2,  new string[]{ "kpvs" },     "Körperverletzung durch Schusswaffen"),
+            new WantedModel("herstellung illegaler gegenstände",    2,  new string[]{ "btm" },      "Herstellung illegaler gegenstände"),
+            new WantedModel("drogenkonsum",                         2,  new string[]{ "konsum" },   "Drogenkonsum"),
+            new WantedModel("raubüberfall",                         2,  new string[]{ "raub" },     "Raubüberfall"),
+            new WantedModel("bestechungsversuch",                   2,  new string[]{ "stech" },    "Bestechungsversuch"),
+            new WantedModel("waffenverkauf",                        2,  new string[]{ "verkauf" },  "Waffenverkauf"),
+            new WantedModel("carrob",                               2,  new string[]{ "cr" },       "Carrob"),
+            new WantedModel("drogenbesitz2",                        2,  new string[]{ "drug2" },    "Drogenbesitz (50 - 149g)"),
+            new WantedModel("kokainbesitz2",                        2,  new string[]{ "koks2" },    "Koksinbesitz (50 - 149g)"),
+            new WantedModel("matsbesitz2",                          2,  new string[]{ "mats2" },    "Matsbesitz (50 - 149Stk.)"),
+
+            // 3 Stars 
+            new WantedModel("mord",                                 3,  new string[]{},             "Mord"),
+            new WantedModel("betreten von sperrzonen",              3,  new string[]{ "sperr" },    "Betreten von Sperrzonen"),
+            new WantedModel("beihilfe zur freiheitsberaubung",      3,  new string[]{ "beraub" },   "Beihilfe zur Freiheitsberaubung"),
+            new WantedModel("drogentruck",                          3,  new string[]{ "dt" },       "Drogentruck (und Beihilfe)"),
+            new WantedModel("kokaintruck",                          3,  new string[]{ "kt" },       "Kokaintruck (und Beihilfe)"),
+            new WantedModel("matstruck",                            3,  new string[]{ "mt" },       "Matstruck (und Beihilfe)"),
+            new WantedModel("waffentruck",                          3,  new string[]{ "wt" },       "Waffentruck (und Beihilfe)"),
+            new WantedModel("drogenbesitz3",                        3,  new string[]{ "drug3" },    "Drogenbesitz (150g und mehr)"),
+            new WantedModel("kokainbesitz3",                        3,  new string[]{ "koks3" },    "Koksinbesitz (150g und mehr)"),
+            new WantedModel("matsbesitz3",                          3,  new string[]{ "mats3" },    "Matsbesitz (150 Stk. und mehr)"),
+
+            // 4 Stars
+            new WantedModel("bankraub",                             4,  new string[]{ "br" },       "Bankraub (und Beihilfe)"),
+            new WantedModel("geiselnahme",                          4,  new string[]{ "geisel" },   "Geiselnahme (und Beihilfe)"),
+
+            // 6 Stars
+            new WantedModel("einbruch beim fib",                    4,  new string[]{ "fib" },      "Einbruch beim FIB"),
+            new WantedModel("einbruch beim lspd",                   4,  new string[]{ "pd" },       "Einbruch beim LSPD"),
         };
+        private static Dictionary<string, WantedModel> _wantedModelByCommand = new Dictionary<string, WantedModel>();
+        public static void AddToWantedDictionary()
+        {
+            foreach (WantedModel wanted in WantedList)
+            {
+                _wantedModelByCommand[wanted.Reason] = wanted;
+                foreach (var str in wanted.ShortReasons)
+                    _wantedModelByCommand[str] = wanted;
+            }
+        }
 
 
         [Command("su", true)]
-        public void GivePlayerStars(VnXPlayer player, string target_name, string action)
+        public void GivePlayerStars(VnXPlayer player, string targetName, string action)
         {
             try
             {
-                if (Allround.isStateFaction(player) == false)
-                {
-                    player.SendTranslatedChatMessage("Du bist kein Staatsfraktionist!");
-                    return;
-                }
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-                if (!Allround.isStateFaction(player))
-                {
-                    player.SendChatMessage("Du bist kein Staatsfraktionist!");
-                    return;
-                }
-
-                if (target.Playing)
+                if (Allround.isStateFaction(player) == false) { player.SendTranslatedChatMessage("Du bist kein Staatsfraktionist!"); return; }
+                VnXPlayer target = RageAPI.GetPlayerFromName(targetName);
+                if (target is null) { target.SendReallifeMessage(RageAPI.GetHexColorcode(175, 0, 0) + targetName + " ist nicht Online/Wurde nicht gefunden."); return; }
+                if (target.Playing && target.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
                     action = action.ToLower();
-                    if (target.Reallife.Wanteds == 6 || target.Reallife.Wanteds > 6)
+                    if (!_wantedModelByCommand.TryGetValue(action, out WantedModel wantedClass))
                     {
-                        player.SendChatMessage("!{#007d00}Der Spieler hat bereits 6 Wanteds!");
+                        player.SendReallifeMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Grund wurde nicht gefunden! Dein Grund war : " + action);
                         return;
                     }
-                    int SpielerWanteds = target.Reallife.Wanteds;
-                    string wantedgrund = action;
-
-                    /////////////////////////////// 1 STAR ///////////////////////////////
-                    /////////////////////////////// 1 STAR ///////////////////////////////
-                    /////////////////////////////// 1 STAR ///////////////////////////////
-                    /////////////////////////////// 1 STAR ///////////////////////////////
-                    if (
-                       action == "kpv" || action == "körperverletzung"
-                    || action == "beamtenbehinderung" || action == "behind"
-                    || action == "beamtenbelästigung" || action == "beläst"
-                    || action == "beleidigung" || action == "belei"
-                    || action == "flucht vor kontrolle" || action == "vkk"
-                    || action == "diebstahl" || action == "dieb"
-                    || action == "versuchter diebstahl" || action == "vdieb"
-                    || action == "sachbeschädigung" || action == "sb"
-                    || action == "illegale werbung" || action == "werb"
-                    || action == "illegales straßenrennen" || action == "rennen"
-                    || action == "vortäuschen falscher tatsachen" || action == "tat"
-                    || action == "fahren ohne fahrerlaubnis" || action == "fof"
-                    || action == "drogenbesitz1" || action == "drug1"
-                    || action == "kokainbesitz1" || action == "koks1"
-                    || action == "matsbesitz1" || action == "mats1"
-                    )
-                    {
-                        target.Reallife.Wanteds += 1;
-
-                        if (action == "kpv") { wantedgrund = "Körperverletzung"; }
-                        else if (action == "behind") { wantedgrund = "Beamtenbehinderung"; }
-                        else if (action == "beläst") { wantedgrund = "Beamtenbelästigung"; }
-                        else if (action == "belei") { wantedgrund = "Beleidigung"; }
-                        else if (action == "vkk") { wantedgrund = "Flucht vor/aus Kontrolle"; }
-                        else if (action == "dieb") { wantedgrund = "Diebstahl"; }
-                        else if (action == "vdieb") { wantedgrund = "Versuchter Diebstahl"; }
-                        else if (action == "sb") { wantedgrund = "Sachbeschädigung"; }
-                        else if (action == "werb") { wantedgrund = "Illegale Werbung"; }
-                        else if (action == "rennen") { wantedgrund = "illegales straßenrennen"; }
-                        else if (action == "tat") { wantedgrund = "Vortäuschen falscher Tatsachen"; }
-                        else if (action == "fof") { wantedgrund = "Fahren ohne Fahrerlaubnis"; }
-                        else if (action == "drug1") { wantedgrund = "Drogenbesitz (10 - 49g)"; }
-                        else if (action == "koks1") { wantedgrund = "Koksinbesitz (10 - 49g)"; }
-                        else if (action == "mats1") { wantedgrund = "Matsbesitz (10 - 49Stk.)"; }
-
-                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
-                    }
-                    /////////////////////////////// 2 STAR /////////////////////////////// 
-                    /////////////////////////////// 2 STAR /////////////////////////////// 
-                    /////////////////////////////// 2 STAR /////////////////////////////// 
-                    /////////////////////////////// 2 STAR /////////////////////////////// 
-                    else if (
-                           action == "verweigerung der durchsuchung" || action == "verweig"
-                        || action == "schusswaffengebrauch" || action == "waffe"
-                        || action == "körperverletzung durch schusswaffen" || action == "kpvs"
-                        || action == "herstellung illegaler gegenstände" || action == "btm"
-                        || action == "drogenkonsum" || action == "konsum"
-                        || action == "raubüberfall" || action == "raub"
-                        || action == "bestechungsversuch" || action == "stech"
-                        || action == "waffenverkauf" || action == "verkauf"
-                        || action == "carrob" || action == "cr"
-                        || action == "drogenbesitz2" || action == "drug2"
-                        || action == "kokainbesitz2" || action == "koks2"
-                        || action == "matsbesitz2" || action == "mats2"
-                        )
-                    {
-                        if (target.Reallife.Wanteds == 5)
-                        {
-                            target.Reallife.Wanteds = 6;
-                        }
-                        else
-                        {
-                            target.Reallife.Wanteds += 2;
-                        }
-
-                        if (action == "verweig") { wantedgrund = "Verweigerung der Durchsuchung"; }
-                        else if (action == "waffe") { wantedgrund = "Schusswaffengebrauch"; }
-                        else if (action == "kpvs") { wantedgrund = "Körperverletzung durch Schusswaffen"; }
-                        else if (action == "btm") { wantedgrund = "Herstellung illegaler gegenstände"; }
-                        else if (action == "konsum") { wantedgrund = "Drogenkonsum"; }
-                        else if (action == "raub") { wantedgrund = "Raubüberfall"; }
-                        else if (action == "stech") { wantedgrund = "Bestechungsversuch"; }
-                        else if (action == "verkauf") { wantedgrund = "Waffenverkauf"; }
-                        else if (action == "cr") { wantedgrund = "Carrob"; }
-                        else if (action == "drug2") { wantedgrund = "Drogenbesitz (50 - 149g)"; }
-                        else if (action == "koks2") { wantedgrund = "Koksinbesitz (50 - 149g)"; }
-                        else if (action == "mats2") { wantedgrund = "Matsbesitz (50 - 149Stk.)"; }
-
-                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
-
-
-                    }
-                    /////////////////////////////// 3 STAR /////////////////////////////// 
-                    else if (
-                           action == "mord" //Mord == Mord (Kein Kürzel)
-                        || action == "betreten von sperrzonen" || action == "sperr"
-                        || action == "beihilfe zur freiheitsberaubung" || action == "beraub"
-                        || action == "drogentruck" || action == "dt"
-                        || action == "kokaintruck" || action == "kt"
-                        || action == "matstruck" || action == "mt"
-                        || action == "waffentruck" || action == "wt"
-                        || action == "drogenbesitz3" || action == "drug3"
-                        || action == "kokainbesitz3" || action == "koks3"
-                        || action == "matsbesitz3" || action == "mats3"
-                        )
-                    {
-                        if (target.Reallife.Wanteds > 3)
-                        {
-                            target.Reallife.Wanteds = 6;
-                        }
-                        else
-                        {
-                            target.Reallife.Wanteds += 3;
-                        }
-                        if (action == "mord") { wantedgrund = "Mord"; }
-                        else if (action == "sperr") { wantedgrund = "Betreten von Sperrzonen"; }
-                        else if (action == "beraub") { wantedgrund = "Beihilfe zur Freiheitsberaubung"; }
-                        else if (action == "dt") { wantedgrund = "Drogentruck (und Beihilfe)"; }
-                        else if (action == "kt") { wantedgrund = "Kokaintruck (und Beihilfe)"; }
-                        else if (action == "mt") { wantedgrund = "Matstruck (und Beihilfe)"; }
-                        else if (action == "wt") { wantedgrund = "Waffentruck (und Beihilfe)"; }
-                        else if (action == "drug3") { wantedgrund = "Drogenbesitz (150g und mehr)"; }
-                        else if (action == "koks3") { wantedgrund = "Koksinbesitz (150g und mehr)"; }
-                        else if (action == "mats3") { wantedgrund = "Matsbesitz (150 Stk. und mehr)"; }
-
-                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
-                    }
-
-                    /////////////////////////////// 4 STAR /////////////////////////////// 
-                    else if (
-                            action == "bankraub" || action == "br"
-                         || action == "geiselnahme" || action == "geisel"
-                        )
-                    {
-                        if (target.Reallife.Wanteds > 2)
-                        {
-                            target.Reallife.Wanteds = 6;
-                        }
-                        else
-                        {
-                            target.Reallife.Wanteds += 4;
-                        }
-                        if (action == "br") { wantedgrund = "Bankraub"; }
-                        else if (action == "geisel") { wantedgrund = "Geiselnahme"; }
-
-                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
-                    }
-                    /////////////////////////////// 6 STAR /////////////////////////////// 
-                    else if (
-                            action == "einbruch beim fib" || action == "fib"
-                        || action == "einbruch beim lspd" || action == "pd"
-                        )
-                    {
-                        if (target.Reallife.Wanteds > 2)
-                        {
-                            target.Reallife.Wanteds = 6;
-                        }
-                        else
-                        {
-                            target.Reallife.Wanteds += 4;
-                        }
-                        if (action == "fib") { wantedgrund = "Einbruch beim FIB"; }
-                        else if (action == "pd") { wantedgrund = "Einbruch beim LSPD"; }
-
-                        target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
-                    }
-                    else
-                    {
-                        player.SendReallifeMessage("{175,0,0}Grund wurde nicht gefunden! Dein Grund war : " + action);
-                        return;
-                    }
-                    foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers().ToList())
+                    target.Reallife.Wanteds = Math.Min(6, target.Reallife.Wanteds + wantedClass.Wanteds);
+                    target.SendReallifeMessage("{#ffff00}Dein Fahndungslevel wurde von " + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedClass.Description);
+                    foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers())
                     {
                         if (Allround.isStateFaction(targetsingame))
                         {
-                            targetsingame.SendChatMessage("!{0,145,200}" + Faction.GetPlayerFactionRank(player) + " | " + player.Name + " hat das Fahndungslevel von " + target.Name + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedgrund);
+                            targetsingame.SendChatMessage("!{0,145,200}" + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat das Fahndungslevel von " + target.Username + " erhöht auf " + target.Reallife.Wanteds + "! Grund : " + wantedClass.Description);
                         }
                     }
                 }
                 else
                 {
-                    player.SendChatMessage("!{200,0,0}" + target.Name + " ist grade am Connecten....");
+                    player.SendChatMessage("!{200,0,0}" + target.Name + " ist nicht in Reallife online.");
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerStars", ex); }
         }
 
         [Command("clear", true)]
-        public void Clearuserwanteds(VnXPlayer player, string target_name)
+        public void Clearuserwanteds(VnXPlayer player, string targetName)
         {
             try
             {
@@ -1118,25 +1000,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Beamter im Dienst!");
                     return;
                 }
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
-
-                if (target != null && target.Playing == true)
+                VnXPlayer target = RageAPI.GetPlayerFromName(targetName);
+                if (target is null) { target.SendReallifeMessage(RageAPI.GetHexColorcode(175, 0, 0) + targetName + " ist nicht Online/Wurde nicht gefunden."); return; }
+                if (target.Playing && target.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
-                    if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
-                    {
-                        player.SendTranslatedChatMessage("{007d00}Der Spieler hat keine Wanteds!");
-
-                    }
+                    if (target.Reallife.Wanteds == 0) player.SendTranslatedChatMessage("{007d00}Der Spieler hat keine Wanteds!");
                     else
                     {
-                        target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
+                        target.Reallife.Wanteds = 0;
                         target.SendTranslatedChatMessage("{007d00}Officer " + player.Username + " hat deine Akte Gelöscht!");
-                        anzeigen.Usefull.VnX.onWantedChange(target);
 
-                        foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers())
                         {
-                            if (targetsingame.Reallife.Faction == 1)
+                            if (Allround.isStateFaction(targetsingame))
                             {
                                 targetsingame.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 145, 200) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat die Akte von " + target.Username + " Gelöscht!");
                             }
@@ -1145,7 +1021,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage(target.Username + " ist grade am Connecten...");
+                    player.SendChatMessage("!{200,0,0}" + target.Name + " ist nicht in Reallife online.");
                 }
             }
             catch { }
