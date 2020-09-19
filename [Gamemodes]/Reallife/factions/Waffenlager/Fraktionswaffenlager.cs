@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 foreach (WaffenlagerModel _WaffenLager in WaffenlagerList.ToList())
-                    Database.GetFactionWaffenlager(_WaffenLager);
+                    Database.RefreshWaffenlager(_WaffenLager);
             }
             catch { }
         }
