@@ -27,8 +27,8 @@ namespace VenoXV._Maps_
         public const string SEVENTOWERS_MAP = "SEVENTOWERS";
         private static readonly List<MapModel> SEVENTOWERSMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + SEVENTOWERS_MAP + ".json"));
 
-        public const string ZOMBIES_MAP = "ZOMBIES";
-        private static readonly List<MenyooMapModel> ZOMBIESMAP = JsonConvert.DeserializeObject<List<MenyooMapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + ZOMBIES_MAP + ".json"));
+        public const string DERBY1_MAP = "DERBY1";
+        private static readonly List<DurtyMapModel> DERBY1MAP = JsonConvert.DeserializeObject<List<DurtyMapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + DERBY1_MAP + ".json"));
 
         private static readonly int ROT_ORDER_NORMAL = 2;
         public static void LoadMap(VnXPlayer playerClass, string MapName)
@@ -69,9 +69,17 @@ namespace VenoXV._Maps_
                             Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
                         }
                         break;
-                    case ZOMBIES_MAP:
-                        foreach (MenyooMapModel mapClass in ZOMBIESMAP)
+                    case DERBY1_MAP:
+                        foreach (DurtyMapModel mapClass in DERBY1MAP)
                         {
+                            if (mapClass.Model == 665940918)
+                            {
+                                Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
+                            }
+                            else
+                            {
+                                Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                            }
                             //Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.ModelHash, new Vector3(mapClass.PositionRotation.X, mapClass.PositionRotation.Y, mapClass.PositionRotation.Z), 2, new Vector3(mapClass.PositionRotation.Pitch, mapClass.PositionRotation.Roll, mapClass.PositionRotation.Yaw), true, false, true, 0);
                         }
                         break;
