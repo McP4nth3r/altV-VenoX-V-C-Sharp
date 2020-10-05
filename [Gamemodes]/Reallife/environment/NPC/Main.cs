@@ -176,7 +176,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
                 NPC_Cols.Clear();
                 NPC_Cols = new List<ColShapeModel>();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Reallife:DeleteAllNPCs", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void CreateRandomNPC(ColShapeModel col, int rotation)
         {

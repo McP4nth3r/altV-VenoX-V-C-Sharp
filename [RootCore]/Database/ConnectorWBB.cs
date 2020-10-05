@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
             }
             catch (Exception ex)
             {
-                Core.Debug.CatchExceptions("CreateForumUser", ex);
+                Core.Debug.CatchExceptions(ex);
             }
         }
 
@@ -73,7 +73,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
             }
             catch (Exception ex)
             {
-                Core.Debug.CatchExceptions("AddUser", ex);
+                Core.Debug.CatchExceptions(ex);
                 return -1;
             }
         }
@@ -104,7 +104,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
             }
             catch (Exception ex)
             {
-                Core.Debug.CatchExceptions("GetUserOptions", ex);
+                Core.Debug.CatchExceptions(ex);
                 return new List<(string, string)>();
             }
         }
@@ -124,7 +124,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                 connection.Close();
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserOptions", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
 
         }
 
@@ -142,7 +142,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                 command.ExecuteNonQuery();
                 connection.Close();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserToGroup", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -160,7 +160,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                 command.ExecuteNonQuery();
                 connection.Close();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("AddUserToLanguage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         #region Salt 

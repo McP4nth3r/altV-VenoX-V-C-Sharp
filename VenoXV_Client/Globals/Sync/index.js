@@ -15,7 +15,7 @@ export function OnVoiceKeyDown(key) {
             alt.emitServer('Voice:ChangeState', muted);
         }
     }
-    catch{ }
+    catch { }
 }
 
 export function OnVoiceKeyUp(key) {
@@ -24,7 +24,7 @@ export function OnVoiceKeyUp(key) {
             muted = true;
             alt.emitServer('Voice:ChangeState', muted);
         }
-    } catch{ }
+    } catch { }
 }
 
 alt.on("gameEntityCreate", entity => {
@@ -39,7 +39,7 @@ alt.on("gameEntityCreate", entity => {
             game.setEntityInvincible(entity.scriptID, entity.getStreamSyncedMeta('VEHICLE_GODMODE'));
         }
     }
-    catch{ }
+    catch { }
 });
 
 /* Sync : TextLabels */
@@ -60,7 +60,7 @@ alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, C
             Range: Range
         };
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Sync:RemoveLabels', () => {
@@ -68,7 +68,7 @@ alt.onServer('Sync:RemoveLabels', () => {
         //outputted = false;
         CurrentLabels = {};
     }
-    catch{ }
+    catch { }
 });
 
 /* Sync : Marker-Map */
@@ -86,13 +86,13 @@ alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, Sc
             Color: [ColorR, ColorG, ColorB, ColorA],
         };
     }
-    catch{ }
+    catch { }
 })
 alt.onServer('Sync:RemoveMarkers', () => {
     try {
         CurrentMarkers = {};
     }
-    catch{ }
+    catch { }
 });
 
 let cObjs = {};
@@ -122,7 +122,7 @@ alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => 
             Parent: Parent
         };
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Sync:DestroyObjs', () => {
@@ -135,7 +135,7 @@ alt.onServer('Sync:DestroyObjs', () => {
         cObjs = {};
         cObjCounter = 0;
     }
-    catch{ }
+    catch { }
 });
 
 
@@ -146,7 +146,7 @@ function SyncTextLabels() {
             Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
         }
     }
-    catch{ }
+    catch { }
 }
 
 function SyncMarkers() {
@@ -156,7 +156,7 @@ function SyncMarkers() {
             game.drawMarker(data.Type, data.PosX, data.PosY, data.PosZ, 0, 0, 0, 0, 0, 0, data.Scale[0], data.Scale[1], data.Scale[2], data.Color[0], data.Color[1], data.Color[2], data.Color[3], false, true, 2, false, undefined, undefined, false);
         }
     }
-    catch{ }
+    catch { }
 }
 
 
@@ -165,40 +165,37 @@ alt.everyTick(() => {
         SyncTextLabels();
         SyncMarkers();
     }
-    catch{ }
+    catch { }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let MapObjects = {};
 let MapC = 0;
 alt.onServer('Sync:LoadMap', (MapName, Hash, Position, RotOrder, Rotation, freeze, HashNeeded, HighLod = false, Tint = 0) => {
-    try {
-        let Entity;
-        if (HashNeeded) {
-            if (!game.hasModelLoaded(game.getHashKey(Hash))) {
-                alt.loadModel(game.getHashKey(Hash));
-            }
-            Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
+    let Entity;
+    if (Hash == 665940918 || Hash == "v_corp_postbox") alt.log('Hash : ' + Hash);
+    if (HashNeeded) {
+        if (!game.hasModelLoaded(game.getHashKey(Hash))) {
+            if (Hash == 665940918 || Hash == "v_corp_postbox") alt.log('Hash neeed for : ' + Hash);
+            alt.loadModel(game.getHashKey(Hash));
         }
-        else {
-            if (!game.hasModelLoaded(Hash)) {
-                alt.loadModel(Hash);
-            }
-            Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
-        }
-        if (freeze) { game.freezeEntityPosition(Entity, true); }
-        if (HighLod) { game.setEntityLodDist(Entity, 2000); }
-        if (Tint > 0) { game.setObjectTextureVariation(Entity, Tint); }
-        game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, RotOrder, true);
-
-        //game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
-        //game.freezeEntityPosition(Entity, freeze);
-        MapObjects[MapC++] = {
-            Entity: Entity,
-            MapName: MapName
-        };
+        Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
     }
-    catch{ }
+    else {
+        if (!game.hasModelLoaded(Hash)) alt.loadModel(Hash);
+        Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
+    }
+    if (freeze) game.freezeEntityPosition(Entity, true);
+    if (HighLod) game.setEntityLodDist(Entity, 2000);
+    if (Tint > 0) game.setObjectTextureVariation(Entity, Tint);
+    game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, RotOrder, true);
+
+    //game.setEntityQuaternion(Entity, QuaternionX, QuaternionY, QuaternionZ, QuaternionW);
+    //game.freezeEntityPosition(Entity, freeze);
+    MapObjects[MapC++] = {
+        Entity: Entity,
+        MapName: MapName
+    };
 });
 
 alt.onServer('Sync:UnloadMap', (MapName) => {
@@ -211,7 +208,7 @@ alt.onServer('Sync:UnloadMap', (MapName) => {
             }
         }
     }
-    catch{ }
+    catch { }
 });
 
 

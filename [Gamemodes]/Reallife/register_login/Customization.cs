@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyPlayerClothes", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void ApplyPlayerTattoos(VnXPlayer player)

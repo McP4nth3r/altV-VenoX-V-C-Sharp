@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShapeModel", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

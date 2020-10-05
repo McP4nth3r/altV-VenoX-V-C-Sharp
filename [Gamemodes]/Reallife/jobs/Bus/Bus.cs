@@ -54,7 +54,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnResourceStart", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void StartBusJob(VnXPlayer player, int value)
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 Vector3 Destination = AbgabepunkteLVLONE[0];
                 Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("StartBusJob", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnJobMarkerHit(VnXPlayer player)
@@ -133,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                     Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("BusJob:OnJobMarkerHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("BusJob:TimeoutDone")]

@@ -65,7 +65,7 @@ namespace VenoXV._Language_
                 TranslatedText.Add(newEntry);
                 return result;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("TranslateText", ex); return "Error"; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return "Error"; }
         }
 
 
@@ -88,7 +88,7 @@ namespace VenoXV._Language_
                         break;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

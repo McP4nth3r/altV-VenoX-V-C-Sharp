@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.GrenadeLauncher, 999);
                 SendPlayerWelcomeNotify(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedZombieGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void SetBestPlayerByPing(VnXPlayer player)
@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SetBestPlayerByPing", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void GetBestAreaSyncer()
         {
@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     }
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("GetBestAreaSyncer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void GetNewZombieTarget()
@@ -130,7 +130,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetNewZombieTarget", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncZombieTargeting()
         {
@@ -155,7 +155,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     }
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("SyncZombieTargeting", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -195,7 +195,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     SyncZombieTargeting();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

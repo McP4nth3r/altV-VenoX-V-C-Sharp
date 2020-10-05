@@ -18,7 +18,7 @@ namespace VenoXV._RootCore_.Models
             {
                 Vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RaceVehicleModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Weapons
@@ -31,7 +31,7 @@ namespace VenoXV._RootCore_.Models
             {
                 Vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ReallifeVehicleModelWeapons-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class VehReallife
@@ -48,7 +48,7 @@ namespace VenoXV._RootCore_.Models
             {
                 Vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ReallifeVehicleModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class VehicleModel : Vehicle
@@ -112,7 +112,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new VehicleModel(playerPointer, id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("VehicleFactory:Create", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
     }
 

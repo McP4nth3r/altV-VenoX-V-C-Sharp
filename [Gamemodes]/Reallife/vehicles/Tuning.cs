@@ -60,7 +60,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShapeModel", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("Reallife-Tuning:Close")]
@@ -77,7 +77,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CloseTuningWindow", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void AddTunningToIVehicle(VehicleModel vehClass)

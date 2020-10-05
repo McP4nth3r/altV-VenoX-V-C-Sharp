@@ -17,7 +17,7 @@ namespace VenoXV._RootCore_.Models
             {
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create-DrivingSchool", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Reallife
@@ -114,7 +114,7 @@ namespace VenoXV._RootCore_.Models
                 Knastzeit = 0;
                 Kaution = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Tactics
@@ -134,7 +134,7 @@ namespace VenoXV._RootCore_.Models
             {
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Zombies
@@ -152,7 +152,7 @@ namespace VenoXV._RootCore_.Models
                 NearbyPlayers = new List<Player>();
                 NearbyZombies = new List<ZombieModel>();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Race
@@ -172,7 +172,7 @@ namespace VenoXV._RootCore_.Models
                 RoundPlace = 0;
                 CurrentMarker = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RaceModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class SevenTowers
@@ -186,7 +186,7 @@ namespace VenoXV._RootCore_.Models
             {
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Settings
@@ -211,7 +211,7 @@ namespace VenoXV._RootCore_.Models
             {
                 Player = player;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Phone
@@ -226,7 +226,7 @@ namespace VenoXV._RootCore_.Models
                 Player = player;
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PhoneModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Discord
@@ -249,7 +249,7 @@ namespace VenoXV._RootCore_.Models
                 Avatar = String.Empty;
                 Discriminator = String.Empty;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class Forum
@@ -263,7 +263,7 @@ namespace VenoXV._RootCore_.Models
                 Player = player;
                 UID = -1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DiscordModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 
@@ -276,7 +276,7 @@ namespace VenoXV._RootCore_.Models
             {
                 LastVehicleLeaveEventCall = DateTime.Now;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("UsefullModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class VnXPlayer : Player
@@ -349,7 +349,7 @@ namespace VenoXV._RootCore_.Models
                 AdminRank = 0;
                 Dead = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerModel-Create", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
@@ -360,7 +360,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new VnXPlayer(playerPointer, id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerFactory:Create", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
     }
 }

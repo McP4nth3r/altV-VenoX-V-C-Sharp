@@ -315,7 +315,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     Alt.Server.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("InformAllThatPlayerJoined", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public void SyncTime()

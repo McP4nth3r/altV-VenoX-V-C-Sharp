@@ -85,7 +85,7 @@ namespace VenoXV._Maps_
                         break;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadMap", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void UnloadMap(VnXPlayer playerClass, string MapName)
         {

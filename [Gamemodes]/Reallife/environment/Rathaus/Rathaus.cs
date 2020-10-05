@@ -245,7 +245,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 CurrentDrivingSchoolBlips.Add(blipClass);
                 CurrentDrivingSchoolColShapes.Add(colClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void DestroyDrivingSchoolMarker(VnXPlayer player)
         {
@@ -286,7 +286,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyDrivingSchoolMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -327,7 +327,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static VehicleModel CreateDrivingSchoolVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, bool WarpIntoVehicle = true)
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 CurrentDrivingSchoolVehicles.Add(DrivingSchoolVehicle);
                 return DrivingSchoolVehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateDrivingSchoolVehicle", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
         [ClientEvent("CancelDrivingSchool")]

@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace VenoXV.Core
 {
@@ -23,9 +24,9 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void CatchExceptions(string FunctionName, Exception ex)
+        public static void CatchExceptions(Exception ex, [CallerMemberName] string FunctionName = "")
         {
-            if (!DEBUG_MODE_ENABLED) { return; }
+            if (!DEBUG_MODE_ENABLED) return;
             string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "[EXCEPTION " + FunctionName + "] " + ex.Message, "[EXCEPTION " + FunctionName + "] " + ex.StackTrace };
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(text[0]);

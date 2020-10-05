@@ -36,7 +36,7 @@ import * as environment_house from '/VenoXV_Client/Reallife/environment/house/in
 import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
 import * as environment_gas from '/VenoXV_Client/Reallife/environment/tankstellen/index.js';
 import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
-import * as StateFguns from '/VenoXV_Client/Reallife/factions/state/fguns/index.js';
+import * as StateFguns from '/VenoXV_Client/Reallife/factions/fguns/index.js';
 import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
 import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js';
 import * as Gangwar from '/VenoXV_Client/Reallife/factions/gangwar/index.js';
@@ -226,5 +226,5 @@ alt.setTimeout(() => {
         game.requestIpl('CanyonRvrShallow');
         game.requestIpl('CS3_05_water_grp1');
     }
-    catch{ }
+    catch { }
 }, 1250);

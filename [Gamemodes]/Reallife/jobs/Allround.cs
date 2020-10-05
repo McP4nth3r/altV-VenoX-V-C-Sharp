@@ -67,7 +67,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnJobAcceptColHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         // Wenn der Spieler seinen Job annimmt im Marker.
@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         break;
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("AcceptJob", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("Job:StartStage")]
@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                         break;
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("TriggerJobButton", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 CurrentJobBlips.Add(blipClass);
                 CurrentJobColShapes.Add(colClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static VehicleModel CreateJobVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, bool WarpIntoVehicle = true)
@@ -182,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 if (WarpIntoVehicle) { player.WarpIntoVehicle(JobVehicle, -1); }
                 return JobVehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateJobVehicle", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
         public static void DestroyJobMarker(VnXPlayer player)
@@ -222,7 +222,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyJobMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnColShapeHit(IColShape col, VnXPlayer player)
@@ -246,7 +246,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 }
                 else { OnPlayerEnterJobStartShape(col, player); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeJobHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnPlayerDisconnect(VnXPlayer player)
         {
@@ -262,7 +262,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     }
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnPlayerDisconnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnPlayerLeaveVehicle(VehicleModel vehClass, VnXPlayer player, byte Seat)
         {
@@ -271,7 +271,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                 Airport.Airport.OnPlayerExitVehicle(vehClass, player);
                 Bus.Bus.OnPlayerLeaveVehicle(vehClass, player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerLeaveVehicle", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

@@ -93,7 +93,7 @@ namespace VenoXV._Preload_.Register
                 AccountList.Add(account);
                 Program.CreateForumUser(player, nickname, email, password);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

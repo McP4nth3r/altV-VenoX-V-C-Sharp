@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 ActionWillEnd = DateTime.Now.AddMinutes(ACTION_WILL_END);
                 return true;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("StartAction", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         public static VehicleModel CreateActionVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehClass, Vector3 Position, Vector3 Rotation, bool WarpPlayer)
@@ -75,7 +75,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 ActionVehicles.Add(veh);
                 return veh;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateActionVehicle", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
         public static void CreateTargetMarker(string Name, Vector3 Position, int Sprite, int Color, bool ShortRange, string Action)
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f);
                 col.vnxSetElementData(ACTION_COLSHAPE, Action);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTargetMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnClientEnterColShape(ColShapeModel shape, VnXPlayer player)
@@ -113,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateTargetMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnUpdate()

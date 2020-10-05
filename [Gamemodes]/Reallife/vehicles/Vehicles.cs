@@ -150,7 +150,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.SendTranslatedChatMessage("Du bist in keiner Fraktion !");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("frespawn", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -535,7 +535,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CalculateVehicleTank", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void Tank(VnXPlayer player, float distance, bool state, VehicleModel vehicle)
         {
@@ -571,7 +571,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.Gas = 20;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Tank", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerEnterVehicle)]
@@ -676,7 +676,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     Alt.Server.TriggerClientEvent(player, "initializeSpeedometer", kms, gas, Vehicle.EngineOn);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterVehicle", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         [ClientEvent("OnPlayerEnterVehicleCall")]
         public static void OnPlayerEnterVehicleCall(VnXPlayer player)
@@ -688,7 +688,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     OnPlayerEnterVehicle((VehicleModel)player.Vehicle, player, 0);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterVehicleCall", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -712,7 +712,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.Usefull.LastVehicleLeaveEventCall = DateTime.Now.AddSeconds(3);
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         /*//[ServerEvent(Event.IVehicleDeath)]
@@ -801,7 +801,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("engineOnEventKey", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         //[AltV.Net.ClientEvent("saveIVehicleConsumes")]

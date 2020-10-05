@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                 player.Reallife.AIRPORTJOB_LEVEL += 1;
                 player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnJobMarkerHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerExitVehicle(VehicleModel vehClass, VnXPlayer player)
@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     Core.Debug.OutputDebugString("JobStage 2: " + player.Reallife.JobStage);
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnPlayerExitVehicle", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         // Transporter Punkte
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Airport
                     player.Reallife.JobStage = stage;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("StartAirportJob", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

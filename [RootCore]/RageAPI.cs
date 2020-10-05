@@ -20,7 +20,7 @@ namespace VenoXV.Core
         public static List<ColShapeModel> GetAllColShapes()
         {
             try { return Sync.ColShapeList; }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetAllColShapes", ex); return new List<ColShapeModel>(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<ColShapeModel>(); }
         }
         public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = Globals.Main.REALLIFE_DIMENSION)
         {
@@ -31,7 +31,7 @@ namespace VenoXV.Core
                 Sync.ColShapeList.Add(Entity);
                 return Entity;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateColShapeSphere", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
         public static void RemoveColShape(ColShapeModel ColShape)
@@ -40,7 +40,7 @@ namespace VenoXV.Core
             {
                 if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape); Sync.ColShapeList.Remove(ColShape); }
             }
-            catch (Exception ex) { Debug.CatchExceptions("RemoveColShape", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static async void SendTranslatedChatMessage(this VnXPlayer element, string msg)
         {
@@ -51,7 +51,7 @@ namespace VenoXV.Core
                     await _Language_.Main.SendTranslatedChatMessage(element, msg);
                 });
             }
-            catch (Exception ex) { Debug.CatchExceptions("SendTranslatedChatMessage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SpawnPlayer(this VnXPlayer element, Vector3 pos, uint DelayInMS = 0)
         {
@@ -127,7 +127,7 @@ namespace VenoXV.Core
                 if (element == null) { return; }
                 element.SetData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetElementData", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void vnxSetSharedElementData<T>(this IEntity element, string key, T value)
         {
@@ -137,7 +137,7 @@ namespace VenoXV.Core
                 element.SetData(key, value);
                 element.SetSyncedMetaData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetSharedElementData", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void vnxSetStreamSharedElementData<T>(this IEntity element, string key, T value)
         {
@@ -147,7 +147,7 @@ namespace VenoXV.Core
                 element.SetData(key, value);
                 element.SetStreamSyncedMetaData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("vnxSetStreamSharedElementData", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void Repair(this IVehicle element)
         {
@@ -155,7 +155,7 @@ namespace VenoXV.Core
             {
                 foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Repair", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static T vnxGetSharedData<T>(this IEntity element, string key)
         {
@@ -206,7 +206,7 @@ namespace VenoXV.Core
             {
                 Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GivePlayerWeapon", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void RemovePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon)
         {
@@ -255,7 +255,7 @@ namespace VenoXV.Core
                 if (clothesslot < 0 || clothesdrawable < 0) { return; }
                 element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
-            catch (Exception ex) { Debug.CatchExceptions("SetClothes", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetProp(this VnXPlayer element, int propID, int drawableID, int textureID)
         {
@@ -264,7 +264,7 @@ namespace VenoXV.Core
                 if (propID < 0 || textureID < 0) { return; }
                 element.Emit("Prop:Load", propID, drawableID, textureID);
             }
-            catch (Exception ex) { Debug.CatchExceptions("SetProp", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
@@ -306,7 +306,7 @@ namespace VenoXV.Core
                 Sync.LabelList.Add(label);
                 return label;
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateTextLabel", ex); return new LabelModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new LabelModel(); }
         }
         public static void RemoveTextLabel(LabelModel labelClass)
         {
@@ -315,7 +315,7 @@ namespace VenoXV.Core
                 if (labelClass == null) { return; }
                 if (Sync.LabelList.Contains(labelClass)) { Sync.LabelList.Remove(labelClass); }
             }
-            catch (Exception ex) { Debug.CatchExceptions("RemoveTextLabel", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void RemoveBlip(BlipModel blipClass, VnXPlayer DeleteFor = null)
         {
@@ -326,7 +326,7 @@ namespace VenoXV.Core
                 else { Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.Name); }
                 if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
             }
-            catch (Exception ex) { Debug.CatchExceptions("RemoveBlip", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, VnXPlayer VisibleOnlyFor = null)
         {
@@ -350,7 +350,7 @@ namespace VenoXV.Core
                 }
                 return blip;
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateBlip", ex); return new BlipModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new BlipModel(); }
         }
         private static int MarkerCounter = 0;
         public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, VnXPlayer VisibleOnlyFor = null, int Dimension = Globals.Main.REALLIFE_DIMENSION)
@@ -371,15 +371,15 @@ namespace VenoXV.Core
                 Sync.MarkerList.Add(marker);
                 return marker;
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateMarker", ex); return new MarkerModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new MarkerModel(); }
         }
         public static void RemoveMarker(MarkerModel markerClass)
         {
             try
             {
-                if (Sync.MarkerList.Contains(markerClass)) { Sync.MarkerList.Remove(markerClass); }
+                if (Sync.MarkerList.Contains(markerClass)) Sync.MarkerList.Remove(markerClass);
             }
-            catch (Exception ex) { Debug.CatchExceptions("RemoveMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         private static int ObjectCounter = 0;
         public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = Globals.Main.REALLIFE_DIMENSION, VnXPlayer VisibleOnlyFor = null)
@@ -401,7 +401,7 @@ namespace VenoXV.Core
                 Sync.ObjectList.Add(obj);
                 return obj;
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateObject", ex); return new ObjectModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new ObjectModel(); }
         }
 
         public static void DeleteVehicleThreadSafe(VehicleModel vehicleClass)
@@ -415,7 +415,7 @@ namespace VenoXV.Core
                 vehicleClass.MarkedForDelete = true;
                 if (!Globals.Main.AllVehicles.Contains(vehicleClass)) { Globals.Main.AllVehicles.Add(vehicleClass); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DeleteVehicleThreadSafe", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
 
         }
 
@@ -450,7 +450,7 @@ namespace VenoXV.Core
                 Sync.NPCList.Add(NPC);
                 return NPC;
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateNPC", ex); return new NPCModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new NPCModel(); }
         }
         public static void UpdateNPCPosition(NPCModel npcClass)
         {

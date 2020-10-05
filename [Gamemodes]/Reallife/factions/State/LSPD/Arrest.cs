@@ -66,9 +66,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         {
             try
             {
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
+                if (player.Reallife.Knastzeit > 0)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION) > 0)
+                    if (player.Reallife.Kaution > 0)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "----------------------------------");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Du hast eine Kaution von " + player.vnxGetElementData<int>(EntityData.PLAYER_KAUTION) + "$!");
@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         {
             try
             {
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) > 0)
+                if (player.Reallife.Knastzeit > 0)
                 {
                     player.SendTranslatedChatMessage("Du bist noch " + RageAPI.GetHexColorcode(0, 200, 255) + " " + player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) + RageAPI.GetHexColorcode(255, 255, 255) + " Minuten im Prison!");
                 }
@@ -328,7 +328,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
             }
             catch
             {
-
             }
         }
     }

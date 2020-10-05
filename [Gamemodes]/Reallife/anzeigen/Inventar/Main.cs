@@ -99,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnInventoryButtonUse", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void UseItem(VnXPlayer player, ItemModel item)
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                         break;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("UseItem", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

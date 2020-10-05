@@ -91,7 +91,7 @@ namespace VenoXV._Preload_
         {
             try
             {
-                if (player == null) { return; }
+                if (player == null) return;
                 player.Dimension = player.Id;
                 Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
@@ -109,7 +109,7 @@ namespace VenoXV._Preload_
                         if (!Globals.Main.ZombiePlayers.Contains(player)) { Globals.Main.ZombiePlayers.Add(player); }
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
-                        _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
+                        // _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
                         Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
@@ -159,7 +159,7 @@ namespace VenoXV._Preload_
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("PlayerConnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

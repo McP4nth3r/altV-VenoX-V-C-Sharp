@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using System;
+using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.admin;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
@@ -132,122 +133,78 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         }
 
+
+        private static Dictionary<string, AltV.Net.Enums.WeaponModel> FgunsWeapons = new Dictionary<string, AltV.Net.Enums.WeaponModel>
+        {
+            {   "Schlagstock",  AltV.Net.Enums.WeaponModel.Nightstick },
+            {   "Tazer",        AltV.Net.Enums.WeaponModel.StunGun },
+            {   "Pistole",      AltV.Net.Enums.WeaponModel.Pistol },
+            {   "Pistole50",    AltV.Net.Enums.WeaponModel.Pistol50 },
+            {   "Shotgun",      AltV.Net.Enums.WeaponModel.PumpShotgun },
+            {   "PDW",          AltV.Net.Enums.WeaponModel.CombatPDW },
+            {   "Karabiner",    AltV.Net.Enums.WeaponModel.CarbineRifle },
+            {   "Kampfgewehr",  AltV.Net.Enums.WeaponModel.AdvancedRifle },
+            {   "Sniper",       AltV.Net.Enums.WeaponModel.SniperRifle },
+        };
+
+        public static void UpdateFgunsWindow(VnXPlayer player)
+        {
+            if (isStateFaction(player))
+            {
+                WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
+
+                Alt.Server.TriggerClientEvent(player, "fguns:ForceStateWindowUpdate",
+                    "Schlagstock", " [ " + fweapon.weapon_nightstick.Amount + " ] ",
+                    "Tazer", " [ " + fweapon.weapon_tazer.Amount + " ] ",
+                    "Pistole", " [ " + fweapon.weapon_pistol.Amount + " ] ",
+                    "Pistole50", " [ " + fweapon.weapon_pistol50.Amount + " ] ",
+                    "Shotgun", " [ " + fweapon.weapon_pumpshotgun.Amount + " ] ",
+                    "PDW", " [ " + fweapon.weapon_combatpdw.Amount + " ] ",
+                    "Karabiner", " [ " + fweapon.weapon_carbinerifle.Amount + " ] ",
+                    "Kampfgewehr", " [ " + fweapon.weapon_advancedrifle.Amount + " ] ",
+                    "Sniper", " [ " + fweapon.weapon_sniperrifle.Amount + " ] "
+                    );
+            }
+            else
+            {
+                //WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
+
+            }
+        }
+
+
+        [ClientEvent("fguns:selectweapon")]
+        public static void FgunsSelectWeapon(VnXPlayer player, string weapon)
+        {
+            try
+            {
+                if (player.Reallife.Faction == Constants.FACTION_NONE) return;
+                if (!FgunsWeapons.TryGetValue(weapon, out AltV.Net.Enums.WeaponModel WeaponHash))
+                {
+                    Debug.OutputDebugString("fguns:selectweapon not found weapon ID : " + weapon);
+                    return;
+                }
+                WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
+
+            }
+            catch (Exception) { }
+        }
+
         public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == LSPDCOL_FGUNS)
+                if (shape == LSPDCOL_FGUNS || shape == FBICOL_FGUNS)
                 {
                     if (isStateFaction(player))
                     {
                         WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
-                        Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
-
-                        "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
-
-                        "Tazer [" + fweapon.weapon_tazer + "/" + Constants.STUNGUN_MAX_LAGER + "]",
-
-                        "Pistol [" + fweapon.weapon_pistol + "/" + Constants.PISTOL_MAX_LAGER + "]",
-
-                        "Pistol 50 [" + fweapon.weapon_pistol50 + "/" + Constants.PISTOL50_MAX_LAGER + "]",
-
-                        "Shotgun [" + fweapon.weapon_pumpshotgun + "/" + Constants.SHOTGUN_MAX_LAGER + "]",
-
-                        "Einsatz PDW[" + fweapon.weapon_combatpdw + "/" + Constants.COMBATPDW_MAX_LAGER + "]",
-
-                        "Karabiner [" + fweapon.weapon_carbinerifle + "/" + Constants.KARABINER_MAX_LAGER + "]",
-
-                        "Advancedrifle[" + fweapon.weapon_advancedrifle + "/" + Constants.ADVANCEDRIFLE_MAX_LAGER + "]",
-
-                        "Sniper [" + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + "]",
-
-                        "<br>Pistolen Magazin : " + fweapon.weapon_pistol_ammo +
-                        "<br>Pistol50 Magazin : " + fweapon.weapon_pistol50_ammo +
-                        "<br>Shotgun Magazin : " + fweapon.weapon_pumpshotgun_ammo +
-                        "<br>PDW Magazin : " + fweapon.weapon_combatpdw_ammo +
-                        "<br>Karabiner Magazin : " + fweapon.weapon_carbinerifle_ammo +
-                        "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
-                        "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
-
-                        player.Reallife.FactionRank);
-                    }
-                }
-                else if (shape == FBICOL_FGUNS)
-                {
-                    if (isStateFaction(player))
-                    {
-                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
-                        Alt.Server.TriggerClientEvent(player, "showStateWeaponWindow",
-
-                        "Schlagstock [" + fweapon.weapon_nightstick + "/" + Constants.NIGHTSTICK_MAX_LAGER + "]",
-
-                        "Tazer [" + fweapon.weapon_tazer + "/" + Constants.STUNGUN_MAX_LAGER + "]",
-
-                        "Pistol [" + fweapon.weapon_pistol + "/" + Constants.PISTOL_MAX_LAGER + "]",
-
-                        "Pistol 50 [" + fweapon.weapon_pistol50 + "/" + Constants.PISTOL50_MAX_LAGER + "]",
-
-                        "Shotgun [" + fweapon.weapon_pumpshotgun + "/" + Constants.SHOTGUN_MAX_LAGER + "]",
-
-                        "Einsatz PDW[" + fweapon.weapon_combatpdw + "/" + Constants.COMBATPDW_MAX_LAGER + "]",
-
-                        "Karabiner [" + fweapon.weapon_carbinerifle + "/" + Constants.KARABINER_MAX_LAGER + "]",
-
-                        "Advancedrifle[" + fweapon.weapon_advancedrifle + "/" + Constants.ADVANCEDRIFLE_MAX_LAGER + "]",
-
-                        "Sniper [" + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + "]",
-
-                        "<br>Pistolen Magazin : " + fweapon.weapon_pistol_ammo +
-                        "<br>Pistol50 Magazin : " + fweapon.weapon_pistol50_ammo +
-                        "<br>Shotgun Magazin : " + fweapon.weapon_pumpshotgun_ammo +
-                        "<br>PDW Magazin : " + fweapon.weapon_combatpdw_ammo +
-                        "<br>Karabiner Magazin : " + fweapon.weapon_carbinerifle_ammo +
-                        "<br>Advanced Magazin : " + fweapon.weapon_advancedrifle_ammo +
-                        "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo,
-
-                        player.Reallife.FactionRank);
-                    }
-                }
-                else if (shape.vnxGetElementData<bool>("isWeaponSelectShape") == true)
-                {
-                    if (isBadFaction(player))
-                    {
-                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
-                        Alt.Server.TriggerClientEvent(player, "showBadWeaponWindow",
-
-                        "Baseball [" + fweapon.weapon_baseball + "/" + Constants.BASEBALL_MAX_LAGER + "]",
-
-                        "Pistol [" + fweapon.weapon_pistol + "/" + Constants.PISTOL_MAX_LAGER + "]",
-
-                        "Pistol 50 [" + fweapon.weapon_pistol50 + "/" + Constants.PISTOL50_MAX_LAGER + "]",
-
-                        "Revoler [" + fweapon.weapon_revolver + "/" + Constants.REVOLVER_MAX_LAGER + "]",
-
-                        "Mp5 [" + fweapon.weapon_mp5 + "/" + Constants.MP5_MAX_LAGER + "]",
-
-                        "Ak47 [" + fweapon.weapon_assaultrifle + "/" + Constants.AK47_MAX_LAGER + "]",
-
-                        "Rifle [" + fweapon.weapon_rifle + "/" + Constants.RIFLE_MAX_LAGER + "]",
-
-                        "Sniper[" + fweapon.weapon_sniperrifle + "/" + Constants.SNIPER_MAX_LAGER + "]",
-
-                        "RPG [" + fweapon.weapon_rpg + "/" + Constants.RPG_MAX_LAGER + "]",
-
-                        "<br>Baseball : " + fweapon.weapon_baseball +
-                        "<br>Pistol Magazin : " + fweapon.weapon_pistol_ammo +
-                        "<br>Pistol50 Magazin : " + fweapon.weapon_pistol50_ammo +
-                        "<br>Revoler Magazin : " + fweapon.weapon_revolver_ammo +
-                        "<br>Mp5 Magazin : " + fweapon.weapon_mp5_ammo +
-                        "<br>Ak47 Magazin : " + fweapon.weapon_assaultrifle_ammo +
-                        "<br>Rifle Magazin : " + fweapon.weapon_rifle_ammo +
-                        "<br>Sniper Magazin : " + fweapon.weapon_sniperrifle_ammo +
-                        "<br>RPG Magazin : " + fweapon.weapon_rpg_ammo,
-
-                        player.Reallife.FactionRank);
+                        Alt.Server.TriggerClientEvent(player, "fguns:Open", true);
+                        UpdateFgunsWindow(player);
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static bool isBadFaction(VnXPlayer player)
@@ -264,7 +221,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralFaction", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
         public static bool isStateFaction(VnXPlayer player)
         {
@@ -277,7 +234,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("IsStateFaction", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
         public static bool isStateIVehicle(VehicleModel Vehicle)
         {
@@ -290,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("isStateIVehicle", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         public static bool isBadIVehicle(VehicleModel Vehicle)
@@ -304,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("isBadIVehicle", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
         public static bool isNeutralIVehicle(VehicleModel Vehicle)
         {
@@ -317,7 +274,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralIVehicle", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
 
@@ -332,7 +289,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("isNeutralFaction", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
 
@@ -923,7 +880,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     weapons.Weapons.GivePlayerWeaponItems(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("goSWATServer")]
@@ -950,7 +907,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 player.SetClothes(8, 15, 0);
                 weapons.Weapons.GivePlayerWeaponItems(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GoDutyIPlayer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
 
         }
 

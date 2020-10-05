@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                 }
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Ammunation:BuyAmmo", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -401,7 +401,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                     Alt.Server.TriggerClientEvent(player, "Ammunation:Show");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerAmmunationColShapeHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

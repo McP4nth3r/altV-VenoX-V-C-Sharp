@@ -322,13 +322,13 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     player.Health = 0;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadDatasAfterLogin", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnSelectedReallifeGM(VnXPlayer player)
         {
             try { player.RemoveAllPlayerWeapons(); LoadDatasAfterLogin(player); handy.Allround.UpdatePhonePlayerlist(); }
-            catch (Exception ex) { Debug.CatchExceptions("OnSelectedReallifeGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("Send_Player_Where_From")]

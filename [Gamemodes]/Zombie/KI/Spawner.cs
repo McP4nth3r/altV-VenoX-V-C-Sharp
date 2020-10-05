@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.KI
                 player.Zombies.NearbyZombies.Add(zombieClass);
                 CurrentZombies.Add(zombieClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewRandomZombie", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void AddNearbyZombiesIntoList()
@@ -87,7 +87,7 @@ namespace VenoXV._Gamemodes_.KI
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("AddNearbyZombiesIntoList", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void ApplyZombieClothes(VnXPlayer player, int RandomSkinUID, int ZombieId)
@@ -110,7 +110,7 @@ namespace VenoXV._Gamemodes_.KI
                 }
                 //Alt.Server.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("ApplyZombieClothes", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void SpawnZombiesArroundPlayers()
@@ -129,7 +129,7 @@ namespace VenoXV._Gamemodes_.KI
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnZombiesArroundPlayers", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SpawnZombiesForEveryPlayer()
         {
@@ -138,7 +138,7 @@ namespace VenoXV._Gamemodes_.KI
                 AddNearbyZombiesIntoList();
                 SpawnZombiesArroundPlayers();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnZombiesForEveryPlayer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void DestroyZombieById(int Id)
         {
@@ -157,7 +157,7 @@ namespace VenoXV._Gamemodes_.KI
                     CurrentZombies.Remove(zombies);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("DestroyZombieById", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
     }

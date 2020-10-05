@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     player.RemoveAllPlayerWeapons();
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnPlayerDeath", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

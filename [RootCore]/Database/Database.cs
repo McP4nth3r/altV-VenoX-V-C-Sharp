@@ -4,6 +4,7 @@ using AltV.Net.Data;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,57 +107,55 @@ namespace VenoXV._RootCore_.Database
             catch { return null; }
         }
 
-        public static void GetFactionWaffenlager(WaffenlagerModel _Waffenlager)
+        public static void RefreshWaffenlager(WaffenlagerModel _Waffenlager)
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM fraktionslager WHERE FID = @FID LIMIT 1";
+                command.Parameters.AddWithValue("@FID", _Waffenlager.Faction);
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM fraktionslager WHERE FID = @FID LIMIT 1";
-                    command.Parameters.AddWithValue("@FID", _Waffenlager.Faction);
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        reader.Read();
-                        _Waffenlager.weapon_knuckle = reader.GetInt32("weapon_knuckle");
-                        _Waffenlager.weapon_nightstick = reader.GetInt32("weapon_nightstick");
-                        _Waffenlager.weapon_baseball = reader.GetInt32("weapon_baseball");
-                        _Waffenlager.weapon_tazer = reader.GetInt32("weapon_stungun");
-                        _Waffenlager.weapon_pistol50 = reader.GetInt32("weapon_pistol50");
-                        _Waffenlager.weapon_pistol50_ammo = reader.GetInt32("weapon_pistol50_ammo");
-                        _Waffenlager.weapon_revolver = reader.GetInt32("weapon_revolver");
-                        _Waffenlager.weapon_revolver_ammo = reader.GetInt32("weapon_revolver_ammo");
-                        _Waffenlager.weapon_pistol = reader.GetInt32("weapon_pistol");
-                        _Waffenlager.weapon_pistol_ammo = reader.GetInt32("weapon_pistol_ammo");
-                        _Waffenlager.weapon_combatpdw = reader.GetInt32("weapon_combatpdw");
-                        _Waffenlager.weapon_combatpdw_ammo = reader.GetInt32("weapon_combatpdw_ammo");
-                        _Waffenlager.weapon_mp5 = reader.GetInt32("weapon_mp5");
-                        _Waffenlager.weapon_mp5_ammo = reader.GetInt32("weapon_mp5_ammo");
-                        _Waffenlager.weapon_pumpshotgun = reader.GetInt32("weapon_pumpshotgun");
-                        _Waffenlager.weapon_pumpshotgun_ammo = reader.GetInt32("weapon_pumpshotgun_ammo");
-                        _Waffenlager.weapon_assaultrifle = reader.GetInt32("weapon_assaultrifle");
-                        _Waffenlager.weapon_assaultrifle_ammo = reader.GetInt32("weapon_assaultrifle_ammo");
-                        _Waffenlager.weapon_advancedrifle = reader.GetInt32("weapon_advancedrifle");
-                        _Waffenlager.weapon_advancedrifle_ammo = reader.GetInt32("weapon_advancedrifle_ammo");
-                        _Waffenlager.weapon_rifle = reader.GetInt32("weapon_rifle");
-                        _Waffenlager.weapon_rifle_ammo = reader.GetInt32("weapon_rifle_ammo");
-                        _Waffenlager.weapon_carbinerifle = reader.GetInt32("weapon_carbinerifle");
-                        _Waffenlager.weapon_carbinerifle_ammo = reader.GetInt32("weapon_carbinerifle_ammo");
-                        _Waffenlager.weapon_gusenberg = reader.GetInt32("weapon_gusenberg");
-                        _Waffenlager.weapon_gusenberg_ammo = reader.GetInt32("weapon_gusenberg_ammo");
-                        _Waffenlager.weapon_sniperrifle = reader.GetInt32("weapon_sniperrifle");
-                        _Waffenlager.weapon_sniperrifle_ammo = reader.GetInt32("weapon_sniperrifle_ammo");
-                        _Waffenlager.weapon_rpg = reader.GetInt32("weapon_rpg");
-                        _Waffenlager.weapon_rpg_ammo = reader.GetInt32("weapon_rpg_ammo");
-                        _Waffenlager.weapon_molotov = reader.GetInt32("weapon_molotov");
-                        _Waffenlager.weapon_smokegrenade = reader.GetInt32("weapon_smokegrenade");
-                        _Waffenlager.weapon_bzgas = reader.GetInt32("weapon_bzgas");
-                    }
+                    reader.Read();
+                    _Waffenlager.weapon_knuckle.Amount = reader.GetInt32("weapon_knuckle");
+                    _Waffenlager.weapon_nightstick.Amount = reader.GetInt32("weapon_nightstick");
+                    _Waffenlager.weapon_baseball.Amount = reader.GetInt32("weapon_baseball");
+                    _Waffenlager.weapon_tazer.Amount = reader.GetInt32("weapon_stungun");
+                    _Waffenlager.weapon_pistol50.Amount = reader.GetInt32("weapon_pistol50");
+                    _Waffenlager.weapon_pistol50_ammo.Amount = reader.GetInt32("weapon_pistol50_ammo");
+                    _Waffenlager.weapon_revolver.Amount = reader.GetInt32("weapon_revolver");
+                    _Waffenlager.weapon_revolver_ammo.Amount = reader.GetInt32("weapon_revolver_ammo");
+                    _Waffenlager.weapon_pistol.Amount = reader.GetInt32("weapon_pistol");
+                    _Waffenlager.weapon_pistol_ammo.Amount = reader.GetInt32("weapon_pistol_ammo");
+                    _Waffenlager.weapon_combatpdw.Amount = reader.GetInt32("weapon_combatpdw");
+                    _Waffenlager.weapon_combatpdw_ammo.Amount = reader.GetInt32("weapon_combatpdw_ammo");
+                    _Waffenlager.weapon_mp5.Amount = reader.GetInt32("weapon_mp5");
+                    _Waffenlager.weapon_mp5_ammo.Amount = reader.GetInt32("weapon_mp5_ammo");
+                    _Waffenlager.weapon_pumpshotgun.Amount = reader.GetInt32("weapon_pumpshotgun");
+                    _Waffenlager.weapon_pumpshotgun_ammo.Amount = reader.GetInt32("weapon_pumpshotgun_ammo");
+                    _Waffenlager.weapon_assaultrifle.Amount = reader.GetInt32("weapon_assaultrifle");
+                    _Waffenlager.weapon_assaultrifle_ammo.Amount = reader.GetInt32("weapon_assaultrifle_ammo");
+                    _Waffenlager.weapon_advancedrifle.Amount = reader.GetInt32("weapon_advancedrifle");
+                    _Waffenlager.weapon_advancedrifle_ammo.Amount = reader.GetInt32("weapon_advancedrifle_ammo");
+                    _Waffenlager.weapon_rifle.Amount = reader.GetInt32("weapon_rifle");
+                    _Waffenlager.weapon_rifle_ammo.Amount = reader.GetInt32("weapon_rifle_ammo");
+                    _Waffenlager.weapon_carbinerifle.Amount = reader.GetInt32("weapon_carbinerifle");
+                    _Waffenlager.weapon_carbinerifle_ammo.Amount = reader.GetInt32("weapon_carbinerifle_ammo");
+                    _Waffenlager.weapon_gusenberg.Amount = reader.GetInt32("weapon_gusenberg");
+                    _Waffenlager.weapon_gusenberg_ammo.Amount = reader.GetInt32("weapon_gusenberg_ammo");
+                    _Waffenlager.weapon_sniperrifle.Amount = reader.GetInt32("weapon_sniperrifle");
+                    _Waffenlager.weapon_sniperrifle_ammo.Amount = reader.GetInt32("weapon_sniperrifle_ammo");
+                    _Waffenlager.weapon_rpg.Amount = reader.GetInt32("weapon_rpg");
+                    _Waffenlager.weapon_rpg_ammo.Amount = reader.GetInt32("weapon_rpg_ammo");
+                    _Waffenlager.weapon_molotov.Amount = reader.GetInt32("weapon_molotov");
+                    _Waffenlager.weapon_smokegrenade.Amount = reader.GetInt32("weapon_smokegrenade");
+                    _Waffenlager.weapon_bzgas.Amount = reader.GetInt32("weapon_bzgas");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetFactionWaffenlager", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void SetFactionWeaponlager(int factionID, int weapon_knuckle, int weapon_nightstick, int weapon_baseball, int weapon_stungun, int weapon_pistol, int weapon_pistol50,
@@ -263,7 +262,7 @@ namespace VenoXV._RootCore_.Database
 
                 return login;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoginAccountByName", ex); return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         public static void ChangeUserPasswort(string Spielername, string password)
@@ -304,7 +303,7 @@ namespace VenoXV._RootCore_.Database
                 command.ExecuteNonQuery();
                 return RegisteredUID;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RegisterAccount", ex); return -1; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return -1; }
         }
 
         public static void CreateCharacterSkin(int UID, string facefeatures, string headblends, string headoverlays)
@@ -471,7 +470,7 @@ namespace VenoXV._RootCore_.Database
                     character.Reallife.Adventskalender = reader.GetInt32("Adventskalender");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadCharacterInformationById", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -940,7 +939,7 @@ namespace VenoXV._RootCore_.Database
                 }
                 return -1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetPlayerUID", ex); return -1; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return -1; }
         }
 
 
@@ -1366,7 +1365,7 @@ namespace VenoXV._RootCore_.Database
 
                 return IVehicleList;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadAllVehicles", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
 
@@ -1446,7 +1445,7 @@ namespace VenoXV._RootCore_.Database
 
                 return vehId;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateNewDatabaseVehicleEntry", ex); return 99999; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return 99999; }
         }
 
         public static int AddNewAdminTicket(AdminTickets ticket)
@@ -1932,7 +1931,7 @@ namespace VenoXV._RootCore_.Database
                     }
                 });
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RemoveAllItemsByArt", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemoveAllItems(int SQLID)
@@ -2380,6 +2379,11 @@ namespace VenoXV._RootCore_.Database
                 List<FactionAllroundModel> FactionDataList = new List<FactionAllroundModel>();
                 for (int i = 0; i <= 13; i++)
                 {
+                    foreach (WaffenlagerModel _WaffenLager in Fraktionswaffenlager.WaffenlagerList.ToList())
+                    {
+                        if (_WaffenLager.Faction == i)
+                            RefreshWaffenlager(_WaffenLager);
+                    }
                     FactionAllroundModel currentFaction = new FactionAllroundModel()
                     {
                         FID = i,
@@ -2390,7 +2394,7 @@ namespace VenoXV._RootCore_.Database
                 }
                 return FactionDataList;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("LoadAllFactionDatas", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
 
         }
         public static List<TattooModel> LoadAllTattoos()

@@ -109,7 +109,7 @@ namespace VenoXV._RootCore_.Sync
                     Alt.Server.TriggerClientEvent(playerClass, "NPC:Create", npcClass.Name, npcClass.Position, npcClass.Rotation.Z);
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("LoadAllNPCs", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnSyncTick()

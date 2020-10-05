@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
                 }
                 return Found;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("FindPlayerByName", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
         [ClientEvent("Phone:OnSMSMessageSend")]
         public static void OnSMSMessageSend(VnXPlayer player, string Name, string Message)

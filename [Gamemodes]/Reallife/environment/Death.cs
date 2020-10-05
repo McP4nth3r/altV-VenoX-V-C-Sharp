@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             {
                 Alt.Server.TriggerClientEvent(player, "DeathScreen:Show", DeathScreenTime);
             }
-            catch (Exception ex) { Debug.CatchExceptions("CreateKrankenhausTimer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("Reallife:Revive")]
@@ -29,7 +29,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             {
                 Spawn.SpawnPlayerOnSpawnpoint(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("RevivePlayer", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerDeath(VnXPlayer player, VnXPlayer killer, uint weapon)
@@ -97,7 +97,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             }
             catch (Exception ex)
             {
-                Core.Debug.CatchExceptions("OnReallifeDeath", ex);
+                Core.Debug.CatchExceptions(ex);
             }
         }
     }

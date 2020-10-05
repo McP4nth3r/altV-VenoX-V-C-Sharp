@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 Core.Debug.OutputDebugString("[Error] : Waffenlager konnte nicht gefunden werden... [" + ID + "]");
                 return new WaffenlagerModel();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("GetWaffenlagerById", ex); return new WaffenlagerModel(); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new WaffenlagerModel(); }
         }
 
         public static void WaffenlagerInit()

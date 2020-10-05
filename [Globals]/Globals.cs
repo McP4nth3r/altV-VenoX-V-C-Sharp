@@ -64,7 +64,7 @@ namespace VenoXV.Globals
                         break;
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("RemovePlayerFromGamemodeList", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [Command("getuserinfo")]
@@ -103,7 +103,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.SevenTowers.Main.OnResourceStart();
                 Console.WriteLine("VenoX V." + Preload.CURRENT_VERSION + " Loaded!");
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnResourceStart", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -136,7 +136,7 @@ namespace VenoXV.Globals
                     _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnColShapeHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
@@ -180,7 +180,7 @@ namespace VenoXV.Globals
                         return;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnDeath", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -214,7 +214,7 @@ namespace VenoXV.Globals
                 }
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("vehdmg", player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! | Fahrer falls vorhanden : " + DriverName + " | DMG : " + Damage);
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnPlayerVehicleDamage", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnUpdate(object unused)
@@ -228,7 +228,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Zombie.Globals.Main.OnUpdate();
                 Sync.OnSyncTick();
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnUpdate", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDisconnect)]
@@ -243,7 +243,7 @@ namespace VenoXV.Globals
                 _Gamemodes_.Zombie.Globals.Events.OnPlayerDisconnect(player);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerDisconnect", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDamage)]
@@ -265,7 +265,7 @@ namespace VenoXV.Globals
                 player.Discord.Avatar = Avatar;
                 player.Discord.Discriminator = Discriminator;
             }
-            catch (Exception ex) { Debug.CatchExceptions("LoadDiscordInformations", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

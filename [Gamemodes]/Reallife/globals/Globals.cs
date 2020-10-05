@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Fun.Allround.OnUpdate();
                 environment.NPC.NPC.OnUpdate();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnUpdate", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerExitColShapeModel(IColShape shape, VnXPlayer player)
@@ -107,6 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
+                Factions.Allround.OnPlayerEnterColShapeModel(shape, player);
                 factions.State.Allround.OnStateColShapeHit(shape, player);
                 CarShop.OnPlayerEnterColShapeModel(shape, player);
                 Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
@@ -126,7 +127,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
                 Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         private static void DeleteVehicleThreadSafe()
         {
@@ -228,7 +229,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentReallifeGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
 
         }
 
@@ -243,7 +244,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 }
                 player.Played += 1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentTacticGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnMinuteSpentZombieGM(VnXPlayer player)
@@ -257,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 }
                 player.Played += 1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpentZombieGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncDatabaseItems(VnXPlayer player)
         {
@@ -268,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     Database.UpdateItem(item);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SyncDatabaseItems", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnMinuteSpent(object unused)
@@ -306,7 +307,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 DeleteVehicleThreadSafe();
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnMinuteSpent", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static bool CheckBadElementDatas(string elementdata)
@@ -689,7 +690,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 // 0,200,255 <----- Dunkler Rgba Code Extrem Helles Blau!
                 // 40,40,40,0.8 <----- Grau Rgba Code !
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnResourceStartReallife", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 

@@ -49,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
                         break;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnXMenuButtonPressedVehicle", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("XMenu:ApplyServerButton")]

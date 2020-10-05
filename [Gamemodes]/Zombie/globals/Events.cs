@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                 KilledZombieIds.Add(Id);
                 //Spawner.DestroyZombieById(Id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerDisconnect(VnXPlayer player)
@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                     if (players.Zombies.NearbyPlayers.Contains(player)) { player.Zombies.NearbyPlayers.Remove(player); }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnZombieDeath", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("Zombies:OnSyncerCall")]
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                     }
                 }*/
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("Zombies:OnSyncerCall", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

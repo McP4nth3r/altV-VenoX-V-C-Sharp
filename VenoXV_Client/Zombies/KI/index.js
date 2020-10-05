@@ -53,7 +53,7 @@ alt.onServer('Zombies:Sync', (state) => {
                         alt.emitServer('Zombies:OnSyncerCall', Zombie.Id, zombiePos.x, zombiePos.y, zombiePos.z - 1.0);
                     }
                 };
-            }, 1000);
+            }, 500);
         }
     }
     catch{ }
@@ -121,8 +121,7 @@ alt.onServer('Zombies:SetHealth', (Id, Health) => {
             if (game.getEntityHealth(Zombies[_c].Entity) <= 0 && Zombies[_c].Entity != null && !Zombies[_c].IsDead) {
                 Zombies[_c].IsDead = true;
                 game.setEntityAsMissionEntity(Zombies[_c].Entity, false, true);
-                //game.setEntityAsNoLongerNeeded(Zombies[_c].Entity);
-                //alt.log('Zombies[_c].IsDead 1 : ' + Zombies[_c].IsDead);
+                alt.log('Zombies:SetHealth');
             }
         }
     }
@@ -220,7 +219,7 @@ function DrawNametags() {
             let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
             //if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
             if (distance <= 30) {
-                DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~b~" + Zombies[Id].IsDead, [screenPos[1], screenPos[2] - 0.035], [0.65, 0.65], 4, [255, 255, 255, 255], true, true);
+                DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~b~" + Zombies[Id].IsDead, [screenPos[1], screenPos[2] - 0.035], [0.55, 0.55], 4, [255, 255, 255, 255], true, true);
             }
         }
     }
@@ -348,6 +347,7 @@ function SpawnZombie(Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Positi
                 OutOfStreamingRange: false,
                 TargetEntity: Target,
             }
+            alt.log('Created Zombie : ' + Zombies[Id].Id);
             SetZombieCorrectSkin(Zombies[Id].Entity, FaceFeatures, HeadBlendData, HeadOverlays);
             SetZombieAttributes(Zombies[Id].Entity);
         });

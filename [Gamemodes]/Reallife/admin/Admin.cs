@@ -1141,6 +1141,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 vehClass.Kms = 0;
                 vehClass.Faction = Faction;
                 vehClass.Frozen = false;
+                vehClass.Dimension = player.Dimension;
                 vehClass.EngineOn = true;
                 if (Save) { Database.AddNewIVehicle(vehClass); }
             }

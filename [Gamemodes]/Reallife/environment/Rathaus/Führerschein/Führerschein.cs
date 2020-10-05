@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     Rathaus.CreateDrivingSchoolMarker(player, 611, Destination, 3, new int[] { 0, 200, 255, 255 });
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("TriggerToNextPruefungsMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -133,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 }
                 else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Fahrzeug!"); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnPlayerEnterColShape", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         //[ServerEvent(Event.PlayerExitIVehicle)]

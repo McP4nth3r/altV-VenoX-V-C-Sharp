@@ -191,7 +191,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
                 Reallife.dxLibary.VnX.SetElementFrozen(player, false);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         private static void SpawnMapVehicles()
         {
@@ -211,7 +211,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("SpawnMapVehicles", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void PutPlayerInTeam()
@@ -264,7 +264,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 // To Do : wenn runde gestartet ist = nicht machen !
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + _Language_.Main.TranslateText("Eine neue Runde startet.", "de", _Language_.Main.GetClientLanguagePair(players)));
+                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + await _Language_.Main.TranslateText("Eine neue Runde startet.", "de", _Language_.Main.GetClientLanguagePair(players)));
                     players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + await _Language_.Main.TranslateText(CurrentMap.Map_Name, "de", _Language_.Main.GetClientLanguagePair(players)));
                     //players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
                     //players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
@@ -274,7 +274,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     SyncStats();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("StartnewTacticRound", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
         {
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     {
                         // To Do : Cam event erstellen.
                         player.DespawnPlayer();
-                        _Gamemodes_.Reallife.dxLibary.VnX.SetElementFrozen(player, true);
+                        player.Freeze = true;
                         player.RemoveAllPlayerWeapons();
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
@@ -340,7 +340,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     StartNewTacticRound();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnSelectedTacticsGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncTime()
         {

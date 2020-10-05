@@ -27,7 +27,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new ColShapeModel(playerPointer);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("VehicleFactory:Create", ex); return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
     }
 }

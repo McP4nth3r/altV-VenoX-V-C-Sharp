@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 RACE_SECOND_WINNER = String.Empty;
                 RACE_THIRD_WINNER = String.Empty;
             }
-            catch (Exception ex) { Debug.CatchExceptions("DeleteEverything", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         private static void InitializePlayerDatas()
@@ -95,7 +95,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     }
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("InitializePlayerDatas", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnColshapeHit(IColShape shape, VnXPlayer player)
         {
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     CreateRaceMarker(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("OnColshapeHit", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void SendRaceMessage(string text)
@@ -185,7 +185,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 player.Race.CurrentMarker += 1;
                 player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions("CreateRaceMarker", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -205,7 +205,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 RACE_WILL_END = DateTime.Now.AddMinutes(RACE_ROUND_MINUTES);
                 TIME_TO_JOIN = DateTime.Now.AddSeconds(RACE_JOIN_TIME);
             }
-            catch (Exception ex) { Debug.CatchExceptions("StartNewRaceRound", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         private static void GetNewMap()
         {
@@ -217,7 +217,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 if (LastMap == CurrentMap) { GetNewMap(); return; }
                 LastMap = CurrentMap;
             }
-            catch (Exception ex) { Debug.CatchExceptions("GetNewMap", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static bool CanPlayerJoin()
@@ -250,7 +250,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 }
                 StartNewRound();
             }
-            catch (Exception ex) { Debug.CatchExceptions("PutPlayerInRound", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnSelectedRaceGM(VnXPlayer player)
         {
@@ -259,7 +259,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 PutPlayerInRound(player);
                 Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Race runde betreten.");
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnSelectedRaceGM", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void StopRound()
         {
@@ -285,7 +285,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                     StartNewRound();
                 }
             }
-            catch (Exception ex) { Debug.CatchExceptions("OnUpdateRace", ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }
