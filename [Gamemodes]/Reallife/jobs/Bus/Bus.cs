@@ -51,7 +51,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 foreach (Vector3 BusCoord in AbgabepunkteLVLONE)
                 {
                     RageAPI.CreateObject("BusJob", "3272282878", new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1), new Vector3(0, 0, 0), new Quaternion());
-
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -67,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
                         break;
                     case 2:
-                        if (player.Reallife.BUSJOB_LEVEL <= 100)
+                        if (player.Reallife.BUSJOB_LEVEL <= 50)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 50 verfügbar!");
                             return;
@@ -75,9 +74,9 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
                         break;
                     case 3:
-                        if (player.Reallife.BUSJOB_LEVEL <= 200)
+                        if (player.Reallife.BUSJOB_LEVEL <= 150)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 50 verfügbar!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 150 verfügbar!");
                             return;
                         }
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
