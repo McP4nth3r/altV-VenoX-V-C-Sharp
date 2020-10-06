@@ -12,7 +12,6 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
 {
     public class Allround : IScript
     {
-
         //Settings
         public const int ACTION_COOLDOWN = 30;      // Zeit in minuten wann eine neue Aktion gestartet werden kann.
         public const int ACTION_WILL_END = 15;      // Zeit in minuten wann eine Aktion beendet wird automatisch.
@@ -71,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 veh.Owner = ACTION_VEHICLE;
                 veh.EngineOn = true;
                 veh.Godmode = false;
-                if (WarpPlayer) { RageAPI.WarpIntoVehicle(player, veh, -1); }
+                if (WarpPlayer) RageAPI.WarpIntoVehicle(player, veh, -1);
                 ActionVehicles.Add(veh);
                 return veh;
             }
@@ -88,7 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     Core.RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }, player);
                 }
                 ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f);
-                col.vnxSetElementData(ACTION_COLSHAPE, Action);
+                col.AktionCol = Action;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -99,7 +98,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (ActionColShapes.Contains(shape))
                 {
-                    switch (shape.vnxGetElementData<string>(ACTION_COLSHAPE))
+                    switch (shape.AktionCol)
                     {
                         case ACTION_KOKAINTRUCK:
                             Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
@@ -120,14 +119,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         {
             try
             {
-                if (!ActionRunning) { return; }
+                if (!ActionRunning) return;
                 Aktionen.Shoprob.Shoprob.OnUpdate();
                 if (ActionWillEnd <= DateTime.Now)
                 {
                     foreach (VehicleModel vehClass in ActionVehicles.ToList())
-                    {
                         RageAPI.DeleteVehicleThreadSafe((VehicleModel)vehClass);
-                    }
                     ActionVehicles.Clear();
                     ActionCooldown = DateTime.Now.AddMinutes(ACTION_COOLDOWN);
                     ActionRunning = false;

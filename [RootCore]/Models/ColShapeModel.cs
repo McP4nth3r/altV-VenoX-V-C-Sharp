@@ -12,11 +12,13 @@ namespace VenoXV._RootCore_.Models
         public int Faction { get; set; }
         public bool GangSkinCol { get; set; }
         public bool NeutralSkinCol { get; set; }
+        public string AktionCol { get; set; }
         public ColShapeModel(IntPtr nativePointer) : base(nativePointer)
         {
             Faction = 0;
             GangSkinCol = false;
             NeutralSkinCol = false;
+            AktionCol = "";
         }
     }
     public class MyColShapeFactory : IBaseObjectFactory<IColShape>

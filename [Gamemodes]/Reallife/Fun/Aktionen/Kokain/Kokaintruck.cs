@@ -87,8 +87,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (Factions.Allround.isBadFaction(player))
                 {
-                    if (!Fun.Allround.StartAction(player, 0)) { return; }
-                    if (koks <= 1) { return; }
+                    if (!Fun.Allround.StartAction(player, 0) || koks <= 1) return;
                     if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f) { player.SendTranslatedChatMessage("[Kokaintruck] : Du bist hier Falsch..."); return; }
                     if (koks > 1000) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "Maximal nur 1000 G möglich!"); return; }
                     int kokskosten = koks * 15;
@@ -103,15 +102,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                     player.DrawWaypoint(2536.999f, 2578.391f);
                 }
                 else
-                {
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[Kokaintruck] : Du bist kein Mitglied einer Bösen Fraktion!");
-                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION StartKokaintruck] " + ex.Message);
-                Console.WriteLine("[EXCEPTION StartKokaintruck] " + ex.StackTrace);
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }
