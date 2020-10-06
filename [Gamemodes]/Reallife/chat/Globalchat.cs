@@ -38,11 +38,10 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                                 if (pl_adminlvl > 0)
                                 {
                                     onlinespieler.SendChatMessage(BlueColor + "[GLOBAL]" + Clantag + player.Username + " : " + text);
+                                    continue;
                                 }
-                                else
-                                {
-                                    onlinespieler.SendChatMessage(BlueColor + "[GLOBAL]" + WhiteColor + player.Username + " : " + text);
-                                }
+                                onlinespieler.SendChatMessage(BlueColor + "[GLOBAL]" + RageAPI.GetHexColorcode(255, 255, 255) + player.Username + " : " + text);
+
                             }
                             //}
                         }
@@ -58,9 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     player.SendTranslatedChatMessage("Der Globalchat ist augeschaltet!");
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         [Command("global_aus")]
