@@ -131,13 +131,16 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         {
             try
             {
-                if (adminlvl == 2) { return "{C800C8}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else if (adminlvl == 3) { return "{006600}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else if (adminlvl == 4) { return "{002DE0}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else if (adminlvl == 5) { return "{E8AE00}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else if (adminlvl == 6) { return "{EC0000}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else if (adminlvl == 7) { return "{B40000}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255); }
-                else { return ""; }
+                return adminlvl switch
+                {
+                    2 => "{C800C8}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    3 => "{006600}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    4 => "{002DE0}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    5 => "{E8AE00}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    6 => "{EC0000}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    7 => "{B40000}[VnX]" + RageAPI.GetHexColorcode(255, 255, 255),
+                    _ => "",
+                };
             }
             catch { return ""; }
 
