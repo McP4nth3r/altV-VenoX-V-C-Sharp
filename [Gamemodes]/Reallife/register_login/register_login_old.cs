@@ -322,7 +322,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     player.Health = 0;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void OnSelectedReallifeGM(VnXPlayer player)
@@ -331,6 +331,8 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             {
                 LoadDatasAfterLogin(player);
                 handy.Allround.UpdatePhonePlayerlist();
+                foreach (HouseIplModel obj in Constants.HOUSE_IPL_LIST)
+                    player.LoadIPL(obj.ipl);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

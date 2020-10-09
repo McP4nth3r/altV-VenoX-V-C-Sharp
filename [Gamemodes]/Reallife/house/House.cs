@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 switch (house.status)
                 {
                     case Constants.HOUSE_STATE_NONE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : " + RageAPI.GetHexColorcode(255, 255, 255) + house.owner;
+                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : ~w~" + house.owner;
                         break;
                     case Constants.HOUSE_STATE_RENTABLE:
                         label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.rental + " $";
