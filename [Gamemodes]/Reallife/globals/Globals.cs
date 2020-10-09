@@ -12,6 +12,7 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._Preload_;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -739,24 +740,19 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (player.Playing == true)
+                if (player.Playing == true && player.Gamemode == (int)Preload.Gamemodes.Reallife)
                 {
-                    if (Factions.Allround.IsNearFactionTeleporter(player))
-                    {
-                        return;
-                    }
+                    if (Allround.IsNearFactionTeleporter(player)) return;
                     // Check if the player's in any interior
                     foreach (InteriorModel interior in Constants.INTERIOR_LIST)
                     {
                         if (player.Position.Distance(interior.entrancePosition) < 1.5f)
                         {
-                            //AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                             player.SetPosition = interior.exitPosition;
                             return;
                         }
                         else if (player.Position.Distance(interior.exitPosition) < 1.5f)
                         {
-                            //AntiCheat_Allround.SetTimeOutTeleport(player, 10000);
                             player.SetPosition = interior.entrancePosition;
                             return;
                         }
@@ -787,10 +783,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 }
                                 else
                                 {
-
                                     player.SetPosition = GetHouseIplExit(house.ipl);
                                     player.Dimension = house.id;
-
                                     player.vnxSetElementData(EntityData.PLAYER_IPL, house.ipl);
                                     player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
                                 }
