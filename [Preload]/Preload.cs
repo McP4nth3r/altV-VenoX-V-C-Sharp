@@ -46,6 +46,7 @@ namespace VenoXV._Preload_
             Tactics = 2,
             Race = 3,
             SevenTowers = 4,
+            Derby = 5,
         };
 
         public static void ShowPreloadList(VnXPlayer player)
@@ -97,16 +98,17 @@ namespace VenoXV._Preload_
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
                 player.Language = (int)_Language_.Main.Languages.German;
-                if (!Globals.Main.AllPlayers.Contains(player)) { Globals.Main.AllPlayers.Add(player); }
+                if (!Globals.Main.AllPlayers.Contains(player)) Globals.Main.AllPlayers.Add(player);
+                player.RemoveAllPlayerWeapons();
                 switch (value)
                 {
                     case (int)Gamemodes.Reallife:
-                        if (!Globals.Main.ReallifePlayers.Contains(player)) { Globals.Main.ReallifePlayers.Add(player); }
+                        if (!Globals.Main.ReallifePlayers.Contains(player)) Globals.Main.ReallifePlayers.Add(player);
                         _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                         break;
                     case (int)Gamemodes.Zombies:
-                        if (!Globals.Main.ZombiePlayers.Contains(player)) { Globals.Main.ZombiePlayers.Add(player); }
+                        if (!Globals.Main.ZombiePlayers.Contains(player)) Globals.Main.ZombiePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                         // _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
@@ -114,21 +116,26 @@ namespace VenoXV._Preload_
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
                     case (int)Gamemodes.Tactics:
-                        if (!Globals.Main.TacticsPlayers.Contains(player)) { Globals.Main.TacticsPlayers.Add(player); }
+                        if (!Globals.Main.TacticsPlayers.Contains(player)) Globals.Main.TacticsPlayers.Add(player);
                         _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:
-                        if (!Globals.Main.RacePlayers.Contains(player)) { Globals.Main.RacePlayers.Add(player); }
+                        if (!Globals.Main.RacePlayers.Contains(player)) Globals.Main.RacePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                         break;
                     case (int)Gamemodes.SevenTowers:
-                        if (!Globals.Main.SevenTowersPlayers.Contains(player)) { Globals.Main.SevenTowersPlayers.Add(player); }
+                        if (!Globals.Main.SevenTowersPlayers.Contains(player)) Globals.Main.SevenTowersPlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
                         Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
+                        break;
+                    case (int)Gamemodes.Derby:
+                        if (!Globals.Main.DerbyPlayers.Contains(player)) Globals.Main.DerbyPlayers.Add(player);
+                        _Gamemodes_.Derby.Lobby.Main.OnPlayerJoin(player);
+                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Derby");
                         break;
                     default:
                         Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);

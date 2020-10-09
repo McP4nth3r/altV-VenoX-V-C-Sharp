@@ -31,6 +31,9 @@ namespace VenoXV._Preload_
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     break;
+                case Gamemodes.Derby:
+                    _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
+                    break;
             }
         }
         public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
@@ -55,6 +58,9 @@ namespace VenoXV._Preload_
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
+                    break;
+                case Gamemodes.Derby:
+                    _Maps_.Main.UnloadMap(player, _Maps_.Main.DERBY1_MAP);
                     break;
             }
         }

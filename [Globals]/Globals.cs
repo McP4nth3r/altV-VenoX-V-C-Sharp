@@ -26,6 +26,7 @@ namespace VenoXV.Globals
         public static List<VnXPlayer> ZombiePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> RacePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> SevenTowersPlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> DerbyPlayers = new List<VnXPlayer>();
         public static List<VehicleModel> AllVehicles = new List<VehicleModel>();
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
@@ -45,19 +46,19 @@ namespace VenoXV.Globals
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
-                        if (ReallifePlayers.Contains(player)) { ReallifePlayers.Remove(player); }
+                        if (ReallifePlayers.Contains(player)) ReallifePlayers.Remove(player);
                         break;
                     case (int)Preload.Gamemodes.Tactics:
-                        if (TacticsPlayers.Contains(player)) { TacticsPlayers.Remove(player); }
+                        if (TacticsPlayers.Contains(player)) TacticsPlayers.Remove(player);
                         break;
                     case (int)Preload.Gamemodes.Zombies:
-                        if (ZombiePlayers.Contains(player)) { ZombiePlayers.Remove(player); }
+                        if (ZombiePlayers.Contains(player)) ZombiePlayers.Remove(player);
                         break;
                     case (int)Preload.Gamemodes.Race:
-                        if (RacePlayers.Contains(player)) { RacePlayers.Remove(player); }
+                        if (RacePlayers.Contains(player)) RacePlayers.Remove(player);
                         break;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        if (SevenTowersPlayers.Contains(player)) { SevenTowersPlayers.Remove(player); }
+                        if (SevenTowersPlayers.Contains(player)) SevenTowersPlayers.Remove(player);
                         break;
                     default:
                         Debug.OutputDebugString(player.Username + " Gamemode got Removed without getting Current GM : " + player.Gamemode);
