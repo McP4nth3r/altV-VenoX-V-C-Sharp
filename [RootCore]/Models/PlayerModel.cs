@@ -316,6 +316,7 @@ namespace VenoXV._RootCore_.Models
         private bool _Freeze { get; set; }
         public bool Freeze { get { return _Freeze; } set { _Freeze = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
         public void FreezeAfterMS(int MS, bool value) { try { Alt.Server.TriggerClientEvent(this, "Player:FreezeAfterMS", MS, value); _Freeze = value; } catch { } }
+        public void LoadIPL(string IPL) { try { Alt.Server.TriggerClientEvent(this, "Player:LoadIPL", IPL); } catch { } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
