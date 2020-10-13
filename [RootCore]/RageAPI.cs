@@ -175,7 +175,7 @@ namespace VenoXV.Core
             Color myColor = Color.FromArgb(r, g, b);
             return "{" + myColor.R.ToString("X2") + myColor.G.ToString("X2") + myColor.B.ToString("X2") + "}";
         }
-        public static void WarpIntoVehicle(this VnXPlayer player, IVehicle veh, int seat)
+        public static void WarpIntoVehicle(this VnXPlayer player, VehicleModel veh, int seat)
         {
             Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
         }
@@ -408,7 +408,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (vehicleClass is null) { return; }
+                if (vehicleClass is null) return;
                 vehicleClass.Dimension = 99998;
                 vehicleClass.EngineOn = false;
                 vehicleClass.Locked = true;

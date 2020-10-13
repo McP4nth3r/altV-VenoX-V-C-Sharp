@@ -27,7 +27,7 @@ namespace VenoXV._RootCore_.Models
         private int _Money { get; set; }
         public int Money { get { return _Money; } set { _Money = value; client.vnxSetSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         private int _Bank { get; set; }
-        public int Bank { get { return _Bank; } set { _Bank = value; client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
+        public int Bank { get { return _Bank; } set { _Bank = value; client.vnxSetSharedElementData(Globals.EntityData.PLAYER_BANK, value); } }
         private string _SocialState { get; set; }
         public string SocialState { get { return _SocialState; } set { _SocialState = value; client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
         private int _Faction { get; set; }
@@ -49,6 +49,7 @@ namespace VenoXV._RootCore_.Models
         public int OnDutyBad { get; set; }
         public int OnDutyNeutral { get; set; }
         public int HouseRent { get; set; }
+        public string HouseIPL { get; set; }
         public int HouseEntered { get; set; }
         public int BusinessEntered { get; set; }
         public int Personalausweis { get; set; }
