@@ -138,13 +138,9 @@ namespace VenoXV._Gamemodes_.SevenTowers
             try
             {
                 if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
-                {
                     return true;
-                }
                 else if (SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
-                {
                     return false;
-                }
                 return true;
             }
             catch { return false; }
@@ -190,7 +186,8 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 SEVENTOWERS_ROUND_JOINTIME_TILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_JOINTIME);
                 foreach (VehicleModel veh in SevenTowersVehicles.ToList())
                 {
-                    Alt.RemoveVehicle(veh);
+                    //Alt.RemoveVehicle(veh);
+                    Core.RageAPI.DeleteVehicleThreadSafe(veh);
                     SevenTowersVehicles.Remove(veh);
                 }
                 CurrentlyInRound.Clear();
@@ -316,6 +313,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(2);
                     if (player.IsInVehicle)
                     {
+                        player.WarpOutOfVehicle();
                         SevenTowersVehicles.Remove((VehicleModel)player.Vehicle);
                         RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                         AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
@@ -325,8 +323,8 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         SevenTowersVehicles.Add(vehicle);
                         vehicle.EngineOn = true;
                         vehicle.Frozen = false;
+                        CreateNewHitMarker();
                     }
-                    CreateNewHitMarker();
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
