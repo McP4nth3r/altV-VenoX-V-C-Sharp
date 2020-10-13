@@ -14,21 +14,15 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                if (FID == Constants.FACTION_NONE)
-                {
-                    return;
-                }
+                if (FID == Constants.FACTION_NONE) return;
+
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID)
-                    {
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
-                    }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
         public static void CreateCustomFactionInformation(int FID, string text)
         {
@@ -46,9 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
         public static void CreateStateFactionInformation(string text)
         {
@@ -62,9 +54,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
+
         }
         public static void CreateCustomStateFactionMessage(string text)
         {
@@ -78,9 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
         public static void CreateCustomBadFactionMessage(string text, int UID)
         {
@@ -94,29 +83,19 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
         public static void CreateFactionMessage(int FID, string text, string Rgba, VnXPlayer player)
         {
             try
             {
-                if (FID == Constants.FACTION_NONE)
-                {
-                    return;
-                }
+                if (FID == Constants.FACTION_NONE) return;
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    if (target.Reallife.Faction == FID)
-                    {
-                        target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
-                    }
+                    if (target.Reallife.Faction == FID) target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
 
@@ -127,14 +106,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                    {
                         target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
-                    }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
 
@@ -145,76 +120,32 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isBadFaction(target))
-                    {
                         target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
-                    }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public static string GetFactionNameById(int FID)
         {
-            string fraktionsname = string.Empty;
-            if (FID == 0)
+            return FID switch
             {
-                fraktionsname = Constants.FACTION_NONE_NAME;
-            }
-            else if (FID == 1)
-            {
-                fraktionsname = Constants.FACTION_POLICE_NAME;
-            }
-            else if (FID == 2)
-            {
-                fraktionsname = Constants.FACTION_COSANOSTRA_NAME;
-            }
-            else if (FID == 3)
-            {
-                fraktionsname = Constants.FACTION_YAKUZA_NAME;
-            }
-            else if (FID == 4)
-            {
-                fraktionsname = Constants.FACTION_TERRORCLOSED_NAME;
-            }
-            else if (FID == 5)
-            {
-                fraktionsname = Constants.FACTION_NEWS_NAME;
-            }
-            else if (FID == 6)
-            {
-                fraktionsname = Constants.FACTION_FBI_NAME;
-            }
-            else if (FID == 7)
-            {
-                fraktionsname = Constants.FACTION_MS13_NAME;
-            }
-            else if (FID == 8)
-            {
-                fraktionsname = Constants.FACTION_USARMY_NAME;
-            }
-            else if (FID == 9)
-            {
-                fraktionsname = Constants.FACTION_SAMCRO_NAME;
-            }
-            else if (FID == 10)
-            {
-                fraktionsname = Constants.FACTION_EMERGENCY_NAME;
-            }
-            else if (FID == 11)
-            {
-                fraktionsname = Constants.FACTION_MECHANIK_NAME;
-            }
-            else if (FID == 12)
-            {
-                fraktionsname = Constants.FACTION_BALLAS_NAME;
-            }
-            else if (FID == 13)
-            {
-                fraktionsname = Constants.FACTION_GROVE_NAME;
-            }
-            return fraktionsname;
+                Constants.FACTION_NONE => Constants.FACTION_NONE_NAME,
+                Constants.FACTION_LSPD => Constants.FACTION_POLICE_NAME,
+                Constants.FACTION_LCN => Constants.FACTION_COSANOSTRA_NAME,
+                Constants.FACTION_YAKUZA => Constants.FACTION_YAKUZA_NAME,
+                Constants.FACTION_TERRORCLOSED => Constants.FACTION_TERRORCLOSED_NAME,
+                Constants.FACTION_NEWS => Constants.FACTION_NEWS_NAME,
+                Constants.FACTION_FBI => Constants.FACTION_FBI_NAME,
+                Constants.FACTION_NARCOS => Constants.FACTION_MS13_NAME,
+                Constants.FACTION_USARMY => Constants.FACTION_USARMY_NAME,
+                Constants.FACTION_SAMCRO => Constants.FACTION_SAMCRO_NAME,
+                Constants.FACTION_EMERGENCY => Constants.FACTION_EMERGENCY_NAME,
+                Constants.FACTION_MECHANIK => Constants.FACTION_MECHANIK_NAME,
+                Constants.FACTION_BALLAS => Constants.FACTION_BALLAS_NAME,
+                Constants.FACTION_COMPTON => Constants.FACTION_GROVE_NAME,
+                _ => "ERROR - " + FID,
+            };
         }
 
 

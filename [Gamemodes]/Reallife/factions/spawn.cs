@@ -38,8 +38,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Alt.Server.TriggerClientEvent(player, "toggleHandcuffed", false);
                     return;
                 }
-                if (player.Reallife.Faction != Constants.FACTION_NONE) { player.SetTeam(player.Reallife.Faction); }
-                else { player.SetTeam(player.Id + 153); }
+                if (player.Reallife.Faction != Constants.FACTION_NONE) player.SetTeam(player.Reallife.Faction);
+                else player.SetTeam(player.Id + 153);
                 switch (player.Reallife.SpawnLocation)
                 {
                     case "noobspawn":
@@ -102,9 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         return;
                     case "Basis-2":
                         if (player.Reallife.Faction == Constants.FACTION_USARMY)
-                        {
                             player.SetPosition = new Vector3(-2089.4636f, 3273.7056f, 32.801514f);
-                        }
                         break;
                     case "House":
                         foreach (HouseModel house in House.houseList.ToList())
@@ -113,13 +111,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 player.SetPosition = Main.GetHouseIplExit(house.ipl);
                                 player.Dimension = house.id;
-                                player.vnxSetElementData(EntityData.PLAYER_IPL, house.ipl);
-                                player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
+                                player.Reallife.HouseIPL = house.ipl;
+                                player.Reallife.HouseEntered = house.id;
                             }
                         }
                         return;
                 }
-
             }
             catch { }
         }

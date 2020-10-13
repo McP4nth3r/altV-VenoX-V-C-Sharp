@@ -785,8 +785,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 {
                                     player.SetPosition = GetHouseIplExit(house.ipl);
                                     player.Dimension = house.id;
-                                    player.vnxSetElementData(EntityData.PLAYER_IPL, house.ipl);
-                                    player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, house.id);
+                                    player.Reallife.HouseIPL = house.ipl;
+                                    player.Reallife.HouseEntered = house.id;
                                 }
                                 return;
                             }
