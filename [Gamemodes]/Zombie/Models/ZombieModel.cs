@@ -1,4 +1,7 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Linq;
+using System.Numerics;
+using VenoXV._Gamemodes_.KI;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Zombie.Models
@@ -12,8 +15,69 @@ namespace VenoXV._Gamemodes_.Zombie.Models
         public string HeadBlendData { get; set; }
         public string HeadOverlays { get; set; }
         public string SkinName { get; set; }
-        public Vector3 Position { get; set; }
-        public bool IsDead { get; set; }
+        private Vector3 _Position { get; set; }
+        public Vector3 Position
+        {
+            get { return _Position; }
+            set
+            {
+                _Position = value;
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) players?.Emit("Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
+            }
+        }
+        private Vector3 _Rotation { get; set; }
+        public Vector3 Rotation
+        {
+            get { return _Rotation; }
+            set
+            {
+                _Rotation = value;
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) players?.Emit("Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
+            }
+        }
+        private int _Armor { get; set; }
+        public int Armor
+        {
+            get { return _Armor; }
+            set
+            {
+                _Armor = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) players?.Emit("Zombies:SetArmor", this.ID, value);
+            }
+        }
+        private int _Health { get; set; }
+        public int Health
+        {
+            get { return _Health; }
+            set
+            {
+                _Health = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) players?.Emit("Zombies:SetHealth", this.ID, value);
+            }
+        }
+        private bool _IsDead { get; set; }
+        public bool IsDead
+        {
+            get { return _IsDead; }
+            set
+            {
+                _IsDead = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this))
+                        players.Emit("Zombies:SetDead", this.ID, value);
+            }
+        }
+        public void Destroy()
+        {
+            try
+            {
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) { players?.Emit("Zombies:Destroy", this.ID); players?.Zombies.NearbyZombies.Remove(this); }
+                Spawner.CurrentZombies.Remove(this);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
         public VnXPlayer TargetEntity { get; set; }
     }
 }

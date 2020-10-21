@@ -33,9 +33,19 @@ namespace VenoXV._Preload_.Login
                 if (accClass.Name.ToLower() == Nickname.ToLower())
                 {
                     if (accClass.Password == Password)
-                    {
                         return true;
-                    }
+                }
+            }
+            return false;
+        }
+        public static bool ChangeAccountPW(string Nickname, string Password)
+        {
+            foreach (AccountModel accClass in Register.Register.AccountList)
+            {
+                if (accClass.Name.ToLower() == Nickname.ToLower())
+                {
+                    accClass.Password = Password;
+                    return true;
                 }
             }
             return false;

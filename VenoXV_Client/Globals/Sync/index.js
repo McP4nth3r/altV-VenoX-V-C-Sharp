@@ -169,6 +169,20 @@ alt.everyTick(() => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let ObjList = {};
+ObjList[0] = "V_Corp_postbox";
+
+for (var obj in ObjList) {
+    let Hash = game.getHashKey(ObjList[obj]);
+    if (!game.hasModelLoaded(Hash)) {
+        alt.log("IsModelValid Output : " + game.isModelValid(Hash));
+        alt.loadModel(Hash);
+        game.requestModel(Hash);
+        alt.log("loaded " + ObjList[obj] + " | " + Hash);
+    }
+}
+
+
 let MapObjects = {};
 let MapC = 0;
 alt.onServer('Sync:LoadMap', (MapName, Hash, Position, RotOrder, Rotation, freeze, HashNeeded, HighLod = false, Tint = 0) => {

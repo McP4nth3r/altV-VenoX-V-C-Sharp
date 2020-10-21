@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         {
             try
             {
-                if (VenoXV.Globals.Main.ZombiePlayers.Count <= 0) { return; }
+                if (VenoXV.Globals.Main.ZombiePlayers.Count <= 0) return;
                 World.Main.OnUpdate();
             }
             catch { }

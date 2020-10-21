@@ -38,7 +38,7 @@ alt.onServer('preload_gm_list', () => {
 		preloadbrowser.focus();
 
 	}
-	catch{ }
+	catch { }
 });
 
 
@@ -85,5 +85,5 @@ alt.onServer("Charselector:setCorrectSkin", (facefeaturesarray, headblendsarray,
 			game.setPedFaceFeature(alt.Player.local.scriptID, i, facefeatures[i]);
 		}
 	}
-	catch{ }
+	catch { }
 });

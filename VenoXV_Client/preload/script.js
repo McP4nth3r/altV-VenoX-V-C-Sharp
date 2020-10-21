@@ -8,8 +8,7 @@ function playAudio(v) {
     if (v == 1) {
         document.getElementById('hoversoundtrack').currentTime = 0;
         document.getElementById('hoversoundtrack').play();
-    }
-    else {
+    } else {
         document.getElementById('clicksoundtrack').currentTime = 0;
         document.getElementById('clicksoundtrack').play();
     }
@@ -22,10 +21,12 @@ function OnWindowLoad() {
     Onload();
     let rnumber = Math.floor((Math.random() * 6));
     $('.background').attr("src", "https://venox-reallife.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
-    console.log('called ' + rnumber);
+    //console.log('called ' + rnumber);
+    document.getElementById('Soundtrack-1').volume = 0.3;
 }
 
 let timer;
+
 function OnHover() {
     var recs = document.querySelectorAll('#rectangle');
     [].forEach.call(recs, function (currentrec) {
@@ -38,7 +39,9 @@ function OnHover() {
             }
             timer = setTimeout(function () {
                 $('.background').removeClass('blurin');
-                $('.background').css({ filter: "blur(8px)" });
+                $('.background').css({
+                    filter: "blur(8px)"
+                });
                 timer = false;
             }, 900);
         });
@@ -51,49 +54,38 @@ function OnHover() {
                 clearTimeout(timer);
             }
             timer = setTimeout(function () {
-                $('.background').css({ filter: "blur(0px)" });
+                $('.background').css({
+                    filter: "blur(0px)"
+                });
                 $('.background').removeClass('blurout');
             }, 900);
         });
     });
 }
 
+
+
 // Loading Screen : 
 
-let CurrentBackground = 0;
 function ChangeBackground() {
-    if (CurrentBackground > 0) { $('#part-3').addClass('Anim_Out'); }
-    setTimeout(() => {
-        $('#part-3').removeClass('Anim_Out');
-        $('.Loading-Ped-' + CurrentBackground).removeClass('Anim_LeftToRight');
-        $('.Loading-Ped-' + CurrentBackground).removeClass('Anim_RightToLeft');
-        $('#part-3').addClass('Anim_In');
-        $('#part-3').addClass('d-none');
-        setTimeout(() => {
-            $('#part-3').removeClass('d-none');
-            $('.Loading-Background').css("background-image", "url(files/images/wallpaper/bg-" + CurrentBackground + ".png)");
-            $('.Loading-Ped-' + CurrentBackground).removeClass('d-none');
-            setTimeout(() => {
-                $('.Loading-Ped-' + CurrentBackground).addClass('d-none');
-                CurrentBackground++;
-                ChangeBackground();
-            }, 5000);
-        }, 2000);
-    }, 3000);
+    $('#part-3').removeClass('d-none');
 }
-function Onload() {
 
+function Onload() {
     $('.Loading-Screen-Main').removeClass('d-none');
     setTimeout(() => {
         $('.Loading-Screen-Main').addClass('d-none');
-    }, 50000);
-
-
+        setTimeout(() => {
+            document.getElementById('Soundtrack-1').pause();
+            document.getElementById('Soundtrack-1').currentTime = 0;
+        }, 3000);
+    }, 60000);
     setTimeout(() => {
         $('#LoadingBar').removeClass('d-none');
     }, 1500);
     setTimeout(() => {
         $('#part-1').removeClass('d-none');
+        document.getElementById('Soundtrack-1').play();
         setTimeout(() => {
             $('#part-1').addClass('d-none');
             $('#part-2').removeClass('d-none');

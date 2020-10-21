@@ -63,7 +63,7 @@ namespace VenoXV._Preload_.Register
             try
             {
                 if (nickname.Length < 1 || email.Length < 1 || password.Length < 1 || passwordwdh.Length < 1) { return; }
-                if (PlayerHaveAlreadyAccount(player)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
+                if (PlayerHaveAlreadyAccount(player)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Account!"); return; }
                 if (FoundAccountbyName(nickname)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
                 if (password != passwordwdh) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwörter sind nicht identisch!"); return; }
                 if (!evalid) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige E-Mail!"); }

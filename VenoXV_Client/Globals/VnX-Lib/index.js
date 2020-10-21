@@ -23,14 +23,14 @@ export function ShowCursor(bool) {
         alt.showCursor(bool);
         cursor = bool;
     }
-    catch{ }
+    catch { }
 }
 export function GetCursorStatus() {
     try {
         if (cursor) { return true; }
         else { return false; }
     }
-    catch{ }
+    catch { }
 }
 export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline = true, useDropShadow = true, layer = 0, align = 0) {
     try {
@@ -59,7 +59,7 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 
         game.endTextCommandDisplayText(screenPos[0], screenPos[1]);
     }
-    catch{ }
+    catch { }
 }
 export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true) {
     try {
@@ -95,7 +95,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
             game.endTextCommandDisplayText(_x, _y);
         }
     }
-    catch{ }
+    catch { }
 }
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     try {
@@ -109,7 +109,7 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
         game.endTextCommandSetBlipName(blip);
         return blip;
     }
-    catch{ }
+    catch { }
 }
 
 
@@ -152,7 +152,7 @@ export function CreatePed(PedName, Vector3Pos, rot = 0) {
             alt.log("Model not Loaded " + PedHash);
         }
     }
-    catch{ }
+    catch { }
 }
 
 
@@ -166,7 +166,7 @@ export function frontOfPlayer(distance) {
         }
         return pos;
     }
-    catch{ }
+    catch { }
 }
 
 export function vnxCreateCEF(Name, Path) {
@@ -200,7 +200,7 @@ export function vnxDestroyCEF(Name) {
             }
         }
     }
-    catch (e) { alt.log("Error Destroying CEF Window : " + e); return null; }
+    catch (e) { alt.log("Error Destroying CEF Window : " + e); }
 }
 
 export function vnxDestroyAllCEF() {
@@ -277,7 +277,7 @@ export function ShowCountdown(Seconds) {
         }, 1250);
         CountdownRenderTick = true;
     }
-    catch{ }
+    catch { }
 }
 
 alt.everyTick(() => {

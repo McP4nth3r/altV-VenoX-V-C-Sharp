@@ -841,7 +841,9 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 bool exestiert = Database.FindCharacterByName(name);
                 if (exestiert)
                 {
+                    _Preload_.Login.Login.ChangeAccountPW(name, passwort);
                     Database.ChangeUserPasswort(name, passwort);
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
                 }
                 else
                 {

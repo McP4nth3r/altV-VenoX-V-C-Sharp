@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._Gamemodes_.Zombie.Globals;
 using VenoXV._Gamemodes_.Zombie.Models;
 using VenoXV._RootCore_.Models;
 
@@ -51,6 +50,8 @@ namespace VenoXV._Gamemodes_.KI
                     HeadBlendData = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadBlendData,
                     HeadOverlays = _Preload_.Character_Creator.Main.CharacterSkins[randomSkinPicked].HeadOverlays,
                     Sex = 0,
+                    Armor = 100,
+                    Health = 100,
                     IsDead = false,
                     Position = Position,
                     TargetEntity = player
@@ -71,17 +72,17 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < 80)
                         {
-                            Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                            // Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             CreateNewRandomZombie(player);
-                            Core.Debug.OutputDebugString(player.Username + " | Syncer State : " + player.Zombies.IsSyncer);
+                            //Core.Debug.OutputDebugString(player.Username + " | Syncer State : " + player.Zombies.IsSyncer);
                             //Create Zombies for nearbyPlayers.
                             //Core.Debug.OutputDebugString("[Zombies] : " + Globals.Main.ZombiePlayers.ToList().Count + " | ");
                             foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
                             {
                                 CreateNewRandomZombie(nearbyPlayer);
-                                Core.Debug.OutputDebugString(nearbyPlayer.Username + " | Syncer State : " + nearbyPlayer.Zombies.IsSyncer);
+                                //Core.Debug.OutputDebugString(nearbyPlayer.Username + " | Syncer State : " + nearbyPlayer.Zombies.IsSyncer);
                             }
-                            Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                            //Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
                         else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
                     }
@@ -140,25 +141,7 @@ namespace VenoXV._Gamemodes_.KI
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void DestroyZombieById(int Id)
-        {
-            try
-            {
-                ZombieModel zombies = CurrentZombies.FirstOrDefault(z => z.ID == Id);
-                if (zombies != null)
-                {
-                    foreach (VnXPlayer players in Globals.Main.ZombiePlayers.ToList())
-                    {
-                        foreach (ZombieModel zombieClass in players.Zombies.NearbyZombies.ToList())
-                            if (zombieClass.ID == Id) players.Zombies.NearbyZombies.Remove(zombieClass);
-                        Alt.Server.TriggerClientEvent(players, "Zombies:SetHealth", Id, 0);
-                    }
-                    Events.KilledZombieIds.Remove(zombies.ID);
-                    CurrentZombies.Remove(zombies);
-                }
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
-        }
+
 
     }
 }

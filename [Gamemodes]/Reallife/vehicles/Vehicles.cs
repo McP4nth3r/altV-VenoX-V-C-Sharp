@@ -580,7 +580,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             try
             {
                 Vehicle.Passenger.Add(player);
-                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife && Vehicle.Driver != player) { Alt.Server.TriggerClientEvent(player, "OnPlayerEnterVehicle", 2500); }
+                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife && Vehicle.Driver != player) Alt.Server.TriggerClientEvent(player, "OnPlayerEnterVehicle", 2500);
                 if (Vehicle.Driver == player)
                 {
                     if (Vehicle.Godmode)

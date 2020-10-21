@@ -22,7 +22,7 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show", true);
 	}
-	catch{ }
+	catch { }
 });
 
 alt.onServer('Reallife:UnloadHUD', () => {
@@ -30,7 +30,7 @@ alt.onServer('Reallife:UnloadHUD', () => {
 		HUD_BROWSER = null;
 		vnxDestroyCEF("ReallifeHUD");
 	}
-	catch{ }
+	catch { }
 });
 
 alt.onServer('toggleHandcuffed', (toggle) => {
@@ -49,7 +49,7 @@ function DrawSafezone() {
 			DrawText("Du hast eine NO-DM Zone betreten!\nJegliches Deathmatch ist verboten!\nAusnahme : Staatsfraktionen.", [0.91, 0.367], [0.3, 0.25], 0, [0, 150, 200, 255], false);
 		}
 	}
-	catch{ }
+	catch { }
 }
 alt.onServer('Greenzone:ChangeStatus', (e) => {
 	DrawSafeZoneNow = e;
@@ -106,7 +106,7 @@ function CheckHUDUpdate() {
 			HUD_BROWSER.emit('HUD:UpdateVoiceState', CurrentVoiceState);
 		}
 	}
-	catch{ }
+	catch { }
 }
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
@@ -115,17 +115,9 @@ alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
 		let LocalEntity = alt.Player.local;
 		let LocalEntityScriptId = alt.Player.local.scriptID;
 		switch (key) {
-			case 'PLAYER_HUNGER': case 'PLAYER_FACTION': case 'PLAYER_MONEY':
-				let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
-				let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
-				let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
-				let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
-				let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
-				HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
-				break;
-			case 'PLAYER_WANTEDS':
-				HUD_BROWSER.emit('HUD:UpdateWanteds', value);
+			case 'isAduty':
 
+				break;
 		}
 	}
 })
@@ -200,7 +192,7 @@ alt.everyTick(() => {
 			game.disableControlAction(alt.Player.local.scriptID, 2, 75, true);
 		}
 	}
-	catch{ }
+	catch { }
 });
 
 

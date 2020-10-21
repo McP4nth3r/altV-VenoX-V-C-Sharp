@@ -18,6 +18,8 @@ export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
 export let PLAYER_LOBBY_TACTICS = "Tactics";
 export let PLAYER_LOBBY_7TOWERS = "Seven-Towers";
+export let PLAYER_LOBBY_DERBY = "Derby";
+
 
 let CurrentLobby = PLAYER_LOBBY_MAIN;
 let LocalPlayer = alt.Player.local;
@@ -26,11 +28,11 @@ let LocalPlayer = alt.Player.local;
 let CURSOR_KEY = 18;
 
 
-export function GetCurrentLobby() { try { return CurrentLobby; } catch{ } }
-export function FreezeClient(bool) { try { game.freezeEntityPosition(LocalPlayer.scriptID, bool); } catch{ } }
-export function SetEntityAlpha(Entity, alpha) { try { game.setEntityAlpha(Entity.scriptID, alpha, true); } catch{ } }
+export function GetCurrentLobby() { try { return CurrentLobby; } catch { } }
+export function FreezeClient(bool) { try { game.freezeEntityPosition(LocalPlayer.scriptID, bool); } catch { } }
+export function SetEntityAlpha(Entity, alpha) { try { game.setEntityAlpha(Entity.scriptID, alpha, true); } catch { } }
 
-alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { try { CurrentLobby = Lobby; } catch{ } });
+alt.onServer("Player:ChangeCurrentLobby", (Lobby) => { try { CurrentLobby = Lobby; } catch { } });
 
 
 
@@ -39,7 +41,7 @@ alt.onServer('Player:Freeze', (bool) => {
     try {
         game.freezeEntityPosition(LocalPlayer.scriptID, bool);
     }
-    catch{ }
+    catch { }
 });
 alt.onServer('Player:FreezeAfterMS', (MS, bool) => {
     try {
@@ -47,7 +49,7 @@ alt.onServer('Player:FreezeAfterMS', (MS, bool) => {
             game.freezeEntityPosition(LocalPlayer.scriptID, bool);
         }, MS);
     }
-    catch{ }
+    catch { }
 });
 
 
@@ -56,26 +58,26 @@ alt.onServer('Player:Spawn', () => {
         game.displayHud(true);
         game.clearPedBloodDamage(LocalPlayer.scriptID);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Vehicle:Freeze', (veh, bool) => {
     try {
         game.freezeEntityPosition(veh.scriptID, bool);
     }
-    catch{ }
+    catch { }
 });
 alt.onServer('Vehicle:Godmode', (veh, bool) => {
     try {
         game.setEntityInvincible(veh.scriptID, bool);
     }
-    catch{ }
+    catch { }
 });
 alt.onServer('Vehicle:Repair', (veh) => {
     try {
         game.setVehicleFixed(veh.scriptID);
     }
-    catch{ }
+    catch { }
 });
 
 let CalledToSpawn = false;
@@ -95,7 +97,7 @@ alt.onServer("movecamtocurrentpos_client", () => {
             }, 8000);
         }, 6000);
     }
-    catch{ }
+    catch { }
 });
 
 let BlipList = [];
@@ -115,7 +117,7 @@ alt.onServer("BlipClass:CreateBlip", (Name, X, Y, Z, Sprite, Color, ShortRange) 
             ShortRange: ShortRange
         };
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('BlipClass:RemoveBlip', (Name) => {
@@ -132,7 +134,7 @@ alt.onServer("Clothes:Reset", () => {
     try {
         game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
     }
-    catch{ }
+    catch { }
 });
 
 
@@ -140,28 +142,28 @@ alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
         game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
         game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
     try {
         game.setPedPreloadVariationData(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Sync:CreateNPC', (PedJson) => {
     try {
         CreatePed();
     }
-    catch{ }
+    catch { }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -171,7 +173,7 @@ alt.onServer('Player:Visible', (bool) => {
     try {
         game.setEntityVisible(LocalPlayer.scriptID, bool, 0);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Player:DefaultComponentVariation', () => {
@@ -182,26 +184,31 @@ alt.onServer('Player:SetWaypoint', (X, Y) => {
     try {
         game.setNewWaypoint(X, Y);
     }
-    catch{ }
+    catch { }
 });
 alt.onServer('Player:Alpha', (alpha) => {
     try {
         game.setEntityAlpha(LocalPlayer.scriptID, alpha, true);
     }
-    catch{ }
+    catch { }
 });
 
-alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
+alt.onServer('Player:WarpIntoVehicle', async (veh, seat) => {
     try {
-        let vehTick = alt.everyTick(() => {
-            if (!alt.Player.local.scriptID) { return; }
-            game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
-            if (LocalPlayer.vehicle) {
-                alt.clearEveryTick(vehTick);
-            }
+        if (!veh) return;
+        if (!(veh instanceof alt.Vehicle)) return;
+        await new Promise((resolve) => {
+            const interval = alt.setInterval(() => {
+                if (veh.scriptID <= 0) {
+                    return;
+                }
+                alt.clearInterval(interval);
+                resolve();
+            }, 10);
         });
+        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Player:WarpOutOfVehicle', () => {
@@ -210,21 +217,31 @@ alt.onServer('Player:WarpOutOfVehicle', () => {
             game.taskLeaveVehicle(alt.Player.local.scriptID, LocalPlayer.vehicle.scriptID, 16);
         }
     }
-    catch{ }
+    catch { }
+});
+
+alt.onServer('Player:LoadIPL', (IPL) => {
+    try {
+        if (!game.isIplActive(IPL)) {
+            game.requestIpl(IPL);
+            alt.log("IPL Requested : " + IPL);
+        }
+    }
+    catch { }
 });
 
 alt.onServer('start_screen_fx', (effectName, duration, looped) => {
     try {
         game.animpostfxPlay(effectName, duration, looped);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Vehicle:DisableEngineToggle', state => {
     try {
         game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state);
     }
-    catch{ }
+    catch { }
 });
 
 alt.on('keyup', (key) => {
@@ -241,7 +258,7 @@ alt.on('keyup', (key) => {
                 break;
         }
     }
-    catch{ }
+    catch { }
 });
 
 alt.on('keydown', (key) => {
@@ -257,7 +274,7 @@ alt.on('keydown', (key) => {
                 break;
         }
     }
-    catch{ }
+    catch { }
 });
 
 
@@ -279,7 +296,7 @@ alt.onServer('delay_element_data', (e, v, type, ms) => {
             }, ms);
         }
     }
-    catch{ }
+    catch { }
 });
 
 let CameraCreated = false;
@@ -289,14 +306,14 @@ alt.onServer('Player:CreateCameraMovement', (pos1X, pos1Y, pos1Z, rot1, pos2X, p
         interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
         CameraCreated = true;
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Player:DestroyCamera', () => {
     try {
         if (CameraCreated) { destroyCamera(); }
     }
-    catch{ }
+    catch { }
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -344,7 +361,7 @@ function moveFromToAir(player, moveTo, switchType, showGui) {
                 break;
         }
     }
-    catch{ }
+    catch { }
 }
 
 function checkCamInAir() {
@@ -358,7 +375,7 @@ function checkCamInAir() {
             gui = 'true';
         }
     }
-    catch{ }
+    catch { }
 }
 
 
@@ -375,12 +392,12 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
         game.setBlipColour(area[name], c);
         game.setBlipRotation(area[name], r2);
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
     try { CreatePed(PedName, Vector3Pos, rot); }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('OnPlayerEnterVehicle', (ms) => {

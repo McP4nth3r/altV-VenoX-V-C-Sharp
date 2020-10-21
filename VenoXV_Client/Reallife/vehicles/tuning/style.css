@@ -14,99 +14,374 @@
     -moz-user-select: None;
     -webkit-user-select: None;
     position: absolute;
+    background: rgba(0,0,0,0) !important;
     top: 0vw;
     height: 100%;
     left: 0vw;
     width: 100%;
     overflow: auto;
 }
-.Tuning-Window-Main {
+
+/* Tuning */
+
+div#VehicleTuningMainMenuBox {
     position: absolute;
-    right: 0.5vw;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: 20vw;
-    height: 25vw;
+    top: 22%;
+    width: 30%;
+    height: 60%;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, #4784cf 0%, #ca76ab 100%);
+    border-image-slice: 1;
+    box-shadow: 1px 4px 22px rgba(56, 56, 56, 0.5);
+    right: 3%;
 }
-.Tuning-Window-Container {
+
+div#VehicleTuningMainMenuBox > span.title {
     position: absolute;
-    top: 6%;
+    height: 8%;
+    text-align: center;
+    background: linear-gradient(to left, #ca76ab 0%, #4784cf 100%);
     width: 100%;
-    height: 94.5%;
-    overflow: auto;
+    top: 0%;
+    font-family: BNT;
+    color: #ececec;
+    font-size: 230%;
 }
-.Column {
+
+div#VehicleTuningMainMenuBox > .circlediv,
+div#VehicleTuningMenuColorSelection > .circlediv {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.2);
+    height: 5%;
+    color: #d2d2d2;
+    width: 5.5%;
+    top: -0.2%;
+    border-bottom-left-radius: 6px;
+    font-size: 110%;
+    padding-top: 1%;
+    text-align: center;
+    right: -0.2%;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+}
+
+div#VehicleTuningMainMenuBox > .circlediv:hover,
+div#VehicleTuningMenuColorSelection > .circlediv:hover {
+    color: #4c4444;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+div#VehicleTuningMainMenuBox > ul {
+    position: absolute;
+    height: 92%;
+    width: 100%;
+    top: 8%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block-end: 0;
+    margin-block-start: 0;
+}
+
+div#VehicleTuningMainMenuBox > ul > li {
     position: relative;
-    padding: 1vw 1vw;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-    font-family: Arial;
-    font-size: 0.8vw;
+    float: left;
+    height: 30%;
+    left: 3.5%;
+    width: 28%;
+    margin: 1.2% 0% 1.2% 2%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    box-shadow: 1px 4px 22px rgba(56, 56, 56, 0.5);
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, #4784cf 0%, #ca76ab 100%);
+    border-image-slice: 1;
+    transition: all 0.3s ease-in-out;
 }
-.Column-Price {
+
+div#VehicleTuningMainMenuBox > ul > li:hover .actionbtn {
+    display: block !important;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > img {
     position: absolute;
-    right: 2%;
-    color: white;
-    top: 1.05vw;
+    width: 45%;
+    padding: 23% 0% 0% 28%;
+    margin: 25% 0% 0% 10%;
 }
-.Column-Image {
+
+div#VehicleTuningMainMenuBox > ul > li > span.title,
+div#VehicleTuningMenuColorSelection > span.title {
     position: absolute;
-    left: 1vw;
-    top: 0.15vw;
-    width: 2.5vw;
-    height: 2.5vw;
-}
-.Column:hover {
-    background-color: rgb(0, 150, 200);
-}
-.Tuning-Text {
-    position: absolute;
-    color: white;
+    height: 18%;
+    padding-top: 3%;
     width: 100%;
-    height: 2vw;
-    font-size: 0.8vw;
     text-align: center;
-    left: 50%;
-    top: 3vw;
-    transform: translate(-50%);
-    font-family: arial;
+    font-family: BNT;
+    font-size: 112%;
+    color: #d2d2d2;
+    background: linear-gradient(to right, #4784cf99 0%, #ca76ab38 100%);
 }
-.VnX-Button {
-    width: 10vw;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%);
-}
-.editbox {
+
+div#VehicleTuningMainMenuBox > ul > li > .far-div1,
+div#VehicleTuningMainMenuBox > ul > li > .far-div2 {
+    font-size: 175%;
     position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    top: 30%;
-    width: 80%;
-    height: 20%;
+    top: 46%;
+    color: #307aa7;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > .far-div1 {
+    right: 3%;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > .far-div1:hover {
+    cursor: pointer;
+    color: #30a74b;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > .far-div2 {
+    left: 3%;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > .far-div2:hover {
+    cursor: pointer;
+    color: #a73030;
+}
+
+div#VehicleTuningMainMenuBox > ul > li > span.actionbtn {
+    display: none;
+    position: absolute;
+    bottom: 0%;
+    height: 18%;
+    width: 100%;
+    padding-top: 3%;
     text-align: center;
-    font-size: 0.8vw;
-    display: block;
-    line-height: 1.5;
-    color: white;
-    background-color: rgb(0, 0, 0, 0.6);
-    border: 0.5px solid rgba(0, 105, 145);
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    transform: translate(-50%);
+    font-family: BNT;
+    font-size: 120%;
+    color: #d2d2d2;
+    background: linear-gradient(to right, #47cf6299 0%, #18692238 100%);
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
 }
-.editbox::-ms-expand {
-    background-color: transparent;
-    border: 0vw;
+
+div#VehicleTuningMainMenuBox > ul > li > span.actionbtn:hover {
+    background: linear-gradient(to right, #18692238 0%, #47cf6299 100%);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
 }
-.editbox:focus {
-    color: white;
-    background-color: rgba(40, 40, 40, 0.9);
-    border-color: rgb(0, 200, 255);
-    outline: 0vw;
-    box-shadow: 0vw 0vw 0vw .2rem rgba(0, 200, 255, 0.1);
+
+div#VehicleTuningMenuColorSelection {
+    position: absolute;
+    top: 22%;
+    width: 22%;
+    height: 40%;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, #4784cf 0%, #ca76ab 100%);
+    border-image-slice: 1;
+    box-shadow: 1px 4px 22px rgba(56, 56, 56, 0.5);
+    right: 34%;
 }
+
+div#VehicleTuningMenuColorSelection > span.title {
+    font-size: 180% !important;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea {
+    position: absolute;
+    top: 20%;
+    background: rgba(156, 156, 156, 0.15);
+    height: 39%;
+    width: 34%;
+    right: 2%;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    border-image: linear-gradient(to right, #4784cf 0%, #ca76ab 100%);
+    border-image-slice: 1;
+    box-shadow: 1px 4px 22px rgba(56, 56, 56, 0.5);
+}
+
+div#VehicleTuningMenuColorSelection > button {
+    position: relative;
+    top: 72%;
+    background-color: #4a4a4a;
+    font-family: OSR;
+    color: #d2d2d2;
+    font-size: 14px;
+    border-color: transparent;
+    opacity: .3;
+    transition: all 0.3s ease-in-out;
+}
+
+div#VehicleTuningMenuColorSelection > button:hover {
+    opacity: 1;
+    background-color: #29ac5b;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > span.title {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    font-family: BNT;
+    font-size: 120%;
+    padding-top: 2%;
+    color: #d2d2d2;
+    text-align: center;
+    background: linear-gradient(to left, #ca76ab91 0%, #4784cfc9 100%);
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbRvalField,
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbGvalField,
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbBvalField {
+    position: absolute;
+    height: 20%;
+    width: 58%;
+    border: none;
+    right: 5%;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    text-align: center;
+    font-family: OSL;
+    color: #d2d2d2;
+    font-size: 90%;
+    font-weight: bold;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbRvalField {
+    background: rgba(220, 29, 29, 0.44);
+    top: 24%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbGvalField {
+    background: rgba(29, 220, 124, 0.44);
+    top: 48%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > input#rgbBvalField {
+    background: rgba(29, 104, 220, 0.44);
+    top: 72%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbRval,
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbGval,
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbBval {
+    position: absolute;
+    height: 20%;
+    width: 30%;
+    border: 2px solid black;
+    border-bottom: none;
+    border-left: none;
+    border-top: none;
+    left: 7%;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    text-align: center;
+    font-family: BNT;
+    color: #d2d2d2;
+    padding-top: 4.8%;
+    font-size: 100%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbRval {
+    background: rgba(220, 29, 29, 0.44);
+    top: 24%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbGval {
+    background: rgba(29, 220, 124, 0.44);
+    top: 48%;
+}
+
+div#VehicleTuningMenuColorSelection > div.inputArea > label#rgbBval {
+    background: rgba(29, 104, 220, 0.44);
+    top: 72%;
+}
+
+
+/* Color Picker Tuning */
+
+.picker-wrapper,
+.slide-wrapper {
+    position: relative;
+    float: left;
+}
+
+.picker-indicator,
+.slide-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.picker,
+.slide-wrapper > .slide {
+    cursor: crosshair;
+    float: left;
+}
+
+.cp-default {
+    position: absolute;
+    top: 20%;
+    left: 3%;
+    background-color: rgba(255, 255, 255, 0.27);
+    padding: 3px;
+    box-shadow: 0 0 40px #000;
+    border-radius: 3px;
+    float: left;
+}
+
+.cp-default .picker {
+    width: 200px;
+    height: 200px;
+}
+
+.cp-default .slide {
+    width: 30px;
+    height: 200px;
+}
+
+.cp-default .slide-wrapper {
+    margin-left: 10px;
+}
+
+.cp-default .picker-indicator {
+    width: 5px;
+    height: 5px;
+    border: 2px solid darkblue;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    opacity: .5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: alpha(opacity=50);
+    background-color: white;
+}
+
+.cp-default .slide-indicator {
+    width: 100%;
+    height: 10px;
+    left: -4px;
+    opacity: .6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=60);
+    filter: alpha(opacity=60);
+    border: 4px solid lightblue;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: white;
+}
+
 .d-none {
     display: none;
 }

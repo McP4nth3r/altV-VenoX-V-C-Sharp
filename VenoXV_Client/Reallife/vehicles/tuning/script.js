@@ -4,53 +4,97 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-let CloseText = "back";
-let LastWindowOpen;
+/* Tuning */
+var CurTuningMenuWindow = "none",
+    SelectedVehicleTuningMenuColorBoxModtype = "none";
 
-function FillModList(Name) {
-    $('.Tuning-Window-Home').append('<div class="Column">' + Name + '<img class="Column-Image" src="files/images/' + Name + '.png"></div>');
-}
-
-function ShowHomescreen() {
-    $('.Tuning-Window-Home').removeClass('d-none');
-    if (LastWindowOpen) {
-        $('.Tuning-Window-List-' + LastWindowOpen).addClass('d-none');
-        $('#back').remove();
+function ShowACLSTuningMenuWindow(subwindow, modtype) {
+    if (CurTuningMenuWindow != "none") {
+        document.getElementById(CurTuningMenuWindow).style.display = "none";
     }
-    return;
+    document.getElementById(subwindow).style.display = "block";
+    CurTuningMenuWindow = subwindow;
+    SelectedVehicleTuningMenuColorBoxModtype = modtype;
 }
 
-FillModList("Spoiler");
-FillModList("Front-Karosserie");
-FillModList("Heck-Karosserie");
-FillModList("Seitenschweller");
-FillModList("Auspuff");
-FillModList("Motor");
-FillModList("Turbo");
-FillModList("Getriebe");
-FillModList("Tieferlegung");
-FillModList("Bremsen");
-FillModList("Scheiben");
-FillModList("Xenon");
-FillModList("Farbe");
+function closeTuningSubWindow(subwindow) {
+    document.getElementById(subwindow).style.display = "none";
+}
 
-$('.Column').click(function (element) {
-    let ElementName = $(this).text();
-    $('.Tuning-Window-Home').addClass('d-none');
-    LastWindowOpen = ElementName;
-    $('.Tuning-Window-List-' + ElementName).removeClass('d-none');
-    switch (ElementName) {
-        case "Farbe":
-            $('.Tuning-Window-List-' + ElementName).append('<div id="back" class="VnX-Button" style="top: 90%; width: 80%;" onclick="ShowHomescreen()">' + CloseText + '</div>');
-            break;
-        default:
-            $('.Tuning-Window-List-' + ElementName).append('<div id="back" class="Column" onclick="ShowHomescreen()">' + CloseText + '<img class="Column-Image" src="files/images/cross.png" ></div>');
-            break;
+function closeTuningMenuCEF() {
+    $("#VehicleTuningMainMenuBox").fadeOut(100, function () {
+        $("#VehicleTuningMainMenuBox").hide();
+        $("#VehicleTuningMenuColorSelection").hide();
+        alt.emit("Tuning:Destroy");
+    });
+}
+
+function VehicleTuningMenuColorSelectionTestColor(install) {
+    var r = $("#rgbRvalField").val();
+    var g = $("#rgbGvalField").val();
+    var b = $("#rgbBvalField").val();
+    if (install) {
+        alt.emit("Client:Tuning:switchTuningColor", "Build", SelectedVehicleTuningMenuColorBoxModtype, r, g, b);
+    } else {
+        alt.emit("Client:Tuning:switchTuningColor", "Test", SelectedVehicleTuningMenuColorBoxModtype, r, g, b);
     }
-});
-
-
-function FillList(Name, Price) {
-    $('.Tuning-Window-List-' + Name).append('<div class="Column">' + Name + '<img class="Column-Image" src="files/images/' + Name + '.png"><div class="Column-Price">' + Price + '</div></div>');
 }
-FillList('Spoiler', 1000);
+
+function SwitchTuning(Type, ID, Action) {
+    alt.emit("Client:Tuning:switchTuning", Type, ID, Action);
+}
+
+function openVehicleTuningMenu(Items) {
+    var items = Items.split(";");
+    var html = "";
+
+    for (var i = 0; i < items.length; i++) {
+        var itemValues = items[i].split(":");
+        var modTyp = itemValues[0];
+        var modTypeID = itemValues[1];
+
+        html += `<li><span class='title'>${modTyp}</span><img src='../test.png'>`;
+
+        if (modTyp.match("Neonröhren") || modTyp.match("Reifenqualm")) {
+            html += "<span class='actionbtn' onclick='ShowACLSTuningMenuWindow(`VehicleTuningMenuColorSelection`, `" + modTyp + "`);'>Farbe auswählen</span>";
+        } else {
+            html += "<div class='far-div1' onclick='SwitchTuning(`Preview` ,`" + modTypeID + "`, `>`);'><i class='far fa-arrow-alt-circle-right'></i></div>" +
+                "<div class='far-div2' onclick='SwitchTuning(`Preview` ,`" + modTypeID + "`, `<`);'> <i class='far fa-arrow-alt-circle-left'></i></div>" +
+                "<span class='actionbtn' onclick='SwitchTuning(`Build` ,`" + modTypeID + "`, `>`);'>Montieren</span>";
+        }
+        html += "</li>";
+    }
+
+    $("#VehicleTuningMainMenuBoxList").html(html);
+    $("#VehicleTuningMainMenuBox").fadeTo(1000, 1, function () { });
+}
+
+function closeTuningMenuCEF() {
+    $("#VehicleTuningMainMenuBox").fadeOut(100, function () {
+        $("#VehicleTuningMainMenuBox").hide();
+        $("#VehicleTuningMenuColorSelection").hide();
+        alt.emit("Client:Tuning:closeCEF");
+    });
+}
+
+ColorPicker(
+
+    document.getElementById('color-picker'),
+
+    function (hex, hsv, rgb) {
+        document.getElementById("rgbRvalField").value = rgb.r;
+        document.getElementById("rgbGvalField").value = rgb.g;
+        document.getElementById("rgbBvalField").value = rgb.b;
+    });
+
+$("#VehicleTuningMainMenuBox").hide();
+$("#VehicleTuningMenuColorSelection").hide();
+
+
+// alt:V Events 
+
+if ('alt' in window) {
+    alt.on("CEF:Tuning:openTuningMenu", (Items) => {
+        openVehicleTuningMenu(Items);
+    });
+}
