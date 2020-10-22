@@ -140,7 +140,9 @@ namespace VenoXV._RootCore_.Models
     }
     public class Zombies
     {
-        public int Zombie_kills { get; set; }
+        private Player client;
+        private int _Zombie_kills { get; set; }
+        public int Zombie_kills { get { return _Zombie_kills; } set { _Zombie_kills = value; client.vnxSetSharedElementData("ZOMBIE_KILLS", value); } }
         public int Zombie_player_kills { get; set; }
         public int Zombie_tode { get; set; }
         public bool IsSyncer { get; set; }
@@ -150,6 +152,7 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
+                client = player;
                 NearbyPlayers = new List<Player>();
                 NearbyZombies = new List<ZombieModel>();
             }

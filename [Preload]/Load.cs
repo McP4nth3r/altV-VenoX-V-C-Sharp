@@ -23,7 +23,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Tactics:Load");
                     break;
                 case Gamemodes.Zombies:
-                    //Test
+                    Alt.Server.TriggerClientEvent(player, "Zombies:CreateHUD", player.Zombies.Zombie_kills);
                     break;
                 case Gamemodes.Race:
                     Alt.Server.TriggerClientEvent(player, "Race:Load");
@@ -50,7 +50,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Tactics:Unload");
                     break;
                 case Gamemodes.Zombies:
-                    _Gamemodes_.Zombie.Globals.Events.OnPlayerDisconnect(player);
+                    Alt.Server.TriggerClientEvent(player, "Zombies:DestroyHUD");
                     break;
                 case Gamemodes.Race:
                     Alt.Server.TriggerClientEvent(player, "Race:Unload");

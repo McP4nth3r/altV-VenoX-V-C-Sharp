@@ -16,6 +16,7 @@ namespace VenoXV._Gamemodes_.KI
         private static int CurrentZombieCounter = 0;
         private static int PositionCounter = 0;
         private static int DIST_ZOMBIES = 10;
+        private static int MAX_ZOMBIES = 25;
 
         //
         private static void CreateNewRandomZombie(VnXPlayer player)
@@ -71,19 +72,11 @@ namespace VenoXV._Gamemodes_.KI
                 {
                     if (player != null)
                     {
-                        if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < 80)
+                        if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < MAX_ZOMBIES)
                         {
-                            // Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                             CreateNewRandomZombie(player);
-                            //Core.Debug.OutputDebugString(player.Username + " | Syncer State : " + player.Zombies.IsSyncer);
-                            //Create Zombies for nearbyPlayers.
-                            //Core.Debug.OutputDebugString("[Zombies] : " + Globals.Main.ZombiePlayers.ToList().Count + " | ");
                             foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
-                            {
                                 CreateNewRandomZombie(nearbyPlayer);
-                                //Core.Debug.OutputDebugString(nearbyPlayer.Username + " | Syncer State : " + nearbyPlayer.Zombies.IsSyncer);
-                            }
-                            //Core.Debug.OutputDebugString("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         }
                         else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
                     }

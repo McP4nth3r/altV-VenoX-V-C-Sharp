@@ -24,21 +24,26 @@ game.requestAnimDict("special_ped@zombie@monologue_6@monologue_6a");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-alt.onServer('Zombies:Sync', (state) => {
+alt.onServer('Zombies:Sync', async (state) => {
     try {
         IsSyncer = state;
         if (IsSyncer) {
             SyncInterval = alt.setInterval(() => {
+                let numb = 0;
                 for (var counter in Zombies) {
                     let Zombie = Zombies[counter];
-                    if (!Zombie) return;
+                    if (!Zombie) continue;
+                    if (numb >= 25) return;
                     if (Zombie.Entity != null && !Zombie.OutOfStreamingRange) {
                         let zombiePos = game.getEntityCoords(Zombie.Entity, true);
                         let zombieRot = game.getEntityRotation(Zombie.Entity, 2);
                         alt.emitServer('Zombies:OnSyncerCall', Zombie.Id, zombiePos.x, zombiePos.y, zombiePos.z - 1.0, zombieRot.x, zombieRot.y, zombieRot.z);
+                        numb++;
                     }
                 };
-            }, 750);
+                if (numb > 0) alt.log("Called : " + numb);
+            }, 850);
+
         }
         else {
             if (SyncInterval) alt.clearInterval(SyncInterval);
@@ -48,16 +53,16 @@ alt.onServer('Zombies:Sync', (state) => {
     catch { }
 });
 
-alt.onServer('Zombies:SpawnKI', (Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) => {
+alt.onServer('Zombies:SpawnKI', async (Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) => {
     SpawnZombie(parseInt(Id), Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target);
 });
 
-alt.onServer('Zombies:ClothesLoad', (Id, clothesslot, clothesdrawable, clothestexture) => {
+alt.onServer('Zombies:ClothesLoad', async (Id, clothesslot, clothesdrawable, clothestexture) => {
     game.setPedComponentVariation(Zombies[parseInt(Id)].Entity, clothesslot, clothesdrawable, clothestexture);
 });
 
 
-alt.onServer("Zombies:AccessoriesLoad", (Id, clothesslot, clothesdrawable, clothestexture) => {
+alt.onServer("Zombies:AccessoriesLoad", async (Id, clothesslot, clothesdrawable, clothestexture) => {
     game.setPedPreloadVariationData(Zombies[parseInt(Id)].Entity, clothesslot, clothesdrawable, clothestexture);
 });
 
@@ -82,39 +87,45 @@ alt.setInterval(() => {
     }
 }, 250);
 
-alt.onServer('Zombies:SetArmor', (Id, Armour) => {
+alt.onServer('Zombies:SetArmor', async (Id, Armour) => {
     if (!Zombies[parseInt(Id)]) return;
     game.setPedArmour(Zombies[parseInt(Id)].Entity, parseInt(Armour));
 });
 
-alt.onServer('Zombies:SetHealth', (Id, Health) => {
+alt.onServer('Zombies:SetHealth', async (Id, Health) => {
     if (!Zombies[parseInt(Id)]) return;
     game.setEntityHealth(Zombies[parseInt(Id)].Entity, parseInt(Health));
 });
 
-alt.onServer("Zombies:SetPosition", (Id, PosX, PosY, PosZ) => {
+alt.onServer("Zombies:UpdatePositionAndRotation", async (Id, PosX, PosY, PosZ, RotX, RotY, RotZ) => {
+    if (!Zombies[parseInt(Id)]) return;
+    game.setEntityCoords(Zombies[parseInt(Id)].Entity, PosX, PosY, PosZ);
+    game.setEntityRotation(Zombies[parseInt(Id)].Entity, RotX, RotY, RotZ, 2, true);
+});
+
+alt.onServer("Zombies:SetPosition", async (Id, PosX, PosY, PosZ) => {
     if (!Zombies[parseInt(Id)]) return;
     game.setEntityCoords(Zombies[parseInt(Id)].Entity, PosX, PosY, PosZ);
 });
 
-alt.onServer("Zombies:SetRotation", (Id, RotX, RotY, RotZ) => {
+alt.onServer("Zombies:SetRotation", async (Id, RotX, RotY, RotZ) => {
     if (!Zombies[parseInt(Id)]) return;
     game.setEntityRotation(Zombies[parseInt(Id)].Entity, RotX, RotY, RotZ, 2, true);
 });
 
-alt.onServer('Zombies:Destroy', (Id) => {
+alt.onServer('Zombies:Destroy', async (Id) => {
     if (!Zombies[parseInt(Id)]) return;
     Zombies[parseInt(Id)].IsDead = true;
 });
 
-alt.onServer('Zombies:DeleteTempZombieById', (ID) => {
+alt.onServer('Zombies:DeleteTempZombieById', async (ID) => {
     if (!Zombies[parseInt(ID)]) return;
     Zombies[parseInt(ID)].OutOfStreamingRange = true;
     DeleteZombieById(parseInt(ID));
 });
 
 
-alt.onServer('Zombies:MoveToTarget', (ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity) => {
+alt.onServer('Zombies:MoveToTarget', async (ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity) => {
     if (!Zombies[parseInt(ID)]) {
         SpawnZombie(ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity);
         return;
@@ -211,7 +222,7 @@ function SetZombieAttributes(zombie) {
     game.setPedCanRagdoll(zombie, false);
     game.setEntityAsMissionEntity(zombie, true, false);
     game.setPedRelationshipGroupHash(zombie, game.getHashKey('zombeez'));
-    game.setPedArmour(zombie, 100);
+    //game.setPedArmour(zombie, 100);
     game.setPedAccuracy(zombie, 25);
     game.setPedSeeingRange(zombie, 100.0);
     game.setPedHearingRange(zombie, 100.0);

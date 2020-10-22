@@ -54,6 +54,7 @@ import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
 import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
 import * as VehCatalog from '/VenoXV_Client/Reallife/vehicles/catalog/index.js';
 import * as SevenTowers from '/VenoXV_Client/SevenTowers/Lobby/index.js';
+import * as ZombiesHUD from '/VenoXV_Client/Zombies/HUD/index.js';
 
 
 alt.setStat('stamina', 100);
@@ -70,8 +71,8 @@ game.pauseClock(true); //Freezes the Current-Ingame Time!
 
 let Freemode01Skin = game.getHashKey('mp_m_freemode_01');
 let Freemode02Skin = game.getHashKey('mp_f_freemode_01');
-if (!game.hasModelLoaded(Freemode01Skin)) { game.requestModel(Freemode01Skin); }
-if (!game.hasModelLoaded(Freemode02Skin)) { game.requestModel(Freemode02Skin); }
+if (!game.hasModelLoaded(Freemode01Skin)) game.requestModel(Freemode01Skin);
+if (!game.hasModelLoaded(Freemode02Skin)) game.requestModel(Freemode02Skin);
 
 /*
 alt.beginScaleformMovieMethodMinimap('SETUP_HEALTH_ARMOUR');
@@ -83,9 +84,7 @@ alt.onServer('HideH', (bool) => {
 });
 
 
-alt.onServer('eval', (string) => {
-    eval(string);
-});
+
 
 game.replaceHudColourWithRgba(142, 0, 200, 255, 255); //Waypoint
 

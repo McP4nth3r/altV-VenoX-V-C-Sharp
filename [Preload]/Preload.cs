@@ -55,7 +55,7 @@ namespace VenoXV._Preload_
             catch { }
         }
 
-        [Command("leave")]
+        [Command("leave", aliases: new string[] { "home", "lobby", "hub" })]
         public static void ShowGamemodeSelection(VnXPlayer player)
         {
             try
@@ -68,25 +68,6 @@ namespace VenoXV._Preload_
             }
             catch { }
         }
-        [Command("home")]
-        public static void ShowGamemodeSelectionHome(VnXPlayer player)
-        {
-            try { ShowGamemodeSelection(player); }
-            catch { }
-        }
-        [Command("lobby")]
-        public static void ShowGamemodeSelectionLobby(VnXPlayer player)
-        {
-            try { ShowGamemodeSelection(player); }
-            catch { }
-        }
-        [Command("hub")]
-        public static void ShowGamemodeSelectionHub(VnXPlayer player)
-        {
-            try { ShowGamemodeSelection(player); }
-            catch { }
-        }
-
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(VnXPlayer player, int value)
         {
