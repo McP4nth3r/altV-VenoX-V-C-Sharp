@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,11 +102,13 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (clothes.type == 0)
                         {
-                            Alt.Server.TriggerClientEvent(player, "Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            //Alt.Server.TriggerClientEvent(player, "Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            player?.EmitLocked("Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
-                            Alt.Server.TriggerClientEvent(player, "Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            //Alt.Server.TriggerClientEvent(player, "Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            player?.EmitLocked("Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }
@@ -124,7 +127,10 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (player.Position.Distance(zombieClass.Position) < Zombie.World.Main.MAX_ZOMBIE_RANGE)
                         {
-                            Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                            player?.EmitLocked("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                            //Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                            zombieClass.Armor = 200;
+                            zombieClass.Health = 200;
                             ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
                         }
                     }

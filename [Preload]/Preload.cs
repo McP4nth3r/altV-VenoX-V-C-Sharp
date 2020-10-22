@@ -163,6 +163,7 @@ namespace VenoXV._Preload_
         {
             try
             {
+                player.RemoveAllPlayerWeapons();
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
             }

@@ -173,7 +173,7 @@ namespace VenoXV.Globals
                         _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
                         return;
                     case (int)Preload.Gamemodes.Zombies:
-                        _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
+                        _Gamemodes_.Zombie.World.Main.OnPlayerDeath(player);
                         return;
                     default:
                         Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
