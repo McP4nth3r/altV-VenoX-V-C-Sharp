@@ -20,6 +20,9 @@ let SyncInterval;
 
 // Require 
 game.requestAnimSet('move_m@drunk@verydrunk');
+game.requestAnimSet('facials@gen_male@base');
+game.requestAnimSet('move_m@injured');
+
 game.requestAnimDict("special_ped@zombie@monologue_6@monologue_6a");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +44,8 @@ alt.onServer('Zombies:Sync', async (state) => {
                         numb++;
                     }
                 };
-                if (numb > 0) alt.log("Called : " + numb);
+                //Debug.
+                //if (numb > 0) alt.log("Called : " + numb);
             }, 850);
 
         }
@@ -163,6 +167,10 @@ function CheckZombieHealths() {
                 game.setEntityAsMissionEntity(Zombies[Id].Entity, false, true);
                 alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id));
             }
+            if (game.hasEntityBeenDamagedByEntity(alt.Player.local.scriptID, Zombies[Id].Entity)) {
+                game.clearEntityLastDamageEntity(alt.Player.local.scriptID);
+                alt.log('Local player got Hitted by a Zombie');
+            }
         }
     };
 }
@@ -219,6 +227,30 @@ function SetZombieCorrectSkin(zombieEntity, facefeaturesarray, headblendsarray, 
 }
 
 function SetZombieAttributes(zombie) {
+    /*
+    game.setPedCanPlayGestureAnims(zombie, false);
+    game.setPedCanPlayAmbientAnims(zombie, false);
+    game.setPedCanEvasiveDive(zombie, false);
+    game.setPedPathCanUseLadders(zombie, false);
+    game.setPedPathCanUseClimbovers(zombie, false);
+    game.applyPedDamagePack(zombie, 'BigHitByVehicle', 0.0, 1);
+    game.applyPedDamagePack(zombie, 'ExplosionMed', 0.0, 1);
+    game.setPedAlertness(zombie, 0);
+    game.setPedCombatAttributes(zombie, 46, true);
+    game.setPedConfigFlag(zombie, 281, true);
+    // move to spawn.
+    let ZombiePos = game.getEntityCoords(zombie);
+    game.taskWanderInArea(zombie, ZombiePos.x, ZombiePos.y, ZombiePos.z, 100);
+    game.setPedKeepTask(zombie, true);
+
+
+
+    game.setPedCanPlayGestureAnims(zombie, false);
+    game.setPedCanPlayAmbientAnims(zombie, false);
+    game.setPedCanEvasiveDive(zombie, false);*/
+    game.setPedPathCanUseLadders(zombie, false);
+    game.setPedPathCanUseClimbovers(zombie, false);
+
     game.setPedCanRagdoll(zombie, false);
     game.setEntityAsMissionEntity(zombie, true, false);
     game.setPedRelationshipGroupHash(zombie, game.getHashKey('zombeez'));
@@ -246,6 +278,9 @@ function SetZombieAttributes(zombie) {
     game.applyPedDamagePack(zombie, 'SCR_Torture', 0.0, 9.0);
     game.stopPedSpeaking(zombie, true);
     game.setAiMeleeWeaponDamageModifier(10000);
+
+    /*let ZombiePos = game.getEntityCoords(zombie);
+    game.taskWanderInArea(zombie, ZombiePos.x, ZombiePos.y, ZombiePos.z, 100);*/
 }
 
 
@@ -326,16 +361,27 @@ function MoveZombieToTarget(ID, TargetEntity) {
 
     Zombies[ID].TargetEntity = TargetEntity;
     Zombies[ID].OutOfStreamingRange = false;
+
     let playerPos = game.getEntityCoords(Zombies[ID].TargetEntity.scriptID, true);
     game.taskGoToCoordAnyMeans(Zombies[ID].Entity, playerPos.x, playerPos.y, playerPos.z, 5, 0, false, 786603, 0);
     game.taskPutPedDirectlyIntoMelee(Zombies[ID].Entity, Zombies[ID].TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
+
+
+    if (game.isPedRunning(Zombies[ID].Entity)) {
+        game.disablePedPainAudio(Zombies[ID].Entity, false);
+        game.playPain(Zombies[ID].Entity, 8);
+        //move_m@injured
+        //game.setPedAlternateMovementAnim(Zombies[ID].Entity, 1, "move_m@injured", "sprint");
+        //game.taskPlayAnim(Zombies[ID].Entity, "move_m@injured", "sprint", 8.0, 0, )
+    }
+
 }
 
-/*
+
 alt.everyTick(() => {
     DrawNametags();
 });
-*/
+
 
 
 

@@ -84,7 +84,7 @@ function pushMessage(text, color = 'white', gradient = false, icon = false) {
     if (icon)
         text = `<i class="fi-${icon}" style="padding:0 2px 0 2px"></i> ` + text;
 
-    chatMessagesList.append(`<div class="chat-message stroke" style="${style}">${text}</div>`);
+    chatMessagesList.append(`<div class="chat-message stroke no-select" style="${style}">${text}</div>`);
 
     // Check if player's chat is scrolled all the way to the bottom. If true, then scroll down for new message to appear,
     // if false, inform player about new message(s).
@@ -141,7 +141,6 @@ function activateInput(state) {
             chatInputBar.blur();
             break;
     }
-
     alt.emit('chat:onInputStateChange', state);
 }
 
@@ -226,5 +225,6 @@ $(function () {
         if (objEvent.keyCode == 32 && objEvent.target == document.body) {
             objEvent.preventDefault();
         }
+        if (objEvent.keyCode == 9) objEvent.preventDefault();
     });
 });
