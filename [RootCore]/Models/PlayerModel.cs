@@ -338,6 +338,7 @@ namespace VenoXV._RootCore_.Models
                 Usefull = new Usefull(this);
                 Discord = new Discord(this);
                 this.SpawnPlayer(Position);
+                Language = (int)_Language_.Main.Languages.English;
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 SetPosition = new Position(152.26f, -1004.47f, -99.00f);
                 Dimension = Id;

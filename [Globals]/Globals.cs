@@ -154,7 +154,11 @@ namespace VenoXV.Globals
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:
-                        if (killer == null) { killer = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged"); }
+                        if (killer is null)
+                        {
+                            VnXPlayer NewKiller = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged");
+                            if (NewKiller is null) killer = player;
+                        }
                         if (Functions.IstargetInSameLobby(player, killer))
                         {
                             _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);

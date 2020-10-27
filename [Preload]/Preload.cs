@@ -55,6 +55,17 @@ namespace VenoXV._Preload_
             catch { }
         }
 
+        [AsyncClientEvent("Preload:SelectLanguage")]
+        public static async void OnSelectedClientLanguage(VnXPlayer player, string LanguagePair)
+        {
+            try
+            {
+                player.Language = (int)_Language_.Main.GetLanguageByPair(LanguagePair);
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Du hast deine Sprache erfolgreich geändert!"));
+            }
+            catch { }
+        }
+
         [Command("leave", aliases: new string[] { "home", "lobby", "hub" })]
         public static void ShowGamemodeSelection(VnXPlayer player)
         {
@@ -78,7 +89,6 @@ namespace VenoXV._Preload_
                 Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
-                player.Language = (int)_Language_.Main.Languages.English;
                 if (!Globals.Main.AllPlayers.Contains(player)) Globals.Main.AllPlayers.Add(player);
                 player.RemoveAllPlayerWeapons();
                 switch (value)
