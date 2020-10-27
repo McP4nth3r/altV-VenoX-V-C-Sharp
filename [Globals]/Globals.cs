@@ -102,7 +102,10 @@ namespace VenoXV.Globals
                 _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
                 _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
                 _Gamemodes_.SevenTowers.Main.OnResourceStart();
+                _Language_.Main.OnResourceStart();
                 Console.WriteLine("VenoX V." + Preload.CURRENT_VERSION + " Loaded!");
+                Console.WriteLine(_Language_.Main.GetTranslatedTextAsync(_Language_.Main.Languages.English, "Hello Welt!"));
+
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.KI
         public static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
         private static int CurrentZombieCounter = 0;
         private static int PositionCounter = 0;
-        private static int DIST_ZOMBIES = 10;
+        private static int DIST_ZOMBIES = 12;
         private static int MAX_ZOMBIES = 25;
 
         //
@@ -78,7 +78,8 @@ namespace VenoXV._Gamemodes_.KI
                             foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
                                 CreateNewRandomZombie(nearbyPlayer);
                         }
-                        else if (player.Zombies.IsSyncer) { Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von 80 Zombies erreicht."); }
+                        else if (player.Zombies.IsSyncer)
+                            Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von " + MAX_ZOMBIES + " Zombies erreicht.");
                     }
                 }
             }

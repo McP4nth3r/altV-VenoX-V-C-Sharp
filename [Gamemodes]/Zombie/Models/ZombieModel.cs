@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Position = value;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) players.EmitLocked("Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
             }
         }
         private Vector3 _Rotation { get; set; }
@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Rotation = value;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) players.EmitLocked("Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
             }
         }
         public void UpdatePositionAndRotation(Vector3 position, Vector3 rotation)
@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
                 _Position = position;
                 _Rotation = rotation;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) players.EmitLocked("Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
             catch { }
         }

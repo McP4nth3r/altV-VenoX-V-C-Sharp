@@ -4,6 +4,7 @@ using System;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using static VenoXV._Language_.Main;
 
 namespace VenoXV._Gamemodes_.Tactics.environment
 {
@@ -15,19 +16,19 @@ namespace VenoXV._Gamemodes_.Tactics.environment
             {
                 if (!player.Tactics.IsDead)
                 {
-                    string Pair = _Language_.Main.GetClientLanguagePair(player);
+                    Languages Pair = (Languages)player.Language;
                     if (player != killer && killer != null)
                     {
                         switch (killer.Tactics.CurrentStreak)
                         {
                             case 3:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await _Language_.Main.TranslateText(" hat einen Tripple-Kill erzielt!", "de", Pair));
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Tripple-Kill erzielt!"));
                                 break;
                             case 5:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await _Language_.Main.TranslateText(" hat einen Penta-Kill Streak erzielt!", "de", Pair));
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Penta-Kill Streak erzielt!"));
                                 break;
                             case 7:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await _Language_.Main.TranslateText(" hat einen Ultimate-Kill Streak erzielt!", "de", Pair));
+                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Ultimate-Kill Streak erzielt!"));
                                 break;
                         }
                         killer.Tactics.Kills += 1;
@@ -48,7 +49,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         if (Lobby.Main.MEMBER_COUNT_BFAC <= 0)
                         {
                             //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_A_WinnerText);
-                            Functions.ShowOutroScreen(await _Language_.Main.TranslateText(Lobby.Main.CurrentMap.Team_A_WinnerText, "de", Pair));
+                            Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_A_WinnerText));
                             return;
                         }
                     }
@@ -57,7 +58,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         Lobby.Main.MEMBER_COUNT_COPS -= 1;
                         if (Lobby.Main.MEMBER_COUNT_COPS <= 0)
                         {
-                            Functions.ShowOutroScreen(await _Language_.Main.TranslateText(Lobby.Main.CurrentMap.Team_B_WinnerText, "de", Pair));
+                            Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_B_WinnerText));
                             //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_B_WinnerText);
                             return;
                         }

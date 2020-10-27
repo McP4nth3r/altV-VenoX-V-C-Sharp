@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                     player.Zombies.Zombie_kills += 1;
                     if (LevelSystem.LevelWeapons.ContainsKey(player.Zombies.Zombie_kills))
                     {
-                        player.SendChatMessage("Neue Waffen freigeschaltet! [" + RageAPI.GetHexColorcode(0, 200, 255) + player.Zombies.Zombie_kills + RageAPI.GetHexColorcode(255, 255, 255) + "]");
+                        player.SendChatMessage("Neue Waffen freigeschaltet! [" + RageAPI.GetHexColorcode(0, 200, 255) + player.Zombies.Zombie_kills + RageAPI.GetHexColorcode(255, 255, 255) + " - " + LevelSystem.LevelWeapons[player.Zombies.Zombie_kills] + "]");
                         LevelSystem.GivePlayerWeaponsByLevel(player);
                     }
                 }

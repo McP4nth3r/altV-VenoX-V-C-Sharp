@@ -21,7 +21,7 @@ namespace VenoXV._Globals_
                 case "tactics":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        string text = await _Language_.Main.TranslateText("hat die Tactic Runde übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
+                        string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "hat die Tactic Runde übersprungen!");
                         _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " " + text);
                         _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + text);
                         _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + text);
@@ -30,8 +30,8 @@ namespace VenoXV._Globals_
                 case "race":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        string text = await _Language_.Main.TranslateText(" hat das Rennen übersprungen!", "de", _Language_.Main.GetClientLanguagePair(player));
-                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
+                        string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " hat das Rennen übersprungen!");
+                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
                         _Gamemodes_.Race.Lobby.Main.StartNewRound();
                     }
                     break;

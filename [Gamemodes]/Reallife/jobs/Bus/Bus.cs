@@ -96,64 +96,68 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
         {
             try
             {
-                if (player.IsInVehicle)
+                if (!player.IsInVehicle) return;
+                int CurrentBusStation = player.Reallife.JobMarker;
+                if (CurrentBusStation >= AbgabepunkteLVLONE.Count)
                 {
-                    int CurrentBusStation = player.Reallife.JobMarker;
-                    if (CurrentBusStation >= AbgabepunkteLVLONE.Count)
-                    {
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
-                        player.Reallife.Money += BUSJOB_ROUND_BONUS;
-                        player.Reallife.JobMarker = 0;
-                    }
-                    else { player.Reallife.JobMarker += 1; }
-
-                    int JobMoney = 0;
-                    switch (player.Reallife.JobStage)
-                    {
-                        case 1:
-                            JobMoney = BUSJOB_LEVEL_ONE_MONEY;
-                            break;
-                        case 2:
-                            JobMoney = BUSJOB_LEVEL_TWO_MONEY;
-                            break;
-                        case 3:
-                            JobMoney = BUSJOB_LEVEL_THREE_MONEY;
-                            break;
-                    }
-                    player.Reallife.BUSJOB_LEVEL += 1;
-                    player.Reallife.Money += JobMoney;
-                    Allround.DestroyJobMarker(player);
-                    Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];
-                    VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                    Alt.Server.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
-                    vehClass.Frozen = true;
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, JobMoney + " $");
-                    Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
+                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
+                    player.Reallife.Money += BUSJOB_ROUND_BONUS;
+                    player.Reallife.JobMarker = 0;
                 }
+                else player.Reallife.JobMarker += 1;
+
+                int JobMoney = 0;
+                switch (player.Reallife.JobStage)
+                {
+                    case 1:
+                        JobMoney = BUSJOB_LEVEL_ONE_MONEY;
+                        break;
+                    case 2:
+                        JobMoney = BUSJOB_LEVEL_TWO_MONEY;
+                        break;
+                    case 3:
+                        JobMoney = BUSJOB_LEVEL_THREE_MONEY;
+                        break;
+                }
+                player.Reallife.BUSJOB_LEVEL += 1;
+                player.Reallife.Money += JobMoney;
+                Allround.DestroyJobMarker(player);
+                Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];
+                VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                Alt.Server.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
+                vehClass.Frozen = true;
+                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, JobMoney + " $");
+                Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [ClientEvent("BusJob:TimeoutDone")]
         public static void BusJobTimeOut(VnXPlayer player)
         {
-            if (player.IsInVehicle)
+            try
             {
-                VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                vehClass.Frozen = false;
+                if (player.IsInVehicle)
+                {
+                    VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                    vehClass.Frozen = false;
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerLeaveVehicle(VehicleModel vehClass, VnXPlayer player)
         {
-            if (player.Reallife.Job == Constants.JOB_BUS && player.Reallife.JobStage > 0)
+            try
             {
+                if (player.Reallife.Job != Constants.JOB_BUS || player.Reallife.JobStage <= 0) return;
                 RageAPI.DeleteVehicleThreadSafe(vehClass);
                 Allround.DestroyJobMarker(player);
                 player.SetPosition = AbgabepunkteLVLONE[0];
                 player.Reallife.JobStage = 0;
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

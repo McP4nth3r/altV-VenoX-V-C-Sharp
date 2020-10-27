@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace VenoXV.Core
@@ -41,6 +42,19 @@ namespace VenoXV.Core
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[2]);
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[0]);
             }
+        }
+
+        public static void WriteJsonString(string logname, string strLog)
+        {
+            try
+            {
+                string logFilePath = Alt.Server.Resource.Path + "/Languages/";
+                logFilePath = logFilePath + logname + "." + "json";
+                string content = File.ReadAllText(logFilePath);
+                content = content.Remove(content.Length - 1) + "," + strLog + "]";
+                File.WriteAllText(logFilePath, content);
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

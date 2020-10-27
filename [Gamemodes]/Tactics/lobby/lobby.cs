@@ -76,9 +76,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 player.Tactics.CurrentKills = 0;
                 player.Tactics.IsDead = false;
                 player.Tactics.Spawned = false;
-                string Pair = _Language_.Main.GetClientLanguagePair(player);
-                string TEAM_A_NAME = await _Language_.Main.TranslateText(CurrentMap.Team_A_Name, "de", Pair);
-                string TEAM_B_NAME = await _Language_.Main.TranslateText(CurrentMap.Team_B_Name, "de", Pair);
+                string TEAM_A_NAME = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.Team_A_Name);
+                string TEAM_B_NAME = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.Team_B_Name);
                 //string TEAM_A_NAME = CurrentMap.Team_A_Name;
                 //string TEAM_B_NAME = CurrentMap.Team_B_Name;
                 player.EmitLocked("LoadTacticUI", TEAM_A_NAME, TEAM_B_NAME, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
@@ -89,8 +88,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         public static bool IsTacticRoundRunning()
         {
             // Sendet dem Spieler die Antwort ob eine Tactic Lobby am laufen ist.
-            if (TACTICMANAGER__ROUND_ISRUNNING) { return true; }
-            else { return false; }
+            if (TACTICMANAGER__ROUND_ISRUNNING) return true;
+            else return false;
         }
         public static void CreateRandomRound()
         {
@@ -264,11 +263,11 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 // To Do : wenn runde gestartet ist = nicht machen !
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + await _Language_.Main.TranslateText("Eine neue Runde startet.", "de", _Language_.Main.GetClientLanguagePair(players)));
-                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + await _Language_.Main.TranslateText(CurrentMap.Map_Name, "de", _Language_.Main.GetClientLanguagePair(players)));
-                    //players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : Eine neue Runde startet.");
-                    //players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + CurrentMap.Map_Name);
-                    //InitializePlayerData(players);
+                    if (players is null || !players.Exists) continue;
+                    string RoundStartText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "Eine neue Runde startet.");
+                    string MapNameText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, CurrentMap.Map_Name);
+                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + RoundStartText);
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + MapNameText);
                     SyncTime();
                     SyncPlayerStats();
                     SyncStats();
