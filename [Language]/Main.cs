@@ -10,7 +10,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using VenoXV._Language_.Models;
-using VenoXV._Preload_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Language_
@@ -24,7 +23,11 @@ namespace VenoXV._Language_
             France = 2,
             Poland = 3,
             Spanish = 4,
-            Turkish = 5
+            Turkish = 5,
+            Russian = 6,
+            Swedish = 7,
+            Serbian = 8,
+            Chinese = 9
         };
 
         //string jsonString_EN = File.ReadAllText(Alt.Server.Resource.Path + Alt.Server.Resource.Path + "/Languages/language-en.json");
@@ -33,9 +36,21 @@ namespace VenoXV._Language_
         public static List<LanguageModel> LANGUAGE_PACK_PL = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-pl.json"));
         public static List<LanguageModel> LANGUAGE_PACK_ES = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-es.json"));
         public static List<LanguageModel> LANGUAGE_PACK_TR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-tr.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_RU = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-ru.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_SV = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_SR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_CN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
         public static void OnResourceStart()
         {
             Core.Debug.OutputDebugString("Language-List-EN " + LANGUAGE_PACK_EN.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-FR " + LANGUAGE_PACK_FR.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-PL " + LANGUAGE_PACK_PL.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-ES " + LANGUAGE_PACK_ES.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-TR " + LANGUAGE_PACK_TR.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-RU " + LANGUAGE_PACK_RU.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-SV " + LANGUAGE_PACK_SV.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-SR " + LANGUAGE_PACK_SR.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-CN " + LANGUAGE_PACK_CN.Count + " translated Text's loaded...");
 
             /*
             foreach (LanguageModel languageClassEN in LANGUAGE_PACK_FR)
@@ -68,10 +83,35 @@ namespace VenoXV._Language_
                     Languages.Poland => "pl",
                     Languages.Spanish => "es",
                     Languages.Turkish => "tr",
+                    Languages.Russian => "ru",
+                    Languages.Swedish => "sv",
+                    Languages.Serbian => "sr",
+                    Languages.Chinese => "zh-cn",
                     _ => "de",
                 };
             }
             catch { return "en"; }
+        }
+        public static Languages GetLanguageByPair(string Pair)
+        {
+            try
+            {
+                return Pair switch
+                {
+                    "de" => Languages.German,
+                    "en" => Languages.English,
+                    "fr" => Languages.France,
+                    "pl" => Languages.Poland,
+                    "es" => Languages.Spanish,
+                    "tr" => Languages.Turkish,
+                    "ru" => Languages.Russian,
+                    "sv" => Languages.Swedish,
+                    "sr" => Languages.Serbian,
+                    "zh-cn" => Languages.Chinese,
+                    _ => Languages.German,
+                };
+            }
+            catch { return Languages.German; }
         }
         static readonly HttpClient webClient = new HttpClient();
         public static async Task<string> TranslateText(string Text, string fromPair, string toPair)
@@ -101,6 +141,10 @@ namespace VenoXV._Language_
                     Languages.Poland => LANGUAGE_PACK_PL,
                     Languages.Spanish => LANGUAGE_PACK_ES,
                     Languages.Turkish => LANGUAGE_PACK_TR,
+                    Languages.Russian => LANGUAGE_PACK_RU,
+                    Languages.Swedish => LANGUAGE_PACK_SV,
+                    Languages.Serbian => LANGUAGE_PACK_SR,
+                    Languages.Chinese => LANGUAGE_PACK_CN,
                     _ => new List<LanguageModel>(),
                 };
             }
@@ -126,7 +170,7 @@ namespace VenoXV._Language_
                     using StringReader readStream = new StringReader(TranslatedText);
                     await AltAsync.Do(() =>
                     {
-                        if (TranslatedText != "error")
+                        if (TranslatedText != "Error")
                         {
                             languageClass = new LanguageModel { Pair = LanguagePair, Text = text, TranslatedText = TranslatedText };
                             CachedLanguage.Add(languageClass);
@@ -145,20 +189,7 @@ namespace VenoXV._Language_
         {
             try
             {
-                switch (playerClass.Language)
-                {
-                    case (int)Languages.English:
-                        playerClass.SendChatMessage(await GetTranslatedTextAsync((Languages)playerClass.Language, text));
-                        break;
-                    case (int)Languages.German:
-                        if (playerClass.Gamemode == (int)Preload.Gamemodes.Reallife) { playerClass.SendChatMessage(text); return; }
-                        playerClass.SendChatMessage(text);
-                        break;
-                    default:
-                        //playerClass.SendChatMessage(await TranslateText(text, "de", GetClientLanguagePair(playerClass)));
-                        //playerClass.SendChatMessage("ERROR " + text);
-                        break;
-                }
+                playerClass?.SendChatMessage(await GetTranslatedTextAsync((Languages)playerClass.Language, text));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
