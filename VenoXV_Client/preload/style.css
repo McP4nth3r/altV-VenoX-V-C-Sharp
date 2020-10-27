@@ -36,6 +36,26 @@
     background-position: 50% 50%;
 }
 
+/* Header */
+
+.header_bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2.5vw;
+    background: rgba(0, 0, 0, 0.8);
+    border-top: solid 0.15vw rgb(0, 150, 200, 1);
+    z-index: 1;
+    animation: Contentmove 2s linear;
+}
+.language-button {
+    position: relative;
+    width: 2vw;
+    height: 85%;
+    padding: 0.3vw;
+}
+
 /* Spielmodi Texte */
 
 .rec_text {
@@ -85,10 +105,6 @@
     outline-color: white;
     animation: Contentmove 1s linear;
 }
-.rec_0:hover {
-    height: 30%;
-    width: 30%;
-}
 
 /* Reallife */
 
@@ -106,10 +122,6 @@
     outline-style: solid;
     outline-color: white;
     animation: Contentmove_M 1s linear;
-}
-.rec_1:hover {
-    height: 30%;
-    width: 30%;
 }
 
 /* Tactics */
@@ -129,10 +141,6 @@
     outline-color: white;
     animation: Contentmove 1s linear;
 }
-.rec_2:hover {
-    height: 30%;
-    width: 30%;
-}
 
 /* Race */
 
@@ -150,10 +158,6 @@
     outline-style: solid;
     outline-color: white;
     animation: Contentmove 1s linear;
-}
-.rec_3:hover {
-    height: 30%;
-    width: 30%;
 }
 
 /* 7-Towers */
@@ -173,10 +177,6 @@
     outline-color: white;
     animation: Contentmove_M 1s linear;
 }
-.rec_4:hover {
-    height: 30%;
-    width: 30%;
-}
 
 /* Option 6 */
 
@@ -194,10 +194,6 @@
     outline-style: solid;
     outline-color: white;
     animation: Contentmove 1s linear;
-}
-.rec_5:hover {
-    height: 30%;
-    width: 30%;
 }
 
 /* Option 7 */
@@ -217,10 +213,6 @@
     outline-color: white;
     animation: Contentmove 1s linear;
 }
-.rec_6:hover {
-    height: 30%;
-    width: 30%;
-}
 
 /* Option 8 */
 
@@ -239,10 +231,6 @@
     outline-color: white;
     animation: Contentmove_M 1s linear;
 }
-.rec_7:hover {
-    height: 30%;
-    width: 30%;
-}
 
 /* Option 9 */
 
@@ -260,10 +248,6 @@
     outline-style: solid;
     outline-color: white;
     animation: Contentmove 1s linear;
-}
-.rec_8:hover {
-    height: 30%;
-    width: 30%;
 }
 
 /* Effekte */
@@ -314,6 +298,22 @@
 }
 .d-none {
     display: none;
+}
+.growanim {
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    -webkit-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+}
+.growanim:hover,
+.growanim:focus,
+.growanim:active {
+    height: 30%;
+    width: 30%;
 }
 
 /* Loading Screen */
