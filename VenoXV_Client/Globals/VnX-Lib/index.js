@@ -8,7 +8,7 @@ import * as alt from 'alt-client';
 import * as game from "natives";
 let player = alt.Player.local;
 let cursor = false;
-let cBrowserList = [];
+let cBrowserList = {};
 let cBrowserId = 0;
 let cNPCList = [];
 let cNPCId = 0;
@@ -193,10 +193,9 @@ export function vnxDestroyCEF(Name) {
     try {
         for (var Browser in cBrowserList) {
             if (cBrowserList[Browser].Name == Name) {
-                if (cBrowserList[Browser].CEF != null) {
+                if (cBrowserList[Browser].CEF != null)
                     cBrowserList[Browser].CEF.destroy();
-                    cBrowserList.splice(Browser, 1);
-                }
+                delete cBrowserList[Browser];
             }
         }
     }
@@ -204,10 +203,9 @@ export function vnxDestroyCEF(Name) {
 }
 
 export function vnxDestroyAllCEF() {
-    let i = cBrowserList.length;
-    while (i--) {
-        cBrowserList[i].CEF.destroy();
-        cBrowserList.splice(i, 1);
+    for (var Browser in cBrowserList) {
+        cBrowserList[Browser].CEF.destroy();
+        delete cBrowserList[Browser];
     }
 }
 

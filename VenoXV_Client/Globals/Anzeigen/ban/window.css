@@ -1,0 +1,243 @@
+
+@font-face { font-family: 'drugs';
+             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+
+
+.back {
+	background: rgba(10, 10, 10, 0.8);
+	position: absolute;
+	width: 50vw;
+	height: 26vw;
+    border-radius: 0.3vw;
+    top: 8vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.blue_header {
+	background: rgba(0, 150, 200, 0.8);
+	position: absolute;
+	width: 50vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 8vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_head {
+	background: rgba(10, 10, 10, 0.4);
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 50vw;
+	font-size: 1.5vw;
+	font-family: sans-serif;
+    top: 8.4vw;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: drugs;
+}
+
+
+
+.text_info {
+	position: absolute;
+	color: rgba(0,200,255,1);
+	width: 50vw;
+	font-size: 1.5vw;
+	font-family: sans-serif;
+    font-weight: bold;
+    top: 13vw;
+    left: 50%;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.username_info {
+	position: absolute;
+	color: rgba(255,255,255,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 17.8vw;
+    left: 51%;
+    font-weight: bold;
+    font-style: italic;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.banzeit_info {
+	position: absolute;
+	color: rgba(255,255,255,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 20.6vw;
+    left: 51%;
+        font-weight: bold;
+    font-style: italic;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.bangrund_info {
+	position: absolute;
+	color: rgba(255,255,255,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 23.6vw;
+    font-weight: bold;
+    left: 51%;
+    font-style: italic;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.username_info_text {
+	position: absolute;
+	color: rgba(0,150,200,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 17.8vw;
+    left: 62.4%;
+    font-style: italic;
+    font-weight: bold;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.banzeit_info_text {
+	position: absolute;
+	color: rgba(0,150,200,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 20.6vw;
+    left: 62%;
+    font-style: italic;
+        font-weight: bold;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.bangrund_info_text {
+	position: absolute;
+	color: rgba(0,150,200,1);
+	width: 50vw;
+	font-size: 1.2vw;
+	font-family: sans-serif;
+    top: 23.6vw;
+    left: 58%;
+    font-style: italic;
+        font-weight: bold;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+.blue_header_line {
+	background: rgba(0, 105, 145, 0.8);
+	position: absolute;
+	width: 50vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 30vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.text_info_help {
+	position: absolute;
+	color: rgba(200,200,200,1);
+	width: 50vw;
+	font-size: 0.8vw;
+	font-family: sans-serif;
+    font-weight: bold;
+    top: 30.5vw;
+    left: 50%;
+    transform: translate(-50%);
+    font: "Arial";
+}
+
+
+
+.btn1 {
+	position: absolute;
+	padding: 0.5vw 1vw;
+	width: 12vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-size: 1.5vw;
+    top: 31.7vw;
+    left: 38%;
+    transform: translate(-50%);
+    font-family: robot;
+}
+.btn1:hover, .btn1:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.btn2 {
+	position: absolute;
+	padding: 0.5vw 1vw;
+	width: 12vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-size: 1.5vw;
+    top: 31.7vw;
+    left: 62%;
+    transform: translate(-50%);
+    font-family: robot;
+}
+.btn2:hover, .btn2:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 8.6vw;
+    left: 74%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}

@@ -10,7 +10,7 @@ import alt from 'alt-client';
 import * as game from "natives";
 
 
-
+import * as BanWindow from '/VenoXV_Client/Globals/Anzeigen/ban/index.js';
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
 import * as CaseOpening from '/VenoXV_Client/Globals/Premium/Case/index.js';
 import * as Chat from '/VenoXV_Client/Globals/Chat/index.js';

@@ -57,7 +57,6 @@ if ('alt' in window) {
 		} else {
 			$('.all').addClass('d-none');
 		}
-		console.log('Called Phone:Show + ' + State);
 	});
 	alt.on('Phone:AddNewPlayerEntry', (List) => {
 		c = 0;
@@ -68,8 +67,8 @@ if ('alt' in window) {
 		let p = JSON.parse(List);
 		for (let i = 0; i < p.length; i++) {
 			let data = p[i];
-			AddPlayertoCallList(data.Username, data.Phone.Number);
-			AddPlayertoChatList(data.Username, data.Phone.Number, false);
+			AddPlayertoCallList(data.Username, data.Number);
+			AddPlayertoChatList(data.Username, data.Number, false);
 		}
 		console.log('Called AddNewPlayerEntry');
 		$('.screenlinedark').click(function () { OnCallGridClick(this); }); // Event

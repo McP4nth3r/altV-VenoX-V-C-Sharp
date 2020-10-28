@@ -9,7 +9,7 @@
 		if ("alt" in window) {
 			alt.on("Inventory:Open", () => { $("#back").removeClass("d-none"); });
 			alt.on("Inventory:Close", () => { $("#back").addClass("d-none"); });
-			alt.on("Inventory:RemoveAll", () => { });
+			alt.on("Inventory:RemoveAll", () => { RemoveAllItems(); });
 			alt.on("Inventory:Update", (hash, amount, name, iteminfo) => { OnUpdateItems(hash, amount, name, iteminfo); });
 		}
 	</script>

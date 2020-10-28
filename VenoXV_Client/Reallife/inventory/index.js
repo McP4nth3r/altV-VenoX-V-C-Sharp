@@ -25,7 +25,7 @@ alt.onServer('Inventory:Load', () => {
             }
         });
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Inventory:Unload', () => {
@@ -34,7 +34,7 @@ alt.onServer('Inventory:Unload', () => {
         vnxDestroyCEF("Inventory-Reallife");
         InventoryCreated = false;
     }
-    catch{ }
+    catch { }
 });
 
 
@@ -48,7 +48,7 @@ export function OnInventoryKeyPressed(key) {
             InventoryOpen = !InventoryOpen;
         }
     }
-    catch{ }
+    catch { }
 }
 
 
@@ -148,7 +148,8 @@ function GetCompleteItemInfo(ItemName, Amount) {
 
 alt.onServer('Inventory:Update', (InventoryJson) => {
     try {
-        if (!InventoryCreated) { return; }
+        if (!InventoryCreated) return;
+        InventoryBrowser.emit('Inventory:RemoveAll');
         let InventoryItems = JSON.parse(InventoryJson);
         for (let i = 0; i < InventoryItems.length; i++) {
             let data = InventoryItems[i];
@@ -156,13 +157,13 @@ alt.onServer('Inventory:Update', (InventoryJson) => {
             InventoryBrowser.emit('Inventory:Update', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
         }
     }
-    catch{ }
+    catch { }
 });
 
 alt.onServer('Inventory:RemoveAll', () => {
     try {
-        if (!InventoryCreated) { return; }
+        if (!InventoryCreated) return;
         InventoryBrowser.emit('Inventory:RemoveAll', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
     }
-    catch{ }
+    catch { }
 });
