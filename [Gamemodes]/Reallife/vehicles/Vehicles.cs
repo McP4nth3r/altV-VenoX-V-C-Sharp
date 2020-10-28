@@ -9,6 +9,7 @@ using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -257,7 +258,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             if (player.Reallife.Money >= 6)
             {
-                anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
+                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
+                if (Quests.QuestDict.ContainsKey(Quests.QUEST_GAS_SNACK))
+                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GAS_SNACK]);
                 player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 6);
                 player.SendTranslatedChatMessage("Du hast einen Tankstellen " + RageAPI.GetHexColorcode(0, 200, 255) + " Snack " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft.");
                 ItemModel Snack = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_TANKSTELLENSNACK);
@@ -331,7 +334,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     // Update the amount into the database
                     Database.UpdateItem(Kanister);
                 }
-                anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GET100K);
+                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GET100K);
+                if (Quests.QuestDict.ContainsKey(Quests.QUEST_GET100K))
+                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GET100K]);
 
             }
             else
@@ -463,7 +468,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (!adminCreated)
                 {
                     //int moneyLeft = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - vehModel.Price;
-                    anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOKAUFEN);
+                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOKAUFEN);
+                    if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOKAUFEN))
+                        Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOKAUFEN]);
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Fahrzeug erfolgreich gekauft! Dein Fahrzeug findest du auf unseren Parkplatz.");
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Vergiss nicht dein Fahrzeug umzuparken! nutze /car um dein Fahrzeug zu verwalten.");
                     //player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_BANK, moneyLeft);

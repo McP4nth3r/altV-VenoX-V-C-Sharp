@@ -8,6 +8,7 @@ using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -198,7 +199,9 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (shape == NoobspawnVerleihColShapeModel || shape == LSPDVerleihCol)
                 {
-                    anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_VENOXRENTALS);
+                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_VENOXRENTALS);
+                    if (Quests.QuestDict.ContainsKey(Quests.QUEST_VENOXRENTALS))
+                        Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_VENOXRENTALS]);
                     dxLibary.VnX.DrawWindowSelection(player, "VenoX Rentals", "Wilkommen bei VenoX Rentals, <br>hier kannst du dir ein Fahrzeug ausleihen <br>gegen eine geringe Gebühr.", "Roller<br>[75$]", "Smart<br>[119$]");
                 }
             }

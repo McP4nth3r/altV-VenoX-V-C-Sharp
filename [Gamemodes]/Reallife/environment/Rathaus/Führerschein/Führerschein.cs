@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -65,7 +66,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 if (player.Reallife.Autofuehrerschein == 1)
                 {
                     player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast bereits einen Führerschein!");
-                    anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
+                    // anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
+                    if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOSCHEIN))
+                        Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOSCHEIN]);
                     return;
                 }
                 Random random = new Random();
@@ -105,7 +108,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     //player.Vehicle.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
                     player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
-                    anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
+                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
+                    if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOSCHEIN))
+                        Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOSCHEIN]);
                     return;
                 }
                 else

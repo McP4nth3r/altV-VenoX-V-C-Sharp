@@ -14,10 +14,6 @@ namespace VenoXV._Preload_.Login
 {
     public class Login : IScript
     {
-
-
-
-
         public static string Sha256(string randomString)
         {
             var crypt = new SHA256Managed();
@@ -83,25 +79,29 @@ namespace VenoXV._Preload_.Login
         [ClientEvent("LoginAccount")]
         public static void LoginAccountEvent(VnXPlayer player, string Nickname, string Password)
         {
-            if (_Admin_.Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
-            AccountModel accClass;
-            if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
-            accClass = GetAccountModel(Nickname, Sha256(Password));
-            if (accClass == null) return;
-            Database.LoadCharacterInformationById(player, accClass.UID);
-            if (!Character_Creator.Main.PlayerHaveSkin(player))
+            try
             {
+                if (_Admin_.Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
+                AccountModel accClass;
+                if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
+                accClass = GetAccountModel(Nickname, Sha256(Password));
+                if (accClass == null) return;
+                Database.LoadCharacterInformationById(player, accClass.UID);
+                if (!Character_Creator.Main.PlayerHaveSkin(player))
+                {
+                    Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
+                    Alt.Server.TriggerClientEvent(player, "CharCreator:Start", player.Sex);
+                    player.Playing = true;
+                    _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
+                    player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
+                    Register.Register.ChangeCharacterSexEvent(player, player.Sex);
+                    return;
+                }
+                if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
                 Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
-                Alt.Server.TriggerClientEvent(player, "CharCreator:Start", player.Sex);
-                player.Playing = true;
-                _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
-                player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
-                Register.Register.ChangeCharacterSexEvent(player, player.Sex);
-                return;
+                Preload.ShowPreloadList(player);
             }
-            if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
-            Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
-            Preload.ShowPreloadList(player);
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

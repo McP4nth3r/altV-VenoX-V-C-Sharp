@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using System;
 using VenoXV._Admin_;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -23,7 +24,9 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     {
                         if (value >= 1000)
                         {
-                            anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_ATM_EINZAHLEN);
+                            //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_ATM_EINZAHLEN);
+                            if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_ATM_EINZAHLEN))
+                                Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_ATM_EINZAHLEN]);
                         }
                         if (value > player.Reallife.Money)
                         {

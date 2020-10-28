@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -48,7 +49,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     string angel = "Der Angelschein wird<br>benötigt um Angeln<br>zu duerfen, solltest du<br>ohne einen Angelschein<br>beim Angeln erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 1.150$";
                     string waffen = "Der Waffenschein wird<br>benötigt um eine Waffe<br>zu besitzen, solltest du<br>ohne einen Waffenschein<br>mit einer Waffe erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 21.250$";
                     Alt.Server.TriggerClientEvent(player, "showRathausWindow", "Stadthalle", PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN, PLANE_A_BTN, PLANE_B_BTN, HELICOPTER_BTN, BOAT_BTN, FISHER_BTN, WEAPON_BTN, perso, fuehrer, lkw, bike, fa, fb, heli, boot, angel, waffen);
-                    anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_STADTHALLE);
+                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_STADTHALLE);
+                    if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_STADTHALLE))
+                        Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_STADTHALLE]);
                 }
             }
             catch { }
@@ -62,7 +65,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                 switch (button)
                 {
                     case "Perso":
-                        anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_PERSO);
+                        //anzeigen.Usefull.VnX.QUEST_PERSO(player, anzeigen.Usefull.VnX.QUEST_PERSO);
+                        if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_PERSO))
+                            Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_PERSO]);
                         if (player.Reallife.Personalausweis == 1)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Personalausweis!");
@@ -187,7 +192,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     case "Weapon":
                         if (player.Reallife.Waffenschein == 1)
                         {
-                            anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
+                            //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
+                            if (Quests.QuestDict.ContainsKey(Quests.QUEST_GETWEAPONLICENSE))
+                                Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GETWEAPONLICENSE]);
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Waffenschein!");
                             return;
                         }
@@ -208,7 +215,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + " Trägst du deine Waffen offen, so wird die Polizei sie dir abnehmen.");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Falls du zu oft negativ auffällst ( z.b. durch Schiesserein) können sie dir ihn auch wieder abnehmen");
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "------------WAFFENSCHEIN INFORMATION------------");
-                        anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
+                        //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETWEAPONLICENSE);
+                        if (Quests.QuestDict.ContainsKey(Quests.QUEST_GETWEAPONLICENSE))
+                            Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GETWEAPONLICENSE]);
                         break;
                     default:
                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nichts ausgewählt! : " + button);

@@ -10,6 +10,7 @@ using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
@@ -331,7 +332,9 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
                 LoadDatasAfterLogin(player);
                 handy.Allround.UpdatePhonePlayerlist();
-
+                player.Settings.ShowQuests = 1;
+                Quests.ShowCurrentQuest(player);
+                Core.Debug.OutputDebugString(player.Reallife.Quests.ToString());
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

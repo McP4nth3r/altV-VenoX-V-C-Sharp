@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -360,7 +361,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                                 Main.GivePlayerItem(player, Constants.ITEM_HASH_ADVANCEDRIFLE, Constants.ITEM_ART_WAFFE, 1, false);
                                 player.Reallife.Money -= 950;
                                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast ein " + RageAPI.GetHexColorcode(0, 200, 255) + " " + item + " " + RageAPI.GetHexColorcode(255, 255, 255) + "gekauft!");
-                                anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
+                                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
+                                if (Quests.QuestDict.ContainsKey(Quests.QUEST_GETADVANCEDRIFLE))
+                                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GETADVANCEDRIFLE]);
 
                             }
                             else
@@ -370,7 +373,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                         else
                         {
-                            anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
+                            //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GETADVANCEDRIFLE);
+                            if (Quests.QuestDict.ContainsKey(Quests.QUEST_GETADVANCEDRIFLE))
+                                Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_GETADVANCEDRIFLE]);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits ein Gewehr!");
                         }
                         return;

@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -154,7 +155,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                 ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_STARTED, true);
                                 ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now.AddMinutes(SHOP_ROB_TIME));
                                 factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
-                                anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
+                                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
+                                if (Quests.QuestDict.ContainsKey(Quests.QUEST_START_SHOPROB))
+                                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_START_SHOPROB]);
                             }
                         }
                         else

@@ -63,8 +63,8 @@ namespace VenoXV._RootCore_.Models
         public int Angelschein { get; set; }
         public int Waffenschein { get; set; }
         public string SpawnLocation { get; set; }
-        private int _Quests { get; set; }
-        public int Quests { get { return _Quests; } set { _Quests = value; client.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUESTS, value); } }
+        //private int _Quests { get; set; }
+        public int Quests { get; set; }
         private int _Wanteds { get; set; }
         public int Wanteds { get { return _Wanteds; } set { _Wanteds = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_WANTEDS, value); } }
         public int _Knastzeit { get; set; }
@@ -203,7 +203,21 @@ namespace VenoXV._RootCore_.Models
         private int _ShowSpeedo { get; set; }
         public int ShowSpeedo { get { return _ShowSpeedo; } set { _ShowSpeedo = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_TACHO_ANZEIGEN, value); } }
         private int _ShowQuests { get; set; }
-        public int ShowQuests { get { return _ShowQuests; } set { _ShowQuests = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value); } }
+        public int ShowQuests
+        {
+            get { return _ShowQuests; }
+            set
+            {
+                _ShowQuests = value;
+                try
+                {
+                    if (value == 1) Player.Emit("Quests:Show", true);
+                    else Player.Emit("Quests:Show", false);
+                    Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value);
+                }
+                catch { }
+            }
+        }
         private int _ShowReporter { get; set; }
         public int ShowReporter { get { return _ShowReporter; } set { _ShowReporter = value; Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REPORTER_ANZEIGEN, value); } }
         private int _ShowGlobalChat { get; set; }
