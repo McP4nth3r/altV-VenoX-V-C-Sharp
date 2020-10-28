@@ -14,6 +14,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Preload_.Character_Creator;
+using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_.Models;
 
@@ -39,6 +40,8 @@ namespace VenoXV._RootCore_.Database
             {
                 await AltAsync.Do(() =>
                 {
+                    _Admin_.Admin.PlayerBans = LoadPlayerBans();
+                    Core.Debug.OutputDebugString(_Admin_.Admin.PlayerBans.Count + " Bans wurden geladen...");
                     //Load Accounts
                     Register.AccountList = LoadAllAccounts();
                     Core.Debug.OutputDebugString(Register.AccountList.Count + " Accounts wurden geladen...");
@@ -333,20 +336,54 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT * FROM advertised WHERE ID = 0";
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    if (reader.Read())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows)
                         {
-                            if (reader.HasRows)
-                            {
-                                wherefrom = reader.GetInt32(where);
-                            }
+                            wherefrom = reader.GetInt32(where);
                         }
                     }
                 }
                 return wherefrom;
             }
             catch { return 0; }
+        }
+        public static List<BanModel> LoadPlayerBans()
+        {
+            try
+            {
+                List<BanModel> PlayerBans = new List<BanModel>();
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM ban";
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        BanModel BanEntry = new BanModel
+                        {
+                            UID = reader.GetInt32("UID"),
+                            Name = reader.GetString("Name"),
+                            HardwareId = reader.GetString("HardwareId"),
+                            HardwareIdExHash = reader.GetString("HardwareIdExHash"),
+                            IP = reader.GetString("IP"),
+                            DiscordID = reader.GetString("DiscordID").ToString(),
+                            Reason = reader.GetString("Reason"),
+                            Admin = reader.GetString("Admin"),
+                            BannedTill = reader.GetDateTime("BannedTill"),
+                            BanCreated = reader.GetDateTime("BanDateCreated"),
+                            BanType = reader.GetString("BanType")
+                        };
+                        PlayerBans.Add(BanEntry);
+                    }
+                    else return new List<BanModel>();
+                }
+                return PlayerBans;
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<BanModel>(); }
         }
 
         public static void SetPlayerWhereFromList(string where, int howmuch)
@@ -2546,33 +2583,34 @@ namespace VenoXV._RootCore_.Database
         }
 
 
-        public static void AddPlayerPermaBan(int UID, string SpielerSocial, string serial, string Bangrund, string Admin)
+        public static void AddPlayerPermaBan(int UID, string Username, string HardwareId, string HardwareIdExHash, string SocialClubId, string IP, string DiscordID, string Reason, string Admin)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO ban (UID, SpielerSocial, serial, Bangrund, Admin, Banzeit, BanerstelltAm, Bantype) VALUES (@UID, @SpielerSocial, @serial, @Bangrund, @Admin, @Banzeit, @BanerstelltAm, @Bantype)";
-                    command.Parameters.AddWithValue("@UID", UID);
-                    command.Parameters.AddWithValue("@SpielerSocial", SpielerSocial);
-                    command.Parameters.AddWithValue("@serial", serial);
-                    command.Parameters.AddWithValue("@Bangrund", Bangrund);
-                    command.Parameters.AddWithValue("@Admin", Admin);
-                    command.Parameters.AddWithValue("@Banzeit", DateTime.Now);
-                    command.Parameters.AddWithValue("@BanerstelltAm", DateTime.Now);
-                    command.Parameters.AddWithValue("@Bantype", "Permaban");
+                command.CommandText = "INSERT INTO ban (UID, Name, HardwareId, HardwareIdExHash, SocialClubId, IP, DiscordID, Reason, Admin, BannedTill, BanDateCreated, Bantype) VALUES (@UID, @Name, @HardwareId, @HardwareIdExHash, @SocialClubId, @IP, @DiscordID, @Reason, @Admin, @BannedTill, @BanDateCreated, @Bantype)";
+                command.Parameters.AddWithValue("@UID", UID);
+                command.Parameters.AddWithValue("@Name", Username);
+                command.Parameters.AddWithValue("@HardwareId", HardwareId);
+                command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
+                command.Parameters.AddWithValue("@SocialClubId", SocialClubId);
+                command.Parameters.AddWithValue("@IP", IP);
+                command.Parameters.AddWithValue("@DiscordID", DiscordID);
+                command.Parameters.AddWithValue("@Reason", Reason);
+                command.Parameters.AddWithValue("@Admin", Admin);
+                command.Parameters.AddWithValue("@BannedTill", DateTime.Now);
+                command.Parameters.AddWithValue("@BanDateCreated", DateTime.Now);
+                command.Parameters.AddWithValue("@Bantype", "Permaban");
 
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
             }
         }
         public static void AddPlayerTimeBan(int UID, string SpielerSocial, string serial, string Bangrund, string Admin, DateTime Banzeit, DateTime BannerstelltAm)

@@ -124,7 +124,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element == null) { return; }
+                if (element == null) return;
                 element.SetData(key, value);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -133,7 +133,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element == null) { return; }
+                if (element == null) return;
                 element.SetData(key, value);
                 element.SetSyncedMetaData(key, value);
             }
@@ -143,7 +143,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element == null) { return; }
+                if (element == null) return;
                 element.SetData(key, value);
                 element.SetStreamSyncedMetaData(key, value);
             }
@@ -177,11 +177,21 @@ namespace VenoXV.Core
         }
         public static void WarpIntoVehicle(this VnXPlayer player, VehicleModel veh, int seat)
         {
-            Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
+            try
+            {
+                if (player is null || !player.Exists) return;
+                Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
+            }
+            catch { }
         }
         public static void WarpOutOfVehicle(this VnXPlayer player)
         {
-            Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
+            try
+            {
+                if (player is null || !player.Exists) return;
+                Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
+            }
+            catch { }
         }
         public static VnXPlayer GetPlayerFromName(string name)
         {

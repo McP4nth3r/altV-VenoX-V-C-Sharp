@@ -92,9 +92,10 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 {
                     if (item.ownerIdentifier == playerId)
                     {
-                        if (item.hash == ClickedHash)
+                        if ((item.hash + ".png") == ClickedHash)
                         {
                             UseItem(player, item);
+                            return;
                         }
                     }
                 }
@@ -109,6 +110,8 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 switch (item.hash)
                 {
                     case Constants.ITEM_HASH_TANKSTELLENSNACK:
+                        if ((player.Reallife.Hunger + 10) > 100) { player.SendTranslatedChatMessage("Du bist satt."); return; }
+                        player.SendTranslatedChatMessage("Dein player.Reallife.Hunger : " + player.Reallife.Hunger + " Amount : " + item.amount);
                         player.Reallife.Hunger += 10;
                         item.amount -= 1;
                         break;
@@ -120,6 +123,8 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                         player.SendTranslatedChatMessage("Dein ItemHash : " + item.hash);
                         break;
                 }
+                List<InventoryModel> inventory = GetPlayerInventory(player);
+                Alt.Server.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

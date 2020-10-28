@@ -1,7 +1,10 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
+using System;
 using System.Security.Cryptography;
 using System.Text;
+using VenoXV._Admin_;
+using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -65,13 +68,26 @@ namespace VenoXV._Preload_.Login
             return null;
         }
 
+        public static void ShowBanWindow(VnXPlayer player)
+        {
+            try
+            {
+                BanModel BanClass = Admin.GetClientBanModel(player);
+                if (BanClass is null) return;
+                if (BanClass.BanType == "Permaban") Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, "Permanently", BanClass.Reason);
+                else Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, BanClass.BannedTill.ToString(), BanClass.Reason);
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+
         [ClientEvent("LoginAccount")]
         public static void LoginAccountEvent(VnXPlayer player, string Nickname, string Password)
         {
+            if (_Admin_.Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
             AccountModel accClass;
-            if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Falscher Nutzername/Password"); return; }
+            if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
             accClass = GetAccountModel(Nickname, Sha256(Password));
-            if (accClass == null) { return; }
+            if (accClass == null) return;
             Database.LoadCharacterInformationById(player, accClass.UID);
             if (!Character_Creator.Main.PlayerHaveSkin(player))
             {

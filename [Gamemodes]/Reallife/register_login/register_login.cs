@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -30,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         //[AltV.Net.ClientEvent("HelpButtonPressed_Login")]
         public void SendAllAdminsLoginHelpNotify(VnXPlayer player)
         {
-            admin.Admin.sendAdminNotification("[" + player.Username + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
+            Admin.sendAdminNotification("[" + player.Username + " | " + player.SocialClubId.ToString() + "] : Braucht hilfe beim Einloggen! Einer sollte im Teamspeak 3 Warten...");
             logfile.WriteLogs("connect", player.Username + " | " + player.SocialClubId.ToString() + " Brauchte hilfe beim Einloggen!");
         }
         private static int GetRandomNumber()

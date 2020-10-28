@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 using System;
-using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Admin_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -106,7 +106,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                             vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Username + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
-                                admin.Admin.sendAdminNotification(player.Username + " hat " + target.Username + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
+                                Admin.sendAdminNotification(player.Username + " hat " + target.Username + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
                             }
                         }
                     }

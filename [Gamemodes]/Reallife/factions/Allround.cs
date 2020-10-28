@@ -3,7 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
-using VenoXV._Gamemodes_.Reallife.admin;
+using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
