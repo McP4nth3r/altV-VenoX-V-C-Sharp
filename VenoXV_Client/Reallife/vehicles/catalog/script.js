@@ -1,6 +1,6 @@
 //----------------------------------//
 ///// VenoX Gaming & Fun 2020 © ///////
-//////By LargePeach & VnX RL Crew////
+//////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
 

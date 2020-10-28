@@ -24,6 +24,12 @@ alt.onServer('Globals:ShowBloodScreen', () => {
     //alt.log("Bloodscreen got called");
 });
 
+alt.onServer('Quests:Show', (State) => {
+    browser_1.emit('Quests:Show', State);
+});
+alt.onServer('Quest:SetCurrentQuest', (QuestText, QuestMoney, QuestLevel) => {
+    browser_1.emit('Quests:SetCurrentQuest', QuestText, QuestMoney, QuestLevel);
+});
 
 /*
 var seats = {

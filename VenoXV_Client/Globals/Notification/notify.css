@@ -3,7 +3,8 @@
              src: url('./files/font/Caviar-Dreams.ttf') format('truetype'); }
 @font-face { font-family: 'robot';
              src: url('./files/font/Roboto-Thin.ttf') format('truetype'); }
-
+@font-face { font-family: 'quest_header';
+src: url('./files/font/quest_header.ttf') format('truetype'); }
 
 
 
@@ -649,6 +650,67 @@ top: 54vw
     font-size: 0.8vw;
     color: white;
 }
+/* Quest */ 
+
+.QuestMain{
+	position: absolute;
+    right: 1%;
+	top: 15vw;
+	background: rgba(0,75,100,0.80);
+	height: 9vw;
+	width: 20vw;
+}
+
+.QuestMain_header{
+	position: absolute;
+    right: 1%;
+	color: white;
+	top: 15vw;
+	font-family: quest_header;
+	padding: 0.02vw;
+	font-size: 1.2vw;
+	height: 1.3vw;
+	background: rgb(254,254,254); /* Old browsers */
+	background: -moz-linear-gradient(left,  rgba(254,254,254,0.40) 0%, rgba(0,150,200,1) 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left,  rgba(254,254,254,0) 0%,rgba(0,150,200,1) 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right,  rgba(254,254,254,0) 0%,rgba(0,150,200,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#0096ff',GradientType=1 ); /* IE6-9 */
+	width: 16.5vw;
+	text-align: center-right;
+}
+
+.QuestMain_container{
+	position: absolute;
+    right: 0.80%;
+	color: rgba(225,225,225,1);
+	top: 17vw;
+	font-family: robot;
+	padding: 0.01vw 0.05vw;
+	font-size: 0.9vw;
+	text-align: center;
+	width: 16.5vw;
+}
+
+
+.QuestMain_container_win{
+	position: absolute;
+    right: 1%;
+	color: rgba(225,225,225,1);
+	top: 21vw;
+	font-family: robot;
+	padding: 0.01vw 0.05vw;
+	font-size: 0.90vw;
+	text-align: center;
+	width: 16.5vw;
+}
+.QuestMain_image{
+	position: absolute;
+    right: 17%; 
+	top: 14vw;
+	height: 10vw;
+	width: 7vw;
+}
+
 
 .d-none{
     display: none;

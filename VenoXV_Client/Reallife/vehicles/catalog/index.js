@@ -30,7 +30,7 @@ function FillWindowWithStuff() {
 
 
 alt.onServer('VehicleCatalog:Show', () => {
-    if (VehCatalogBrowser) { return; }
+    if (VehCatalogBrowser) return;
     VehCatalogBrowser = vnxCreateCEF('VehCatalog', 'Reallife/vehicles/catalog/main.html', "Reallife");
     ShowCursor(true);
     VehCatalogBrowser.focus();

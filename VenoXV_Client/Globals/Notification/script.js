@@ -232,9 +232,25 @@ function PlayNotificationSound() {
     document.getElementById('SideNotification_Sound').play();
 }
 
+function SetCurrentQuest(QuestText, QuestMoney, QuestLevel) {
+    $('.QuestMain_container').html(QuestText);
+    $('.QuestMain_container_win').html(QuestMoney);
+    $('#QuestMain_' + QuestLevel).removeClass("d-none");
+    $('#QuestMain_' + (QuestLevel--)).addClass("d-none");
+}
+function ShowQuests(state) {
+    if (state) $('#quest_showed').removeClass('d-none');
+    else $('#quest_showed').addClass('d-none');
+}
 
 if ('alt' in window) {
     alt.on('SideNotification:Create', (type, text) => {
         DrawNotification(type, text);
+    });
+    alt.on('Quests:Show', (State) => {
+        ShowQuests(State);
+    });
+    alt.on('Quests:SetCurrentQuest', (QuestText, QuestMoney, QuestLevel) => {
+        SetCurrentQuest(QuestText, QuestMoney, QuestLevel);
     });
 }

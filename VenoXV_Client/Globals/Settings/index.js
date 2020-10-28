@@ -5,7 +5,7 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-/*
+
 import { vnxCreateCEF, ShowCursor } from '../VnX-Lib';
 
 let SettingsBrowser = vnxCreateCEF("SettingsWindow", "Globals/Settings/main.html");
@@ -62,4 +62,3 @@ function LoadClientSettings() {
     SettingsBrowser.emit('Settings:CheckButton', 'global', alt.Player.local.getStreamSyncedMeta('PLAYER_GLOBALCHAT_ANZEIGEN'));
 }
 
-*/
