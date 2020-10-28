@@ -300,7 +300,6 @@ namespace VenoXV._Admin_
 
         }
         public static List<BanModel> PlayerBans = new List<BanModel>();
-
         public static bool IsClientBanned(VnXPlayer target)
         {
             try
@@ -312,7 +311,7 @@ namespace VenoXV._Admin_
                     if (BanClass.HardwareIdExHash == target.HardwareIdExHash.ToString() && BanClass.HardwareIdExHash.Length > 1) return true;
                     if (BanClass.DiscordID == target.Discord.ID && BanClass.DiscordID.Length > 1) return true;
                     if (BanClass.IP == target.Ip && BanClass.IP.Length > 1) return true;
-                    if (BanClass.SocialClubId == target.SocialClubId.ToString() && BanClass.SocialClubId.Length > 1) return true; return true;
+                    if (BanClass.SocialClubId == target.SocialClubId.ToString() && BanClass.SocialClubId.Length > 1) return true;
                 }
                 return false;
             }

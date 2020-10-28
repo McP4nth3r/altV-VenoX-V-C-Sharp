@@ -69,6 +69,7 @@ namespace VenoXV._Preload_.Login
             try
             {
                 BanModel BanClass = Admin.GetClientBanModel(player);
+                Core.Debug.OutputDebugString("Function called because " + player.Name + " is banned");
                 if (BanClass is null) return;
                 if (BanClass.BanType == "Permaban") Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, "Permanently", BanClass.Reason);
                 else Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, BanClass.BannedTill.ToString(), BanClass.Reason);
@@ -81,7 +82,7 @@ namespace VenoXV._Preload_.Login
         {
             try
             {
-                if (_Admin_.Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
+                if (Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
                 AccountModel accClass;
                 if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
                 accClass = GetAccountModel(Nickname, Sha256(Password));
