@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,17 +104,15 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 if (shape == CARSHOP)
                 {
                     List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
-
-                    int Max = carList.Count;
                     Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Show");
                     // Getting the speed for each IVehicle in the list
                     foreach (CarShopVehicleModel carShopVehicle in carList)
                     {
-                        Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, Max);
+                        Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

@@ -166,7 +166,7 @@ namespace VenoXV.Globals
                         else
                         {
                             Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                            RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
+                            //RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
                         }
                         return;
                     case (int)Preload.Gamemodes.Reallife:

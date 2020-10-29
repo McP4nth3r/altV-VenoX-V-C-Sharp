@@ -58,7 +58,8 @@ namespace VenoXV._RootCore_.Models
         public string Owner { get; set; }
         public Vector3 SpawnCoord { get; set; }
         public Vector3 SpawnRot { get; set; }
-        public string Plate { get; set; }
+        public string _Plate { get; set; }
+        public string Plate { get { return _Plate; } set { _Plate = value; NumberplateText = Plate; } }
         public string FirstColor { get; set; }
         public string SecondColor { get; set; }
         public int Faction { get; set; }

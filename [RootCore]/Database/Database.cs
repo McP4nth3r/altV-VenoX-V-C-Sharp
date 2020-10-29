@@ -1362,6 +1362,7 @@ namespace VenoXV._RootCore_.Database
                         vehClass.SecondColor = reader.GetString("secondColor");
                         vehClass.Owner = reader.GetString("owner");
                         vehClass.Plate = reader.GetString("plate");
+                        vehClass.NumberplateText = reader.GetString("plate");
                         vehClass.Faction = reader.GetInt32("faction");
                         if (vehClass.Faction > 0)
                         {

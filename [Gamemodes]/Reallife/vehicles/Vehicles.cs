@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
@@ -42,26 +41,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        //[AltV.Net.ClientEvent("Load_VEHICLE_Storage_Datas")]
-        public void EnterAsPassenger(VnXPlayer player)
-        {
-            try
-            {
-                VehicleModel vehicle = Main.GetClosestIVehicle(player);
-                if (vehicle == null)
-                {
-                    return;
-                }
-                Alt.Server.TriggerClientEvent(player, "VEHICLE_Data_Storage_load", vehicle);
-                player.SendTranslatedChatMessage("IVehicle Name " + vehicle.Model.ToString());
-            }
-            catch { }
-        }
-        //[AltV.Net.ClientEvent("showresult_clicked")]
-        public void showResult_Clicked(VnXPlayer player, IVehicle Objekt)
-        {
-            player.SendTranslatedChatMessage("Dein Objekt ist : " + Objekt);
-        }
 
         /*[Command("fpark")]
         public static void FactionCarPark(PlayerModel player)
@@ -151,7 +130,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.SendTranslatedChatMessage("Du bist in keiner Fraktion !");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 
@@ -597,14 +576,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     //Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     Vehicle.Frozen = false;
 
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Drücke X um den Motor zu starten.");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Drücke X um den Motor zu starten.");
 
                     if (Vehicle.vnxGetElementData<bool>("AKTIONS_FAHRZEUG") == true)
                     {
                         if (player.Reallife.Faction == Constants.FACTION_NONE)
                         {
                             player.WarpOutOfVehicle();
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                             return;
                         }
                         return;
@@ -631,7 +610,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                 {
                                     // player.WarpOutOfVehicle();
                                     player.WarpOutOfVehicle();
-                                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Polizist im Dienst!");
+                                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Polizist im Dienst!");
                                     return;
                                 }
                             }
@@ -643,7 +622,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                 if (Allround.isBadFaction(player))
                                 {
                                     player.WarpOutOfVehicle();
-                                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Gang-Skin an!");
+                                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Gang-Skin an!");
                                     return;
                                 }
                             }
@@ -655,7 +634,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                                 if (Allround.isNeutralFaction(player))
                                 {
                                     player.WarpOutOfVehicle();
-                                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Fraktion´s-Skin an!");
+                                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du hast keinen Fraktion´s-Skin an!");
                                     return;
                                 }
                             }
@@ -664,13 +643,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         if (vehFaction > 0 && playerFaction != vehFaction)
                         {
                             player.WarpOutOfVehicle();
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Mitglied dieser Fraktion!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Mitglied dieser Fraktion!");
                             return;
                         }
                         Vehicle.Frozen = false;
                         if (player.Reallife.Autofuehrerschein == 0)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
                         }
                     }
                     float kms = Vehicle.Kms;

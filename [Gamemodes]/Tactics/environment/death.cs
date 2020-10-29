@@ -37,7 +37,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     }
 
 
-                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " hat " + player.Username + " getötet!");
+                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " killed " + player.Username + "!");
                     player.Tactics.Spawned = false;
                     player.Tactics.IsDead = true;
                     player.Tactics.Deaths += 1;
@@ -49,7 +49,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         if (Lobby.Main.MEMBER_COUNT_BFAC <= 0)
                         {
                             //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_A_WinnerText);
-                            Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_A_WinnerText));
+                            //Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_A_WinnerText));
                             return;
                         }
                     }
@@ -58,8 +58,8 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         Lobby.Main.MEMBER_COUNT_COPS -= 1;
                         if (Lobby.Main.MEMBER_COUNT_COPS <= 0)
                         {
-                            Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_B_WinnerText));
-                            //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_B_WinnerText);
+                            //Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_B_WinnerText));
+                            Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_B_WinnerText);
                             return;
                         }
                     }

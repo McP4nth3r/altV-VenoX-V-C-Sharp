@@ -275,14 +275,15 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
+        public static async void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
         {
             try
             {
                 player.Tactics.Deaths -= 1;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " ist Disconnected!");
+                    string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "ist Disconnected!");
+                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " " + Translatedtext);
                 }
                 if (player.Tactics.Team == EntityData.BFAC_NAME)
                 {
@@ -377,14 +378,14 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        public static void SyncEndTacticRound(string text)
+        public static async void SyncEndTacticRound(string text)
         {
             try
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     players.RemoveAllPlayerWeapons();
-                    players.Emit("Tactics:OnTacticEndRound", text);
+                    players.Emit("Tactics:OnTacticEndRound", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text));
                 }
             }
             catch { }

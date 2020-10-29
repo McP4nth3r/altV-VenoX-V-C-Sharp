@@ -273,13 +273,13 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         {
             try
             {
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
                 player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
                 player.SendTranslatedChatMessage("Forum : www.VenoX-Reallife.com");
                 player.SendTranslatedChatMessage("Controlpanel : cp.venox-reallife.com");
                 player.SendTranslatedChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 premium.viplevels.VIPLEVELS.SendVIPNotify(player);
                 Spawn.SpawnPlayerOnSpawnpoint(player);
                 Settings.VnX.LoadSettingsData(player);

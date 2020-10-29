@@ -31,18 +31,19 @@ namespace VenoXV._Admin_
         // Basic Data & User Commands
         // Basic Data & User Commands
 
-        public static void sendAdminNotification(string text)
+        public static async void sendAdminNotification(string text)
         {
             foreach (VnXPlayer admin in VenoX.GetAllPlayers().ToList())
             {
                 if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
-                    admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + text);
+                    string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)admin.Language, text);
+                    admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + Translatedtext);
                 }
             }
         }
 
-        public static void sendAdminInformation(string text)
+        public static async void sendAdminInformation(string text)
         {
             try
             {
@@ -50,7 +51,8 @@ namespace VenoXV._Admin_
                 {
                     if (admin.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                     {
-                        admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[Info] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
+                        string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)admin.Language, text);
+                        admin.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[Info] : " + RageAPI.GetHexColorcode(255, 255, 255) + Translatedtext);
                     }
                 }
             }
@@ -69,16 +71,6 @@ namespace VenoXV._Admin_
         }
 
 
-        [Command("hideh")]
-        public static void HideHUDForPlayer(VnXPlayer player, bool boo)
-        {
-            player.SendTranslatedChatMessage("");
-            player.SendTranslatedChatMessage("");
-            player.SendTranslatedChatMessage("");
-            player.SendTranslatedChatMessage("");
-            player.SendTranslatedChatMessage("");
-            player.Emit("HideH", boo);
-        }
         [Command("evalc")]
         public static void HideHUDForPlayer(VnXPlayer player, string st)
         {
@@ -86,12 +78,12 @@ namespace VenoXV._Admin_
         }
 
         [Command("admins")]
-        public void AdminsIngameCommand(VnXPlayer player)
+        public async void AdminsIngameCommand(VnXPlayer player)
         {
             try
             {
                 //foreach (string target_namesingame in VenoX.GetAllPlayers().ToList())
-                player.SendTranslatedChatMessage("---------------------------------------------------------");
+                player.SendChatMessage("---------------------------------------------------------");
                 player.SendTranslatedChatMessage("Folgende Admins sind grade Online : ");
                 foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers().ToList().OrderBy(p => p.AdminRank).Reverse())
                 {
@@ -99,31 +91,37 @@ namespace VenoXV._Admin_
                     {
                         if (targetsingame.AdminRank == 7)
                         {
-                            player.SendTranslatedChatMessage("{B40000}[VnX]" + targetsingame.Username + ", Projektleitung");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Projektleitung");
+                            player.SendChatMessage("{B40000}[VnX]" + targetsingame.Username + ", " + Translatedtext);
                         }
                         else if (targetsingame.AdminRank == 6)
                         {
-                            player.SendTranslatedChatMessage("{EC0000}[VnX]" + targetsingame.Username + ", Stellv.Projektleitung");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Stellv.Projektleitung");
+                            player.SendChatMessage("{EC0000}[VnX]" + targetsingame.Username + ", " + Translatedtext);
                         }
                         else if (targetsingame.AdminRank == 5)
                         {
-                            player.SendTranslatedChatMessage("{E8AE00}[VnX]" + targetsingame.Username + ", Administrator");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Administrator");
+                            player.SendChatMessage("{E8AE00}[VnX]" + targetsingame.Username + ", " + Translatedtext);
                         }
                         else if (targetsingame.AdminRank == 4)
                         {
-                            player.SendTranslatedChatMessage("{002DE0}[VnX]" + targetsingame.Username + ", Moderator");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Moderator");
+                            player.SendChatMessage("{002DE0}[VnX]" + targetsingame.Username + ", " + Translatedtext);
                         }
                         else if (targetsingame.AdminRank == 3)
                         {
-                            player.SendTranslatedChatMessage("{006600}[VnX]" + targetsingame.Username + ", Supporter");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Supporter");
+                            player.SendChatMessage("{006600}[VnX]" + targetsingame.Username + ", " + Translatedtext);
                         }
                         else if (targetsingame.AdminRank == 2)
                         {
-                            player.SendTranslatedChatMessage("{C800C8}" + $"{targetsingame.Username}, Ticket - Supporter");
+                            string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)targetsingame.Language, "Ticket - Supporter");
+                            player.SendChatMessage("{C800C8}" + $"{targetsingame.Username}, " + Translatedtext);
                         }
                     }
                 }
-                player.SendTranslatedChatMessage("---------------------------------------------------------");
+                player.SendChatMessage("---------------------------------------------------------");
             }
             catch { }
         }
@@ -419,7 +417,7 @@ namespace VenoXV._Admin_
                         player.RemoveAllPlayerWeapons();
                         Database.RemoveAllItems(targetId);
                     }
-                    player.SendTranslatedChatMessage("Du hast das Inventar von " + target.Username + " geleert!");
+                    player.SendChatMessage("Du hast das Inventar von " + target.Username + " geleert!");
                 }
             }
             catch (Exception ex)

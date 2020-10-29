@@ -46,10 +46,7 @@ namespace VenoXV.Core
         {
             try
             {
-                await Task.Run(async () =>
-                {
-                    await _Language_.Main.SendTranslatedChatMessage(element, msg);
-                });
+                await _Language_.Main.SendTranslatedChatMessage(element, msg);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

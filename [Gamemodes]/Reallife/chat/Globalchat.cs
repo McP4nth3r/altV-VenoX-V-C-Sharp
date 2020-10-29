@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         }
 
         [Command("global_aus")]
-        public void setGlobal_status_on(VnXPlayer player)
+        public async void setGlobal_status_on(VnXPlayer player)
         {
             try
             {
@@ -72,7 +72,8 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     Global_Admin_Status = "Ausgeschaltet";
                     foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
                     {
-                        onlinespieler.SendTranslatedChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " hat den Globalchat augeschaltet!");
+                        string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)onlinespieler.Language, "hat den Globalchat augeschaltet!");
+                        onlinespieler.SendChatMessage(RageAPI.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " " + Translatedtext);
                     }
                 }
             }

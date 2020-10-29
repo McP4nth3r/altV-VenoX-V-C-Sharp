@@ -31,7 +31,7 @@ namespace VenoXV._RootCore_.Models
         private string _SocialState { get; set; }
         public string SocialState { get { return _SocialState; } set { _SocialState = value; client.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_STATUS, value); } }
         private int _Faction { get; set; }
-        public int Faction { get { return _Faction; } set { _Faction = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
+        public int Faction { get { return _Faction; } set { _Faction = value; client.vnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_FACTION, value); } }
         private int _HUD { get; set; }
         public int HUD { get { return _HUD; } set { _HUD = value; client.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_REALLIFE_HUD, value); } }
         private int _Hunger { get; set; }
@@ -184,11 +184,13 @@ namespace VenoXV._RootCore_.Models
         public int Wins { get; set; }
         public bool Spawned { get; set; }
         public DateTime SpawnedTime { get; set; }
+        public DateTime LastVehicleGot { get; set; }
         public SevenTowers(Player player)
         {
             try
             {
-
+                SpawnedTime = DateTime.Now;
+                LastVehicleGot = DateTime.Now;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

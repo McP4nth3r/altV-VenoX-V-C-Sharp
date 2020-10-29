@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -164,7 +165,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 weather = 1;
                                 break;
                             case 2:
-                                weather = 9;
+                                weather = 2;
                                 break;
                         }
                     }
@@ -230,7 +231,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
 
         }
 
@@ -245,7 +246,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 }
                 player.Played += 1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void OnMinuteSpentZombieGM(VnXPlayer player)
@@ -356,7 +357,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static void GeneratePlayerPayday(VnXPlayer player)
+        public static async void GeneratePlayerPayday(VnXPlayer player)
         {
             try
             {
@@ -364,8 +365,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 int bank = player.Reallife.Bank;
                 int playerRank = player.Reallife.FactionRank;
                 int playerFaction = player.Reallife.Faction;
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                VnXPlayer VipL = Database.GetPlayerVIP(player, (int)player.UID);
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+                VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
 
                 if (player.Reallife.Wanteds > 0) { player.Reallife.Wanteds -= 1; }
                 if (playerFaction > 0)
@@ -379,7 +380,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         }
                     }
                 }
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Gehalt : " + RageAPI.GetHexColorcode(255, 255, 255) + +total + " $");
+                string Gehalt = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Gehalt");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Gehalt + " : " + RageAPI.GetHexColorcode(255, 255, 255) + total + " $");
 
 
                 int gwboni = 0;
@@ -393,13 +395,15 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
                 total += gwboni;
 
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " GW-Boni : " + RageAPI.GetHexColorcode(255, 255, 255) + +gwboni + " $");
+                string GwBoni = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "GW - Boni");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + GwBoni + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +gwboni + " $");
 
                 int bankInterest = (int)Math.Round(bank * 0.001);
                 total += bankInterest;
                 if (bankInterest > 0)
                 {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Bankzinsen : " + RageAPI.GetHexColorcode(255, 255, 255) + +bankInterest + " $");
+                    string Bankzinsen = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Bankzinsen");
+                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Bankzinsen + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +bankInterest + " $");
                 }
 
                 foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
@@ -452,12 +456,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         if (house.owner == player.Username)
                         {
                             int houseTaxes = (int)Math.Round((int)house.price * Constants.TAXES_HOUSE);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Immobiliensteuer :  " + RageAPI.GetHexColorcode(255, 255, 255) + house.name + ": -" + houseTaxes + "$");
+                            string Immobiliensteuer = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Immobiliensteuer : ");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Immobiliensteuer + " : " + RageAPI.GetHexColorcode(255, 255, 255) + house.name + ": -" + houseTaxes + "$");
                             total -= houseTaxes;
                         }
                         if (house.id == player.Reallife.HouseRent)
                         {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Miete " + house.name + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +house.rental + "$");
+                            string Miete = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Miete");
+                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Miete + " : " + house.name + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +house.rental + "$");
                             Database.TransferMoneyToPlayer(house.owner, house.rental);
                             total -= house.rental;
                         }
@@ -500,11 +506,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     total += 100;
                 }
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " VIP Bonus : " + RageAPI.GetHexColorcode(255, 255, 255) + +VIPBONI + "$");
+                string VIP = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "VIP Bonus");
+                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + VIP + ": " + RageAPI.GetHexColorcode(255, 255, 255) + VIPBONI + "$");
                 // EVENT !!
                 //total = total * 4;  // 4FACHER PAYDAY.
-                player.SendTranslatedChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                player.SendTranslatedChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 200, 255) + " Einnahmen insgesamt : " + RageAPI.GetHexColorcode(255, 255, 255) + +total + " $");
+                player.SendChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
+                string EinnahmenGesamt = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Einnahmen insgesamt");
+                player.SendChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 200, 255) + " " + EinnahmenGesamt + " :" + RageAPI.GetHexColorcode(255, 255, 255) + +total + " $");
 
                 if (total < 0)
                 {

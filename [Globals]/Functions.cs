@@ -13,8 +13,8 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (player.Gamemode == target.Gamemode) { return true; }
-                else { return false; }
+                if (player.Gamemode == target.Gamemode) return true;
+                else return false;
             }
             catch { return false; }
         }

@@ -13,10 +13,10 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         {
             try
             {
-                if (vehicle.Owner == player.Username) { return true; }
-                else if (vehicle.Faction == player.Reallife.Faction) { return true; }
-                else if (vehicle.NPC) { return true; }
-                else { return false; }
+                if (vehicle.Owner == player.Username) return true;
+                else if (vehicle.Faction == player.Reallife.Faction) return true;
+                else if (vehicle.NPC) return true;
+                else return false;
             }
             catch { return false; }
         }
@@ -32,11 +32,13 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
                 switch (Button)
                 {
                     case 9900:
+                        if (player.IsInVehicle && vehicle.Driver != player) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Dies kann nur der Fahrer!"); return; }
                         if (vehicle.LockState == AltV.Net.Enums.VehicleLockState.Locked) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Fahrzeug aufgeschlossen!"); vehicle.LockState = AltV.Net.Enums.VehicleLockState.Unlocked; }
                         else { vehicle.LockState = AltV.Net.Enums.VehicleLockState.Locked; player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + "Fahrzeug abgeschlossen!"); }
                         break;
 
                     case 9901:
+                        if (player.IsInVehicle && vehicle.Driver != player) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Dies kann nur der Fahrer!"); return; }
                         vehicle.EngineOn = !vehicle.EngineOn;
                         if (vehicle.EngineOn) { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 150, 0) + " Motor angeschaltet!"); }
                         else { player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(150, 0, 0) + " Motor ausgeschaltet!"); }
@@ -57,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         {
             try
             {
-                if (target == null) { return; }
+                if (target == null) return;
                 switch (Button)
                 {
                     case 8800:
