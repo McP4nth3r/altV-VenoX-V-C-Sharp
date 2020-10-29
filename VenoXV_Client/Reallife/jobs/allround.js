@@ -30,7 +30,7 @@ alt.onServer('Job:ShowAcceptWindow', (headertext, boxtext, buttontext1, buttonte
 			JobAcceptWindow.emit('JobAccept:Init', headertext, boxtext, buttontext1, buttontext2);
 		}, 500);
 	}
-	catch{ }
+	catch { }
 });
 
 
@@ -54,7 +54,7 @@ alt.onServer('Job:ShowSelection1', (headertext, boxtext, buttontext1, buttontext
 			JobWindow.emit('Job:Init', headertext, boxtext, buttontext1, buttontext2, buttontext3, buttondescription1, buttondescription2, buttondescription3, joblvl);
 		}, 500);
 	}
-	catch{ }
+	catch { }
 });
 
 
@@ -64,7 +64,7 @@ alt.onServer('BusJob:CreateTimeout', (ms) => {
 			alt.emitServer("BusJob:TimeoutDone");
 		}, ms);
 	}
-	catch{ }
+	catch { }
 });
 
 

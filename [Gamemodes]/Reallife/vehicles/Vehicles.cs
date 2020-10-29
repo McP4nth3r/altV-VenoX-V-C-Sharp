@@ -467,13 +467,10 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                 if (!adminCreated)
                 {
-                    //int moneyLeft = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - vehModel.Price;
-                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOKAUFEN);
                     if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOKAUFEN))
                         Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOKAUFEN]);
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Fahrzeug erfolgreich gekauft! Dein Fahrzeug findest du auf unseren Parkplatz.");
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [VenoX Motorsports] : " + RageAPI.GetHexColorcode(255, 255, 255) + "Vergiss nicht dein Fahrzeug umzuparken! nutze /car um dein Fahrzeug zu verwalten.");
-                    //player.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_BANK, moneyLeft);
                 }
             }
             catch { }

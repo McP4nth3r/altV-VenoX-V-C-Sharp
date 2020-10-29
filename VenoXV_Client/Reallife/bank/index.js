@@ -27,12 +27,12 @@ alt.onServer('showATM', (k, k1, k2, k3, u1, u2, u3) => {
 			alt.emitServer('ATM_MONEY_SEND_TO', e, v, v2);
 		});
 		ATM_BROWSER.on('atm_load_money_storage', () => {
-			let money = alt.Player.local.getStreamSyncedMeta("PLAYER_BANK");
+			let money = alt.Player.local.getSyncedMeta("PLAYER_BANK");
 			ATM_BROWSER.emit("Bank:LoadMoneyStorage", money)
 		});
 		ShowCursor(true);
 	}
-	catch{ }
+	catch { }
 });
 
 
@@ -176,14 +176,14 @@ alt.onServer("ShowATMBlips", () => {
 			ATM_Blips[blips] = Blip;
 		}
 	}
-	catch{ }
+	catch { }
 });
 
 alt.onServer("Destroy_ATMBlips", () => {
 	try {
 		for (var AllBlips in ATM_Blips) ATM_Blips[AllBlips].destroy();
 	}
-	catch{ }
+	catch { }
 });
 
 

@@ -60,7 +60,8 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                                 player.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, player.Reallife.Wanteds * 6);
                                 killer.SendTranslatedChatMessage("{007d00}Du hast " + player.Username + " verhaftet für " + player.Reallife.Knastzeit + " Minuten! " + player.Reallife.Wanteds * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
                                 player.SendTranslatedChatMessage("{000096}Officer " + killer.Username + " hat dich eingesperrt für " + player.Reallife.Knastzeit + " Minuten!.");
-                                killer.vnxSetStreamSharedElementData(VnX.PLAYER_BANKMONEY, killer.Reallife.Bank + player.Reallife.Wanteds * 75);
+                                //killer.vnxSetStreamSharedElementData(VnX.PLAYER_BANKMONEY, killer.Reallife.Bank + player.Reallife.Wanteds * 75);
+                                killer.Reallife.Bank += (player.Reallife.Wanteds * 75);
                                 logfile.WriteLogs("kill", "[WANTED] Officer " + killer.Name + " hat " + player.Username + " getötet!");
                                 player.Reallife.Wanteds = 0;
                                 //RemoveAllWeapons(player);

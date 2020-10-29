@@ -31,9 +31,9 @@
                 <div class="dropdown_s">
                     <button class="dropbtn_s">Spawnpunkt</button>
                     <div class="dropdown-content_s">
-                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 0);">Würfelpark</a>
-                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 1);">Noobspawn</a>
-                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 2);">Rathaus</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 0);">Noobspawn</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 1);">Rathaus</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 2);">Würfelpark</a>
                         <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 3);">Basis</a>
                         <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 4);">Basis-2</a>
                     </div>
@@ -49,13 +49,13 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
         <div class="Show_Window d-none">
             <div class="Area">
                 <div class="SettingsBar_Show">
                     <div class="SettingsBar_Show_text">ATM
-                        <div class="atm">
+                        <div id="atm" class="atm">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="SettingsBar_Show_text_grey">Blood-Screen
-                        <div class="bloodscreen">
+                        <div id="bloodscreen" class="bloodscreen">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
@@ -71,15 +71,15 @@
                         </div>
                     </div>
                     <div class="SettingsBar_Show_text">Global-Chat
-                        <div class="global">
+                        <div id="global" class="global">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div>   
+                    </div>
                     <div class="SettingsBar_Show_text_grey">Haus
-                        <div class="house">
+                        <div id="house" class="house">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
@@ -87,42 +87,42 @@
                         </div>
                     </div>
                     <div class="SettingsBar_Show_text">Quests
-                        <div class="quests">
+                        <div id="quests" class="quests">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div>                  
+                    </div>
                     <div class="SettingsBar_Show_text_grey">Reporter-Chat
-                        <div class="reporter">
+                        <div id="reporter" class="reporter">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div>  
+                    </div>
                     <div class="SettingsBar_Show_text">Tacho
-                        <div class="tacho">
+                        <div id="tacho" class="tacho">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div>             
+                    </div>
                     <div class="SettingsBar_Show_text_grey">Tankstellen
-                        <div class="tankstelle">
+                        <div id="tankstelle" class="tankstelle">
                             <label>
                                 <input type="checkbox">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
-        
-<!--        
+
+        <!--        
         <div class="Voice_Window d-none">
             <div class="Area">
                 <div class="SettingsBar_Show_text_grey_voice">
@@ -149,50 +149,55 @@
                 </div>
             </div>
         </div>   
--->        
-        
+-->
+
         <div class="Account_Window d-none">
             <div class="Area">
                 <form method="post" id="password_change">
                     <input type="password" class="password1" id="password1" placeholder="Neues Passwort...">
                     <div class="row1">
                         <div class="check1">
-                            <span id="8character" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span> Mindestens 8 Zeichen<br>
-                            <span id="upletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span> Mindestens 1 Großbuchstabe
+                            <span id="8character" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 8 Zeichen<br>
+                            <span id="upletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Großbuchstabe
                         </div>
                         <div class="check2">
-                            <span id="lowletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span> Mindestens 1 Kleinbuchstabe<br>
-                            <span id="number" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span> Mindestens 1 Zahl
+                            <span id="lowletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Kleinbuchstabe<br>
+                            <span id="number" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Zahl
                         </div>
                     </div>
                     <input type="password" class="password2" id="password2" placeholder="Passwort wiederholen...">
                     <div class="row2">
                         <div class="check3">
-                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span> Passwörter stimmen überein   
+                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Passwörter stimmen überein
                         </div>
                     </div>
                 </form>
                 <div class="VnX-Button" id="password_change_button">Passwort ändern</div>
             </div>
         </div>
-        
-        
+
+
         <div class="Information_Window d-none">
             <div class="Area">
-				<div class="forum" id="forum">Website: venox-reallife.com
+                <div class="forum" id="forum">Website: venox-reallife.com
                     <img src="img/Forum.png" class="forum_image">
-                </div> 
+                </div>
                 <div class="cp" for="cp" id="cp">CP: cp.venox-reallife.com
                     <img src="img/Logo.png" class="cp_image">
-                </div> 
+                </div>
                 <div class="ts3" for="ts3" id="ts3">TS 3: ts.venox-reallife.com
                     <img src="img/Teamspeak.png" class="ts3_image">
-                </div>      
+                </div>
             </div>
         </div>
-        
-        
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="script.js"></script>
     </div>
-</body> 
+</body>

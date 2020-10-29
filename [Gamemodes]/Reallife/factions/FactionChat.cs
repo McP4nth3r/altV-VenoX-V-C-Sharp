@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         // BASIC TEAMCHAT
-        [Command("t", true)]
+        [Command("t", true, new string[] { "teamsay" })]
         public void SendFactionChatMessage(VnXPlayer player, string text)
         {
             try
@@ -86,16 +86,6 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-
-        [Command("teamsay", true)]
-        public void SendFactionChatMessage_Kuerzung(VnXPlayer player, string text)
-        {
-            try
-            {
-                SendFactionChatMessage(player, text);
-            }
-            catch { }
-        }
 
 
 

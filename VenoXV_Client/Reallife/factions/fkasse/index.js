@@ -23,12 +23,12 @@ alt.onServer('showFactionStuff', (fraktionsnamen, koks, mats, money, weed) => {
 
 	FactionStuffBrowser.on('requestFkasseGive', (money, mats, koks, weed) => {
 		alt.setTimeout(function () {
-			alt.emitServer('StoreFactionDatasServer', money, mats, koks, weed, "StoreDatas");
+			alt.emitServer('StoreFactionDatasServer', parseInt(money), parseInt(mats), parseInt(koks), parseInt(weed), "StoreDatas");
 		}, 100);
 	});
 	FactionStuffBrowser.on('requestFkasseTake', (money, mats, koks, weed) => {
 		alt.setTimeout(function () {
-			alt.emitServer('StoreFactionDatasServer', money, mats, koks, weed, "TakeDatas");
+			alt.emitServer('StoreFactionDatasServer', parseInt(money), parseInt(mats), parseInt(koks), parseInt(weed), "TakeDatas");
 		}, 100);
 	});
 });

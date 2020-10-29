@@ -51,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                 {
                     if (value != 0)
                     {
-                        if (value > player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK))
+                        if (value > player.Reallife.Bank)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                             return;
@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                 {
                     return;
                 }
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) < value)
+                if (player.Reallife.Bank < value)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
                     return;

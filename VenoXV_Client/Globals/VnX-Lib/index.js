@@ -122,7 +122,7 @@ export function CreatePed(PedName, Vector3Pos, rot = 0) {
             game.requestModel(PedHash);
         }
         if (game.hasModelLoaded(PedHash)) {
-            let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z, rot, false, false);
+            let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z - 1, rot, false, false);
             alt.setTimeout(() => { game.freezeEntityPosition(Entity, true); }, 3000);
             cNPCList[cNPCId++] = {
                 Entity: Entity,

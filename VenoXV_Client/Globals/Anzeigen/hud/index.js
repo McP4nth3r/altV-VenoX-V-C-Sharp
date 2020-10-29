@@ -110,17 +110,37 @@ function CheckHUDUpdate() {
 }
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
-	if (!HUD_BROWSER) { return; }
+	if (!HUD_BROWSER) return;
 	if (Entity == alt.Player.local) {
 		let LocalEntity = alt.Player.local;
 		let LocalEntityScriptId = alt.Player.local.scriptID;
+		let CurrentArmor = game.getPedArmour(LocalEntityScriptId);
+		let CurrentHealth = game.getEntityHealth(LocalEntityScriptId);
+		let CurrentFaction;
+		let CurrentHunger;
+		let CurrentMoney;
 		switch (key) {
-			case 'isAduty':
-
+			case 'PLAYER_MONEY':
+				CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
+				CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
+				if (CurrentHealth <= 0) CurrentHealth = 100;
+				HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, value);
+				break;
+			case 'PLAYER_FACTION':
+				CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
+				CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
+				if (CurrentHealth <= 0) CurrentHealth = 100;
+				HUD_BROWSER.emit('HUD:UpdateStats', value, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
+				break;
+			case 'PLAYER_HUNGER':
+				CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
+				CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
+				if (CurrentHealth <= 0) CurrentHealth = 100;
+				HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, value, CurrentMoney);
 				break;
 		}
 	}
-})
+});
 
 let GamemodeVersion = "1.0.0";
 alt.onServer('Gameversion:Update', (version) => {

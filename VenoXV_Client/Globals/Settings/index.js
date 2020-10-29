@@ -23,7 +23,6 @@ alt.on('keydown', (key) => {
             SettingsBrowser.emit('Settings:Show', true);
             SettingsBrowser.focus();
             ShowCursor(true);
-            LoadClientSettings();
         }
         else {
             SettingsBrowser.emit('Settings:Show', false);
@@ -41,7 +40,6 @@ alt.onServer('Settings:Show', () => {
         SettingsBrowserOpen = true;
         alt.setTimeout(() => {
             ShowCursor(true);
-            LoadClientSettings();
         }, 500);
     }
 });
@@ -52,13 +50,25 @@ SettingsBrowser.on('Settings:SelectSpawnpoint', (spawn) => {
     alt.emitServer('Settings:SelectSpawnpoint', spawn);
 });
 
-
-function LoadClientSettings() {
-    SettingsBrowser.emit('Settings:CheckButton', 'atm', alt.Player.local.getStreamSyncedMeta('PLAYER_ATM_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'house', alt.Player.local.getStreamSyncedMeta('PLAYER_HAUS_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'tacho', alt.Player.local.getStreamSyncedMeta('PLAYER_TACHO_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'quests', alt.Player.local.getStreamSyncedMeta('PLAYER_QUEST_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'reporter', alt.Player.local.getStreamSyncedMeta('PLAYER_REPORTER_ANZEIGEN'));
-    SettingsBrowser.emit('Settings:CheckButton', 'global', alt.Player.local.getStreamSyncedMeta('PLAYER_GLOBALCHAT_ANZEIGEN'));
-}
-
+alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
+    if (!SettingsBrowser) return;
+    if (Entity == alt.Player.local) {
+        switch (key) {
+            case 'PLAYER_ATM_ANZEIGEN':
+                SettingsBrowser.emit('Settings:CheckButton', 'atm', value);
+                break;
+            case 'PLAYER_TACHO_ANZEIGEN':
+                SettingsBrowser.emit('Settings:CheckButton', 'tacho', value);
+                break;
+            case 'PLAYER_QUEST_ANZEIGEN':
+                SettingsBrowser.emit('Settings:CheckButton', 'quests', value);
+                break;
+            case 'PLAYER_REPORTER_ANZEIGEN':
+                SettingsBrowser.emit('Settings:CheckButton', 'reporter', value);
+                break;
+            case 'PLAYER_GLOBALCHAT_ANZEIGEN':
+                SettingsBrowser.emit('Settings:CheckButton', 'global', value);
+                break;
+        }
+    }
+});

@@ -236,7 +236,7 @@ function SetCurrentQuest(QuestText, QuestMoney, QuestLevel) {
     $('.QuestMain_container').html(QuestText);
     $('.QuestMain_container_win').html(QuestMoney);
     $('#QuestMain_' + QuestLevel).removeClass("d-none");
-    $('#QuestMain_' + (QuestLevel--)).addClass("d-none");
+    $('#QuestMain_' + (QuestLevel -= 1)).addClass("d-none");
 }
 function ShowQuests(state) {
     if (state) $('#quest_showed').removeClass('d-none');

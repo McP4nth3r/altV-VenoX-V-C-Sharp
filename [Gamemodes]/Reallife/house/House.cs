@@ -113,11 +113,10 @@ namespace VenoXV._Gamemodes_.Reallife.house
             {
                 if (house.status == Constants.HOUSE_STATE_BUYABLE)
                 {
-                    if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) >= house.price)
+                    if (player.Reallife.Bank >= house.price)
                     {
-                        int bank = player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - house.price;
                         string labelText = GetHouseLabelText(house);
-                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, bank);
+                        player.Reallife.Bank -= house.price;
                         logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
                         house.status = Constants.HOUSE_STATE_NONE;
                         house.owner = player.Username;

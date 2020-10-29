@@ -6,7 +6,7 @@
 
 import * as alt from 'alt-client';
 import { vnxCreateCEF, vnxDestroyCEF, CreatePed, ShowCursor } from '../../Globals/VnX-Lib';
-CreatePed("s_m_y_ammucity_01", new alt.Vector3(21.88107, -1105.19, 29.79704), 160);
+//CreatePed("s_m_y_ammucity_01", new alt.Vector3(21.88107, -1105.19, 29.79704), 160);
 
 alt.onServer('Ammunation:Show', () => {
 	try {
@@ -25,5 +25,5 @@ alt.onServer('Ammunation:Show', () => {
 			alt.emitServer('Ammunation:BuyAmmo', item);
 		});
 	}
-	catch{ }
+	catch { }
 });

@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -90,9 +91,9 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             try
             {
                 if (FID == Constants.FACTION_NONE) return;
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (var target in from VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList() where target.Reallife.Faction == FID select target)
                 {
-                    if (target.Reallife.Faction == FID) target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                    target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }
@@ -106,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                        target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }
@@ -120,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isBadFaction(target))
-                        target.SendTranslatedChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }

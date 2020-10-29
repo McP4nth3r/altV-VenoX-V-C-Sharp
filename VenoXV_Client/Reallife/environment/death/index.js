@@ -21,5 +21,5 @@ alt.onServer('DeathScreen:Show', (time) => {
 			alt.emitServer('Reallife:Revive');
 		}, time);
 	}
-	catch{ }
+	catch { }
 });

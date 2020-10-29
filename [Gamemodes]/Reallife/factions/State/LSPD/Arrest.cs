@@ -39,12 +39,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             player.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         }
-                        else if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) >= kaution)
+                        else if (player.Reallife.Bank >= kaution)
                         {
                             Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
                             Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + kaution, fkasse.weed, fkasse.koks, fkasse.mats);
                             Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Kaution in Höhe von " + kaution + "$ bezahlt!");
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_BANK, player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_BANK) - kaution);
+                            player.Reallife.Bank -= kaution;
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);

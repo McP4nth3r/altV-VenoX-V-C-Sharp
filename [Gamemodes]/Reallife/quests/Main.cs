@@ -54,13 +54,13 @@ namespace VenoXV._Gamemodes_.Reallife.quests
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
-        public static void ShowCurrentQuest(VnXPlayer player)
+        public static async void ShowCurrentQuest(VnXPlayer player)
         {
             try
             {
                 QuestModel questClass = GetCurrentQuest(player);
-                if (questClass is null) player.Emit("Quest:SetCurrentQuest", "Momentan sind keine weiteren Quests vorhanden!", "", player.Reallife.Quests);
-                else player.Emit("Quest:SetCurrentQuest", questClass.Text, questClass.Money, player.Reallife.Quests);
+                if (questClass is null) player.Emit("Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Momentan sind keine weiteren Quests vorhanden!"), "", 0);
+                else player.Emit("Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, ""), questClass.Money, player.Reallife.Quests);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
