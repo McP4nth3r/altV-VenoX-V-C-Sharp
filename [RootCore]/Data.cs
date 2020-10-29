@@ -7,18 +7,8 @@ namespace VenoXV.Core
     public class VnX : IScript
     {
         public static object Usefull { get; internal set; }
-        public static string PLAYER_MONEY = VenoXV.Globals.EntityData.PLAYER_MONEY;
-        public static string PLAYER_BANKMONEY = VenoXV.Globals.EntityData.PLAYER_BANK;
-
-
-        public static void UpdateHUDArmorHealth(VnXPlayer player)
-        {
-            try
-            {
-                Alt.Server.TriggerClientEvent(player, "UpdateHealth", player.Armor, player.Health);
-            }
-            catch { }
-        }
+        public static string PLAYER_MONEY = Globals.EntityData.PLAYER_MONEY;
+        public static string PLAYER_BANKMONEY = Globals.EntityData.PLAYER_BANK;
 
         /// <summary>
         /// 
