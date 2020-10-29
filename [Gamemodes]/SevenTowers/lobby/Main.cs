@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         // SETTINGS 
         public static int SEVENTOWERS_ROUND_MINUTE = 15;                       // Zeit in Sekunden.
         public static int SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;          // Zeit in Sekunden.
+        public static int SEVENTOWERS_VEHICLE_COOLDOWN = 3;                 // Zeit in Sekunden. < -- Cooldown für neues Auto
         public static int SEVENTOWERS_ROUND_JOINTIME = 5;                     // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
         public static int SEVENTOWERS_DIM = Globals.Main.SEVENTOWERS_DIMENSION;
 
@@ -268,13 +270,16 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 Core.Debug.CatchExceptions(ex);
             }
         }
-        public static void PutPlayerInRound(VnXPlayer player)
+        public static async void PutPlayerInRound(VnXPlayer player)
         {
             try
             {
-                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList())
-                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat die SevenTowers Lobby betreten!");
 
+                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList())
+                {
+                    string JoinedLobbytext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, " hat die SevenTowers Lobby betreten!");
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " " + JoinedLobbytext);
+                }
                 InitializePlayerData(player);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "~ ~ ~ ~ 7 TOWERS ~ ~ ~ ~ ");
                 SpawnPlayerInRound(player);
@@ -311,11 +316,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 if (shape == CurrentColShape)
                 {
                     player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(2);
-                    if (player.IsInVehicle)
+                    if (player.IsInVehicle && player.SevenTowers.LastVehicleGot < DateTime.Now)
                     {
-                        player.WarpOutOfVehicle();
-                        SevenTowersVehicles.Remove((VehicleModel)player.Vehicle);
-                        RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
+                        VehicleModel vehicleClass = (VehicleModel)player.Vehicle;
+                        SevenTowersVehicles.Remove(vehicleClass);
+                        RageAPI.DeleteVehicleThreadSafe(vehicleClass);
                         AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehicleHash, new Vector3(player.Position.X, player.Position.Y, player.Position.Z + 0.5f), player.Rotation);
                         vehicle.Dimension = SEVENTOWERS_DIM;
@@ -324,6 +329,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         vehicle.EngineOn = true;
                         vehicle.Frozen = false;
                         CreateNewHitMarker();
+                        player.SevenTowers.LastVehicleGot = DateTime.Now.AddSeconds(SEVENTOWERS_VEHICLE_COOLDOWN);
                     }
                 }
             }
