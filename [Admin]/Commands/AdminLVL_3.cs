@@ -91,7 +91,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                                 case "bank":
                                     if (player.AdminRank > Constants.ADMINLVL_STELLVP)
                                     {
-                                        target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_BANK, value);
+                                        target.Reallife.Bank = value;
                                         player.SendTranslatedChatMessage("~g~Du hast das Bankgeld von " + target.Username + " auf : " + value + " gesetzt!");
                                         target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + "hat dein Bankgeld auf : " + value + " gesetzt!");
                                         logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.Username + " hat das Bankgeld von " + target.Username + " Auf " + value + " gesetzt!");
@@ -100,7 +100,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                                 case "money":
                                     if (player.AdminRank > Constants.ADMINLVL_STELLVP)
                                     {
-                                        target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, value);
+                                        target.Reallife.Money = value;
                                         player.SendTranslatedChatMessage("~g~Du hast das Bargeld von " + target.Username + " auf : " + value + " gesetzt!");
                                         target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat dein Bargeld auf : " + value + " gesetzt!");
                                         logfile.WriteLogs("admin", "[ID:" + player.Id + "]" + player.Username + " hat das Bargeld von " + target.Username + " Auf " + value + " gesetzt!");
