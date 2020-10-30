@@ -150,7 +150,7 @@ namespace VenoXV.Globals
             {
                 player.DespawnPlayer();
                 VnXPlayer killer = null;
-                if (entity is VnXPlayer entity_k) { killer = entity_k; }
+                if (entity is VnXPlayer entity_k) killer = entity_k;
                 switch (player.Gamemode)
                 {
                     case (int)Preload.Gamemodes.Tactics:
@@ -158,16 +158,9 @@ namespace VenoXV.Globals
                         {
                             VnXPlayer NewKiller = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged");
                             if (NewKiller is null) killer = player;
+                            else killer = NewKiller;
                         }
-                        if (Functions.IstargetInSameLobby(player, killer))
-                        {
-                            _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
-                        }
-                        else
-                        {
-                            Debug.OutputDebugString("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                            //RageAPI.SendTranslatedChatMessageToAll("[ERROR]: PLAYER NOT IN SAME LOBBY " + killer.Username);
-                        }
+                        _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
                         return;
                     case (int)Preload.Gamemodes.Reallife:
                         if (killer == null || Functions.IstargetInSameLobby(player, killer))

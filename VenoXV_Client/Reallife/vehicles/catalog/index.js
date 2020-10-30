@@ -7,23 +7,28 @@
 import * as alt from 'alt-client';
 import { vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../../Globals/VnX-Lib';
 
-let vehcatalog = [];
+let vehcatalog = {};
 let vehcounter = 0;
 let VehCatalogBrowser;
+let ExecutedFill = false;
 alt.onServer('VehicleCatalog:Fill', (row, name, cost, max) => {
-    if (vehcounter >= max) { FillWindowWithStuff(); return; }
-    vehcatalog[vehcounter++] = {
+    if (vehcounter >= max) {
+        if (!ExecutedFill) { FillWindowWithStuff(); ExecutedFill = true; return; }
+    }
+    vehcatalog[vehcounter] = {
         row: row,
         name: name,
         cost: cost
     };
+    vehcounter++;
 });
 
 function FillWindowWithStuff() {
-    if (!VehCatalogBrowser) { return; }
-    if (vehcatalog.length > 0) {
+    if (!VehCatalogBrowser) return;
+    if (vehcounter > 0) {
         alt.setTimeout(() => {
             VehCatalogBrowser.emit('VehCatalog:Fill', vehcatalog);
+            alt.log('Called fill function');
         }, 500);
     }
 }
@@ -32,10 +37,16 @@ function FillWindowWithStuff() {
 alt.onServer('VehicleCatalog:Show', () => {
     if (VehCatalogBrowser) return;
     VehCatalogBrowser = vnxCreateCEF('VehCatalog', 'Reallife/vehicles/catalog/main.html', "Reallife");
-    ShowCursor(true);
     VehCatalogBrowser.focus();
-    VehCatalogBrowser.on('VehCatalog:Destroy', () => { VehCatalogBrowser.unfocus(); vnxDestroyCEF('VehCatalog'); ShowCursor(false); VehCatalogBrowser = null; });
-    alt.setTimeout(() => {
-        FillWindowWithStuff();
-    }, 500);
+    ShowCursor(true);
+    VehCatalogBrowser.on('VehCatalog:Destroy', () => { VehCatalogBrowser.unfocus(); vnxDestroyCEF('VehCatalog'); ShowCursor(false); VehCatalogBrowser = null; ExecutedFill = false; });
+    VehCatalogBrowser.on('VehCatalog:SelectVehicle', (Name) => {
+        VehCatalogBrowser.unfocus();
+        vnxDestroyCEF('VehCatalog');
+        ShowCursor(false);
+        VehCatalogBrowser = null;
+        ExecutedFill = false;
+        alt.emit('VehicleCatalog:PreviewVehicle', Name);
+    });
 });
+

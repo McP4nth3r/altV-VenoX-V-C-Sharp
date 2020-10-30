@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -21,10 +22,13 @@ namespace VenoXV._Globals_
                 case "tactics":
                     if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
                     {
-                        string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "hat die Tactic Runde übersprungen!");
-                        _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage(_Gamemodes_.Reallife.Globals.Constants.Rgba_ADMIN_CLANTAG + player.Username + " " + text);
-                        _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + text);
-                        _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + text);
+                        foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                        {
+                            string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "hat die Tactic Runde übersprungen!");
+                            players?.SendChatMessage(text);
+                        }
+                        _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " Skipped the Tactic Round!");
+                        _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!");
                     }
                     break;
                 case "race":

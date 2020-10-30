@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    if (vehicle.Testing)
+                    if (vehicle.IsTestVehicle)
                     {
                         return;
                     }
@@ -33,7 +33,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         player.SendTranslatedChatMessage("~r~Du bist in/an keinem Fahrzeug!");
                     }
-                    if (vehicle.Testing)
+                    if (vehicle.IsTestVehicle)
                     {
                         return;
                     }

@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
 using System.Numerics;
+using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -42,60 +43,18 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        /*[Command("fpark")]
-        public static void FactionCarPark(PlayerModel player)
-        {
-            int facId = player.Reallife.Faction;
-            if (facId > 0)
-            {
-                if (player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_FACTION_RANK) != 5)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Seit wann bist du Leader deiner Fraktion?");
-                    return;
-                }
-
-                // Obtain occupied IVehicle
-                IVehicle veh = (VehicleModel)player.Vehicle;
-                if (veh != null)
-                {
-                    VehicleModel IVehicle = new VehicleModel();
-                    if (veh.GetSharedData<int>(VenoXV.Globals.EntityData.VEHICLE_FACTION) == facId)
-                    {
-                        IVehicle.position = veh.position;
-                        IVehicle.rotation = veh.Rotation;
-                        IVehicle.id = veh.GetSharedData<int>(VenoXV.Globals.EntityData.VEHICLE_ID);
-
-                        veh.vnxSetSharedData<Position>(VenoXV.Globals.EntityData.VEHICLE_OWNER), IVehicle.position);
-                        veh.vnxSetSharedData(VenoXV.Globals.EntityData.VEHICLE_ROTATION, IVehicle.rotation);
-
-                        // Update the IVehicle's position into the database
-                        Database.UpdateIVehiclePosition(IVehicle);
-                        player.SendTranslatedChatMessage( "~g~Du hast das Fahrzeug umgeparkt.", true);
-                    }
-                    else
-                    {
-                        player.SendTranslatedChatMessage( "~r~Das Fahrzeug gehört deiner Fraktion!", true);
-                    }
-                }
-            }
-        }*/
-
         public static VehicleModel GetVehicleById(int VehicleId)
         {
             try
             {
-                VehicleModel Vehicle = null;
-
                 foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
                 {
                     if (veh.ID == VehicleId)
                     {
-                        Vehicle = veh;
-                        break;
+                        return veh;
                     }
                 }
-
-                return Vehicle;
+                return null;
             }
             catch { return null; }
         }
@@ -161,6 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch { }
         }
+
         /*
         [Command("buycar")]
         public static void BuyCarTo(PlayerModel player, int FahrzeugID)
@@ -693,6 +653,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     jobs.Allround.OnPlayerLeaveVehicle(Vehicle, player, seat);
                     SevenTowers.Main.PlayerLeaveVehicle(Vehicle, player);
                     player.Usefull.LastVehicleLeaveEventCall = DateTime.Now.AddSeconds(3);
+                    CarShop.OnPlayerLeaveVehicle(Vehicle, player);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -729,12 +690,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel Vehicle = (VehicleModel)player.Vehicle;
-                    if (Vehicle.Testing == true)
+                    if (Vehicle.IsTestVehicle == true)
                     {
                         Vehicle.EngineOn = !Vehicle.EngineOn;
                         return;
                     }
-                    else if (!Vehicle.Testing)
+                    else if (!Vehicle.IsTestVehicle)
                     {
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Das Fahrzeug hat nicht mehr genug Benzin - du kannst an einer Tankstelle einen Reservekannister erwerben!");
                         return;
@@ -786,17 +747,47 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-
-        //[AltV.Net.ClientEvent("saveIVehicleConsumes")]
-        public void SaveIVehicleConsumesEvent(VnXPlayer player, VehicleModel Vehicle, float kms, float gas)
+        public static AltV.Net.Enums.VehicleModel GetModVehicleHash(string ModVehicle)
         {
             try
             {
-                // Update kms and gas
-                Vehicle.Kms = kms;
-                Vehicle.Gas = gas;
+                uint VehicleUINT = Alt.Hash(ModVehicle);
+                AltV.Net.Enums.VehicleModel hash = (AltV.Net.Enums.VehicleModel)VehicleUINT;
+                return hash;
             }
-            catch { }
+            catch { return AltV.Net.Enums.VehicleModel.Asea; }
+        }
+        public static uint GetModVehicleHashByUint(uint Uint)
+        {
+            try
+            {
+                uint hash = (uint)AltV.Net.Enums.VehicleModel.Asea;
+                uint VehicleUINT = Alt.Hash("rmodamgc63");
+                uint VehicleUINT2 = Alt.Hash("rmodm4");
+                uint VehicleUINT3 = Alt.Hash("polamggtr");
+                uint VehicleUINT4 = Alt.Hash("pol718");
+                uint VehicleUINT5 = Alt.Hash("s63w222");
+                uint VehicleUINT6 = Alt.Hash("rs615");
+                uint VehicleUINT7 = Alt.Hash("rs5r");
+                uint VehicleUINT8 = Alt.Hash("fxxk");
+                uint VehicleUINT9 = Alt.Hash("lumma750");
+
+                if (VehicleUINT == Uint) { hash = (uint)GetModVehicleHash("rmodamgc63"); }
+                else if (VehicleUINT2 == Uint) { hash = (uint)GetModVehicleHash("rmodm4"); }
+                else if (VehicleUINT3 == Uint) { hash = (uint)GetModVehicleHash("polamggtr"); }
+                else if (VehicleUINT4 == Uint) { hash = (uint)GetModVehicleHash("pol718"); }
+                else if (VehicleUINT5 == Uint) { hash = (uint)GetModVehicleHash("s63w222"); }
+                else if (VehicleUINT6 == Uint) { hash = (uint)GetModVehicleHash("rs615"); }
+                else if (VehicleUINT7 == Uint) { hash = (uint)GetModVehicleHash("rs5r"); }
+                else if (VehicleUINT8 == Uint) { hash = (uint)GetModVehicleHash("fxxk"); }
+                else if (VehicleUINT9 == Uint) { hash = (uint)GetModVehicleHash("lumma750"); }
+                else
+                {
+                    return hash;
+                }
+                return hash;
+            }
+            catch { return (uint)AltV.Net.Enums.VehicleModel.Asea; }
         }
 
     }

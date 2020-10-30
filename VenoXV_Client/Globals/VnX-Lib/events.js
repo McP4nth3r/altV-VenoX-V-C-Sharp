@@ -193,20 +193,18 @@ alt.onServer('Player:Alpha', (alpha) => {
     catch { }
 });
 
-alt.onServer('Player:WarpIntoVehicle', async (veh, seat) => {
+alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
     try {
         if (!veh) return;
         if (!(veh instanceof alt.Vehicle)) return;
-        await new Promise((resolve) => {
-            const interval = alt.setInterval(() => {
-                if (veh.scriptID <= 0) {
-                    return;
-                }
-                alt.clearInterval(interval);
-                resolve();
-            }, 10);
-        });
-        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+        //await new Promise((resolve) => {
+        const interval = alt.setInterval(() => {
+            if (veh.scriptID <= 0 || !veh.valid) return;
+            game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+            alt.clearInterval(interval);
+            //resolve();
+        }, 10);
+        //});
     }
     catch { }
 });

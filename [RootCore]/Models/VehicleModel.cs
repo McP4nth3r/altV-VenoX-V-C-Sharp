@@ -70,7 +70,7 @@ namespace VenoXV._RootCore_.Models
         private bool vehGodmode { get; set; }
         public bool NPC { get; set; }
         public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
-        public bool Testing { get; set; }
+        public bool IsTestVehicle { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
         public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
