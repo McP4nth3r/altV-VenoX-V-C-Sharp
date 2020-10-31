@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -226,64 +225,6 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
             }
             catch { }
         }
-
-        [Command("timeban")]
-        public void timeban_player(VnXPlayer player, string target, int zeit, string grund)
-        {
-            try
-            {
-                if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    bool Found = Database.FindCharacterByName(target);
-                    if (Found)
-                    {
-                        string SocialClubId = Database.GetCharakterSocialName(target);
-                        string SpielerName = Database.GetAccountSpielerName(SocialClubId);
-                        string SpielerSerial = Database.GetAccountSpielerSerial(SocialClubId);
-                        VnXPlayer targetplayer = RageAPI.GetPlayerFromName(SpielerName);
-                        int UID = Database.GetCharakterUID(SpielerName);
-
-                        if (Database.FindCharacterBan(SocialClubId.ToString()))
-                        {
-                            Accountbans ban = Database.GetAccountbans(SocialClubId.ToString());
-                            if (ban.banzeit > DateTime.Now)
-                            {
-                                Database.UpdatePlayerTimeBan(UID, grund, player.Username, ban.banzeit.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            }
-                            else
-                            {
-                                Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund, player.Username, DateTime.Now.AddHours(zeit), DateTime.Now);
-                                logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                                RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            }
-                        }
-                        else
-                        {
-                            Database.AddPlayerTimeBan(UID, SocialClubId, SpielerSerial, grund, player.Username, DateTime.Now.AddHours(zeit), DateTime.Now);
-                            logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + SocialClubId + "][" + SpielerName + "] für " + zeit + " Stunden gebannt! Grund : " + grund);
-                            RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " für " + zeit + " Stunden gebannt! Grund : " + grund);
-                        }
-                        if (targetplayer != null)
-                        {
-                            targetplayer.Kick("~r~Grund : ~h~" + grund);
-                        }
-                    }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + target + " gefunden!");
-                    }
-                }
-                else
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
-                }
-            }
-            catch { }
-        }
-
-
 
         [Command("spec")]
         public void ReconCommand(VnXPlayer player, string target_name)
