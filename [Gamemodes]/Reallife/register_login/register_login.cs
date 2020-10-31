@@ -317,7 +317,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {
-                    player.Health = 0;
+                    player.SetHealth =  0;
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

@@ -186,7 +186,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                             if (player.Armor != 100)
                             {
                                 player.Reallife.Money -= 100;
-                                player.Armor = 100;
+                                player.SetArmor =  100;
                             }
                             else
                             {

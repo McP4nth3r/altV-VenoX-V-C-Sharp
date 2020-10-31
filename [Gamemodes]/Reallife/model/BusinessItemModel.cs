@@ -1,6 +1,4 @@
 ﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {

@@ -197,7 +197,6 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 }
                 int carShop = GetClosestCarShop(player);
                 AltV.Net.Enums.VehicleModel vehicleModel = (AltV.Net.Enums.VehicleModel)Alt.Hash(Model);
-                Console.WriteLine("vehicleModel : " + vehicleModel + " | firstColor : " + firstColor + " | secondColor : " + secondColor);
 
                 int vehiclePrice = GetVehiclePrice((uint)vehicleModel);
                 if (vehiclePrice > 0 && player.Reallife.Bank >= vehiclePrice)
@@ -227,6 +226,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                             vehClass.Dimension = player.Dimension;
                             vehClass.EngineOn = true;
                             vehClass.IsTestVehicle = false;
+                            vehClass.Price = vehiclePrice;
                             player.Position = vehClass.Position;
                             player.WarpIntoVehicle(vehClass, -1);
                             Database.AddNewIVehicle(vehClass);
