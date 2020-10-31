@@ -19,9 +19,9 @@ let typing = false;
 
 function returnRGB(player) {
 	try {
-		let hp = game.getEntityHealth(player.scriptID);
+		let hp = player.getStreamSyncedMeta("PLAYER_HEALTH");
 
-		let armor = game.getPedArmour(player.scriptID);
+		let armor = player.getStreamSyncedMeta("PLAYER_ARMOR");
 		//if (hp <= 0 || player.getStreamSyncedMeta("PLAYER_KILLED") == 1)
 		if (hp <= 0) {
 			return [40, 40, 40];
@@ -33,7 +33,7 @@ function returnRGB(player) {
 			}
 			else {
 				hp = Math.abs(hp - 0.01);
-				return [(200 - hp) * 2.35 / 2, (hp * 2.35), 0];
+				return [(210 - hp) * 2.35 / 2, (hp * 2.35), 0];
 			}
 		}
 	}
@@ -66,7 +66,6 @@ function OnStart() {
 	try {
 		if (!game.hasStreamedTextureDictLoaded("images")) {
 			game.requestStreamedTextureDict('images');
-			alt.log('Requested Packages!');
 		}
 		alt.setTimeout(() => {
 			alt.everyTick(() => {
@@ -79,7 +78,7 @@ function OnStart() {
 OnStart();
 
 
-function DrawText(msg, player, posx, posy, posz, scale, fontType, ColorRGB, useOutline = true, useDropShadow = true, drawFaction = false) {
+function DrawText(msg, player, posx, posy, posz, fontSize, fontType, ColorRGB, useOutline = true, useDropShadow = true, drawFaction = false, drawDistance, maxDistance_load) {
 	let hex = msg.match('{.*}');
 	if (hex) {
 		const rgb = hexToRgb(hex[0].replace('{', '').replace('}', ''));
@@ -89,7 +88,10 @@ function DrawText(msg, player, posx, posy, posz, scale, fontType, ColorRGB, useO
 		msg = msg.replace(hex[0], '');
 	}
 	if (ColorRGB == undefined || ColorRGB == null) ColorRGB = 255;
-	const lineHeight = game.getTextScaleHeight(scale[0], fontType);
+	let scale = 1 - (0.8 * drawDistance) / maxDistance_load;
+	let newfontSize = fontSize * scale;
+	const lineHeight = game.getTextScaleHeight(scale, fontType);
+
 	const entity = player.vehicle ? player.vehicle.scriptID : player.scriptID;
 	const vector = game.getEntityVelocity(entity);
 	const frameTime = game.getFrameTime();
@@ -98,28 +100,42 @@ function DrawText(msg, player, posx, posy, posz, scale, fontType, ColorRGB, useO
 		Y: posy + vector.y * frameTime,
 		Z: posz + vector.z * frameTime
 	}
+
+
+
 	// Names
 	game.setDrawOrigin(Vector.X, Vector.Y, Vector.Z, 0);
 	game.beginTextCommandDisplayText('STRING');
 	game.setTextFont(fontType);
-	game.setTextScale(scale[0], scale[1]);
+	game.setTextScale(newfontSize, newfontSize);
 	game.setTextProportional(true);
 	game.setTextCentre(true);
 	game.setTextColour(ColorRGB[0], ColorRGB[1], ColorRGB[2], ColorRGB[3]);
 	game.setTextOutline();
 	game.addTextComponentSubstringPlayerName(msg);
 	game.endTextCommandDisplayText(0, 0);
+	let SpriteScale = [2 * lineHeight / 3, 2 * lineHeight / 3];
+
 	//let screenPos = game.getScreenCoordFromWorldCoord(Vector.X, Vector.Y, Vector.Z + 1);
-	if (player.isTalking) game.drawSprite('images', 'Voice_true', -0.035, (lineHeight + 0.25 * lineHeight) - 0.05, 0.0425, 0.0425, 0, 255, 255, 255, 255, 200);
+	if (drawFaction) {
 
-	/*if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
-		game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), -0.025, (lineHeight + 0.25 * lineHeight) - 0.05, 0.035, 0.035, 0, 255, 255, 255, 255, 200);
-		game.drawSprite('images', 'wanted' + player.getStreamSyncedMeta('PLAYER_WANTEDS'), 0.025, (lineHeight + 0.25 * lineHeight) - 0.05, 0.04, 0.04, 0, 255, 255, 255, 255, 200);
+
+		if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
+			game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), lineHeight - 1.4 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
+			game.drawSprite('images', 'wanted' + player.getStreamSyncedMeta('PLAYER_WANTEDS'), lineHeight - 0.7 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0.04, 0, 255, 255, 255, 255, 200);
+			if (player.isTalking) game.drawSprite('images', 'Voice_true', lineHeight - 0.1 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
+		}
+		else {
+			//const width = 0.0005 * scale;
+			if (player.isTalking) {
+				game.drawSprite('images', 'Voice_true', lineHeight - 0.7 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
+				game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), lineHeight - 1.4 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
+			}
+			else {
+				game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), 0, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
+			}
+		}
 	}
-	else {*/
-	if (drawFaction) game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), 0, (lineHeight + 0.25 * lineHeight) - 0.08, 0.035, 0.035, 0, 255, 255, 255, 255, 200);
-	//}
-
 	if (useOutline) game.setTextOutline();
 	if (useDropShadow) game.setTextDropShadow();
 	game.clearDrawOrigin();
@@ -146,8 +162,8 @@ function DrawNametags() {
 					else { r1 = 0; g1 = 105; b1 = 145; }
 					if (player.getStreamSyncedMeta("PLAYER_ADMIN_ON_DUTY") == 1) { r = 0; g = 200; b = 255; }
 					else { let values = returnRGB(player); r = values[0]; g = values[1]; b = values[2]; }
-					DrawText(name, player, player.pos.x, player.pos.y, player.pos.z + 1.2, [0.65, 0.65], 4, [r, g, b, 255], true, true, true);
-					DrawText(player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"), player, player.pos.x, player.pos.y, player.pos.z + 1, [0.45, 0.45], 4, [r1, g1, b1, 255], true, true);
+					DrawText(name, player, player.pos.x, player.pos.y, player.pos.z + 1.22, 0.7, 4, [r, g, b, 255], true, true, true, distance, maxDistance_load);
+					DrawText(player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"), player, player.pos.x, player.pos.y, player.pos.z + 1, 0.4, 4, [r1, g1, b1, 255], true, true, false, distance, maxDistance_load);
 				}
 			}
 		}
