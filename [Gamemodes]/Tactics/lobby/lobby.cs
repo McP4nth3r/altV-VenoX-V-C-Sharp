@@ -83,7 +83,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 player.EmitLocked("LoadTacticUI", TEAM_A_NAME, TEAM_B_NAME, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
                 RageAPI.SetPlayerVisible(player, true);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static bool IsTacticRoundRunning()
         {
@@ -98,7 +98,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 Random random = new Random();
                 RandomRound = random.Next(0, 20);
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void GivePlayerTacticWeapons(VnXPlayer player)
         {
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
 
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SpawnPlayerOnPoint(VnXPlayer player, string Fac)
         {
@@ -171,8 +171,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     player.Tactics.Spawned = true;
                     player.Tactics.Team = EntityData.BFAC_NAME;
                     GivePlayerTacticWeapons(player);
-                    player.Health = 200;
-                    player.Armor = 100;
+                    player.SetHealth = 200;
+                    player.SetArmor = 100;
                     player.DrawWaypoint(CurrentMap.Team_A_Spawnpoints[0].X, CurrentMap.Team_A_Spawnpoints[0].Y);
                 }
                 else if (Fac == EntityData.COPS_NAME)
@@ -183,8 +183,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     player.Tactics.Spawned = true;
                     player.Tactics.Team = EntityData.COPS_NAME;
                     GivePlayerTacticWeapons(player);
-                    player.Health = 200;
-                    player.Armor = 100;
+                    player.SetHealth = 200;
+                    player.SetArmor = 100;
                     player.DrawWaypoint(CurrentMap.Team_B_Spawnpoints[0].X, CurrentMap.Team_B_Spawnpoints[0].Y);
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
@@ -244,7 +244,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static async void StartNewTacticRound()
         {
@@ -266,12 +266,15 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     if (players is null || !players.Exists) continue;
                     string RoundStartText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "Eine neue Runde startet.");
                     string MapNameText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, CurrentMap.Map_Name);
-                    players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + RoundStartText);
-                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + MapNameText);
-                    SyncTime();
-                    SyncPlayerStats();
-                    SyncStats();
+                    lock (players)
+                    {
+                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + RoundStartText);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + MapNameText);
+                    }
                 }
+                SyncTime();
+                SyncPlayerStats();
+                SyncStats();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -310,7 +313,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 Lobby.Main.SyncStats();
                 Lobby.Main.SyncPlayerStats();
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnSelectedTacticsGM(VnXPlayer player)
         {
@@ -348,11 +351,15 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
+                    if (players is null || !players.Exists) continue;
                     double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
-                    players.Emit("Tactics:LoadTimer", (int)leftTime);
+                    lock (players)
+                    {
+                        players.EmitLocked("Tactics:LoadTimer", (int)leftTime);
+                    }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncStats()
         {
@@ -360,10 +367,14 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players.Emit("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
+                    if (players is null || !players.Exists) continue;
+                    lock (players)
+                    {
+                        players.EmitLocked("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
+                    }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncPlayerStats()
         {
@@ -371,12 +382,16 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    float DamageDone = players.Tactics.CurrentDamage;
-                    int KillsDone = players.Tactics.CurrentKills;
-                    players.Emit("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
+                    if (players is null || !players.Exists) continue;
+                    lock (players)
+                    {
+                        float DamageDone = players.Tactics.CurrentDamage;
+                        int KillsDone = players.Tactics.CurrentKills;
+                        players.EmitLocked("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
+                    }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static async void SyncEndTacticRound(string text)
         {
@@ -384,11 +399,16 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players.RemoveAllPlayerWeapons();
-                    players.Emit("Tactics:OnTacticEndRound", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text));
+                    if (players is null || !players.Exists) continue;
+                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text);
+                    lock (players)
+                    {
+                        players.RemoveAllPlayerWeapons();
+                        players.EmitLocked("Tactics:OnTacticEndRound", TranslatedText);
+                    }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void OnUpdate()
         {
@@ -404,7 +424,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

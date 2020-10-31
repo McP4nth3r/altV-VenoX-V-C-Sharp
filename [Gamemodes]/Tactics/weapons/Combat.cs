@@ -10,7 +10,7 @@ namespace VenoXV._Gamemodes_.Tactics.weapons
 
         public static void OnTacticsDamage(VnXPlayer player, VnXPlayer killer, float Damage)
         {
-            try { if (Main.TacticsPlayers.Contains(player)) { player.Tactics.CurrentDamage += (int)Damage; } Lobby.Main.SyncPlayerStats(); }
+            try { if (Main.TacticsPlayers.Contains(killer)) { killer.Tactics.CurrentDamage += (int)Damage; } Lobby.Main.SyncPlayerStats(); }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }

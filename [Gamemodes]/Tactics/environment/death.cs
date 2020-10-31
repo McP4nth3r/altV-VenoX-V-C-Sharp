@@ -50,6 +50,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                         {
                             //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_A_WinnerText);
                             //Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_A_WinnerText));
+                            Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_A_WinnerText);
                             return;
                         }
                     }
