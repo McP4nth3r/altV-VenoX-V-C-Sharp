@@ -190,7 +190,8 @@ namespace VenoXV.Globals
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player, "Globals:ShowBloodScreen");
+                player.vnxSetStreamSharedElementData("PLAYER_HEALTH", player.Health);
+                player.vnxSetStreamSharedElementData("PLAYER_ARMOR", player.Armor);
                 killer.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
                 _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
@@ -203,7 +204,7 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (vehicle.Godmode) { return; }
+                if (vehicle.Godmode) return;
                 player.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamagedVehicle", vehicle);
                 Core.Debug.OutputDebugString(player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! DMG : " + Damage);
@@ -248,9 +249,14 @@ namespace VenoXV.Globals
         }
 
         [ScriptEvent(ScriptEventType.PlayerDamage)]
-        public static void PlayerDamage(IPlayer source, IPlayer attacker, uint weapon, ushort damage)
+        public static void PlayerDamage(VnXPlayer source, IPlayer attacker, uint weapon, ushort damage)
         {
-            try { source?.Emit("Globals:ShowBloodScreen"); }
+            try
+            {
+                source.vnxSetStreamSharedElementData("PLAYER_HEALTH", source.Health);
+                source.vnxSetStreamSharedElementData("PLAYER_ARMOR", source.Armor);
+                source.Emit("Globals:ShowBloodScreen");
+            }
             catch { }
         }
 
