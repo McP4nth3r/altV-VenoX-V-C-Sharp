@@ -339,6 +339,8 @@ namespace VenoXV._RootCore_.Models
         public void LoadIPL(string IPL) { try { Alt.Server.TriggerClientEvent(this, "Player:LoadIPL", IPL); } catch { } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
+        public ushort SetArmor { get { return Armor; } set { this.vnxSetStreamSharedElementData("PLAYER_ARMOR", value); Armor = value; } }
+        public ushort SetHealth { get { return Health; } set { this.vnxSetStreamSharedElementData("PLAYER_HEALTH", value); Health = value; } }
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
@@ -358,8 +360,8 @@ namespace VenoXV._RootCore_.Models
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 SetPosition = new Position(152.26f, -1004.47f, -99.00f);
                 Dimension = Id;
-                Health = 200;
-                Armor = 0;
+                SetHealth = 200;
+                SetArmor = 0;
                 Reallife.Hunger = 60;
                 this.RemoveAllPlayerWeapons();
                 this.vnxSetStreamSharedElementData("settings_reporter", "ja");

@@ -1,13 +1,13 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
-using System.Threading.Tasks;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
@@ -244,13 +244,24 @@ namespace VenoXV.Core
         {
             try
             {
-                await Task.Run(async () =>
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
-                    foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                    await _Language_.Main.SendTranslatedChatMessage(players, text);
+                }
+            }
+            catch { }
+        }
+        public static void SendChatMessageToAll(string text)
+        {
+            try
+            {
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                {
+                    lock (players)
                     {
-                        await _Language_.Main.SendTranslatedChatMessage(players, text);
+                        players.SendChatMessage(text);
                     }
-                });
+                }
             }
             catch { }
         }

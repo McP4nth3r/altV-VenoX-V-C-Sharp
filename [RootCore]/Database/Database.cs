@@ -1236,79 +1236,22 @@ namespace VenoXV._RootCore_.Database
             }
             catch { return null; }
         }
-        public static Accountbans GetAccountbansBySerial(string serial)
+
+
+        public static void RemoveOldBan(int UID)
         {
+            using MySqlConnection connection = new MySqlConnection(connectionString);
             try
             {
-                Accountbans AccountBans = new Accountbans();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm, Bantype FROM ban WHERE serial = @serial LIMIT 1";
-                    command.Parameters.AddWithValue("@serial", serial);
+                command.CommandText = "DELETE FROM ban WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", UID);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            AccountBans.banreason = reader.GetString("Bangrund");
-                            AccountBans.AdminBanned = reader.GetString("Admin");
-                            AccountBans.banzeit = reader.GetDateTime("Banzeit");
-                            AccountBans.banerstelltam = reader.GetDateTime("BanerstelltAm");
-                            AccountBans.Bantype = reader.GetString("Bantype");
-                        }
-                    }
-                }
-                return AccountBans;
+                command.ExecuteNonQuery();
             }
-            catch { return null; }
-        }
-
-        public static void RemoveOldBan(string SpielerSocial)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "DELETE FROM ban WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", SpielerSocial);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveOldBan] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveOldBan] " + ex.StackTrace);
-                }
-            }
-        }
-
-        public static void RemoveOldBanBySerial(string serial)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "DELETE FROM ban WHERE serial = @serial LIMIT 1";
-                    command.Parameters.AddWithValue("@serial", serial);
-
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveOldBanBySerial] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveOldBanBySerial] " + ex.StackTrace);
-                }
-            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemoveOldPrison(string SpielerName)
@@ -2605,6 +2548,37 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@BannedTill", DateTime.Now);
                 command.Parameters.AddWithValue("@BanDateCreated", DateTime.Now);
                 command.Parameters.AddWithValue("@Bantype", "Permaban");
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
+            }
+        }
+
+        public static void AddPlayerTimeBan(int UID, string Username, string HardwareId, string HardwareIdExHash, string SocialClubId, string IP, string DiscordID, string Reason, string Admin, int BanHours)
+        {
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+
+                command.CommandText = "INSERT INTO ban (UID, Name, HardwareId, HardwareIdExHash, SocialClubId, IP, DiscordID, Reason, Admin, BannedTill, BanDateCreated, Bantype) VALUES (@UID, @Name, @HardwareId, @HardwareIdExHash, @SocialClubId, @IP, @DiscordID, @Reason, @Admin, @BannedTill, @BanDateCreated, @Bantype)";
+                command.Parameters.AddWithValue("@UID", UID);
+                command.Parameters.AddWithValue("@Name", Username);
+                command.Parameters.AddWithValue("@HardwareId", HardwareId);
+                command.Parameters.AddWithValue("@HardwareIdExHash", HardwareIdExHash);
+                command.Parameters.AddWithValue("@SocialClubId", SocialClubId);
+                command.Parameters.AddWithValue("@IP", IP);
+                command.Parameters.AddWithValue("@DiscordID", DiscordID);
+                command.Parameters.AddWithValue("@Reason", Reason);
+                command.Parameters.AddWithValue("@Admin", Admin);
+                command.Parameters.AddWithValue("@BannedTill", DateTime.Now.AddHours(BanHours));
+                command.Parameters.AddWithValue("@BanDateCreated", DateTime.Now);
+                command.Parameters.AddWithValue("@Bantype", "Timeban");
 
                 command.ExecuteNonQuery();
             }
