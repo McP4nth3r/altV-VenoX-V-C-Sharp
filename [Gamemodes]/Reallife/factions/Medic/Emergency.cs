@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
@@ -13,6 +13,38 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
     {
 
         public static ColShapeModel EmergencyReviveCol = RageAPI.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
+
+        public static Dictionary<VnXPlayer, BlipModel> CurrentActiveMedicBlips = new Dictionary<VnXPlayer, BlipModel>();
+        public static async void OnPlayerDeath(VnXPlayer player)
+        {
+            if (player.Dimension != VenoXV.Globals.Main.REALLIFE_DIMENSION) return;
+            foreach (VnXPlayer Medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            {
+                if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
+                {
+                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)Medics.Language, "braucht hilfe!");
+                    if (!CurrentActiveMedicBlips.ContainsKey(player))
+                        CurrentActiveMedicBlips.Add(player, RageAPI.CreateBlip(player.Username + " " + TranslatedText, player.Position, 303, 3, false, Medics));
+                }
+            }
+        }
+
+
+        public static void DeleteCurrentMedicBlip(VnXPlayer player)
+        {
+            if (CurrentActiveMedicBlips.ContainsKey(player))
+            {
+                CurrentActiveMedicBlips.TryGetValue(player, out BlipModel BlipClass);
+                foreach (VnXPlayer Medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                {
+                    if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY) RageAPI.RemoveBlip(BlipClass, Medics);
+                }
+                CurrentActiveMedicBlips.Remove(player);
+            }
+        }
+
+
+
 
         public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
@@ -52,58 +84,20 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
             }
         }
-        public static void DestroyEmergencyDeathNotify(VnXPlayer player)
-        {
-            try
-            {
-                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
-                {
-                    if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                    {
-                        medics.Emit("Destroy_MedicBlips", player.Username);
-                    }
-                }
-            }
-            catch { }
-        }
-        public static void CreateEmergencyDeathNotify(VnXPlayer player, int time)
-        {
-            try
-            {
-                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
-                {
-                    if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                    {
-                        medics.Emit("ShowMedicBlips", player.Username, player.Position);
-                        medics.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + player.Username + " ist gestorben! Zeit bis zum Respawn : " + time);
-                    }
-                }
-            }
-            catch { }
-        }
-
-
-        //[AltV.Net.ClientEvent("DestroyForAllMedicBlip")]
-        public void DestroyMedicBlipAfterSpawn(VnXPlayer player)
-        {
-            foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
-            {
-                if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                {
-                    medics.Emit("Destroy_MedicBlips", player.Username);
-                    medics.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + "Ihr seid zu langsam gewesen! Der Spieler " + player.Username + " ist Respawned!");
-                }
-            }
-        }
 
 
         [Command("heal")]
-        public void HealIPlayerMedic(VnXPlayer player, string target_name)
+        public static async void HealIPlayerMedic(VnXPlayer player, string target_name)
         {
             try
             {
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
+                if (target == null)
+                {
+                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "konnte nicht gefunden werden!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, player.Username + " " + TranslatedText);
+                    return;
+                };
                 if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {
                     if (player.IsInVehicle)
