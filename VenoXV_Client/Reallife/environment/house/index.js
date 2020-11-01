@@ -12,17 +12,15 @@ let HouseBlip = {};
 let counter = 0;
 
 alt.onServer("ShowHouseBlips", (blippos, c, n) => {
-    try {
-        let Blip = CreateBlip(n, [blippos.x, blippos.y, blippos.z], 411, c, true);
-        HouseBlip[counter++] = Blip;
-    }
-    catch{ }
+    HouseBlip[counter] = CreateBlip(n, [blippos.x, blippos.y, blippos.z], 411, c, true);
+    counter++
 });
 
-alt.onServer("Destroy_HouseBlips", () => {
-    try {
-        counter = 0;
-        for (var AllBlips in HouseBlip) HouseBlip[AllBlips].destroy();
+alt.onServer("Reallife:DestroyHouseBlips", () => {
+    for (var AllBlips in HouseBlip) {
+        if (HouseBlip[AllBlips] != null) {
+            game.removeBlip(HouseBlip[AllBlips]);
+        }
+        delete HouseBlip[AllBlips];
     }
-    catch{ }
 });

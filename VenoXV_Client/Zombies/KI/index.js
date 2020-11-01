@@ -131,23 +131,32 @@ alt.onServer('Zombies:DeleteTempZombieById', async (ID) => {
 
 alt.onServer('Zombies:MoveToTarget', async (ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity) => {
     if (!Zombies[parseInt(ID)]) {
-        SpawnZombie(ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity);
+        SpawnZombie(parseInt(ID), Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity);
         return;
     }
+    if (!TargetEntity) return;
     MoveZombieToTarget(parseInt(ID), TargetEntity);
 });
 
 
 alt.on("disconnect", () => {
+    DeleteEveryZombie();
+});
+alt.onServer('Zombies:OnGamemodeDisconnect', () => {
+    DeleteEveryZombie();
+});
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function DeleteEveryZombie() {
     for (var Id in Zombies) {
         if (Zombies[Id].Entity != null) {
             game.deletePed(Zombies[Id].Entity);
         }
+        delete Zombies[Id];
     };
-});
+}
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function DeleteZombieById(ID) {
     if (!Zombies[ID]) return;
@@ -162,14 +171,13 @@ function DeleteZombieById(ID) {
 function CheckZombieHealths() {
     for (var Id in Zombies) {
         if (Zombies[Id].Entity != null && !Zombies[Id].IsDead) {
-            if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && !Zombies[Id].OutOfStreamingRange) {
-                Zombies[Id].IsDead = true;
-                game.setEntityAsMissionEntity(Zombies[Id].Entity, false, true);
-                alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id));
-            }
-            if (game.hasEntityBeenDamagedByEntity(alt.Player.local.scriptID, Zombies[Id].Entity)) {
-                game.clearEntityLastDamageEntity(alt.Player.local.scriptID);
-                alt.log('Local player got Hitted by a Zombie');
+            if (game.hasEntityBeenDamagedByEntity(Zombies[Id].Entity, alt.Player.local.scriptID)) {
+                game.clearEntityLastDamageEntity(Zombies[Id].Entity);
+                if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && !Zombies[Id].OutOfStreamingRange) {
+                    Zombies[Id].IsDead = true;
+                    game.setEntityAsMissionEntity(Zombies[Id].Entity, false, true);
+                    alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id));
+                }
             }
         }
     };
@@ -377,11 +385,11 @@ function MoveZombieToTarget(ID, TargetEntity) {
 
 }
 
-
+/*
 alt.everyTick(() => {
     DrawNametags();
 });
-
+*/
 
 
 

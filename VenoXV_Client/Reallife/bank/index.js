@@ -169,21 +169,17 @@ ATM_Tabelle[ATMCount++] = new alt.Vector3(1167.086, -456.1151, 66.79015);
 
 
 
-alt.onServer("ShowATMBlips", () => {
-	try {
-		for (var blips in ATM_Tabelle) {
-			let Blip = CreateBlip("Bankautomat", [ATM_Tabelle[blips].x, ATM_Tabelle[blips].y, ATM_Tabelle[blips].z], 277, 2, true);
-			ATM_Blips[blips] = Blip;
-		}
+alt.onServer("Reallife:ShowATMBlips", () => {
+	for (var blips in ATM_Tabelle) {
+		ATM_Blips[blips] = CreateBlip("Bankautomat", [ATM_Tabelle[blips].x, ATM_Tabelle[blips].y, ATM_Tabelle[blips].z], 277, 2, true);
 	}
-	catch { }
 });
 
-alt.onServer("Destroy_ATMBlips", () => {
-	try {
-		for (var AllBlips in ATM_Blips) ATM_Blips[AllBlips].destroy();
+alt.onServer("Reallife:DestroyATMBlips", () => {
+	for (var AllBlips in ATM_Blips) {
+		if (ATM_Blips[AllBlips] != null) game.removeBlip(ATM_Blips[AllBlips]);
+		delete ATM_Blips[AllBlips];
 	}
-	catch { }
 });
 
 

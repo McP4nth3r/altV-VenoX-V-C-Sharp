@@ -64,18 +64,15 @@ alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, C
 });
 
 alt.onServer('Sync:RemoveLabels', () => {
-    try {
-        //outputted = false;
-        CurrentLabels = {};
-    }
-    catch { }
+    //outputted = false;
+    CurrentLabels = {};
 });
 
 /* Sync : Marker-Map */
 let CurrentMarkers = {};
 alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, ColorR, ColorG, ColorB, ColorA) => {
     try {
-        if (CurrentMarkers[ID] != null) { return; }
+        if (CurrentMarkers[ID] != null) return;
         CurrentMarkers[ID] = {
             ID: ID,
             Type: Type,
@@ -89,10 +86,7 @@ alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, Sc
     catch { }
 })
 alt.onServer('Sync:RemoveMarkers', () => {
-    try {
-        CurrentMarkers = {};
-    }
-    catch { }
+    CurrentMarkers = {};
 });
 
 let cObjs = {};
@@ -169,7 +163,7 @@ alt.everyTick(() => {
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let ObjList = {};
+/*let ObjList = {};
 ObjList[0] = "V_Corp_postbox";
 
 for (var obj in ObjList) {
@@ -181,7 +175,7 @@ for (var obj in ObjList) {
         alt.log("loaded " + ObjList[obj] + " | " + Hash);
     }
 }
-
+*/
 
 let MapObjects = {};
 let MapC = 0;

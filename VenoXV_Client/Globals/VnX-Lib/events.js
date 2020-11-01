@@ -100,13 +100,13 @@ alt.onServer("movecamtocurrentpos_client", () => {
     catch { }
 });
 
-let BlipList = [];
-let BlipC = 0;
-alt.onServer("BlipClass:CreateBlip", (Name, X, Y, Z, Sprite, Color, ShortRange) => {
+let BlipList = {};
+alt.onServer("BlipClass:CreateBlip", (ID, Name, X, Y, Z, Sprite, Color, ShortRange) => {
     try {
-        for (var _c in BlipList) { if (BlipList[_c].Name == Name && BlipList[_c].X == X && BlipList[_c].Y == Y && BlipList[_c].Z == Z) { return; } }
+        if (BlipList[ID]) return;
         let cBlip = CreateBlip(Name, [X, Y, Z], Sprite, Color, ShortRange);
-        BlipList[BlipC++] = {
+        BlipList[ID] = {
+            ID: ID,
             Entity: cBlip,
             Name: Name,
             X: X,
@@ -120,15 +120,20 @@ alt.onServer("BlipClass:CreateBlip", (Name, X, Y, Z, Sprite, Color, ShortRange) 
     catch { }
 });
 
-alt.onServer('BlipClass:RemoveBlip', (Name) => {
-    for (var c_ in BlipList) {
-        if (BlipList[c_].Name == Name) {
-            //game.deleteObject(BlipList[c_].Entity);
-            game.removeBlip(BlipList[c_].Entity);
-            BlipList.splice(c_, 1);
-        }
+alt.onServer('BlipClass:RemoveBlip', (ID) => {
+    if (BlipList[ID] != null) {
+        game.removeBlip(BlipList[ID].Entity);
+        delete BlipList[ID];
     }
 });
+
+alt.onServer('BlipClass:RemoveAllBlips', () => {
+    for (var _c in BlipList) {
+        if (BlipList[_c].Entity != null) game.removeBlip(BlipList[_c].Entity);
+        delete BlipList[_c];
+    }
+});
+
 
 alt.onServer("Clothes:Reset", () => {
     try {
