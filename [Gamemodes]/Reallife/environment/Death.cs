@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -27,18 +28,20 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         {
             try
             {
+                Emergency.DeleteCurrentMedicBlip(player);
                 Spawn.SpawnPlayerOnSpawnpoint(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        public static void OnPlayerDeath(VnXPlayer player, VnXPlayer killer, uint weapon)
+        public static async void OnPlayerDeath(VnXPlayer player, VnXPlayer killer, uint weapon)
         {
             try
             {
-                if (player.IsDead) { return; }
+                if (player.IsDead) return;
+                player.Reallife.IsDead = true;
                 anzeigen.Usefull.VnX.RemoveAllWeapons(player);
-                Emergency.CreateEmergencyDeathNotify(player, 120);
+                Emergency.OnPlayerDeath(player);
                 CreateKrankenhausTimer(player);
                 if (killer != null)
                 {
@@ -57,21 +60,27 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                             if (killer.vnxGetElementData<int>(EntityData.PLAYER_ON_DUTY) == 1)
                             {
                                 Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + player.Reallife.Wanteds * 400, fkasse.weed, fkasse.koks, fkasse.mats);
-                                player.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, player.Reallife.Wanteds * 6);
-                                killer.SendTranslatedChatMessage("{007d00}Du hast " + player.Username + " verhaftet für " + player.Reallife.Knastzeit + " Minuten! " + player.Reallife.Wanteds * 75 + " $ werden dir auf dein Bankkonto überwiesen.");
-                                player.SendTranslatedChatMessage("{000096}Officer " + killer.Username + " hat dich eingesperrt für " + player.Reallife.Knastzeit + " Minuten!.");
-                                //killer.vnxSetStreamSharedElementData(VnX.PLAYER_BANKMONEY, killer.Reallife.Bank + player.Reallife.Wanteds * 75);
+                                player.Reallife.Knastzeit = player.Reallife.Wanteds * 6;
+                                string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)killer.Language, "Du hast");
+                                string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)killer.Language, "verhaftet für");
+                                string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)killer.Language, "Minuten!");
+                                string TranslatedText3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)killer.Language, "$ werden dir auf dein Bankkonto überwiesen.");
+                                killer.SendChatMessage("{007d00}" + TranslatedText + " " + player.Username + " " + TranslatedText1 + " " + player.Reallife.Knastzeit + " " + TranslatedText2 + player.Reallife.Wanteds * 75 + TranslatedText3);
+
+                                string TranslatedText4 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)killer.Language, " hat dich eingesperrt für ");
+                                player.SendTranslatedChatMessage("{000096}Officer " + killer.Username + " hat dich eingesperrt für " + player.Reallife.Knastzeit + " " + TranslatedText2);
                                 killer.Reallife.Bank += (player.Reallife.Wanteds * 75);
                                 logfile.WriteLogs("kill", "[WANTED] Officer " + killer.Name + " hat " + player.Username + " getötet!");
                                 player.Reallife.Wanteds = 0;
-                                //RemoveAllWeapons(player);
+                                anzeigen.Usefull.VnX.RemoveAllWeapons(player);
                             }
                         }
                         else
                         {
-                            killer.SendTranslatedChatMessage("Du hast einen Zivilisten getötet! (" + player.Username + ")");
-                            player.SendTranslatedChatMessage(killer.Username + " hat dich getötet.");
-                            logfile.WriteLogs("kill", "Officer " + killer.Username + " hat " + player.Username + " Ohne Wanteds getötet!");
+                            killer.SendTranslatedChatMessage("Du hast einen Zivilisten getötet!");
+                            string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " hat dich getötet.");
+                            player.SendTranslatedChatMessage(killer.Username + " " + TranslatedText);
+                            logfile.WriteLogs("kill", "Officer " + killer.Username + " killed " + player.Username + " without Wanteds getötet!");
                         }
                         return;
                     }
@@ -89,9 +98,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                         killer.Reallife.Wanteds += 3;
                         killer.SendTranslatedChatMessage("{ffff00}Dein FahndungsLevel wurde erhöht auf " + killer.Reallife.Wanteds + " ! Grund : Mord ");
                     }
-                    killer.SendTranslatedChatMessage("Du hast " + player.Username + " getötet!");
-                    player.SendTranslatedChatMessage(killer.Username + " hat dich getötet.");
-                    logfile.WriteLogs("kill", killer.Username + " hat " + player.Username + " getötet!");
+                    killer.SendChatMessage("Du hast " + player.Username + " getötet!");
+                    player.SendChatMessage(killer.Username + " hat dich getötet.");
+                    logfile.WriteLogs("kill", killer.Username + " killed " + player.Username + "!");
                 }
                 player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du bist gestorben! Warte 120 Sekunden oder auf einen Medic.");
 
