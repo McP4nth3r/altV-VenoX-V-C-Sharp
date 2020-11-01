@@ -339,19 +339,21 @@ namespace VenoXV.Core
         {
             try
             {
-                if (blipClass == null) { return; }
-                if (DeleteFor != null) { DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.Name); }
-                else { Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.Name); }
-                if (Sync.BlipList.Contains(blipClass)) { Sync.BlipList.Remove(blipClass); }
+                if (blipClass == null) return;
+                if (DeleteFor != null) DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.ID);
+                else Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.ID);
+                if (Sync.BlipList.Contains(blipClass)) Sync.BlipList.Remove(blipClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
+        private static int BlipCounter = 0;
         public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, VnXPlayer VisibleOnlyFor = null)
         {
             try
             {
                 BlipModel blip = new BlipModel
                 {
+                    ID = BlipCounter,
                     Name = Name,
                     posX = coord.X,
                     posY = coord.Y,
@@ -362,10 +364,11 @@ namespace VenoXV.Core
                     VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
-                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
-                {
-                    Sync.LoadBlips(players);
-                }
+                BlipCounter++;
+                if (VisibleOnlyFor is null) Alt.EmitAllClients("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                else VisibleOnlyFor.Emit("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                /*foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                    Sync.LoadBlips(players);*/
                 return blip;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new BlipModel(); }
@@ -431,7 +434,7 @@ namespace VenoXV.Core
                 vehicleClass.EngineOn = false;
                 vehicleClass.Locked = true;
                 vehicleClass.MarkedForDelete = true;
-                if (!Globals.Main.AllVehicles.Contains(vehicleClass)) { Globals.Main.AllVehicles.Add(vehicleClass); }
+                if (!Globals.Main.AllVehicles.Contains(vehicleClass)) Globals.Main.AllVehicles.Add(vehicleClass);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
 

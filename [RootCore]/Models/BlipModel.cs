@@ -2,6 +2,7 @@
 {
     public class BlipModel
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public float posX { get; set; }
         public float posY { get; set; }

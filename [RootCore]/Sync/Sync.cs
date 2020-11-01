@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Sync
 {
@@ -33,7 +32,7 @@ namespace VenoXV._RootCore_.Sync
                     if (blip.VisibleOnlyFor == playerClass || blip.VisibleOnlyFor == null)
                     {
                         //AlleBlips.Add(blip);
-                        Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                        Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
                     }
                 }
                 //Alt.Server.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", JsonConvert.SerializeObject(AlleBlips.ToList(), Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
