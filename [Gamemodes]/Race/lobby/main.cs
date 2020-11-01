@@ -1,5 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
+using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,38 +133,41 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             }
         }
 
-        public static void OnClientRaceFinish(VnXPlayer player)
+        public static async void OnClientRaceFinish(VnXPlayer player)
         {
             try
             {
-                if (RACE_FIRST_WINNER == String.Empty)
-                {
-                    RACE_FIRST_WINNER = player.Username;
-                }
-                else if (RACE_SECOND_WINNER == String.Empty)
-                {
-                    RACE_SECOND_WINNER = player.Username;
-                }
-                else if (RACE_THIRD_WINNER == String.Empty)
-                {
-                    RACE_THIRD_WINNER = player.Username;
-                }
+                if (RACE_FIRST_WINNER == String.Empty) RACE_FIRST_WINNER = player.Username;
+                else if (RACE_SECOND_WINNER == String.Empty) RACE_SECOND_WINNER = player.Username;
+                else if (RACE_THIRD_WINNER == String.Empty) RACE_THIRD_WINNER = player.Username;
+
                 player.Vehicle.EngineOn = false;
                 player.Freeze = true;
                 player.Race.IsRacing = false;
-                SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " hat das Rennen beendet!");
+
+                string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "hat das Rennen beendet!");
+                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                {
+                    players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " " + TranslatedText);
+                }
                 RacePlayersFinished.Add(player);
                 if (RacePlayersFinished.Count == VenoXV.Globals.Main.RacePlayers.Count)
                 {
-                    SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
-                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 1 :  " + RACE_FIRST_WINNER);
-                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 2 :  " + RACE_SECOND_WINNER);
-                    SendRaceMessage(RageAPI.GetHexColorcode(255, 255, 255) + " [Race] : Gewinner - 3 :  " + RACE_THIRD_WINNER);
-                    SendRaceMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
+                    string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 1 :  ");
+                    string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 2 :  ");
+                    string TranslatedText3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 3 :  ");
+                    foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                    {
+                        players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
+                        players.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + TranslatedText1 + " " + RACE_FIRST_WINNER);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + TranslatedText2 + " " + RACE_SECOND_WINNER);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + TranslatedText3 + " " + RACE_THIRD_WINNER);
+                        players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
+                    }
                     StopRound();
                 }
             }
-            catch { }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void CreateRaceMarker(VnXPlayer player)
