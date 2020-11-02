@@ -27,7 +27,9 @@ namespace VenoXV._Language_
             Russian = 6,
             Swedish = 7,
             Serbian = 8,
-            Chinese = 9
+            Chinese = 9,
+            Farsi = 10,
+            Italien = 11
         };
 
         //string jsonString_EN = File.ReadAllText(Alt.Server.Resource.Path + Alt.Server.Resource.Path + "/Languages/language-en.json");
@@ -40,6 +42,8 @@ namespace VenoXV._Language_
         public static List<LanguageModel> LANGUAGE_PACK_SV = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
         public static List<LanguageModel> LANGUAGE_PACK_SR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
         public static List<LanguageModel> LANGUAGE_PACK_CN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_FA = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fa.json"));
+        public static List<LanguageModel> LANGUAGE_PACK_IT = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-it.json"));
         public static void OnResourceStart()
         {
             Core.Debug.OutputDebugString("Language-List-EN " + LANGUAGE_PACK_EN.Count + " translated Text's loaded...");
@@ -51,6 +55,8 @@ namespace VenoXV._Language_
             Core.Debug.OutputDebugString("Language-List-SV " + LANGUAGE_PACK_SV.Count + " translated Text's loaded...");
             Core.Debug.OutputDebugString("Language-List-SR " + LANGUAGE_PACK_SR.Count + " translated Text's loaded...");
             Core.Debug.OutputDebugString("Language-List-CN " + LANGUAGE_PACK_CN.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-FA " + LANGUAGE_PACK_FA.Count + " translated Text's loaded...");
+            Core.Debug.OutputDebugString("Language-List-IT " + LANGUAGE_PACK_IT.Count + " translated Text's loaded...");
 
             /*
             foreach (LanguageModel languageClassEN in LANGUAGE_PACK_FR)
@@ -87,6 +93,8 @@ namespace VenoXV._Language_
                     Languages.Swedish => "sv",
                     Languages.Serbian => "sr",
                     Languages.Chinese => "zh-cn",
+                    Languages.Farsi => "fa",
+                    Languages.Italien => "it",
                     _ => "de",
                 };
             }
@@ -108,6 +116,8 @@ namespace VenoXV._Language_
                     "sv" => Languages.Swedish,
                     "sr" => Languages.Serbian,
                     "zh-cn" => Languages.Chinese,
+                    "fa" => Languages.Farsi,
+                    "it" => Languages.Italien,
                     _ => Languages.German,
                 };
             }
@@ -145,6 +155,8 @@ namespace VenoXV._Language_
                     Languages.Swedish => LANGUAGE_PACK_SV,
                     Languages.Serbian => LANGUAGE_PACK_SR,
                     Languages.Chinese => LANGUAGE_PACK_CN,
+                    Languages.Farsi => LANGUAGE_PACK_FA,
+                    Languages.Italien => LANGUAGE_PACK_IT,
                     _ => new List<LanguageModel>(),
                 };
             }

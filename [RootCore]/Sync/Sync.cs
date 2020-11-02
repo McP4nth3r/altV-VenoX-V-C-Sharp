@@ -10,7 +10,7 @@ namespace VenoXV._RootCore_.Sync
     public class Sync
     {
         //Settings
-        public static int UpdateInterval = 1; // Sync Update in Seconds.
+        public static int UpdateInterval = 1500; // Sync Update in MS.
         public static int RenderDistance = 1000; // Distance to a Obj to Create.
 
         public static List<BlipModel> BlipList = new List<BlipModel>();
@@ -51,9 +51,7 @@ namespace VenoXV._RootCore_.Sync
                     if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
                     {
                         if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
-                        {
                             Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
-                        }
                     }
                 }
             }
@@ -71,9 +69,7 @@ namespace VenoXV._RootCore_.Sync
                     if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= RenderDistance && labels.Dimension == playerClass.Dimension)
                     {
                         if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
-                        {
                             Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
-                        }
                     }
                 }
             }
@@ -91,9 +87,7 @@ namespace VenoXV._RootCore_.Sync
                     if (playerClass.Position.Distance(marker.Position) <= RenderDistance && marker.Dimension == playerClass.Dimension)
                     {
                         if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
-                        {
                             Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMarkers", marker.ID, marker.Type, marker.Position.X, marker.Position.Y, marker.Position.Z, marker.Scale.X, marker.Scale.Y, marker.Scale.Z, marker.Color[0], marker.Color[1], marker.Color[2], marker.Color[3]);
-                        }
                     }
                 }
             }
@@ -104,9 +98,7 @@ namespace VenoXV._RootCore_.Sync
             try
             {
                 foreach (NPCModel npcClass in NPCList.ToList())
-                {
                     Alt.Server.TriggerClientEvent(playerClass, "NPC:Create", npcClass.Name, npcClass.Position, npcClass.Rotation.Z);
-                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -123,7 +115,7 @@ namespace VenoXV._RootCore_.Sync
                         SyncMarker(playerClass);
                         SyncObjects(playerClass);
                     }
-                    NextSyncTick = DateTime.Now.AddSeconds(UpdateInterval);
+                    NextSyncTick = DateTime.Now.AddMilliseconds(UpdateInterval);
                 }
             }
             catch { }

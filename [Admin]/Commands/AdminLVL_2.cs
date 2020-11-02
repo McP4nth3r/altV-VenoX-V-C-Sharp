@@ -17,18 +17,19 @@ namespace VenoXV._Gamemodes_.Reallife.admin
         /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
         /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
 
-        [Command("kick", true)]
-        public static void KickPlayer(VnXPlayer player, string target_name, string reason)
+        [Command("kick")]
+        public static void KickPlayer(VnXPlayer player, string target_name, params string[] grundArray)
         {
             try
             {
+                string reason = string.Join(" ", grundArray);
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
+                if (target == null) return;
                 if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " wurde von " + player.Username + " gekickt! Grund : " + reason);
                     logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + target.SocialClubId + "][" + target.Username + "] gekickt! Grund : " + reason);
-                    target.Kick("~r~Grund : ~h~" + reason);
+                    target.Kick(reason);
                 }
             }
             catch { }

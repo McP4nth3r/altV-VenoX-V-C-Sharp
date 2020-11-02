@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.gangwar.v2;
@@ -34,7 +33,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
 
         public static void ProcessDamage(VnXPlayer source, VnXPlayer target, float damage)
         {
-            //_gangwarManager.ProcessDamage(source, target.vnxGetElementData<int>(damage));
+            _gangwarManager.ProcessDamage(source, target, damage);
         }
 
         public static void ProcessKill(VnXPlayer source, VnXPlayer target)
@@ -232,6 +231,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                             {
                                 killerEntry._totalKills += 1;
                             }
+                            Allround.ProcessKill(player, killer);
                         }
 
                         _gangwarManager.currentArea.GetCurrentRound().KillPlayer(playerEntry);

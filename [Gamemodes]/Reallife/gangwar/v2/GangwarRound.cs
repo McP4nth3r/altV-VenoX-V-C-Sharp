@@ -107,11 +107,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 if (state == "verteidigt!")
                 {
-                    Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
                 else
                 {
-                    Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
+                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
             }
             catch { }
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 int max = 0;
                 int alive = 0;
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in this.PlayerList.ToList())
                 {
                     if (!entry._isLeft)
                     {
@@ -153,9 +153,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 {
                     // If source and target has different factions
                     if (IPlayerEntry.GetFaction() != sourceEntry.GetFaction())
-                    {
                         sourceEntry._totalDamage += damage;
-                    }
 
                     SyncStats(source, sourceEntry);
                 }
@@ -238,25 +236,23 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                         if (!inTK)
                         {
                             ++TKCounter;
-                            if (TKCounter == 1)
+                            switch (TKCounter)
                             {
-                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
-                                PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
-                            }
-                            if (TKCounter == 2)
-                            {
-                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
-                                PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
-                            }
-                            if (TKCounter == 3)
-                            {
-                                Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
-                                PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
-                            }
-                            if (TKCounter == 4)
-                            {
-                                Decided(this.DefenderId, this.AttackerId, "verteidigt!");
-                                return;
+                                case 1:
+                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
+                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    break;
+                                case 2:
+                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
+                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    break;
+                                case 3:
+                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
+                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    break;
+                                case 4:
+                                    Decided(this.DefenderId, this.AttackerId, "verteidigt!");
+                                    return;
                             }
                         }
                     }

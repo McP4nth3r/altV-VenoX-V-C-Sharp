@@ -161,17 +161,19 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 {
                     foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
                     {
-                        if (player != null)
+                        if (player != null && player.Exists)
                         {
                             if (player.Position.Distance(zombieClass.Position) < 150 && !zombieClass.IsDead)
+                            {
+                                if (!player.Zombies.NearbyZombies.Contains(zombieClass)) player.Zombies.NearbyZombies.Add(zombieClass);
                                 player.EmitLocked("Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
-                            //Alt.Server.TriggerClientEvent(player, "Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+
+                            }
                             else
                             {
                                 if (player.Zombies.NearbyZombies.Contains(zombieClass))
                                 {
-                                    player.Zombies.NearbyZombies.Remove(zombieClass);
-                                    player.EmitLocked("Zombies:DeleteTempZombieById", zombieClass.ID);
+                                    player.Zombies.NearbyZombies.Remove(zombieClass); player.EmitLocked("Zombies:DeleteTempZombieById", zombieClass.ID);
                                 }
                             }
                         }

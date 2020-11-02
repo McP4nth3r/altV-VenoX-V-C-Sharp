@@ -400,6 +400,7 @@ namespace VenoXV._Admin_
                         Database.AddPlayerPermaBan(target.UID, target.Username, target.HardwareIdHash.ToString(), target.HardwareIdExHash.ToString(), target.SocialClubId.ToString(), target.Ip, target.Discord.ID, grund, player.Username);
                         logfile.WriteLogs("admin", player.Username + " banned " + target.Username + " permanently! Reason : " + grund);
                         RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " banned " + target.Username + " permanently! Reason : " + grund);
+                        target.Kick(grund);
                         //RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " permanent gebannt! Grund : " + grund);
                     }
                 }
@@ -407,68 +408,6 @@ namespace VenoXV._Admin_
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        [Command("timeban")]
-        public void timeban_player(VnXPlayer player, string target_name, int zeit, params string[] grundArray)
-        {
-            try
-            {
-                string grund = string.Join(" ", grundArray);
-                if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
-                {
-                    VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                    if (target is null)
-                    {
-                        foreach (AccountModel accClass in Register.AccountList)
-                        {
-                            if (accClass.Name.ToLower() == target_name.ToLower())
-                            {
-                                BanModel banClass = new BanModel
-                                {
-                                    UID = accClass.UID,
-                                    Name = accClass.Name,
-                                    HardwareId = accClass.HardwareId,
-                                    HardwareIdExHash =
-                                    accClass.HardwareIdExhash,
-                                    DiscordID = "",
-                                    IP = "",
-                                    SocialClubId = accClass.SocialID,
-                                    BanCreated = DateTime.Now,
-                                    BannedTill = DateTime.Now.AddHours(zeit),
-                                    BanType = "Timeban"
-                                };
-                                PlayerBans.Add(banClass);
-                                Database.AddPlayerTimeBan(accClass.UID, accClass.Name, accClass.HardwareId, accClass.HardwareIdExhash, accClass.SocialID, "", "", grund, player.Username, zeit);
-                                logfile.WriteLogs("admin", player.Username + " banned " + accClass.Name + " for " + zeit + " Hours! Reason : " + grund);
-                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " banned " + accClass.Name + " for " + zeit + " Hours! Reason : " + grund);
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        BanModel banClass = new BanModel
-                        {
-                            UID = target.UID,
-                            Name = target.Name,
-                            HardwareId = target.HardwareIdHash.ToString(),
-                            HardwareIdExHash = target.HardwareIdExHash.ToString(),
-                            DiscordID = target.Discord.ID,
-                            IP = target.Ip,
-                            SocialClubId = target.SocialClubId.ToString(),
-                            BanCreated = DateTime.Now,
-                            BannedTill = DateTime.Now.AddHours(zeit),
-                            BanType = "Timeban"
-                        };
-                        PlayerBans.Add(banClass);
-                        Database.AddPlayerTimeBan(target.UID, target.Username, target.HardwareIdHash.ToString(), target.HardwareIdExHash.ToString(), target.SocialClubId.ToString(), target.Ip, target.Discord.ID, grund, player.Username, zeit);
-                        logfile.WriteLogs("admin", player.Username + " banned " + target.Username + " permanently! Reason : " + grund);
-                        RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " banned " + target.Username + " for " + zeit + " Hours! Reason : " + grund);
-                        //RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + SpielerName + " wurde von [VnX]" + player.Username + " permanent gebannt! Grund : " + grund);
-                    }
-                }
-            }
-            catch { }
-        }
 
 
         /////////////////////////////////////////////////ADMINISTRATOR/////////////////////////////////////////////////

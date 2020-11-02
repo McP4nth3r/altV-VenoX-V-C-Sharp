@@ -195,6 +195,7 @@ namespace VenoXV.Globals
                 killer.Emit("Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
                 _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
+                _Gamemodes_.Reallife.gangwar.Allround.ProcessDamage(player, killer, Damage);
             }
             catch { }
         }

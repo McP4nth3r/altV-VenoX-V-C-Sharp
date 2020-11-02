@@ -20,27 +20,29 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
-        public static void LoadSettingsData(VnXPlayer player)
+        public static async void LoadSettingsData(VnXPlayer player)
         {
             try
             {
                 if (player.Settings.ShowATM == 1)
                 {
-                    Alt.Server.TriggerClientEvent(player, "ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:ShowATMBlips");
                 }
                 if (player.Settings.ShowHouse == 1)
                 {
                     if (House.houseList != null)
                     {
+                        string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Haus [Verkauf]");
+                        string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Haus [Verkauf]");
                         foreach (HouseModel house in House.houseList)
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, TranslatedText);
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, "Haus");
+                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, TranslatedText1);
                             }
                         }
                     }
@@ -60,13 +62,13 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 if (state == true)
                 {
 
-                    Alt.Server.TriggerClientEvent(player, "ShowATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:ShowATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "ja");
                 }
                 else
                 {
 
-                    Alt.Server.TriggerClientEvent(player, "Destroy_ATMBlips");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
@@ -102,7 +104,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.vnxSetStreamSharedElementData("settings_haus", "nein");
                     //foreach (HouseModel house in House.houseList)
                     // {
-                    Alt.Server.TriggerClientEvent(player, "Destroy_HouseBlips");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
                     // }
                 }
             }

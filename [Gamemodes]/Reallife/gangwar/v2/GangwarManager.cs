@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public static int GW_PREPARE_TIME = 3;
         public static int GW_RUNNING_TIME = 15;
         public static int GW_ATTACK_CD = 60;
-        public static int MIN_COUNT_PLAYER = 1;
+        public static int MIN_COUNT_PLAYER = 0;
         public static int MIN_RANK_ATTACK = 3;
         public static int MIN_DIST = 100;
         public static int MAX_ATTACKS_DAY = 16;
@@ -45,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             GangwarAreas = new List<GangwarArea>();
             resetTime = DateTime.Today.AddDays(1);
             attacksCount = 0;
-            if (DatabaseConnectionCreated) { fetchAreas(); }
+            if (DatabaseConnectionCreated) fetchAreas();
         }
 
         public void fetchAreas()
@@ -74,9 +73,8 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public void CheckDay()
         {
             if (DateTime.Now >= resetTime)
-            {
                 ResetCount();
-            }
+
         }
 
         public void Update()
@@ -88,19 +86,17 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 // Update current gangwar if one is running
                 if (this.currentArea != null)
-                {
                     this.currentArea.GetCurrentRound().UpdateTime();
-                }
             }
             catch { }
         }
 
-        public void ProcessDamage(IPlayer source, string target_name, float damage)
+        public void ProcessDamage(VnXPlayer source, VnXPlayer target, float damage)
         {
             try
             {
-                //if (this.currentArea != null)
-                //this.currentArea.GetCurrentRound().ProcessDamage(source, target.vnxGetElementData<int>( damage);
+                if (this.currentArea != null)
+                    this.currentArea.GetCurrentRound().ProcessDamage(source, target, damage);
             }
             catch { }
         }

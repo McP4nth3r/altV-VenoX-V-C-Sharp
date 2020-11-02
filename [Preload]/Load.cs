@@ -23,6 +23,7 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "Tactics:Load");
                     break;
                 case Gamemodes.Zombies:
+                    Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, false, false);
                     Alt.Server.TriggerClientEvent(player, "Zombies:CreateHUD", player.Zombies.Zombie_kills);
                     break;
                 case Gamemodes.Race:
@@ -38,6 +39,7 @@ namespace VenoXV._Preload_
         }
         public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
+            player.Emit("BlipClass:RemoveAllBlips");
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
@@ -45,12 +47,16 @@ namespace VenoXV._Preload_
                     Alt.Server.TriggerClientEvent(player, "XMenu:Unload");
                     Alt.Server.TriggerClientEvent(player, "Phone:Unload");
                     Alt.Server.TriggerClientEvent(player, "Reallife:UnloadHUD");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
+                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
                     break;
                 case Gamemodes.Tactics:
                     Alt.Server.TriggerClientEvent(player, "Tactics:Unload");
                     break;
                 case Gamemodes.Zombies:
+                    Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, true, false);
                     Alt.Server.TriggerClientEvent(player, "Zombies:DestroyHUD");
+                    Alt.Server.TriggerClientEvent(player, "Zombies:OnGamemodeDisconnect");
                     break;
                 case Gamemodes.Race:
                     Alt.Server.TriggerClientEvent(player, "Race:Unload");
@@ -64,5 +70,6 @@ namespace VenoXV._Preload_
                     break;
             }
         }
+
     }
 }

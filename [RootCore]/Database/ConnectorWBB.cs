@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
     {
 
 
-        private static string connString = $"server=51.38.127.227; database=forum_vnx; uid=forum_vnx; pwd=m4V6t^l2D6m%hs202^uV7k3p";
+        private static string connString = $"server=5.180.66.158; database=forum_vnx; uid=forum_vnx; pwd=j_4w06xM#T4i4z5q@1Fgaj57";
         private static List<(string, string)> optionsWithDefaultValue;
         // Neue Gute Forum Sync.
 

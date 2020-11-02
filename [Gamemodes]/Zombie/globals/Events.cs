@@ -16,15 +16,15 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
     {
         //public static List<int> KilledZombieIds = new List<int>();
         [AsyncClientEvent("Zombies:OnZombieDeath")]
-        public static void OnZombieDeath(VnXPlayer player, int Id)
+        public static void OnZombieDeath(VnXPlayer player = null, int Id = 0)
         {
             try
             {
+                ZombieModel zombie = Spawner.CurrentZombies.FirstOrDefault(z => z.ID == Id);
+                if (zombie != null) zombie.IsDead = true;
+                if (player is null || !player.Exists) return;
                 lock (player)
                 {
-                    if (player is null || !player.Exists) return;
-                    ZombieModel zombie = Spawner.CurrentZombies.FirstOrDefault(z => z.ID == Id);
-                    if (zombie != null) zombie.IsDead = true;
                     player.Zombies.Zombie_kills += 1;
                     if (LevelSystem.LevelWeapons.ContainsKey(player.Zombies.Zombie_kills))
                     {
@@ -32,12 +32,8 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                         LevelSystem.GivePlayerWeaponsByLevel(player);
                     }
                 }
-                //Core.Debug.OutputDebugString("Zombies:OnZombieDeath with ID : " + Id + " called");
-                //if (KilledZombieIds.Contains(Id)) return;
-                //KilledZombieIds.Add(Id);
-                //Spawner.DestroyZombieById(Id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerDisconnect(VnXPlayer player)
@@ -52,23 +48,12 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
         }
 
         [AsyncClientEvent("Zombies:OnSyncerCall")]
-        public static void OnZombiesSyncerCall(VnXPlayer player, int ZombieId, float ZombiePosX, float ZombiePosY, float ZombiePosZ, float ZombieRotX, float ZombieRotY, float ZombieRotZ)
+        public static void OnZombiesSyncerCall(VnXPlayer player = null, int ZombieId = 0, float ZombiePosX = 0, float ZombiePosY = 0, float ZombiePosZ = 0, float ZombieRotX = 0, float ZombieRotY = 0, float ZombieRotZ = 0)
         {
             try
             {
-                lock (player)
-                {
-                    if (player is null || !player.Exists) return;
-                    foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
-                    {
-                        if (zombieClass.ID == ZombieId)
-                        {
-                            zombieClass.UpdatePositionAndRotation(new Vector3(ZombiePosX, ZombiePosY, ZombiePosZ), new Vector3(ZombieRotX, ZombieRotY, ZombieRotZ));
-                            //zombieClass.Position = new Vector3(ZombiePosX, ZombiePosY, ZombiePosZ);
-                            //zombieClass.Rotation = new Vector3(ZombieRotX, ZombieRotY, ZombieRotZ);
-                        }
-                    }
-                }
+                ZombieModel zombie = Spawner.CurrentZombies.FirstOrDefault(z => z.ID == ZombieId);
+                if (zombie != null) zombie.UpdatePositionAndRotation(new Vector3(ZombiePosX, ZombiePosY, ZombiePosZ), new Vector3(ZombieRotX, ZombieRotY, ZombieRotZ));
                 World.Main.SyncZombieTargeting();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

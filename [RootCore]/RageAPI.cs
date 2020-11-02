@@ -429,7 +429,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (vehicleClass is null) return;
+                if (vehicleClass is null || !vehicleClass.Exists) return;
                 vehicleClass.Dimension = 99998;
                 vehicleClass.EngineOn = false;
                 vehicleClass.Locked = true;
@@ -437,7 +437,6 @@ namespace VenoXV.Core
                 if (!Globals.Main.AllVehicles.Contains(vehicleClass)) Globals.Main.AllVehicles.Add(vehicleClass);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
-
         }
 
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, VnXPlayer VisibleOnlyFor = null)
