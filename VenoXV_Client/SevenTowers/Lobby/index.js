@@ -9,20 +9,21 @@ import { DrawText, ShowCountdown } from '../../Globals/VnX-Lib';
 
 let SevenTowersTick;
 let CurrentWinner = "Noob";
-
+let CurrentWinnerText = "";
 export function Render7TowersLobby() {
     try {
         //DrawText("1:34", [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);
         //game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175);
-        DrawText(CurrentWinner + " gewinnt die Runde.", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], false, true);
+        DrawText(CurrentWinner + " " + CurrentWinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], false, true);
         game.drawRect(0.5, 0.57, 0.25, 0.005, 255, 200, 0, 255);
     }
-    catch{ }
+    catch { }
 }
 
-alt.onServer('SevenTowers:ShowWinner', (Winner, DestroyMS) => {
+alt.onServer('SevenTowers:ShowWinner', (Winner, TranslatedText, DestroyMS) => {
     try {
-        if (SevenTowersTick != null) { return; }
+        if (SevenTowersTick != null) return;
+        CurrentWinnerText = TranslatedText;
         alt.toggleGameControls(false);
         SevenTowersTick = alt.everyTick(() => {
             Render7TowersLobby();
@@ -35,5 +36,5 @@ alt.onServer('SevenTowers:ShowWinner', (Winner, DestroyMS) => {
             }
         }, DestroyMS);
     }
-    catch{ }
+    catch { }
 });
