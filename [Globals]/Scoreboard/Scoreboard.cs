@@ -79,7 +79,7 @@ namespace VenoXV._Globals_.Scoreboard
                 List<ScoreboardModel> AlleSpieler = AllPlayers;
                 foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
-                    Alt.Server.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler), player.Gamemode);
+                    VenoX.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler), player.Gamemode);
                 }
             }
             catch { }

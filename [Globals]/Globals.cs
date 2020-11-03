@@ -4,6 +4,8 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using VenoXV._Preload_;
+using VenoXV._RootCore_;
+using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
@@ -190,9 +192,10 @@ namespace VenoXV.Globals
         {
             try
             {
+                Core.Debug.OutputDebugString(player?.Username + " got hitted " + killer?.Username + " | Dmg : " + Damage);
                 player.vnxSetStreamSharedElementData("PLAYER_HEALTH", player.Health);
                 player.vnxSetStreamSharedElementData("PLAYER_ARMOR", player.Armor);
-                killer.Emit("Globals:PlayHitsound");
+                VenoX.TriggerClientEvent(killer, "Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
                 _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
                 _Gamemodes_.Reallife.gangwar.Allround.ProcessDamage(player, killer, Damage);
@@ -206,7 +209,7 @@ namespace VenoXV.Globals
             try
             {
                 if (vehicle.Godmode) return;
-                player.Emit("Globals:PlayHitsound");
+                VenoX.TriggerClientEvent(player, "Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamagedVehicle", vehicle);
                 Core.Debug.OutputDebugString(player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! DMG : " + Damage);
                 string DriverName = "niemand";
@@ -256,7 +259,7 @@ namespace VenoXV.Globals
             {
                 source.vnxSetStreamSharedElementData("PLAYER_HEALTH", source.Health);
                 source.vnxSetStreamSharedElementData("PLAYER_ARMOR", source.Armor);
-                source.Emit("Globals:ShowBloodScreen");
+                VenoX.TriggerClientEvent(source, "Globals:ShowBloodScreen");
             }
             catch { }
         }
@@ -266,14 +269,15 @@ namespace VenoXV.Globals
         {
             try
             {
-                Debug.OutputDebugString(player.Username + " | " + IsOpen + " | " + Id + " | " + Name + " | " + Avatar + " | " + Discriminator);
+                Database.UpdateDiscordInformations(player.Username, player.Discord.ID, player.Discord.Avatar);
+                Debug.OutputDebugString(player.Username + " | UID " + player.UID + " | " + IsOpen + " | " + Id + " | " + Name + " | " + Avatar + " | " + Discriminator);
                 player.Discord.ID = Id;
                 player.Discord.IsOpen = IsOpen;
                 player.Discord.Name = Name;
                 player.Discord.Avatar = Avatar;
                 player.Discord.Discriminator = Discriminator;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

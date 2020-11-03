@@ -3,6 +3,7 @@ using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -92,12 +93,12 @@ namespace VenoXV._Globals_
                 ID = ID
             };
             //CurrentPlayerCameras.Add(PlayerCamera);
-            Alt.Server.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
+            VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
         }
         [Command("stopcam")]
         public static void StopCurrentCamera(VnXPlayer player)
         {
-            player?.Emit("Player:DestroyCamera");
+            VenoX.TriggerClientEvent(player, "Player:DestroyCamera");
         }
 
 
@@ -146,7 +147,7 @@ namespace VenoXV._Globals_
             {
                 if (cam.CameraCreator == player.Username && cam.ID == ID)
                 {
-                    Alt.Server.TriggerClientEvent(player, "Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
+                    VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
                 }
             }
         }

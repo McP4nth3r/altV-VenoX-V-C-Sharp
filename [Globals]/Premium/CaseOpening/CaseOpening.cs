@@ -3,6 +3,7 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using VenoXV._Globals_.Premium.CaseOpening;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Globals_.Premium
@@ -49,7 +50,7 @@ namespace VenoXV._Globals_.Premium
                     Class = "VenoX_ULTIMATE_Legendary",
                 }
             };
-            Alt.Server.TriggerClientEvent(player, "CaseOpening:LoadChances", JsonConvert.SerializeObject(CaseChances));
+            VenoX.TriggerClientEvent(player, "CaseOpening:LoadChances", JsonConvert.SerializeObject(CaseChances));
         }
         public static void LoadCase(VnXPlayer player, string Case)
         {
@@ -269,14 +270,14 @@ namespace VenoXV._Globals_.Premium
                     }
                 }
             };
-            Alt.Server.TriggerClientEvent(player, "CaseOpening:LoadCase", JsonConvert.SerializeObject(CaseItems));
+            VenoX.TriggerClientEvent(player, "CaseOpening:LoadCase", JsonConvert.SerializeObject(CaseItems));
         }
 
 
         [Command("opencase")]
         public static void OpenCase(VnXPlayer player)
         {
-            Alt.Server.TriggerClientEvent(player, "CaseOpening:Show");
+            VenoX.TriggerClientEvent(player, "CaseOpening:Show");
             LoadCaseChances(player);
             LoadCase(player, "");
         }
