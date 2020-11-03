@@ -47,7 +47,7 @@ alt.on("gameEntityCreate", entity => {
 let CurrentLabels = {};
 alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, ColorG, ColorB, ColorA, Dimension, Range) => {
     try {
-        if (CurrentLabels[ID] != null) { return; }
+        if (CurrentLabels[ID] != null) return;
         CurrentLabels[ID] = {
             ID: ID,
             Text: Text,
@@ -62,13 +62,13 @@ alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, C
     }
     catch { }
 });
-
-alt.onServer('Sync:RemoveLabels', () => {
-    //outputted = false;
-    CurrentLabels = {};
+alt.onServer('Sync:RemoveLabelByID', (ID) => {
+    if (CurrentLabels[ID] == null) return;
+    delete CurrentLabels[ID];
 });
 
-/* Sync : Marker-Map */
+
+/* Sync : Markers */
 let CurrentMarkers = {};
 alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, ScaleZ, ColorR, ColorG, ColorB, ColorA) => {
     try {
@@ -85,14 +85,15 @@ alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, Sc
     }
     catch { }
 })
-alt.onServer('Sync:RemoveMarkers', () => {
-    CurrentMarkers = {};
+alt.onServer('Sync:RemoveMarkerByID', (ID) => {
+    if (CurrentMarkers[ID] == null) return;
+    delete CurrentMarkers[ID];
 });
-
-let cObjs = {};
-let cObjCounter = 0;
-alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => {
+/* Sync : Obj-Map */
+let CurrentObjects = {};
+alt.onServer('Sync:LoadObjs', (ID, Parent, Hash, Position, Rotation, HashNeeded) => {
     try {
+        if (CurrentObjects[ID] != null) return;
         let Entity;
         if (HashNeeded) {
             let newHash = game.getHashKey(Hash);
@@ -111,7 +112,7 @@ alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => 
         }
         game.setEntityRotation(Entity, Rotation.x, Rotation.y, Rotation.z, 2, true);
         game.setEntityQuaternion(Entity, 0, 0, 0, 0);
-        cObjs[cObjCounter++] = {
+        CurrentObjects[ID] = {
             Entity: Entity,
             Parent: Parent
         };
@@ -119,17 +120,9 @@ alt.onServer('Sync:LoadObjs', (Parent, Hash, Position, Rotation, HashNeeded) => 
     catch { }
 });
 
-alt.onServer('Sync:DestroyObjs', () => {
-    try {
-        for (var counter in cObjs) {
-            if (cObjs[counter].Entity != null) {
-                game.deleteObject(cObjs[counter].Entity);
-            }
-        }
-        cObjs = {};
-        cObjCounter = 0;
-    }
-    catch { }
+alt.onServer('Sync:RemoveObjByID', (ID) => {
+    if (CurrentObjects[ID] == null) return;
+    delete CurrentObjects[ID];
 });
 
 

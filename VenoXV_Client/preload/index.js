@@ -8,7 +8,7 @@ import * as game from "natives";
 import {
     ShowCursor, vnxCreateCEF
 }
-from '../Globals/VnX-Lib';
+    from '../Globals/VnX-Lib';
 
 let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 
@@ -43,7 +43,7 @@ alt.onServer('preload_gm_list', () => {
         ShowCursor(true);
         preloadbrowser.focus();
 
-    } catch {}
+    } catch { }
 });
 
 
@@ -89,5 +89,5 @@ alt.onServer("Charselector:setCorrectSkin", (facefeaturesarray, headblendsarray,
         for (let i = 0; i < 20; i++) {
             game.setPedFaceFeature(alt.Player.local.scriptID, i, facefeatures[i]);
         }
-    } catch {}
+    } catch { }
 });
