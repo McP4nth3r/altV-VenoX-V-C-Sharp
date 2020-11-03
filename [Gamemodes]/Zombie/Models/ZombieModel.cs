@@ -1,8 +1,8 @@
-﻿using AltV.Net.Async;
-using System;
+﻿using System;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.KI;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Zombie.Models
@@ -17,6 +17,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
         public string HeadOverlays { get; set; }
         public string SkinName { get; set; }
         private Vector3 _Position { get; set; }
+        public VnXPlayer Killer { get; set; }
         public Vector3 Position
         {
             get { return _Position; }
@@ -24,7 +25,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Position = value;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
             }
         }
         private Vector3 _Rotation { get; set; }
@@ -35,7 +36,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Rotation = value;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
             }
         }
         public void UpdatePositionAndRotation(Vector3 position, Vector3 rotation)
@@ -45,7 +46,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
                 _Position = position;
                 _Rotation = rotation;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) players.EmitLocked("Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
             catch { }
         }
@@ -56,7 +57,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             set
             {
                 _Armor = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) players.EmitLocked("Zombies:SetArmor", this.ID, value);
+                    if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetArmor", this.ID, value);
             }
         }
         private int _Health { get; set; }
@@ -66,7 +67,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             set
             {
                 _Health = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) players.EmitLocked("Zombies:SetHealth", this.ID, value);
+                    if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetHealth", this.ID, value);
             }
         }
         private bool _IsDead { get; set; }
@@ -75,9 +76,9 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             get { return _IsDead; }
             set
             {
-                _IsDead = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this))
-                        players.Emit("Zombies:SetDead", this.ID, value);
+                _IsDead = value;
+                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this) && this.Killer != players) VenoX.TriggerClientEvent(players, "Zombies:SetDead", this.ID, value);
             }
         }
         public void Destroy()
@@ -85,7 +86,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             try
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) { players.EmitLocked("Zombies:Destroy", this.ID); players?.Zombies.NearbyZombies.Remove(this); }
+                    if (players.Zombies.NearbyZombies.Contains(this)) { VenoX.TriggerClientEvent(players, "Zombies:Destroy", this.ID); players?.Zombies.NearbyZombies.Remove(this); }
                 Spawner.CurrentZombies.Remove(this);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

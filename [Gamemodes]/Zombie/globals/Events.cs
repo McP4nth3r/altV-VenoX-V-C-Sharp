@@ -25,6 +25,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                 if (player is null || !player.Exists) return;
                 lock (player)
                 {
+                    if (zombie != null) zombie.Killer = player;
                     player.Zombies.Zombie_kills += 1;
                     if (LevelSystem.LevelWeapons.ContainsKey(player.Zombies.Zombie_kills))
                     {
@@ -41,13 +42,11 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
             try
             {
                 player.Zombies.IsSyncer = false;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyPlayers.Contains(player)) players.Zombies.NearbyPlayers.Remove(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [AsyncClientEvent("Zombies:OnSyncerCall")]
+        [ClientEvent("Zombies:OnSyncerCall")]
         public static void OnZombiesSyncerCall(VnXPlayer player = null, int ZombieId = 0, float ZombiePosX = 0, float ZombiePosY = 0, float ZombiePosZ = 0, float ZombieRotX = 0, float ZombieRotY = 0, float ZombieRotZ = 0)
         {
             try

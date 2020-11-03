@@ -8,6 +8,7 @@ using System.Numerics;
 using VenoXV._Gamemodes_.KI;
 using VenoXV._Gamemodes_.Zombie.KI;
 using VenoXV._Gamemodes_.Zombie.Models;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -59,7 +60,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 int randomnumb = random.Next(0, PLAYER_SPAWNS.Count);
                 player.SpawnPlayer(PLAYER_SPAWNS[randomnumb]);
                 player.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
-                //Alt.Server.TriggerClientEvent(player, "Zombie:OnResourceStart");
+                //VenoX.TriggerClientEvent(player, "Zombie:OnResourceStart");
                 LevelSystem.GivePlayerWeaponsByLevel(player);
                 SendPlayerWelcomeNotify(player);
             }
@@ -83,41 +84,30 @@ namespace VenoXV._Gamemodes_.Zombie.World
             try
             {
                 uint BestPing = player.Ping;
-                //Clear NearbyPlayers.
-                player.Zombies.NearbyPlayers.Clear();
-
-                // Get Nearby Players
-                foreach (VnXPlayer otherplayers in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                {
-                    if (otherplayers.Position.Distance(player.Position) <= MAX_ZOMBIE_RANGE && player != otherplayers)
-                        player.Zombies.NearbyPlayers.Add(otherplayers);
-                }
                 //If no one is near you, you are the Syncer.
-                if (player.Zombies.NearbyPlayers.Count <= 0) player.Zombies.IsSyncer = true;
+                if (player.NearbyPlayers.Count <= 0) player.Zombies.IsSyncer = true;
                 else
                 {
                     // Get New Syncer.
-                    foreach (VnXPlayer nearbyPlayers in player.Zombies.NearbyPlayers.ToList())
+                    foreach (VnXPlayer nearbyPlayers in player.NearbyPlayers.ToList())
                     {
                         if (BestPing < nearbyPlayers.Ping)
                         {
                             BestPing = nearbyPlayers.Ping;
                             nearbyPlayers.Zombies.IsSyncer = true;
                             player.Zombies.IsSyncer = false;
-                            //Core.Debug.OutputDebugString("Syncer for nearest Area : " + nearbyPlayers.Username);
                         }
                         else
                         {
                             nearbyPlayers.Zombies.IsSyncer = false;
                             player.Zombies.IsSyncer = true;
-                            //Alt.Server.TriggerClientEvent(player, "Zombies:Sync", false);
-                            player?.EmitLocked("Zombies:Sync", false);
-                            nearbyPlayers?.EmitLocked("Zombies:Sync", false);
+                            VenoX.TriggerClientEvent(player, "Zombies:Sync", false);
+                            VenoX.TriggerClientEvent(nearbyPlayers, "Zombies:Sync", false);
                         }
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void GetBestAreaSyncer()
         {
@@ -128,9 +118,8 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     if (player != null)
                     {
                         SetBestPlayerByPing(player);
-                        if (player.Zombies.IsSyncer)
-                            player.EmitLocked("Zombies:Sync", true);
-                        //Alt.Server.TriggerClientEvent(player, "Zombies:Sync", true);
+                        if (player.Zombies.IsSyncer) VenoX.TriggerClientEvent(player, "Zombies:Sync", true, player.NearbyPlayers.Count);
+                        //VenoX.TriggerClientEvent(player, "Zombies:Sync", true);
                     }
                 }
             }
@@ -171,10 +160,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                             }
                             else
                             {
-                                if (player.Zombies.NearbyZombies.Contains(zombieClass))
-                                {
-                                    player.Zombies.NearbyZombies.Remove(zombieClass); player.EmitLocked("Zombies:DeleteTempZombieById", zombieClass.ID);
-                                }
+                                if (player.Zombies.NearbyZombies.Contains(zombieClass)) player.Zombies.NearbyZombies.Remove(zombieClass); player.EmitLocked("Zombies:DeleteTempZombieById", zombieClass.ID);
                             }
                         }
                     }

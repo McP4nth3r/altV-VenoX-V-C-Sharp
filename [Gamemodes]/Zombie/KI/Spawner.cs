@@ -75,11 +75,11 @@ namespace VenoXV._Gamemodes_.KI
                         if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < MAX_ZOMBIES)
                         {
                             CreateNewRandomZombie(player);
-                            foreach (VnXPlayer nearbyPlayer in player.Zombies.NearbyPlayers.ToList())
+                            foreach (VnXPlayer nearbyPlayer in player.NearbyPlayers.ToList())
                                 CreateNewRandomZombie(nearbyPlayer);
                         }
-                        else if (player.Zombies.IsSyncer)
-                            Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von " + MAX_ZOMBIES + " Zombies erreicht.");
+                        //else if (player.Zombies.IsSyncer)
+                        //Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von " + MAX_ZOMBIES + " Zombies erreicht.");
                     }
                 }
             }
@@ -96,17 +96,17 @@ namespace VenoXV._Gamemodes_.KI
                     {
                         if (clothes.type == 0)
                         {
-                            //Alt.Server.TriggerClientEvent(player, "Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            //VenoX.TriggerClientEvent(player, "Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                             player?.EmitLocked("Zombies:ClothesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                         else
                         {
-                            //Alt.Server.TriggerClientEvent(player, "Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
+                            //VenoX.TriggerClientEvent(player, "Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                             player?.EmitLocked("Zombies:AccessoriesLoad", ZombieId, clothes.slot, clothes.drawable, clothes.texture);
                         }
                     }
                 }
-                //Alt.Server.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
+                //VenoX.TriggerClientEvent(player, "Zombies:ApplyBloodToZombie", ZombieId);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -122,7 +122,7 @@ namespace VenoXV._Gamemodes_.KI
                         if (player.Position.Distance(zombieClass.Position) < Zombie.World.Main.MAX_ZOMBIE_RANGE)
                         {
                             player?.EmitLocked("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
-                            //Alt.Server.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
+                            //VenoX.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                             zombieClass.Armor = 200;
                             zombieClass.Health = 200;
                             ApplyZombieClothes(player, zombieClass.RandomSkinUID, zombieClass.ID);
