@@ -27,10 +27,11 @@ game.requestAnimDict("special_ped@zombie@monologue_6@monologue_6a");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-alt.onServer('Zombies:Sync', async (state) => {
+alt.onServer('Zombies:Sync', async (state, playerCount = 0) => {
     try {
         IsSyncer = state;
         if (IsSyncer) {
+            if (playerCount <= 0) return;
             SyncInterval = alt.setInterval(() => {
                 let numb = 0;
                 for (var counter in Zombies) {
@@ -44,14 +45,13 @@ alt.onServer('Zombies:Sync', async (state) => {
                         numb++;
                     }
                 };
-                //Debug.
-                //if (numb > 0) alt.log("Called : " + numb);
             }, 850);
-
         }
         else {
-            if (SyncInterval) alt.clearInterval(SyncInterval);
-            SyncInterval = null;
+            if (SyncInterval) {
+                alt.clearInterval(SyncInterval);
+                SyncInterval = null;
+            }
         }
     }
     catch { }
