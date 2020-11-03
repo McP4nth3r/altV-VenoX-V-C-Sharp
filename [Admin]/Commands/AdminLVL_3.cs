@@ -8,6 +8,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -163,14 +164,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                         player.SendTranslatedChatMessage("~g~Du hast " + Target.Username + " wiederbelebt.");
                         Target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat dich wiederbelebt.");
                         logfile.WriteLogs("admin", player.Username + " hat " + Target.Username + " wiederbelebt!");
-                        Target.Emit("destroyKrankenhausTimer");
-                        Target.Emit("VnX_DestroyIPlayerSideTimer_KH");
+                        VenoX.TriggerClientEvent(Target, "destroyKrankenhausTimer");
+                        VenoX.TriggerClientEvent(Target, "VnX_DestroyIPlayerSideTimer_KH");
                         foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
                             if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                            {
-                                medics.Emit("Destroy_MedicBlips", Target.Username);
-                            }
+                                VenoX.TriggerClientEvent(medics, "Destroy_MedicBlips", Target.Username);
                         }
                     }
                 }

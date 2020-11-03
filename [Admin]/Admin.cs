@@ -74,7 +74,7 @@ namespace VenoXV._Admin_
         [Command("evalc")]
         public static void HideHUDForPlayer(VnXPlayer player, string st)
         {
-            player.Emit("eval", st);
+            VenoX.TriggerClientEvent(player, "eval", st);
         }
 
         [Command("admins")]
@@ -422,9 +422,9 @@ namespace VenoXV._Admin_
         public static void UpdateTargetInventar(VnXPlayer player, string target_name)
         {
             VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
+            if (target == null) return;
             List<InventoryModel> inventory = _Gamemodes_.Reallife.anzeigen.Inventar.Main.GetPlayerInventory(target);
-            target.Emit("Inventory:Update", JsonConvert.SerializeObject(inventory));
+            VenoX.TriggerClientEvent(target, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
 
         [Command("clearinventar")]
@@ -493,7 +493,7 @@ namespace VenoXV._Admin_
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.Emit("VnX_Play_Sound", SoundName, SoundSetName);
+                VenoX.TriggerClientEvent(target, "VnX_Play_Sound", SoundName, SoundSetName);
             }
         }
 
@@ -504,7 +504,7 @@ namespace VenoXV._Admin_
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.Emit("load_audio_table_vnx", audioclass);
+                VenoX.TriggerClientEvent(target, "load_audio_table_vnx", audioclass);
             }
         }
 
@@ -515,7 +515,7 @@ namespace VenoXV._Admin_
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.Emit("start_screen_fx", effect, duration, loop);
+                VenoX.TriggerClientEvent(target, "start_screen_fx", effect, duration, loop);
             }
         }
 
@@ -526,7 +526,7 @@ namespace VenoXV._Admin_
             if (target == null) { return; }
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                target.Emit("stop_screen_fx", effect);
+                VenoX.TriggerClientEvent(target, "stop_screen_fx", effect);
             }
         }
 
@@ -862,7 +862,6 @@ namespace VenoXV._Admin_
                 else
                 {
                     target.Reallife.FactionRank = rank;
-                    _Gamemodes_.Reallife.anzeigen.Usefull.VnX.OnFactionChange(target);
                     target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat deinen Fraktion´s rang auf " + rank + " geändert!");
                     sendAdminNotification(player.Username + " hat " + target.Username + " Franktion´s Rang auf " + rank + " geändert!");
                     logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " Franktion´s Rang auf " + rank + " geändert!");
@@ -1170,7 +1169,7 @@ namespace VenoXV._Admin_
         {
             if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
             {
-                Alt.EmitAllClients("Sync:LoadMap", "Custom", ObjName, new Vector3(player.Position.X, player.Position.Y, player.Position.Y - 0.3f), 0, 0, 0, 0, 2, player.Rotation, true, true);
+                VenoX.TriggerEventForAll("Sync:LoadMap", "Custom", ObjName, new Vector3(player.Position.X, player.Position.Y, player.Position.Y - 0.3f), 0, 0, 0, 0, 2, player.Rotation, true, true);
                 Debug.OutputDebugString("CMD-Executed!");
             }
         }
@@ -1183,7 +1182,7 @@ namespace VenoXV._Admin_
             {
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) { return; }
-                Alt.EmitAllClients("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
+                VenoX.TriggerEventForAll("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
                 Debug.OutputDebugString("CMD-Executed!");
             }
         }

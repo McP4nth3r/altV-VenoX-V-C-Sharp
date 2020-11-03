@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -16,12 +17,12 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 if (betreff.Length == 0)
                 {
-                    Alt.Server.TriggerClientEvent(player, "showTicketError");
+                    VenoX.TriggerClientEvent(player, "showTicketError");
                     return;
                 }
                 else if (text.Length == 0)
                 {
-                    Alt.Server.TriggerClientEvent(player, "showTicketError");
+                    VenoX.TriggerClientEvent(player, "showTicketError");
                     return;
                 }
 
@@ -30,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 ticket.Betreff = betreff;
                 ticket.Frage = text;
                 ticket.id = Database.AddNewAdminTicket(ticket);
-                Alt.Server.TriggerClientEvent(player, "Destroy_Ticket_Window");
+                VenoX.TriggerClientEvent(player, "Destroy_Ticket_Window");
                 Admin.sendAdminInformation(player.Username + " hat ein neues Ticket erstellt. [" + ticket.id + "]");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
