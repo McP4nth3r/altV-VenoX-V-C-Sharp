@@ -51,7 +51,7 @@ namespace VenoXV._Preload_
 
         public static void ShowPreloadList(VnXPlayer player)
         {
-            try { Alt.Server.TriggerClientEvent(player, "preload_gm_list"); }
+            try { VenoX.TriggerClientEvent(player, "preload_gm_list"); }
             catch { }
         }
 
@@ -86,7 +86,7 @@ namespace VenoXV._Preload_
             {
                 if (player == null) return;
                 player.Dimension = player.Id;
-                Alt.Server.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
+                VenoX.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
                 if (!Globals.Main.AllPlayers.Contains(player)) Globals.Main.AllPlayers.Add(player);
@@ -96,37 +96,37 @@ namespace VenoXV._Preload_
                     case (int)Gamemodes.Reallife:
                         if (!Main.ReallifePlayers.Contains(player)) Globals.Main.ReallifePlayers.Add(player);
                         _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                         break;
                     case (int)Gamemodes.Zombies:
                         if (!Main.ZombiePlayers.Contains(player)) Globals.Main.ZombiePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                         // _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
-                        Alt.Server.TriggerClientEvent(player, "Load_Zombie_GM");
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
+                        VenoX.TriggerClientEvent(player, "Load_Zombie_GM");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
                     case (int)Gamemodes.Tactics:
                         if (!Main.TacticsPlayers.Contains(player)) Globals.Main.TacticsPlayers.Add(player);
                         _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:
                         if (!Main.RacePlayers.Contains(player)) Globals.Main.RacePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                         break;
                     case (int)Gamemodes.SevenTowers:
                         if (!Main.SevenTowersPlayers.Contains(player)) Globals.Main.SevenTowersPlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
                         break;
                     case (int)Gamemodes.Derby:
                         if (!Main.DerbyPlayers.Contains(player)) Globals.Main.DerbyPlayers.Add(player);
                         _Gamemodes_.Derby.Lobby.Main.OnPlayerJoin(player);
-                        Alt.Server.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Derby");
+                        VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Derby");
                         break;
                     default:
                         Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
@@ -143,7 +143,7 @@ namespace VenoXV._Preload_
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.REALLIFE_MAX_PLAYERS, Main.TacticsPlayers.Count, Main.TACTICS_MAX_PLAYERS, Main.ZombiePlayers.Count, Main.ZOMBIES_MAX_PLAYERS, Main.RacePlayers.Count, Main.RACE_MAX_PLAYERS, Main.SevenTowersPlayers.Count, Main.SEVENTOWERS_MAX_PLAYERS);
+                VenoX.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.REALLIFE_MAX_PLAYERS, Main.TacticsPlayers.Count, Main.TACTICS_MAX_PLAYERS, Main.ZombiePlayers.Count, Main.ZOMBIES_MAX_PLAYERS, Main.RacePlayers.Count, Main.RACE_MAX_PLAYERS, Main.SevenTowersPlayers.Count, Main.SEVENTOWERS_MAX_PLAYERS);
             }
             catch { }
         }

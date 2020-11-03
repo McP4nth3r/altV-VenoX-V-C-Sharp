@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using static VenoXV._Preload_.Preload;
@@ -10,24 +11,27 @@ namespace VenoXV._Preload_
 
         public static void LoadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
+            Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, true, false);
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
-                    Alt.Server.TriggerClientEvent(player, "Inventory:Load");
-                    Alt.Server.TriggerClientEvent(player, "XMenu:Load");
-                    Alt.Server.TriggerClientEvent(player, "Phone:Load");
-                    Alt.Server.TriggerClientEvent(player, "Reallife:LoadHUD", player.Reallife.HUD);
+                    Loading.Main.LoadReallifeMaps(player);
+                    _Maps_.Main.LoadMap(player, _Maps_.Main.BUSSTATION_MAP);
+                    VenoX.TriggerClientEvent(player, "Inventory:Load");
+                    VenoX.TriggerClientEvent(player, "XMenu:Load");
+                    VenoX.TriggerClientEvent(player, "Phone:Load");
+                    VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.Reallife.HUD);
                     Sync.LoadAllNPCs(player);
                     break;
                 case Gamemodes.Tactics:
-                    Alt.Server.TriggerClientEvent(player, "Tactics:Load");
+                    VenoX.TriggerClientEvent(player, "Tactics:Load");
                     break;
                 case Gamemodes.Zombies:
                     Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, false, false);
-                    Alt.Server.TriggerClientEvent(player, "Zombies:CreateHUD", player.Zombies.Zombie_kills);
+                    VenoX.TriggerClientEvent(player, "Zombies:CreateHUD", player.Zombies.Zombie_kills);
                     break;
                 case Gamemodes.Race:
-                    Alt.Server.TriggerClientEvent(player, "Race:Load");
+                    VenoX.TriggerClientEvent(player, "Race:Load");
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
@@ -39,27 +43,28 @@ namespace VenoXV._Preload_
         }
         public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
-            player.Emit("BlipClass:RemoveAllBlips");
+            VenoX.TriggerClientEvent(player, "BlipClass:RemoveAllBlips");
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
-                    Alt.Server.TriggerClientEvent(player, "Inventory:Unload");
-                    Alt.Server.TriggerClientEvent(player, "XMenu:Unload");
-                    Alt.Server.TriggerClientEvent(player, "Phone:Unload");
-                    Alt.Server.TriggerClientEvent(player, "Reallife:UnloadHUD");
-                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
-                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
+                    Loading.Main.UnloadReallifeMaps(player);
+                    VenoX.TriggerClientEvent(player, "Inventory:Unload");
+                    VenoX.TriggerClientEvent(player, "XMenu:Unload");
+                    VenoX.TriggerClientEvent(player, "Phone:Unload");
+                    VenoX.TriggerClientEvent(player, "Reallife:UnloadHUD");
+                    VenoX.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
+                    VenoX.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
                     break;
                 case Gamemodes.Tactics:
-                    Alt.Server.TriggerClientEvent(player, "Tactics:Unload");
+                    VenoX.TriggerClientEvent(player, "Tactics:Unload");
                     break;
                 case Gamemodes.Zombies:
                     Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, true, false);
-                    Alt.Server.TriggerClientEvent(player, "Zombies:DestroyHUD");
-                    Alt.Server.TriggerClientEvent(player, "Zombies:OnGamemodeDisconnect");
+                    VenoX.TriggerClientEvent(player, "Zombies:DestroyHUD");
+                    VenoX.TriggerClientEvent(player, "Zombies:OnGamemodeDisconnect");
                     break;
                 case Gamemodes.Race:
-                    Alt.Server.TriggerClientEvent(player, "Race:Unload");
+                    VenoX.TriggerClientEvent(player, "Race:Unload");
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);

@@ -6,6 +6,7 @@ using System.Text;
 using VenoXV._Admin_;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -71,8 +72,8 @@ namespace VenoXV._Preload_.Login
                 BanModel BanClass = Admin.GetClientBanModel(player);
                 Core.Debug.OutputDebugString("Function called because " + player.Name + " is banned");
                 if (BanClass is null) return;
-                if (BanClass.BanType == "Permaban") Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, "Permanently", BanClass.Reason);
-                else Alt.Server.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, BanClass.BannedTill.ToString(), BanClass.Reason);
+                if (BanClass.BanType == "Permaban") VenoX.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, "Permanently", BanClass.Reason);
+                else VenoX.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, BanClass.BannedTill.ToString(), BanClass.Reason);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -90,8 +91,8 @@ namespace VenoXV._Preload_.Login
                 Database.LoadCharacterInformationById(player, accClass.UID);
                 if (!Character_Creator.Main.PlayerHaveSkin(player))
                 {
-                    Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
-                    Alt.Server.TriggerClientEvent(player, "CharCreator:Start", player.Sex);
+                    VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
+                    VenoX.TriggerClientEvent(player, "CharCreator:Start", player.Sex);
                     player.Playing = true;
                     _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                     player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
@@ -99,7 +100,7 @@ namespace VenoXV._Preload_.Login
                     return;
                 }
                 if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
-                Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
+                VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 Preload.ShowPreloadList(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

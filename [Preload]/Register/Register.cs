@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -44,7 +45,7 @@ namespace VenoXV._Preload_.Register
             try
             {
                 player.SetPlayerSkin(sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
-                Alt.Server.TriggerClientEvent(player, "Player:DefaultComponentVariation");
+                VenoX.TriggerClientEvent(player, "Player:DefaultComponentVariation");
                 /*player.SetClothes(11, 15, 0);
                 player.SetClothes(3, 15, 0);
                 player.SetClothes(8, 15, 0);*/
@@ -75,8 +76,8 @@ namespace VenoXV._Preload_.Register
                 player.Username = nickname;
                 player.UID = UID;
                 Database.CreateCharacter(player, player.UID);
-                Alt.Server.TriggerClientEvent(player, "DestroyLoginWindow");
-                Alt.Server.TriggerClientEvent(player, "CharCreator:Start", sex);
+                VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
+                VenoX.TriggerClientEvent(player, "CharCreator:Start", sex);
                 player.Playing = true;
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
