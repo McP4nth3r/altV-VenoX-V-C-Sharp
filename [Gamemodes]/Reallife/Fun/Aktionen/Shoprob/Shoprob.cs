@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.quests;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -113,7 +114,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 }
                 foreach (var ShopCoord in ShopSkins)
                 {
-                    Alt.Server.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
+                    VenoX.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
                 }
             }
             catch { }
@@ -126,7 +127,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             {
                 if (shape.vnxGetElementData<bool>(SHOP_IS_COL) == true) // == True = BugFix ( Cannot not Convert null to Bolean) < --- Server Crash verhindung.
                 {
-                    Alt.Server.TriggerClientEvent(player, "CreateShopWindow");
+                    VenoX.TriggerClientEvent(player, "CreateShopWindow");
                     player.vnxSetElementData(SHOP_ID, shape.vnxGetElementData<int>(SHOP_ID));
                 }
             }

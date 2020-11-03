@@ -5,6 +5,7 @@ using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -18,7 +19,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player, "DeathScreen:Show", DeathScreenTime);
+                VenoX.TriggerClientEvent(player, "DeathScreen:Show", DeathScreenTime);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -45,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
                 CreateKrankenhausTimer(player);
                 if (killer != null)
                 {
-                    killer.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
+                    VenoX.TriggerClientEvent(killer, "start_screen_fx", "ExplosionJosh3", 0, false);
                     if (player == killer)
                     {
                         player.SendTranslatedChatMessage("Du hast Selbstmord begangen!");

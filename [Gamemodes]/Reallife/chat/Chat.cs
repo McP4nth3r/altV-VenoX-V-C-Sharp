@@ -47,7 +47,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         {
             try
             {
-                //Alt.Server.TriggerClientEvent(player,"ScoreBoard_Allow");
+                //VenoX.TriggerClientEvent(player,"ScoreBoard_Allow");
                 string secondMessage = string.Empty;
                 float distanceGap = range / Constants.CHAT_RANGES;
 

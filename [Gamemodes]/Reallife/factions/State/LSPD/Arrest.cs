@@ -5,6 +5,7 @@ using System;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -118,14 +119,14 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " gefesselt!");
                         _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.Username + " hat dich gefesselt!");
                         // Disable some player movements
-                        target.Emit("toggleHandcuffed", true);
+                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", true);
                     }
                     else if (target.IsInVehicle && target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true)
                     {
                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " Handschellen entfernt!");
                         _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.Username + " hat deine Handschellen abgenommen!");
-                        target.Emit("toggleHandcuffed", false);
+                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
                     }
                     else
                     {
@@ -139,9 +140,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, true);
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " gefesselt!");
                             _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.Username + " hat dich gefesselt!");
-                            //target.Emit("Attach_Element_to_Entity", player, cuff);
+                            //VenoX.TriggerClientEvent(target, "Attach_Element_to_Entity", player, cuff);
                             // Disable some player movements
-                            target.Emit("toggleHandcuffed", true);
+                            VenoX.TriggerClientEvent(target, "toggleHandcuffed", true);
                         }
                         else
                         {
@@ -158,7 +159,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.Username + " hat deine Handschellen abgenommen!");
 
                             // Enable previously disabled player movements
-                            target.Emit("toggleHandcuffed", false);
+                            VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
                         }
                     }
                 }
@@ -250,7 +251,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                                         target.Dimension = dim;
                                         target.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
                                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                                        target.Emit("toggleHandcuffed", false);
+                                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
                                     }
                                     else
                                     {
@@ -267,7 +268,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                                         target.Dimension = dim;
                                         target.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
                                         target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                                        target.Emit("toggleHandcuffed", false);
+                                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
                                     }
                                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 0, 175) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat " + target.Username + " eingesperrt.");
                                 }
@@ -296,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
             {
                 if (shape == stellenColShapeModel)
                 {
-                    Alt.Server.TriggerClientEvent(player, "showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
+                    VenoX.TriggerClientEvent(player, "showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
                 }
             }
             catch { }

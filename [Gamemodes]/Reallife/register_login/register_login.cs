@@ -12,6 +12,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
@@ -185,7 +186,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                         Fov = 75;
                         break;
                 }
-                Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
+                VenoX.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, cevent, new_lastNumber);
                 player.SetPosition = new Vector3(StartPosition.X, StartPosition.Y, StartPosition.Z - 200);
                 player.Freeze = true;
             }
@@ -205,7 +206,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             Rotation EndRotation = new Rotation(rotx, roty, rotz);
             int time = 60000;
             int Fov = 50;
-            Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
+            VenoX.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
             player.SetPosition = LastPosition;
         }
 
@@ -245,7 +246,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             Rotation StartRotation = new Rotation(rot1x, rot1y, rot1z);
             Rotation EndRotation = new Rotation(rot2x, rot2y, rot2z);
             //int Fov = 50;
-            Alt.Server.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
+            VenoX.TriggerClientEvent(player, "SetCamera_Event_Login", StartPosition, EndPosition, StartRotation, EndRotation, Fov, time, 0, 1);
             player.SetPosition = LastPosition;
         }
 
@@ -263,7 +264,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         [Command("stopcameraevent")]
         public static void StopCurrentCameraEvent(VnXPlayer player)
         {
-            Alt.Server.TriggerClientEvent(player, "DestroyCamera_Event");
+            VenoX.TriggerClientEvent(player, "DestroyCamera_Event");
         }
 
 
@@ -287,7 +288,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
                 List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
-                Alt.Server.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
+                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -313,7 +314,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 // Give the weapons to the player
                 weapons.Weapons.GivePlayerWeaponItems(player);
 
-                Alt.Server.TriggerClientEvent(player, "movecamtocurrentpos_client");
+                VenoX.TriggerClientEvent(player, "movecamtocurrentpos_client");
 
                 if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
                 {

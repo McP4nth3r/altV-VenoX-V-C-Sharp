@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -104,7 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (ReturnMaxTuningWheels(46) != 0) { tuningItems += ";Fenstertönung:46"; }
                 if (ReturnMaxVehicleMods(vehicle, 48) != 0) { tuningItems += ";Vinyls:48"; }
 
-                player.Emit("Tuning:Show", vehicle, tuningItems); //Emit to open UI Client 
+                VenoX.TriggerClientEvent(player, "Tuning:Show", vehicle, tuningItems); //Emit to open UI Client 
             }
             catch { }
         }
@@ -141,8 +142,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         vehicle.Frozen = true;
                         // anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                         EmitTuningWindow(player, vehicle);
-                        //Alt.Server.TriggerClientEvent(player, "Tuning:Show");
-                        Alt.Server.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
+                        //VenoX.TriggerClientEvent(player, "Tuning:Show");
+                        VenoX.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
                         player.vnxSetElementData("InTuningGarage", true);
                     }
                 }
@@ -158,7 +159,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    Alt.Server.TriggerClientEvent(player, "Remote_Speedo_Hide", false);
+                    VenoX.TriggerClientEvent(player, "Remote_Speedo_Hide", false);
                     vehicle.Rotation = new Rotation(0f, 0f, 90f);
                     vehicle.Frozen = false;
                     vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);

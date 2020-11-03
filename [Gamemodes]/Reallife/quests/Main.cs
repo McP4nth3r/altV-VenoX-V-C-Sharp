@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.quests
@@ -59,8 +60,8 @@ namespace VenoXV._Gamemodes_.Reallife.quests
             try
             {
                 QuestModel questClass = GetCurrentQuest(player);
-                if (questClass is null) player.Emit("Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Momentan sind keine weiteren Quests vorhanden!"), "", 0);
-                else player.Emit("Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, ""), questClass.Money, player.Reallife.Quests);
+                if (questClass is null) VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Momentan sind keine weiteren Quests vorhanden!"), "", 0);
+                else VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, ""), questClass.Money, player.Reallife.Quests);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

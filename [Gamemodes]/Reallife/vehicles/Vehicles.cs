@@ -10,6 +10,7 @@ using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.quests;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -183,7 +184,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenberechnung);
                         RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenWindow);*/
                     }
-                    Alt.Server.TriggerClientEvent(player, "createGasWindow", kostenWindow);
+                    VenoX.TriggerClientEvent(player, "createGasWindow", kostenWindow);
                 }
             }
             catch
@@ -337,8 +338,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - kosten);
 
-                    Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
-                    Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
+                    VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
+                    VenoX.TriggerClientEvent(player, "destroyGasWindow");
                 }
                 else
                 {
@@ -375,15 +376,15 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         if (value >= 100)
                         {
                             player.Reallife.Money -= 1500;
-                            Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
-                            Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
+                            VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
+                            VenoX.TriggerClientEvent(player, "destroyGasWindow");
                             return;
                         }
                         else
                         {
                             player.Reallife.Money -= kosten;
-                            Alt.Server.TriggerClientEvent(player, "Fill_Car_Accepted", vehicle.Gas + value, 2000);
-                            Alt.Server.TriggerClientEvent(player, "destroyGasWindow");
+                            VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", vehicle.Gas + value, 2000);
+                            VenoX.TriggerClientEvent(player, "destroyGasWindow");
                         }
                     }
                 }
@@ -435,7 +436,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public const string GETRIEBE_HANDLING = "FINITIALDRIVEFORCE";
         public const string REIFEN_REIBUNG_HANDLING = "FTRACTIONCURVEMAX"; // Reifenoberflächenreibung
         public const string POLICE3_VEH = "police3";
-        //  Alt.Server.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
+        //  VenoX.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
 
 
         public static float Verbrauch = 0;
@@ -523,7 +524,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             try
             {
                 Vehicle.Passenger.Add(player);
-                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife && Vehicle.Driver != player) Alt.Server.TriggerClientEvent(player, "OnPlayerEnterVehicle", 2500);
+                if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife && Vehicle.Driver != player) VenoX.TriggerClientEvent(player, "OnPlayerEnterVehicle", 2500);
                 if (Vehicle.Driver == player)
                 {
                     if (Vehicle.Godmode)
@@ -533,7 +534,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 if (Vehicle.Driver == player && player.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
                 {
-                    //Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
+                    //VenoX.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", true); // Disable Auto-TurnOn for Vehicle.
                     Vehicle.Frozen = false;
 
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Drücke X um den Motor zu starten.");
@@ -616,7 +617,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     float gas = Vehicle.Gas;
                     Vehicle.Gas = gas;
                     Vehicle.Kms = kms;
-                    Alt.Server.TriggerClientEvent(player, "initializeSpeedometer", kms, gas, Vehicle.EngineOn);
+                    VenoX.TriggerClientEvent(player, "initializeSpeedometer", kms, gas, Vehicle.EngineOn);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

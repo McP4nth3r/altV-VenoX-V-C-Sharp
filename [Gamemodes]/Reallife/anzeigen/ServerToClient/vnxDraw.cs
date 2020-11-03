@@ -6,8 +6,8 @@
 
 using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.dxLibary
@@ -22,23 +22,23 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             if (window == "Job1")
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "DestroyJobWindow1");
+                VenoX.TriggerClientEvent(player, "DestroyJobWindow1");
             }
             else if (window == "Window")
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "DestroyVnXSAWindowLib");
+                VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowLib");
             }
             else if (window == "WindowSelection")
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "DestroyVnXSAWindowSel");
+                VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowSel");
             }
             else if (window == WINDOW_INPUT)
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "DestroyInputWindow");
+                VenoX.TriggerClientEvent(player, "DestroyInputWindow");
             }
             else
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, window);
+                VenoX.TriggerClientEvent(player, window);
             }
         }
 
@@ -46,11 +46,11 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             if (element == "Blip")
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "deleteBlipWaypoint");
+                VenoX.TriggerClientEvent(player, "deleteBlipWaypoint");
             }
             else if (element == "Blip_lib")
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(player, "deleteBlip_lib");
+                VenoX.TriggerClientEvent(player, "deleteBlip_lib");
             }
             else
             {
@@ -63,63 +63,63 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
 
         public static void DrawWindow(VnXPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "Job:ShowAcceptWindow", headertext, boxtext, buttontext1, buttontext2);
+            VenoX.TriggerClientEvent(player, "Job:ShowAcceptWindow", headertext, boxtext, buttontext1, buttontext2);
         }
 
         // Job Windows ( Job 1 = 3 Buttons , Job LvL Anzeige, Text Header , Text Info , Job description 1-3 ) 
         public static void DrawJobWindow(VnXPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2, string buttontext3, string button1desc, string button2desc, string button3desc, string joblvlinfo)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "Job:ShowSelection1", headertext, boxtext, buttontext1, buttontext2, buttontext3, button1desc, button2desc, button3desc, joblvlinfo);
+            VenoX.TriggerClientEvent(player, "Job:ShowSelection1", headertext, boxtext, buttontext1, buttontext2, buttontext3, button1desc, button2desc, button3desc, joblvlinfo);
         }
 
         public static void DrawWindowSelection(VnXPlayer player, string headertext, string boxtext, string buttontext1, string buttontext2)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "createVnXSAWindowSelection", headertext, boxtext, buttontext1, buttontext2);
+            VenoX.TriggerClientEvent(player, "createVnXSAWindowSelection", headertext, boxtext, buttontext1, buttontext2);
         }
 
         public static void DrawBlip(VnXPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlip", name, position, blipID, blipRgba, Dimension);
+            VenoX.TriggerClientEvent(player, "placeBlip", name, position, blipID, blipRgba, Dimension);
         }
 
         public static void DrawZielBlip(VnXPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlipWaypoint", name, position, blipID, blipRgba, Dimension);
+            VenoX.TriggerClientEvent(player, "placeBlipWaypoint", name, position, blipID, blipRgba, Dimension);
         }
 
         public static void DrawCustomZielBlip(VnXPlayer player, string name, Position position, float scale, int blipID, int blipRgba, int Dimension, int r, int g, int b, int a)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r, g, b, a);
+            VenoX.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r, g, b, a);
         }
 
         public static void DrawZielBlipTable(VnXPlayer player, string TableName, string name, Position position, int blipID, int blipRgba, int Dimension, int destroyedinms)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "placeBlipWaypoint_Table", TableName, name, position, blipID, blipRgba, Dimension, destroyedinms);
+            VenoX.TriggerClientEvent(player, "placeBlipWaypoint_Table", TableName, name, position, blipID, blipRgba, Dimension, destroyedinms);
         }
         public static void DrawWaypoint(VnXPlayer player, float x, float y)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "VnXSetWaypoint", x, y);
+            VenoX.TriggerClientEvent(player, "VnXSetWaypoint", x, y);
         }
 
         public static void DrawInputWindow(VnXPlayer player, string headertext, string boxtext, string buttontext)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "createInputWindow", headertext, boxtext, buttontext);
+            VenoX.TriggerClientEvent(player, "createInputWindow", headertext, boxtext, buttontext);
         }
 
         public static void SetElementFrozen(VnXPlayer player, bool state)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "Player:Freeze", state);
+            VenoX.TriggerClientEvent(player, "Player:Freeze", state);
         }
-        public static void SetDelayedIVehicleElementFrozen(VehicleModel Vehicle, IPlayer sender, bool state, int TimeInMS)
+        public static void SetDelayedIVehicleElementFrozen(VehicleModel Vehicle, VnXPlayer sender, bool state, int TimeInMS)
         {
             if (Vehicle != null)
             {
-                AltV.Net.Alt.Server.TriggerClientEvent(sender, "FreezeVEHICLE_DelayedPLAYER_VnX", Vehicle, state, TimeInMS);
+                VenoX.TriggerClientEvent(sender, "FreezeVEHICLE_DelayedPLAYER_VnX", Vehicle, state, TimeInMS);
             }
         }
         public static void CreateDiscordUpdate(VnXPlayer player, string top, string main)
         {
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "discord_update", top, main);
+            VenoX.TriggerClientEvent(player, "discord_update", top, main);
         }
     }
 }

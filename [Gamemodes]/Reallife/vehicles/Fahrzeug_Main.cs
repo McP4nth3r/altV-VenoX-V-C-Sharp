@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -23,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     {
                         return;
                     }
-                    Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
+                    VenoX.TriggerClientEvent(player, "showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
                 else
@@ -39,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     else
                     {
-                        Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
+                        VenoX.TriggerClientEvent(player, "showIVehicleMenu");
                         player.vnxSetElementData("HideHUD", 1);
                     }
                     // Player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug! ");
@@ -59,7 +60,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 else
                 {
-                    Alt.Server.TriggerClientEvent(player, "showIVehicleMenu");
+                    VenoX.TriggerClientEvent(player, "showIVehicleMenu");
                     player.vnxSetElementData("HideHUD", 1);
                 }
             }

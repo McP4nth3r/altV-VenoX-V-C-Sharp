@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -105,11 +106,11 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 if (shape == CARSHOP)
                 {
                     List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
-                    Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Show");
+                    VenoX.TriggerClientEvent(player, "VehicleCatalog:Show");
                     // Getting the speed for each IVehicle in the list
                     foreach (CarShopVehicleModel carShopVehicle in carList)
                     {
-                        Alt.Server.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
+                        VenoX.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
                     }
                 }
             }

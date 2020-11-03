@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -108,22 +109,22 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             if (player.Position.Distance(target.Position) < 7)
                             {
                                 //Anti_Cheat.//AntiCheat_Allround.SetTimeOutHealth(target, 1000);
-                                Alt.Server.TriggerClientEvent(player, "start_screen_fx", "ExplosionJosh3", 0, false);
-                                target.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
+                                VenoX.TriggerClientEvent(player, "start_screen_fx", "ExplosionJosh3", 0, false);
+                                VenoX.TriggerClientEvent(target, "start_screen_fx", "ExplosionJosh3", 0, false);
                                 //NAPI.player.SpawnPlayerPlayer(target.vnxGetElementData<int>( target.position;
-                                target.Emit("destroyKrankenhausTimer");
-                                target.Emit("VnX_DestroyIPlayerSideTimer_KH");
+                                VenoX.TriggerClientEvent(target, "destroyKrankenhausTimer");
+                                VenoX.TriggerClientEvent(target, "VnX_DestroyIPlayerSideTimer_KH");
 
                                 foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
                                 {
                                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                     {
                                         medics.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + player.Username + " hat " + target.Username + " aufgesammelt!");
-                                        medics.Emit("Destroy_MedicBlips", target.Username);
+                                        VenoX.TriggerClientEvent(medics, "Destroy_MedicBlips", target.Username);
                                     }
                                 }
 
-                                target.Emit("toggleHandcuffed", true);
+                                VenoX.TriggerClientEvent(target, "toggleHandcuffed", true);
                                 //target.vnxGetElementData(SetIntoIVehicle(IVehicle, (int)IVehicleSeat.LeftRear);
                             }
                             else

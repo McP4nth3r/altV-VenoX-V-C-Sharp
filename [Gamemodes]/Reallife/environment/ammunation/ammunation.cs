@@ -4,6 +4,7 @@ using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.quests;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -186,7 +187,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                             if (player.Armor != 100)
                             {
                                 player.Reallife.Money -= 100;
-                                player.SetArmor =  100;
+                                player.SetArmor = 100;
                             }
                             else
                             {
@@ -403,7 +404,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
                         return;
                     }
-                    Alt.Server.TriggerClientEvent(player, "Ammunation:Show");
+                    VenoX.TriggerClientEvent(player, "Ammunation:Show");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

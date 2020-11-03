@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -19,11 +20,11 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
             {
                 if (shape == Markt_Col)
                 {
-                    Alt.Server.TriggerClientEvent(player, "CreateChristmasMarketWindow");
+                    VenoX.TriggerClientEvent(player, "CreateChristmasMarketWindow");
                 }
                 else if (shape == Adventskalender_Col)
                 {
-                    Alt.Server.TriggerClientEvent(player, "CreateAdventskalenderWindow");
+                    VenoX.TriggerClientEvent(player, "CreateAdventskalenderWindow");
                 }
             }
             catch { }

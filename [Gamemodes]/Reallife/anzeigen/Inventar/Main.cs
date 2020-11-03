@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -27,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                     }
                 }
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                Alt.Server.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
+                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
         }
@@ -51,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 UnloadPlayerItems(player);
-                Alt.Server.TriggerClientEvent(player, "Inventory:RemoveAll");
+                VenoX.TriggerClientEvent(player, "Inventory:RemoveAll");
             }
             catch { }
         }
@@ -136,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                         break;
                 }
                 List<InventoryModel> inventory = GetPlayerInventory(player);
-                Alt.Server.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
+                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

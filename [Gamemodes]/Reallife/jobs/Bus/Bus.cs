@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -50,7 +51,14 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 // Erstellt für jede Koordinate in der Tabelle eine Bus - Station.
                 foreach (Vector3 BusCoord in AbgabepunkteLVLONE)
                 {
-                    RageAPI.CreateObject("BusJob", "3272282878", new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1), new Vector3(0, 0, 0), new Quaternion());
+
+                    _Maps_.Model.MapModel mapClass = new _Maps_.Model.MapModel
+                    {
+                        MapName = "BusJob",
+                        Position = new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1),
+                        Rotation = new Vector3(0, 0, 0),
+                    };
+                    _Maps_.Main.BUSSTATIONMAP.Add(mapClass);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -125,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 Allround.DestroyJobMarker(player);
                 Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                Alt.Server.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
+                VenoX.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
                 vehClass.Frozen = true;
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, JobMoney + " $");
                 Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });

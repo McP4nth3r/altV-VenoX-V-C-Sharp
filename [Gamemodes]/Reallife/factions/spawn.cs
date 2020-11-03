@@ -10,6 +10,7 @@ using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -24,7 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 player.SpawnPlayer(player.Position);
                 player.Reallife.Hunger = 100;
-                Alt.Server.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
+                VenoX.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
                 player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                 player.Freeze = true;
                 player.FreezeAfterMS(10000, false);
@@ -35,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     player.Dimension = dim;
                     player.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
                     player.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                    Alt.Server.TriggerClientEvent(player, "toggleHandcuffed", false);
+                    VenoX.TriggerClientEvent(player, "toggleHandcuffed", false);
                     return;
                 }
                 if (player.Reallife.Faction != Constants.FACTION_NONE) player.SetTeam(player.Reallife.Faction);

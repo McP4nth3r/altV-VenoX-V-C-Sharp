@@ -3,6 +3,7 @@ using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.handy.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.handy
@@ -12,7 +13,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
         private static List<CallModel> PlayerCalls = new List<CallModel>();
         private static void ChangeTargetCallerAvatar(VnXPlayer player, string ID, string Avatar)
         {
-            Alt.Server.TriggerClientEvent(player, "Phone:ChangeCallTargetAvatar", ID, Avatar);
+            VenoX.TriggerClientEvent(player, "Phone:ChangeCallTargetAvatar", ID, Avatar);
         }
 
         [ClientEvent("VenoXPhone:CallTarget")]
@@ -26,8 +27,8 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             {
                 ChangeTargetCallerAvatar(player, target.Discord.ID, target.Discord.Avatar);
             }
-            target.Emit("Phone:Shpw", true);
-            target.Emit("Phone:ShowIncomingCall", player.Username, player.Phone.Number);
+            VenoX.TriggerClientEvent(target, "Phone:Shpw", true);
+            VenoX.TriggerClientEvent(target, "Phone:ShowIncomingCall", player.Username, player.Phone.Number);
         }
 
         [ClientEvent("VenoXPhone:CallAccepted")]
@@ -63,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
         {
             VnXPlayer target = Core.RageAPI.GetPlayerFromName(TargetName);
             if (target == null) { player.SendChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Der Spieler ist Offline."); return; }
-            target.Emit("Phone:HangupCall");
+            VenoX.TriggerClientEvent(target, "Phone:HangupCall");
             foreach (CallModel callClass in PlayerCalls.ToList())
             {
                 if (callClass.Caller == player)

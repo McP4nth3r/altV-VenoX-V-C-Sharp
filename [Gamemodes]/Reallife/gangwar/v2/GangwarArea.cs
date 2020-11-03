@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -46,13 +47,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public void Update()
         {
             //RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea");
-            Alt.EmitAllClients("AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
+            VenoX.TriggerEventForAll("AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
         public void Update(VnXPlayer player)
         {
             // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.Username + " )");
-            AltV.Net.Alt.Server.TriggerClientEvent(player, "AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
+            VenoX.TriggerClientEvent(player, "AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
         }
 
         public void CreateArea()

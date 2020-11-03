@@ -3,6 +3,7 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -78,7 +79,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                 VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
                 if (GetVIPRangName(VipL.Vip_Paket) != "Abgelaufen" || GetVIPRangName(VipL.Vip_Paket).Length > 3)
                 {
-                    Alt.Server.TriggerClientEvent(player, "CreateVIPWindow");
+                    VenoX.TriggerClientEvent(player, "CreateVIPWindow");
                 }
             }
             catch { }

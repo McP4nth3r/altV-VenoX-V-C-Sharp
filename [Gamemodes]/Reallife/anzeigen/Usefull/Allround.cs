@@ -3,10 +3,10 @@ using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -94,20 +94,6 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
         }
 
-        public static void onWantedChange(VnXPlayer player)
-        {
-            Alt.Server.TriggerClientEvent(player, "UpdateStars", (int)player.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS), player.vnxGetSharedData<int>("HideHUD"));
-        }
-        public static void OnFactionChange(VnXPlayer player)
-        {
-            Alt.Server.TriggerClientEvent(player, "UpdateFaction", Faction.GetFactionNameById((int)player.Reallife.Faction), Faction.GetPlayerFactionRank(player), (int)player.Reallife.Faction);
-        }
-
-        public static void CreateCarGhostMode(VnXPlayer player, int playeralpha, int IVehiclealpha, int timervalue)
-        {
-            Alt.Server.TriggerClientEvent(player, "VnX_CreateGhostModeTimer", playeralpha, IVehiclealpha, timervalue);
-        }
-
         public static int GetRandomNumber(int min, int max)
         {
             Random random = new Random();
@@ -136,7 +122,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
         public static void SpectatePlayer(VnXPlayer player, string target_name, int einsfürfalse)
         {
-            // Alt.Server.TriggerClientEvent(player,"VnX_Start_S", Target, einsfürfalse);
+            // VenoX.TriggerClientEvent(player,"VnX_Start_S", Target, einsfürfalse);
         }
 
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
@@ -158,16 +144,16 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 if (player.Reallife.Faction == Constants.FACTION_LSPD)
                 {
-                    Alt.Server.TriggerClientEvent(player, "discord_update", "Auf Streife [L.S.P.D]", "VenoX - Reallife");
+                    VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [L.S.P.D]", "VenoX - Reallife");
                 }
                 else if (player.Reallife.Faction == Constants.FACTION_FBI)
                 {
-                    Alt.Server.TriggerClientEvent(player, "discord_update", "Auf Streife [F.I.B]", "VenoX - Reallife");
+                    VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [F.I.B]", "VenoX - Reallife");
                 }
             }
             else
             {
-                Alt.Server.TriggerClientEvent(player, "discord_update", "Unterwegs auf VenoX...", "VenoX - Reallife");
+                VenoX.TriggerClientEvent(player, "discord_update", "Unterwegs auf VenoX...", "VenoX - Reallife");
             }
         }
 

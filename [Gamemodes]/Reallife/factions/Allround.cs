@@ -8,6 +8,7 @@ using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -153,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
 
-                Alt.Server.TriggerClientEvent(player, "fguns:ForceStateWindowUpdate",
+                VenoX.TriggerClientEvent(player, "fguns:ForceStateWindowUpdate",
                     "Schlagstock", " [ " + fweapon.weapon_nightstick.Amount + " ] ",
                     "Tazer", " [ " + fweapon.weapon_tazer.Amount + " ] ",
                     "Pistole", " [ " + fweapon.weapon_pistol.Amount + " ] ",
@@ -199,7 +200,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     if (isStateFaction(player))
                     {
                         WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
-                        Alt.Server.TriggerClientEvent(player, "fguns:Open", true);
+                        VenoX.TriggerClientEvent(player, "fguns:Open", true);
                         UpdateFgunsWindow(player);
                     }
                 }
@@ -814,8 +815,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
                             }
                         }
-                        player.SetHealth =  200;
-                        player.SetArmor =  100;
+                        player.SetHealth = 200;
+                        player.SetArmor = 100;
                         if (isBadFaction(player))
                         {
                             player.Reallife.OnDutyBad = 1;
@@ -831,8 +832,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Customization.ApplyPlayerClothes(player);
                     player.SpawnPlayer(player.Position);
                     Customization.ApplyPlayerClothes(player);
-                    player.SetHealth =  200;
-                    player.SetArmor =  100;
+                    player.SetHealth = 200;
+                    player.SetArmor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
                     if (isBadFaction(player))
                     {
@@ -875,8 +876,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                     }
                     player.Reallife.OnDuty = 1;
-                    player.SetHealth =  200;
-                    player.SetArmor =  100;
+                    player.SetHealth = 200;
+                    player.SetArmor = 100;
                     weapons.Weapons.GivePlayerWeaponItems(player);
                 }
             }
@@ -896,8 +897,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 if (!isStateFaction(player)) { return; }
 
                 player.Reallife.OnDuty = 1;
-                player.SetHealth =  200;
-                player.SetArmor =  100;
+                player.SetHealth = 200;
+                player.SetArmor = 100;
                 player.SetClothes(6, 24, 0);
                 player.SetClothes(4, 33, 0);
                 player.SetClothes(9, 7, 1);

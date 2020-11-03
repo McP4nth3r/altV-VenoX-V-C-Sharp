@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -103,7 +104,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 Allround._gangwarManager.currentArea = null;
 
                 ResetPlayer();
-                Alt.EmitAllClients("StopCurrentGangwar", this.GangwarArea.Name);
+                VenoX.TriggerEventForAll("StopCurrentGangwar", this.GangwarArea.Name);
 
                 if (state == "verteidigt!")
                 {
@@ -204,7 +205,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                         SyncTime();
                         foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
                         {
-                            Alt.Server.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
+                            VenoX.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
                         }
                     }
                 }
@@ -293,7 +294,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 // Display Player DX for joined Player 
                 Rgba AttackRGB = GangwarArea.GangwarIVehicleRgbas(this.AttackerId);
                 Rgba DefenderRGB = GangwarArea.GangwarIVehicleRgbas(this.DefenderId);
-                Alt.Server.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(this.AttackerId), Faction.GetFactionNameById(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
+                VenoX.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(this.AttackerId), Faction.GetFactionNameById(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
                 SyncStats(player, playerEntry);
                 InformAllThatPlayerJoined();
 
@@ -308,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    Alt.Server.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+                    VenoX.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -333,12 +334,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (this.CurrentState == RoundStates.PREPARING)
                 {
                     double leftTime = (DateTime.Now - this.PreparingCD).TotalSeconds * -1;
-                    Alt.Server.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
+                    VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
                 }
                 if (this.CurrentState == RoundStates.RUNNING)
                 {
                     double leftTime = (DateTime.Now - this.MaxTime).TotalSeconds * -1;
-                    Alt.Server.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
+                    VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
                 }
             }
             catch { }
@@ -350,7 +351,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 if (!playerEntry._isLeft)
                 {
-                    Alt.Server.TriggerClientEvent(player, "gw:updateStats", playerEntry._totalDamage, playerEntry._totalKills, GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+                    VenoX.TriggerClientEvent(player, "gw:updateStats", playerEntry._totalDamage, playerEntry._totalKills, GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
                 }
             }
             catch { }
@@ -406,7 +407,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 if (!playerEntry._isLeft)
                 {
-                    Alt.Server.TriggerClientEvent(playerEntry._player, "gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
+                    VenoX.TriggerClientEvent(playerEntry._player, "gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
                     int playerMoney = playerEntry._player.Reallife.Money;
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
                     playerEntry._player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");

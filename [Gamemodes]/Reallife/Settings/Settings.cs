@@ -4,6 +4,7 @@ using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -15,7 +16,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         [Command("settings")]
         public static void LoadSettingsWindow(VnXPlayer player)
         {
-            try { Alt.Server.TriggerClientEvent(player, "Settings:Show"); }
+            try { VenoX.TriggerClientEvent(player, "Settings:Show"); }
             catch { }
         }
 
@@ -26,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
             {
                 if (player.Settings.ShowATM == 1)
                 {
-                    Alt.Server.TriggerClientEvent(player, "Reallife:ShowATMBlips");
+                    VenoX.TriggerClientEvent(player, "Reallife:ShowATMBlips");
                 }
                 if (player.Settings.ShowHouse == 1)
                 {
@@ -38,11 +39,11 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, TranslatedText);
+                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, TranslatedText);
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, TranslatedText1);
+                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, TranslatedText1);
                             }
                         }
                     }
@@ -62,13 +63,13 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 if (state == true)
                 {
 
-                    Alt.Server.TriggerClientEvent(player, "Reallife:ShowATMBlips");
+                    VenoX.TriggerClientEvent(player, "Reallife:ShowATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "ja");
                 }
                 else
                 {
 
-                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
+                    VenoX.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
                     player.vnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
@@ -89,22 +90,22 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
+                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, "Haus [Verkauf]");
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, "Haus");
+                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, "Haus");
                             }
                         }
                     }
                 }
                 else
                 {
-                    Alt.Server.TriggerClientEvent(player, "getTableShit");
+                    VenoX.TriggerClientEvent(player, "getTableShit");
                     player.vnxSetStreamSharedElementData("settings_haus", "nein");
                     //foreach (HouseModel house in House.houseList)
                     // {
-                    Alt.Server.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
+                    VenoX.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
                     // }
                 }
             }
@@ -166,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                 {
                     Console.WriteLine("ID : " + state);
                 }
-                Alt.Server.TriggerClientEvent(player, "Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
+                VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.vnxGetElementData<int>(EntityData.PLAYER_REALLIFE_HUD));
             }
             catch { }
 

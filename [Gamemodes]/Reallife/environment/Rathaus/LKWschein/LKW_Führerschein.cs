@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -72,7 +73,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Beachte dabei jedoch, dass du nicht schneller als 120 km/h fahren darfst - sonst ist die Prüfung gelaufen!");
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Drücke X und H, um Licht oder Motor ein- oder aus zu schalten!");
 
-                Alt.Server.TriggerClientEvent(player, "destroyRathausWindow");
+                VenoX.TriggerClientEvent(player, "destroyRathausWindow");
                 player.Reallife.DrivingSchool.MarkerStage = 0;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -14,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player, "Greenzone:Create", "LSPD_COL", LSPD_COL_POS.X, LSPD_COL_POS.Y, LSPD_COL_POS.Z, 50, 3, 0);
+                VenoX.TriggerClientEvent(player, "Greenzone:Create", "LSPD_COL", LSPD_COL_POS.X, LSPD_COL_POS.Y, LSPD_COL_POS.Z, 50, 3, 0);
             }
             catch { }
         }
@@ -22,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
         {
             if (shape == LSPD_Col)
             {
-                Alt.Server.TriggerClientEvent(player, "Greenzone:ChangeStatus", true);
+                VenoX.TriggerClientEvent(player, "Greenzone:ChangeStatus", true);
                 if (player.Settings.ShowQuests == 1)
                 {
                     player.Settings.ShowQuests = 0;
@@ -42,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
                         player.Settings.ShowQuests = 1;
                         player.vnxSetElementData("QUEST_ANZEIGE_DURCH_COL_DEAKTIVIERT", false);
                     }
-                    Alt.Server.TriggerClientEvent(player, "Greenzone:ChangeStatus", false);
+                    VenoX.TriggerClientEvent(player, "Greenzone:ChangeStatus", false);
                 }
             }
             catch { }

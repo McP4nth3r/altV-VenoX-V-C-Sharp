@@ -771,7 +771,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
-                            Alt.Server.TriggerClientEvent(player, "showATM", player.Reallife.Bank, "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
+                            VenoX.TriggerClientEvent(player, "showATM", player.Reallife.Bank, "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
                             return;
                         }
                     }
