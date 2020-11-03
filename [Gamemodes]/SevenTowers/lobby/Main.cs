@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.SevenTowers.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -36,7 +37,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         public static DateTime SEVENTOWERS_ROUND_WILL_START = DateTime.Now;
         public static DateTime SEVENTOWERS_ROUND_JOINTIME_TILL_START = DateTime.Now;
         public static List<SpawnModel> SevenTowerSpawns = maps.main.Spawns.SpawnCoords;
-        public static string CURRENT_WINNER = "Niemand";
+        public static string CURRENT_WINNER = "-";
 
         public static readonly List<Vector3> SevenTowersCheckPoints = new List<Vector3>()
         {
@@ -53,8 +54,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             new Vector3(90.184616f, -5645.222f, 93.140625f),
             new Vector3(94.12747f, -5676.0527f, 93.140625f),
             new Vector3(156.14505f, -5670.066f, 85.12012f),
-            new Vector3(164.14944f, -5700.158f, 85.12012f),
-
+            new Vector3(164.14944f, -5700.158f, 85.12012f)
         };
 
 
@@ -93,6 +93,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             AltV.Net.Enums.VehicleModel.FireTruck,
             AltV.Net.Enums.VehicleModel.Patriot2,
             AltV.Net.Enums.VehicleModel.Pcj,
+            AltV.Net.Enums.VehicleModel.Rhino,
             AltV.Net.Enums.VehicleModel.Caddy,
             AltV.Net.Enums.VehicleModel.Hunter,
             AltV.Net.Enums.VehicleModel.Mower,
@@ -174,6 +175,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 ColShapeModel newCol = RageAPI.CreateColShapeSphere(Position, 5, SEVENTOWERS_DIM);
                 ColShapeModelList.Add(newCol);
                 CurrentColShape = newCol;
+                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList()) _RootCore_.Sync.Sync.ForceClientSyncUpdate(players);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -205,7 +207,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 Core.Debug.CatchExceptions(ex);
             }
         }
-        public static void EndRound()
+        public static async void EndRound()
         {
             try
             {
@@ -225,13 +227,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
                             }
                         }
                     }
-                    Alt.Server.TriggerClientEvent(player, "SevenTowers:ShowWinner", CURRENT_WINNER, 5000);
+                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "gewinnt die Runde.");
+                    VenoX.TriggerClientEvent(player, "SevenTowers:ShowWinner", CURRENT_WINNER, TranslatedText, 5000);
                 }
             }
-            catch (Exception ex)
-            {
-                Core.Debug.CatchExceptions(ex);
-            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void SpawnPlayerInRound(VnXPlayer player)
