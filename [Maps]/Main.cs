@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using VenoXV._Maps_.Model;
 using VenoXV._Maps_.Models;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Maps_
@@ -20,6 +21,9 @@ namespace VenoXV._Maps_
 
         public const string STADTHALLE_MAP = "STADTHALLE";
         private static readonly List<MapModel> STADTHALLEMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + STADTHALLE_MAP + ".json"));
+
+        public const string BUSSTATION_MAP = "STADTHALLE";
+        public static List<MapModel> BUSSTATIONMAP = new List<MapModel>();
 
         public const string WUERFELPARK_MAP = "WUERFELPARK";
         private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));
@@ -40,33 +44,33 @@ namespace VenoXV._Maps_
                     case LSPD_MAP:
                         foreach (MapModel mapClass in LSPDMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                             //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
                         }
                         break;
                     case NOOBSPAWN_MAP:
                         foreach (MapModel mapClass in NOOBSPAWNMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                         }
                         break;
                     case STADTHALLE_MAP:
                         foreach (MapModel mapClass in STADTHALLEMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                             //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
                         }
                         break;
                     case SEVENTOWERS_MAP:
                         foreach (MapModel mapClass in SEVENTOWERSMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                         }
                         break;
                     case WUERFELPARK_MAP:
                         foreach (MapModel mapClass in WUERFELPARKMAP)
                         {
-                            Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
+                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
                         }
                         break;
                     case DERBY1_MAP:
@@ -74,13 +78,13 @@ namespace VenoXV._Maps_
                         {
                             if (mapClass.Model == 665940918)
                             {
-                                Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
+                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
                             }
                             else
                             {
-                                Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                             }
-                            //Alt.Server.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.ModelHash, new Vector3(mapClass.PositionRotation.X, mapClass.PositionRotation.Y, mapClass.PositionRotation.Z), 2, new Vector3(mapClass.PositionRotation.Pitch, mapClass.PositionRotation.Roll, mapClass.PositionRotation.Yaw), true, false, true, 0);
+                            //VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.ModelHash, new Vector3(mapClass.PositionRotation.X, mapClass.PositionRotation.Y, mapClass.PositionRotation.Z), 2, new Vector3(mapClass.PositionRotation.Pitch, mapClass.PositionRotation.Roll, mapClass.PositionRotation.Yaw), true, false, true, 0);
                         }
                         break;
                 }
@@ -89,7 +93,7 @@ namespace VenoXV._Maps_
         }
         public static void UnloadMap(VnXPlayer playerClass, string MapName)
         {
-            Alt.Server.TriggerClientEvent(playerClass, "Sync:UnloadMap", MapName);
+            VenoX.TriggerClientEvent(playerClass, "Sync:UnloadMap", MapName);
         }
 
         [Command("loadmap")]
