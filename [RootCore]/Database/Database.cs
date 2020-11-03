@@ -272,17 +272,31 @@ namespace VenoXV._RootCore_.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE spieler SET Passwort = SHA2(@Passwort, '256') WHERE SpielerName = @SpielerName";
-                    command.Parameters.AddWithValue("@SpielerName", Spielername);
-                    command.Parameters.AddWithValue("@Passwort", password);
-                    command.ExecuteNonQuery();
-                }
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET Passwort = SHA2(@Passwort, '256') WHERE SpielerName = @SpielerName";
+                command.Parameters.AddWithValue("@SpielerName", Spielername);
+                command.Parameters.AddWithValue("@Passwort", password);
+                command.ExecuteNonQuery();
             }
             catch { }
+        }
+        public static void UpdateDiscordInformations(string Spielername, string DiscordID, string DiscordAvatar)
+        {
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET DiscordID = @DiscordID, DiscordAvatar = @DiscordAvatar WHERE SpielerName = @SpielerName";
+                command.Parameters.AddWithValue("@Spielername", Spielername);
+                command.Parameters.AddWithValue("@DiscordID", DiscordID);
+                command.Parameters.AddWithValue("@DiscordAvatar", DiscordAvatar);
+                command.ExecuteNonQuery();
+                Core.Debug.OutputDebugString("Executed CMD");
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static int RegisterAccount(string nickname, string SocialClub, string HardwareIdHash, string HardwareIdExHash, string email, string password, string geschlecht, int ForumUID)

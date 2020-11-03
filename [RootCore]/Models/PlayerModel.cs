@@ -147,14 +147,12 @@ namespace VenoXV._RootCore_.Models
         public int Zombie_player_kills { get; set; }
         public int Zombie_tode { get; set; }
         public bool IsSyncer { get; set; }
-        public List<Player> NearbyPlayers { get; set; }
         public List<ZombieModel> NearbyZombies { get; set; }
         public Zombies(Player player)
         {
             try
             {
                 client = player;
-                NearbyPlayers = new List<Player>();
                 NearbyZombies = new List<ZombieModel>();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -214,8 +212,8 @@ namespace VenoXV._RootCore_.Models
                 _ShowQuests = value;
                 try
                 {
-                    if (value == 1) Player.Emit("Quests:Show", true);
-                    else Player.Emit("Quests:Show", false);
+                    if (value == 1) VenoX.TriggerClientEvent((VnXPlayer)Player, "Quests:Show", true);
+                    else VenoX.TriggerClientEvent((VnXPlayer)Player, "Quests:Show", false);
                     Player.vnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_QUEST_ANZEIGEN, value);
                 }
                 catch { }
@@ -300,6 +298,20 @@ namespace VenoXV._RootCore_.Models
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
+
+    public class SyncClass
+    {
+        public List<LabelModel> CurrentLabels = new List<LabelModel>();
+        public List<MarkerModel> CurrentMarker = new List<MarkerModel>();
+        public List<ObjectModel> CurrentObjs = new List<ObjectModel>();
+        public SyncClass(Player player)
+        {
+            try
+            {
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+    }
     public class VnXPlayer : Player
     {
         //Main
@@ -318,6 +330,7 @@ namespace VenoXV._RootCore_.Models
         public Phone Phone { get; }
         public Discord Discord { get; }
         public Forum Forum { get; }
+        public SyncClass Sync { get; }
         public Usefull Usefull { get; }
         // Settings - Classes
         public Settings Settings { get; }
@@ -332,20 +345,22 @@ namespace VenoXV._RootCore_.Models
         private bool _Playing { get; set; }
         public bool Playing { get { return _Playing; } set { _Playing = value; this.vnxSetElementData(_Gamemodes_.Reallife.Globals.EntityData.PLAYER_PLAYING, value); } }
         public string Vip_Paket { get; set; }
-        public void DrawWaypoint(float PosX, float PosY) { try { Alt.Server.TriggerClientEvent(this, "Player:SetWaypoint", PosX, PosY); } catch { } }
+        public void DrawWaypoint(float PosX, float PosY) { try { VenoX.TriggerClientEvent(this, "Player:SetWaypoint", PosX, PosY); } catch { } }
         public void SetTeam(int Team) { try { Alt.Emit("GlobalSystems:PlayerTeam", this, Team); } catch { } }
         private bool _Freeze { get; set; }
-        public bool Freeze { get { return _Freeze; } set { _Freeze = value; Alt.Server.TriggerClientEvent(this, "Player:Freeze", value); } }
-        public void FreezeAfterMS(int MS, bool value) { try { Alt.Server.TriggerClientEvent(this, "Player:FreezeAfterMS", MS, value); _Freeze = value; } catch { } }
-        public void LoadIPL(string IPL) { try { Alt.Server.TriggerClientEvent(this, "Player:LoadIPL", IPL); } catch { } }
+        public bool Freeze { get { return _Freeze; } set { _Freeze = value; VenoX.TriggerClientEvent(this, "Player:Freeze", value); } }
+        public void FreezeAfterMS(int MS, bool value) { try { VenoX.TriggerClientEvent(this, "Player:FreezeAfterMS", MS, value); _Freeze = value; } catch { } }
+        public void LoadIPL(string IPL) { try { VenoX.TriggerClientEvent(this, "Player:LoadIPL", IPL); } catch { } }
         public DateTime Vip_BisZum { get; set; }
         public DateTime Vip_GekauftAm { get; set; }
+        public List<VnXPlayer> NearbyPlayers { get; set; }
         public ushort SetArmor { get { return Armor; } set { this.vnxSetStreamSharedElementData("PLAYER_ARMOR", value); Armor = value; } }
         public ushort SetHealth { get { return Health; } set { this.vnxSetStreamSharedElementData("PLAYER_HEALTH", value); Health = value; } }
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
             {
+                NearbyPlayers = new List<VnXPlayer>();
                 Settings = new Settings(this);
                 Reallife = new Reallife(this);
                 Tactics = new Tactics(this);
@@ -356,6 +371,7 @@ namespace VenoXV._RootCore_.Models
                 Forum = new Forum(this);
                 Usefull = new Usefull(this);
                 Discord = new Discord(this);
+                Sync = new SyncClass(this);
                 this.SpawnPlayer(Position);
                 Language = (int)_Language_.Main.Languages.English;
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);

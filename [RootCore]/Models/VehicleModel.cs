@@ -69,11 +69,11 @@ namespace VenoXV._RootCore_.Models
         public bool NotSave { get; set; }
         private bool vehGodmode { get; set; }
         public bool NPC { get; set; }
-        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; Alt.EmitAllClients("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
+        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; VenoX.TriggerEventForAll("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
         public bool IsTestVehicle { get; set; }
         public bool Rented { get; set; }
         private bool vehFrozen { get; set; }
-        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; Alt.EmitAllClients("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
+        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; VenoX.TriggerEventForAll("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
         private float vehGas { get; set; }
         public float Gas { get { return vehGas; } set { vehGas = value; this.vnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
         private float vehKms { get; set; }

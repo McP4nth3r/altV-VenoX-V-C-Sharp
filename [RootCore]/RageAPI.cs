@@ -59,7 +59,7 @@ namespace VenoXV.Core
                     element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
                     element.SetPosition = pos;
                     element.Spawn(pos, DelayInMS);
-                    element.Emit("Player:Spawn");
+                    VenoX.TriggerClientEvent(element, "Player:Spawn");
                 }
                 else
                 {
@@ -150,7 +150,7 @@ namespace VenoXV.Core
         {
             try
             {
-                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { Alt.Server.TriggerClientEvent(player, "Vehicle:Repair", element); }
+                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { VenoX.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -177,7 +177,7 @@ namespace VenoXV.Core
             try
             {
                 if (player is null || !player.Exists) return;
-                Alt.Server.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
+                VenoX.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
             }
             catch { }
         }
@@ -186,7 +186,7 @@ namespace VenoXV.Core
             try
             {
                 if (player is null || !player.Exists) return;
-                Alt.Server.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
+                VenoX.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
             }
             catch { }
         }
@@ -271,7 +271,7 @@ namespace VenoXV.Core
             try
             {
                 if (clothesslot < 0 || clothesdrawable < 0) { return; }
-                element.Emit("Clothes:Load", clothesslot, clothesdrawable, clothestexture);
+                VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -280,23 +280,23 @@ namespace VenoXV.Core
             try
             {
                 if (propID < 0 || textureID < 0) { return; }
-                element.Emit("Prop:Load", propID, drawableID, textureID);
+                VenoX.TriggerClientEvent(element, "Prop:Load", propID, drawableID, textureID);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void SetAccessories(IPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
+        public static void SetAccessories(this VnXPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
-            try { element.Emit("Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
+            try { VenoX.TriggerClientEvent(element, "Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
             catch { }
         }
         public static void SetPlayerVisible(this VnXPlayer element, bool trueOrFalse)
         {
-            try { element.Emit("Player:Visible", trueOrFalse); }
+            try { VenoX.TriggerClientEvent(element, "Player:Visible", trueOrFalse); }
             catch { }
         }
         public static void SetPlayerAlpha(this VnXPlayer element, int alpha)
         {
-            try { element.Emit("Player:Alpha", alpha); }
+            try { VenoX.TriggerClientEvent(element, "Player:Alpha", alpha); }
             catch { }
         }
         private static int TextLabelCounter = 0;
@@ -330,8 +330,12 @@ namespace VenoXV.Core
         {
             try
             {
-                if (labelClass == null) { return; }
-                if (Sync.LabelList.Contains(labelClass)) { Sync.LabelList.Remove(labelClass); }
+                if (labelClass == null) return;
+                if (Sync.LabelList.Contains(labelClass))
+                {
+                    VenoX.TriggerEventForAll("Sync:RemoveLabelByID", labelClass.ID);
+                    Sync.LabelList.Remove(labelClass);
+                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -340,8 +344,8 @@ namespace VenoXV.Core
             try
             {
                 if (blipClass == null) return;
-                if (DeleteFor != null) DeleteFor.Emit("BlipClass:RemoveBlip", blipClass.ID);
-                else Alt.EmitAllClients("BlipClass:RemoveBlip", blipClass.ID);
+                if (DeleteFor != null) VenoX.TriggerClientEvent(DeleteFor, "BlipClass:RemoveBlip", blipClass.ID);
+                else VenoX.TriggerEventForAll("BlipClass:RemoveBlip", blipClass.ID);
                 if (Sync.BlipList.Contains(blipClass)) Sync.BlipList.Remove(blipClass);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -365,8 +369,8 @@ namespace VenoXV.Core
                 };
                 Sync.BlipList.Add(blip);
                 BlipCounter++;
-                if (VisibleOnlyFor is null) Alt.EmitAllClients("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
-                else VisibleOnlyFor.Emit("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                if (VisibleOnlyFor is null) VenoX.TriggerEventForAll("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                else VenoX.TriggerClientEvent(VisibleOnlyFor, "BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
                 /*foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                     Sync.LoadBlips(players);*/
                 return blip;
@@ -398,7 +402,11 @@ namespace VenoXV.Core
         {
             try
             {
-                if (Sync.MarkerList.Contains(markerClass)) Sync.MarkerList.Remove(markerClass);
+                if (Sync.MarkerList.Contains(markerClass))
+                {
+                    VenoX.TriggerEventForAll("Sync:RemoveMarkerByID", markerClass.ID);
+                    Sync.MarkerList.Remove(markerClass);
+                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -409,7 +417,7 @@ namespace VenoXV.Core
             {
                 ObjectModel obj = new ObjectModel
                 {
-                    ID = ObjectCounter++,
+                    ID = ObjectCounter,
                     Parent = Parent,
                     Hash = Hash,
                     Position = Position,
@@ -420,6 +428,7 @@ namespace VenoXV.Core
                     VisibleOnlyFor = VisibleOnlyFor
                 };
                 Sync.ObjectList.Add(obj);
+                ObjectCounter++;
                 return obj;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new ObjectModel(); }
@@ -459,11 +468,11 @@ namespace VenoXV.Core
                     {
                         if (players.Gamemode == Gamemode && VisibleOnlyFor == null)
                         {
-                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
+                            VenoX.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
                         }
                         else if (players.Gamemode == Gamemode && VisibleOnlyFor == players)
                         {
-                            Alt.Server.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
+                            VenoX.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
                         }
                     }
                 }
