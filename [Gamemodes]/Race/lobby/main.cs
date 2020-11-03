@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Race.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -82,9 +83,9 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                         player.SpawnPlayer(Spawnpoint);
                         player.Dimension = VenoXV.Globals.Main.RACE_DIMENSION;
                         double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
-                        Alt.Server.TriggerClientEvent(player, "Race:StartTimer", leftTime, 3);
+                        VenoX.TriggerClientEvent(player, "Race:StartTimer", leftTime, 3);
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
-                        Alt.Server.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
+                        VenoX.TriggerClientEvent(player, "Vehicle:DisableEngineToggle", false); // Disable Auto-TurnOn for Vehicle.
                         vehicle.Frozen = false;
                         vehicle.EngineOn = true;
                         player.Race.CurrentMarker = 0;
@@ -123,12 +124,12 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             int counter = 0;
             foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
             {
-                player.Emit("Race:ClearPlayerList", player.Username);
+                VenoX.TriggerClientEvent(player, "Race:ClearPlayerList", player.Username);
                 foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
                 {
                     counter++;
                     players.Race.RoundPlace = counter;
-                    player.Emit("Race:FillPlayerList", players.Username);
+                    VenoX.TriggerClientEvent(player, "Race:FillPlayerList", players.Username);
                 }
             }
         }
@@ -187,7 +188,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 // Draw Waypoint & give player stuff.
                 player.DrawWaypoint(newPos.X, newPos.Y);
                 player.Race.CurrentMarker += 1;
-                player.Emit("start_screen_fx", "ExplosionJosh3", 0, false);
+                VenoX.TriggerClientEvent(player, "start_screen_fx", "ExplosionJosh3", 0, false);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

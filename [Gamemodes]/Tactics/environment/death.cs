@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using System;
 using VenoXV._Gamemodes_.Tactics.Globals;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using static VenoXV._Language_.Main;
@@ -73,7 +74,7 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     Lobby.Main.SyncStats();
                     Lobby.Main.SyncPlayerStats();
                     RageAPI.SetPlayerVisible(player, false);
-                    Alt.Server.TriggerClientEvent(player, "Tactics:OnDeath");
+                    VenoX.TriggerClientEvent(player, "Tactics:OnDeath");
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
                     player.RemoveAllPlayerWeapons();
                 }
