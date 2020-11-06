@@ -38,7 +38,7 @@ namespace VenoXV._Preload_
     }
     public class Preload : IScript
     {
-        public const string CURRENT_VERSION = "2.0.1";
+        public const string CURRENT_VERSION = "2.1.1";
         public enum Gamemodes
         {
             Reallife = 0,
@@ -89,17 +89,17 @@ namespace VenoXV._Preload_
                 VenoX.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
-                if (!Globals.Main.AllPlayers.Contains(player)) Globals.Main.AllPlayers.Add(player);
+                if (!Globals.Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
                 player.RemoveAllPlayerWeapons();
                 switch (value)
                 {
                     case (int)Gamemodes.Reallife:
-                        if (!Main.ReallifePlayers.Contains(player)) Globals.Main.ReallifePlayers.Add(player);
+                        if (!Main.ReallifePlayers.Contains(player)) Main.ReallifePlayers.Add(player);
                         _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                         break;
                     case (int)Gamemodes.Zombies:
-                        if (!Main.ZombiePlayers.Contains(player)) Globals.Main.ZombiePlayers.Add(player);
+                        if (!Main.ZombiePlayers.Contains(player)) Main.ZombiePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
                         // _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
@@ -107,24 +107,24 @@ namespace VenoXV._Preload_
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
                     case (int)Gamemodes.Tactics:
-                        if (!Main.TacticsPlayers.Contains(player)) Globals.Main.TacticsPlayers.Add(player);
+                        if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
                         _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:
-                        if (!Main.RacePlayers.Contains(player)) Globals.Main.RacePlayers.Add(player);
+                        if (!Main.RacePlayers.Contains(player)) Main.RacePlayers.Add(player);
                         Character_Creator.Main.LoadCharacterSkin(player);
                         _Gamemodes_.Race.Lobby.Main.OnSelectedRaceGM(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Race");
                         break;
                     case (int)Gamemodes.SevenTowers:
-                        if (!Main.SevenTowersPlayers.Contains(player)) Globals.Main.SevenTowersPlayers.Add(player);
-                        Character_Creator.Main.LoadCharacterSkin(player);
+                        if (!Main.SevenTowersPlayers.Contains(player)) Main.SevenTowersPlayers.Add(player);
                         _Gamemodes_.SevenTowers.Main.JoinedSevenTowers(player);
+                        Character_Creator.Main.LoadCharacterSkin(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Seven-Towers");
                         break;
                     case (int)Gamemodes.Derby:
-                        if (!Main.DerbyPlayers.Contains(player)) Globals.Main.DerbyPlayers.Add(player);
+                        if (!Main.DerbyPlayers.Contains(player)) Main.DerbyPlayers.Add(player);
                         _Gamemodes_.Derby.Lobby.Main.OnPlayerJoin(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Derby");
                         break;

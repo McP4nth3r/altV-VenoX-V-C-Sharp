@@ -99,7 +99,7 @@ namespace VenoXV._Preload_.Login
                     Register.Register.ChangeCharacterSexEvent(player, player.Sex);
                     return;
                 }
-                if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
+                //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 Preload.ShowPreloadList(player);
             }

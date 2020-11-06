@@ -22,23 +22,24 @@ namespace VenoXV._Gamemodes_.Reallife.quests
 
         public static Dictionary<int, QuestModel> QuestDict = new Dictionary<int, QuestModel>
         {
-            {   QUEST_VENOXRENTALS, new QuestModel{ Text = "Willkommen auf VenoX - V,<br>begib dich zu VenoX Rentals um<br>deine Erste Belohnung zu bekommen!", Money = 1350 } },
-            {   QUEST_STADTHALLE, new QuestModel{ Text = "Asylant? Kein Problem!<br>Begib dich zur Stadthalle!<br>Drücke E um die Stadthalle zu betreten.", Money = 3500 } },
-            {   QUEST_PERSO, new QuestModel{ Text = "Kauf dir einen Personalausweis!", Money = 6535 } },
-            {   QUEST_AUTOSCHEIN, new QuestModel{ Text = "Nie wieder Bus Fahren!<br>Bestehe die Führerschein Prüfung!", Money = 5000 } },
-            {   QUEST_ATM_EINZAHLEN, new QuestModel{ Text = "Sparkasse is on the Way!<br>Zahle 1000$ beim ATM ein!<br>Drücke E um einen Bankautomaten zu nutzen.", Money = 4000 } },
-            {   QUEST_GAS_SNACK, new QuestModel{ Text = "Du bist hungrig!<br>Kaufe dir einen Snack bei der Tankstelle!", Money = 1000 } },
-            {   QUEST_AUTOKAUFEN, new QuestModel{ Text = "One Car One Dream!<br>Kaufe dir dein erstes Auto!", Money = 10000 } },
-            {   QUEST_GET100K, new QuestModel{ Text = "Kauf dir einen Benzinkannister.", Money = 5000 } },
-            {   QUEST_GETWEAPONLICENSE, new QuestModel{ Text = "Waffen sind wichtig.....!!!<br>Besorge dir einen Waffenschein ( ab 3 H Verfügbar ).", Money = 10000 } },
-            {   QUEST_GETADVANCEDRIFLE, new QuestModel{ Text = "Ein Kampfgewehr? Not Bad...<br>Besorge dir eine Advanced Rifle.", Money = 15000 } },
-            {   QUEST_START_SHOPROB, new QuestModel{ Text = "Es wird Zeit etwas Geld zu verdienen...<br>Raube einen 24/7 Shop aus!", Money = 10000 } }
+            {   QUEST_VENOXRENTALS, new QuestModel{ ID = QUEST_VENOXRENTALS, Text = "Willkommen auf VenoX - V,<br>begib dich zu VenoX Rentals um<br>deine Erste Belohnung zu bekommen!", Money = 1350 } },
+            {   QUEST_STADTHALLE, new QuestModel{ ID = QUEST_STADTHALLE,Text = "Asylant? Kein Problem!<br>Begib dich zur Stadthalle!<br>Drücke E um die Stadthalle zu betreten.", Money = 3500 } },
+            {   QUEST_PERSO, new QuestModel{ ID = QUEST_PERSO,Text = "Kauf dir einen Personalausweis!", Money = 6535 } },
+            {   QUEST_AUTOSCHEIN, new QuestModel{ ID = QUEST_AUTOSCHEIN,Text = "Nie wieder Bus Fahren!<br>Bestehe die Führerschein Prüfung!", Money = 5000 } },
+            {   QUEST_ATM_EINZAHLEN, new QuestModel{ ID = QUEST_ATM_EINZAHLEN,Text = "Sparkasse is on the Way!<br>Zahle 1000$ beim ATM ein!<br>Drücke E um einen Bankautomaten zu nutzen.", Money = 4000 } },
+            {   QUEST_GAS_SNACK, new QuestModel{ ID = QUEST_GAS_SNACK,Text = "Du bist hungrig!<br>Kaufe dir einen Snack bei der Tankstelle!", Money = 1000 } },
+            {   QUEST_AUTOKAUFEN, new QuestModel{ ID = QUEST_AUTOKAUFEN,Text = "One Car One Dream!<br>Kaufe dir dein erstes Auto!", Money = 10000 } },
+            {   QUEST_GET100K, new QuestModel{ ID = QUEST_GET100K,Text = "Kauf dir einen Benzinkannister.", Money = 5000 } },
+            {   QUEST_GETWEAPONLICENSE, new QuestModel{ID = QUEST_GETWEAPONLICENSE, Text = "Waffen sind wichtig.....!!!<br>Besorge dir einen Waffenschein ( ab 3 H Verfügbar ).", Money = 10000 } },
+            {   QUEST_GETADVANCEDRIFLE, new QuestModel{ ID = QUEST_GETADVANCEDRIFLE,Text = "Ein Kampfgewehr? Not Bad...<br>Besorge dir eine Advanced Rifle.", Money = 15000 } },
+            {   QUEST_START_SHOPROB, new QuestModel{ ID = QUEST_START_SHOPROB,Text = "Es wird Zeit etwas Geld zu verdienen...<br>Raube einen 24/7 Shop aus!", Money = 10000 } }
         };
 
         public static void OnQuestDone(VnXPlayer player, QuestModel quest)
         {
             try
             {
+                if (player.Reallife.Quests != quest.ID) return;
                 player.Reallife.Quests += 1;
                 player.Reallife.Money += quest.Money;
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Quest Done.");

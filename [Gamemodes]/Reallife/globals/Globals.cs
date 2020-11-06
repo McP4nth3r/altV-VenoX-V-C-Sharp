@@ -77,7 +77,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         public static int WEATHER_COUNTER = 0;
-        public static int WEATHER_CURRENT = 0; // Aktuelles Wetter
+        public static int WEATHER_CURRENT = 11; // Aktuelles Wetter
         public static int GetRandomWeather(int min, int max)
         {
             Random random = new Random();
@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                Factions.Allround.OnPlayerEnterColShapeModel(shape, player);
+                Allround.OnPlayerEnterColShapeModel(shape, player);
                 factions.State.Allround.OnStateColShapeHit(shape, player);
                 CarShop.OnPlayerEnterColShapeModel(shape, player);
                 Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
@@ -162,10 +162,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 weather = 0;
                                 break;
                             case 1:
-                                weather = 1;
+                                weather = 10;
                                 break;
                             case 2:
-                                weather = 2;
+                                weather = 11;
                                 break;
                         }
                     }

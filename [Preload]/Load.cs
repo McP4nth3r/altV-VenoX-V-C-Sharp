@@ -12,6 +12,7 @@ namespace VenoXV._Preload_
         public static void LoadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
             Alt.Emit("GlobalSystems:PlayerProofs", player, true, false, false, false, true, false);
+            VenoX.TriggerClientEvent(player, "Quests:Show", false);
             switch (Gamemode)
             {
                 case Gamemodes.Reallife:
@@ -21,6 +22,7 @@ namespace VenoXV._Preload_
                     VenoX.TriggerClientEvent(player, "XMenu:Load");
                     VenoX.TriggerClientEvent(player, "Phone:Load");
                     VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.Reallife.HUD);
+                    VenoX.TriggerClientEvent(player, "Quests:Show", true);
                     Sync.LoadAllNPCs(player);
                     break;
                 case Gamemodes.Tactics:
@@ -54,6 +56,7 @@ namespace VenoXV._Preload_
                     VenoX.TriggerClientEvent(player, "Reallife:UnloadHUD");
                     VenoX.TriggerClientEvent(player, "Reallife:DestroyHouseBlips");
                     VenoX.TriggerClientEvent(player, "Reallife:DestroyATMBlips");
+                    VenoX.TriggerClientEvent(player, "Quests:Show", false);
                     break;
                 case Gamemodes.Tactics:
                     VenoX.TriggerClientEvent(player, "Tactics:Unload");

@@ -20,7 +20,7 @@ namespace VenoXV.Core
         public static List<ColShapeModel> GetAllColShapes()
         {
             try { return Sync.ColShapeList; }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<ColShapeModel>(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new List<ColShapeModel>(); }
         }
         public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = Globals.Main.REALLIFE_DIMENSION)
         {

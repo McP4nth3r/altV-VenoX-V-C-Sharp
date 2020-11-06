@@ -632,7 +632,7 @@ namespace VenoXV._Admin_
                     }
                 }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         [Command("vehicle")]

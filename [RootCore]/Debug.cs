@@ -13,7 +13,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (!DEBUG_MODE_ENABLED) { return; }
+                if (!DEBUG_MODE_ENABLED) return;
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + textt);
                 string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
                 if (DEBUG_MODE_LOG)

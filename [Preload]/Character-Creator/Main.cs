@@ -33,9 +33,8 @@ namespace VenoXV._Preload_.Character_Creator
                     HeadOverlays = headoverlays
                 };
                 foreach (CharacterModel skin in CharacterSkins.ToList())
-                {
-                    if (skin.UID == player.UID) { return; }
-                }
+                    if (skin.UID == player.UID) return;
+
                 CharacterSkins.Add(playerClassSkin);
                 Database.CreateCharacterSkin(player.UID, facefeatures, headblends, headoverlays);
                 VenoX.TriggerClientEvent(player, "CharCreator:Close");
@@ -43,7 +42,7 @@ namespace VenoXV._Preload_.Character_Creator
                 player.Reallife.SpawnLocation = "Wuerfelpark";
                 player.SpawnPlayer(player.Position);
                 Preload.ShowPreloadList(player);
-                if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
+                //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
             }
             catch { }
         }

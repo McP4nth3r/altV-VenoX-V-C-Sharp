@@ -1,6 +1,4 @@
-﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_;
@@ -11,21 +9,23 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
 {
     public class Allround
     {
-        public static ColShapeModel LSPDDuty = RageAPI.CreateColShapeSphere(new Vector3(459.297f, -990.9312f, 30.6896f), 1.5f, Dimension.GlobalDimension);
-        public static ColShapeModel FBIDuty = RageAPI.CreateColShapeSphere(new Vector3(121.7512f, -753.7672f, 45.75201f), 1.5f, Dimension.GlobalDimension);
-        public static ColShapeModel ARMYDuty = RageAPI.CreateColShapeSphere(new Vector3(467.07693f, -3220.4834f, 7.0549316f), 1.5f, Dimension.GlobalDimension);
-        public static ColShapeModel ARMY2Duty = RageAPI.CreateColShapeSphere(new Vector3(-2172.7913f, 3255.9692f, 32.801514f), 1.5f, Dimension.GlobalDimension);
-
-        public static void OnStateColShapeHit(IColShape colShape, VnXPlayer player)
+        public static ColShapeModel LSPDDuty = RageAPI.CreateColShapeSphere(new Vector3(459.297f, -990.9312f, 30.6896f), 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        public static ColShapeModel FBIDuty = RageAPI.CreateColShapeSphere(new Vector3(121.7512f, -753.7672f, 45.75201f), 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        public static ColShapeModel ARMYDuty = RageAPI.CreateColShapeSphere(new Vector3(467.07693f, -3220.4834f, 7.0549316f), 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        public static ColShapeModel ARMY2Duty = RageAPI.CreateColShapeSphere(new Vector3(-2172.7913f, 3255.9692f, 32.801514f), 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        public static async void OnStateColShapeHit(ColShapeModel colShape, VnXPlayer player)
         {
             try
             {
-                if (!Factions.Allround.isStateFaction(player)) { return; }
-                if (colShape == LSPDDuty) { VenoX.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_POLICE_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
-                else if (colShape == FBIDuty) { VenoX.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_FBI_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
-                else if (colShape == ARMYDuty || colShape == ARMY2Duty) { VenoX.TriggerClientEvent(player, "showDutyWindow", "Wilkommen in der Umkleide des " + Constants.FACTION_USARMY_NAME + ".<br>Hier kannst du im Dienst gehen oder für Schwieriege<br>Einsätze in den S.W.A.T Modus.", player.Username); }
+                if (!Factions.Allround.isStateFaction(player)) return;
+                string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Wilkommen Officer");
+                string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "<br><br><br>Hier kannst du dich für den Dienst melden, bei speziellen Einsätzen aber <br><br><br>auch in den SWAT gehen. Du kannst dich aber auch wieder abmelden.");
+                string TranslatedTextResult = TranslatedText1 + " " + player.Username + "!" + TranslatedText2;
+                if (colShape == LSPDDuty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_POLICE_NAME, TranslatedTextResult);
+                else if (colShape == FBIDuty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_FBI_NAME, TranslatedTextResult);
+                else if (colShape == ARMYDuty || colShape == ARMY2Duty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_USARMY_NAME, TranslatedTextResult);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

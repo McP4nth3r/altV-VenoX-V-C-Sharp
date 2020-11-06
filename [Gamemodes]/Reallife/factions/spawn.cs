@@ -18,6 +18,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Spawn : IScript
     {
+        ColShapeModel SpawnLSPD = RageAPI.CreateColShapeSphere(new Vector3(469.8354f, -985.0742f, 33.89248f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        ColShapeModel SpawnARMY = RageAPI.CreateColShapeSphere(new Vector3(468.65933f, -3205.8594f, 9.784668f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        ColShapeModel SpawnARMY2 = RageAPI.CreateColShapeSphere(new Vector3(-2089.4636f, 3273.7056f, 32.801514f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
 
         public static void SpawnPlayerOnSpawnpoint(VnXPlayer player)
         {
