@@ -27,8 +27,8 @@ namespace VenoXV._Gamemodes_.Reallife.admin
                 if (target == null) return;
                 if (player.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " wurde von " + player.Username + " gekickt! Grund : " + reason);
-                    logfile.WriteLogs("admin", "[" + player.SocialClubId.ToString() + "][" + player.Username + "] hat [" + target.SocialClubId + "][" + target.Username + "] gekickt! Grund : " + reason);
+                    RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
+                    logfile.WriteLogs("admin", target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
                     target.Kick(reason);
                 }
             }
@@ -42,38 +42,33 @@ namespace VenoXV._Gamemodes_.Reallife.admin
             {
                 foreach (VnXPlayer targetsingame in VenoX.GetAllPlayers().ToList())
                 {
-                    if (targetsingame.AdminRank >= Constants.ADMINLVL_TSUPPORTER)
+                    if (targetsingame.AdminRank < Constants.ADMINLVL_TSUPPORTER) continue;
+                    switch (player.AdminRank)
                     {
-                        if (player.AdminRank == 7)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {B40000}Projektleitung " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Projektleitung " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 6)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {EC0000}Stellv.Projektleitung " + player.Username + ": {FFFFFF}" + message + " }} ");
-                            logfile.WriteLogs("admin", "{{ ACHAT Stellv.Projektleitung " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 5)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {E8AE00}Administrator " + player.Username + ": {FFFFFF}" + message + " }} ");
+                        case Constants.ADMINLVL_PROJEKTLEITER:
+                            targetsingame.SendChatMessage("{{ ACHAT {B40000}Project Leader " + player.Username + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Project Leader " + player.Username + ": " + message + " }} ");
+                            return;
+                        case Constants.ADMINLVL_STELLVP:
+                            targetsingame.SendChatMessage("{{ ACHAT {EC0000}Rep. Project Leader " + player.Username + ": {FFFFFF}" + message + " }} ");
+                            logfile.WriteLogs("admin", "{{ ACHAT Rep. Project Leader " + player.Username + ": " + message + " }} ");
+                            return;
+                        case Constants.ADMINLVL_ADMINISTRATOR:
+                            targetsingame.SendChatMessage("{{ ACHAT {E8AE00}Administrator " + player.Username + ": {FFFFFF}" + message + " }} ");
                             logfile.WriteLogs("admin", "{{ ACHAT Administrator " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 4)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {002DE0}Moderator " + player.Username + ": {FFFFFF}" + message + " }} ");
+                            return;
+                        case Constants.ADMINLVL_MODERATOR:
+                            targetsingame.SendChatMessage("{{ ACHAT {002DE0}Moderator " + player.Username + ": {FFFFFF}" + message + " }} ");
                             logfile.WriteLogs("admin", "{{ ACHAT Moderator " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 3)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {006600}Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
+                            return;
+                        case Constants.ADMINLVL_SUPPORTER:
+                            targetsingame.SendChatMessage("{{ ACHAT {006600}Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
                             logfile.WriteLogs("admin", "{{ ACHAT Supporter " + player.Username + ": " + message + " }} ");
-                        }
-                        else if (player.AdminRank == 2)
-                        {
-                            targetsingame.SendTranslatedChatMessage("{{ ACHAT {C800C8}Ticket-Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
+                            return;
+                        case Constants.ADMINLVL_TSUPPORTER:
+                            targetsingame.SendChatMessage("{{ ACHAT {C800C8}Ticket - Supporter " + player.Username + ": {FFFFFF}" + message + " }} ");
                             logfile.WriteLogs("admin", "{{ ACHAT Ticket-Supporter " + player.Username + ": " + message + " }} ");
-                        }
+                            return;
                     }
                 }
             }

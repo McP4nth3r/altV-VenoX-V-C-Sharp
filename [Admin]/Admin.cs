@@ -902,10 +902,7 @@ namespace VenoXV._Admin_
                     Database.ChangeUserPasswort(name, passwort);
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
                 }
-                else
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
-                }
+                else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
             }
         }
 
@@ -921,7 +918,7 @@ namespace VenoXV._Admin_
                     if (area.Name == name)
                     {
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
-                        player.SendTranslatedChatMessage("[GW] Teleported to '" + area.Name + "'.");
+                        player.SendChatMessage("[GW] Teleported to '" + area.Name + "'.");
                         player.SetPosition = area.TK;
                         player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                     }
