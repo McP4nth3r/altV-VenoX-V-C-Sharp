@@ -6,6 +6,7 @@ using System.Linq;
 using VenoXV._Admin_;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._Preload_;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
@@ -146,6 +147,13 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
             }
         }
 
+        [Command("lobbykick")]
+        public static void KickTargetFromLobby(VnXPlayer player, string target_name)
+        {
+            VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
+            if (target == null) return;
+            if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER) Preload.ShowGamemodeSelection(target);
+        }
 
         [Command("revive")]
         public void ReviveCommand(VnXPlayer player, string target_name)
