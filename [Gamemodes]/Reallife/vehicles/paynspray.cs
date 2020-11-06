@@ -43,7 +43,8 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 if (PaynSprayList.Contains((ColShapeModel)forpaynspray))
                 {
-                    if (!player.IsInVehicle) { return; }
+                    if (!player.IsInVehicle) return;
+                    if (player.Vehicle.Driver != player) return;
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
                     if (vehicle.NPC) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du kannst kein NPC-Fahrzeug Reparieren!"); return; }
                     int playerMoney = player.Reallife.Money;
@@ -53,10 +54,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         vehicle.Repair();
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Fahrzeug Repariert! [180 $]");
                     }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
-                    }
+                    else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
