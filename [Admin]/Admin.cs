@@ -590,23 +590,18 @@ namespace VenoXV._Admin_
         [Command("weather")]
         public void WeatherCommand(VnXPlayer player, int weather)
         {
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            if (player.AdminRank >= Constants.ADMINLVL_MODERATOR)
             {
-                if (weather < 0 || weather > 14)
-                {
+                if (weather < 0 || weather > 14) return;
 
-                }
-                else
+                //NAPI.World.SetWeather((Weather)weather);
+                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
-                    //NAPI.World.SetWeather((Weather)weather);
-                    foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
-                    {
-                        players.SetWeather((AltV.Net.Enums.WeatherType)weather);
-                    }
-                    RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat das Wetter zu " + weather + " gewechselt!");
-                    Main.WEATHER_CURRENT = weather;
-                    Main.WEATHER_COUNTER = 0;
+                    players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                 }
+                RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat das Wetter zu " + weather + " gewechselt!");
+                Main.WEATHER_CURRENT = weather;
+                Main.WEATHER_COUNTER = 0;
             }
         }
 
@@ -634,6 +629,7 @@ namespace VenoXV._Admin_
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
+
 
         [Command("vehicle")]
         public static void IVehicleCommand(VnXPlayer player, int IVehicleid, string action)
@@ -699,13 +695,24 @@ namespace VenoXV._Admin_
 
 
         [Command("resetaktion")]
-        public static void AdminResetAktion(VnXPlayer player)
+        public static async void AdminResetAktion(VnXPlayer player)
         {
-            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            try
             {
-
+                if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+                {
+                    _Gamemodes_.Reallife.Fun.Allround.DestroyTargetMarker();
+                    _Gamemodes_.Reallife.Fun.Allround.ActionCooldown = DateTime.Now;
+                    _Gamemodes_.Reallife.Fun.Allround.ActionRunning = false;
+                    foreach (VnXPlayer otherp in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    {
+                        string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)otherp.Language, "hat den Aktions-Timer zurückgesetzt!");
+                        otherp.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "[Reallife] : " + player.Username + " " + TranslatedText);
+                    }
+                }
+                else _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
             }
-            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!"); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -1178,7 +1185,7 @@ namespace VenoXV._Admin_
             if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
             {
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
+                if (target == null) return;
                 VenoX.TriggerEventForAll("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
                 Debug.OutputDebugString("CMD-Executed!");
             }

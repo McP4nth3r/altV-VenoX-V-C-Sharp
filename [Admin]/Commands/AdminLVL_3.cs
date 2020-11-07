@@ -148,18 +148,20 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
         }
 
         [Command("lobbykick")]
-        public static void KickTargetFromLobby(VnXPlayer player, string target_name)
+        public static async void KickTargetFromLobby(VnXPlayer player, string target_name)
         {
             VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) return;
             if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER) Preload.ShowGamemodeSelection(target);
+            string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "got kicked by");
+            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + target.Username + " " + TranslatedText + " " + player.Username);
         }
 
         [Command("revive")]
         public void ReviveCommand(VnXPlayer player, string target_name)
         {
             VnXPlayer Target = RageAPI.GetPlayerFromName(target_name);
-            if (Target == null) { return; }
+            if (Target == null) return;
             if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
             {
                 if (Target != null)
