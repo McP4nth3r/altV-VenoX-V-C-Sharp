@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,549 +12,531 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <title>Charakterauswahl</title>
+    <title>Character selection</title>
 </head>
 
 <body>
-    <div id="charselectorBox" class="box">
-        <img src="../utils/img/logo.png">
-        <p class="title">G2 Crimelife</p>
-        <hr>
-        <p class="description">Wähle deinen Charakter oder erstelle einen neuen Charakter.</p>
-        <hr>
-        <ul id="characterList" class="list-group"></ul>
-    </div>
-
     <div id="genderselectBox" class="box">
         <img src="../utils/img/logo.png">
-        <p class="title">G2 Crimelife</p>
+        <p class="title">VenoX</p>
         <hr>
-        <p class="description">Wähle dein Geschlecht und die Eigenschaft deines Charakters.<br>Jeder Zweig (legal /
-            illegal) bringt Vor- und Nachteile für deine zukünftige Charakterlaufbahn. Der Wechsel im Spielgeschehen von
-            Illegal zu Legal wird nicht einfach sein, entscheide
-            also bewusst!</p>
+        <p class="description">Choose your gender.</p>
         <hr>
         <ul class="list-group">
             <li class="list-group-item" onclick="selectCharCreatorGender(0);">
                 <img src="../utils/img/male.png"><br>
-                <p>MÄNNLICH</p>
+                <p>MALE</p>
             </li>
             <li class="list-group-item" onclick="selectCharCreatorGender(1);">
                 <img src="../utils/img/female.png"><br>
-                <p>WEIBLICH</p>
+                <p>FEMALE</p>
             </li>
         </ul>
-    </div>
-
-    <div id="loadingScreen">
-        <p style="color: #fff; font-weight: bold; font-family: PEL; font-size: 0.85vw; margin-bottom: 0;">Lade
-            Spielstand und Spielerinformationen...</p>
-        <img src="../utils/img/loading.svg" class="img-fluid mx-auto d-block" style="max-width: 100%; height: auto">
     </div>
 
     <!-- <div id="charcreatorMainBox" style="display: block !important; opacity: 1 !important;"> -->
     <div id="charcreatorMainBox">
         <div id="charcreatorCategoryBox">
-            <p>WÄHLE EINE KATEGORIE</p>
+            <p>CHOOSE A CATEGORY</p>
             <hr>
             <ul class="list-group">
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'hair');">
                     <img src="../utils/img/hair.png">
-                    <p>HAARE</p>
+                    <p>HAIR</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'chesthair');">
                     <img src="../utils/img/body-parts.png">
-                    <p>BRUSTHAARE</p>
+                    <p>BREAST HAIR</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'eye');">
                     <img src="../utils/img/eye.png">
-                    <p>AUGEN</p>
+                    <p>EYES</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'parent');">
                     <img src="../utils/img/family.png">
-                    <p>ABSTAMMUNG</p>
+                    <p>ANCESTRY</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'cheek');">
                     <img src="../utils/img/cheek.png">
-                    <p>WANGEN</p>
+                    <p>CHEEKS</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'blemishes');">
                     <img src="../utils/img/skin.png">
-                    <p>MERKMALE</p>
+                    <p>FEATURES</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'lips');">
                     <img src="../utils/img/lips.png">
-                    <p>LIPPEN</p>
+                    <p>LIPS</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'chin');">
                     <img src="../utils/img/chin.png">
-                    <p>KINN</p>
+                    <p>CHIN</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'allergy');">
                     <img src="../utils/img/allergy.png">
-                    <p>KIEFER</p>
+                    <p>JAW</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'neck');">
                     <img src="../utils/img/neck.png">
-                    <p>NACKEN</p>
+                    <p>NECK</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'nose');">
                     <img src="../utils/img/piercing.png">
-                    <p>NASE</p>
+                    <p>NOSE</p>
                 </li>
                 <li class="list-group-item CCCItem" onclick="selectCharCreatorCategory(this, 'info');">
                     <img src="../utils/img/business-card-of-a-man-with-contact-info.png">
-                    <p>ERSTELLEN</p>
+                    <p>CREATE</p>
                 </li>
             </ul>
         </div>
-        <div id="charcreator-hairBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE BEHAARUNG</p>
-            <hr>
-            <div class="container">
-                <p>Haare</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="HairVariation" oninput="ChangeHair(0, 'Hair');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="21" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="text-align: left;">
-                <p style="margin-bottom: 10px;">Haarfarbe (primär) <i data-toggle="collapse"
-                        data-target="#hairBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
-                <ul class="list-group collapse" id="hairBox-colorPrimaryList"></ul>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p style="margin-bottom: 10px;">Haarfarbe (sekundär) <i data-toggle="collapse"
-                        data-target="#hairBox-colorSecondaryList" class="fas fa-angle-double-down"></i></p>
-                <ul class="list-group collapse" id="hairBox-colorSecondaryList"></ul>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Bart</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="BeardVariation" oninput="ChangeHair(3, 'Beard');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="30" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="BeardAlpha" oninput="ChangeHair(7, 'BeardAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p style="margin-bottom: 10px;">Bartfarbe (primär) <i data-toggle="collapse"
-                        data-target="#hairBox-beardcolorPrimaryList" class="fas fa-angle-double-down"></i></p>
-                <ul class="list-group collapse" id="hairBox-beardcolorPrimaryList"></ul>
-            </div>
+    </div>
+    <div id="charcreator-hairBox" class="creatorBox hidden">
+        <p>CHANGE YOUR HAIR</p>
+        <hr>
+        <div class="container">
+            <p>Hair</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="HairVariation" oninput="ChangeHair(0, 'Hair');" type="range" class="range" name="auswertung"
+                    min="0" step="1" max="21" value="0"><output name="numerisch">0</output>
+            </form>
         </div>
-        <div id="charcreator-eyeBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE AUGEN</p>
-            <hr>
-            <div class="container">
-                <p>Augengröße</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyesSize" oninput="ChangeFace(3);" type="range" class="range" name="auswertung" min="-1"
-                        step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Augenfarbe (primär)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyesColor" oninput="ChangeHead(24, 'EyesColor');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="31" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Makeup</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MakeupVariation" oninput="ChangeHead(7, 'MakeupVariation');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="74" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Sichtbarkeit (MakeUp)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MakeupAlpha" oninput="ChangeHead(6, 'MakeupAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Augenbrauen</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyebrowsVariation" oninput="ChangeHair(5, 'Eyebrows');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="30" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyebrowsAlpha" oninput="ChangeHair(8, 'EyebrowsAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p style="margin-bottom: 10px;">Augenbrauenfarbe <i data-toggle="collapse"
-                        data-target="#eyeBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
-                <ul class="list-group collapse" id="eyeBox-colorPrimaryList"></ul>
-            </div>
-            <div class="container">
-                <p>Augenbrauenhöhe</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyebrowsHeight" oninput="ChangeFace(1);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Augenbrauenbreite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="EyebrowsWidth" oninput="ChangeFace(2);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
+        <div class="container" style="text-align: left;">
+            <p style="margin-bottom: 10px;">Hair color (primary) <i data-toggle="collapse"
+                    data-target="#hairBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
+            <ul class="list-group collapse" id="hairBox-colorPrimaryList"></ul>
         </div>
-        <div id="charcreator-parentBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE ABSTAMMUNG</p>
-            <hr>
-            <div class="container">
-                <p>Vater</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="FatherVariation" oninput="ChangeHead(0, 'FatherVariation');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="23" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Mutter</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MotherVariation" oninput="ChangeHead(1, 'MotherVariation');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="19" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Mischung (Eltern)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="FatherMotherMix" oninput="ChangeHead(2, 'FatherMotherMix');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Hautfarbe (Vater)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="FatherSkin" oninput="ChangeHead(21, 'FatherSkin');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="23" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Hautfarbe (Mutter)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MotherSkin" oninput="ChangeHead(22, 'MotherSkin');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="19" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Mischung (Hautfarbe)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="FatherMotherSkinMix" oninput="ChangeHead(23, 'FatherMotherSkinMix');" type="range"
-                        class="range" name="auswertung" min="0" step="0.1" max="1" value="0"><output
-                        name="numerisch">0</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Alterung</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="AgeingVariation" oninput="ChangeHead(14, 'AgeingVariation');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="14" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="AgeingAlpha" oninput="ChangeHead(13, 'AgeingAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p style="margin-bottom: 10px;">Hair color (secondary) <i data-toggle="collapse"
+                    data-target="#hairBox-colorSecondaryList" class="fas fa-angle-double-down"></i></p>
+            <ul class="list-group collapse" id="hairBox-colorSecondaryList"></ul>
         </div>
-        <div id="charcreator-chesthairBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE BRUSTHAARE</p>
-            <hr>
-            <div class="container">
-                <p>Brusthaare</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="ChestHairVariation" oninput="ChangeHair(9, 'ChestHair');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="16" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="ChestHairAlpha" oninput="ChangeHair(11, 'ChestHairAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p style="margin-bottom: 10px;">Brusthaarfarbe (primär) <i data-toggle="collapse"
-                        data-target="#chesthairBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
-                <!-- <form oninput="numerisch.value=auswertung.value">
-                    <input id="ChestHairColor" oninput="ChangeHair(10, 'ChestHairColor');" type="range" class="range" name="auswertung" min="0" step="1" max="63" value="0"><output name="numerisch">0</output>
-                </form> -->
-                <ul class="list-group collapse" id="chesthairBox-colorPrimaryList"></ul>
-            </div>
+        <hr>
+        <div class="container">
+            <p>Beard</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="BeardVariation" oninput="ChangeHair(3, 'Beard');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="30" value="-1"><output name="numerisch">-1</output>
+            </form>
         </div>
-        <div id="charcreator-cheekBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE WANGEN</p>
-            <hr>
-            <div class="container">
-                <p>Knochenhöhe</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="cheekboneHeight" oninput="ChangeFace(11);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Knochenbreite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="cheekboneWidth" oninput="ChangeFace(12);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Wangenbreite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="cheeksWidth" oninput="ChangeFace(13);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Wangenröte</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="WangenBlushVariation" oninput="ChangeHead(4, 'WangenBlushVariation');" type="range"
-                        class="range" name="auswertung" min="-1" step="1" max="6" value="-1"><output
-                        name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Wangenrötenfarbe (primär)</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="WangenBlushColor" oninput="ChangeHead(5, 'WangenBlushColor');" type="range" class="range"
-                        name="auswertung" min="0" step="1" max="63" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="WangenBlushAlpha" oninput="ChangeHead(3, 'WangenBlushAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
+        <div class="container">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="BeardAlpha" oninput="ChangeHair(7, 'BeardAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
         </div>
-        <div id="charcreator-blemishesBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE MERKMALE</p>
-            <hr>
-            <div class="container">
-                <p>Teint</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="ComplexionIndex" oninput="ChangeHead(16, 'ComplexionIndex');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="11" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom:  0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="ComplexionAlpha" oninput="ChangeHead(15, 'ComplexionAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Gesichtsflecken</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="BlemishesIndex" oninput="ChangeHead(12, 'Blemishes');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="23" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="BlemishesAlpha" oninput="ChangeHead(11, 'BlemishesAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Leberflecken & Sommersprossen</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MolesIndex" oninput="ChangeHead(20, 'Moles');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="17" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom:  0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="MolesAlpha" oninput="ChangeHead(19, 'MolesAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Sonnenschaden</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="SunDamageIndex" oninput="ChangeHead(18, 'SunDamage');" type="range" class="range"
-                        name="auswertung" min="-1" step="1" max="10" value="-1"><output name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="SunDamageAlpha" oninput="ChangeHead(17, 'SunDamageAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-lipsBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE LIPPEN</p>
-            <hr>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Lippenfülle</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="lipsfill" oninput="ChangeFace(4);" type="range" class="range" name="auswertung" min="-1"
-                        step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <hr>
-            <div class="container">
-                <p>Lippenstift</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="LipstickVariation" oninput="ChangeHead(9, 'LipstickVariation');" type="range"
-                        class="range" name="auswertung" min="-1" step="1" max="9" value="-1"><output
-                        name="numerisch">-1</output>
-                </form>
-            </div>
-            <div class="container">
-                <p style="margin-bottom: 10px;">Farbe <i data-toggle="collapse" data-target="#lipsBox-colorPrimaryList"
-                        class="fas fa-angle-double-down"></i></p>
-                <ul class="list-group collapse" id="lipsBox-colorPrimaryList"></ul>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Sichtbarkeit</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="LipstickAlpha" oninput="ChangeHead(8, 'LipstickAlpha');" type="range" class="range"
-                        name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-chinBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEIN KINN</p>
-            <hr>
-            <div class="container">
-                <p>Form</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="chinShape" oninput="ChangeFace(5);" type="range" class="range" name="auswertung" min="-1"
-                        step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Position</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="chinPosition" oninput="ChangeFace(6);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Länge</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="chinLength" oninput="ChangeFace(7);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Breite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="chinWidth" oninput="ChangeFace(8);" type="range" class="range" name="auswertung" min="-1"
-                        step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-allergyBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINEN KIEFER</p>
-            <hr>
-            <div class="container">
-                <p>Breite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="jawWidth" oninput="ChangeFace(9);" type="range" class="range" name="auswertung" min="-1"
-                        step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Höhe</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="jawHeight" oninput="ChangeFace(10);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-neckBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINEN NACKEN</p>
-            <hr>
-            <div class="container" style="border-bottom: 0px;">
-                <p>Breite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="neckWidth" oninput="ChangeFace(14);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-noseBox" class="creatorBox hidden">
-            <p>VERÄNDERE DEINE NASE</p>
-            <hr>
-            <div class="container">
-                <p>Breite</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="noseWidth" oninput="ChangeFace(20);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Höhe</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="noseHeight" oninput="ChangeFace(16);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Länge</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="noseLength" oninput="ChangeFace(17);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Rücken</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="noseBridge" oninput="ChangeFace(18);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-            <div class="container">
-                <p>Verschiebung</p>
-                <form oninput="numerisch.value=auswertung.value">
-                    <input id="noseShift" oninput="ChangeFace(19);" type="range" class="range" name="auswertung"
-                        min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
-                </form>
-            </div>
-        </div>
-        <div id="charcreator-infoBox" class="creatorBox hidden">
-            <p>STELLE DIE LETZTEN DINGE FERTIG...</p>
-            <p id="charcreatorerror">Ein Fehler ist aufgetreten.</p>
-            <hr>
-            <p>FERTIG? DANN KLICK NUN AUF ABSCHLIEßEN...</p>
-            <button onclick="finishCharCreator()" type="button" class="btn btn-sm btn-success">ABSCHLIEßEN</button>
+        <div class="container" style="border-bottom: 0px;">
+            <p style="margin-bottom: 10px;">Beard color (primary) <i data-toggle="collapse"
+                    data-target="#hairBox-beardcolorPrimaryList" class="fas fa-angle-double-down"></i></p>
+            <ul class="list-group collapse" id="hairBox-beardcolorPrimaryList"></ul>
         </div>
     </div>
+    <div id="charcreator-eyeBox" class="creatorBox hidden">
+        <p>CHANGE YOUR EYES</p>
+        <hr>
+        <div class="container">
+            <p>Eye size</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyesSize" oninput="ChangeFace(3);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Eye color (primary)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyesColor" oninput="ChangeHead(24, 'EyesColor');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="31" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Make up</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MakeupVariation" oninput="ChangeHead(7, 'MakeupVariation');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="74" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Visibility (MakeUp)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MakeupAlpha" oninput="ChangeHead(6, 'MakeupAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Eyebrows</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyebrowsVariation" oninput="ChangeHair(5, 'Eyebrows');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="30" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyebrowsAlpha" oninput="ChangeHair(8, 'EyebrowsAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p style="margin-bottom: 10px;">Eyebrow color<i data-toggle="collapse"
+                    data-target="#eyeBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
+            <ul class="list-group collapse" id="eyeBox-colorPrimaryList"></ul>
+        </div>
+        <div class="container">
+            <p>Eyebrow level</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyebrowsHeight" oninput="ChangeFace(1);" type="range" class="range" name="auswertung"
+                    min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Eyebrow width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="EyebrowsWidth" oninput="ChangeFace(2);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-parentBox" class="creatorBox hidden">
+        <p>Change your lineage</p>
+        <hr>
+        <div class="container">
+            <p>Father</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="FatherVariation" oninput="ChangeHead(0, 'FatherVariation');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="23" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Mother</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MotherVariation" oninput="ChangeHead(1, 'MotherVariation');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="19" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Mix (parents)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="FatherMotherMix" oninput="ChangeHead(2, 'FatherMotherMix');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Skin color (Father) </p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="FatherSkin" oninput="ChangeHead(21, 'FatherSkin');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="23" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Skin color (Mother)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MotherSkin" oninput="ChangeHead(22, 'MotherSkin');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="19" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Mixture (Skin Color)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="FatherMotherSkinMix" oninput="ChangeHead(23, 'FatherMotherSkinMix');" type="range"
+                    class="range" name="auswertung" min="0" step="0.1" max="1" value="0"><output
+                    name="numerisch">0</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Aging</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="AgeingVariation" oninput="ChangeHead(14, 'AgeingVariation');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="14" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="AgeingAlpha" oninput="ChangeHead(13, 'AgeingAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-chesthairBox" class="creatorBox hidden">
+        <p>CHANGE YOUR BREAST HAIR</p>
+        <hr>
+        <div class="container">
+            <p>Chest hair</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="ChestHairVariation" oninput="ChangeHair(9, 'ChestHair');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="16" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="ChestHairAlpha" oninput="ChangeHair(11, 'ChestHairAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p style="margin-bottom: 10px;">Chest hair color (primary)<i data-toggle="collapse"
+                    data-target="#chesthairBox-colorPrimaryList" class="fas fa-angle-double-down"></i></p>
+            <!-- <form oninput="numerisch.value=auswertung.value">
+                    <input id="ChestHairColor" oninput="ChangeHair(10, 'ChestHairColor');" type="range" class="range" name="auswertung" min="0" step="1" max="63" value="0"><output name="numerisch">0</output>
+                </form> -->
+            <ul class="list-group collapse" id="chesthairBox-colorPrimaryList"></ul>
+        </div>
+    </div>
+    <div id="charcreator-cheekBox" class="creatorBox hidden">
+        <p>CHANGE YOUR CHEEKS</p>
+        <hr>
+        <div class="container">
+            <p>Bone height</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="cheekboneHeight" oninput="ChangeFace(11);" type="range" class="range" name="auswertung"
+                    min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Bone width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="cheekboneWidth" oninput="ChangeFace(12);" type="range" class="range" name="auswertung"
+                    min="-1" step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Cheek width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="cheeksWidth" oninput="ChangeFace(13);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Cheek blush</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="WangenBlushVariation" oninput="ChangeHead(4, 'WangenBlushVariation');" type="range"
+                    class="range" name="auswertung" min="-1" step="1" max="6" value="-1"><output
+                    name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Flushing cheek color (primary)</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="WangenBlushColor" oninput="ChangeHead(5, 'WangenBlushColor');" type="range" class="range"
+                    name="auswertung" min="0" step="1" max="63" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="WangenBlushAlpha" oninput="ChangeHead(3, 'WangenBlushAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-blemishesBox" class="creatorBox hidden">
+        <p>CHANGE YOUR CHARACTERISTICS</p>
+        <hr>
+        <div class="container">
+            <p>Complexion</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="ComplexionIndex" oninput="ChangeHead(16, 'ComplexionIndex');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="11" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom:  0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="ComplexionAlpha" oninput="ChangeHead(15, 'ComplexionAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Facial spots</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="BlemishesIndex" oninput="ChangeHead(12, 'Blemishes');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="23" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="BlemishesAlpha" oninput="ChangeHead(11, 'BlemishesAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Moles & Freckles</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MolesIndex" oninput="ChangeHead(20, 'Moles');" type="range" class="range" name="auswertung"
+                    min="-1" step="1" max="17" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom:  0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="MolesAlpha" oninput="ChangeHead(19, 'MolesAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>Sun damage</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="SunDamageIndex" oninput="ChangeHead(18, 'SunDamage');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="10" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="SunDamageAlpha" oninput="ChangeHead(17, 'SunDamageAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-lipsBox" class="creatorBox hidden">
+        <p>CHANGE YOUR LIPS</p>
+        <hr>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Lip fullness</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="lipsfill" oninput="ChangeFace(4);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <hr>
+        <div class="container">
+            <p>lipstick</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="LipstickVariation" oninput="ChangeHead(9, 'LipstickVariation');" type="range" class="range"
+                    name="auswertung" min="-1" step="1" max="9" value="-1"><output name="numerisch">-1</output>
+            </form>
+        </div>
+        <div class="container">
+            <p style="margin-bottom: 10px;">Color <i data-toggle="collapse" data-target="#lipsBox-colorPrimaryList"
+                    class="fas fa-angle-double-down"></i></p>
+            <ul class="list-group collapse" id="lipsBox-colorPrimaryList"></ul>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Visibility</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="LipstickAlpha" oninput="ChangeHead(8, 'LipstickAlpha');" type="range" class="range"
+                    name="auswertung" min="0" step="0.1" max="1" value="1"><output name="numerisch">1</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-chinBox" class="creatorBox hidden">
+        <p>CHANGE YOUR CHIN</p>
+        <hr>
+        <div class="container">
+            <p>Form</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="chinShape" oninput="ChangeFace(5);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Position</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="chinPosition" oninput="ChangeFace(6);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Length</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="chinLength" oninput="ChangeFace(7);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="chinWidth" oninput="ChangeFace(8);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-allergyBox" class="creatorBox hidden">
+        <p>CHANGE YOUR JAW</p>
+        <hr>
+        <div class="container">
+            <p>Width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="jawWidth" oninput="ChangeFace(9);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Height</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="jawHeight" oninput="ChangeFace(10);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-neckBox" class="creatorBox hidden">
+        <p>CHANGE YOUR NECK</p>
+        <hr>
+        <div class="container" style="border-bottom: 0px;">
+            <p>Width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="neckWidth" oninput="ChangeFace(14);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-noseBox" class="creatorBox hidden">
+        <p> CHANGE YOUR NOSE</p>
+        <hr>
+        <div class="container">
+            <p>Width</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="noseWidth" oninput="ChangeFace(20);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Height</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="noseHeight" oninput="ChangeFace(16);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Length</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="noseLength" oninput="ChangeFace(17);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Move</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="noseBridge" oninput="ChangeFace(18);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+        <div class="container">
+            <p>Shift</p>
+            <form oninput="numerisch.value=auswertung.value">
+                <input id="noseShift" oninput="ChangeFace(19);" type="range" class="range" name="auswertung" min="-1"
+                    step="0.1" max="1" value="0"><output name="numerisch">0</output>
+            </form>
+        </div>
+    </div>
+    <div id="charcreator-infoBox" class="creatorBox hidden">
+        <p>FINISH THE LAST THINGS ...</p>
+        <p id="charcreatorerror"> An error has occurred.</p>
+        <hr>
+        <p> FINISHED? THEN CLICK ON COMPLETE ...</p>
+        <button onclick="finishCharCreator()" type="button" class="btn btn-sm btn-success">CREATE CHARACTER</button>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -566,6 +549,12 @@
 </body>
 
 <script>
+    setTimeout(() => {
+        fillCharacterCreatorWithHairColors();
+        $("#charcreatorMainBox").fadeTo(500, 1, function () {
+            $("#charcreatorMainBox").show();
+        });
+    }, 300);
     let maxAvailableChars = 2,
         $gender = null,
         $isCrimeFlagged = null;
@@ -597,7 +586,7 @@
             lipstickColorPrimaryHTML = "",
             eyebrowColorHTML = "";
         for (var i in colors) {
-            console.log(`ColorID: ${i} - Color: ${colors[i].r} - ${colors[i].g} - ${colors[i].b}`);
+            //console.log(`ColorID: ${i} - Color: ${colors[i].r} - ${colors[i].g} - ${colors[i].b}`);
             hairColorPrimaryHTML += `<li class='list-group-item' onclick='ChangeHair(1, ${i});' style='background: rgb(${colors[i].r}, ${colors[i].g}, ${colors[i].b});'></li>`;
             hairColorSecondaryHTML += `<li class='list-group-item' onclick='ChangeHair(2, ${i});' style='background: rgb(${colors[i].r}, ${colors[i].g}, ${colors[i].b});'></li>`;
             beardColorPrimaryHTML += `<li class='list-group-item' onclick='ChangeHair(4, ${i});' style='background: rgb(${colors[i].r}, ${colors[i].g}, ${colors[i].b});'></li>`;
@@ -1001,7 +990,6 @@
                 headoverlaysarray[0][14] = $("#EyesColor").val();
                 break;
         }
-
         alt.emit('Client:Charcreator:UpdateHeadOverlays', JSON.stringify(headoverlaysarray));
         alt.emit('Client:Charcreator:UpdateHeadBlends', JSON.stringify(headblendsdata));
     }

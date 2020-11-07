@@ -28,6 +28,7 @@ div#loadingScreen {
     display: none;
 }
 
+
 div#charcreator-infoBox>ul>li {
     float: left;
     width: 150px;
@@ -322,7 +323,12 @@ div#charselectorBox>a:hover {
 
 div#charcreatorMainBox {
     display: none;
+    position: absolute;
     opacity: 0;
+    left: 0%;
+    top: 5vw;
+    width: 25vw;
+    height: 30vw;
 }
 
 .hidden {
@@ -330,18 +336,18 @@ div#charcreatorMainBox {
     opacity: 0;
 }
 
-div.creatorBox {
+.creatorBox {
+    position: absolute;
     width: 25.5vw;
     padding: 20px;
-    position: absolute;
     z-index: 100;
     background: #101010f2;
     text-align: center;
     border-radius: 6px;
     box-shadow: 1px 4px 22px rgba(25, 25, 25, 0.8) !important;
     padding-bottom: 12px;
-    right: 3vw;
-    top: 3vw;
+    right: 0.5vw;
+    top: 6vw;
     overflow-y: hidden;
     max-height: 50vw;
 }
@@ -381,7 +387,8 @@ div.creatorBox>div.container>input[type=text] {
 }
 
 div#charcreatorMainBox>div#charcreatorCategoryBox {
-    width: 26vw;
+    width: 100%;
+    height: 100%;
     padding: 20px;
     position: absolute;
     z-index: 100;
@@ -395,6 +402,19 @@ div#charcreatorMainBox>div#charcreatorCategoryBox {
     left: 3vw;
     top: 3vw;
 }
+.list-group{
+    position: absolute;
+    left: 0;
+    top: 12%;
+    width: 100%;
+    height: 88%;
+    overflow: auto;
+}
+
+.list-group-item{
+    position: relative;
+}
+
 
 div#charcreatorMainBox>div#charcreatorCategoryBox>p,
 div.creatorBox>p {
