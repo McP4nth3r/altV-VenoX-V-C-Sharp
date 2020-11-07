@@ -243,43 +243,43 @@ export function GetCurrentDateTimeString() {
 
 
 let CountdownState = -1;
-let CountDownFrozen = false;
+let CountdownEntityFrozen = false;
 let TimeOut;
-let CountdownRenderTick = false;
+let ShowCountdownTick = false;
 export function ShowCountdown(Seconds) {
-    try {
-        CountdownState = Seconds;
-        TimeOut = alt.setInterval(() => {
-            if (CountdownState > 0) {
-                CountdownState -= 1;
-                if (!CountDownFrozen) {
-                    if (player.vehicle) { game.freezeEntityPosition(player.vehicle.scriptID, true); }
-                    game.freezeEntityPosition(player.scriptID, true);
-                    //alt.toggleGameControls(false);
-                    CountDownFrozen = true;
-                }
-                return;
-            }
+    CountdownState = Seconds;
+    alt.setTimeout(() => {
+        CountdownEntityFrozen = false;
+        if (!CountdownEntityFrozen) {
+            if (player.vehicle) game.freezeEntityPosition(player.vehicle.scriptID, true);
+            game.freezeEntityPosition(player.scriptID, true);
+            CountdownEntityFrozen = true;
+        }
+    }, 350);
+    TimeOut = alt.setInterval(() => {
+        if (CountdownState > 0) {
+            CountdownState -= 1;
             if (CountdownState <= 0) {
-                if (TimeOut) { alt.clearInterval(TimeOut); TimeOut = null; }
-                if (CountDownFrozen) {
-                    if (player.vehicle) { game.freezeEntityPosition(player.vehicle.scriptID, false); }
+                if (TimeOut) {
+                    alt.clearInterval(TimeOut);
+                    TimeOut = null;
+                }
+                if (CountdownEntityFrozen) {
+                    if (player.vehicle) game.freezeEntityPosition(player.vehicle.scriptID, false);
                     game.freezeEntityPosition(player.scriptID, false);
-                    //alt.toggleGameControls(true);
-                    CountDownFrozen = false;
+                    CountdownEntityFrozen = false;
                     alt.setTimeout(() => {
-                        if (CountdownRenderTick) { CountdownRenderTick = false; }
+                        ShowCountdownTick = false;
                     }, 1250);
                 }
             }
-        }, 1250);
-        CountdownRenderTick = true;
-    }
-    catch { }
+        }
+    }, 1250);
+    ShowCountdownTick = true;
 }
 
 alt.everyTick(() => {
-    if (!CountdownRenderTick) { return; }
+    if (!ShowCountdownTick) return;
     if (CountdownState > 0) {
         DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
     }
