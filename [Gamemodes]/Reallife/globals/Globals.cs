@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -882,8 +883,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         }
                         else
                         {
-                            if (AddierenFallsVorhanden) { Item.amount += ItemAmount; }
-                            else { Item.amount = ItemAmount; }
+                            if (AddierenFallsVorhanden) Item.amount += ItemAmount;
+                            else Item.amount = ItemAmount;
                         }
                     }
                     if (ItemArt == Constants.ITEM_ART_WAFFE)
@@ -983,6 +984,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         }
                     }
                 }
+                List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
+                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch (Exception ex)
             {
