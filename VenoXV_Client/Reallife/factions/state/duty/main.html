@@ -6,10 +6,8 @@
 
 <body>
 	<div class="VnX-Window !d-none" id="back">
-		<div class="VnX-Header" id="header">Los Santos Police Department</div>
-		<div class="duty_text">Wilkommen Officer {Spieler Name}!<br><br><br>Hier kannst du dich für den Dienst melden,
-			bei speziellen Einsätzen aber<br><br><br>auch in den SWAT gehen. Du kannst dich aber auch wieder abmelden.
-		</div>
+		<div class="VnX-Header" id="header"></div>
+		<div class="duty_text"></div>
 		<div class="VnX-Button" id="duty_button" onclick="ButtonPressed('Duty')">Duty</div>
 		<div class="VnX-Button" id="swat_button" onclick="ButtonPressed('Swat')">SWAT</div>
 		<div class="VnX-Button" id="offduty_button" onclick="ButtonPressed('OffDuty')">Off-Duty</div>
@@ -23,9 +21,9 @@
 			function CloseStateWindow() {
 				alt.emit("destroyDutyWindow");
 			}
-			alt.on('Duty:Load', (e, name) => {
-				$('.text_head').html("Willkommen Officer " + name);
-				$('.text_info').html(e);
+			alt.on('Duty:Load', (FactioName, FactionText) => {
+				$('.text_head').html(FactioName);
+				$('.duty_text').html(FactionText);
 			});
 		}
 	</script>

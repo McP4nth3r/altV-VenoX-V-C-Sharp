@@ -8,13 +8,13 @@ import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX
 import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
 
 let duty_browser = null;
-alt.onServer('showDutyWindow', (e, pname) => {
-    if (duty_browser) { return; }
+alt.onServer('DutyWindow:Show', (FactioName, FactionText) => {
+    if (duty_browser) return;
     duty_browser = vnxCreateCEF("LSPD-Duty", "Reallife/factions/state/duty/main.html", "Reallife");
     alt.setTimeout(() => {
         duty_browser.focus();
         ShowCursor(true);
-        duty_browser.emit("Duty:Load", e, pname);
+        duty_browser.emit("Duty:Load", FactioName, FactionText);
     }, 500);
     duty_browser.on('ButtonPressed', (button) => {
         switch (button) {
