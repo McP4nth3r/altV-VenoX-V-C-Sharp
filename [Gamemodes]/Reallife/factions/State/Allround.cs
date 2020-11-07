@@ -18,9 +18,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
             try
             {
                 if (!Factions.Allround.isStateFaction(player)) return;
+
                 string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Wilkommen Officer");
                 string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "<br><br><br>Hier kannst du dich für den Dienst melden, bei speziellen Einsätzen aber <br><br><br>auch in den SWAT gehen. Du kannst dich aber auch wieder abmelden.");
                 string TranslatedTextResult = TranslatedText1 + " " + player.Username + "!" + TranslatedText2;
+
                 if (colShape == LSPDDuty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_POLICE_NAME, TranslatedTextResult);
                 else if (colShape == FBIDuty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_FBI_NAME, TranslatedTextResult);
                 else if (colShape == ARMYDuty || colShape == ARMY2Duty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_USARMY_NAME, TranslatedTextResult);
