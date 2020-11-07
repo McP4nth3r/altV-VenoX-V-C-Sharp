@@ -1,6 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
-using System;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
@@ -134,8 +133,8 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         {
             try
             {
-                if (message[0].ToString() == "/") { return; }
-                else { Core.Debug.OutputDebugString(message[0].ToString()); }
+                if (message[0].ToString() == "/") return;
+                //else { Core.Debug.OutputDebugString(message[0].ToString()); }
                 if (player.Gamemode == (int)_Preload_.Preload.Gamemodes.Tactics)
                 {
                     Tactics.chat.Chat.OnChatMessage(player, message);
@@ -146,16 +145,16 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 }
                 else if (player.Playing == false)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else if (player.Dead != 0)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                 }
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MESSAGE_TALK, player.Dimension > 0 ? 7.5f : 10.0f);
-                    Console.WriteLine("[ID:" + player.Id + "]" + player.Username + "say" + message);
+                    //Console.WriteLine("[ID:" + player.Id + "]" + player.Username + "say" + message);
                     logfile.WriteLogs("chat", "[ " + player.Username + " ] sagt : " + message);
                 }
             }
