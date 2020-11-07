@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static string ACTION_VEHICLE = "ACTION_VEHICLE";
         public static string ACTION_COLSHAPE = "ACTION_COLSHAPE";
         public static List<VehicleModel> ActionVehicles = new List<VehicleModel>();
-        public static List<IColShape> ActionColShapes = new List<IColShape>();
+        public static List<BlipModel> ActionBlips = new List<BlipModel>();
+        public static List<MarkerModel> ActionMarkers = new List<MarkerModel>();
+        public static List<ColShapeModel> ActionColShapes = new List<ColShapeModel>();
 
         public const string ACTION_KOKAINTRUCK = "ACTION_KOKAINTRUCK";
         public const string ACTION_WAFFENTRUCK = "ACTION_WAFFENTRUCK";
@@ -65,6 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, Position, Rotation);
+                veh.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                 veh.Reallife.ActionVehicle = true;
                 veh.NotSave = true;
                 veh.Owner = ACTION_VEHICLE;
@@ -83,11 +85,37 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    Core.RageAPI.CreateBlip(Name, Position, Sprite, Color, ShortRange, player);
-                    Core.RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }, player);
+                    ActionBlips.Add(RageAPI.CreateBlip(Name, Position, Sprite, Color, ShortRange, player));
                 }
-                ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f);
+                ActionMarkers.Add(RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }));
+                ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
                 col.AktionCol = Action;
+                ActionColShapes.Add(col);
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+
+        public static void DestroyTargetMarker()
+        {
+            try
+            {
+                //Remoe Blips
+                foreach (BlipModel blipClass in ActionBlips.ToList()) RageAPI.RemoveBlip(blipClass, blipClass.VisibleOnlyFor);
+                //Remove Markers
+                foreach (MarkerModel markerClass in ActionMarkers.ToList()) RageAPI.RemoveMarker(markerClass);
+                //Remove ColShapes
+                foreach (ColShapeModel colClass in ActionColShapes.ToList()) RageAPI.RemoveColShape(colClass);
+
+                foreach (VehicleModel vehClass in ActionVehicles.ToList()) RageAPI.DeleteVehicleThreadSafe((VehicleModel)vehClass);
+
+
+                ActionBlips.Clear();
+                ActionMarkers.Clear();
+                ActionVehicles.Clear();
+                ActionColShapes.Clear();
+                //Add CoolDown
+                ActionCooldown = DateTime.Now.AddMinutes(ACTION_COOLDOWN);
+                ActionRunning = false;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -98,18 +126,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (ActionColShapes.Contains(shape))
                 {
-                    switch (shape.AktionCol)
-                    {
-                        case ACTION_KOKAINTRUCK:
-                            Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
-                            Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
-                            return;
-                        case ACTION_WAFFENTRUCK:
-                            break;
-                        default:
-                            Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
-                            break;
-                    }
+                    Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
+                    Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
+                    //Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
