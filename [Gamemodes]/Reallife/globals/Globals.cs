@@ -228,6 +228,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                            player.Freeze = false;
                         }
                     }
                 }
