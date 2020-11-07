@@ -199,19 +199,13 @@ alt.onServer('Player:Alpha', (alpha) => {
 });
 
 alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
-    try {
-        if (!veh) return;
-        if (!(veh instanceof alt.Vehicle)) return;
-        //await new Promise((resolve) => {
-        const interval = alt.setInterval(() => {
-            if (veh.scriptID <= 0 || !veh.valid) return;
-            game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
-            alt.clearInterval(interval);
-            //resolve();
-        }, 10);
-        //});
-    }
-    catch { }
+    if (!veh) return;
+    if (!(veh instanceof alt.Vehicle)) return;
+    const interval = alt.setInterval(() => {
+        if (!veh.valid || veh.scriptID <= 0) return;
+        game.taskWarpPedIntoVehicle(LocalPlayer.scriptID, veh.scriptID, seat);
+        alt.clearInterval(interval);
+    }, 10);
 });
 
 alt.onServer('Player:WarpOutOfVehicle', () => {
@@ -225,10 +219,7 @@ alt.onServer('Player:WarpOutOfVehicle', () => {
 
 alt.onServer('Player:LoadIPL', (IPL) => {
     try {
-        if (!game.isIplActive(IPL)) {
-            game.requestIpl(IPL);
-            alt.log("IPL Requested : " + IPL);
-        }
+        if (!game.isIplActive(IPL)) game.requestIpl(IPL);
     }
     catch { }
 });
@@ -305,7 +296,7 @@ alt.onServer('delay_element_data', (e, v, type, ms) => {
 let CameraCreated = false;
 alt.onServer('Player:CreateCameraMovement', (pos1X, pos1Y, pos1Z, rot1, pos2X, pos2Y, pos2Z, rot2, duration) => {
     try {
-        if (CameraCreated) { destroyCamera(); }
+        if (CameraCreated) destroyCamera();
         interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
         CameraCreated = true;
     }
@@ -314,7 +305,7 @@ alt.onServer('Player:CreateCameraMovement', (pos1X, pos1Y, pos1Z, rot1, pos2X, p
 
 alt.onServer('Player:DestroyCamera', () => {
     try {
-        if (CameraCreated) { destroyCamera(); }
+        if (CameraCreated) destroyCamera();
     }
     catch { }
 });
