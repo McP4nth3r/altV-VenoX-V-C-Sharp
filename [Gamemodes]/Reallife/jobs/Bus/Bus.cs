@@ -105,8 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             try
             {
                 if (!player.IsInVehicle) return;
-                int CurrentBusStation = player.Reallife.JobMarker;
-                if (CurrentBusStation >= AbgabepunkteLVLONE.Count)
+                if (player.Reallife.JobMarker >= AbgabepunkteLVLONE.Count)
                 {
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
@@ -131,7 +130,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 player.Reallife.BUSJOB_LEVEL += 1;
                 player.Reallife.Money += JobMoney;
                 Allround.DestroyJobMarker(player);
-                Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.BUSJOB_LEVEL];
+                Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.JobMarker];
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
                 VenoX.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
                 vehClass.Frozen = true;
