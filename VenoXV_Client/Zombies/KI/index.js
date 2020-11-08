@@ -174,9 +174,11 @@ function CheckZombieHealths() {
             if (game.hasEntityBeenDamagedByEntity(Zombies[Id].Entity, alt.Player.local.scriptID)) {
                 game.clearEntityLastDamageEntity(Zombies[Id].Entity);
                 if (game.getEntityHealth(Zombies[Id].Entity) <= 0 && !Zombies[Id].OutOfStreamingRange) {
+                    let zombiePos = game.getEntityCoords(Zombies[Id].Entity, true);
+                    let zombieRot = game.getEntityRotation(Zombies[Id].Entity, 2);
                     Zombies[Id].IsDead = true;
                     game.setEntityAsMissionEntity(Zombies[Id].Entity, false, true);
-                    alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id));
+                    alt.emitServer("Zombies:OnZombieDeath", parseInt(Zombies[Id].Id), zombiePos.x, zombiePos.y, zombiePos.z - 1.0, zombieRot.x, zombieRot.y, zombieRot.z);
                 }
             }
         }

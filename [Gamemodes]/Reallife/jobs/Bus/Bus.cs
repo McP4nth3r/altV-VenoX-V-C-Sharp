@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
                         break;
                     case 2:
-                        if (player.Reallife.BUSJOB_LEVEL <= 50)
+                        if (player.Reallife.BUSJOB_LEVEL < 50)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 50 verfügbar!");
                             return;
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
                         break;
                     case 3:
-                        if (player.Reallife.BUSJOB_LEVEL <= 150)
+                        if (player.Reallife.BUSJOB_LEVEL < 150)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 150 verfügbar!");
                             return;

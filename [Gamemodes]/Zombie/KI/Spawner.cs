@@ -75,8 +75,7 @@ namespace VenoXV._Gamemodes_.KI
                         if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < MAX_ZOMBIES)
                         {
                             CreateNewRandomZombie(player);
-                            foreach (VnXPlayer nearbyPlayer in player.NearbyPlayers.ToList())
-                                CreateNewRandomZombie(nearbyPlayer);
+                            foreach (VnXPlayer nearbyPlayer in player.NearbyPlayers.ToList()) CreateNewRandomZombie(nearbyPlayer);
                         }
                         //else if (player.Zombies.IsSyncer)
                         //Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von " + MAX_ZOMBIES + " Zombies erreicht.");

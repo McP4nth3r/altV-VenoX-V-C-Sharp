@@ -80,6 +80,7 @@ OnStart();
 
 function DrawText(msg, player, posx, posy, posz, fontSize, fontType, ColorRGB, useOutline = true, useDropShadow = true, drawFaction = false, drawDistance, maxDistance_load) {
 	let hex = msg.match('{.*}');
+	let localPlayer = alt.Player.local;
 	if (hex) {
 		const rgb = hexToRgb(hex[0].replace('{', '').replace('}', ''));
 		r = rgb[0];
@@ -118,8 +119,6 @@ function DrawText(msg, player, posx, posy, posz, fontSize, fontType, ColorRGB, u
 
 	//let screenPos = game.getScreenCoordFromWorldCoord(Vector.X, Vector.Y, Vector.Z + 1);
 	if (drawFaction) {
-
-
 		if (player.getStreamSyncedMeta("PLAYER_WANTEDS") > 0 && localPlayer.getStreamSyncedMeta("PLAYER_FACTION") > 0) {
 			game.drawSprite('images', 'faction_' + player.getStreamSyncedMeta('PLAYER_FACTION'), lineHeight - 1.4 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0, 255, 255, 255, 255, 200);
 			game.drawSprite('images', 'wanted' + player.getStreamSyncedMeta('PLAYER_WANTEDS'), lineHeight - 0.7 * lineHeight, lineHeight - 1.3 * lineHeight, SpriteScale[0], SpriteScale[1], 0.04, 0, 255, 255, 255, 255, 200);

@@ -44,7 +44,7 @@ namespace VenoXV.Globals
             {
                 if (player == null) { Debug.OutputDebugString("Player got Removed?! "); return; }
                 int Gamemode = player.Gamemode;
-                if (AllPlayers.Contains(player)) { AllPlayers.Remove(player); }
+                if (AllPlayers.Contains(player)) AllPlayers.Remove(player);
                 switch (Gamemode)
                 {
                     case (int)Preload.Gamemodes.Reallife:
@@ -119,10 +119,9 @@ namespace VenoXV.Globals
         {
             try
             {
-                if (!(entity is VnXPlayer player)) return;
+                if (!(entity is VnXPlayer player) || shape is null || !shape.Exists) return;
                 if (state)
                 {
-                    Debug.OutputDebugString(player.Username + " Entered a ColShape");
                     switch (player.Gamemode)
                     {
                         case (int)Preload.Gamemodes.Reallife:
@@ -136,13 +135,9 @@ namespace VenoXV.Globals
                             return;
                     }
                 }
-                if (state == false)
-                {
-                    Core.Debug.OutputDebugString(player.Username + " Left a ColShape");
-                    _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
-                }
+                else _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [ScriptEvent(ScriptEventType.PlayerDead)]
@@ -192,13 +187,13 @@ namespace VenoXV.Globals
         {
             try
             {
-                Core.Debug.OutputDebugString(player?.Username + " got hitted " + killer?.Username + " | Dmg : " + Damage);
                 player.vnxSetStreamSharedElementData("PLAYER_HEALTH", player.Health);
                 player.vnxSetStreamSharedElementData("PLAYER_ARMOR", player.Armor);
                 VenoX.TriggerClientEvent(killer, "Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamaged", killer);
                 _Gamemodes_.Tactics.weapons.Combat.OnTacticsDamage(player, killer, Damage);
                 _Gamemodes_.Reallife.gangwar.Allround.ProcessDamage(player, killer, Damage);
+                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("playerdmg", player?.Username + " hat " + killer?.Username + " angehitted!| DMG : " + Damage);
             }
             catch { }
         }

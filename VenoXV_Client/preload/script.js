@@ -72,31 +72,31 @@ function ChangeBackground() {
 }
 
 function Onload() {
+    //setTimeout(() => {
+    $('.Loading-Screen-Main').removeClass('d-none');
     setTimeout(() => {
-        $('.Loading-Screen-Main').removeClass('d-none');
+        $('.Loading-Screen-Main').addClass('d-none');
         setTimeout(() => {
-            $('.Loading-Screen-Main').addClass('d-none');
+            document.getElementById('Soundtrack-1').pause();
+            document.getElementById('Soundtrack-1').currentTime = 0;
+        }, 3000);
+    }, 60000);
+    setTimeout(() => {
+        $('#LoadingBar').removeClass('d-none');
+    }, 1500);
+    setTimeout(() => {
+        $('#part-1').removeClass('d-none');
+        document.getElementById('Soundtrack-1').play();
+        setTimeout(() => {
+            $('#part-1').addClass('d-none');
+            $('#part-2').removeClass('d-none');
             setTimeout(() => {
-                document.getElementById('Soundtrack-1').pause();
-                document.getElementById('Soundtrack-1').currentTime = 0;
-            }, 3000);
-        }, 60000);
-        setTimeout(() => {
-            $('#LoadingBar').removeClass('d-none');
-        }, 1500);
-        setTimeout(() => {
-            $('#part-1').removeClass('d-none');
-            document.getElementById('Soundtrack-1').play();
-            setTimeout(() => {
-                $('#part-1').addClass('d-none');
-                $('#part-2').removeClass('d-none');
-                setTimeout(() => {
-                    $('#part-2').addClass('d-none');
-                    ChangeBackground();
-                }, 5000);
+                $('#part-2').addClass('d-none');
+                ChangeBackground();
             }, 5000);
         }, 5000);
     }, 5000);
+    //}, 5000);
 }
 
 

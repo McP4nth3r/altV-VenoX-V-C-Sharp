@@ -39,6 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                            player.Freeze = false;
                         }
                         else if (player.Reallife.Bank >= kaution)
                         {
@@ -52,6 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                            player.Freeze = false;
                         }
                         else
                         {
@@ -102,10 +104,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                 if (Allround.isStateFaction(player))
                 {
                     VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                    if (target == null) { return; }
+                    if (target == null) return;
                     if (player.Reallife.OnDuty != 1)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Staatsfraktionist im Dienst!");
+                        _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Staatsfraktionist im Dienst!");
                         return;
                     }
                     if (player.Position.Distance(target.Position) > 2.5f)
@@ -113,55 +115,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist zuweit von " + target.Username + " entfernt...");
                         return;
                     }
-                    if (target.IsInVehicle && target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == false)
+                    if (!target.Reallife.Handcuffed)
                     {
-                        target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, true);
+                        target.Reallife.Handcuffed = true;
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " gefesselt!");
                         _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.Username + " hat dich gefesselt!");
-                        // Disable some player movements
-                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", true);
-                    }
-                    else if (target.IsInVehicle && target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == true)
-                    {
-                        target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " Handschellen entfernt!");
-                        _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.Username + " hat deine Handschellen abgenommen!");
-                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
                     }
                     else
                     {
-                        if (target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED) == false)
-                        {
-                            //GTANetworkAPI.Object cuff = NAPI.Object.CreateObject(-1281059971, new Position(0.0f, 0.0f, 0.0f), new Position(0.0f, 0.0f, 0.0f));
-                            //cuff.AttachTo(target.vnxGetElementData<int>( "IK_R_Hand", new Position(0.0f, 0.0f, 0.0f), new Position(0.0f, 0.0f, 0.0f));
-                            //target.Ani"mp_arresting", "idle", (int)(Constants.AnimationFlags.Loop | Constants.AnimationFlags.OnlyAnimateUpperBody | Constants.AnimationFlags.AllowPlayerControl));
-
-                            player.vnxSetElementData(EntityData.PLAYER_ANIMATION, true);
-                            target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, true);
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " gefesselt!");
-                            _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Warning, player.Username + " hat dich gefesselt!");
-                            //VenoX.TriggerClientEvent(target, "Attach_Element_to_Entity", player, cuff);
-                            // Disable some player movements
-                            VenoX.TriggerClientEvent(target, "toggleHandcuffed", true);
-                        }
-                        else
-                        {
-                            /*GTANetworkAPI.Object cuff = target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED);
-
-                            cuff.Detach();
-                            cuff.Remove();
-                            */
-                            //target.StopAnimation();
-                            target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                            target.vnxSetElementData(EntityData.PLAYER_ANIMATION, false);
-
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " Handschellen entfernt!");
-                            _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.Username + " hat deine Handschellen abgenommen!");
-
-                            // Enable previously disabled player movements
-                            VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
-                        }
+                        target.Reallife.Handcuffed = false;
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast " + target.Username + " Handschellen entfernt!");
+                        _Notifications_.Main.DrawNotification(target, _Notifications_.Main.Types.Info, player.Username + " hat deine Handschellen abgenommen!");
                     }
+
                 }
             }
             catch
@@ -178,7 +144,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                 if (Allround.isStateFaction(player))
                 {
                     VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                    if (target == null) { return; }
+                    if (target == null) return;
                     if (player.IsInVehicle)
                     {
                         if (target.vnxGetElementData<bool>(EntityData.PLAYER_HANDCUFFED))
@@ -189,6 +155,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                                 return;
                             }
                             VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                            target.WarpIntoVehicle(vehicle, 2);
                             //target.vnxGetElementData(SetIntoIVehicle(IVehicle, 2);
                         }
                     }
@@ -200,8 +167,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         }
 
 
-        [Command("arrest", true)]
-        public void ArrestPlayerCMD(VnXPlayer player, string target_name, string kaution)
+        [Command("arrest")]
+        public void ArrestPlayerCMD(VnXPlayer player, string target_name, int kaution)
         {
             try
             {
@@ -218,12 +185,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                     // We check whether the player is connected
                     if (target != null && target.Playing == true)
                     {
-                        if (target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) == 0)
+                        if (target.Reallife.Wanteds == 0)
                         {
                             player.SendTranslatedChatMessage("{007d00}Der Spieler hat keine Wanteds!");
 
                         }
-                        else if (target.vnxGetElementData<int>(EntityData.PLAYER_KNASTZEIT) > 0)
+                        else if (target.Reallife.Knastzeit > 0)
                         {
                             player.SendTranslatedChatMessage("{007d00}Der Spieler ist bereits im Knast!");
                         }
@@ -235,41 +202,39 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                                 if (Allround.isStateIVehicle(vehicle))
                                 {
                                     Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
-                                    //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
-                                    if (kaution == "1")
+                                    if (kaution == 1)
                                     {
                                         //Kaution Code
-                                        Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 400, fkasse.weed, fkasse.koks, fkasse.mats);
-                                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat dich Eingesperrt für " + KostenProWanted * target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "$ Kaution & " + +target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4 + " Minuten!");
-                                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast " + target.Username + " Eingesperrt für " + KostenProWanted * target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) + "$ Kaution & " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4 + " Minuten.");
-                                        target.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 4);
-                                        target.vnxSetElementData(EntityData.PLAYER_KAUTION, KostenProWanted * target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS));
-                                        target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
-                                        anzeigen.Usefull.VnX.RemoveAllWeapons(target);
+                                        Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + target.Reallife.Wanteds * 400, fkasse.weed, fkasse.koks, fkasse.mats);
+                                        target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat dich Eingesperrt für " + KostenProWanted * target.Reallife.Wanteds + "$ Kaution & " + target.Reallife.Wanteds * 4 + " Minuten!");
+                                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast " + target.Username + " Eingesperrt für " + KostenProWanted * target.Reallife.Wanteds + "$ Kaution & " + target.Reallife.Wanteds * 4 + " Minuten.");
+                                        target.Reallife.Knastzeit = target.Reallife.Wanteds * 4;
+                                        target.Reallife.Kaution = KostenProWanted * target.Reallife.Wanteds;
+                                        target.Reallife.Wanteds = 0;
                                         Random random = new Random();
                                         int dim = random.Next(1, 9999);
                                         target.Dimension = dim;
                                         target.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
-                                        target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
+                                        target.Reallife.Handcuffed = false;
+                                        anzeigen.Usefull.VnX.RemoveAllWeapons(target);
                                     }
                                     else
                                     {
-                                        Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 400, fkasse.weed, fkasse.koks, fkasse.mats);
+                                        Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + target.Reallife.Wanteds * 400, fkasse.weed, fkasse.koks, fkasse.mats);
                                         // Ohne Kaution Knast code
-                                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Officer " + player.Username + " hat dich Eingesperrt ohne Kaution für " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 5 + " Minuten.");
-                                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast " + target.Username + " Eingesperrt für " + target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 5 + " Minuten.");
-                                        target.vnxSetElementData(EntityData.PLAYER_KNASTZEIT, target.vnxGetElementData<int>(EntityData.PLAYER_WANTEDS) * 5);
-                                        target.vnxSetElementData(EntityData.PLAYER_KAUTION, 0);
-                                        target.vnxSetStreamSharedElementData(EntityData.PLAYER_WANTEDS, 0);
-                                        anzeigen.Usefull.VnX.RemoveAllWeapons(target);
+                                        target.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Officer " + player.Username + " hat dich Eingesperrt ohne Kaution für " + target.Reallife.Wanteds * 5 + " Minuten.");
+                                        player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast " + target.Username + " Eingesperrt für " + target.Reallife.Wanteds * 5 + " Minuten.");
+                                        target.Reallife.Knastzeit = target.Reallife.Wanteds * 5;
+                                        target.Reallife.Kaution = 0;
+                                        target.Reallife.Wanteds = 0;
                                         Random random = new Random();
                                         int dim = random.Next(1, 9999);
                                         target.Dimension = dim;
                                         target.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
-                                        target.vnxSetElementData(EntityData.PLAYER_HANDCUFFED, false);
-                                        VenoX.TriggerClientEvent(target, "toggleHandcuffed", false);
+                                        target.Reallife.Handcuffed = false;
+                                        anzeigen.Usefull.VnX.RemoveAllWeapons(target);
                                     }
+                                    target.Freeze = true;
                                     RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 0, 175) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat " + target.Username + " eingesperrt.");
                                 }
                             }

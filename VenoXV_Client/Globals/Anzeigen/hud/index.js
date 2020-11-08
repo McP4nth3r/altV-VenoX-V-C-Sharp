@@ -120,6 +120,9 @@ alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
 		let CurrentHunger;
 		let CurrentMoney;
 		switch (key) {
+			case 'PLAYER_WANTEDS':
+				HUD_BROWSER.emit('HUD:UpdateWanteds', value);
+				break;
 			case 'PLAYER_MONEY':
 				CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
 				CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
@@ -153,17 +156,15 @@ alt.everyTick(() => {
 		let player = alt.Player.local;
 		game.setPedConfigFlag(player.scriptID, 429, true);
 		game.displayAmmoThisFrame(false);
-		if (game.isPedSprinting(player.scriptID)) {
-			game.restorePlayerStamina(player.scriptID, 100);
-		}
+		if (game.isPedSprinting(player.scriptID)) game.restorePlayerStamina(player.scriptID, 100);
 		game.setPlayerHealthRechargeMultiplier(player.scriptID, 0.0);
 		DrawSafezone();
 		CheckHUDUpdate();
-		if (isGW) { drawGW(); }
+		if (isGW) drawGW();
 		let waffe = game.getSelectedPedWeapon(player.scriptID);
 		let ammo = "" + game.getAmmoInPedWeapon(player.scriptID, waffe);
 		var weapon = GetWeaponData(waffe, "Name");
-		if (weapon == "Tazer" || weapon == "Schlagstock" || weapon == "Taschenlampe") { ammo = "-" };
+		if (weapon == "Tazer" || weapon == "Schlagstock" || weapon == "Taschenlampe") ammo = "-";
 		if (weapon != "unbewaffnet" && weapon != undefined) {
 			if (CURRENT_HUD == 0) {
 				if (weapon.length < 6) {

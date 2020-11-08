@@ -25,10 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         {
             try
             {
-                if (player.Settings.ShowATM == 1)
-                {
-                    VenoX.TriggerClientEvent(player, "Reallife:ShowATMBlips");
-                }
+                if (player.Settings.ShowATM == 1) VenoX.TriggerClientEvent(player, "Reallife:ShowATMBlips");
                 if (player.Settings.ShowHouse == 1)
                 {
                     if (House.houseList != null)
@@ -38,13 +35,9 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         foreach (HouseModel house in House.houseList)
                         {
                             if (house.status == Constants.HOUSE_STATE_BUYABLE)
-                            {
                                 VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 2, TranslatedText);
-                            }
                             else
-                            {
                                 VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.position, 76, TranslatedText1);
-                            }
                         }
                     }
                 }

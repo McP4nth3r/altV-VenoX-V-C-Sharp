@@ -140,11 +140,9 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START <= DateTime.Now)
+                if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_JOINTIME_TILL_START >= DateTime.Now)
                     return true;
-                else if (SEVENTOWERS_ROUND_IS_RUNNING || SEVENTOWERS_ROUND_END > DateTime.Now)
-                    return false;
-                return true;
+                return false;
             }
             catch { return false; }
         }
@@ -153,7 +151,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                player.SendTranslatedChatMessage("Du bist zuschauer!");
+                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du bist nun zuschauer!");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -285,7 +283,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 SpawnPlayerInRound(player);
                 player.SetPlayerAlpha(255);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 
@@ -293,19 +291,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                if (Globals.Main.SevenTowersPlayers.Count <= 2)
-                {
-                    StartNewRound();
-                    return;
-                }
-                if (CanPlayerJoin())
-                {
-                    PutPlayerInRound(player);
-                }
-                else
-                {
-                    PutPlayerSpectate(player);
-                }
+                player.Freeze = true;
+                player.SetPosition = new Vector3(210.13187f, -5742.5933f, 120.78833f);
+                if (Globals.Main.SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
+                if (CanPlayerJoin()) PutPlayerInRound(player);
+                else PutPlayerSpectate(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
