@@ -1,6 +1,6 @@
 ﻿ <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <RuntimeFrameworkVersion>2.0.7</RuntimeFrameworkVersion>
     <FileUpgradeFlags>40</FileUpgradeFlags>
@@ -8,6 +8,7 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <ApplicationIcon />
     <Win32Resource />
+    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>Core\Lib\</OutputPath>
