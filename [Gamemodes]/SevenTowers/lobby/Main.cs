@@ -18,7 +18,8 @@ namespace VenoXV._Gamemodes_.SevenTowers
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // SETTINGS 
-        public static int SEVENTOWERS_ROUND_MINUTE = 15;                        // Zeit in Sekunden.
+        public static int SEVENTOWERS_ROUND_MINUTE = 15;                        // Zeit in Sekunden.    
+        public static int SEVENTOWERS_SPECIAL_VEHICLE_CHANCE = 100;             // Zeit in Sekunden.    
         public static int SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;            // Zeit in Sekunden.
         public static int SEVENTOWERS_VEHICLE_COOLDOWN = 3;                     // Zeit in Sekunden. < -- Cooldown für neues Auto
         public static int SEVENTOWERS_ROUND_JOINTIME = 5;                       // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
@@ -57,6 +58,12 @@ namespace VenoXV._Gamemodes_.SevenTowers
             new Vector3(164.14944f, -5700.158f, 85.12012f)
         };
 
+        public static readonly List<AltV.Net.Enums.VehicleModel> SPECIALVEHICLE_HASHES = new List<AltV.Net.Enums.VehicleModel> // CONSTANT 7TOWERS VEHICLES
+        {
+            AltV.Net.Enums.VehicleModel.Hunter,
+            AltV.Net.Enums.VehicleModel.Rhino,
+            AltV.Net.Enums.VehicleModel.Hydra
+        };
 
         public static readonly List<AltV.Net.Enums.VehicleModel> VEHICLE_HASHES = new List<AltV.Net.Enums.VehicleModel> // CONSTANT 7TOWERS VEHICLES
         {
@@ -93,9 +100,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             AltV.Net.Enums.VehicleModel.FireTruck,
             AltV.Net.Enums.VehicleModel.Patriot2,
             AltV.Net.Enums.VehicleModel.Pcj,
-            AltV.Net.Enums.VehicleModel.Rhino,
             AltV.Net.Enums.VehicleModel.Caddy,
-            AltV.Net.Enums.VehicleModel.Hunter,
             AltV.Net.Enums.VehicleModel.Mower,
             AltV.Net.Enums.VehicleModel.TowTruck,
             AltV.Net.Enums.VehicleModel.Tractor2,
@@ -105,6 +110,12 @@ namespace VenoXV._Gamemodes_.SevenTowers
             AltV.Net.Enums.VehicleModel.Asterope,
             AltV.Net.Enums.VehicleModel.Hauler,
             AltV.Net.Enums.VehicleModel.Maverick,
+            AltV.Net.Enums.VehicleModel.Shamal,
+            AltV.Net.Enums.VehicleModel.Zentorno,
+            AltV.Net.Enums.VehicleModel.Riot,
+            AltV.Net.Enums.VehicleModel.Insurgent,
+            AltV.Net.Enums.VehicleModel.Cheetah,
+            AltV.Net.Enums.VehicleModel.Schafter5
         };
 
         public static int GetRandomNumber(int min, int max)
@@ -151,7 +162,6 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du bist nun zuschauer!");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -313,7 +323,14 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         VehicleModel vehicleClass = (VehicleModel)player.Vehicle;
                         SevenTowersVehicles.Remove(vehicleClass);
                         RageAPI.DeleteVehicleThreadSafe(vehicleClass);
-                        AltV.Net.Enums.VehicleModel vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
+                        AltV.Net.Enums.VehicleModel vehicleHash = AltV.Net.Enums.VehicleModel.Fbi;
+                        int SpecialVehicleChance = GetRandomNumber(0, SEVENTOWERS_SPECIAL_VEHICLE_CHANCE);
+                        Debug.OutputDebugString("SpecialVehicleChance : " + SpecialVehicleChance);
+                        if (SpecialVehicleChance == SEVENTOWERS_SPECIAL_VEHICLE_CHANCE)
+                            vehicleHash = SPECIALVEHICLE_HASHES[GetRandomNumber(0, SPECIALVEHICLE_HASHES.Count)];
+                        else
+                            vehicleHash = VEHICLE_HASHES[GetRandomNumber(0, VEHICLE_HASHES.Count)];
+
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehicleHash, new Vector3(player.Position.X, player.Position.Y, player.Position.Z + 0.5f), player.Rotation);
                         vehicle.Dimension = SEVENTOWERS_DIM;
                         player.WarpIntoVehicle(vehicle, -1);
@@ -325,7 +342,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void TakePlayerFromRound(VnXPlayer playerClass)
