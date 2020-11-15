@@ -44,7 +44,7 @@ namespace VenoXV._Preload_.Login
             {
                 if (accClass.Name.ToLower() == Nickname.ToLower())
                 {
-                    accClass.Password = Password;
+                    accClass.Password = Sha256(Password);
                     return true;
                 }
             }
