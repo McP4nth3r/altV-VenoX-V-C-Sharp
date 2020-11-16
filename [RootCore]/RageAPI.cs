@@ -38,9 +38,14 @@ namespace VenoXV.Core
         {
             try
             {
-                if (Sync.ColShapeList.Contains(ColShape)) { Alt.RemoveColShape(ColShape); Sync.ColShapeList.Remove(ColShape); }
+                if (Sync.ColShapeList.Contains(ColShape) && ColShape != null && ColShape.Exists)
+                {
+                    ColShape.MarkedForDelete = true;
+                    ColShape.CurrentPosition = new Vector3(0, 0, 0);
+                    ColShape.Position = new Vector3(0, 0, 0);
+                }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static async void SendTranslatedChatMessage(this VnXPlayer element, string msg)
         {
@@ -431,7 +436,7 @@ namespace VenoXV.Core
                 ObjectCounter++;
                 return obj;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new ObjectModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new ObjectModel(); }
         }
 
         public static void DeleteVehicleThreadSafe(VehicleModel vehicleClass)
@@ -445,7 +450,7 @@ namespace VenoXV.Core
                 vehicleClass.MarkedForDelete = true;
                 if (!Globals.Main.AllVehicles.Contains(vehicleClass)) Globals.Main.AllVehicles.Add(vehicleClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, VnXPlayer VisibleOnlyFor = null)
