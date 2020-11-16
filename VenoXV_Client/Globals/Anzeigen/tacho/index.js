@@ -22,12 +22,11 @@ alt.onServer('Remote_Speedo_Hide', (state) => {
 			speedo.emit("Tacho:Hide");
 		}
 	}
-	catch{ }
+	catch { }
 });
 
 alt.setInterval(() => {
 	try {
-		//ToDo : Unperformant!!
 		if (alt.Player.local.vehicle) {
 			if (showed === false) {
 				speedo.emit("Tacho:Show");
@@ -48,10 +47,13 @@ alt.setInterval(() => {
 			}
 		}
 	}
-	catch{ }
+	catch { }
 }, 75);
 
 alt.setInterval(function () {
-	try { if (alt.Player.local.vehicle) { alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed); } }
-	catch{ }
+	try {
+		if (alt.Player.local.vehicle)
+			alt.emitServer("Tacho:CalculateTank", alt.Player.local.vehicle.speed);
+	}
+	catch { }
 }, 5000);
