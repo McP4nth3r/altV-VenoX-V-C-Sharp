@@ -294,7 +294,7 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@DiscordID", DiscordID);
                 command.Parameters.AddWithValue("@DiscordAvatar", DiscordAvatar);
                 command.ExecuteNonQuery();
-                Core.Debug.OutputDebugString("Executed CMD");
+                Core.Debug.OutputDebugString("Executed CMD with param : " + Spielername + " | " + DiscordID + " | " + DiscordAvatar);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
