@@ -439,44 +439,31 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         //  VenoX.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
 
 
-        public static float Verbrauch = 0;
-
         [ClientEvent("Tacho:CalculateTank")]
         public static void CalculateVehicleTank(VnXPlayer player, float speed)
         {
             try
             {
-                if (player.Gamemode != (int)_Preload_.Preload.Gamemodes.Reallife) { return; }
-                if (player.IsInVehicle)
+                if (player.Gamemode != (int)_Preload_.Preload.Gamemodes.Reallife) return;
+                if (!player.IsInVehicle) return;
+                float Verbrauch = 0;
+                VehicleModel vehClass = (VehicleModel)player.Vehicle;
+                if (player.Vehicle.EngineOn)
                 {
-                    VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                    if (player.Vehicle.EngineOn)
+                    float gas = vehClass.Gas;
+                    if (gas <= 0)
                     {
-                        float gas = vehClass.Gas;
-                        if (gas <= 0)
-                        {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
-                            if (gas <= 0)
-                            {
-                                vehClass.Gas = 0;
-                            }
-                            vehClass.EngineOn = false;
-                            return;
-                        }
-                        else if (gas == 10)
-                        {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Achtung! Tank ist fast leer!");
-                        }
-                        if (speed <= 10)
-                        {
-                            Verbrauch = 0.1f;
-                        }
-                        else
-                        {
-                            Verbrauch = speed / 100;
-                        }
-                        vehClass.Gas -= Verbrauch;
+                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Achtung Tank ist leer!");
+                        vehClass.Gas = 0;
+                        vehClass.EngineOn = false;
+                        return;
                     }
+                    else if (gas == 10) player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 0) + "Achtung! Tank ist fast leer!");
+
+                    if (speed <= 10) Verbrauch = 0.1f;
+                    else Verbrauch = speed / 100;
+
+                    vehClass.Gas -= Verbrauch;
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
