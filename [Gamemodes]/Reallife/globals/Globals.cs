@@ -18,6 +18,7 @@ using VenoXV._Preload_;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Globals
@@ -134,11 +135,37 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
         private static void DeleteVehicleThreadSafe()
         {
-            foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
+            try
             {
-                if (vehClass.MarkedForDelete) vehClass.Remove();
-                if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass)) VenoXV.Globals.Main.AllVehicles.Remove(vehClass);
+                int i = 0;
+                foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
+                {
+                    if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass) && vehClass.MarkedForDelete)
+                    {
+                        Debug.OutputDebugString("DeleteVehicleThreadSafe : " + i++);
+                        VenoXV.Globals.Main.AllVehicles.Remove(vehClass);
+                        vehClass.Remove();
+                    }
+                }
             }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+        private static void DeleteColShapesThreadSafe()
+        {
+            try
+            {
+                int i = 0;
+                foreach (ColShapeModel colShape in Sync.ColShapeList.ToList())
+                {
+                    if (Sync.ColShapeList.Contains(colShape) && colShape.MarkedForDelete)
+                    {
+                        Debug.OutputDebugString("DeleteColShapesThreadSafe : " + i++);
+                        Sync.ColShapeList.Remove(colShape);
+                        Alt.RemoveColShape(colShape);
+                    }
+                }
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 
@@ -156,7 +183,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     else
                     {
                         //weather = 13;
-                        weather = GetRandomWeather(0, 3);
+                        weather = GetRandomWeather(0, 2);
                         switch (weather)
                         {
                             case 0:
@@ -164,9 +191,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 break;
                             case 1:
                                 weather = 10;
-                                break;
-                            case 2:
-                                weather = 11;
                                 break;
                         }
                     }
@@ -192,11 +216,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     SyncDatabaseItems(player);
                     int played = player.Played;
-                    if (played > 0 && played % 60 == 0)
-                    {
-                        // Generate the payday
-                        GeneratePlayerPayday(player);
-                    }
+                    if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
                     player.Played += 1;
                     switch (player.Reallife.Hunger)
                     {
@@ -209,16 +229,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du bekommst hunger... Besorg dir was zu Essen!");
                             break;
                     }
-                    if (player.Reallife.Hunger > 0) { player.Reallife.Hunger -= 1; }
-                    if (player.Reallife.Hunger <= 20)
-                    {
-                        player.Health -= 5;
-                    }
+                    if (player.Reallife.Hunger > 0) player.Reallife.Hunger -= 1;
+                    if (player.Reallife.Hunger <= 20) player.Health -= 5;
 
-                    if (player.Reallife.Knastzeit == 5)
-                    {
-                        player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
-                    }
+
+                    if (player.Reallife.Knastzeit == 5) player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
                     if (player.Reallife.Knastzeit > 0)
                     {
                         player.Reallife.Knastzeit -= 1;
@@ -242,10 +257,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 int played = player.Played;
-                if (played > 0 && played % 60 == 0)
-                {
-                    GeneratePlayerPayday(player);
-                }
+                if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
                 player.Played += 1;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -256,38 +268,30 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 int played = player.Played;
-                if (played > 0 && played % 60 == 0)
-                {
-                    GeneratePlayerPayday(player);
-                }
+                if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
                 player.Played += 1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void SyncDatabaseItems(VnXPlayer player)
         {
             try
             {
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
-                {
                     Database.UpdateItem(item);
-                }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
+        private static int CurrentHour = 15;
         public static void OnMinuteSpent(object unused)
         {
             try
             {
-                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 55)
-                {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in 5 Minuten!");
-                }
-                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59)
-                {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
-                }
+                if (CurrentHour < 24) CurrentHour++;
+                else CurrentHour = 0;
+                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 55) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in 5 Minuten!");
+                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
                     switch (player.Gamemode)
@@ -303,15 +307,17 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             break;
                     }
                     anzeigen.Usefull.VnX.SavePlayerDatas(player);
-                    player.SetDateTime(DateTime.Now);
+                    DateTime CurrentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, CurrentHour, 0, 0);
+                    player.SetDateTime(CurrentDateTime);
                     SyncWeather(player);
                 }
                 Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
                 anzeigen.Usefull.VnX.SaveIVehicleDatas();
                 DeleteVehicleThreadSafe();
+                DeleteColShapesThreadSafe();
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static bool CheckBadElementDatas(string elementdata)
