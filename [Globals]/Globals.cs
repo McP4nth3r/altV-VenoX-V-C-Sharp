@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
@@ -109,17 +110,17 @@ namespace VenoXV.Globals
                 Console.WriteLine(_Language_.Main.GetTranslatedTextAsync(_Language_.Main.Languages.English, "Hello Welt!"));
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 
 
-        [ScriptEvent(ScriptEventType.ColShape)]
-        public static void OnColShape(ColShapeModel shape, IEntity entity, bool state)
+        [AsyncScriptEvent(ScriptEventType.ColShape)]
+        public static void OnColShape(ColShapeModel shape = null, IEntity entity = null, bool state = false)
         {
             try
             {
-                if (!(entity is VnXPlayer player) || shape is null || !shape.Exists) return;
+                if (entity is not VnXPlayer player || shape is null || !shape.Exists) return;
                 if (state)
                 {
                     switch (player.Gamemode)
@@ -206,7 +207,7 @@ namespace VenoXV.Globals
                 if (vehicle.Godmode) return;
                 VenoX.TriggerClientEvent(player, "Globals:PlayHitsound");
                 player.vnxSetElementData("VenoX:LastDamagedVehicle", vehicle);
-                Core.Debug.OutputDebugString(player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! DMG : " + Damage);
+                Debug.OutputDebugString(player.Username + " hat " + (AltV.Net.Enums.VehicleModel)vehicle.Model + " angehitted! DMG : " + Damage);
                 string DriverName = "niemand";
                 if (vehicle.Driver != null)
                 {
@@ -264,13 +265,13 @@ namespace VenoXV.Globals
         {
             try
             {
-                Database.UpdateDiscordInformations(player.Username, player.Discord.ID, player.Discord.Avatar);
                 Debug.OutputDebugString(player.Username + " | UID " + player.UID + " | " + IsOpen + " | " + Id + " | " + Name + " | " + Avatar + " | " + Discriminator);
                 player.Discord.ID = Id;
                 player.Discord.IsOpen = IsOpen;
                 player.Discord.Name = Name;
                 player.Discord.Avatar = Avatar;
                 player.Discord.Discriminator = Discriminator;
+                Database.UpdateDiscordInformations(player.Username, player.Discord.ID, player.Discord.Avatar);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
