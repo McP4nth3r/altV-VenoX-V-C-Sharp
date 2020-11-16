@@ -163,6 +163,8 @@ namespace VenoXV._Gamemodes_.SevenTowers
             try
             {
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du bist nun zuschauer!");
+                player.SevenTowers.IsSpectator = true;
+                VenoX.TriggerClientEvent(player, "SevenTowers:PutPlayerIntoSpectatorMode");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -253,6 +255,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
 
                 if (!player.SevenTowers.Spawned && !CurrentlyInRound.Contains(player))
                 {
+                    if (player.SevenTowers.IsSpectator) { VenoX.TriggerClientEvent(player, "SevenTowers:RemovePlayerFromSpectatorMode"); player.SevenTowers.IsSpectator = false; }
                     Random random = new Random();
                     int randomSpawnNumb = random.Next(0, CurrentAvailableSpawns.Count);
                     SpawnModel Spawns = CurrentAvailableSpawns[randomSpawnNumb];
@@ -271,7 +274,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     vehicle.Gas = 100;
                     Spawns.Spawned = true;
                     CurrentlyInRound.Add(player);
-                    player.SetPlayerAlpha(255);
+                    player.SetPlayerVisible(true);
                 }
             }
             catch (Exception ex)
@@ -292,7 +295,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 InitializePlayerData(player);
                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "~ ~ ~ ~ 7 TOWERS ~ ~ ~ ~ ");
                 SpawnPlayerInRound(player);
-                player.SetPlayerAlpha(255);
+                player.SetPlayerVisible(true);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -309,7 +312,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 if (CanPlayerJoin()) PutPlayerInRound(player);
                 else PutPlayerSpectate(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void OnColShapeHit(IColShape shape, VnXPlayer player)
         {
@@ -317,15 +320,16 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 if (shape == CurrentColShape)
                 {
-                    player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(2);
                     if (player.IsInVehicle && player.SevenTowers.LastVehicleGot < DateTime.Now)
                     {
+                        player.SevenTowers.SpawnedTime = DateTime.Now.AddSeconds(SEVENTOWERS_VEHICLE_COOLDOWN);
                         VehicleModel vehicleClass = (VehicleModel)player.Vehicle;
+                        if (vehicleClass != null && vehicleClass.Exists) vehicleClass.Remove();
                         SevenTowersVehicles.Remove(vehicleClass);
-                        RageAPI.DeleteVehicleThreadSafe(vehicleClass);
+                        //RageAPI.DeleteVehicleThreadSafe(vehicleClass);
                         AltV.Net.Enums.VehicleModel vehicleHash = AltV.Net.Enums.VehicleModel.Fbi;
                         int SpecialVehicleChance = GetRandomNumber(0, SEVENTOWERS_SPECIAL_VEHICLE_CHANCE);
-                        Debug.OutputDebugString("SpecialVehicleChance : " + SpecialVehicleChance);
+                        //Debug.OutputDebugString("SpecialVehicleChance : " + SpecialVehicleChance);
                         if (SpecialVehicleChance == SEVENTOWERS_SPECIAL_VEHICLE_CHANCE)
                             vehicleHash = SPECIALVEHICLE_HASHES[GetRandomNumber(0, SPECIALVEHICLE_HASHES.Count)];
                         else
@@ -355,10 +359,11 @@ namespace VenoXV._Gamemodes_.SevenTowers
                     if (playerClass.IsInVehicle) RageAPI.DeleteVehicleThreadSafe((VehicleModel)playerClass.Vehicle);
                     playerClass.SetPosition = new Vector3(playerClass.Position.X, playerClass.Position.Y, playerClass.Position.Z + 110);
                     playerClass.DespawnPlayer();
-                    playerClass.SetPlayerAlpha(0);
+                    playerClass.SetPlayerVisible(false);
                     playerClass.SevenTowers.Spawned = false;
                     playerClass.Freeze = true;
-                    if (CurrentlyInRound.Count <= 1) EndRound();
+                    if (CurrentlyInRound.Count <= 1) { EndRound(); return; }
+                    PutPlayerSpectate(playerClass);
                 }
             }
             catch (Exception ex)
