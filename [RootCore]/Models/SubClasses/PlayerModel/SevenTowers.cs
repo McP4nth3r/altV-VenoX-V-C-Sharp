@@ -7,6 +7,7 @@ namespace VenoXV._RootCore_.Models
     {
         public int Wins { get; set; }
         public bool Spawned { get; set; }
+        public bool IsSpectator { get; set; }
         public DateTime SpawnedTime { get; set; }
         public DateTime LastVehicleGot { get; set; }
         public SevenTowers(Player player)
@@ -15,6 +16,7 @@ namespace VenoXV._RootCore_.Models
             {
                 SpawnedTime = DateTime.Now;
                 LastVehicleGot = DateTime.Now;
+                IsSpectator = false;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
