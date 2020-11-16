@@ -74,6 +74,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 int randomnumb = random.Next(0, PLAYER_SPAWNS.Count);
                 player.SpawnPlayer(PLAYER_SPAWNS[randomnumb]);
                 player.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
+                player.Zombies.Zombie_tode += 1;
                 LevelSystem.GivePlayerWeaponsByLevel(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
@@ -83,6 +84,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 uint BestPing = player.Ping;
                 //If no one is near you, you are the Syncer.
                 if (player.NearbyPlayers.Count <= 0) player.Zombies.IsSyncer = true;
@@ -91,6 +93,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                     // Get New Syncer.
                     foreach (VnXPlayer nearbyPlayers in player.NearbyPlayers.ToList())
                     {
+                        if (nearbyPlayers is null || !nearbyPlayers.Exists) continue;
                         if (BestPing < nearbyPlayers.Ping)
                         {
                             BestPing = nearbyPlayers.Ping;
