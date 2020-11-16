@@ -1,4 +1,6 @@
 ﻿using AltV.Net;
+using System.Collections.Generic;
+using System.Linq;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
@@ -37,6 +39,12 @@ namespace VenoXV._Preload_
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
+                    List<VnXPlayer> SevenTowersPlayers = Globals.Main.SevenTowersPlayers.Where(p => p != player).ToList();
+                    foreach (VnXPlayer otherplayers in SevenTowersPlayers)
+                    {
+                        VenoX.TriggerClientEvent(otherplayers, "SevenTowers:AddPlayer", player);
+                        VenoX.TriggerClientEvent(player, "SevenTowers:AddPlayer", otherplayers);
+                    }
                     break;
                 case Gamemodes.Derby:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
@@ -45,6 +53,7 @@ namespace VenoXV._Preload_
         }
         public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes Gamemode)
         {
+            Core.RageAPI.SetPlayerVisible(player, true);
             VenoX.TriggerClientEvent(player, "BlipClass:RemoveAllBlips");
             switch (Gamemode)
             {
@@ -72,6 +81,8 @@ namespace VenoXV._Preload_
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
+                    foreach (VnXPlayer otherplayers in Globals.Main.SevenTowersPlayers.ToList().Where(p => p != player))
+                        VenoX.TriggerClientEvent(player, "SevenTowers:RemovePlayer", player);
                     break;
                 case Gamemodes.Derby:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.DERBY1_MAP);
