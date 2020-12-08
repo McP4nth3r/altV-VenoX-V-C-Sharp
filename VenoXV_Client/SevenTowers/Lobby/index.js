@@ -90,7 +90,7 @@ function PutPlayerIntoSpectatorMode() {
 function RemovePlayerFromSpectatorMode() {
     alt.log('RemovePlayerFromSpectatorMode');
     if (spectateTick !== undefined) {
-        alt.clearTick(spectateTick);
+        alt.clearEveryTick(spectateTick);
     }
 
     if (spectatorCamera !== undefined) {

@@ -17,6 +17,9 @@ let IsSyncer = false;
 let DestroyedOne = false;
 let Zombies = {};
 let SyncInterval;
+let ZombieClothes = {};
+let ZombieAccessories = {};
+let ZombieSkins = {};
 
 // Require 
 game.requestAnimSet('move_m@drunk@verydrunk');
@@ -57,17 +60,8 @@ alt.onServer('Zombies:Sync', async (state, playerCount = 0) => {
     catch { }
 });
 
-alt.onServer('Zombies:SpawnKI', async (Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) => {
-    SpawnZombie(parseInt(Id), Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target);
-});
-
-alt.onServer('Zombies:ClothesLoad', async (Id, clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedComponentVariation(Zombies[parseInt(Id)].Entity, clothesslot, clothesdrawable, clothestexture);
-});
-
-
-alt.onServer("Zombies:AccessoriesLoad", async (Id, clothesslot, clothesdrawable, clothestexture) => {
-    game.setPedPreloadVariationData(Zombies[parseInt(Id)].Entity, clothesslot, clothesdrawable, clothestexture);
+alt.onServer('Zombies:SpawnKI', async (Id, RandomSkinUID, Hash, Position, Target) => {
+    SpawnZombie(parseInt(Id), parseInt(RandomSkinUID), Hash, Position, Target);
 });
 
 alt.onServer('Zombies:SetDead', (Id, state) => {
@@ -129,19 +123,85 @@ alt.onServer('Zombies:DeleteTempZombieById', async (ID) => {
 });
 
 
-alt.onServer('Zombies:MoveToTarget', async (ID, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity) => {
+alt.onServer('Zombies:MoveToTarget', async (ID, Hash, Position, TargetEntity) => {
     if (!Zombies[parseInt(ID)]) {
-        SpawnZombie(parseInt(ID), Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, TargetEntity);
+        SpawnZombie(parseInt(ID), Hash, Position, TargetEntity);
         return;
     }
     if (!TargetEntity) return;
     MoveZombieToTarget(parseInt(ID), TargetEntity);
 });
 
+alt.onServer('Zombies:LoadEntityClassClothes', async (ID, Slot1Drawable, Slot1Texture, Slot2Drawable, Slot2Texture, Slot3Drawable, Slot3Texture, Slot4Drawable, Slot4Texture, Slot5Drawable, Slot5Texture, Slot6Drawable, Slot6Texture, Slot7Drawable, Slot7Texture, Slot8Drawable, Slot8Texture, Slot9Drawable, Slot9Texture, Slot10Drawable, Slot10Texture, Slot11Drawable, Slot11Texture) => {
+    if (ZombieClothes[parseInt(ID)]) return;
+    ZombieClothes[parseInt(ID)] = {
+        Slot1Drawable: parseInt(Slot1Drawable),
+        Slot1Texture: parseInt(Slot1Texture),
+        Slot2Drawable: parseInt(Slot2Drawable),
+        Slot2Texture: parseInt(Slot2Texture),
+        Slot3Drawable: parseInt(Slot3Drawable),
+        Slot3Texture: parseInt(Slot3Texture),
+        Slot4Drawable: parseInt(Slot4Drawable),
+        Slot4Texture: parseInt(Slot4Texture),
+        Slot5Drawable: parseInt(Slot5Drawable),
+        Slot5Texture: parseInt(Slot5Texture),
+        Slot6Drawable: parseInt(Slot6Drawable),
+        Slot6Texture: parseInt(Slot6Texture),
+        Slot7Drawable: parseInt(Slot7Drawable),
+        Slot7Texture: parseInt(Slot7Texture),
+        Slot8Drawable: parseInt(Slot8Drawable),
+        Slot8Texture: parseInt(Slot8Texture),
+        Slot9Drawable: parseInt(Slot9Drawable),
+        Slot9Texture: parseInt(Slot9Texture),
+        Slot10Drawable: parseInt(Slot10Drawable),
+        Slot11Texture: parseInt(Slot11Texture)
+    }
+    //alt.log('Added Clothes for Index : ' + parseInt(ID));
+});
+
+alt.onServer('Zombies:LoadEntityClassAccessories', async (ID, Slot1Drawable, Slot1Texture, Slot2Drawable, Slot2Texture, Slot3Drawable, Slot3Texture, Slot4Drawable, Slot4Texture, Slot5Drawable, Slot5Texture, Slot6Drawable, Slot6Texture, Slot7Drawable, Slot7Texture, Slot8Drawable, Slot8Texture, Slot9Drawable, Slot9Texture, Slot10Drawable, Slot10Texture, Slot11Drawable, Slot11Texture) => {
+    if (ZombieAccessories[parseInt(ID)]) return;
+    ZombieAccessories[parseInt(ID)] = {
+        Slot1Drawable: parseInt(Slot1Drawable),
+        Slot1Texture: parseInt(Slot1Texture),
+        Slot2Drawable: parseInt(Slot2Drawable),
+        Slot2Texture: parseInt(Slot2Texture),
+        Slot3Drawable: parseInt(Slot3Drawable),
+        Slot3Texture: parseInt(Slot3Texture),
+        Slot4Drawable: parseInt(Slot4Drawable),
+        Slot4Texture: parseInt(Slot4Texture),
+        Slot5Drawable: parseInt(Slot5Drawable),
+        Slot5Texture: parseInt(Slot5Texture),
+        Slot6Drawable: parseInt(Slot6Drawable),
+        Slot6Texture: parseInt(Slot6Texture),
+        Slot7Drawable: parseInt(Slot7Drawable),
+        Slot7Texture: parseInt(Slot7Texture),
+        Slot8Drawable: parseInt(Slot8Drawable),
+        Slot8Texture: parseInt(Slot8Texture),
+        Slot9Drawable: parseInt(Slot9Drawable),
+        Slot9Texture: parseInt(Slot9Texture),
+        Slot10Drawable: parseInt(Slot10Drawable),
+        Slot11Texture: parseInt(Slot11Texture)
+    }
+    //alt.log('Added Accessories for Index : ' + parseInt(ID));
+});
+
+
+alt.onServer('Zombies:LoadEntityClass', async (ID, FaceFeatures, HeadBlendData, HeadOverlays) => {
+    if (ZombieSkins[parseInt(ID)]) return;
+    ZombieSkins[parseInt(ID)] = {
+        FaceFeatures: FaceFeatures,
+        HeadBlendData: HeadBlendData,
+        HeadOverlays: HeadOverlays
+    }
+    //alt.log('Added LoadEntityClass for Index : ' + ID);
+});
+
 
 alt.on("disconnect", () => {
     DeleteEveryZombie();
 });
+
 alt.onServer('Zombies:OnGamemodeDisconnect', () => {
     DeleteEveryZombie();
 });
@@ -196,16 +256,19 @@ function DrawNametags() {
             let playerPos2 = game.getEntityCoords(Zombies[Id].Entity);
             let distance = game.getDistanceBetweenCoords(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
             let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
-            //if(distance <= maxDistance_load && player.getStreamSyncedMeta("PLAYER_LOGGED_IN")) {
-            if (distance <= 30) {
-                DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~b~" + Zombies[Id].IsDead, [screenPos[1], screenPos[2] - 0.035], [0.55, 0.55], 4, [255, 255, 255, 255], true, true);
-            }
+            if (distance <= 30) DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~b~" + Zombies[Id].IsDead, [screenPos[1], screenPos[2] - 0.035], [0.55, 0.55], 4, [255, 255, 255, 255], true, true);
         }
     }
 }
 
 
-function SetZombieCorrectSkin(zombieEntity, facefeaturesarray, headblendsarray, headoverlaysarray) {
+function SetZombieCorrectSkin(zombieEntity, RandomSkinUID) {
+    RandomSkinUID = parseInt(RandomSkinUID);
+    if (!ZombieSkins[RandomSkinUID]) return;
+    let facefeaturesarray = ZombieSkins[RandomSkinUID].FaceFeatures;
+    let headblendsarray = ZombieSkins[RandomSkinUID].HeadBlendData;
+    let headoverlaysarray = ZombieSkins[RandomSkinUID].HeadOverlays;
+
     let facefeatures = JSON.parse(facefeaturesarray);
     let headblends = JSON.parse(headblendsarray);
     let headoverlays = JSON.parse(headoverlaysarray);
@@ -234,37 +297,42 @@ function SetZombieCorrectSkin(zombieEntity, facefeaturesarray, headblendsarray, 
         game.setPedFaceFeature(zombieEntity, i, facefeatures[i]);
     }
 
+    if (!ZombieClothes[RandomSkinUID]) return;
+    game.setPedComponentVariation(zombieEntity, 1, ZombieClothes[RandomSkinUID].Slot1Drawable, ZombieClothes[RandomSkinUID].Slot1Texture);
+    game.setPedComponentVariation(zombieEntity, 2, ZombieClothes[RandomSkinUID].Slot2Drawable, ZombieClothes[RandomSkinUID].Slot2Texture);
+    game.setPedComponentVariation(zombieEntity, 3, ZombieClothes[RandomSkinUID].Slot3Drawable, ZombieClothes[RandomSkinUID].Slot3Texture);
+    game.setPedComponentVariation(zombieEntity, 4, ZombieClothes[RandomSkinUID].Slot4Drawable, ZombieClothes[RandomSkinUID].Slot4Texture);
+    game.setPedComponentVariation(zombieEntity, 5, ZombieClothes[RandomSkinUID].Slot5Drawable, ZombieClothes[RandomSkinUID].Slot5Texture);
+    game.setPedComponentVariation(zombieEntity, 6, ZombieClothes[RandomSkinUID].Slot6Drawable, ZombieClothes[RandomSkinUID].Slot6Texture);
+    game.setPedComponentVariation(zombieEntity, 7, ZombieClothes[RandomSkinUID].Slot7Drawable, ZombieClothes[RandomSkinUID].Slot7Texture);
+    game.setPedComponentVariation(zombieEntity, 8, ZombieClothes[RandomSkinUID].Slot8Drawable, ZombieClothes[RandomSkinUID].Slot8Texture);
+    game.setPedComponentVariation(zombieEntity, 9, ZombieClothes[RandomSkinUID].Slot9Drawable, ZombieClothes[RandomSkinUID].Slot9Texture);
+    game.setPedComponentVariation(zombieEntity, 10, ZombieClothes[RandomSkinUID].Slot10Drawable, ZombieClothes[RandomSkinUID].Slot10Texture);
+    game.setPedComponentVariation(zombieEntity, 11, ZombieClothes[RandomSkinUID].Slot11Drawable, ZombieClothes[RandomSkinUID].Slot11Texture);
+
+    if (!ZombieAccessories[RandomSkinUID]) return;
+    game.setPedPreloadVariationData(zombieEntity, 1, ZombieAccessories[RandomSkinUID].Slot1Drawable, ZombieAccessories[RandomSkinUID].Slot1Texture);
+    game.setPedPreloadVariationData(zombieEntity, 2, ZombieAccessories[RandomSkinUID].Slot2Drawable, ZombieAccessories[RandomSkinUID].Slot2Texture);
+    game.setPedPreloadVariationData(zombieEntity, 3, ZombieAccessories[RandomSkinUID].Slot3Drawable, ZombieAccessories[RandomSkinUID].Slot3Texture);
+    game.setPedPreloadVariationData(zombieEntity, 4, ZombieAccessories[RandomSkinUID].Slot4Drawable, ZombieAccessories[RandomSkinUID].Slot4Texture);
+    game.setPedPreloadVariationData(zombieEntity, 5, ZombieAccessories[RandomSkinUID].Slot5Drawable, ZombieAccessories[RandomSkinUID].Slot5Texture);
+    game.setPedPreloadVariationData(zombieEntity, 6, ZombieAccessories[RandomSkinUID].Slot6Drawable, ZombieAccessories[RandomSkinUID].Slot6Texture);
+    game.setPedPreloadVariationData(zombieEntity, 7, ZombieAccessories[RandomSkinUID].Slot7Drawable, ZombieAccessories[RandomSkinUID].Slot7Texture);
+    game.setPedPreloadVariationData(zombieEntity, 8, ZombieAccessories[RandomSkinUID].Slot8Drawable, ZombieAccessories[RandomSkinUID].Slot8Texture);
+    game.setPedPreloadVariationData(zombieEntity, 9, ZombieAccessories[RandomSkinUID].Slot9Drawable, ZombieAccessories[RandomSkinUID].Slot9Texture);
+    game.setPedPreloadVariationData(zombieEntity, 10, ZombieAccessories[RandomSkinUID].Slot10Drawable, ZombieAccessories[RandomSkinUID].Slot10Texture);
+    game.setPedPreloadVariationData(zombieEntity, 11, ZombieAccessories[RandomSkinUID].Slot11Drawable, ZombieAccessories[RandomSkinUID].Slot11Texture);
+
+
 }
 
 function SetZombieAttributes(zombie) {
-    /*
-    game.setPedCanPlayGestureAnims(zombie, false);
-    game.setPedCanPlayAmbientAnims(zombie, false);
-    game.setPedCanEvasiveDive(zombie, false);
-    game.setPedPathCanUseLadders(zombie, false);
-    game.setPedPathCanUseClimbovers(zombie, false);
-    game.applyPedDamagePack(zombie, 'BigHitByVehicle', 0.0, 1);
-    game.applyPedDamagePack(zombie, 'ExplosionMed', 0.0, 1);
-    game.setPedAlertness(zombie, 0);
-    game.setPedCombatAttributes(zombie, 46, true);
-    game.setPedConfigFlag(zombie, 281, true);
-    // move to spawn.
-    let ZombiePos = game.getEntityCoords(zombie);
-    game.taskWanderInArea(zombie, ZombiePos.x, ZombiePos.y, ZombiePos.z, 100);
-    game.setPedKeepTask(zombie, true);
-
-
-
-    game.setPedCanPlayGestureAnims(zombie, false);
-    game.setPedCanPlayAmbientAnims(zombie, false);
-    game.setPedCanEvasiveDive(zombie, false);*/
     game.setPedPathCanUseLadders(zombie, false);
     game.setPedPathCanUseClimbovers(zombie, false);
 
     game.setPedCanRagdoll(zombie, false);
     game.setEntityAsMissionEntity(zombie, true, false);
     game.setPedRelationshipGroupHash(zombie, game.getHashKey('zombeez'));
-    //game.setPedArmour(zombie, 100);
     game.setPedAccuracy(zombie, 25);
     game.setPedSeeingRange(zombie, 100.0);
     game.setPedHearingRange(zombie, 100.0);
@@ -288,9 +356,6 @@ function SetZombieAttributes(zombie) {
     game.applyPedDamagePack(zombie, 'SCR_Torture', 0.0, 9.0);
     game.stopPedSpeaking(zombie, true);
     game.setAiMeleeWeaponDamageModifier(10000);
-
-    /*let ZombiePos = game.getEntityCoords(zombie);
-    game.taskWanderInArea(zombie, ZombiePos.x, ZombiePos.y, ZombiePos.z, 100);*/
 }
 
 
@@ -307,59 +372,26 @@ async function loadModel(dict) {
     });
 }
 
-/*
-async function CreateKI(Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) {
-    return new Promise(resolve => {
-        if (Zombies[Id]) return;
-        for (var _c in Zombies) { if (Zombies[_c].Id == Id) { return; } }
-        //if (Zombies.length > 0) if (Zombies.find(Zombie => Zombie.Id === Id)) return;
-        Hash = alt.hash(Hash);
-        let res = loadModel(Hash);
-        res.then(() => {
-            let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
-            Zombies[Id] = {
-                Id: Id,
-                Entity: zombieEntity,
-                IsZombieKI: true,
-                Position: Position,
-                IsDead: false,
-                Frozen: true,
-                OutOfStreamingRange: false,
-                TargetEntity: Target,
-            }
-            SetZombieCorrectSkin(Zombies[Id].Entity, FaceFeatures, HeadBlendData, HeadOverlays);
-            SetZombieAttributes(Zombies[Id].Entity);
-        });
-        return resolve(true);
+async function SpawnZombie(Id, RandomSkinUID, Hash, Position, Target) {
+    if (Zombies[Id]) return;
+    Hash = alt.hash(Hash);
+    let res = loadModel(Hash);
+    res.then(() => {
+        let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
+        Zombies[Id] = {
+            Id: Id,
+            Entity: zombieEntity,
+            IsZombieKI: true,
+            Position: Position,
+            IsDead: false,
+            Frozen: true,
+            OutOfStreamingRange: false,
+            TargetEntity: Target,
+        }
+        SetZombieCorrectSkin(Zombies[Id].Entity, RandomSkinUID);
+        SetZombieAttributes(Zombies[Id].Entity);
+        alt.log(RandomSkinUID);
     });
-}
-*/
-async function SpawnZombie(Id, Hash, FaceFeatures, HeadBlendData, HeadOverlays, Position, Target) {
-    try {
-        if (Zombies[Id]) return;
-        for (var _c in Zombies)
-            if (Zombies[_c].Id == Id) return;
-
-        //if (Zombies.length > 0) if (Zombies.find(Zombie => Zombie.Id === Id)) return;
-        Hash = alt.hash(Hash);
-        let res = loadModel(Hash);
-        res.then(() => {
-            let zombieEntity = game.createPed(2, Hash, Position.x, Position.y, Position.z, 0, false, false);
-            Zombies[Id] = {
-                Id: Id,
-                Entity: zombieEntity,
-                IsZombieKI: true,
-                Position: Position,
-                IsDead: false,
-                Frozen: true,
-                OutOfStreamingRange: false,
-                TargetEntity: Target,
-            }
-            SetZombieCorrectSkin(Zombies[Id].Entity, FaceFeatures, HeadBlendData, HeadOverlays);
-            SetZombieAttributes(Zombies[Id].Entity);
-        });
-    }
-    catch (e) { alt.log(e); }
 }
 
 
@@ -377,12 +409,9 @@ function MoveZombieToTarget(ID, TargetEntity) {
     game.taskPutPedDirectlyIntoMelee(Zombies[ID].Entity, Zombies[ID].TargetEntity.scriptID, 0.0, -5.0, 1.0, false);
 
 
-    if (game.isPedRunning(Zombies[ID].Entity)) {
+    if (!game.isPedRunning(Zombies[ID].Entity)) {
         game.disablePedPainAudio(Zombies[ID].Entity, false);
         game.playPain(Zombies[ID].Entity, 8);
-        //move_m@injured
-        //game.setPedAlternateMovementAnim(Zombies[ID].Entity, 1, "move_m@injured", "sprint");
-        //game.taskPlayAnim(Zombies[ID].Entity, "move_m@injured", "sprint", 8.0, 0, )
     }
 
 }
@@ -391,23 +420,6 @@ function MoveZombieToTarget(ID, TargetEntity) {
 alt.everyTick(() => {
     DrawNametags();
 });
-*/
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
-
-function CheckZombieDamage(Zombie) {
-    if (game.hasEntityBeenDamagedByEntity(Zombie.Entity, alt.Player.local.scriptID, true)) {
-        game.clearEntityLastDamageEntity(Zombie.Entity);
-        if (game.getEntityHealth(e_values) <= 0) {
-            e_values.IsDead = true;
-            //mp.events.callRemote('OnZombieKill');
-        }
-    }
-}
 */
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
