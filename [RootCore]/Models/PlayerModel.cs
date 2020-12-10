@@ -9,6 +9,7 @@ namespace VenoXV._RootCore_.Models
 {
     public class VnXPlayer : Player
     {
+
         //Main
         public int UID { get; set; }
         private string _Username { get; set; }

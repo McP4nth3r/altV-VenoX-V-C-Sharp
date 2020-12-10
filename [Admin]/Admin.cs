@@ -611,23 +611,26 @@ namespace VenoXV._Admin_
         {
             try
             {
-                foreach (BanModel accClass in PlayerBans.ToList())
+                if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    if (accClass.Name.ToLower() == target_name.ToLower())
+                    foreach (BanModel accClass in PlayerBans.ToList())
                     {
-                        foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                        if (accClass.Name.ToLower() == target_name.ToLower())
                         {
-                            string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "wurde entbannt.");
-                            RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + accClass.Name + " " + TranslatedText);
-                            Database.RemoveOldBan(accClass.UID);
-                            logfile.WriteLogs("admin", player.Username + " unbanned " + accClass.Name + "!");
-                            PlayerBans.Remove(accClass);
+                            foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                            {
+                                string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "wurde entbannt.");
+                                RageAPI.SendChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + accClass.Name + " " + TranslatedText);
+                                Database.RemoveOldBan(accClass.UID);
+                                logfile.WriteLogs("admin", player.Username + " unbanned " + accClass.Name + "!");
+                                PlayerBans.Remove(accClass);
+                            }
+                            return;
                         }
-                        return;
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 
@@ -1178,15 +1181,38 @@ namespace VenoXV._Admin_
             }
         }
 
+        public static Vector3 BulletPos1 = new Vector3(0, 0, 0);
+        public static Vector3 BulletPos2 = new Vector3(0, 0, 0);
+        [Command("bulletpos")]
+        public static void CreateBulletPos(VnXPlayer player)
+        {
+            if (BulletPos1 == new Vector3(0, 0, 0))
+            {
+                BulletPos1 = player.Position;
+                player.SendChatMessage("DEBUG : Setted Bullet Pos1!");
+            }
+            else if (BulletPos2 == new Vector3(0, 0, 0))
+            {
+                BulletPos2 = player.Position;
+                player.SendChatMessage("DEBUG : Setted Bullet Pos2!");
+            }
+        }
+        [Command("resetbulletpos")]
+        public static void ResetBulletCoords(VnXPlayer player)
+        {
+            BulletPos1 = new Vector3(0, 0, 0);
+            BulletPos2 = new Vector3(0, 0, 0);
+        }
 
         [Command("createbullet")]
-        public static void createbullet(VnXPlayer player, string target_name, int damage, string WeaponHash, VnXPlayer Owner, bool audible, bool invisible, int speed)
+        public static void createbullet(VnXPlayer player, string target_name, int damage, string WeaponHash, bool audible, bool invisible, int speed)
         {
             if (player.AdminRank >= Constants.ADMINLVL_PROJEKTLEITER)
             {
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
                 if (target == null) return;
-                VenoX.TriggerEventForAll("Admin:ShootTest", player.Position, target.Position, damage, WeaponHash, Owner, audible, invisible, speed);
+                player.GivePlayerWeapon(AltV.Net.Enums.WeaponModel.RPG, 20);
+                VenoX.TriggerEventForAll("Admin:ShootTest", BulletPos1, BulletPos2, damage, WeaponHash, player, audible, invisible, speed);
                 Debug.OutputDebugString("CMD-Executed!");
             }
         }

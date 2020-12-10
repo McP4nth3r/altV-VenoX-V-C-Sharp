@@ -116,8 +116,8 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element == null) { return default; }
-                if (element.GetData(key, out T value)) { return value; }
+                if (element == null) return default;
+                if (element.GetData(key, out T value)) return value;
                 return default;
             }
             catch { return default; }
@@ -163,7 +163,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element == null) { return default; }
+                if (element == null) return default;
                 if (element.GetSyncedMetaData(key, out T value))
                 {
                     return value;
@@ -275,8 +275,9 @@ namespace VenoXV.Core
         {
             try
             {
-                if (clothesslot < 0 || clothesdrawable < 0) { return; }
-                VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
+                Debug.OutputDebugString("Clothes : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
+                Alt.Emit("GlobalSystems:SetClothes", element, clothesslot, clothesdrawable, clothestexture);
+                //VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -284,8 +285,9 @@ namespace VenoXV.Core
         {
             try
             {
-                if (propID < 0 || textureID < 0) { return; }
-                VenoX.TriggerClientEvent(element, "Prop:Load", propID, drawableID, textureID);
+                Debug.OutputDebugString("Prop : " + propID + " | " + drawableID + " | " + textureID);
+                Alt.Emit("GlobalSystems:SetProps", element, propID, drawableID, textureID);
+                //VenoX.TriggerClientEvent(element, "Prop:Load", propID, drawableID, textureID);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

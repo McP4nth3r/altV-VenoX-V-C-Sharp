@@ -169,21 +169,17 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
             {
                 if (Target != null)
                 {
-                    if (Target.Dead == 1)
+                    if (Target.IsDead)
                     {
-                        //AntiCheat_Allround.SetTimeOutHealth(Target, 1000);
                         Target.SpawnPlayer(Target.Position);
-                        Target.vnxSetStreamSharedElementData(EntityData.PLAYER_KILLED, 0);
-                        player.SendTranslatedChatMessage("~g~Du hast " + Target.Username + " wiederbelebt.");
-                        Target.SendTranslatedChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat dich wiederbelebt.");
+                        player.SendChatMessage("~g~You revived " + Target.Username + ".");
+                        Target.SendChatMessage(Constants.Rgba_ADMIN_CLANTAG + player.Username + " revived you.");
                         logfile.WriteLogs("admin", player.Username + " hat " + Target.Username + " wiederbelebt!");
                         VenoX.TriggerClientEvent(Target, "destroyKrankenhausTimer");
                         VenoX.TriggerClientEvent(Target, "VnX_DestroyIPlayerSideTimer_KH");
                         foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
-                        {
                             if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                 VenoX.TriggerClientEvent(medics, "Destroy_MedicBlips", Target.Username);
-                        }
                     }
                 }
             }
@@ -246,7 +242,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
             try
             {
                 VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-                if (target == null) { return; }
+                if (target == null) return;
                 if (player.AdminRank > Constants.ADMINLVL_SUPPORTER)
                 {
                     //anzeigen.Usefull.VnX.SpectatePlayer(player, target, 0);

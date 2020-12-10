@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Async;
 using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
@@ -158,12 +157,15 @@ namespace VenoXV._Gamemodes_.Zombie.World
                             if (player.Position.Distance(zombieClass.Position) < 150 && !zombieClass.IsDead)
                             {
                                 if (!player.Zombies.NearbyZombies.Contains(zombieClass)) player.Zombies.NearbyZombies.Add(zombieClass);
-                                player.EmitLocked("Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
-
+                                VenoX.TriggerClientEvent(player, "Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.Position, zombieClass.TargetEntity);
                             }
                             else
                             {
-                                if (player.Zombies.NearbyZombies.Contains(zombieClass)) player.Zombies.NearbyZombies.Remove(zombieClass); player.EmitLocked("Zombies:DeleteTempZombieById", zombieClass.ID);
+                                if (player.Zombies.NearbyZombies.Contains(zombieClass))
+                                {
+                                    player.Zombies.NearbyZombies.Remove(zombieClass);
+                                    VenoX.TriggerClientEvent(player, "Zombies:DeleteTempZombieById", zombieClass.ID);
+                                }
                             }
                         }
                     }

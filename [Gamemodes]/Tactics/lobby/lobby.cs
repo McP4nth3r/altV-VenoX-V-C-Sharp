@@ -198,19 +198,20 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VehicleModel veh in TacticVehicleList)
                 {
-                    if (veh != null) RageAPI.DeleteVehicleThreadSafe(veh);
+                    if (veh is not null && veh.Exists) RageAPI.DeleteVehicleThreadSafe(veh);
                     TacticVehicleList.Clear();
-                    foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles.ToList())
-                    {
-                        VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
-                        vehicle.Frozen = false;
-                        vehicle.Godmode = false;
-                        vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
-                        TacticVehicleList.Add(vehicle);
-                    }
+                }
+                foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles.ToList())
+                {
+                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
+                    vehicle.Frozen = false;
+                    vehicle.Godmode = false;
+                    vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
+                    TacticVehicleList.Add(vehicle);
+                    Debug.OutputDebugString("Created Tactics Vehicle with Dimension " + vehicle.Dimension + " | Model : " + vehClass.Vehicle_Hash + " | Position : " + vehClass.Vehicle_Position);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void PutPlayerInTeam()
@@ -260,7 +261,6 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 CreateRandomRound();
                 SpawnMapVehicles();
                 PutPlayerInTeam();
-                // To Do : wenn runde gestartet ist = nicht machen !
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;

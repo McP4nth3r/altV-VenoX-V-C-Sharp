@@ -157,8 +157,9 @@ namespace VenoXV._Preload_
                 player.RemoveAllPlayerWeapons();
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
+                _Gamemodes_.Zombie.Assets.ZombieAssets.LoadZombieEntityData(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }
