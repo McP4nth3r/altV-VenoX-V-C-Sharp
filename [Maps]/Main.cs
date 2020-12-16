@@ -22,9 +22,6 @@ namespace VenoXV._Maps_
         public const string STADTHALLE_MAP = "STADTHALLE";
         private static readonly List<MapModel> STADTHALLEMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + STADTHALLE_MAP + ".json"));
 
-        public const string BUSSTATION_MAP = "STADTHALLE";
-        public static List<MapModel> BUSSTATIONMAP = new List<MapModel>();
-
         public const string WUERFELPARK_MAP = "WUERFELPARK";
         private static readonly List<MapModel> WUERFELPARKMAP = JsonConvert.DeserializeObject<List<MapModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Maps/" + WUERFELPARK_MAP + ".json"));
 
@@ -39,38 +36,42 @@ namespace VenoXV._Maps_
         {
             try
             {
+                int i = 0;
                 switch (MapName)
                 {
                     case LSPD_MAP:
                         foreach (MapModel mapClass in LSPDMAP)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                            //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                            i++;
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map[LSPD][" + i + "/" + LSPDMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                         }
                         break;
                     case NOOBSPAWN_MAP:
                         foreach (MapModel mapClass in NOOBSPAWNMAP)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
+                            i++;
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map[Noobspawn][" + i + "/" + NOOBSPAWNMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                         }
                         break;
                     case STADTHALLE_MAP:
                         foreach (MapModel mapClass in STADTHALLEMAP)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
-                            //Core.Debug.OutputDebugString(mapClass.Quaternion.X + " | " + mapClass.Quaternion.Y + " | " + mapClass.Quaternion.Z + " | " + mapClass.Quaternion.W);
+                            i++;
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map[Cityhall][" + i + "/" + STADTHALLEMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false);
                         }
                         break;
                     case SEVENTOWERS_MAP:
                         foreach (MapModel mapClass in SEVENTOWERSMAP)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                            i++;
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map[SevenTowers][" + i + "/" + SEVENTOWERSMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                         }
                         break;
                     case WUERFELPARK_MAP:
                         foreach (MapModel mapClass in WUERFELPARKMAP)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
+                            i++;
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map[Park][" + i + "/" + WUERFELPARKMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Hash, mapClass.Position, ROT_ORDER_NORMAL, mapClass.Rotation, true, false, true);
                         }
                         break;
                     case DERBY1_MAP:
@@ -78,13 +79,14 @@ namespace VenoXV._Maps_
                         {
                             if (mapClass.Model == 665940918)
                             {
-                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
+                                i++;
+                                VenoX.TriggerPreloadEvent(playerClass, "Loading Map[Derby][" + i + "/" + DERBY1MAP.Count + "]", "Sync:LoadMap", MapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
                             }
                             else
                             {
-                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                                i++;
+                                VenoX.TriggerPreloadEvent(playerClass, "Loading Map[Derby][" + i + "/" + LSPDMAP.Count + "]", "Sync:LoadMap", MapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                             }
-                            //VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", MapName, mapClass.ModelHash, new Vector3(mapClass.PositionRotation.X, mapClass.PositionRotation.Y, mapClass.PositionRotation.Z), 2, new Vector3(mapClass.PositionRotation.Pitch, mapClass.PositionRotation.Roll, mapClass.PositionRotation.Yaw), true, false, true, 0);
                         }
                         break;
                 }

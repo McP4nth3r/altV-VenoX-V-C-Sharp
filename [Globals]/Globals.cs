@@ -223,6 +223,7 @@ namespace VenoXV.Globals
         {
             try
             {
+                _Preload_.Preload.OnUpdate();
                 _Gamemodes_.Reallife.Globals.Main.OnUpdate();
                 _Gamemodes_.Tactics.Globals.Main.OnUpdate();
                 _Gamemodes_.Race.Globals.Main.OnUpdate();

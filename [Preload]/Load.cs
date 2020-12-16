@@ -19,7 +19,6 @@ namespace VenoXV._Preload_
             {
                 case Gamemodes.Reallife:
                     Loading.Main.LoadReallifeMaps(player);
-                    _Maps_.Main.LoadMap(player, _Maps_.Main.BUSSTATION_MAP);
                     VenoX.TriggerClientEvent(player, "Inventory:Load");
                     VenoX.TriggerClientEvent(player, "XMenu:Load");
                     VenoX.TriggerClientEvent(player, "Phone:Load");

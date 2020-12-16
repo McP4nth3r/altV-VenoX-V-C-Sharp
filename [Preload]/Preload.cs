@@ -79,6 +79,8 @@ namespace VenoXV._Preload_
             }
             catch { }
         }
+
+
         [ClientEvent("Load_selected_gm_server")]
         public static void Load_selected_gm_server(VnXPlayer player, int value)
         {
@@ -89,7 +91,7 @@ namespace VenoXV._Preload_
                 VenoX.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
-                if (!Globals.Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
+                if (!Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
                 player.RemoveAllPlayerWeapons();
                 switch (value)
                 {
@@ -158,6 +160,44 @@ namespace VenoXV._Preload_
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
                 _Gamemodes_.Zombie.Assets.ZombieAssets.LoadZombieEntityData(player);
+                /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
+                _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
+                _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
+                _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);#
+                */
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+
+
+        [ClientEvent("Preload:FinishedPrivacyPolicy")]
+        public static void FinishedPrivacyPolicy(VnXPlayer player)
+        {
+            player.FinishedPrivacyPolicy = true;
+        }
+
+        public static DateTime PreloadCheck = DateTime.Now;
+        public static void OnUpdate()
+        {
+            try
+            {
+                var LoadingPlayers = Alt.GetAllPlayers().ToList().Where(x => !((VnXPlayer)x).Loading && ((VnXPlayer)x).FinishedPrivacyPolicy);
+                foreach (VnXPlayer players in LoadingPlayers)
+                {
+                    //Core.Debug.OutputDebugString("Event-Count : " + players.PreloadEvents.ToList().Count);
+                    var Event = players.PreloadEvents.ToList().OrderBy(x => x.EventName).FirstOrDefault(x => !x.Send);
+                    if (Event is null) continue;
+                    //Core.Debug.OutputDebugString("Called Event : " + Event.EventName + " | " + Event.EventText);
+                    VenoX.TriggerClientEvent(players, "Preload:UpdateDownloadState", Event.EventText);
+                    VenoX.TriggerClientEvent(players, Event.EventName, Event.EventArgs);
+                    players.PreloadEvents.Remove(Event);
+                    if (players.PreloadEvents.ToList().Count <= 0)
+                    {
+                        players.Loading = false;
+                        VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
+                        VenoX.TriggerClientEvent(players, "showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
+                    }
+                }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

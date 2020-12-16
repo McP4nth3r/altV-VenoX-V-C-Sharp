@@ -22,6 +22,16 @@ namespace VenoXV._RootCore_
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
+
+        public static void TriggerPreloadEvent(VnXPlayer player, string Text, string EventName, params object[] args)
+        {
+            try
+            {
+                player.PreloadEvents.Add(new LoadingModel { EventText = Text, EventName = EventName, EventArgs = args, EventSend = DateTime.Now });
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
         public static void TriggerEventForAll(string EventName, params object[] args)
         {
             try
@@ -43,5 +53,7 @@ namespace VenoXV._RootCore_
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
+
+
     }
 }

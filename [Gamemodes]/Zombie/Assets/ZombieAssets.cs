@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Zombie.Assets
                 Core.Debug.OutputDebugString("ID10 : " + Slot10Drawable + " | " + Slot10Texture);
                 Core.Debug.OutputDebugString("ID11 : " + Slot11Drawable + " | " + Slot11Texture);
                 */
-                VenoX.TriggerClientEvent(player, "Zombies:LoadEntityClassClothes", index,
+                VenoX.TriggerPreloadEvent(player, "Zombie Clothes [" + index + "]", "Zombies:LoadEntityClassClothes", index,
                     Slot1Drawable, Slot1Texture,
                     Slot2Drawable, Slot2Texture,
                     Slot3Drawable, Slot3Texture,
@@ -226,7 +226,7 @@ namespace VenoXV._Gamemodes_.Zombie.Assets
                 Core.Debug.OutputDebugString("ID9 : " + Slot9Drawable + " | " + Slot9Texture);
                 Core.Debug.OutputDebugString("ID10 : " + Slot10Drawable + " | " + Slot10Texture);
                 Core.Debug.OutputDebugString("ID11 : " + Slot11Drawable + " | " + Slot11Texture);*/
-                VenoX.TriggerClientEvent(player, "Zombies:LoadEntityClassAccessories", index,
+                VenoX.TriggerPreloadEvent(player, "Zombie Accessories [" + index + "]", "Zombies:LoadEntityClassAccessories", index,
                     Slot1Drawable, Slot1Texture,
                     Slot2Drawable, Slot2Texture,
                     Slot3Drawable, Slot3Texture,
@@ -245,9 +245,11 @@ namespace VenoXV._Gamemodes_.Zombie.Assets
         {
             try
             {
+                int i = 0;
                 foreach (CharacterModel EntityClass in _Preload_.Character_Creator.Main.CharacterSkins.ToList())
                 {
-                    VenoX.TriggerClientEvent(player, "Zombies:LoadEntityClass", EntityClass.UID, EntityClass.FaceFeatures, EntityClass.HeadBlendData, EntityClass.HeadOverlays);
+                    i++;
+                    VenoX.TriggerPreloadEvent(player, "Zombie Skins [" + i + "/" + Main.CharacterSkins.ToList().Count + "]", "Zombies:LoadEntityClass", EntityClass.UID, EntityClass.FaceFeatures, EntityClass.HeadBlendData, EntityClass.HeadOverlays);
                     LoadZombieClothesByIndex(player, EntityClass.UID);
                     LoadZombieAccessoriesByIndex(player, EntityClass.UID);
                     //Core.Debug.OutputDebugString("Index : " + EntityClass.UID);

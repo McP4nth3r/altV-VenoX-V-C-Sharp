@@ -58,7 +58,6 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                         Position = new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1),
                         Rotation = new Vector3(0, 0, 0),
                     };
-                    _Maps_.Main.BUSSTATIONMAP.Add(mapClass);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

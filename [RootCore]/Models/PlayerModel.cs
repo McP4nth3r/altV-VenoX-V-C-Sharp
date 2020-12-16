@@ -52,10 +52,18 @@ namespace VenoXV._RootCore_.Models
         public List<VnXPlayer> NearbyPlayers { get; set; }
         public ushort SetArmor { get { return Armor; } set { this.vnxSetStreamSharedElementData("PLAYER_ARMOR", value); Armor = value; } }
         public ushort SetHealth { get { return Health; } set { this.vnxSetStreamSharedElementData("PLAYER_HEALTH", value); Health = value; } }
+
+        public List<LoadingModel> PreloadEvents { get; set; }
+        public bool Loading { get; set; }
+        public bool FinishedPrivacyPolicy { get; set; }
+
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
             try
             {
+                //Preload : 
+                PreloadEvents = new List<LoadingModel>();
+                //
                 NearbyPlayers = new List<VnXPlayer>();
                 Settings = new Settings(this);
                 Reallife = new Reallife(this);

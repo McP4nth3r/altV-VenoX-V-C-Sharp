@@ -9,7 +9,6 @@ namespace VenoXV._Preload_.Loading
         public static void LoadReallifeMaps(VnXPlayer player)
         {
             _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.BUSSTATION_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
             _Maps_.Main.LoadMap(player, _Maps_.Main.WUERFELPARK_MAP);
@@ -17,7 +16,6 @@ namespace VenoXV._Preload_.Loading
         public static void UnloadReallifeMaps(VnXPlayer player)
         {
             _Maps_.Main.UnloadMap(player, _Maps_.Main.LSPD_MAP);
-            _Maps_.Main.UnloadMap(player, _Maps_.Main.BUSSTATION_MAP);
             _Maps_.Main.UnloadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
             _Maps_.Main.UnloadMap(player, _Maps_.Main.STADTHALLE_MAP);
             _Maps_.Main.UnloadMap(player, _Maps_.Main.WUERFELPARK_MAP);
@@ -26,20 +24,12 @@ namespace VenoXV._Preload_.Loading
         {
             try
             {
-                VenoX.TriggerClientEvent(player, "LoadingScreen:Show", LoadingTimer);
+                VenoX.TriggerClientEvent(player, "LoadingScreen:ShowPreload", true);
                 player.Gamemode = (int)Preload.Gamemodes.Reallife;
                 _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
             }
             catch { }
         }
-        [ClientEvent("Loading:OnClientFinished")]
-        public static void OnClientFinished(VnXPlayer player)
-        {
-            try
-            {
-                VenoX.TriggerClientEvent(player, "showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
-            }
-            catch { }
-        }
+
     }
 }
