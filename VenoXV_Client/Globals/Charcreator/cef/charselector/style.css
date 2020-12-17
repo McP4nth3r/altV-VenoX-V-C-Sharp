@@ -2,33 +2,26 @@
     font-family: 'PEL';
     src: url('../utils/fonts/Poppins-ExtraLight.ttf') format('truetype');
 }
-
 @font-face {
     font-family: 'PM';
     src: url('../utils/fonts/Poppins-Medium.ttf') format('truetype');
 }
-
 @font-face {
     font-family: 'PT';
     src: url('../utils/fonts/Poppins-Thin.ttf') format('truetype');
 }
-
 @font-face {
     font-family: 'OSR';
     src: url('../utils/fonts/OpenSans-Regular.ttf') format('truetype');
 }
-
 @font-face {
     font-family: 'OSL';
     src: url('../utils/fonts/OpenSans-Light.ttf') format('truetype');
 }
-
 div#loadingScreen {
     opacity: 0;
     display: none;
 }
-
-
 div#charcreator-infoBox>ul>li {
     float: left;
     width: 150px;
@@ -41,29 +34,23 @@ div#charcreator-infoBox>ul>li {
     padding: 20px !important;
     transition: all 0.3s ease-in-out;
 }
-
 div#charcreator-infoBox>ul>li:nth-child(1).active {
     background: #585555 !important;
 }
-
 div#charcreator-infoBox>ul>li:nth-child(2).active {
     background: #070707 !important;
 }
-
 div#charcreator-infoBox>ul>li:hover {
     background: #fbfbff !important;
 }
-
 div#charcreator-infoBox>ul>li>img {
     width: 42px;
     margin-bottom: 10px;
 }
-
 div#charcreator-infoBox>ul>li>p {
     margin-bottom: 0;
     color: #d2d2d2;
 }
-
 div#charcreator-hairBox>div.container>ul,
 div#charcreator-chesthairBox>div.container>ul,
 div#charcreator-lipsBox>div.container>ul,
@@ -71,25 +58,22 @@ div#charcreator-eyeBox>div.container>ul {
     margin-top: 8px;
     margin-bottom: 8px;
 }
-
 div#charcreator-hairBox>div.container>p>i,
 div#charcreator-chesthairBox>div.container>p>i,
 div#charcreator-lipsBox>div.container>p>i,
 div#charcreator-eyeBox>div.container>p>i {
     float: right;
-    background: rgb(0,200,255);
+    background: rgb(0, 200, 255);
     padding: 4px;
     padding-left: 8px;
     color: #ffffff;
     padding-right: 8px;
     border-radius: 1px;
 }
-
 .collapse.show,
 .collapsing {
     display: inline-block !important;
 }
-
 div#charcreator-hairBox>div.container>ul>li,
 div#charcreator-chesthairBox>div.container>ul>li,
 div#charcreator-lipsBox>div.container>ul>li,
@@ -105,7 +89,6 @@ div#charcreator-eyeBox>div.container>ul>li {
     padding: 16px !important;
     transition: all 0.3s ease-in-out;
 }
-
 div#charcreator-hairBox>div.container>ul>li:hover,
 div#charcreator-chesthairBox>div.container>ul>li:hover,
 div#charcreator-lipsBox>div.container>ul>li:hover,
@@ -113,17 +96,15 @@ div#charcreator-eyeBox>div.container>ul>li:hover {
     transform: scale(1.10);
     border: 2px solid #d2d2d2 !important;
 }
-
 body {
     user-select: none;
     background: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: hidden;
+    overflow: hidden;
     /* background: url(https://i.imgur.com/Y7kgqck.jpg); */
 }
-
 div#charselectorBox {
     display: none;
     opacity: 0;
@@ -137,7 +118,6 @@ div#charselectorBox {
     box-shadow: 1px 4px 22px rgba(25, 25, 25, 0.8) !important;
     padding-bottom: 12px;
 }
-
 div#genderselectBox {
     display: none;
     opacity: 0;
@@ -151,12 +131,10 @@ div#genderselectBox {
     box-shadow: 1px 4px 22px rgba(25, 25, 25, 0.8) !important;
     padding-bottom: 12px;
 }
-
 div#charselectorBox>ul,
 div#genderselectBox>ul {
     display: block !important;
 }
-
 div#genderselectBox>ul>li {
     float: left;
     width: 150px;
@@ -169,27 +147,22 @@ div#genderselectBox>ul>li {
     padding: 20px !important;
     transition: all 0.3s ease-in-out;
 }
-
 div#genderselectBox>ul>li:nth-child(1):hover {
     background: rgb(241, 241, 241) !important;
 }
-
 div#genderselectBox>ul>li:nth-child(2):hover {
     background: rgb(23, 23, 24) !important;
 }
-
 div#genderselectBox>ul>li>img {
     width: 42px;
     margin-bottom: 10px;
 }
-
 div#genderselectBox>ul>li>p {
     color: #d2d2d2;
     font-family: PEL;
     font-weight: bold;
     margin-bottom: 0;
 }
-
 div#charselectorBox>ul>li {
     border-radius: 2px !important;
     border: 1px solid #0c0c0c !important;
@@ -198,7 +171,6 @@ div#charselectorBox>ul>li {
     display: list-item !important;
     list-style: none;
 }
-
 div#charselectorBox>ul>li>span {
     color: #d2d2d2;
     font-family: PT;
@@ -206,32 +178,26 @@ div#charselectorBox>ul>li>span {
     font-weight: bold;
     letter-spacing: 1px;
 }
-
 div#charselectorBox>ul>li>button {
     font-family: PEL;
     opacity: .25;
     background: #19a94c;
     transition: all 0.3s ease-in-out !important;
 }
-
 div#charselectorBox>ul>li>button:hover {
     opacity: 1;
 }
-
 div#charselectorBox>ul>li:nth-child(odd) {
     background: rgb(23, 23, 23) !important;
 }
-
 div#charselectorBox>ul>li:nth-child(even) {
     background: rgb(29, 29, 29) !important;
 }
-
 div#charselectorBox>img,
 div#genderselectBox>img {
     width: 80px;
     margin-bottom: 10px;
 }
-
 div#charselectorBox>p.title,
 div#genderselectBox>p.title {
     margin-top: 0;
@@ -241,7 +207,6 @@ div#genderselectBox>p.title {
     font-weight: bold;
     font-size: 18px;
 }
-
 div#charselectorBox>hr,
 div#genderselectBox>hr {
     border-top: none !important;
@@ -249,7 +214,6 @@ div#genderselectBox>hr {
     border-image: linear-gradient(to right, #000000 0%, #eeeaf0 100%) !important;
     border-image-slice: 1 !important;
 }
-
 div#charselectorBox>p.description {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -257,7 +221,6 @@ div#charselectorBox>p.description {
     font-family: PEL;
     font-size: 14px;
 }
-
 div#genderselectBox>p.description {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -265,59 +228,48 @@ div#genderselectBox>p.description {
     font-family: PEL;
     font-size: 14px;
 }
-
 .input-field label {
     color: #1a1b1b;
     font-family: OSL;
     font-weight: bold;
 }
-
 .input-field input[type=text]:focus+label,
 .input-field input[type=password]:focus+label {
     color: #ebe9f1 !important;
 }
-
 .input-field input[type=text]:focus,
 .input-field input[type=password]:focus {
     border-bottom: 1px solid #e1dee7 !important;
     box-shadow: 0 1px 0 0 #e1dee7!important;
 }
-
 .input-field .prefix.active {
     color: #e1dee7 !important;
 }
-
 .input-field .prefix {
     color: #e1dee7 !important;
 }
-
 .input-field input[type=text],
 .input-field input[type=password] {
     border-bottom: 1px solid #fcfcfc !important;
     color: #ffffffcc;
 }
-
 input,
 label,
 i {
     opacity: .85;
 }
-
 .row {
     margin-bottom: 0 !important;
 }
-
 div#charselectorBox>a {
     opacity: 0.5;
     color: #d2d2d2 !important;
     letter-spacing: 1px;
     margin-bottom: 15px;
 }
-
 div#charselectorBox>a:hover {
     opacity: 1;
 }
-
 
 /* Charcreator */
 
@@ -327,15 +279,13 @@ div#charcreatorMainBox {
     opacity: 0;
     left: 0%;
     top: 5vw;
-    width: 25vw;
+    width: 27vw;
     height: 30vw;
 }
-
 .hidden {
     display: none;
     opacity: 0;
 }
-
 .creatorBox {
     position: absolute;
     width: 25.5vw;
@@ -348,32 +298,26 @@ div#charcreatorMainBox {
     padding-bottom: 12px;
     right: 0.5vw;
     top: 6vw;
-    overflow-y: hidden;
     max-height: 50vw;
 }
-
 p#charcreatorerror {
     display: none;
     color: #d64949;
 }
-
 div.creatorBox>button {
     margin-top: 10px;
     border: 0px;
-    background: linear-gradient(to right, rgb(0,100,150) 0%,rgb(0,200,255) 100%) !important;
+    background: linear-gradient(to right, rgb(0, 100, 150) 0%, rgb(0, 200, 255) 100%) !important;
     opacity: .25;
     font-family: PEL;
     transition: all 0.3s ease-in-out;
 }
-
 div.creatorBox>button:hover {
     opacity: 1;
 }
-
 div.creatorBox>button:focus {
     box-shadow: 0 0 0 0.2rem rgb(13, 13, 14);
 }
-
 div.creatorBox>div.container>input[type=text] {
     outline: none;
     border: 2px solid #000000b8;
@@ -385,37 +329,39 @@ div.creatorBox>div.container>input[type=text] {
     color: #d2d2d2;
     font-family: OSL;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox {
+    position: absolute;
     width: 100%;
     height: 100%;
     padding: 20px;
-    position: absolute;
     z-index: 100;
     background: #101010f2;
     text-align: center;
     border-radius: 6px;
-    background: rgba(0,0,0,0.8);
-    border-top: solid 0.15vw rgb(0,150,200);
+    background: rgba(0, 0, 0, 0.8);
+    border-top: solid 0.15vw rgb(0, 150, 200);
     box-shadow: 1px 4px 22px rgba(25, 25, 25, 0.8) !important;
     padding-bottom: 12px;
     left: 3vw;
     top: 3vw;
+    overflow-y: scroll;
 }
-.list-group{
-    position: absolute;
+.list-group {
+    position: relative;
     left: 0;
-    top: 12%;
+    top: 15%;
     width: 100%;
-    height: 88%;
     overflow: auto;
 }
-
-.list-group-item{
+.list-group-item {
     position: relative;
 }
-
-
+.charbtn {
+    position: relative;
+    top: 0%;
+    left: 0;
+    padding: 0%;
+}
 div#charcreatorMainBox>div#charcreatorCategoryBox>p,
 div.creatorBox>p {
     color: #d2d2d2;
@@ -426,12 +372,10 @@ div.creatorBox>p {
     letter-spacing: 1px;
     margin-left: 4px;
 }
-
 div.creatorBox>div.container {
     border-bottom: 1px solid rgb(58, 58, 58);
     margin-top: 15px;
 }
-
 div.creatorBox>div.container>p {
     color: #d2d2d2;
     font-family: PT;
@@ -441,7 +385,6 @@ div.creatorBox>div.container>p {
     font-size: 14px;
     font-weight: bold;
 }
-
 div.creatorBox>div.container>form>input {
     opacity: 0.5;
     -webkit-appearance: none;
@@ -454,7 +397,6 @@ div.creatorBox>div.container>form>input {
     border-radius: 2px;
     margin-left: -15px;
 }
-
 div.creatorBox>div.container>form>output {
     display: inline-block;
     background: rgba(0, 105, 145, 0.5);
@@ -471,30 +413,26 @@ div.creatorBox>div.container>form>output {
     top: -4px;
     position: relative;
 }
-
 div.creatorBox>div.container>form>input::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 18px;
     height: 20px;
-    background: rgb(0,200,255);
+    background: rgb(0, 200, 255);
     cursor: pointer;
     border-radius: 2px;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>hr,
 div.creatorBox>hr {
     border-top: none !important;
     border: 1px solid transparent !important;
-    background: rgb(255,255,255);
+    background: rgb(255, 255, 255);
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul {
     display: block !important;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li {
     float: left;
     width: 150px;
@@ -507,20 +445,16 @@ div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li {
     transition: all 0.3s ease-in-out;
     opacity: .3;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li.active {
     opacity: 1 !important;
-    box-shadow: inset 0 -0.10vw 0 rgb(0,150,200);
-
+    box-shadow: inset 0 -0.10vw 0 rgb(0, 150, 200);
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li:hover {
     opacity: 1;
     border: 1px solid transparent !important;
     border-image: linear-gradient(to right, #030303 0%, #fefeff 100%) !important;
     border-image-slice: 1 !important;
 }
-
 div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li>p {
     color: #d2d2d2;
     font-family: PEL;
