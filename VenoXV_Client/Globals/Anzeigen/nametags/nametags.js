@@ -151,7 +151,7 @@ function DrawNametags() {
 			}
 			let playerPos = localPlayer.pos;
 			let playerPos2 = player.pos;
-			//if (player == localPlayer) continue;
+			if (player == localPlayer) continue;
 			if (!game.hasEntityClearLosToEntity(localPlayer.scriptID, player.scriptID, 17)) continue;
 			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
 			if (player.vehicle && localPlayer.vehicle) maxDistance_load = 60; else maxDistance_load = maxDistance;

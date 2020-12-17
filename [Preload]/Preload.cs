@@ -47,6 +47,7 @@ namespace VenoXV._Preload_
             Race = 3,
             SevenTowers = 4,
             Derby = 5,
+            Shooter = 7
         };
 
         public static void ShowPreloadList(VnXPlayer player)
@@ -130,6 +131,10 @@ namespace VenoXV._Preload_
                         _Gamemodes_.Derby.Lobby.Main.OnPlayerJoin(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Derby");
                         break;
+                    case (int)Gamemodes.Shooter:
+                        if (!Main.DerbyPlayers.Contains(player)) Main.ShooterPlayers.Add(player);
+                        _Gamemodes_.Shooter.Lobby.Lobby.OnPlayerConnect(player);
+                        break;
                     default:
                         Debug.OutputDebugString("PRELOAD ERROR : COULDN'T FIND SPECIFIC GAMEMODE! " + value);
                         break;
@@ -160,6 +165,7 @@ namespace VenoXV._Preload_
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
                 _Gamemodes_.Zombie.Assets.ZombieAssets.LoadZombieEntityData(player);
+                _Maps_.Main.LoadMap(player, _Maps_.Main.SHOOTER_MAP);
                 /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);

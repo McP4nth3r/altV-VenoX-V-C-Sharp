@@ -44,6 +44,12 @@ alt.onServer('LoadPreloadUserInfo', (AllPlayers, AllPlayersMax, ReallifePlayers,
 });
 
 alt.onServer('LoadingScreen:ShowPreload', (state) => {
+	if(state){
+		alt.setTimeout(() =>{
+			preloadbrowser.emit('LoadingScreen:ShowPreload', state);
+		}, 500);
+		return;
+	}
     preloadbrowser.emit('LoadingScreen:ShowPreload', state);
 });
 

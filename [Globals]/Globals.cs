@@ -30,6 +30,7 @@ namespace VenoXV.Globals
         public static List<VnXPlayer> RacePlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> SevenTowersPlayers = new List<VnXPlayer>();
         public static List<VnXPlayer> DerbyPlayers = new List<VnXPlayer>();
+        public static List<VnXPlayer> ShooterPlayers = new List<VnXPlayer>();
         public static List<VehicleModel> AllVehicles = new List<VehicleModel>();
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
