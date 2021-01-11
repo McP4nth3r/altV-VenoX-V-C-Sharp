@@ -20,7 +20,10 @@ namespace VenoXV._Gamemodes_.Reallife.factions.State
                 if (!Factions.Allround.isStateFaction(player)) return;
 
                 string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Wilkommen Officer");
-                string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "<br><br><br>Hier kannst du dich für den Dienst melden, bei speziellen Einsätzen aber <br><br><br>auch in den SWAT gehen. Du kannst dich aber auch wieder abmelden.");
+                string TranslatedText2Asset = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Hier kannst du dich für den Dienst melden, bei speziellen Einsätzen aber");
+                string TranslatedText2Asset2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "auch in den SWAT gehen.Du kannst dich aber auch wieder abmelden.");
+
+                string TranslatedText2 = "<br><br><br>" + TranslatedText2Asset + "<br><br><br>" + TranslatedText2Asset2;
                 string TranslatedTextResult = TranslatedText1 + " " + player.Username + "!" + TranslatedText2;
 
                 if (colShape == LSPDDuty) VenoX.TriggerClientEvent(player, "DutyWindow:Show", Constants.FACTION_POLICE_NAME, TranslatedTextResult);

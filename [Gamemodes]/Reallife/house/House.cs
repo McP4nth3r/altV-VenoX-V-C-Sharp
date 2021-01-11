@@ -4,6 +4,7 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
@@ -18,13 +19,13 @@ namespace VenoXV._Gamemodes_.Reallife.house
     {
         public static List<HouseModel> houseList;
 
-        public static void LoadDatabaseHouses()
+        public static async void LoadDatabaseHouses()
         {
             houseList = Database.LoadAllHouses();
             foreach (HouseModel houseModel in houseList)
             {
-                string houseLabelText = GetHouseLabelText(houseModel);
-                RageAPI.CreateTextLabel(houseLabelText, houseModel.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, houseModel.Dimension);
+                string houseLabelText = await GetHouseLabelText(houseModel);
+                RageAPI.CreateTextLabel(houseLabelText, houseModel.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, houseModel.Dimension, null, true, true, houseModel.id);
                 //ToDo: Requesting Offices NAPI.World.RequestIpl (houseModel.ipl);
             }
         }
@@ -84,31 +85,58 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { return false; }
         }
 
-        public static string GetHouseLabelText(HouseModel house)
+        public static async Task<string> GetHouseLabelText(HouseModel house = null, _Language_.Main.Languages pair = _Language_.Main.Languages.German, int houseId = 0)
         {
             try
             {
                 string label = string.Empty;
 
-                switch (house.status)
+                if (pair is _Language_.Main.Languages.German)
                 {
-                    case Constants.HOUSE_STATE_NONE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : ~w~" + house.owner;
-                        break;
-                    case Constants.HOUSE_STATE_RENTABLE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.rental + " $";
-                        //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
-                        break;
-                    case Constants.HOUSE_STATE_BUYABLE:
-                        label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : ~w~" + house.price + " $";
-                        break;
+
+                    switch (house.status)
+                    {
+                        case Constants.HOUSE_STATE_NONE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : ~w~" + house.owner;
+                            break;
+                        case Constants.HOUSE_STATE_RENTABLE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.rental + " $";
+                            //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
+                            break;
+                        case Constants.HOUSE_STATE_BUYABLE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : ~w~" + house.price + " $";
+                            break;
+                    }
+                    return label;
                 }
-                return label;
+                else
+                {
+                    if (house is null)
+                        house = houseList.FirstOrDefault(x => x.id == houseId);
+
+                    // if house couldn't be found.
+                    if (house is null) return "";
+                    switch (house.status)
+                    {
+                        case Constants.HOUSE_STATE_NONE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Besitzer") + " : ~w~" + house.owner;
+                            break;
+                        case Constants.HOUSE_STATE_RENTABLE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Vermieten") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.rental + " $";
+                            //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
+                            break;
+                        case Constants.HOUSE_STATE_BUYABLE:
+                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Verkaufen") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.price + " $";
+                            break;
+                    }
+                    return label;
+                }
             }
             catch { return ""; }
         }
 
-        public static void BuyHouseS(VnXPlayer player, HouseModel house)
+
+        public static async void BuyHouseS(VnXPlayer player, HouseModel house)
         {
             try
             {
@@ -116,7 +144,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 {
                     if (player.Reallife.Bank >= house.price)
                     {
-                        string labelText = GetHouseLabelText(house);
+                        string labelText = await GetHouseLabelText(house);
                         player.Reallife.Bank -= house.price;
                         logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
                         house.status = Constants.HOUSE_STATE_NONE;

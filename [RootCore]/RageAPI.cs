@@ -307,7 +307,7 @@ namespace VenoXV.Core
             catch { }
         }
         private static int TextLabelCounter = 0;
-        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Globals.Main.REALLIFE_DIMENSION, VnXPlayer VisibleOnlyFor = null)
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Globals.Main.REALLIFE_DIMENSION, VnXPlayer VisibleOnlyFor = null, bool Translate = true, bool IsHouseLabel = false, int HouseLabelId = 0)
         {
             try
             {
@@ -326,7 +326,10 @@ namespace VenoXV.Core
                     ColorG = color[1],
                     ColorB = color[2],
                     ColorA = color[3],
-                    VisibleOnlyFor = VisibleOnlyFor
+                    VisibleOnlyFor = VisibleOnlyFor,
+                    Translate = Translate,
+                    IsHouseLabel = IsHouseLabel,
+                    HouseLabelId = HouseLabelId
                 };
                 Sync.LabelList.Add(label);
                 return label;

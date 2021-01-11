@@ -15,6 +15,9 @@
         public int ColorA { get; set; }
         public int Dimension { get; set; }
         public float Range { get; set; }
+        public bool Translate { get; set; }
+        public bool IsHouseLabel { get; set; }
+        public int HouseLabelId { get; set; }
         public VnXPlayer VisibleOnlyFor { get; set; }
 
 

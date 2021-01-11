@@ -720,7 +720,7 @@ namespace VenoXV._Admin_
 
 
         [Command("createhouse")]
-        public void CreateNewHausmarker(VnXPlayer player, string name, int preis, int interior)
+        public static async void CreateNewHausmarker(VnXPlayer player, string name, int preis, int interior)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
@@ -740,7 +740,7 @@ namespace VenoXV._Admin_
                 house.locked = true;
                 // Add a new house
                 house.id = Database.AddHouse(house);
-                Core.RageAPI.CreateTextLabel(House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 });
+                RageAPI.CreateTextLabel(await House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, Globals.Main.REALLIFE_DIMENSION, null, true);
                 House.houseList.Add(house);
 
                 sendAdminInformation(player.Username + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0, 200, 255) + " [" + RageAPI.GetHexColorcode(255, 255, 255) + +house.id + RageAPI.GetHexColorcode(0, 200, 255) + " ]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +preis + RageAPI.GetHexColorcode(0, 200, 255) + "  $]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +interior + RageAPI.GetHexColorcode(0, 200, 255) + " ]");

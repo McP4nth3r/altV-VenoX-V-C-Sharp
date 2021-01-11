@@ -79,7 +79,7 @@ namespace VenoXV._RootCore_.Sync
         }
 
         // TextLabel Sync
-        private static void SyncTextLabels(VnXPlayer playerClass)
+        private static async void SyncTextLabels(VnXPlayer playerClass)
         {
             try
             {
@@ -91,10 +91,14 @@ namespace VenoXV._RootCore_.Sync
                         {
                             if (!playerClass.Sync.CurrentLabels.Contains(labels))
                             {
-                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                                // Normal Sync.
+                                if (!labels.Translate && !labels.IsHouseLabel) VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                                // House Sync.
+                                else if (labels.IsHouseLabel) VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, _Gamemodes_.Reallife.house.House.GetHouseLabelText(null, (_Language_.Main.Languages)playerClass.Language, labels.HouseLabelId), labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                                // Normal Translated Sync.
+                                else VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)playerClass.Language, labels.Text), labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
                                 playerClass.Sync.CurrentLabels.Add(labels);
                             }
-
                         }
                     }
                     else if (playerClass.Sync.CurrentLabels.Contains(labels))

@@ -312,7 +312,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -324,7 +324,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -338,7 +338,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -351,7 +351,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -368,7 +368,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -380,7 +380,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -397,7 +397,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -408,7 +408,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -419,7 +419,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -430,7 +430,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -446,7 +446,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -457,7 +457,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -473,7 +473,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -485,7 +485,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -499,7 +499,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -510,7 +510,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
@@ -526,7 +526,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
 
@@ -539,7 +539,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.SetPosition = Ballas_Teleport_Base_Enter;
@@ -556,7 +556,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.SetPosition = Compton_Teleport_Base_Exit;
@@ -568,7 +568,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
                         player.SetPosition = Compton_Teleport_Base_Enter;
