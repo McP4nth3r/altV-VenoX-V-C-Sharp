@@ -189,6 +189,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 player.DrawWaypoint(newPos.X, newPos.Y);
                 player.Race.CurrentMarker += 1;
                 VenoX.TriggerClientEvent(player, "start_screen_fx", "ExplosionJosh3", 0, false);
+                _RootCore_.Sync.Sync.ForceClientSyncUpdate(player);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

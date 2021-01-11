@@ -8,7 +8,7 @@ namespace VenoXV.Core
     public class Debug : IScript
     {
         public static bool DEBUG_MODE_ENABLED = true;
-        public static bool DEBUG_MODE_LOG = true;
+        public static bool DEBUG_MODE_LOG = false;
         public static void OutputDebugString(string textt)
         {
             try
@@ -55,6 +55,19 @@ namespace VenoXV.Core
                 File.WriteAllText(logFilePath, content);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+
+        public static void WriteAllText(string logname, string strLog)
+        {
+            {
+                try
+                {
+                    string logFilePath = Alt.Server.Resource.Path + "/Languages/";
+                    logFilePath = logFilePath + logname + "." + "json";
+                    File.WriteAllText(logFilePath, strLog);
+                }
+                catch (Exception ex) { Debug.CatchExceptions(ex); }
+            }
         }
     }
 }

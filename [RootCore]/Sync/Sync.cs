@@ -94,7 +94,7 @@ namespace VenoXV._RootCore_.Sync
                                 // Normal Sync.
                                 if (!labels.Translate && !labels.IsHouseLabel) VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, labels.Text, labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
                                 // House Sync.
-                                else if (labels.IsHouseLabel) VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, _Gamemodes_.Reallife.house.House.GetHouseLabelText(null, (_Language_.Main.Languages)playerClass.Language, labels.HouseLabelId), labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
+                                else if (labels.IsHouseLabel) VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, await _Gamemodes_.Reallife.house.House.GetHouseLabelText(null, (_Language_.Main.Languages)playerClass.Language, labels.HouseLabelId), labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
                                 // Normal Translated Sync.
                                 else VenoX.TriggerClientEvent(playerClass, "Sync:LoadTextLabels", labels.ID, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)playerClass.Language, labels.Text), labels.PosX, labels.PosY, labels.PosZ, labels.Font, labels.ColorR, labels.ColorG, labels.ColorB, labels.ColorA, labels.Dimension, labels.Range);
                                 playerClass.Sync.CurrentLabels.Add(labels);

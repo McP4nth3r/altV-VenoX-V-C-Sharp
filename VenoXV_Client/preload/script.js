@@ -20,9 +20,10 @@ function OnWindowLoad() {
     OnHover();
     let rnumber = Math.floor((Math.random() * 6));
     $('.background').attr("src", "https://venox-reallife.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
-    //console.log('called ' + rnumber);
-    document.getElementById('Soundtrack-1').volume = 0.3;
+    console.log('called src : ' + rnumber);
+    console.log('called src : ' + $('.background').attr("src"));
 }
+
 
 let timer;
 
