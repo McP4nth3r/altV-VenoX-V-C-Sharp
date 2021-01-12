@@ -23,6 +23,7 @@ namespace VenoXV._RootCore_.Models
         public Tactics Tactics { get; }
         public SevenTowers SevenTowers { get; }
         public Race Race { get; }
+        public Shooter Shooter { get; }
         public Phone Phone { get; }
         public Discord Discord { get; }
         public Forum Forum { get; }
@@ -71,6 +72,7 @@ namespace VenoXV._RootCore_.Models
                 Zombies = new Zombies(this);
                 Race = new Race(this);
                 SevenTowers = new SevenTowers(this);
+                Shooter = new Shooter(this);
                 Phone = new Phone(this);
                 Forum = new Forum(this);
                 Usefull = new Usefull(this);

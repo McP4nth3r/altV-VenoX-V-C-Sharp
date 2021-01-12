@@ -119,14 +119,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     switch (house.status)
                     {
                         case Constants.HOUSE_STATE_NONE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Besitzer") + " : ~w~" + house.owner;
+                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Besitzer") + " : ~w~" + house.owner;
                             break;
                         case Constants.HOUSE_STATE_RENTABLE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Vermieten") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.rental + " $";
+                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Vermieten") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.rental + " $";
                             //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
                             break;
                         case Constants.HOUSE_STATE_BUYABLE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Verkaufen") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.price + " $";
+                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Verkaufen") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.price + " $";
                             break;
                     }
                     return label;

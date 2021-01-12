@@ -204,6 +204,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles.ToList())
                 {
                     VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
+                    vehicle.EngineOn = true;
                     vehicle.Frozen = false;
                     vehicle.Godmode = false;
                     vehicle.Dimension = TACTIC_PLAYER_DIMENSION;

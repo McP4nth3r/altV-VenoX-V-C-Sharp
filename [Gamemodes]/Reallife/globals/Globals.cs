@@ -752,7 +752,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         [ClientEvent("checkPlayerEventKey")]
-        public void CheckPlayerEventKeyEvent(VnXPlayer player)
+        public async void CheckPlayerEventKeyEvent(VnXPlayer player)
         {
             try
             {
@@ -779,7 +779,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     {
                         if (player.Position.Distance(Constants.ATM_LIST[i]) <= 1.5f)
                         {
-                            VenoX.TriggerClientEvent(player, "showATM", player.Reallife.Bank, "Kontoauszüge", "Kontoauszüge", "Kontoauszüge Folgen", "Überweisen", "Überweisen", "Überweisen");
+                            VenoX.TriggerClientEvent(player, "showATM", player.Reallife.Bank, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Kontoauszüge"), await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Kontoauszüge"), await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Kontoauszüge Folgen"), await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Überweisen"), await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Überweisen"), await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Überweisen"));
                             return;
                         }
                     }

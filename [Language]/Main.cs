@@ -301,6 +301,7 @@ namespace VenoXV._Language_
         {
             try
             {
+                Core.Debug.OutputDebugString("Called Translation API");
                 // if german main language => return.
                 if (language == Languages.German) return text;
 
@@ -327,17 +328,20 @@ namespace VenoXV._Language_
                             // Translate the Text & Get the result from Google API's.
                             string TranslatedText = await TranslateText(text, "de", LanguagePair);
                             using StringReader readStream = new StringReader(TranslatedText);
-                            // If too many request was send... it returns ,,Error" - Simple false information check ^^.
-                            if (TranslatedText != "Error")
+                            await AltAsync.Do(() =>
                             {
-                                // Create a new Translated Model.
-                                languageClass = new LanguageModel { Pair = LanguagePair, Text = text, TranslatedText = TranslatedText };
-                                // Add it into the Translated Language List.
-                                CachedLanguage.Add(languageClass);
-                                // Convert it into a Json Obj. and put it into the file.
-                                string Json = JsonConvert.SerializeObject(languageClass);
-                                Core.Debug.WriteJsonString("language-" + LanguagePair, Json);
-                            }
+                                // If too many request was send... it returns ,,Error" - Simple false information check ^^.
+                                if (TranslatedText != "Error")
+                                {
+                                    // Create a new Translated Model.
+                                    languageClass = new LanguageModel { Pair = LanguagePair, Text = text, TranslatedText = TranslatedText };
+                                    // Add it into the Translated Language List.
+                                    CachedLanguage.Add(languageClass);
+                                    // Convert it into a Json Obj. and put it into the file.
+                                    string Json = JsonConvert.SerializeObject(languageClass);
+                                    Core.Debug.WriteJsonString("language-" + LanguagePair, Json);
+                                }
+                            });
                             // Return Text even if it's error.. so it will not be a Empty string.
                             return await readStream.ReadLineAsync();
                         });
