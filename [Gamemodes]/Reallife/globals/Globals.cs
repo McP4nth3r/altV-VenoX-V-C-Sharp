@@ -79,7 +79,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
         public static int WEATHER_COUNTER = 0;
-        public static int WEATHER_CURRENT = 11; // Aktuelles Wetter
+        public static int WEATHER_CURRENT = 0; // Aktuelles Wetter
         public static int GetRandomWeather(int min, int max)
         {
             Random random = new Random();
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (VenoXV.Globals.Main.ReallifePlayers.ToList().Count <= 0) { return; }
+                if (VenoXV.Globals.Main.ReallifePlayers.ToList().Count <= 0) return;
                 gangwar.Allround.OnUpdate();
                 Fun.Allround.OnUpdate();
                 environment.NPC.NPC.OnUpdate();
@@ -192,6 +192,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             case 1:
                                 weather = 10;
                                 break;
+                            case 2:
+                                weather = 9;
+                                break;
+                            case 3:
+                                weather = 3;
+                                break;
                         }
                     }
                     WEATHER_COUNTER = 0;
@@ -288,7 +294,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (CurrentHour < 24) CurrentHour++;
+                if (CurrentHour < 23) CurrentHour++;
                 else CurrentHour = 0;
                 if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 55) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in 5 Minuten!");
                 if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");

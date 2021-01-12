@@ -647,7 +647,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male police uniform
             new UniformModel(0, FACTION_LSPD, SEX_MALE, 0, 0, 0),
             new UniformModel(0, FACTION_LSPD, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_LSPD, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_LSPD, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_LSPD, SEX_MALE, 3, 0, 0),
             new UniformModel(0, FACTION_LSPD, SEX_MALE, 4, 35, 0),
             new UniformModel(0, FACTION_LSPD, SEX_MALE, 5, 0, 0),
@@ -661,7 +661,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female police uniform
             new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 0, 0, 0),
             new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 3, 14, 0),
             new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 4, 34, 0),
             new UniformModel(0, FACTION_LSPD, SEX_FEMALE, 5, 0, 0),
@@ -679,7 +679,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male Mafia uniform
             new UniformModel(0, FACTION_LCN, SEX_MALE, 0, 0, 0),
             new UniformModel(0, FACTION_LCN, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_LCN, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_LCN, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_LCN, SEX_MALE, 3, 4, 0),
             new UniformModel(0, FACTION_LCN, SEX_MALE, 4, 28, 0),
             new UniformModel(0, FACTION_LCN, SEX_MALE, 5, 0, 0),
@@ -693,7 +693,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female Mafia uniform
             new UniformModel(0, FACTION_LCN, SEX_FEMALE, 0, 0, 0),
             new UniformModel(0, FACTION_LCN, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_LCN, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_LCN, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_LCN, SEX_FEMALE, 3, 3, 0),
             new UniformModel(0, FACTION_LCN, SEX_FEMALE, 4, 37, 0),
             new UniformModel(0, FACTION_LCN, SEX_FEMALE, 5, 0, 0),
@@ -709,7 +709,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male YAKUZA uniform
 
 
-            new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 2, -1, -1),
 
 
             new UniformModel(0, FACTION_YAKUZA, SEX_MALE, 5, 0, 0),
@@ -731,7 +731,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female YAKUZA uniform
             new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 0, 0, 0),
             new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 3, 3, 0),
             new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 4, 23, 0),
             new UniformModel(0, FACTION_YAKUZA, SEX_FEMALE, 5, 0, 0),
@@ -745,7 +745,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male NEWS uniform
             new UniformModel(0, FACTION_NEWS, SEX_MALE, 0, 0, 0),
             new UniformModel(0, FACTION_NEWS, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_NEWS, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_NEWS, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_NEWS, SEX_MALE, 3, 0, 0),
             new UniformModel(0, FACTION_NEWS, SEX_MALE, 4, 1, 0),
             new UniformModel(0, FACTION_NEWS, SEX_MALE, 5, 0, 0),
@@ -759,7 +759,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female NEWS uniform
             new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 0, 0, 0),
             new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 3, 3, 0),
             new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 4, 23, 0),
             new UniformModel(0, FACTION_NEWS, SEX_FEMALE, 5, 0, 0),
@@ -776,7 +776,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male FBI uniform
             new UniformModel(0, FACTION_FBI, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_FBI, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_FBI, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_FBI, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_FBI, SEX_MALE, 3, 11, 0),
             new UniformModel(0, FACTION_FBI, SEX_MALE, 4, 10, 0),
             new UniformModel(0, FACTION_FBI, SEX_MALE, 5, -1, -1),
@@ -790,7 +790,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female FBI uniform
             new UniformModel(0, FACTION_FBI, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_FBI, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_FBI, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_FBI, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_FBI, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_FBI, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_FBI, SEX_FEMALE, 5, -1, -1),
@@ -807,7 +807,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male AZTECAS uniform
             new UniformModel(0, FACTION_NARCOS, SEX_MALE, 0, 8, -1),
             new UniformModel(0, FACTION_NARCOS, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_NARCOS, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_NARCOS, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_NARCOS, SEX_MALE, 3, 11, 0),
             new UniformModel(0, FACTION_NARCOS, SEX_MALE, 4, 22, 0),
             new UniformModel(0, FACTION_NARCOS, SEX_MALE, 5, 0, -1),
@@ -821,7 +821,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female AZTECAS uniform
             new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_NARCOS, SEX_FEMALE, 5, -1, -1),
@@ -843,7 +843,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male ROCKER uniform
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 3, 2, 0),
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 4, 76, 1),
             new UniformModel(0, FACTION_SAMCRO, SEX_MALE, 5, -1, -1),
@@ -857,7 +857,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female ROCKER uniform
             new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_SAMCRO, SEX_FEMALE, 5, -1, -1),
@@ -874,7 +874,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male paramedic uniform
             new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 3, 90, 0),
             new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 4, 96, 0),
             new UniformModel(0, FACTION_EMERGENCY, SEX_MALE, 5, -1, -1),
@@ -888,7 +888,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female paramedic uniform
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 1, 0, 0),
-            new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_EMERGENCY, SEX_FEMALE, 5, -1, -1),
@@ -903,7 +903,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male paramedic uniform
             new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 1, 0, 0),
-            new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 3, 0, 0),
             new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 4, 36, 0),
             new UniformModel(0, FACTION_MECHANIK, SEX_MALE, 5, -1, -1),
@@ -917,7 +917,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male BALLAS uniform
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 1, -1, -1),
-            new UniformModel(0, FACTION_BALLAS, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_BALLAS, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 3, 5, 0),
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 4, 5, 9),
             new UniformModel(0, FACTION_BALLAS, SEX_MALE, 5, -1, -1),
@@ -931,7 +931,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female BALLAS uniform
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 1, -1, -1),
-            new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_BALLAS, SEX_FEMALE, 5, -1, -1),
@@ -945,7 +945,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Male GROVE uniform
             new UniformModel(0, FACTION_COMPTON, SEX_MALE, 0, -1, -1),
             new UniformModel(0, FACTION_COMPTON, SEX_MALE, 1, -1, -1),
-            new UniformModel(0, FACTION_COMPTON, SEX_MALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_COMPTON, SEX_MALE, 2, -1, -1),
             new UniformModel(0, FACTION_COMPTON, SEX_MALE, 3, 5, 0),
             new UniformModel(0, FACTION_COMPTON, SEX_MALE, 4, 27, 10),
             new UniformModel(0, FACTION_COMPTON, SEX_MALE, 5, -1, -1),
@@ -959,7 +959,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             // Female GROVE uniform
             new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 0, -1, -1),
             new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 1, -1, 0),
-            new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 2, -1, -1),
+            //new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 2, -1, -1),
             new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 3, 85, 0),
             new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 4, 96, 0),
             new UniformModel(0, FACTION_COMPTON, SEX_FEMALE, 5, -1, -1),
