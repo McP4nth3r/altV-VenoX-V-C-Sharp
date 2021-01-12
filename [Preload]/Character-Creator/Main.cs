@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using VenoXV._RootCore_;
@@ -39,6 +40,7 @@ namespace VenoXV._Preload_.Character_Creator
                 Database.CreateCharacterSkin(player.UID, facefeatures, headblends, headoverlays);
                 VenoX.TriggerClientEvent(player, "CharCreator:Close");
                 Database.LoadCharacterInformationById(player, UID);
+                player.Visible = true;
                 player.Reallife.SpawnLocation = "Wuerfelpark";
                 player.SpawnPlayer(player.Position);
                 Preload.ShowPreloadList(player);
@@ -52,9 +54,8 @@ namespace VenoXV._Preload_.Character_Creator
             try
             {
                 foreach (CharacterModel skin in CharacterSkins.ToList())
-                {
-                    if (skin.UID == player.UID) { return true; }
-                }
+                    if (skin.UID == player.UID) return true;
+
                 return false;
             }
             catch { return false; }
@@ -67,14 +68,10 @@ namespace VenoXV._Preload_.Character_Creator
                 player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
                 VenoX.TriggerClientEvent(player, "Player:DefaultComponentVariation");
                 foreach (CharacterModel skins in CharacterSkins)
-                {
                     if (skins.UID == player.UID)
-                    {
                         VenoX.TriggerClientEvent(player, "Charselector:setCorrectSkin", skins.FaceFeatures, skins.HeadBlendData, skins.HeadOverlays);
-                    }
-                }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
     }
 }

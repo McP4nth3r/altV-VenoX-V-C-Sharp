@@ -257,6 +257,7 @@ namespace VenoXV._Language_
         {
             try
             {
+                Core.Debug.OutputDebugString("Called Translation API");
                 //return word;
                 string fromLanguage = fromPair;
                 string toLanguage = toPair;
@@ -301,7 +302,6 @@ namespace VenoXV._Language_
         {
             try
             {
-                Core.Debug.OutputDebugString("Called Translation API");
                 // if german main language => return.
                 if (language == Languages.German) return text;
 

@@ -103,7 +103,7 @@ namespace VenoXV._Preload_.Login
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 Preload.ShowPreloadList(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

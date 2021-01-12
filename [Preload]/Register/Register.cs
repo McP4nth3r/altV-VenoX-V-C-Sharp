@@ -17,6 +17,7 @@ namespace VenoXV._Preload_.Register
 
         public static bool PlayerHaveAlreadyAccount(VnXPlayer playerClass)
         {
+            return false;
             bool state = false;
             foreach (AccountModel accClass in AccountList)
             {
@@ -76,9 +77,11 @@ namespace VenoXV._Preload_.Register
                 int UID = Database.GetPlayerUID(nickname);
                 player.Username = nickname;
                 player.UID = UID;
+                player.Sex = sex;
                 Database.CreateCharacter(player, player.UID);
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 VenoX.TriggerClientEvent(player, "CharCreator:Start", sex);
+                player.Visible = false;
                 player.Playing = true;
                 _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
