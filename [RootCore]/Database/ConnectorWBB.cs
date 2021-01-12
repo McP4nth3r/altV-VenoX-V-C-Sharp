@@ -29,7 +29,6 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                         AddUserToGroup(userId, groupId: 3);
                         AddUserToLanguage(userId, languageId: 1);
                         playerClass.Forum.UID = (int)userId;
-                        Core.Debug.OutputDebugString("UserID : " + userId);
                     });
                 });
             }

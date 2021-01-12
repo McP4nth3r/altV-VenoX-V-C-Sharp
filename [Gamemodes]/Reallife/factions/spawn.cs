@@ -5,11 +5,7 @@
 //----------------------------------//
 using AltV.Net;
 using System;
-using System.Linq;
-using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.house;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -18,15 +14,14 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Spawn : IScript
     {
-        ColShapeModel SpawnLSPD = RageAPI.CreateColShapeSphere(new Vector3(469.8354f, -985.0742f, 33.89248f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
-        ColShapeModel SpawnARMY = RageAPI.CreateColShapeSphere(new Vector3(468.65933f, -3205.8594f, 9.784668f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
-        ColShapeModel SpawnARMY2 = RageAPI.CreateColShapeSphere(new Vector3(-2089.4636f, 3273.7056f, 32.801514f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        //ColShapeModel SpawnLSPD = RageAPI.CreateColShapeSphere(new Vector3(469.8354f, -985.0742f, 33.89248f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        //ColShapeModel SpawnARMY = RageAPI.CreateColShapeSphere(new Vector3(468.65933f, -3205.8594f, 9.784668f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+        //ColShapeModel SpawnARMY2 = RageAPI.CreateColShapeSphere(new Vector3(-2089.4636f, 3273.7056f, 32.801514f), 3, VenoXV.Globals.Main.REALLIFE_DIMENSION);
 
         public static void SpawnPlayerOnSpawnpoint(VnXPlayer player)
         {
             try
             {
-                player.SpawnPlayer(player.Reallife.LastPosition);
                 player.Reallife.Hunger = 100;
                 VenoX.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
                 player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
@@ -43,6 +38,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 if (player.Reallife.Faction != Constants.FACTION_NONE) player.SetTeam(player.Reallife.Faction);
                 else player.SetTeam(player.Id + 153);
+                player.SpawnPlayer(player.Reallife.LastPosition);
+                /*
                 switch (player.Reallife.SpawnLocation)
                 {
                     case "noobspawn":
@@ -120,8 +117,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         return;
                 }
+                */
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
     }

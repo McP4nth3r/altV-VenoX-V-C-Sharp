@@ -463,10 +463,11 @@ namespace VenoXV._RootCore_.Database
                     float posY = reader.GetFloat("posY");
                     float posZ = reader.GetFloat("posZ");
                     float rot = reader.GetFloat("rotation");
-
                     character.UID = reader.GetInt32("UID");
                     character.Username = reader.GetString("SpielerName");
                     character.AdminRank = reader.GetInt32("adminRank");
+                    if (character.Gamemode == (int)_Preload_.Preload.Gamemodes.Reallife)
+                        character.Reallife.LastPosition = new Vector3(posX, posY, posZ);
                     character.Reallife.SpawnLocation = reader.GetString("spawn");
                     character.Reallife.Knastzeit = reader.GetInt32("knastzeit");
                     character.Reallife.Faction = reader.GetInt32("faction");
@@ -543,6 +544,7 @@ namespace VenoXV._RootCore_.Database
                 command.Parameters.AddWithValue("@posX", player.Position.X);
                 command.Parameters.AddWithValue("@posY", player.Position.Y);
                 command.Parameters.AddWithValue("@posZ", player.Position.Z);
+                player.Reallife.LastPosition = player.Position;
                 command.Parameters.AddWithValue("@rotation", player.Rotation.Yaw);
                 command.Parameters.AddWithValue("@money", player.Reallife.Money);
                 command.Parameters.AddWithValue("@bank", player.Reallife.Bank);

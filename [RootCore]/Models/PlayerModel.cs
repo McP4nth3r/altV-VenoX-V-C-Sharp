@@ -57,6 +57,7 @@ namespace VenoXV._RootCore_.Models
         public List<LoadingModel> PreloadEvents { get; set; }
         public bool Loading { get; set; }
         public bool FinishedPrivacyPolicy { get; set; }
+        public bool LoggedInWithShaPassword { get; set; }
 
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {

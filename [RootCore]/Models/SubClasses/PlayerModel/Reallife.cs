@@ -1,6 +1,7 @@
 ﻿using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
+using System.Numerics;
 using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
@@ -21,6 +22,7 @@ namespace VenoXV._RootCore_.Models
     {
         private Player client;
         public DrivingSchool DrivingSchool { get; }
+        public Vector3 LastPosition { get; set; }
         private int _Money { get; set; }
         public int Money { get { return _Money; } set { _Money = value; client.vnxSetSharedElementData(Globals.EntityData.PLAYER_MONEY, value); } }
         private int _Bank { get; set; }
