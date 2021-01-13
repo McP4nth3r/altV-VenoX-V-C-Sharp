@@ -330,16 +330,10 @@
     -webkit-user-select: None;
     background: black;
 }
-.VnX-LoadingBar {
-    font-size: 0.7vw !important;
-    color: #03A1AB;
-    text-align: left;
-}
 .VnX-LoadingBar-Asset {
     position: absolute;
     left: 80%;
     top: 4%;
-    font-size: 0.7vw !important;
     transform: translateZ(0) scale(0.25);
 }
 .VnX-LoadingBar-Parent {

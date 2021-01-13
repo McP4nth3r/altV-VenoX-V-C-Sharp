@@ -10,7 +10,6 @@ import alt from 'alt-client';
 import * as game from "natives";
 
 
-
 import * as BanWindow from '/VenoXV_Client/Globals/Anzeigen/ban/index.js';
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
 import * as CaseOpening from '/VenoXV_Client/Globals/Premium/Case/index.js';
@@ -52,7 +51,7 @@ import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.j
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
-//import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
+import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
 import * as VehCatalog from '/VenoXV_Client/Reallife/vehicles/catalog/index.js';
 import * as VehPreview from '/VenoXV_Client/Reallife/vehicles/preview/index.js';
 import * as SevenTowers from '/VenoXV_Client/SevenTowers/Lobby/index.js';

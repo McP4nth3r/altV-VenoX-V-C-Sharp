@@ -390,8 +390,8 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
 });
 
 alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
-    /*try { CreatePed(PedName, Vector3Pos, rot); }
-    catch { }*/
+    try { CreatePed(PedName, Vector3Pos, rot); }
+    catch { }
 });
 
 alt.onServer('OnPlayerEnterVehicle', (ms) => {
@@ -406,19 +406,6 @@ alt.on("disconnect", () => {
 
 alt.onServer('Admin:ShootTest', (Position1, Position2, damage, WeaponHash, Owner, audible, invisible, speed) => {
     let hash = game.getHashKey(WeaponHash);
-    alt.log("--------------------");
-    alt.log('Position1 : ' + Position1);
-    alt.log('Position2 : ' + Position2);
-    alt.log('damage : ' + damage);
-    alt.log('WeaponHash : ' + WeaponHash);
-    alt.log('hash : ' + hash);
-    alt.log('Owner : ' + Owner);
-    alt.log('audible : ' + audible);
-    alt.log('invisible : ' + invisible);
-    alt.log('speed : ' + speed);
-    alt.log("--------------------");
-    game.attachEntityToEntity()
-    game.shootSingleBulletBetweenCoords(Position1.x, Position1.y, Position1.z, Position2.x, Position2.y, Position2.z, parseInt(damage), true, hash, Owner.scriptID, audible, invisible, parseInt(speed));
+    game.shootSingleBulletBetweenCoords(Position1.x, Position1.y, Position1.z, Position2.x, Position2.y, Position2.z, damage, true, hash, Owner.scriptID, audible, invisible, speed);
     alt.log("Called SingleBullet");
 });
-

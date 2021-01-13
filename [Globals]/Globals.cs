@@ -116,31 +116,15 @@ namespace VenoXV.Globals
                 Console.WriteLine("Starting VenoX Bot...");
                 //await _Discord_.Startup.RunAsync();
                 Console.ForegroundColor = ConsoleColor.Green;
-                _Discord_.Modules.Notify.SendUpdateLog("New VenoX Update got released [DEV]! ",
-                    "@everyone VenoX V." + Preload.CURRENT_VERSION + " is now available [DEV]!\n\n" +
-
-                    "- `[Tactics] : Fixed helicopter - startup issue.\n`" +
-                    "- `[Tactics] : Fixed On-Death issue after tripple-kill.\n`" +
-                    "- `[Tactics] : Added missed Translation.\n`" +
-                    "- `[SevenTowers] : Added Spectator camera.\n`" +
-                    "- `[SevenTowers] : Fixed Vehicle stacking.\n`" +
-                    "- `[SevenTowers] : Marker Sync improved.\n`" +
-                    "- `[Race] : Marker Sync fixed [DEV].\n`" +
-                    "- `[Reallife] : Added Translation API for houselabels.\n`" +
-                    "- `[Reallife] : Added Translation API for faction marker.\n`" +
-                    "- `[Reallife] : Added Translation API for State-Factions.\n`" +
-                    "- `[Reallife] : Fixed Clothes sync issue.\n`" +
-                    "- `[Reallife] : F.I.B got now 4 new cars.\n`" +
-                    "- `[Reallife] : Removed ph-studios.\n`" +
-                    "- `[NEW-Shooter] : Added Shooter starter [DEV].\n`" +
-                    "- `[NEW-Shooter] : Rockets between cars are now synced [DEV].\n`" +
-                    "- `[Zombies] : Improved Zombie - Sync.\n`" +
-                    "- `[Preload] : Now its possible to see what is loading.\n`" +
-                    "- `[Preload] : Renewed design.\n`" +
-                    "- `[VenoX-API] : Improved Translation API ( Thanks to our Contributor! ).\n`" +
-                    "- `[Root] : More bug fixes.\n`",
-
-                    Discord.Color.Orange, null);
+                _Discord_.Modules.Notify.SendUpdateLog("BETA apply is now possible! [DEV]! ",
+                    "@everyone VenoX V." + Preload.CURRENT_VERSION + " BETA apply is now possible!\n" +
+                    "Applies are only valid in the #📝beta-apply channel!\n\n" +
+                    "End : `15.01.2021 - 20:00 CET`\n\n" +
+                    "```" +
+                    "Nickname : YourNickname.\n" +
+                    "Registered : Yes or No.\n" +
+                    "Already made experience in alt:V : Yes or No.\n```",
+                    Discord.Color.Blue, null);
 
                 Console.WriteLine("Started VenoX Bot.");
                 */

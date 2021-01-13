@@ -136,7 +136,6 @@ function DrawNametags() {
 		for (let i = 0; i < players.length; i++) {
 			let player = players[i];
 			if (player.scriptID == 0) continue;
-
 			if (!NametagsCache[player.scriptID]) {
 				NametagsCache[player.scriptID] = {
 					Username: player.getStreamSyncedMeta("PLAYER_NAME"),

@@ -220,10 +220,14 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 Random random = new Random();
                 int RandomMap = random.Next(0, maps.Main.RaceMaps.Count); // Count Spawnpoints
                 CurrentMap = maps.Main.RaceMaps[RandomMap];
-                if (LastMap == CurrentMap) { GetNewMap(); return; }
+                if (LastMap == CurrentMap)
+                {
+                    GetNewMap();
+                    return;
+                }
                 LastMap = CurrentMap;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static bool CanPlayerJoin()
