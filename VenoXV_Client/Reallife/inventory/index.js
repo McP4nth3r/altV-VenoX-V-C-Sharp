@@ -4,64 +4,53 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import { ShowCursor, GetCursorStatus, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
+import {
+    ShowCursor,
+    GetCursorStatus,
+    vnxCreateCEF,
+    vnxDestroyCEF
+} from '../../Globals/VnX-Lib';
 
 let InventoryCreated = false;
 let InventoryOpen = false;
 let InventoryBrowser;
 
-alt.onServer('Inventory:Load', () => {
-    try {
-        if (InventoryCreated) { return; }
-        InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html", "Reallife");
-        InventoryCreated = true;
-
-        InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
-            switch (Btn) {
-                case 'use':
-                    alt.emitServer('Inventory:Use', Hash);
-                case 'remove':
-                    alt.emitServer('Inventory:Remove', Hash);
-            }
-        });
-    }
-    catch { }
-});
-
-alt.onServer('Inventory:Unload', () => {
-    try {
-        if (!InventoryCreated) { return; }
-        vnxDestroyCEF("Inventory-Reallife");
-        InventoryCreated = false;
-    }
-    catch { }
-});
-
-
 export function OnInventoryKeyPressed(key) {
     try {
         if (key == 0x49) {
-            if (!InventoryCreated) { return; }
-            if (GetCursorStatus() && !InventoryOpen) { return; }
-            if (!InventoryOpen) { InventoryBrowser.focus(); ShowCursor(true); InventoryBrowser.emit("Inventory:Open"); }
-            else { ShowCursor(false); InventoryBrowser.emit("Inventory:Close"); }
+            if (!InventoryCreated) return;
+            if (GetCursorStatus() && !InventoryOpen) return;
+            if (!InventoryOpen) {
+                InventoryBrowser.focus();
+                ShowCursor(true);
+                InventoryBrowser.emit("Inventory:Open");
+            } else {
+                ShowCursor(false);
+                InventoryBrowser.emit("Inventory:Close");
+            }
             InventoryOpen = !InventoryOpen;
         }
-    }
-    catch { }
+    } catch {}
 }
 
 
-//Clientside ItemNames = {
 
 let Drugs = {
     Weed: "Weed",
-    Kokain: "Kokain",
+    Kokain: "Cocaine",
+    WeedSeeds: "Weed-Seeds",
 };
+
+
 let Eatable = {
     TankstellenSnack: "Snack",
     Lebkuchen: "Lebkuchen",
+    Milk: "Milk",
+    Cookies: "Cookies",
+    Wine: "Wine"
 };
+
+
 let VehicleItems = {
     Bezinkanister: "Kanister",
 };
@@ -69,10 +58,17 @@ let VehicleItems = {
 //}
 
 let ItemHashes = {
+    // Drugs
     1233311452: Drugs.Weed,
-    1243344492: Eatable.TankstellenSnack,
     1243355452: Drugs.Kokain,
+    1234355453: Drugs.WeedSeeds,
+    // Eatable
+    1243344492: Eatable.TankstellenSnack,
     1243444492: Eatable.Lebkuchen,
+    1243544492: Eatable.Milk,
+    1243644492: Eatable.Cookies,
+    1243744492: Eatable.Wine,
+    //Vehicle 
     1243844452: VehicleItems.Bezinkanister,
 };
 
@@ -83,7 +79,7 @@ let UnitNames = {
     Kilogramm: "kg",
     Kilo: "Kilo",
     Tonnen: "Tonnen",
-    Stück: "Stück",
+    Stueck: "Stueck",
     Liter: "Liter",
 }
 
@@ -93,57 +89,36 @@ function GetItemNameByHash(Hash) {
     return ItemHashes[Hash];
 }
 
-
-function GetCompleteItemInfo(ItemName, Amount) {
-    let Desc_Name = "";
-    let Desc_Amount = "";
-    let Desc_Weight = "";
-    let Desc_Unit = "";
-    switch (ItemName) {
-        // Drugs 
-        case Drugs.Weed:
-            Desc_Name = ItemName;
-            Desc_Amount = Amount;
-            Desc_Weight = Amount;
-            Desc_Unit = UnitNames.Gramm;
-            break;
-        case Drugs.Kokain:
-            Desc_Name = ItemName;
-            Desc_Amount = Amount;
-            Desc_Weight = Amount;
-            Desc_Unit = UnitNames.Gramm;
-            break;
-
-        // Eatable
+function GetItemWeightByName(ItemHash, ItemAmount) {
+    switch (ItemHash) {
         case Eatable.Lebkuchen:
-            Desc_Name = ItemName;
-            Desc_Amount = Amount;
-            Desc_Weight = Amount * 1.4;
-            Desc_Unit = UnitNames.Kilogramm;
-            break;
+            return ItemAmount * 1.4;
         case Eatable.TankstellenSnack:
-            Desc_Name = ItemName;
-            Desc_Amount = Amount;
-            Desc_Weight = Amount * 2.4;
-            Desc_Unit = UnitNames.Kilogramm;
-            break;
-
-        // Vehicle
+            return ItemAmount * 2.4;
         case VehicleItems.Bezinkanister:
-            Desc_Name = ItemName;
-            Desc_Amount = Amount;
-            Desc_Weight = Amount * 7.5;
-            Desc_Unit = UnitNames.Kilogramm;
-            break;
+            return ItemAmount * 7.5;
         default:
-            Desc_Name = ItemName;
-            Desc_Amount = "ERROR";
-            Desc_Weight = "ERROR";
-            Desc_Unit = "ERROR";
-            break;
+            return ItemAmount * 0.01;
     }
-    return "Item Name : " + Desc_Name + "<br>Item Anzahl : " + Desc_Amount + "<br>Item Gewicht : " + Desc_Weight + Desc_Unit;
 }
+
+function GetItemUnitByName(ItemHash, ItemAmount) {
+    switch (ItemHash) {
+        case Eatable.Lebkuchen:
+        case Drugs.Weed:
+        case VehicleItems.Bezinkanister:
+        case Eatable.TankstellenSnack:
+            return UnitNames.Kilogramm;
+        default:
+            if (ItemAmount > 1000) return UnitNames.Kilogramm;
+            return UnitNames.Gramm;
+    }
+}
+
+function GetCompleteItemInfo(ItemName, ItemAmount) {
+    return ItemName + "<br>Item Weight : " + GetItemWeightByName(ItemName, ItemAmount).toFixed(2) + " " + GetItemUnitByName(ItemName, ItemAmount);
+}
+
 
 
 alt.onServer('Inventory:Update', (InventoryJson) => {
@@ -156,14 +131,40 @@ alt.onServer('Inventory:Update', (InventoryJson) => {
             let ItemName = GetItemNameByHash(data.hash);
             InventoryBrowser.emit('Inventory:Update', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
         }
-    }
-    catch { }
+    } catch {}
 });
 
 alt.onServer('Inventory:RemoveAll', () => {
     try {
         if (!InventoryCreated) return;
         InventoryBrowser.emit('Inventory:RemoveAll', data.hash, data.amount, ItemName, GetCompleteItemInfo(ItemName, data.amount));
-    }
-    catch { }
+    } catch {}
+});
+
+
+alt.onServer('Inventory:Load', () => {
+    try {
+        if (InventoryCreated) return;
+        InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html", "Reallife");
+        InventoryCreated = true;
+
+        InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
+            switch (Btn) {
+                case 'use':
+                    alt.emitServer('Inventory:Use', Hash);
+                case 'remove':
+                    alt.emitServer('Inventory:Remove', Hash);
+            }
+        });
+    } catch {}
+});
+
+alt.onServer('Inventory:Unload', () => {
+    try {
+        if (!InventoryCreated) {
+            return;
+        }
+        vnxDestroyCEF("Inventory-Reallife");
+        InventoryCreated = false;
+    } catch {}
 });

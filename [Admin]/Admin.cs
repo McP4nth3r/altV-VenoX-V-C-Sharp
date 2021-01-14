@@ -459,6 +459,21 @@ namespace VenoXV._Admin_
             }
         }
 
+        public const string ITEM_ART_WAFFE = "Waffe";
+        public const string ITEM_ART_DROGEN = "Drogen";
+        public const string ITEM_ART_NUTZ_ITEM = "NUTZ_ITEM";
+        public const string ITEM_ART_MAGAZIN = "Magazin";
+        public const string ITEM_ART_FALLSCHIRM = "Fallschirm";
+        public const string ITEM_ART_BUSINESS = "Business";
+        [Command("giveitem")]
+        public static void GiveAdminWeapons(VnXPlayer player, string Hash, string ItemArt, int ItemAmount)
+        {
+            if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
+            {
+                Main.GivePlayerItem(player, Hash, ItemArt, ItemAmount, true);
+            }
+        }
+
         [Command("coord")]
         public void CoordCommand(VnXPlayer player, float posX, float posY, float posZ)
         {
