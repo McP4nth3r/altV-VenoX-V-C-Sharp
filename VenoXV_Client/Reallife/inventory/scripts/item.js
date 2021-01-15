@@ -4,7 +4,7 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 //Clientside ItemNames = {
-
+/*
 let Drugs = {
     Weed: "Weed",
     Kokain: "Cocaine",
@@ -88,15 +88,25 @@ function GetItemUnitByName(ItemHash, ItemAmount) {
 function GetCompleteItemInfo(ItemName, ItemAmount) {
     return ItemName + "<br>Item Weight : " + GetItemWeightByName(ItemName, ItemAmount).toFixed(2) + " " + GetItemUnitByName(ItemName, ItemAmount);
 }
-
-OnUpdateItems("1233311452", 12, "1233311452", GetCompleteItemInfo(GetItemNameByHash(1233311452), 12));
-OnUpdateItems("1234355453", 50, "1234355453", GetCompleteItemInfo(GetItemNameByHash(1234355453), 50));
-OnUpdateItems("1243644492", 50, "1243644492", GetCompleteItemInfo(GetItemNameByHash(1243644492), 50));
-OnUpdateItems("1243844452", 3, "1243844452", GetCompleteItemInfo(GetItemNameByHash(1243844452), 3));
-OnUpdateItems("1243844492", 53, "1243844492", GetCompleteItemInfo(GetItemNameByHash(1243844492), 53));
-OnUpdateItems("1244044492", 12, "1244044492", GetCompleteItemInfo(GetItemNameByHash(1244044492), 12));
-OnUpdateItems("1244044492", 14, "1244044492", GetCompleteItemInfo(GetItemNameByHash(1244044492), 14));
-OnUpdateItems("PistolAmmo", 11, "PistolAmmo", GetCompleteItemInfo("PistolAmmo", 11));
+*/
+OnUpdateItems("Weed", 12, "Drugs", "Not setted by Server");
+OnUpdateItems("Weed-Seeds", 50, "Useable", "Not setted by Server");
+OnUpdateItems("Cookie", 50, "Eatable", "Not setted by Server");
+OnUpdateItems("Petrolcan", 3, "Useable", "Not setted by Server");
+OnUpdateItems("Ribs", 53, "Eatable", "Not setted by Server");
+OnUpdateItems("Milkshake", 12, "Eatable", "Not setted by Server");
+OnUpdateItems("Carbinerifle", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Rpg", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Pumpshotgun-Mk2", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Smg", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Sawnoffshotgun", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Machinepistol", 11, "Gun", "Not setted by Server");
+OnUpdateItems("Pistol-Mk2", 11, "Gun", "Not setted by Server");
+OnUpdateItems("cap", 11, "Clothes", "Not setted by Server");
+OnUpdateItems("chain", 11, "Clothes", "Not setted by Server");
+OnUpdateItems("shirt", 11, "Clothes", "Not setted by Server");
+OnUpdateItems("jeans", 11, "Clothes", "Not setted by Server");
+OnUpdateItems("shoes", 11, "Clothes", "Not setted by Server");
 
 
 function UpdateInventoryWeight() {
