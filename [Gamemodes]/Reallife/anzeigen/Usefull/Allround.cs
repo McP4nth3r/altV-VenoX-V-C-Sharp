@@ -23,13 +23,12 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 int playerId = player.UID;
                 foreach (ItemModel waffen in Inventar.Main.CurrentOnlineItemList.ToList())
                 {
-                    if (waffen.ITEM_ART == Constants.ITEM_ART_WAFFE && waffen.ownerIdentifier == playerId)
+                    if (waffen.Type == ItemType.Gun && waffen.UID == playerId)
                     {
                         Inventar.Main.CurrentOnlineItemList.Remove(waffen);
                     }
                 }
-                Database.RemoveAllItemsByArt(playerId, Constants.ITEM_ART_WAFFE);
-                Database.RemoveAllItemsByArt(playerId, Constants.ITEM_ART_MAGAZIN);
+                Database.RemoveAllItemsByType(playerId, ItemType.Gun);
             }
             catch { }
         }
@@ -53,37 +52,37 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
                 if (Switchblade != null)
                 {
-                    Database.RemoveItem(Switchblade.id);
+                    Database.RemoveItem(Switchblade.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Switchblade);
                 }
 
                 if (Baseball != null)
                 {
-                    Database.RemoveItem(Baseball.id);
+                    Database.RemoveItem(Baseball.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Baseball);
                 }
 
                 if (Nightstick != null)
                 {
-                    Database.RemoveItem(Nightstick.id);
+                    Database.RemoveItem(Nightstick.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Nightstick);
                 }
 
                 if (Tazer != null)
                 {
-                    Database.RemoveItem(Tazer.id);
+                    Database.RemoveItem(Tazer.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Tazer);
                 }
 
                 if (Shotgun != null)
                 {
-                    Database.RemoveItem(Shotgun.id);
+                    Database.RemoveItem(Shotgun.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Shotgun);
                 }
 
                 if (Sniperrifle != null)
                 {
-                    Database.RemoveItem(Sniperrifle.id);
+                    Database.RemoveItem(Sniperrifle.Id);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Sniperrifle);
                 }
 

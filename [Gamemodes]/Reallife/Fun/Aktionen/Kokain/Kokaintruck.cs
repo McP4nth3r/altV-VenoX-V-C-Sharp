@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Chat;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -48,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                             if (vehClass.Reallife.ActionVehicle)
                             {
                                 int koksimfahrzeug = vehClass.Reallife.Koks;
-                                Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, Constants.ITEM_ART_DROGEN, vehClass.Reallife.Koks, true);
+                                Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, ItemType.Drugs, vehClass.Reallife.Koks, true);
                                 // Add the item into the database
                                 foreach (VnXPlayer otherplayers in VenoXV.Globals.Main.ReallifePlayers.ToList()) otherplayers.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[Illegal]: Der Kokaintruck wurde abgegeben!");
 

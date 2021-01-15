@@ -576,7 +576,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 ItemModel itemModel = null;
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
-                    if (item.ownerIdentifier == playerId && item.hash == hash)
+                    if (item.UID == playerId && item.Hash == hash)
                     {
                         itemModel = item;
                         break;
@@ -870,7 +870,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         /// <param name="ItemHash">Item - Hash in Constants.cs</param>
         /// <param name="ItemArt">Waffe, Magazin,Fallschirm, Business, NUTZ_ITEM, Drogen</param>
         /// <param name="ItemAmount">Item Anzahl! Sollte der Spieler das Item besitzen , so wird es Addiert!</param>
-        public static void GivePlayerItem(VnXPlayer player, string ItemHash, string ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
+        public static void GivePlayerItem(VnXPlayer player, string ItemHash, ItemType ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
         {
             try
             {
@@ -883,24 +883,23 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         {
                             Item = new ItemModel
                             {
-                                amount = ItemAmount,
-                                dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION,
-                                position = new Position(0.0f, 0.0f, 0.0f),
-                                hash = ItemHash,
-                                ownerIdentifier = playerId,
-                                ITEM_ART = ItemArt,
-                                objectHandle = null
+                                Amount = ItemAmount,
+                                Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION,
+                                Position = new Position(0.0f, 0.0f, 0.0f),
+                                Hash = ItemHash,
+                                UID = playerId,
+                                Type = ItemArt,
                             };
-                            Item.id = Database.AddNewItem(Item);
+                            Item.Id = Database.AddNewItem(Item);
                             anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Item);
                         }
                         else
                         {
-                            if (AddierenFallsVorhanden) Item.amount += ItemAmount;
-                            else Item.amount = ItemAmount;
+                            if (AddierenFallsVorhanden) Item.Amount += ItemAmount;
+                            else Item.Amount = ItemAmount;
                         }
                     }
-                    if (ItemArt == Constants.ITEM_ART_WAFFE)
+                    if (ItemArt == ItemType.Gun)
                     {
                         AltV.Net.Enums.WeaponModel weapon = AltV.Net.Enums.WeaponModel.Fist;
                         switch (ItemHash)
@@ -973,7 +972,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             RageAPI.GivePlayerWeapon(player, weapon, ItemAmount);
                         }
                     }
-                    else if (ItemArt == Constants.ITEM_ART_MAGAZIN)
+                    else if (ItemArt == ItemType.Useable)
                     {
                         ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                         ItemModel Pistol = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
@@ -981,23 +980,23 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         ItemModel Revolver = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_REVOLVER);
                         if (Vintage != null)
                         {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.VintagePistol, Item.amount);
+                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.VintagePistol, Item.Amount);
                         }
                         else if (Pistol != null)
                         {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol, Item.amount);
+                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol, Item.Amount);
                         }
                         else if (Pistol50 != null)
                         {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol50, Item.amount);
+                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol50, Item.Amount);
                         }
                         else if (Revolver != null)
                         {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.HeavyRevolver, Item.amount);
+                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.HeavyRevolver, Item.Amount);
                         }
                     }
                 }
-                List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
+                List<ItemModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch (Exception ex)

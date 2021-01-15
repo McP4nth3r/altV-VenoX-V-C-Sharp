@@ -221,7 +221,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (WEED != null)
                         {
-                            if (weed > WEED.amount)
+                            if (weed > WEED.Amount)
                             {
                                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Weed!");
                                 return;
@@ -229,14 +229,14 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             else
                             {
                                 finalwertweed = fkasse.weed + weed;
-                                WEED.amount -= weed;
+                                WEED.Amount -= weed;
                                 // Update the amount into the database
                                 Database.UpdateItem(WEED);
 
-                                if (WEED.amount == 0)
+                                if (WEED.Amount == 0)
                                 {
                                     // Remove the item from the database
-                                    Database.RemoveItem(WEED.id);
+                                    Database.RemoveItem(WEED.Id);
                                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
                                 }
                             }
@@ -252,22 +252,22 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (KOKS != null)
                         {
-                            if (koks > KOKS.amount)
+                            if (koks > KOKS.Amount)
                             {
                                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Kokain!");
                                 return;
                             }
                             else
                             {
-                                KOKS.amount -= koks;
+                                KOKS.Amount -= koks;
                                 finalwertkoks = fkasse.koks + koks;
                                 // Update the amount into the database
                                 Database.UpdateItem(KOKS);
 
-                                if (KOKS.amount == 0)
+                                if (KOKS.Amount == 0)
                                 {
                                     // Remove the item from the database
-                                    Database.RemoveItem(KOKS.id);
+                                    Database.RemoveItem(KOKS.Id);
                                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                                 }
                             }
@@ -282,21 +282,21 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     {
                         if (MATS != null)
                         {
-                            if (mats > MATS.amount)
+                            if (mats > MATS.Amount)
                             {
                                 player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du hast nicht genug Mats!");
                                 return;
                             }
                             else
                             {
-                                MATS.amount -= mats;
+                                MATS.Amount -= mats;
                                 finalwertmats = fkasse.mats + mats;
                                 // Update the amount into the database
                                 Database.UpdateItem(MATS);
-                                if (MATS.amount == 0)
+                                if (MATS.Amount == 0)
                                 {
                                     // Remove the item from the database
-                                    Database.RemoveItem(MATS.id);
+                                    Database.RemoveItem(MATS.Id);
                                     anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
                                 }
                             }
@@ -368,15 +368,15 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     //Dem Spieler die  Items geben die er verdient hat nahui
                     if (weed > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_WEED, Constants.ITEM_ART_DROGEN, weed, true);
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_WEED, ItemType.Drugs, weed, true);
                     }
                     if (koks > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, Constants.ITEM_ART_DROGEN, koks, true);
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, ItemType.Drugs, koks, true);
                     }
                     if (mats > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_MATS, Constants.ITEM_ART_DROGEN, mats, true);
+                        Main.GivePlayerItem(player, Constants.ITEM_HASH_MATS, ItemType.Drugs, mats, true);
                     }
                 }
             }

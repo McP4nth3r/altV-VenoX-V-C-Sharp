@@ -287,7 +287,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Fun.Aktionen.Shoprob.Shoprob.CreateShopRobPedsIPlayer(player);
                 Environment.Gzone.Zone.CreateGreenzone(player);
                 gangwar.Allround._gangwarManager.UpdateData(player);
-                List<InventoryModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
+                List<ItemModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }

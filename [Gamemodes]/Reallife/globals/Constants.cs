@@ -146,18 +146,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public const string ITEM_HASH_HEISSESCHOKOLADE = "1244044492";
         public const string ITEM_HASH_MATS = "1246355452";
 
-
-
-        // Item - Arten 
-
-        public const string ITEM_ART_WAFFE = "Waffe";
-        public const string ITEM_ART_DROGEN = "Drogen";
-        public const string ITEM_ART_NUTZ_ITEM = "NUTZ_ITEM";
-        public const string ITEM_ART_MAGAZIN = "Magazin";
-        public const string ITEM_ART_FALLSCHIRM = "Fallschirm";
-        public const string ITEM_ART_BUSINESS = "Business";
-
-
         // Waffen items 
 
         public const string ITEM_HASH_FALLSCHIRM = "Parachute";

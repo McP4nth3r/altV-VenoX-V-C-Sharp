@@ -38,11 +38,11 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             int playerId = player.UID;
             foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
             {
-                if (item.ownerIdentifier == playerId)
+                if (item.UID == playerId)
                 {
-                    if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
+                    if (item.Type == ItemType.Gun || item.Type == ItemType.Useable)
                     {
-                        switch (item.hash)
+                        switch (item.Hash)
                         {
                             case Constants.ITEM_HASH_PISTOLE:
                                 RageAPI.GivePlayerWeapon(player, WeaponModel.Pistol, ammo);
@@ -65,12 +65,12 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                 int playerId = player.UID;
                 foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                 {
-                    if (item.ownerIdentifier == playerId)
+                    if (item.UID == playerId)
                     {
-                        if (item.ITEM_ART == Constants.ITEM_ART_WAFFE || item.ITEM_ART == Constants.ITEM_ART_MAGAZIN)
+                        if (item.Type == ItemType.Gun || item.Type == ItemType.Useable)
                         {
-                            if (item.hash == Constants.ITEM_HASH_PISTOL_AMMO) { GivePistolAmmo(player, item.amount); }
-                            else { RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.hash), item.amount); }
+                            if (item.Hash == Constants.ITEM_HASH_PISTOL_AMMO) { GivePistolAmmo(player, item.Amount); }
+                            else { RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.Hash), item.Amount); }
                         }
                     }
                 }

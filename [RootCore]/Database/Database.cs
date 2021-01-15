@@ -1731,25 +1731,24 @@ namespace VenoXV._RootCore_.Database
                     MySqlCommand command = connection.CreateCommand();
                     command.CommandText = "SELECT * FROM items";
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    using MySqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            ItemModel item = new ItemModel();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
+                        ItemModel item = new ItemModel();
+                        float posX = reader.GetFloat("posX");
+                        float posY = reader.GetFloat("posY");
+                        float posZ = reader.GetFloat("posZ");
 
-                            item.id = reader.GetInt32("id");
-                            item.hash = reader.GetString("hash");
-                            item.ownerIdentifier = reader.GetInt32("ownerIdentifier");
-                            item.amount = reader.GetInt32("amount");
-                            item.position = new Position(posX, posY, posZ);
-                            item.dimension = reader.GetInt32("dimension");
-                            item.ITEM_ART = reader.GetString("ITEM_ART");
+                        item.Id = reader.GetInt32("id");
+                        item.UID = reader.GetInt32("uid");
+                        item.Hash = reader.GetString("hash");
+                        item.Amount = reader.GetInt32("amount");
+                        item.Position = new Position(posX, posY, posZ);
+                        item.Dimension = reader.GetInt32("dimension");
+                        item.Weight = reader.GetFloat("weight");
+                        item.Type = (ItemType)reader.GetInt32("type");
 
-                            itemList.Add(item);
-                        }
+                        itemList.Add(item);
                     }
                 }
 
@@ -1829,23 +1828,24 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO `items` (`hash`, `ownerIdentifier`, `amount`, `posX`, `posY`, `posZ`, `ITEM_ART`)";
-                    command.CommandText += " VALUES (@hash, @ownerIdentifier, @amount, @posX, @posY, @posZ, @ITEM_ART)";
-                    command.Parameters.AddWithValue("@hash", item.hash);
-                    command.Parameters.AddWithValue("@ownerIdentifier", item.ownerIdentifier);
-                    command.Parameters.AddWithValue("@amount", item.amount);
-                    command.Parameters.AddWithValue("@posX", item.position.X);
-                    command.Parameters.AddWithValue("@posY", item.position.Y);
-                    command.Parameters.AddWithValue("@posZ", item.position.Z);
-                    command.Parameters.AddWithValue("@ITEM_ART", item.ITEM_ART);
+                    command.CommandText = "INSERT INTO `items` (`hash`, `UID`, `amount`, `posX`, `posY`, `posZ`, `Dimension`, `weight`, `type`)";
+                    command.CommandText += " VALUES (@hash, @UID, @amount, @posX, @posY, @posZ, @Dimension, @weight, @type)";
+                    command.Parameters.AddWithValue("@hash", item.Hash);
+                    command.Parameters.AddWithValue("@UID", item.UID);
+                    command.Parameters.AddWithValue("@amount", item.Amount);
+                    command.Parameters.AddWithValue("@posX", item.Position.X);
+                    command.Parameters.AddWithValue("@posY", item.Position.Y);
+                    command.Parameters.AddWithValue("@posZ", item.Position.Z);
+                    command.Parameters.AddWithValue("@dimension", item.Dimension);
+                    command.Parameters.AddWithValue("@weight", item.Dimension);
+                    command.Parameters.AddWithValue("@type", item.Type);
 
                     command.ExecuteNonQuery();
                     itemId = (int)command.LastInsertedId;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("[EXCEPTION AddNewItem] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddNewItem] " + ex.StackTrace);
+                    Core.Debug.CatchExceptions(ex);
                 }
             }
 
@@ -1854,102 +1854,90 @@ namespace VenoXV._RootCore_.Database
 
         public static void UpdateItem(ItemModel item)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE `items` SET `ownerIdentifier` = @ownerIdentifier, `amount` = @amount, ";
-                    command.CommandText += "`posX` = @posX, `posY` = @posY, `posZ` = @posZ, `dimension` = @dimension, ITEM_ART = @ITEM_ART WHERE `id` = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@ownerIdentifier", item.ownerIdentifier);
-                    command.Parameters.AddWithValue("@amount", item.amount);
-                    command.Parameters.AddWithValue("@posX", item.position.X);
-                    command.Parameters.AddWithValue("@posY", item.position.Y);
-                    command.Parameters.AddWithValue("@posZ", item.position.Z);
-                    command.Parameters.AddWithValue("@dimension", item.dimension);
-                    command.Parameters.AddWithValue("@ITEM_ART", item.ITEM_ART);
-                    command.Parameters.AddWithValue("@id", item.id);
+                command.CommandText = "UPDATE `items` SET `uid` = @uid, `amount` = @amount, ";
+                command.CommandText += "`posX` = @posX, `posY` = @posY, `posZ` = @posZ, `dimension` = @dimension, `weight` = @weight, type = @type WHERE `id` = @id LIMIT 1";
+                command.Parameters.AddWithValue("@UID", item.UID);
+                command.Parameters.AddWithValue("@amount", item.Amount);
+                command.Parameters.AddWithValue("@posX", item.Position.X);
+                command.Parameters.AddWithValue("@posY", item.Position.Y);
+                command.Parameters.AddWithValue("@posZ", item.Position.Z);
+                command.Parameters.AddWithValue("@dimension", item.Dimension);
+                command.Parameters.AddWithValue("@weight", item.Weight);
+                command.Parameters.AddWithValue("@type", item.Type);
+                command.Parameters.AddWithValue("@id", item.Id);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateItem] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateItem] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
             }
         }
 
         public static void RemoveItem(int id)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+
+                command.CommandText = "DELETE FROM items WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
+            }
+        }
+
+        public static void RemoveAllItemsByType(int SQLID, ItemType ItemArt)
+        {
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection(connectionString);
                 try
                 {
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM items WHERE id = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@id", id);
-
+                    command.CommandText = "DELETE FROM items WHERE type = @type AND UID = @UID";
+                    command.Parameters.AddWithValue("@UID", SQLID);
+                    command.Parameters.AddWithValue("@type", ItemArt);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("[EXCEPTION RemoveItem] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveItem] " + ex.StackTrace);
+                    Core.Debug.CatchExceptions(ex);
                 }
-            }
-        }
-
-        public static async void RemoveAllItemsByArt(int SQLID, string ItemArt)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    using MySqlConnection connection = new MySqlConnection(connectionString);
-                    try
-                    {
-                        connection.Open();
-                        MySqlCommand command = connection.CreateCommand();
-
-                        command.CommandText = "DELETE FROM items WHERE ITEM_ART = @ITEM_ART AND ownerIdentifier = @ownerIdentifier";
-                        command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
-                        command.Parameters.AddWithValue("@ITEM_ART", ItemArt);
-                        command.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.Message);
-                        Console.WriteLine("[EXCEPTION RemoveAllItemsByArt] " + ex.StackTrace);
-                    }
-                });
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static void RemoveAllItems(int SQLID)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM items WHERE ownerIdentifier = @ownerIdentifier";
-                    command.Parameters.AddWithValue("@ownerIdentifier", SQLID);
+                command.CommandText = "DELETE FROM items WHERE UID = @UID";
+                command.Parameters.AddWithValue("@UID", SQLID);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveAllItems] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveAllItems] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
             }
         }
 

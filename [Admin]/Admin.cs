@@ -56,9 +56,7 @@ namespace VenoXV._Admin_
                     }
                 }
             }
-            catch
-            {
-            }
+            catch { }
         }
 
         public static bool HaveAdminRights(VnXPlayer player)
@@ -423,7 +421,7 @@ namespace VenoXV._Admin_
         {
             VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
             if (target == null) return;
-            List<InventoryModel> inventory = _Gamemodes_.Reallife.anzeigen.Inventar.Main.GetPlayerInventory(target);
+            List<ItemModel> inventory = _Gamemodes_.Reallife.anzeigen.Inventar.Main.GetPlayerInventory(target);
             VenoX.TriggerClientEvent(target, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
 
@@ -441,7 +439,7 @@ namespace VenoXV._Admin_
                     {
                         foreach (ItemModel item in _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
                         {
-                            if (item.ownerIdentifier == targetId)
+                            if (item.UID == targetId)
                             {
                                 _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(item);
                             }
@@ -466,11 +464,11 @@ namespace VenoXV._Admin_
         public const string ITEM_ART_FALLSCHIRM = "Fallschirm";
         public const string ITEM_ART_BUSINESS = "Business";
         [Command("giveitem")]
-        public static void GiveAdminWeapons(VnXPlayer player, string Hash, string ItemArt, int ItemAmount)
+        public static void GiveAdminWeapons(VnXPlayer player, string Hash, int ItemArt, int ItemAmount)
         {
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                Main.GivePlayerItem(player, Hash, ItemArt, ItemAmount, true);
+                Main.GivePlayerItem(player, Hash, (ItemType)ItemArt, ItemAmount, true);
             }
         }
 
@@ -903,11 +901,11 @@ namespace VenoXV._Admin_
             {
                 if (weapon == "mp5")
                 {
-                    Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 200, true);
+                    Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, ItemType.Gun, 200, true);
                 }
                 else if (weapon == "m4")
                 {
-                    Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, Constants.ITEM_ART_WAFFE, 200, true);
+                    Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, ItemType.Gun, 200, true);
 
                 }
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("admin", player.Username + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");

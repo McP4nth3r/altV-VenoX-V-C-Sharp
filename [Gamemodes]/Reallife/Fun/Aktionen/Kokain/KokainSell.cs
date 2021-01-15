@@ -40,19 +40,19 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                 {
                     if (value > 0)
                     {
-                        if (value <= KOKS.amount)
+                        if (value <= KOKS.Amount)
                         {
                             int koksverkauf = value * 30;
                             player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + koksverkauf);
                             dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
-                            KOKS.amount -= value;
+                            KOKS.Amount -= value;
                             // Update the amount into the database
                             Database.UpdateItem(KOKS);
-                            if (KOKS.amount == 0)
+                            if (KOKS.Amount == 0)
                             {
                                 // Remove the item from the database
-                                Database.RemoveItem(KOKS.id);
+                                Database.RemoveItem(KOKS.Id);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                             }
                         }

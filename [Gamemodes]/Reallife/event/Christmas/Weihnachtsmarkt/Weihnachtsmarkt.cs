@@ -2,6 +2,7 @@
 using AltV.Net.Data;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -130,7 +131,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 {
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + 5000);
                     player.SendTranslatedChatMessage("Heute schenkt dir der Weihnachtsmann " + RageAPI.GetHexColorcode(0, 200, 255) + " 5.000$ + 10 Schneebälle");
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, Constants.ITEM_ART_WAFFE, 10, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, ItemType.Gun, 10, true);
                 }
                 else if (Day == 21)
                 {
@@ -159,12 +160,12 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 }
                 else if (Day == 21)
                 {
-                    Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 300, false);
+                    Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, ItemType.Gun, 300, false);
                     player.SendTranslatedChatMessage("Heute schenkt dir der Weihnachtsmann eine " + RageAPI.GetHexColorcode(0, 200, 255) + " Mp5 :).");
                 }
                 else if (Day == 22)
                 {
-                    Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, Constants.ITEM_ART_WAFFE, 300, false);
+                    Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, ItemType.Gun, 300, false);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + 75000);
                     Database.SetVIPStats((int)player.UID, "TOP DONATOR", 7);
                     player.SendTranslatedChatMessage("Du hast VIP - " + premium.viplevels.VIPLEVELS.VIP_TOP_DONATOR + RageAPI.GetHexColorcode(255, 255, 255) + " für 7 Tage bekommen!");
@@ -246,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // Schockolade
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SCHOKOLADE, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SCHOKOLADE, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 12);
                 }
                 else if (v == 2)
@@ -257,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // Cookies
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_COOKIES, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_COOKIES, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 17);
                 }
                 else if (v == 3)
@@ -268,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // Lebkuchen
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_LEBKUCHENMAENNCHEN, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_LEBKUCHENMAENNCHEN, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 34);
                 }
                 else if (v == 4)
@@ -279,7 +280,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // sparerips
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SPARERIPS, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SPARERIPS, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 60);
                 }
                 else if (v == 5)
@@ -290,7 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // gluehwein
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_GLUEHWEIN, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_GLUEHWEIN, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 15);
                 }
                 else if (v == 6)
@@ -301,7 +302,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // milk
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MILCH, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MILCH, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 6);
                 }
                 else if (v == 7)
@@ -312,7 +313,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         return;
                     }
                     // hotchocolate
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HEISSESCHOKOLADE, Constants.ITEM_ART_NUTZ_ITEM, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HEISSESCHOKOLADE, ItemType.Useable, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 12);
                 }
                 else if (v == 8)
@@ -322,7 +323,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
-                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, Constants.ITEM_ART_WAFFE, 1, true);
+                    Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_SNOWBALL, ItemType.Gun, 1, true);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 75);
                     //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GET225);
                 }

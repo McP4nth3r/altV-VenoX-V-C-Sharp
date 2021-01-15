@@ -2,37 +2,22 @@
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {
+    public enum ItemType
+    {
+        Drugs = 0,
+        Useable = 1,
+        Clothes = 2,
+        Gun = 3
+    };
     public class ItemModel
     {
-        public int id { get; set; }
-        public string hash { get; set; }
-        public int ownerIdentifier { get; set; }
-        public int amount { get; set; }
-        public Position position { get; set; }
-        public int dimension { get; set; }
-
-        public string ITEM_ART { get; set; }
-        public int type { get; set; }
-
-
-        //public GTANetworkAPI.Object objectHandle { get; set; }
-        public AltV.Net.IBaseBaseObjectPool objectHandle { get; set; }
-
-        public ItemModel Copy()
-        {
-            ItemModel itemModel = new ItemModel
-            {
-                id = id,
-                hash = hash,
-                ownerIdentifier = ownerIdentifier,
-                amount = amount,
-                position = position,
-                dimension = dimension,
-                ITEM_ART = ITEM_ART,
-                type = type,
-                objectHandle = objectHandle
-            };
-            return itemModel;
-        }
+        public int Id { get; set; }
+        public string Hash { get; set; }
+        public int UID { get; set; }
+        public int Amount { get; set; }
+        public Position Position { get; set; }
+        public int Dimension { get; set; }
+        public float Weight { get; set; }
+        public ItemType Type { get; set; }
     }
 }

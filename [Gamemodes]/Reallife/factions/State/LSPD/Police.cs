@@ -92,15 +92,15 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     int weed = 0;
                     if (KOKS != null)
                     {
-                        kokain = KOKS.amount;
+                        kokain = KOKS.Amount;
                     }
                     if (WEED != null)
                     {
-                        weed = WEED.amount;
+                        weed = WEED.Amount;
                     }
                     if (MATS != null)
                     {
-                        mats = MATS.amount;
+                        mats = MATS.Amount;
                     }
 
                     player.SendTranslatedChatMessage(inventory + "Materials: " + mats + " Stk, Kokain: " + kokain + "g , Drogen: " + weed + "g");
@@ -137,19 +137,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             if (KOKS != null)
                             {
                                 // Remove the item from the database
-                                Database.RemoveItem(KOKS.id);
+                                Database.RemoveItem(KOKS.Id);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
                             }
                             if (WEED != null)
                             {
                                 // Remove the item from the database
-                                Database.RemoveItem(WEED.id);
+                                Database.RemoveItem(WEED.Id);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
                             }
                             if (MATS != null)
                             {
                                 // Remove the item from the database
-                                Database.RemoveItem(MATS.id);
+                                Database.RemoveItem(MATS.Id);
                                 anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
                             }
 

@@ -21,13 +21,13 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 foreach (ItemModel items in CurrentOfflineItemList.ToList())
                 {
-                    if (items.ownerIdentifier == player.UID)
+                    if (items.UID == player.UID)
                     {
                         CurrentOfflineItemList.Remove(items);
                         CurrentOnlineItemList.Add(items);
                     }
                 }
-                List<InventoryModel> inventory = GetPlayerInventory(player);
+                List<ItemModel> inventory = GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch { }
@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 foreach (ItemModel items in CurrentOnlineItemList.ToList())
                 {
-                    if (items.ownerIdentifier == player.UID)
+                    if (items.UID == player.UID)
                     {
                         CurrentOnlineItemList.Remove(items);
                         CurrentOfflineItemList.Add(items);
@@ -56,29 +56,18 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { }
         }
-        public static List<InventoryModel> GetPlayerInventory(VnXPlayer player)
+        public static List<ItemModel> GetPlayerInventory(VnXPlayer player)
         {
             try
             {
-                List<InventoryModel> inventory = new List<InventoryModel>();
+                List<ItemModel> inventory = new List<ItemModel>();
                 int playerId = player.UID;
                 foreach (ItemModel item in CurrentOnlineItemList.ToList())
-                {
-                    if (item.ownerIdentifier == playerId)
-                    {
-                        InventoryModel inventoryItem = new InventoryModel
-                        {
-                            id = item.id,
-                            hash = item.hash,
-                            amount = item.amount,
-                            ITEM_ART = item.ITEM_ART
-                        };
-                        inventory.Add(inventoryItem);
-                    }
-                }
+                    if (item.UID == playerId) inventory.Add(item);
+
                 return inventory;
             }
-            catch { return new List<InventoryModel>(); }
+            catch { return new List<ItemModel>(); }
         }
         public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
         public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch { } }
@@ -91,9 +80,9 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 int playerId = player.UID;
                 foreach (ItemModel item in CurrentOnlineItemList.ToList())
                 {
-                    if (item.ownerIdentifier == playerId)
+                    if (item.UID == playerId)
                     {
-                        if ((item.hash + ".png") == ClickedHash)
+                        if ((item.Hash + ".png") == ClickedHash)
                         {
                             UseItem(player, item);
                             return;
@@ -108,12 +97,12 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                switch (item.hash)
+                switch (item.Hash)
                 {
                     case Constants.ITEM_HASH_TANKSTELLENSNACK:
                         if ((player.Reallife.Hunger + 10) > 100) { player.SendTranslatedChatMessage("Du bist satt."); return; }
                         player.Reallife.Hunger += 10;
-                        item.amount -= 1;
+                        item.Amount -= 1;
                         break;
                     case Constants.ITEM_HASH_BENZINKANNISTER:
                         if (!player.IsInVehicle)
@@ -128,15 +117,15 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                             return;
                         }
                         VehicleClass.Gas += 20;
-                        item.amount -= 1;
+                        item.Amount -= 1;
                         break;
                     case Constants.ITEM_HASH_KOKS:
                         break;
                     default:
-                        player.SendTranslatedChatMessage("Dein ItemHash : " + item.hash);
+                        player.SendTranslatedChatMessage("Dein ItemHash : " + item.Hash);
                         break;
                 }
-                List<InventoryModel> inventory = GetPlayerInventory(player);
+                List<ItemModel> inventory = GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

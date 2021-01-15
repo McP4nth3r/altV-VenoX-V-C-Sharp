@@ -219,7 +219,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 100);
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Waffe gekauft.");
-                        VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_BROKENBOTTLE, Constants.ITEM_ART_WAFFE, 1, false);
+                        VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_BROKENBOTTLE, ItemType.Gun, 1, false);
                     }
                 }
                 else if (value == 5)
@@ -228,7 +228,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     {
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 150);
                         player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Waffe gekauft.");
-                        VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HAMMER, Constants.ITEM_ART_WAFFE, 1, false);
+                        VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_HAMMER, ItemType.Gun, 1, false);
                     }
                     else
                     {
@@ -247,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage == null)
                             {
-                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_VINTAGEPISTOL, Constants.ITEM_ART_WAFFE, 1, false);
+                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_VINTAGEPISTOL, ItemType.Gun, 1, false);
                             }
                             else
                             {
@@ -276,7 +276,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage != null)
                             {
-                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_NAME_PISTOLAMMO, Constants.ITEM_ART_MAGAZIN, 10, true);
+                                Globals.Main.GivePlayerItem(player, Constants.ITEM_NAME_PISTOLAMMO, ItemType.Useable, 10, true);
                             }
                             else
                             {
@@ -305,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             ItemModel MINISMG = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                             if (MINISMG == null)
                             {
-                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, Constants.ITEM_ART_WAFFE, 1, false);
+                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, ItemType.Gun, 1, false);
                             }
                             else
                             {
@@ -334,7 +334,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
                             if (Vintage != null)
                             {
-                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, Constants.ITEM_ART_WAFFE, 10, true);
+                                VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, ItemType.Gun, 10, true);
                             }
                             else
                             {

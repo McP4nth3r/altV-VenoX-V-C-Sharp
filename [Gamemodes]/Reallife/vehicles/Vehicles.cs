@@ -8,10 +8,8 @@ using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -196,6 +194,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         [ClientEvent("Buy_Snack_Server")]
         public void Give_Snack_Func(VnXPlayer player)
         {
+            /*
             if (player.Reallife.Money >= 6)
             {
                 //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GAS_SNACK);
@@ -207,26 +206,25 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (Snack == null) // Kanister
                 {
                     Snack = new ItemModel();
-                    Snack.amount += 1;
-                    Snack.dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
-                    Snack.position = new Position(0.0f, 0.0f, 0.0f);
-                    Snack.hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
-                    Snack.ownerIdentifier = player.UID;
-                    Snack.ITEM_ART = "NUTZ_ITEM";
-                    Snack.objectHandle = null;
+                    Snack.Amount += 1;
+                    Snack.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                    Snack.Position = new Position(0.0f, 0.0f, 0.0f);
+                    Snack.Hash = Constants.ITEM_HASH_TANKSTELLENSNACK;
+                    Snack.UID = player.UID;
+                    Snack.Type = "NUTZ_ITEM";
 
                     // Add the item into the database
-                    Snack.id = Database.AddNewItem(Snack);
+                    Snack.Id = Database.AddNewItem(Snack);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
                 }
                 else
                 {
-                    if (Snack.amount == 150)
+                    if (Snack.Amount == 150)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast die Maximale anzahl an Snack´s schon erreicht!");
                         return;
                     }
-                    Snack.amount = Snack.amount + 1;
+                    Snack.Amount = Snack.Amount + 1;
                     // Update the amount into the database
                     Database.UpdateItem(Snack);
                 }
@@ -234,43 +232,43 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             else
             {
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
-            }
+            }*/
         }
 
 
         [ClientEvent("Buy_Kanister_Server")]
         public void Give_Kanister_Func(VnXPlayer player)
         {
+            /*
             if (player.Reallife.Money >= 450)
             {
                 ItemModel Kanister = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_BENZINKANNISTER);
                 if (Kanister == null) // Kanister
                 {
                     Kanister = new ItemModel();
-                    Kanister.amount = Kanister.amount + 1;
-                    Kanister.dimension = 1;
-                    Kanister.position = new Position(0.0f, 0.0f, 0.0f);
-                    Kanister.hash = Constants.ITEM_HASH_BENZINKANNISTER;
-                    Kanister.ownerIdentifier = player.UID;
-                    Kanister.ITEM_ART = "NUTZ_ITEM";
-                    Kanister.objectHandle = null;
+                    Kanister.Amount = Kanister.Amount + 1;
+                    Kanister.Dimension = 1;
+                    Kanister.Position = new Position(0.0f, 0.0f, 0.0f);
+                    Kanister.Hash = Constants.ITEM_HASH_BENZINKANNISTER;
+                    Kanister.UID = player.UID;
+                    Kanister.Type = "NUTZ_ITEM";
 
                     // Add the item into the database
-                    Kanister.id = Database.AddNewItem(Kanister);
+                    Kanister.Id = Database.AddNewItem(Kanister);
                     anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 450);
                     player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                 }
                 else
                 {
-                    if (Kanister.amount == 10)
+                    if (Kanister.Amount == 10)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast die Maximale anzahl an Kannister schon erreicht!");
                         player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 450);
                         player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                         return;
                     }
-                    Kanister.amount = Kanister.amount + 1;
+                    Kanister.Amount = Kanister.Amount + 1;
                     // Update the amount into the database
                     Database.UpdateItem(Kanister);
                 }
@@ -283,6 +281,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
             }
+            */
         }
 
         [ClientEvent("Close_Gas_Window")]
