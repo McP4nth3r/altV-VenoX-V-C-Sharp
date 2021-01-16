@@ -437,14 +437,14 @@ namespace VenoXV._Admin_
                     int targetId = target.UID;
                     if (targetId > 0)
                     {
-                        foreach (ItemModel item in _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+                        foreach (ItemModel item in _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
                         {
                             if (item.UID == targetId)
                             {
-                                _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(item);
+                                _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(item);
                             }
                         }
-                        player.RemoveAllPlayerWeapons();
+                        player.Items.Clear();
                         Database.RemoveAllItems(targetId);
                     }
                     player.SendChatMessage("Du hast das Inventar von " + target.Username + " geleert!");
@@ -464,11 +464,12 @@ namespace VenoXV._Admin_
         public const string ITEM_ART_FALLSCHIRM = "Fallschirm";
         public const string ITEM_ART_BUSINESS = "Business";
         [Command("giveitem")]
-        public static void GiveAdminWeapons(VnXPlayer player, string Hash, int ItemArt, int ItemAmount)
+        public static void GiveAdminWeapons(VnXPlayer player, string Hash, int ItemArt, int ItemAmount, string weightstring)
         {
+            float weight = float.Parse(weightstring);
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                Main.GivePlayerItem(player, Hash, (ItemType)ItemArt, ItemAmount, true);
+                Main.GivePlayerItem(player, Hash, (ItemType)ItemArt, ItemAmount, true, Weight: weight);
             }
         }
 
@@ -489,7 +490,7 @@ namespace VenoXV._Admin_
         public static void SetSocialStatePlayer(VnXPlayer player, string target_name, string value)
         {
             VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
+            if (target == null) return;
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 target.Reallife.SocialState = value;

@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         Snack.objectHandle = null;
 
                         Snack.id = Database.AddNewItem(Snack);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
+                        anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Snack);
                     }
                     else
                     {
@@ -102,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         Snack.objectHandle = null;
 
                         Snack.id = Database.AddNewItem(Snack);
-                        anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
+                        anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Snack);
                     }
                     else
                     {

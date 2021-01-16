@@ -283,7 +283,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
                     Database.UpdateItem(item);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -569,14 +569,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
 
-        public static ItemModel GetPlayerItemModelFromHash(int playerId, string hash)
+        public static ItemModel GetPlayerItemModelFromHash(VnXPlayer player, string hash)
         {
             try
             {
                 ItemModel itemModel = null;
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOnlineItemList.ToList())
+                foreach (ItemModel item in player.Items)
                 {
-                    if (item.UID == playerId && item.Hash == hash)
+                    if (item.UID == player.UID && item.Hash == hash)
                     {
                         itemModel = item;
                         break;
@@ -870,14 +870,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         /// <param name="ItemHash">Item - Hash in Constants.cs</param>
         /// <param name="ItemArt">Waffe, Magazin,Fallschirm, Business, NUTZ_ITEM, Drogen</param>
         /// <param name="ItemAmount">Item Anzahl! Sollte der Spieler das Item besitzen , so wird es Addiert!</param>
-        public static void GivePlayerItem(VnXPlayer player, string ItemHash, ItemType ItemArt, int ItemAmount, bool AddierenFallsVorhanden)
+        public static void GivePlayerItem(VnXPlayer player, string ItemHash, ItemType ItemArt, int ItemAmount, bool AddierenFallsVorhanden, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, float Weight = 0.1f)
         {
             try
             {
                 int playerId = player.UID;
                 if (playerId > 0)
                 {
-                    ItemModel Item = Main.GetPlayerItemModelFromHash(playerId, ItemHash);
+                    ItemModel Item = Main.GetPlayerItemModelFromHash(player, ItemHash);
                     {
                         if (Item == null)
                         {
@@ -889,9 +889,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 Hash = ItemHash,
                                 UID = playerId,
                                 Type = ItemArt,
+                                Weight = Weight
                             };
+                            player.Items.Add(Item);
                             Item.Id = Database.AddNewItem(Item);
-                            anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Item);
+                            anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Item);
                         }
                         else
                         {
@@ -974,10 +976,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                     else if (ItemArt == ItemType.Useable)
                     {
-                        ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
-                        ItemModel Pistol = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
-                        ItemModel Pistol50 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE50);
-                        ItemModel Revolver = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_REVOLVER);
+                        ItemModel Vintage = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_MINISMG);
+                        ItemModel Pistol = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE);
+                        ItemModel Pistol50 = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE50);
+                        ItemModel Revolver = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_REVOLVER);
                         if (Vintage != null)
                         {
                             player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.VintagePistol, Item.Amount);

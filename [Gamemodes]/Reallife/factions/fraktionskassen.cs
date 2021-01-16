@@ -214,9 +214,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     int finalwertmats = fkasse.mats;
                     int finalwertmoney = fkasse.money;
                     int playerId = player.UID;
-                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_KOKS);
-                    ItemModel WEED = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_WEED);
-                    ItemModel MATS = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MATS);
+                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_KOKS);
+                    ItemModel WEED = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_WEED);
+                    ItemModel MATS = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_MATS);
                     if (weed > 0)
                     {
                         if (WEED != null)
@@ -237,7 +237,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(WEED.Id);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
+                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(WEED);
                                 }
                             }
                         }
@@ -268,7 +268,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(KOKS.Id);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
+                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
                                 }
                             }
                         }
@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(MATS.Id);
-                                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
+                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(MATS);
                                 }
                             }
                         }

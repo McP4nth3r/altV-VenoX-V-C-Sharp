@@ -244,7 +244,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 500);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Waffe gekauft.");
                             int playerId = player.UID;
-                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
+                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage == null)
                             {
                                 VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_VINTAGEPISTOL, ItemType.Gun, 1, false);
@@ -273,7 +273,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 150);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Magazin gekauft.");
                             int playerId = player.UID;
-                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_VINTAGEPISTOL);
+                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_VINTAGEPISTOL);
                             if (Vintage != null)
                             {
                                 Globals.Main.GivePlayerItem(player, Constants.ITEM_NAME_PISTOLAMMO, ItemType.Useable, 10, true);
@@ -302,7 +302,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 800);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Mini - SMG gekauft.");
                             int playerId = player.UID;
-                            ItemModel MINISMG = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
+                            ItemModel MINISMG = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_MINISMG);
                             if (MINISMG == null)
                             {
                                 VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, ItemType.Gun, 1, false);
@@ -331,7 +331,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                             player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playermoney - 300);
                             player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Magazin gekauft.");
                             int playerId = player.UID;
-                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_MINISMG);
+                            ItemModel Vintage = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_MINISMG);
                             if (Vintage != null)
                             {
                                 VenoXV._Gamemodes_.Reallife.Globals.Main.GivePlayerItem(player, Constants.ITEM_HASH_MINISMG, ItemType.Gun, 10, true);

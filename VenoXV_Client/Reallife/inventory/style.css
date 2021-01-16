@@ -8,6 +8,7 @@ body {
     -ms-user-select: None;
     -moz-user-select: None;
     -webkit-user-select: None;
+    overflow: hidden;
 }
 
 /* Drop Area */

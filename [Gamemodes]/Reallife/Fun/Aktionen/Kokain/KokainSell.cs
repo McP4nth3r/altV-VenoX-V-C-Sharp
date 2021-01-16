@@ -1,7 +1,6 @@
 ﻿
 using AltV.Net;
 using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
 using System;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -35,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
         {
             try
             {
-                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player.UID, Constants.ITEM_HASH_KOKS);
+                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_KOKS);
                 if (KOKS != null)
                 {
                     if (value > 0)
@@ -53,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.Id);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
+                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
                             }
                         }
                         else

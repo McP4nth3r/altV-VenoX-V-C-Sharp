@@ -215,7 +215,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                     // Add the item into the database
                     Snack.Id = Database.AddNewItem(Snack);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Snack);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Snack);
                 }
                 else
                 {
@@ -255,7 +255,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                     // Add the item into the database
                     Kanister.Id = Database.AddNewItem(Kanister);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Add(Kanister);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Kanister);
                     player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - 450);
                     player.SendTranslatedChatMessage("Du hast einen " + RageAPI.GetHexColorcode(0, 200, 255) + " Benzinkannister " + RageAPI.GetHexColorcode(255, 255, 255) + "erworben.");
                 }

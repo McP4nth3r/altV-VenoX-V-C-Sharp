@@ -21,11 +21,12 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllPlayerWeapons();
                 int playerId = player.UID;
-                foreach (ItemModel waffen in Inventar.Main.CurrentOnlineItemList.ToList())
+                foreach (ItemModel waffen in Inventar.Main.CurrentOfflineItemList.ToList())
                 {
                     if (waffen.Type == ItemType.Gun && waffen.UID == playerId)
                     {
-                        Inventar.Main.CurrentOnlineItemList.Remove(waffen);
+                        Inventar.Main.CurrentOfflineItemList.Remove(waffen);
+                        player.Items.Remove(waffen);
                     }
                 }
                 Database.RemoveAllItemsByType(playerId, ItemType.Gun);
@@ -41,49 +42,49 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
                 int playerId = player.UID;
 
-                ItemModel Switchblade = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SWITCHBLADE);
-                ItemModel Nightstick = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_NIGHTSTICK);
-                ItemModel Baseball = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_BASEBALL);
-                ItemModel Tazer = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_TAZER);
+                ItemModel Switchblade = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SWITCHBLADE);
+                ItemModel Nightstick = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_NIGHTSTICK);
+                ItemModel Baseball = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_BASEBALL);
+                ItemModel Tazer = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_TAZER);
 
-                ItemModel Shotgun = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SHOTGUN);
+                ItemModel Shotgun = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SHOTGUN);
 
-                ItemModel Sniperrifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SNIPERRIFLE);
+                ItemModel Sniperrifle = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SNIPERRIFLE);
 
                 if (Switchblade != null)
                 {
                     Database.RemoveItem(Switchblade.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Switchblade);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Switchblade);
                 }
 
                 if (Baseball != null)
                 {
                     Database.RemoveItem(Baseball.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Baseball);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Baseball);
                 }
 
                 if (Nightstick != null)
                 {
                     Database.RemoveItem(Nightstick.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Nightstick);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Nightstick);
                 }
 
                 if (Tazer != null)
                 {
                     Database.RemoveItem(Tazer.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Tazer);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Tazer);
                 }
 
                 if (Shotgun != null)
                 {
                     Database.RemoveItem(Shotgun.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Shotgun);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Shotgun);
                 }
 
                 if (Sniperrifle != null)
                 {
                     Database.RemoveItem(Sniperrifle.Id);
-                    anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(Sniperrifle);
+                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Sniperrifle);
                 }
 
                 weapons.Weapons.GivePlayerWeaponItems(player);

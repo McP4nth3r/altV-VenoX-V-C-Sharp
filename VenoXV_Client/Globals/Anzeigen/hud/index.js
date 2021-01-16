@@ -6,8 +6,14 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText, vnxCreateCEF, vnxDestroyCEF } from '../../VnX-Lib';
-import { GetWeaponData } from '../../Weapons/Combat';
+import {
+	DrawText,
+	vnxCreateCEF,
+	vnxDestroyCEF
+} from '../../VnX-Lib';
+import {
+	GetWeaponData
+} from '../../Weapons/Combat';
 
 
 let HUD_BROWSER = null;
@@ -21,16 +27,14 @@ alt.onServer('Reallife:LoadHUD', (e) => {
 		HUD_BROWSER = vnxCreateCEF("ReallifeHUD", "Globals/Anzeigen/hud/Reallife/HUD-" + e + "/main.html", "Reallife");
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show", true);
-	}
-	catch { }
+	} catch {}
 });
 
 alt.onServer('Reallife:UnloadHUD', () => {
 	try {
 		HUD_BROWSER = null;
 		vnxDestroyCEF("ReallifeHUD");
-	}
-	catch { }
+	} catch {}
 });
 
 alt.onServer('toggleHandcuffed', (toggle) => {
@@ -39,6 +43,8 @@ alt.onServer('toggleHandcuffed', (toggle) => {
 
 
 let DrawSafeZoneNow = false;
+let DrawSafeZoneText = "Du hast eine NO-DM Zone betreten!\nJegliches Deathmatch ist verboten!\nAusnahme : Staatsfraktionen.";
+
 function DrawSafezone() {
 	try {
 		if (DrawSafeZoneNow) {
@@ -46,13 +52,13 @@ function DrawSafezone() {
 			game.drawRect(0.91, 0.350, 0.17, 0.02, 0, 0, 0, 175);
 			game.drawRect(0.91, 0.39, 0.17, 0.10, 0, 0, 0, 175);
 			DrawText("VenoX Reallife NO-DM Zone", [0.91, 0.338], [0.4, 0.4], 1, [200, 200, 200, 255], true, true);
-			DrawText("Du hast eine NO-DM Zone betreten!\nJegliches Deathmatch ist verboten!\nAusnahme : Staatsfraktionen.", [0.91, 0.367], [0.3, 0.25], 0, [0, 150, 200, 255], false);
+			DrawText(DrawSafeZoneText, [0.91, 0.367], [0.3, 0.25], 0, [0, 150, 200, 255], false);
 		}
-	}
-	catch { }
+	} catch {}
 }
-alt.onServer('Greenzone:ChangeStatus', (e) => {
-	DrawSafeZoneNow = e;
+alt.onServer('Greenzone:ChangeStatus', (state, text) => {
+	DrawSafeZoneNow = state;
+	DrawSafeZoneText = text;
 });
 
 
@@ -66,9 +72,12 @@ let LastLocation = "";
 let LastHealth = 100;
 let LastArmor = 100;
 let LastVoiceState = false;
+
 function CheckHUDUpdate() {
 	try {
-		if (!HUD_BROWSER) { return; }
+		if (!HUD_BROWSER) {
+			return;
+		}
 		let Update = false;
 		let LocalEntity = alt.Player.local;
 		let LocalEntityScriptId = alt.Player.local.scriptID;
@@ -93,7 +102,9 @@ function CheckHUDUpdate() {
 			let CurrentMoney = LocalEntity.getSyncedMeta('PLAYER_MONEY');
 			let CurrentFaction = LocalEntity.getSyncedMeta('PLAYER_FACTION');
 			let CurrentHunger = LocalEntity.getSyncedMeta('PLAYER_HUNGER');
-			if (CurrentHealth <= 0) { CurrentHealth = 100; }
+			if (CurrentHealth <= 0) {
+				CurrentHealth = 100;
+			}
 			HUD_BROWSER.emit('HUD:UpdateStats', CurrentFaction, CurrentArmor, CurrentHealth - 100, CurrentHunger, CurrentMoney);
 		}
 		if (CurrentLocation != LastLocation) {
@@ -105,8 +116,7 @@ function CheckHUDUpdate() {
 			LastVoiceState = CurrentVoiceState;
 			HUD_BROWSER.emit('HUD:UpdateVoiceState', CurrentVoiceState);
 		}
-	}
-	catch { }
+	} catch {}
 }
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
@@ -170,18 +180,15 @@ alt.everyTick(() => {
 				if (weapon.length < 6) {
 					DrawText(weapon, [0.77, 0.040], [0.5, 0.5], 1, [0, 150, 200, 255], true, true);
 					DrawText(ammo, [0.77, 0.070], [0.5, 0.5], 1, [0, 105, 145, 255], true, true);
-				}
-				else {
+				} else {
 					DrawText(weapon, [0.75, 0.040], [0.5, 0.5], 1, [0, 150, 200, 255], true, true);
 					DrawText(ammo, [0.75, 0.070], [0.5, 0.5], 1, [0, 105, 145, 255], true, true);
 				}
-			}
-			else if (CURRENT_HUD == 1) {
+			} else if (CURRENT_HUD == 1) {
 				if (weapon.length < 6) {
 					DrawText(weapon, [0.80, 0.040], [0.5, 0.5], 1, [0, 150, 200, 255], true, true);
 					DrawText(ammo, [0.80, 0.070], [0.5, 0.5], 1, [0, 105, 145, 255], true, true);
-				}
-				else {
+				} else {
 					DrawText(weapon, [0.78, 0.040], [0.5, 0.5], 1, [0, 150, 200, 255], true, true);
 					DrawText(ammo, [0.78, 0.070], [0.5, 0.5], 1, [0, 105, 145, 255], true, true);
 				}
@@ -212,8 +219,7 @@ alt.everyTick(() => {
 			game.disableControlAction(alt.Player.local.scriptID, 2, 25, true);
 			game.disableControlAction(alt.Player.local.scriptID, 2, 75, true);
 		}
-	}
-	catch { }
+	} catch {}
 });
 
 
@@ -222,9 +228,13 @@ alt.everyTick(() => {
 let GW_COUNTDOWN = "";
 
 let gwtimer = null;
+
 function startTimer(duration) {
-	var timer = duration, minutes, seconds;
-	if (gwtimer != null) { alt.clearInterval(gwtimer); }
+	var timer = duration,
+		minutes, seconds;
+	if (gwtimer != null) {
+		alt.clearInterval(gwtimer);
+	}
 	gwtimer = alt.setInterval(function () {
 		minutes = parseInt(timer / 60, 10);
 		seconds = parseInt(timer % 60, 10);
@@ -261,6 +271,7 @@ let dfr = 255;
 let dfg = 255;
 let dfb = 255;
 let ap = 175;
+
 function drawGW() {
 	game.drawRect(0.846, 0.30, 0.06, 0.035, 0, 0, 0, 175);
 	game.drawRect(0.9105, 0.30, 0.06, 0.035, 0, 0, 0, 175);

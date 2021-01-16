@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                 {
                     case "Pistolen Magazin":
                         {
-                            ItemModel Pistole = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
+                            ItemModel Pistole = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE);
                             if (Pistole != null)
                             {
                                 if (player.Reallife.Money >= 90)
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                     case "Pistole 50 Magazin":
                         {
-                            ItemModel Pistole50 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE50);
+                            ItemModel Pistole50 = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE50);
                             if (Pistole50 != null)
                             {
                                 if (player.Reallife.Money >= 165)
@@ -73,7 +73,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                     case "Revolver Magazin":
                         {
-                            ItemModel Revolver = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_REVOLVER);
+                            ItemModel Revolver = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_REVOLVER);
                             if (Revolver != null)
                             {
                                 if (player.Reallife.Money >= 220)
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                     case "Shotgun Magazin":
                         {
-                            ItemModel Shotgun = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SHOTGUN);
+                            ItemModel Shotgun = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SHOTGUN);
                             if (Shotgun != null)
                             {
                                 if (player.Reallife.Money >= 100)
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                     case "PDW Magazin":
                         {
-                            ItemModel PDW = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PDW);
+                            ItemModel PDW = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PDW);
                             if (PDW != null)
                             {
                                 if (player.Reallife.Money >= 450)
@@ -144,7 +144,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                     case "Rifle Magazin":
                         {
-                            ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_ADVANCEDRIFLE);
+                            ItemModel Rifle = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_ADVANCEDRIFLE);
                             if (Rifle != null)
                             {
                                 if (player.Reallife.Money >= 535)
@@ -201,7 +201,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
                         return;
                     case "Messer":
-                        ItemModel SWITCHBLADE = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SWITCHBLADE);
+                        ItemModel SWITCHBLADE = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SWITCHBLADE);
                         if (SWITCHBLADE == null) // WEED
                         {
                             if (player.Reallife.Money >= 200)
@@ -221,7 +221,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                         return;
                     case "Fallschirm":
-                        ItemModel FALLSCHIRM = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_FALLSCHIRM);
+                        ItemModel FALLSCHIRM = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_FALLSCHIRM);
                         if (FALLSCHIRM == null) // WEED
                         {
                             if (player.Reallife.Money >= 925)
@@ -243,7 +243,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         return;
 
                     case "Pistole":
-                        ItemModel Pistole = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE);
+                        ItemModel Pistole = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE);
                         if (Pistole == null) // WEED
                         {
                             if (player.Reallife.Money >= 265)
@@ -266,7 +266,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
                     case "Pistole50":
 
-                        ItemModel Pistole50 = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PISTOLE50);
+                        ItemModel Pistole50 = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE50);
                         if (Pistole50 == null) // WEED
                         {
                             if (player.Reallife.Money >= 385)
@@ -289,7 +289,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
                     case "Revolver":
 
-                        ItemModel Revolver = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_REVOLVER);
+                        ItemModel Revolver = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_REVOLVER);
                         if (Revolver == null) // WEED
                         {
                             if (player.Reallife.Money >= 400)
@@ -312,7 +312,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
                     case "Shotgun":
 
-                        ItemModel Shotgun = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_SHOTGUN);
+                        ItemModel Shotgun = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SHOTGUN);
                         if (Shotgun == null) // WEED
                         {
                             if (player.Reallife.Money >= 600)
@@ -334,7 +334,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         return;
 
                     case "PDW":
-                        ItemModel PDW = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_PDW);
+                        ItemModel PDW = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PDW);
                         if (PDW == null) // WEED
                         {
                             if (player.Reallife.Money >= 800)
@@ -354,7 +354,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
                         }
                         return;
                     case "Rifle":
-                        ItemModel Rifle = Main.GetPlayerItemModelFromHash(playerId, Constants.ITEM_HASH_ADVANCEDRIFLE);
+                        ItemModel Rifle = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_ADVANCEDRIFLE);
                         if (Rifle == null) // WEED
                         {
                             if (player.Reallife.Money >= 950)

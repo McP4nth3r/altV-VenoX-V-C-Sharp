@@ -5,7 +5,9 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { Draw3DText } from '../VnX-Lib';
+import {
+    Draw3DText
+} from '../VnX-Lib';
 
 let muted = true;
 export function OnVoiceKeyDown(key) {
@@ -14,8 +16,7 @@ export function OnVoiceKeyDown(key) {
             muted = false;
             alt.emitServer('Voice:ChangeState', muted);
         }
-    }
-    catch { }
+    } catch {}
 }
 
 export function OnVoiceKeyUp(key) {
@@ -24,7 +25,7 @@ export function OnVoiceKeyUp(key) {
             muted = true;
             alt.emitServer('Voice:ChangeState', muted);
         }
-    } catch { }
+    } catch {}
 }
 
 alt.on("gameEntityCreate", entity => {
@@ -38,8 +39,7 @@ alt.on("gameEntityCreate", entity => {
         if (entity.hasStreamSyncedMeta('VEHICLE_GODMODE')) {
             game.setEntityInvincible(entity.scriptID, entity.getStreamSyncedMeta('VEHICLE_GODMODE'));
         }
-    }
-    catch { }
+    } catch {}
 });
 
 /* Sync : TextLabels */
@@ -59,8 +59,7 @@ alt.onServer('Sync:LoadTextLabels', (ID, Text, PosX, PosY, PosZ, Font, ColorR, C
             Dimension: Dimension,
             Range: Range
         };
-    }
-    catch { }
+    } catch {}
 });
 alt.onServer('Sync:RemoveLabelByID', (ID) => {
     if (CurrentLabels[ID] == null) return;
@@ -82,8 +81,7 @@ alt.onServer('Sync:LoadMarkers', (ID, Type, PosX, PosY, PosZ, ScaleX, ScaleY, Sc
             Scale: [ScaleX, ScaleY, ScaleZ],
             Color: [ColorR, ColorG, ColorB, ColorA],
         };
-    }
-    catch { }
+    } catch {}
 })
 alt.onServer('Sync:RemoveMarkerByID', (ID) => {
     if (CurrentMarkers[ID] == null) return;
@@ -102,8 +100,7 @@ alt.onServer('Sync:LoadObjs', (ID, Parent, Hash, Position, Rotation, HashNeeded)
                 game.requestModel(newHash);
             }
             Entity = game.createObjectNoOffset(newHash, Position.x, Position.y, Position.z, false, false, false);
-        }
-        else {
+        } else {
             if (!game.hasModelLoaded(Hash)) {
                 alt.loadModel(Hash);
                 game.requestModel(Hash);
@@ -116,8 +113,7 @@ alt.onServer('Sync:LoadObjs', (ID, Parent, Hash, Position, Rotation, HashNeeded)
             Entity: Entity,
             Parent: Parent
         };
-    }
-    catch { }
+    } catch {}
 });
 
 alt.onServer('Sync:RemoveObjByID', (ID) => {
@@ -132,8 +128,7 @@ function SyncTextLabels() {
             let data = CurrentLabels[labels];
             Draw3DText(data.Text, data.PosX, data.PosY, data.PosZ, data.Font, data.Color, data.Range, true, true);
         }
-    }
-    catch { }
+    } catch {}
 }
 
 function SyncMarkers() {
@@ -142,8 +137,7 @@ function SyncMarkers() {
             let data = CurrentMarkers[Markers];
             game.drawMarker(data.Type, data.PosX, data.PosY, data.PosZ, 0, 0, 0, 0, 0, 0, data.Scale[0], data.Scale[1], data.Scale[2], data.Color[0], data.Color[1], data.Color[2], data.Color[3], false, true, 2, false, undefined, undefined, false);
         }
-    }
-    catch { }
+    } catch {}
 }
 
 
@@ -151,8 +145,7 @@ alt.everyTick(() => {
     try {
         SyncTextLabels();
         SyncMarkers();
-    }
-    catch { }
+    } catch {}
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -178,12 +171,11 @@ alt.onServer('Sync:LoadMap', (MapName, Hash, Position, RotOrder, Rotation, freez
     if (HashNeeded) {
         if (!game.hasModelLoaded(game.getHashKey(Hash))) {
             if (Hash == 665940918 || Hash == "v_corp_postbox") alt.log('Hash neeed for : ' + Hash);
-            alt.loadModel(game.getHashKey(Hash));
+            game.requestModel(game.getHashKey(Hash))
         }
         Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
-    }
-    else {
-        if (!game.hasModelLoaded(Hash)) alt.loadModel(Hash);
+    } else {
+        if (!game.hasModelLoaded(Hash)) game.requestModel(Hash);
         Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
     }
     if (freeze) game.freezeEntityPosition(Entity, true);
@@ -208,8 +200,7 @@ alt.onServer('Sync:UnloadMap', (MapName) => {
                 MapObjects[obj] = {};
             }
         }
-    }
-    catch { }
+    } catch {}
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

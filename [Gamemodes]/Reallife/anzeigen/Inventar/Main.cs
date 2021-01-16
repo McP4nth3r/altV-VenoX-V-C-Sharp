@@ -13,7 +13,6 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
 {
     public class Main : IScript
     {
-        public static List<ItemModel> CurrentOnlineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Online sind.
         public static List<ItemModel> CurrentOfflineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Offline sind.
         public static void LoadPlayerItems(VnXPlayer player)
         {
@@ -23,8 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 {
                     if (items.UID == player.UID)
                     {
-                        CurrentOfflineItemList.Remove(items);
-                        CurrentOnlineItemList.Add(items);
+                        player.Items.Add(items);
                     }
                 }
                 List<ItemModel> inventory = GetPlayerInventory(player);
@@ -36,12 +34,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in CurrentOnlineItemList.ToList())
+                foreach (ItemModel items in CurrentOfflineItemList.ToList())
                 {
                     if (items.UID == player.UID)
                     {
-                        CurrentOnlineItemList.Remove(items);
-                        CurrentOfflineItemList.Add(items);
+                        player.Items.Add(items);
                     }
                 }
             }
@@ -60,12 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                List<ItemModel> inventory = new List<ItemModel>();
-                int playerId = player.UID;
-                foreach (ItemModel item in CurrentOnlineItemList.ToList())
-                    if (item.UID == playerId) inventory.Add(item);
-
-                return inventory;
+                return player.Items;
             }
             catch { return new List<ItemModel>(); }
         }
@@ -78,7 +70,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in CurrentOnlineItemList.ToList())
+                foreach (ItemModel item in player.Items)
                 {
                     if (item.UID == playerId)
                     {

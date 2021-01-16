@@ -3,6 +3,7 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
@@ -53,11 +54,11 @@ namespace VenoXV._RootCore_.Models
         public List<VnXPlayer> NearbyPlayers { get; set; }
         public ushort SetArmor { get { return Armor; } set { this.vnxSetStreamSharedElementData("PLAYER_ARMOR", value); Armor = value; } }
         public ushort SetHealth { get { return Health; } set { this.vnxSetStreamSharedElementData("PLAYER_HEALTH", value); Health = value; } }
-
         public List<LoadingModel> PreloadEvents { get; set; }
         public bool Loading { get; set; }
         public bool FinishedPrivacyPolicy { get; set; }
         public bool LoggedInWithShaPassword { get; set; }
+        public List<ItemModel> Items { get; set; }
 
         public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
         {
@@ -96,6 +97,7 @@ namespace VenoXV._RootCore_.Models
                 Playing = false;
                 AdminRank = 0;
                 Dead = 0;
+                Items = new List<ItemModel>();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

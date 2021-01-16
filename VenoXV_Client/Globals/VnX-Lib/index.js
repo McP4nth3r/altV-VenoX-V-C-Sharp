@@ -1,4 +1,3 @@
-
 //----------------------------------//
 ///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
@@ -22,15 +21,16 @@ export function ShowCursor(bool) {
         alt.toggleGameControls(!bool);
         alt.showCursor(bool);
         cursor = bool;
-    }
-    catch { }
+    } catch {}
 }
 export function GetCursorStatus() {
     try {
-        if (cursor) { return true; }
-        else { return false; }
-    }
-    catch { }
+        if (cursor) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch {}
 }
 export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline = true, useDropShadow = true, layer = 0, align = 0) {
     try {
@@ -42,7 +42,9 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
             b = rgb[2];
             msg = msg.replace(hex[0], '');
         }
-        if (ColorRGB == undefined || ColorRGB == null) { ColorRGB = 255; }
+        if (ColorRGB == undefined || ColorRGB == null) {
+            ColorRGB = 255;
+        }
         //game.setScriptGfxDrawOrder(layer);
         game.beginTextCommandDisplayText('STRING');
         game.addTextComponentSubstringPlayerName(msg);
@@ -58,10 +60,9 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
         if (useDropShadow) game.setTextDropShadow();
 
         game.endTextCommandDisplayText(screenPos[0], screenPos[1]);
-    }
-    catch { }
+    } catch {}
 }
-export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true) {
+export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true, CustomScale = 0.4) {
     try {
         const [bol, _x, _y] = game.getScreenCoordFromWorldCoord(x, y, z);
         const camCord = game.getFinalRenderedCamCoord();
@@ -70,7 +71,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
 
         if (dist > range) return;
 
-        let scale = (4.00001 / dist) * 0.4
+        let scale = (4.00001 / dist) * CustomScale
         if (scale > 0.6)
             scale = 0.6;
 
@@ -94,8 +95,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
             if (useDropShadow) game.setTextDropShadow();
             game.endTextCommandDisplayText(_x, _y);
         }
-    }
-    catch { }
+    } catch {}
 }
 export function CreateBlip(name, pos, sprite, color, shortrange) {
     try {
@@ -108,8 +108,7 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
         game.addTextComponentSubstringPlayerName(name);
         game.endTextCommandSetBlipName(blip);
         return blip;
-    }
-    catch { }
+    } catch {}
 }
 
 
@@ -123,7 +122,9 @@ export function CreatePed(PedName, Vector3Pos, rot = 0) {
         }
         if (game.hasModelLoaded(PedHash)) {
             let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z - 1, rot, false, false);
-            alt.setTimeout(() => { game.freezeEntityPosition(Entity, true); }, 3000);
+            alt.setTimeout(() => {
+                game.freezeEntityPosition(Entity, true);
+            }, 3000);
             cNPCList[cNPCId++] = {
                 Entity: Entity,
                 ID: cNPCId,
@@ -147,12 +148,10 @@ export function CreatePed(PedName, Vector3Pos, rot = 0) {
             game.setPedGetOutUpsideDownVehicle(Entity, false);
             game.setPedCanEvasiveDive(Entity, false);
             return Entity;
-        }
-        else {
+        } else {
             alt.log("Model not Loaded " + PedHash);
         }
-    }
-    catch { }
+    } catch {}
 }
 
 
@@ -165,8 +164,7 @@ export function frontOfPlayer(distance) {
             z: player.pos.z + result.z * distance
         }
         return pos;
-    }
-    catch { }
+    } catch {}
 }
 
 export function vnxCreateCEF(Name, Path) {
@@ -185,8 +183,10 @@ export function vnxCreateCEF(Name, Path) {
             Path: Path
         };
         return cBrowser;
+    } catch (e) {
+        alt.log("Error Creating CEF Window : " + e);
+        return null;
     }
-    catch (e) { alt.log("Error Creating CEF Window : " + e); return null; }
 }
 
 export function vnxDestroyCEF(Name) {
@@ -198,8 +198,9 @@ export function vnxDestroyCEF(Name) {
                 delete cBrowserList[Browser];
             }
         }
+    } catch (e) {
+        alt.log("Error Destroying CEF Window : " + e);
     }
-    catch (e) { alt.log("Error Destroying CEF Window : " + e); }
 }
 
 export function vnxDestroyAllCEF() {
@@ -211,10 +212,10 @@ export function vnxDestroyAllCEF() {
 
 export function GetCurrentDateTime() {
     var date = new Date();
-    var day = date.getDate();       // yields date
-    var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
-    var year = date.getFullYear();  // yields year
-    var hour = date.getHours();     // yields hours 
+    var day = date.getDate(); // yields date
+    var month = date.getMonth() + 1; // yields month (add one as '.getMonth()' is zero indexed)
+    var year = date.getFullYear(); // yields year
+    var hour = date.getHours(); // yields hours 
     var minute = date.getMinutes(); // yields minutes
     var second = date.getSeconds(); // yields seconds
 
@@ -226,10 +227,10 @@ export function GetCurrentDateTime() {
 
 export function GetCurrentDateTimeString() {
     var date = new Date();
-    var day = date.getDate();       // yields date
-    var month = date.getMonth() + 1;    // yields month (add one as '.getMonth()' is zero indexed)
-    var year = date.getFullYear();  // yields year
-    var hour = date.getHours();     // yields hours 
+    var day = date.getDate(); // yields date
+    var month = date.getMonth() + 1; // yields month (add one as '.getMonth()' is zero indexed)
+    var year = date.getFullYear(); // yields year
+    var hour = date.getHours(); // yields hours 
     var minute = date.getMinutes(); // yields minutes
     var second = date.getSeconds(); // yields seconds
 
@@ -282,8 +283,7 @@ alt.everyTick(() => {
     if (!ShowCountdownTick) return;
     if (CountdownState > 0) {
         DrawText(CountdownState + "...", [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], true, true);
-    }
-    else {
+    } else {
         DrawText("GO!", [0.5, 0.5], [1, 1], 0, [0, 200, 255, 255], true, true);
     }
 });

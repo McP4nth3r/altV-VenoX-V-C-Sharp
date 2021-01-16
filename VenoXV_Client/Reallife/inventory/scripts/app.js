@@ -8,12 +8,18 @@
 
 let ClickedOnItem = false;
 let LastItemClicked = null;
-let CurrentInventoryItems = [];
+let CurrentInventoryItems = {};
 
 let ClothesColumnId = "ClothesColumn";
 let ClothesColumnString = `<div class="column" id="` + ClothesColumnId + `"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Benutzen</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen</div></div></div>`;
 let GunColumnId = "GunColumn";
 let GunColumnString = `<div class="column" id="` + GunColumnId + `"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Benutzen</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen</div></div></div>`;
+
+let ItemTypes = {}
+ItemTypes[0] = "Drugs";
+ItemTypes[1] = "Useable";
+ItemTypes[2] = "Clothes";
+ItemTypes[3] = "Gun";
 
 // Settings : 
 
@@ -164,7 +170,6 @@ box.droppable({
             }
             setTimeout(() => {
                 ClearCachedIds();
-                console.log('Called Cache Clear');
             }, 250);
         }
     },
@@ -235,17 +240,20 @@ function ClearCachedIds() {
 
 // called if item is being dropped out of inventory.
 function DropItem(Draggable, ItemHash, ItemAmount) {
+    let DroppedItemId = $(Draggable).attr('id');
+    if (DroppedItemId == GunColumnId || DroppedItemId == ClothesColumnId) return;
     let name = ItemHash;
     let patt = /\"|\'|\)/g;
     let text = name.split('/').pop().replace(patt, '');
     let TextHash = text.split('.').slice(0, -1).join('.');
-    //console.log(TextHash, ItemAmount);
-    //alt.emit('Inventory:DropItem', ItemHash, ItemAmount);
     $(Draggable).css('background-image', 'url("style.css")');
     $(Draggable).children('.column_amount').html("");
     $(Draggable).children('.info').html("");
+    delete CurrentInventoryItems[TextHash];
     setTimeout(() => {
         UpdateInventoryWeight();
+        if ('alt' in window)
+            alt.emit('Inventory:DropItem', TextHash, ItemAmount, DroppedItemId);
     }, 250);
 }
 
@@ -256,29 +264,28 @@ function OnInventoryButtonPressed(Btn) {
     let patt = /\"|\'|\)/g;
     let text = name.split('/').pop().replace(patt, '');
     if (text == 'style.css') return;
-    alt.emit('OnInventoryButtonClicked', Btn, text);
+    if ('alt' in window)
+        alt.emit('OnInventoryButtonClicked', Btn, text);
 }
 // called Inventory Bar Update.
 function UpdateInventoryAmountBar(CurrentlyInInventory) {
+    let Calculation = ((CurrentlyInInventory.toFixed(0) * 100) / CurrentInventorySpace);
+    if (Calculation > 100) Calculation = 100;
     $('.Inventory_Amount_Bar').animate({
-        width: (CurrentlyInInventory.toFixed(0) * 100) / CurrentInventorySpace + "%"
+        width: Calculation + "%"
     });
-
-    console.log(((CurrentlyInInventory * 100) / 100) + " | Amount");
+    //console.log(((CurrentlyInInventory * 100) / 100) + " | Amount");
     $('.Inventory_Amount_Amount').text(CurrentlyInInventory.toFixed(2) + " kg / " + CurrentInventorySpace.toFixed(2) + " kg.");
 }
 
 // called to check if Item Exists.
 function ItemExists(itemName) {
-    for (let i = 0; i < CurrentInventoryItems.length; i++) {
-        if (CurrentInventoryItems[i] == itemName) return true;
-    }
-    CurrentInventoryItems.push(itemName);
+    if (CurrentInventoryItems[itemName]) return true;
     return false;
 }
 
-// called if a new item got inserted.
-function OnUpdateItems(hash, amount, itemtype, iteminfo) {
+
+function AddItem(hash, amount, itemtype, weight) {
     var cols = document.querySelectorAll('#columns .column');
     [].forEach.call(cols, function (col) {
         let name = $(col).css('background-image');
@@ -287,13 +294,42 @@ function OnUpdateItems(hash, amount, itemtype, iteminfo) {
         if (text == 'style.css') {
             if (!ItemExists(hash)) {
                 $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
-                $(col).attr('id', itemtype);
+                $(col).attr('id', ItemTypes[parseInt(itemtype)]);
                 $(col).children('.column_amount').html(amount.toString());
-                $(col).children('.info').html(iteminfo);
+                $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+                CurrentInventoryItems[hash] = {
+                    Element: col,
+                    Hash: hash,
+                    Image: $(col).css('background-image'),
+                    Amount: $(col).children('.column_amount').text(),
+                    Info: $(col).children('.info').text(),
+                    Weight: weight
+                }
+                UpdateInventoryWeight();
+                return;
             }
         }
     });
 }
+
+function UpdateItem(hash, amount, weight) {
+    if (!CurrentInventoryItems[hash].Element) return;
+    $(CurrentInventoryItems[hash].Element).children('.column_amount').html(amount.toString());
+    $(CurrentInventoryItems[hash].Element).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+    CurrentInventoryItems[hash].Weight = weight;
+    CurrentInventoryItems[hash].Amount = amount;
+    UpdateInventoryWeight();
+    console.log('Updated');
+}
+
+
+// called if a new item got inserted.
+function OnUpdateItems(hash, amount, itemtype, weight) {
+    if (!ItemExists(hash)) AddItem(hash, amount, itemtype, weight);
+    else UpdateItem(hash, amount, weight);
+}
+
+
 // called if All items should be removed.
 function RemoveAllItems() {
     var cols = document.querySelectorAll('#columns .column');
@@ -301,33 +337,15 @@ function RemoveAllItems() {
         let name = $(col).css('background-image');
         let patt = /\"|\'|\)/g;
         let text = name.split('/').pop().replace(patt, '');
-        CurrentInventoryItems = [];
         if (text != 'style.css') {
             $(col).css('background-image', 'url("style.css")');
             $(col).children('.column_amount').html("");
             $(col).children('.info').html("");
         }
     });
+    CurrentInventoryItems = {};
 }
 
 function GetAllItems() {
-    let Items = {};
-    let ItemCounter = 0;
-    var cols = document.querySelectorAll('#columns .column');
-    [].forEach.call(cols, function (col) {
-        let name = $(col).css('background-image');
-        let patt = /\"|\'|\)/g;
-        let text = name.split('/').pop().replace(patt, '');
-        let TextHash = text.split('.').slice(0, -1).join('.');
-        if (text != 'style.css') {
-            Items[ItemCounter] = {
-                Hash: TextHash,
-                Image: $(col).css('background-image'),
-                Amount: $(col).children('.column_amount').text(),
-                Info: $(col).children('.info').text()
-            }
-            ItemCounter++;
-        }
-    });
-    return Items;
+    return CurrentInventoryItems;
 }

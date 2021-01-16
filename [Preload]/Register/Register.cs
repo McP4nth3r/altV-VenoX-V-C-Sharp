@@ -17,7 +17,6 @@ namespace VenoXV._Preload_.Register
 
         public static bool PlayerHaveAlreadyAccount(VnXPlayer playerClass)
         {
-            return false;
             bool state = false;
             foreach (AccountModel accClass in AccountList)
             {

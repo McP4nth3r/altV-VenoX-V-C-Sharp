@@ -84,9 +84,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
-                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_KOKS);
-                    ItemModel WEED = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_WEED);
-                    ItemModel MATS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_MATS);
+                    ItemModel KOKS = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_KOKS);
+                    ItemModel WEED = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_WEED);
+                    ItemModel MATS = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_MATS);
                     int kokain = 0;
                     int mats = 0;
                     int weed = 0;
@@ -131,26 +131,26 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         {
                             string inventory = RageAPI.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageAPI.GetHexColorcode(255, 255, 255) + "";
 
-                            ItemModel KOKS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_KOKS);
-                            ItemModel WEED = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_WEED);
-                            ItemModel MATS = Main.GetPlayerItemModelFromHash(target.UID, Constants.ITEM_HASH_MATS);
+                            ItemModel KOKS = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_KOKS);
+                            ItemModel WEED = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_WEED);
+                            ItemModel MATS = Main.GetPlayerItemModelFromHash(target, Constants.ITEM_HASH_MATS);
                             if (KOKS != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.Id);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(KOKS);
+                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
                             }
                             if (WEED != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(WEED.Id);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(WEED);
+                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(WEED);
                             }
                             if (MATS != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(MATS.Id);
-                                anzeigen.Inventar.Main.CurrentOnlineItemList.Remove(MATS);
+                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(MATS);
                             }
 
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " hat dir deine Illegalen Gegenstaende abgenommen!");
