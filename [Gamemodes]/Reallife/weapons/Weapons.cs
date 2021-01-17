@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
         private static void GivePistolAmmo(VnXPlayer player, int ammo)
         {
             int playerId = player.UID;
-            foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
+            foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
             {
                 if (item.UID == playerId)
                 {
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
+                foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
                 {
                     if (item.UID == playerId)
                     {
@@ -111,7 +111,7 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
                             if (Munition <= 0)
                             {
                                 Database.RemoveItem(Snowball.id);
-                               anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(Snowball);
+                               _Globals_.Inventory.Inventory.DatabaseItems.Remove(Snowball);
                                 player.RemovePlayerWeapon( oldWeapon);
                             }
                         }

@@ -69,8 +69,8 @@ alt.onServer('Inventory:Load', () => {
         }
     });
 
-    InventoryBrowser.on('Inventory:DropItem', (Hash, Amount, Id) => {
-        alt.emitServer('Inventory:DropItem', Hash, parseInt(Amount), Id);
+    InventoryBrowser.on('Inventory:DropItem', (Hash, Amount) => {
+        alt.emitServer('Inventory:DropItem', Hash, parseInt(Amount));
     });
 });
 
@@ -111,6 +111,11 @@ alt.onServer('Inventory:DropObj', (Id, Hash, Text) => {
     };
 });
 
+alt.onServer('Inventory:DeleteObj', Id => {
+    DeleteDroppedItem(Id);
+});
+
+
 function DeleteDroppedItem(Id) {
     if (!DroppedObjList[Id]) return;
     game.deleteEntity(DroppedObjList[Id]);
@@ -125,6 +130,7 @@ export function CheckDroppedObjects() {
         let Distance = game.getDistanceBetweenCoords(objCoords.x, objCoords.y, objCoords.z, playerCoords.x, playerCoords.y, playerCoords.z, true);
         if (Distance < 1.5) {
             alt.emitServer('Inventory:PickupItem', parseInt(DroppedObjList[counter].Id));
+            DeleteDroppedItem(DroppedObjList[counter].Id);
             return true;
         }
     }

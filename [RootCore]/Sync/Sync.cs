@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._RootCore_.Sync
@@ -37,6 +38,36 @@ namespace VenoXV._RootCore_.Sync
             catch { }
         }
 
+        private static void SyncNearbyDroppedItems(VnXPlayer player)
+        {
+            foreach (ItemModel items in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+            {
+                if (items.UID == -1 && items.Dropped <= DateTime.Now)
+                {
+                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(items);
+                    Database.Database.RemoveItem(items.Id);
+                    if (player.Sync.CurrentNearbyItems.Contains(items))
+                    {
+                        _Globals_.Inventory.Inventory.DeleteDroppedObject(player, items);
+                        player.Sync.CurrentNearbyItems.Remove(items);
+                    }
+                }
+                if (player.Position.Distance(items.Position) < RenderDistance)
+                {
+                    if (!player.Sync.CurrentNearbyItems.Contains(items))
+                    {
+                        _Globals_.Inventory.Inventory.CreateDroppedObject(player, items);
+                        player.Sync.CurrentNearbyItems.Add(items);
+                    }
+                }
+                else if (player.Sync.CurrentNearbyItems.Contains(items))
+                {
+                    _Globals_.Inventory.Inventory.DeleteDroppedObject(player, items);
+                    player.Sync.CurrentNearbyItems.Remove(items);
+                }
+            }
+        }
+
         private static void SyncNearbyPlayers(VnXPlayer player)
         {
             try
@@ -64,8 +95,11 @@ namespace VenoXV._RootCore_.Sync
                     {
                         if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
                         {
-                            if (!playerClass.Sync.CurrentObjs.Contains(obj)) playerClass.Sync.CurrentObjs.Add(obj);
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.ID, obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
+                            if (!playerClass.Sync.CurrentObjs.Contains(obj))
+                            {
+                                playerClass.Sync.CurrentObjs.Add(obj);
+                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadObjs", obj.ID, obj.Parent, obj.Hash, obj.Position, obj.Rotation, obj.HashNeeded);
+                            }
                         }
                     }
                     else if (playerClass.Sync.CurrentObjs.Contains(obj))
@@ -160,6 +194,7 @@ namespace VenoXV._RootCore_.Sync
                         SyncTextLabels(playerClass);
                         SyncMarker(playerClass);
                         SyncObjects(playerClass);
+                        SyncNearbyDroppedItems(playerClass);
                         if (NextEntityUpdateTick <= DateTime.Now)
                         {
                             SyncNearbyPlayers(playerClass);

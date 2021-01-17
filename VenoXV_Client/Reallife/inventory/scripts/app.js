@@ -253,7 +253,7 @@ function DropItem(Draggable, ItemHash, ItemAmount) {
     setTimeout(() => {
         UpdateInventoryWeight();
         if ('alt' in window)
-            alt.emit('Inventory:DropItem', TextHash, ItemAmount, DroppedItemId);
+            alt.emit('Inventory:DropItem', TextHash, ItemAmount);
     }, 250);
 }
 

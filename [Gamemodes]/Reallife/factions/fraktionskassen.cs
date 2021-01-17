@@ -237,7 +237,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(WEED.Id);
-                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(WEED);
+                                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(WEED);
                                 }
                             }
                         }
@@ -268,7 +268,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(KOKS.Id);
-                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
+                                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(KOKS);
                                 }
                             }
                         }
@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 {
                                     // Remove the item from the database
                                     Database.RemoveItem(MATS.Id);
-                                    anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(MATS);
+                                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(MATS);
                                 }
                             }
                         }
@@ -368,15 +368,15 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     //Dem Spieler die  Items geben die er verdient hat nahui
                     if (weed > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_WEED, ItemType.Drugs, weed, true);
+                        player.Inventory.GiveItem(Constants.ITEM_HASH_WEED, ItemType.Drugs, weed, true);
                     }
                     if (koks > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_KOKS, ItemType.Drugs, koks, true);
+                        player.Inventory.GiveItem(Constants.ITEM_HASH_KOKS, ItemType.Drugs, koks, true);
                     }
                     if (mats > 0)
                     {
-                        Main.GivePlayerItem(player, Constants.ITEM_HASH_MATS, ItemType.Drugs, mats, true);
+                        player.Inventory.GiveItem(Constants.ITEM_HASH_MATS, ItemType.Drugs, mats, true);
                     }
                 }
             }

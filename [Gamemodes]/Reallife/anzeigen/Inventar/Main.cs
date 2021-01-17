@@ -13,16 +13,15 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
 {
     public class Main : IScript
     {
-        public static List<ItemModel> CurrentOfflineItemList = new List<ItemModel>(); // Alle Items von Spieler die grade Offline sind.
         public static void LoadPlayerItems(VnXPlayer player)
         {
             try
             {
-                foreach (ItemModel items in CurrentOfflineItemList.ToList())
+                foreach (ItemModel items in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
                 {
                     if (items.UID == player.UID)
                     {
-                        player.Items.Add(items);
+                        player.Inventory.Items.Add(items);
                     }
                 }
                 List<ItemModel> inventory = GetPlayerInventory(player);
@@ -34,11 +33,11 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in CurrentOfflineItemList.ToList())
+                foreach (ItemModel items in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
                 {
                     if (items.UID == player.UID)
                     {
-                        player.Items.Add(items);
+                        player.Inventory.Items.Add(items);
                     }
                 }
             }
@@ -57,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                return player.Items;
+                return player.Inventory.Items;
             }
             catch { return new List<ItemModel>(); }
         }
@@ -70,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in player.Items)
+                foreach (ItemModel item in player.Inventory.Items)
                 {
                     if (item.UID == playerId)
                     {

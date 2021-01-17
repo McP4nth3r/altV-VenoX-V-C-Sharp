@@ -138,19 +138,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.Id);
-                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
+                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(KOKS);
                             }
                             if (WEED != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(WEED.Id);
-                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(WEED);
+                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(WEED);
                             }
                             if (MATS != null)
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(MATS.Id);
-                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(MATS);
+                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(MATS);
                             }
 
                             target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " hat dir deine Illegalen Gegenstaende abgenommen!");

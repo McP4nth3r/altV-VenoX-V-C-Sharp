@@ -437,14 +437,14 @@ namespace VenoXV._Admin_
                     int targetId = target.UID;
                     if (targetId > 0)
                     {
-                        foreach (ItemModel item in _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
+                        foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
                         {
                             if (item.UID == targetId)
                             {
-                                _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(item);
+                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(item);
                             }
                         }
-                        player.Items.Clear();
+                        player.Inventory.Items.Clear();
                         Database.RemoveAllItems(targetId);
                     }
                     player.SendChatMessage("Du hast das Inventar von " + target.Username + " geleert!");
@@ -469,7 +469,7 @@ namespace VenoXV._Admin_
             float weight = float.Parse(weightstring);
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
-                Main.GivePlayerItem(player, Hash, (ItemType)ItemArt, ItemAmount, true, Weight: weight);
+                player.Inventory.GiveItem(Hash, (ItemType)ItemArt, ItemAmount, true, Weight: weight);
             }
         }
 
@@ -902,11 +902,11 @@ namespace VenoXV._Admin_
             {
                 if (weapon == "mp5")
                 {
-                    Main.GivePlayerItem(player, Constants.ITEM_HASH_MP5, ItemType.Gun, 200, true);
+                    player.Inventory.GiveItem(Constants.ITEM_HASH_MP5, ItemType.Gun, 200, true);
                 }
                 else if (weapon == "m4")
                 {
-                    Main.GivePlayerItem(player, Constants.ITEM_HASH_KARABINER, ItemType.Gun, 200, true);
+                    player.Inventory.GiveItem(Constants.ITEM_HASH_KARABINER, ItemType.Gun, 200, true);
 
                 }
                 _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("admin", player.Username + " hat sich eine " + weapon + " mit 90 Schuss gegeben!");

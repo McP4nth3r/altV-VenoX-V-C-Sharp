@@ -52,7 +52,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                             {
                                 // Remove the item from the database
                                 Database.RemoveItem(KOKS.Id);
-                                anzeigen.Inventar.Main.CurrentOfflineItemList.Remove(KOKS);
+                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(KOKS);
                             }
                         }
                         else

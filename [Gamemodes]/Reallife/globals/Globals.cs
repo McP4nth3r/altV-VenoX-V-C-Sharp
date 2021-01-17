@@ -2,7 +2,6 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -283,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                foreach (ItemModel item in anzeigen.Inventar.Main.CurrentOfflineItemList.ToList())
+                foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
                     Database.UpdateItem(item);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -574,7 +573,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 ItemModel itemModel = null;
-                foreach (ItemModel item in player.Items)
+                foreach (ItemModel item in player.Inventory.Items)
                 {
                     if (item.UID == player.UID && item.Hash == hash)
                     {
@@ -859,154 +858,5 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
             catch { }
         }
-
-
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="player">Der Spieler der Definiert wird.</param>
-        /// <param name="ItemHash">Item - Hash in Constants.cs</param>
-        /// <param name="ItemArt">Waffe, Magazin,Fallschirm, Business, NUTZ_ITEM, Drogen</param>
-        /// <param name="ItemAmount">Item Anzahl! Sollte der Spieler das Item besitzen , so wird es Addiert!</param>
-        public static void GivePlayerItem(VnXPlayer player, string ItemHash, ItemType ItemArt, int ItemAmount, bool AddierenFallsVorhanden, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, float Weight = 0.1f)
-        {
-            try
-            {
-                int playerId = player.UID;
-                if (playerId > 0)
-                {
-                    ItemModel Item = Main.GetPlayerItemModelFromHash(player, ItemHash);
-                    {
-                        if (Item == null)
-                        {
-                            Item = new ItemModel
-                            {
-                                Amount = ItemAmount,
-                                Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION,
-                                Position = new Position(0.0f, 0.0f, 0.0f),
-                                Hash = ItemHash,
-                                UID = playerId,
-                                Type = ItemArt,
-                                Weight = Weight
-                            };
-                            player.Items.Add(Item);
-                            Item.Id = Database.AddNewItem(Item);
-                            anzeigen.Inventar.Main.CurrentOfflineItemList.Add(Item);
-                        }
-                        else
-                        {
-                            if (AddierenFallsVorhanden) Item.Amount += ItemAmount;
-                            else Item.Amount = ItemAmount;
-                        }
-                    }
-                    if (ItemArt == ItemType.Gun)
-                    {
-                        AltV.Net.Enums.WeaponModel weapon = AltV.Net.Enums.WeaponModel.Fist;
-                        switch (ItemHash)
-                        {
-                            case Constants.ITEM_HASH_SNOWBALL:
-                                weapon = AltV.Net.Enums.WeaponModel.Snowballs;
-                                break;
-                            case Constants.ITEM_HASH_HAMMER:
-                                weapon = AltV.Net.Enums.WeaponModel.Hammer;
-                                break;
-                            case Constants.ITEM_HASH_NIGHTSTICK:
-                                weapon = AltV.Net.Enums.WeaponModel.Nightstick;
-                                break;
-                            case Constants.ITEM_HASH_BASEBALL:
-                                weapon = AltV.Net.Enums.WeaponModel.BaseballBat;
-                                break;
-                            case Constants.ITEM_HASH_SWITCHBLADE:
-                                weapon = AltV.Net.Enums.WeaponModel.Switchblade;
-                                break;
-                            case Constants.ITEM_HASH_BROKENBOTTLE:
-                                weapon = AltV.Net.Enums.WeaponModel.BrokenBottle;
-                                break;
-                            case Constants.ITEM_HASH_TAZER:
-                                weapon = AltV.Net.Enums.WeaponModel.StunGun;
-                                break;
-                            case Constants.ITEM_HASH_VINTAGEPISTOL:
-                                weapon = AltV.Net.Enums.WeaponModel.VintagePistol;
-                                break;
-                            case Constants.ITEM_HASH_PISTOLE:
-                                weapon = AltV.Net.Enums.WeaponModel.Pistol;
-                                break;
-                            case Constants.ITEM_HASH_REVOLVER:
-                                weapon = AltV.Net.Enums.WeaponModel.HeavyRevolver;
-                                break;
-                            case Constants.ITEM_HASH_PISTOLE50:
-                                weapon = AltV.Net.Enums.WeaponModel.Pistol50;
-                                break;
-                            case Constants.ITEM_HASH_SHOTGUN:
-                                weapon = AltV.Net.Enums.WeaponModel.PumpShotgun;
-                                break;
-                            case Constants.ITEM_HASH_MINISMG:
-                                weapon = AltV.Net.Enums.WeaponModel.MiniSMG;
-                                break;
-                            case Constants.ITEM_HASH_MP5:
-                                weapon = AltV.Net.Enums.WeaponModel.SMG;
-                                break;
-                            case Constants.ITEM_HASH_PDW:
-                                weapon = AltV.Net.Enums.WeaponModel.CombatPDW;
-                                break;
-                            case Constants.ITEM_HASH_KARABINER:
-                                weapon = AltV.Net.Enums.WeaponModel.CarbineRifle;
-                                break;
-                            case Constants.ITEM_HASH_ADVANCEDRIFLE:
-                                weapon = AltV.Net.Enums.WeaponModel.AdvancedRifle;
-                                break;
-                            case Constants.ITEM_HASH_AK47:
-                                weapon = AltV.Net.Enums.WeaponModel.AssaultRifle;
-                                break;
-                            case Constants.ITEM_HASH_RIFLE:
-                                weapon = AltV.Net.Enums.WeaponModel.Musket;
-                                break;
-                            case Constants.ITEM_HASH_SNIPERRIFLE:
-                                weapon = AltV.Net.Enums.WeaponModel.SniperRifle;
-                                break;
-                        }
-
-                        if (weapon != AltV.Net.Enums.WeaponModel.Fist)
-                        {
-                            // Wir geben dem Spieler seine Waffe :P
-                            RageAPI.GivePlayerWeapon(player, weapon, ItemAmount);
-                        }
-                    }
-                    else if (ItemArt == ItemType.Useable)
-                    {
-                        ItemModel Vintage = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_MINISMG);
-                        ItemModel Pistol = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE);
-                        ItemModel Pistol50 = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_PISTOLE50);
-                        ItemModel Revolver = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_REVOLVER);
-                        if (Vintage != null)
-                        {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.VintagePistol, Item.Amount);
-                        }
-                        else if (Pistol != null)
-                        {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol, Item.Amount);
-                        }
-                        else if (Pistol50 != null)
-                        {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Pistol50, Item.Amount);
-                        }
-                        else if (Revolver != null)
-                        {
-                            player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.HeavyRevolver, Item.Amount);
-                        }
-                    }
-                }
-                List<ItemModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
-                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION GivePlayerItem] " + ex.Message);
-                Console.WriteLine("[EXCEPTION GivePlayerItem] " + ex.StackTrace);
-            }
-        }
-
     }
 }

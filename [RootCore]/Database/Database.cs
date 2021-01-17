@@ -58,10 +58,8 @@ namespace VenoXV._RootCore_.Database
                     // IVehicle loading
                     LoadAllVehicles();
 
-
                     // Item loading
-                    //Inventory.LoadDatabaseItems();
-                    _Gamemodes_.Reallife.anzeigen.Inventar.Main.CurrentOfflineItemList = LoadAllItems();
+                    _Globals_.Inventory.Inventory.DatabaseItems = LoadAllItems();
 
                     // Clothes loading
                     _Gamemodes_.Reallife.Globals.Main.clothesList = LoadAllClothes();
