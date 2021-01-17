@@ -36,8 +36,8 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 			alt.emitServer("LoginAccount", n, p);
 		});
 		loginbrowser.on('Register:First', (username, email, password, password_retype, GenderSelected) => {
-			alt.emitServer("Account:Register", username, email, password, password_retype, GenderSelected, true);
-			alt.log('Emitted to the Server : ' + username + " | " + email + " | " + password + " | " + password_retype + " | " + GenderSelected);
+			alt.emitServer("Account:Register", username, email, password, password_retype, parseInt(GenderSelected), true);
+			alt.log('Emitted to the Server : ' + username + " | " + email + " | " + password + " | " + password_retype + " | " + parseInt(GenderSelected));
 		});
 		game.setEntityHeading(localplayer.scriptID, 60);
 		game.freezeEntityPosition(localplayer.scriptID, true);

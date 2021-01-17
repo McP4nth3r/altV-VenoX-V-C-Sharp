@@ -8,7 +8,7 @@ import * as game from "natives";
 import {
     ShowCursor, vnxCreateCEF
 }
-    from '../Globals/VnX-Lib';
+from '../Globals/VnX-Lib';
 
 let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 
@@ -21,21 +21,13 @@ preloadbrowser.on('load_selected_gm', (v) => {
     ShowCursor(false);
 });
 
+preloadbrowser.on('Preload:FinishedPrivacyPolicy', () => {
+    alt.emitServer('Preload:FinishedPrivacyPolicy');
+})
+
 preloadbrowser.on('Preload:SelectLanguage', (Pair) => {
     alt.emitServer('Preload:SelectLanguage', Pair);
 })
-
-/*
-dxClass.vnxDrawWindow("TestWindow", "Irgend n Window zum Testen lel", "Willkommen Solid", 0.5, 0.5, 0.28, 0.25, true, test);
-
-dxClass.vnxDrawButton("Smart_Kaufen", "Irgend ein Test Button WTF", "Panto Mieten [180$]", -0.05, 0.09, 0.09, 0.04, "TestWindow", test);
-
-dxClass.vnxDrawButton("Roller_Kaufen", "Dies ist eine Info für dich ;)", "Roller Mieten [75$]", 0.05, 0.09, 0.09, 0.04, "TestWindow", test);
-
-dxClass.vnxDrawText("RollerText", "Roller Vermietungs Text lol", "Hello Alt:V,\nThis is a Test lmfao ^_^", 0, -0.03, [0.7, 0.55], 1, [255, 255, 255, 255], "TestWindow", test);*/
-
-//dxClass.vnxDrawWindow("FynnZeigt", "Info für FynnScheisst", "Fynnzeigts erstes Window", 0, 0, 0.3, 0.2, penis);
-
 
 alt.onServer('preload_gm_list', () => {
     try {
@@ -43,7 +35,7 @@ alt.onServer('preload_gm_list', () => {
         ShowCursor(true);
         preloadbrowser.focus();
 
-    } catch { }
+    } catch {}
 });
 
 
@@ -51,11 +43,18 @@ alt.onServer('LoadPreloadUserInfo', (AllPlayers, AllPlayersMax, ReallifePlayers,
     preloadbrowser.emit('Load:RefreshGamemodeStats', AllPlayers, AllPlayersMax, ReallifePlayers, ReallifePlayersMax, TacticPlayers, TacticPlayersMax, ZombiePlayers, ZombiePlayersMax, RacePlayers, RacePlayersMax, SevenTowersPlayers, SevenTowersPlayersMax);
 });
 
-alt.onServer('LoadingScreen:Show', MS => {
-    preloadbrowser.emit('LoadingScreen:Show', MS);
-    alt.setTimeout(() => {
-        alt.emitServer('Loading:OnClientFinished');
-    }, MS);
+alt.onServer('LoadingScreen:ShowPreload', (state) => {
+	if(state){
+		alt.setTimeout(() =>{
+			preloadbrowser.emit('LoadingScreen:ShowPreload', state);
+		}, 500);
+		return;
+	}
+    preloadbrowser.emit('LoadingScreen:ShowPreload', state);
+});
+
+alt.onServer('Preload:UpdateDownloadState', (EventText) => {
+    preloadbrowser.emit('LoadingScreen:UpdateCurrentState', EventText);
 });
 
 
@@ -89,5 +88,5 @@ alt.onServer("Charselector:setCorrectSkin", (facefeaturesarray, headblendsarray,
         for (let i = 0; i < 20; i++) {
             game.setPedFaceFeature(alt.Player.local.scriptID, i, facefeatures[i]);
         }
-    } catch { }
+    } catch {}
 });
