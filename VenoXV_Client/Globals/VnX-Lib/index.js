@@ -25,7 +25,7 @@ export function ShowCursor(bool) {
 }
 export function GetCursorStatus() {
     try {
-        if (cursor) {
+        if (cursor || alt.isConsoleOpen()) {
             return true;
         } else {
             return false;

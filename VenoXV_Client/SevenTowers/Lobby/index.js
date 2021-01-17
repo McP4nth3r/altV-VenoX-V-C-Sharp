@@ -120,13 +120,13 @@ function spectatePlayer(player) {
         20
     );
 
+    spectateTick = alt.everyTick(() => {
+        spectatorCamera.rotation = new alt.Vector3(0, 0, player.rot.z);
+    });
+
     spectatorCamera.pointAtEntity(player.scriptID, new alt.Vector3(0, 0, 0));
     spectatorCamera.attach(player.scriptID, new alt.Vector3(0, offset.y, offset.z), true);
     spectatorCamera.render();
-
-    spectateTick = alt.everyTick(() => {
-        if (spectatorCamera) spectatorCamera.rotation = new alt.Vector3(0, 0, player.rot.z);
-    });
 }
 
 alt.on('keyup', (key) => {

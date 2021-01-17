@@ -109,4 +109,24 @@ alt.onServer('Inventory:DropObj', (Id, Hash, Text) => {
         Text: Text,
         Obj: Obj
     };
-})
+});
+
+function DeleteDroppedItem(Id) {
+    if (!DroppedObjList[Id]) return;
+    game.deleteEntity(DroppedObjList[Id]);
+    delete DroppedObjList[Id];
+}
+
+export function CheckDroppedObjects() {
+    for (var counter in DroppedObjList) {
+        if (!DroppedObjList[counter] || !DroppedObjList[counter].Obj) continue;
+        let objCoords = game.getEntityCoords(DroppedObjList[counter].Obj);
+        let playerCoords = alt.Player.local.pos;
+        let Distance = game.getDistanceBetweenCoords(objCoords.x, objCoords.y, objCoords.z, playerCoords.x, playerCoords.y, playerCoords.z, true);
+        if (Distance < 1.5) {
+            alt.emitServer('Inventory:PickupItem', parseInt(DroppedObjList[counter].Id));
+            return true;
+        }
+    }
+    return false;
+}
