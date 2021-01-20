@@ -110,6 +110,14 @@
     background: rgba(0, 0, 0, 0.6);
 }
 
+.rec_column:hover {
+    background: rgba(0, 200, 255, 0.6);
+}
+
+.rec_columnhover:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
 .rec_column_header {
     position: absolute;
     width: 100%;

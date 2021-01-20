@@ -3,6 +3,7 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
+let ExecutedHoverFunc = false;
 
 function playAudio(v) {
     if (v == 1) {
@@ -30,6 +31,7 @@ function OnHover() {
     var recs = document.querySelectorAll('#rectangle');
     [].forEach.call(recs, function (currentrec) {
         $(currentrec).mouseover(function () {
+            if (ExecutedHoverFunc) return;
             $('.background').removeClass('blurout');
             $(currentrec).children('.rec_lobbyinfo_parent').removeClass('d-none');
             $('.background').addClass('blurin');
@@ -42,9 +44,11 @@ function OnHover() {
                 });
                 timer = false;
             }, 900);
+            ExecutedHoverFunc = true;
         });
 
         $(currentrec).mouseleave(function () {
+            if (!ExecutedHoverFunc) return;
             $('.background').removeClass('blurin');
             $('.background').addClass('blurout');
             $(currentrec).children('.rec_lobbyinfo_parent').addClass('d-none');
@@ -56,6 +60,7 @@ function OnHover() {
                 });
                 $('.background').removeClass('blurout');
             }, 900);
+            ExecutedHoverFunc = false;
         });
     });
 }
