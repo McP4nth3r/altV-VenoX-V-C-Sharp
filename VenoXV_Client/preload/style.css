@@ -8,14 +8,17 @@
     font-family: 'drugs';
     src: url('./files/font/Caviar-Dreams.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'robot';
     src: url('./files/font/Roboto-Thin.ttf') format('truetype');
 }
+
 @font-face {
     font-family: 'hangover';
     src: url('./files/font/hangover.ttf') format('truetype');
 }
+
 .all {
     -ms-user-select: None;
     -moz-user-select: None;
@@ -49,6 +52,7 @@
     z-index: 1;
     animation: Contentmove 2s linear;
 }
+
 .language-button {
     position: relative;
     width: 2vw;
@@ -73,6 +77,8 @@
     -webkit-text-stroke-width: 0.08vw;
     -webkit-text-stroke-color: black;
 }
+
+/*
 .rec_userinfo {
     position: absolute;
     top: 20%;
@@ -86,6 +92,70 @@
     justify-content: center;
     -webkit-text-stroke-width: 0.00vw;
     text-shadow: 2px 2px 2px black, 2px -2px 2px black, -2px 2px 2px black, -2px -2px 2px black;
+}*/
+
+.rec_lobbyinfo {
+    position: absolute;
+    top: 21%;
+    height: 79%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    overflow-y: auto !important;
+}
+
+.rec_column {
+    position: relative;
+    width: 100%;
+    height: 20%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.rec_column_header {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1vw;
+    font-family: arial;
+    border-bottom: 0.15vw solid rgb(0, 200, 255);
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.rec_column_lobby_image {
+    position: absolute;
+    left: 2%;
+    width: 10%;
+    height: 80%;
+    top: 10%;
+}
+
+.rec_column_lobby_name {
+    position: absolute;
+    color: white;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8vw;
+    font-family: arial;
+}
+
+.rec_column_lobby_count {
+    position: absolute;
+    color: white;
+    height: 100%;
+    width: 20%;
+    left: 80%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8vw;
+    font-family: arial;
 }
 
 /* Zombies */
@@ -257,48 +327,59 @@
         transform: translate(-50%, -500%);
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 @keyframes Contentmove_M {
     0% {
         transform: translate(-50%, 500%);
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 @keyframes AddBlur {
     0% {
         filter: blur(0px);
         -webkit-filter: blur(0px);
     }
+
     100% {
         filter: blur(8px);
         -webkit-filter: blur(8px);
     }
 }
+
 @keyframes RemoveBlur {
     0% {
         filter: blur(8px);
         -webkit-filter: blur(8px);
     }
+
     100% {
         filter: blur(0px);
         -webkit-filter: blur(0px);
     }
 }
+
 .blurin {
     animation: AddBlur 1s infinite;
 }
+
 .blurout {
     animation: RemoveBlur 1s infinite;
 }
+
 .d-none {
     display: none;
 }
+
 .growanim {
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -309,6 +390,7 @@
     -webkit-transition-timing-function: ease-in-out;
     -o-transition-timing-function: ease-in-out;
 }
+
 .growanim:hover,
 .growanim:focus,
 .growanim:active {
@@ -330,11 +412,13 @@
     -webkit-user-select: None;
     background: black;
 }
+
 .VnX-LoadingBar {
     font-size: 0.7vw !important;
     color: #03A1AB;
     text-align: left;
 }
+
 .VnX-LoadingBar-Asset {
     position: absolute;
     left: 80%;
@@ -342,6 +426,7 @@
     font-size: 0.7vw !important;
     transform: translateZ(0) scale(0.25);
 }
+
 .VnX-LoadingBar-Parent {
     position: absolute;
     left: 82%;
@@ -357,6 +442,7 @@
     border-top: solid 0.03vw rgb(0, 105, 145);
     z-index: 1;
 }
+
 .InformationText1-Header {
     position: absolute;
     left: 50%;
@@ -368,6 +454,7 @@
     font-family: arial;
     color: white;
 }
+
 .InformationText1 {
     position: absolute;
     left: 50%;
@@ -380,6 +467,7 @@
     font-family: arial;
     color: white;
 }
+
 .Logo-View {
     position: absolute;
     left: 50%;
@@ -388,6 +476,7 @@
     width: 35vw;
     height: 35vw;
 }
+
 .Loading-Background {
     position: absolute;
     width: 100%;
@@ -398,6 +487,7 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .Loading-Background-Char {
     position: absolute;
     left: 5vw;
@@ -407,23 +497,28 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
 .Anim_InAndOut {
     animation: InAndOut 5s;
     opacity: 0;
 }
+
 .Anim_In {
     animation: In 2s;
     opacity: 1;
 }
+
 .Anim_Out {
     animation: Out 2s;
     opacity: 0;
 }
+
 .Anim_LeftToRight {
     position: absolute;
     animation: LeftToRight 10s;
     left: 5vw;
 }
+
 .Anim_RightToLeft {
     position: absolute;
     animation: RightToLeft 10s;
@@ -436,25 +531,31 @@
     0% {
         opacity: 0;
     }
+
     50% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
 }
+
 @keyframes In {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
 }
+
 @keyframes Out {
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
@@ -470,6 +571,7 @@
     left: 0;
     top: 0;
 }
+
 .image {
     background-repeat: no-repeat;
     background-position: center;
@@ -481,49 +583,60 @@
     top: 0;
     animation: zoom 5s linear;
 }
+
 .character {
     position: absolute;
     bottom: 0;
     height: 60%;
 }
+
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 2s;
 }
+
 .fade-enter,
 .fade-leave-to {
     opacity: 0;
 }
+
 @keyframes zoom {
     0% {
         background-size: 120%;
     }
+
     100% {
         background-size: 100%;
     }
 }
+
 .anim-ltr {
     position: absolute;
     animation: LeftToRight 10s linear;
     left: 15vw;
 }
+
 .anim-rtl {
     position: absolute;
     animation: RightToLeft 10s linear;
     right: 15vw;
 }
+
 @keyframes LeftToRight {
     0% {
         left: 10vw;
     }
+
     100% {
         left: 20vw;
     }
 }
+
 @keyframes RightToLeft {
     0% {
         right: 10vw;
     }
+
     100% {
         right: 20vw;
     }

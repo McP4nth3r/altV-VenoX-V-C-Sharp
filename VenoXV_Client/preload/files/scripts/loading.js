@@ -1,67 +1,11 @@
 //----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-function playAudio(v) {
-    if (v == 1) {
-        document.getElementById('hoversoundtrack').currentTime = 0;
-        document.getElementById('hoversoundtrack').play();
-    } else {
-        document.getElementById('clicksoundtrack').currentTime = 0;
-        document.getElementById('clicksoundtrack').play();
-    }
-}
 
-
-function OnWindowLoad() {
-    playAudio();
-    OnHover();
-    let rnumber = Math.floor((Math.random() * 6));
-    $('.background').attr("src", "https://venox-reallife.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
-    //console.log('called src : ' + rnumber);
-    //console.log('called src : ' + $('.background').attr("src"));
-}
-
-
-let timer;
-
-function OnHover() {
-    var recs = document.querySelectorAll('#rectangle');
-    [].forEach.call(recs, function (currentrec) {
-        $(currentrec).mouseover(function () {
-            $('.background').removeClass('blurout');
-            $(currentrec).children().children().removeClass('d-none');
-            $('.background').addClass('blurin');
-            if (timer != null) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(function () {
-                $('.background').removeClass('blurin');
-                $('.background').css({
-                    filter: "blur(8px)"
-                });
-                timer = false;
-            }, 900);
-        });
-
-        $(currentrec).mouseleave(function () {
-            $('.background').removeClass('blurin');
-            $('.background').addClass('blurout');
-            $(currentrec).children().children().addClass('d-none');
-            if (timer != null) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(function () {
-                $('.background').css({
-                    filter: "blur(0px)"
-                });
-                $('.background').removeClass('blurout');
-            }, 900);
-        });
-    });
-}
+// Loading Screen : 
 
 let Songs = [
     "http://venox-reallife.com/preload/sounds/gta4-loading.mp3",
@@ -71,9 +15,6 @@ let Songs = [
     "http://venox-reallife.com/preload/sounds/In Da Hoopty.mp3",
     "http://venox-reallife.com/preload/sounds/Nuthin' But A _G_ Thang.mp3"
 ]
-
-
-// Loading Screen : 
 
 function PlayMusic(state) {
     if (state) {
@@ -154,13 +95,5 @@ if ('alt' in window) {
 
     alt.on('LoadingScreen:ShowPreload', (state) => {
         ShowPreload(state);
-    });
-
-    alt.on('Load:RefreshGamemodeStats', (AllPlayers, AllPlayersMax, ReallifePlayers, ReallifePlayersMax, TacticPlayers, TacticPlayersMax, ZombiePlayers, ZombiePlayersMax, RacePlayers, RacePlayersMax, SevenTowersPlayers, SevenTowersPlayersMax) => {
-        $('#rec_0_userinfo').text(ZombiePlayers + ' / ' + ZombiePlayersMax + ' Online');
-        $('#rec_1_userinfo').text(ReallifePlayers + ' / ' + ReallifePlayersMax + ' Online');
-        $('#rec_2_userinfo').text(TacticPlayers + ' / ' + TacticPlayersMax + ' Online');
-        $('#rec_3_userinfo').text(RacePlayers + ' / ' + RacePlayersMax + ' Online');
-        $('#rec_4_userinfo').text(SevenTowersPlayers + ' / ' + SevenTowersPlayersMax + ' Online');
     });
 }
