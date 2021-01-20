@@ -57,7 +57,7 @@ function OnStart() {
 
 	alt.setTimeout(() => {
 		alt.everyTick(() => {
-			DrawNametags();
+			DrawRoleplayNametags();
 		});
 	}, 5000);
 }
@@ -129,13 +129,14 @@ function DrawText(msg, player, posx, posy, posz, fontSize, fontType, ColorRGB, u
 
 let NametagsCache = {};
 
-function DrawNametags() {
+function DrawGlobalNametags() {
 	let players = alt.Player.all;
 	if (players.length > 0) {
 		let localPlayer = alt.Player.local;
 		for (let i = 0; i < players.length; i++) {
 			let player = players[i];
 			if (player.scriptID == 0) continue;
+			//if (player == localPlayer) continue;
 			if (!NametagsCache[player.scriptID]) {
 				NametagsCache[player.scriptID] = {
 					Username: player.getStreamSyncedMeta("PLAYER_NAME"),
@@ -150,7 +151,6 @@ function DrawNametags() {
 			}
 			let playerPos = localPlayer.pos;
 			let playerPos2 = player.pos;
-			if (player == localPlayer) continue;
 			if (!game.hasEntityClearLosToEntity(localPlayer.scriptID, player.scriptID, 17)) continue;
 			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
 			if (player.vehicle && localPlayer.vehicle) maxDistance_load = 60; else maxDistance_load = maxDistance;
@@ -180,6 +180,58 @@ function DrawNametags() {
 		}
 	}
 }
+function DrawRoleplayNametags() {
+	let players = alt.Player.all;
+	if (players.length > 0) {
+		let localPlayer = alt.Player.local;
+		for (let i = 0; i < players.length; i++) {
+			let player = players[i];
+			if (player.scriptID == 0) continue;
+			if (player == localPlayer) continue;
+			if (!NametagsCache[player.scriptID]) {
+				NametagsCache[player.scriptID] = {
+					Username: player.getStreamSyncedMeta("PLAYER_NAME"),
+					AdminRank: player.getStreamSyncedMeta("PLAYER_ADMIN_RANK"),
+					Faction: player.getStreamSyncedMeta("PLAYER_FACTION"),
+					ADuty: player.getStreamSyncedMeta("PLAYER_ADMIN_ON_DUTY"),
+					SocialState: player.getStreamSyncedMeta("PLAYER_SOCIALSTATE"),
+					Wanteds: player.getStreamSyncedMeta("PLAYER_WANTEDS"),
+					Health: player.getStreamSyncedMeta("PLAYER_HEALTH"),
+					Armor: player.getStreamSyncedMeta("PLAYER_ARMOR")
+				}
+			}
+			let playerPos = localPlayer.pos;
+			let playerPos2 = player.pos;
+			if (!game.hasEntityClearLosToEntity(localPlayer.scriptID, player.scriptID, 17)) continue;
+			let distance = game.getDistanceBetweenCoords(playerPos.x, playerPos.y, playerPos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
+			if (player.vehicle && localPlayer.vehicle) maxDistance_load = 60; else maxDistance_load = maxDistance;
+			if (distance <= maxDistance_load) {
+				if (NametagsCache[player.scriptID].AdminRank > 2)
+					name = "[VnX]" + NametagsCache[player.scriptID].Username;
+				else
+					name = NametagsCache[player.scriptID].Username;
+
+				if (isStateFaction(player) && isBadFaction(localPlayer) || isStateFaction(localPlayer) && isBadFaction(player)) {
+					r1 = 200; g1 = 0; b1 = 0;
+				}
+				else if (NametagsCache[player.scriptID].Faction == NametagsCache[localPlayer.scriptID].Faction && NametagsCache[player.scriptID].Faction > 0) {
+					r1 = 0; g1 = 200; b1 = 0;
+				}
+				else { r1 = 0; g1 = 105; b1 = 145; }
+				if (NametagsCache[player.scriptID].ADuty == 1) {
+					r = 0; g = 200; b = 255;
+				}
+				else {
+					let values = returnRGB(player);
+					r = values[0]; g = values[1]; b = values[2];
+				}
+				DrawText(NametagsCache[player.scriptID].Username, player, player.pos.x, player.pos.y, player.pos.z + 1.22, 0.45, 4, [225, 225, 225, 255], true, true, false, distance, maxDistance_load);
+			}
+		}
+	}
+}
+
+
 alt.on('streamSyncedMetaChange', (Entity, key, value, oldValue) => {
 	if (Entity.scriptID == 0) return;
 	if (!NametagsCache[Entity.scriptID]) {
