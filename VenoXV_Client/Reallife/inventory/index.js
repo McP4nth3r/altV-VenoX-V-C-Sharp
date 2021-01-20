@@ -118,8 +118,9 @@ alt.onServer('Inventory:DeleteObj', Id => {
 
 function DeleteDroppedItem(Id) {
     if (!DroppedObjList[Id]) return;
-    game.deleteEntity(DroppedObjList[Id]);
+    game.deleteObject(DroppedObjList[Id].Obj);
     delete DroppedObjList[Id];
+    alt.log('Called DeleteDroppedItem');
 }
 
 export function CheckDroppedObjects() {

@@ -69,23 +69,22 @@ namespace VenoXV._Globals_.Inventory
                         break;
                 }
 
-
                 if (item is null) return;
 
                 foreach (VnXPlayer nearby in player.NearbyPlayers.ToList())
-                    VenoX.TriggerClientEvent(nearby, "Inventory:DropObj", item.Id, Obj, item.Hash + "\nPress ~b~'E' ~w~ to pickup.");
+                    VenoX.TriggerClientEvent(nearby, "Inventory:DropObj", item.Id, Obj, item.Hash + "[" + item.Id + "]\nPress ~b~'E' ~w~ to pickup.");
 
-                VenoX.TriggerClientEvent(player, "Inventory:DropObj", item.Id, Obj, item.Hash + "\nPress ~b~'E' ~w~to pickup.");
+                VenoX.TriggerClientEvent(player, "Inventory:DropObj", item.Id, Obj, item.Hash + "[" + item.Id + "]\nPress ~b~'E' ~w~ to pickup.");
 
 
                 item.UID = -1;
                 item.Position = player.Position;
-                item.Dropped = DateTime.Now.AddMinutes(3);
+                item.Dropped = DateTime.Now.AddMinutes(30);
                 item.Update();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
-
         }
+
         public static void DeleteDroppedObject(VnXPlayer player, ItemModel item)
         {
             if (player is not null && player.Exists && item is not null)

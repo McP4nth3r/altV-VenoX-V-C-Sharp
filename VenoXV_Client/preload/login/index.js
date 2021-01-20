@@ -6,9 +6,21 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives"
-import { interpolateCamera, destroyCamera } from '../../Globals/VnX-Lib/camera';
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
-import { LoadChat } from '../../Globals/Chat';
+import {
+	interpolateCamera,
+	destroyCamera
+} from '../../Globals/VnX-Lib/camera';
+import {
+	ShowCursor,
+	vnxCreateCEF,
+	vnxDestroyCEF
+} from '../../Globals/VnX-Lib';
+import {
+	LoadChat
+} from '../../Globals/Chat';
+import {
+	CheckDroppedObjects
+} from '../../Reallife/inventory';
 
 let loginbrowser = null;
 let Login_Timer_Load = undefined;
@@ -63,9 +75,8 @@ export function BasicKeyBinds(key) {
 			}
 			break;
 		case 0x45:
-			//if (!GetCursorStatus()) {
+			if (CheckDroppedObjects()) return;
 			alt.emitServer("checkPlayerEventKey");
-			//}
 			break;
 	}
 }
@@ -85,8 +96,7 @@ alt.onServer('DestroyLoginWindow', () => {
 	}
 	if (alt.Discord.currentUser) {
 		alt.emitServer('Discord:Auth', true, alt.Discord.currentUser.id, alt.Discord.currentUser.name, alt.Discord.currentUser.avatar, alt.Discord.currentUser.discriminator);
-	}
-	else {
+	} else {
 		alt.emitServer('Discord:Auth', false, -1, "ERROR", "ERROR2", "ERROR");
 	}
 });

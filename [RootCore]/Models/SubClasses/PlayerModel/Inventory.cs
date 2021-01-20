@@ -23,7 +23,7 @@ namespace VenoXV._RootCore_.Models
             int playerId = Player.UID;
             if (playerId > 0)
             {
-                ItemModel Item = Items.FirstOrDefault(x => x.Hash == ItemHash);
+                ItemModel Item = Player.Inventory.Items.FirstOrDefault(x => x.Hash == ItemHash);
                 if (Item == null)
                 {
                     Item = new ItemModel

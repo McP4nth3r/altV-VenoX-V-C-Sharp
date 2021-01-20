@@ -52,7 +52,7 @@ namespace VenoXV._RootCore_.Sync
                         player.Sync.CurrentNearbyItems.Remove(items);
                     }
                 }
-                if (player.Position.Distance(items.Position) < RenderDistance)
+                if (player.Position.Distance(items.Position) < RenderDistance && items.UID == -1)
                 {
                     if (!player.Sync.CurrentNearbyItems.Contains(items))
                     {
