@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static Dictionary<VnXPlayer, BlipModel> CurrentActiveMedicBlips = new Dictionary<VnXPlayer, BlipModel>();
         public static async void OnPlayerDeath(VnXPlayer player)
         {
-            if (player.Dimension != VenoXV.Globals.Main.REALLIFE_DIMENSION) return;
+            if (player.Dimension != (VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language)) return;
             foreach (VnXPlayer Medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
             {
                 if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY)

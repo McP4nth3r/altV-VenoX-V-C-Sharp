@@ -82,13 +82,21 @@ namespace VenoXV._Preload_
         }
 
 
-        [ClientEvent("Load_selected_gm_server")]
-        public static void Load_selected_gm_server(VnXPlayer player, int value)
+        [ClientEvent("Preload:SelectGamemode")]
+        public static void Load_selected_gm_server(VnXPlayer player, int value, string countrycode)
         {
             try
             {
                 if (player == null) return;
                 player.Dimension = player.Id;
+                _Language_.Main.Languages language = (_Language_.Main.Languages)player.Language;
+                if (countrycode != "")
+                {
+                    language = _Language_.Main.GetLanguageByPair(countrycode);
+                    player.Language = (int)language;
+                    Core.Debug.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Welcome to VenoX!");
+                }
                 VenoX.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);

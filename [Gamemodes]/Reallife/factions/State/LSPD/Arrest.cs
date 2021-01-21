@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                             player.Freeze = false;
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                             player.Freeze = false;

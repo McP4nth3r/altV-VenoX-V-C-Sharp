@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, Position, Rotation);
-                veh.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                veh.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                 veh.Reallife.ActionVehicle = true;
                 veh.NotSave = true;
                 veh.Owner = ACTION_VEHICLE;

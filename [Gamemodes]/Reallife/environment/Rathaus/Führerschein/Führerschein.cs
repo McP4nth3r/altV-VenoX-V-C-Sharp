@@ -101,14 +101,14 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 if (player.Reallife.DrivingSchool.MarkerStage == Pruefungs_Marker.Count)
                 {
                     player.Reallife.DrivingSchool.MarkerStage = 0;
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
                     player.Reallife.Autofuehrerschein = 1;
                     player.Reallife.Money -= 10500;
                     player.vnxSetSharedElementData("PLAYER_DRIVINGSCHOOL", false);
                     RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                     //player.Vehicle.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                     //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
                     if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOSCHEIN))
                         Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOSCHEIN]);
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 else
                 {
                     player.Reallife.DrivingSchool.MarkerStage += 1;
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Checkpoint erreicht!");
                     int Abgegeben = player.Reallife.DrivingSchool.MarkerStage;
                     Position Destination = Pruefungs_Marker[Abgegeben];
                     Rathaus.CreateDrivingSchoolMarker(player, 611, Destination, 3, new int[] { 0, 200, 255, 255 });
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                     dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     VenoX.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");

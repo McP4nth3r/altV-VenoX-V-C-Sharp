@@ -98,7 +98,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     //player.Vehicle.Remove();
                     player.vnxSetStreamSharedElementData("PLAYER_DRIVINGSCHOOL", false);
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Herzlichen Glückwunsch, du hast die Fahrprüfung bestanden!");
                     return;
                 }

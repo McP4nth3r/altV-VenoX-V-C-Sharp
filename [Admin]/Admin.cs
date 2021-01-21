@@ -284,7 +284,7 @@ namespace VenoXV._Admin_
                     if (targetplayer != null)
                     {
                         //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                        targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                        targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + targetplayer.Language;
                         targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                         _Gamemodes_.Reallife.anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
                         targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, 0);
@@ -479,7 +479,7 @@ namespace VenoXV._Admin_
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 //AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                 player.SetPosition = new Position(posX, posY, posZ);
                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                 player.vnxSetElementData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
@@ -754,7 +754,7 @@ namespace VenoXV._Admin_
                 house.locked = true;
                 // Add a new house
                 house.id = Database.AddHouse(house);
-                RageAPI.CreateTextLabel(await House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, Globals.Main.REALLIFE_DIMENSION, null, true);
+                RageAPI.CreateTextLabel(await House.GetHouseLabelText(house), house.position, 35.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, player.Dimension, null, true);
                 House.houseList.Add(house);
 
                 sendAdminInformation(player.Username + " hat einen Hausmarker erstellt! " + RageAPI.GetHexColorcode(0, 200, 255) + " [" + RageAPI.GetHexColorcode(255, 255, 255) + +house.id + RageAPI.GetHexColorcode(0, 200, 255) + " ]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +preis + RageAPI.GetHexColorcode(0, 200, 255) + "  $]" + "[" + RageAPI.GetHexColorcode(255, 255, 255) + +interior + RageAPI.GetHexColorcode(0, 200, 255) + " ]");
@@ -944,7 +944,7 @@ namespace VenoXV._Admin_
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
                         player.SendChatMessage("[GW] Teleported to '" + area.Name + "'.");
                         player.SetPosition = area.TK;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
                     }
                 }
 

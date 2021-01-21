@@ -217,7 +217,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                         if (targetplayer != null)
                         {
                             //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                            targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                            targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + targetplayer.Language;
                             targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                             anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
                             targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, zeit);

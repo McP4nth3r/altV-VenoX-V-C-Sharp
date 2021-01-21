@@ -36,7 +36,7 @@ namespace VenoXV.Globals
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
         public const int RACE_DIMENSION = 0;
-        public const int REALLIFE_DIMENSION = 1;
+        public const int REALLIFE_DIMENSION = 10;
         public const int TACTICS_DIMENSION = 2;
         public const int SEVENTOWERS_DIMENSION = 4;
         public const int ZOMBIES_DIMENSION = 5;
