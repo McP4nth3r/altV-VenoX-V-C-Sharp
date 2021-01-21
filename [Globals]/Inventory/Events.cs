@@ -11,7 +11,6 @@ namespace VenoXV._Globals_.Inventory
 {
     public class Events : IScript
     {
-
         [AsyncClientEvent("Inventory:PickupItem")]
         public static void PickUpItem(VnXPlayer player, int Id)
         {

@@ -11,7 +11,7 @@ namespace VenoXV._RootCore_.Sync
     {
         //Settings
         public static int UpdateInterval = 10000; // Sync Update in MS.
-        public static int EntityUpdateInterval = 5; // Sync Update in Seconds.
+        public static int EntityUpdateInterval = 10; // Sync Update in Seconds.
         public static int RenderDistance = 1500; // Distance to a Obj to Create.
         public static int EntityDistance = 300; // Distance to a Obj to Create.
 
@@ -195,11 +195,13 @@ namespace VenoXV._RootCore_.Sync
                         SyncMarker(playerClass);
                         SyncObjects(playerClass);
                         SyncNearbyDroppedItems(playerClass);
-                        if (NextEntityUpdateTick <= DateTime.Now)
+                        SyncNearbyPlayers(playerClass);
+
+                        /*if (NextEntityUpdateTick <= DateTime.Now)
                         {
                             SyncNearbyPlayers(playerClass);
-                            NextEntityUpdateTick = DateTime.Now.AddMinutes(EntityUpdateInterval);
-                        }
+                            NextEntityUpdateTick = DateTime.Now.AddSeconds(EntityUpdateInterval);
+                        }*/
                     }
                     NextSyncTick = DateTime.Now.AddMilliseconds(UpdateInterval);
                 }

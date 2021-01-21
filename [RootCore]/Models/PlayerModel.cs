@@ -32,7 +32,7 @@ namespace VenoXV._RootCore_.Models
         public Usefull Usefull { get; }
         // Settings - Classes
         public Settings Settings { get; }
-        public Position SetPosition { set { Alt.Emit("GlobalSystems:PlayerPosition", this, value); } }
+        public Position SetPosition { set => Alt.Emit("GlobalSystems:PlayerPosition", this, value); }
         private int _Sex { get; set; }
         public int Sex { get { return _Sex; } set { _Sex = value; } }
         private int _Gamemode { get; set; }
@@ -97,7 +97,7 @@ namespace VenoXV._RootCore_.Models
                 AdminRank = 0;
                 Dead = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
@@ -108,7 +108,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new VnXPlayer(playerPointer, id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }
     }
 }
