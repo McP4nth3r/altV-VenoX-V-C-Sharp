@@ -1,5 +1,4 @@
-﻿using AltV.Net;
-using Discord;
+﻿using Discord;
 using Discord.Webhook;
 using System;
 
@@ -46,15 +45,6 @@ namespace VenoXV._Discord_.Modules
         public static void SendUpdateLog(string Title, string Subtitle, Color color, string optionalText)
         {
             SendNotify(UpdateLog, Title, Subtitle, color, optionalText);
-        }
-
-        [ScriptEvent(ScriptEventType.ConsoleCommand)]
-        public static void OnConsoleCommand(string name, params object[] args)
-        {
-            if (name == "update")
-            {
-                SendUpdateLog((string)args[0], (string)args[1], Color.Blue, (string)args[2]);
-            }
         }
     }
 }
