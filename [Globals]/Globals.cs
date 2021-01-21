@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VenoXV._Preload_;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
@@ -135,68 +136,76 @@ namespace VenoXV.Globals
 
 
         [AsyncScriptEvent(ScriptEventType.ColShape)]
-        public static void OnColShape(ColShapeModel shape = null, IEntity entity = null, bool state = false)
+        public static async Task OnColShape(ColShapeModel shape = null, IEntity entity = null, bool state = false)
         {
             try
             {
-                if (entity is not VnXPlayer player || shape is null || !shape.Exists) return;
-                if (state)
+                await AltAsync.Do(() =>
                 {
-                    switch (player.Gamemode)
+                    if (entity is not VnXPlayer player || shape is null || !shape.Exists) return;
+                    if (state)
                     {
-                        case (int)Preload.Gamemodes.Reallife:
-                            _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
-                            return;
-                        case (int)Preload.Gamemodes.SevenTowers:
-                            SevenTowers.globals.Main.OnColShapeHit(shape, player);
-                            return;
-                        case (int)Preload.Gamemodes.Race:
-                            _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
-                            return;
+                        Core.Debug.OutputDebugString("0 -------------------------- 0");
+                        switch (player.Gamemode)
+                        {
+                            case (int)Preload.Gamemodes.Reallife:
+                                _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
+                                return;
+                            case (int)Preload.Gamemodes.SevenTowers:
+                                SevenTowers.globals.Main.OnColShapeHit(shape, player);
+                                return;
+                            case (int)Preload.Gamemodes.Race:
+                                _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
+                                return;
+                        }
+                        Core.Debug.OutputDebugString("1 -------------------------- 1");
                     }
-                }
-                else _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
+                    else _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
+                });
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        [ScriptEvent(ScriptEventType.PlayerDead)]
-        public static void OnPlayerDeath(VnXPlayer player, IEntity entity, uint reason)
+        [AsyncScriptEvent(ScriptEventType.PlayerDead)]
+        public static async Task OnPlayerDeath(VnXPlayer player, IEntity entity, uint reason)
         {
             try
             {
-                player.DespawnPlayer();
-                VnXPlayer killer = null;
-                if (entity is VnXPlayer entity_k) killer = entity_k;
-                switch (player.Gamemode)
+                await AltAsync.Do(() =>
                 {
-                    case (int)Preload.Gamemodes.Tactics:
-                        if (killer is null)
-                        {
-                            VnXPlayer NewKiller = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged");
-                            if (NewKiller is null) killer = player;
-                            else killer = NewKiller;
-                        }
-                        _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
-                        return;
-                    case (int)Preload.Gamemodes.Reallife:
-                        if (killer == null || Functions.IstargetInSameLobby(player, killer))
-                        {
-                            _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
-                            _Gamemodes_.Reallife.gangwar.Allround.OnPlayerDeath(player, killer, reason);
-                        }
-                        return;
-                    case (int)Preload.Gamemodes.SevenTowers:
-                        _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
-                        return;
-                    case (int)Preload.Gamemodes.Zombies:
-                        _Gamemodes_.Zombie.World.Main.OnPlayerDeath(player);
-                        return;
-                    default:
-                        Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
-                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
-                        return;
-                }
+                    player.DespawnPlayer();
+                    VnXPlayer killer = null;
+                    if (entity is VnXPlayer entity_k) killer = entity_k;
+                    switch (player.Gamemode)
+                    {
+                        case (int)Preload.Gamemodes.Tactics:
+                            if (killer is null)
+                            {
+                                VnXPlayer NewKiller = player.vnxGetElementData<VnXPlayer>("VenoX:LastDamaged");
+                                if (NewKiller is null) killer = player;
+                                else killer = NewKiller;
+                            }
+                            _Gamemodes_.Tactics.environment.Death.OnPlayerDeath(player, killer);
+                            return;
+                        case (int)Preload.Gamemodes.Reallife:
+                            if (killer == null || Functions.IstargetInSameLobby(player, killer))
+                            {
+                                _Gamemodes_.Reallife.Environment.Death.OnPlayerDeath(player, killer, reason);
+                                _Gamemodes_.Reallife.gangwar.Allround.OnPlayerDeath(player, killer, reason);
+                            }
+                            return;
+                        case (int)Preload.Gamemodes.SevenTowers:
+                            _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
+                            return;
+                        case (int)Preload.Gamemodes.Zombies:
+                            _Gamemodes_.Zombie.World.Main.OnPlayerDeath(player);
+                            return;
+                        default:
+                            Debug.OutputDebugString("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                            RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN GAMEMODE " + player.Gamemode);
+                            return;
+                    }
+                });
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
