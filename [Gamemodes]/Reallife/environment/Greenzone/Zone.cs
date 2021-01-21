@@ -25,13 +25,9 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             if (shape != LSPD_Col) return false;
             AltAsync.Do(async () =>
             {
-                //string text1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Du hast eine NO-DM Zone betreten!");
-                //string text2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Jegliches Deathmatch ist verboten!");
-                //string text3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Ausnahme : Staatsfraktionen.");               
-
-                string text1 = "";
-                string text2 = "";
-                string text3 = "";
+                string text1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Du hast eine NO-DM Zone betreten!");
+                string text2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Jegliches Deathmatch ist verboten!");
+                string text3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Ausnahme : Staatsfraktionen.");
                 string textcomplete = text1 + "\n" + text2 + "\n" + text3;
                 VenoX.TriggerClientEvent(player, "Greenzone:ChangeStatus", true, textcomplete);
                 if (player.Settings.ShowQuests == 1)

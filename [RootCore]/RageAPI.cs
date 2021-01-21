@@ -275,7 +275,7 @@ namespace VenoXV.Core
         {
             try
             {
-                Debug.OutputDebugString("Clothes : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
+                //Debug.OutputDebugString("Clothes : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
                 Alt.Emit("GlobalSystems:SetClothes", element, clothesslot, clothesdrawable, clothestexture);
                 //VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
@@ -285,7 +285,7 @@ namespace VenoXV.Core
         {
             try
             {
-                Debug.OutputDebugString("Prop : " + propID + " | " + drawableID + " | " + textureID);
+                //Debug.OutputDebugString("Prop : " + propID + " | " + drawableID + " | " + textureID);
                 Alt.Emit("GlobalSystems:SetProps", element, propID, drawableID, textureID);
                 //VenoX.TriggerClientEvent(element, "Prop:Load", propID, drawableID, textureID);
             }

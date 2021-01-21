@@ -145,7 +145,6 @@ namespace VenoXV.Globals
                     if (entity is not VnXPlayer player || shape is null || !shape.Exists) return;
                     if (state)
                     {
-                        Core.Debug.OutputDebugString("0 -------------------------- 0");
                         switch (player.Gamemode)
                         {
                             case (int)Preload.Gamemodes.Reallife:
@@ -158,7 +157,6 @@ namespace VenoXV.Globals
                                 _Gamemodes_.Race.Lobby.Main.OnColshapeHit(shape, player);
                                 return;
                         }
-                        Core.Debug.OutputDebugString("1 -------------------------- 1");
                     }
                     else _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
                 });

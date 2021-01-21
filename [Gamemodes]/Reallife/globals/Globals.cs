@@ -110,45 +110,25 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                Core.Debug.OutputDebugString("0");
                 if (Allround.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("1");
                 if (factions.State.Allround.OnStateColShapeHit(shape, player)) return;
-                Core.Debug.OutputDebugString("2");
                 if (CarShop.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("3");
                 if (Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("4");
                 if (Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("5");
                 if (Rathaus.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("6");
                 if (Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("7");
                 if (events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("8");
                 if (Rathaus.OnColShapeHit(shape, player)) return;
-                Core.Debug.OutputDebugString("9");
                 if (Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("10");
                 if (Emergency.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("11");
                 if (Fraktionskassen.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("12");
                 if (Fun.Allround.OnClientEnterColShape(shape, player)) return;
-                Core.Debug.OutputDebugString("13");
                 if (gangwar.Allround.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("14");
                 if (jobs.Allround.OnColShapeHit(shape, player)) return;
-                Core.Debug.OutputDebugString("15");
                 if (Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("16");
                 if (Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("17");
                 if (Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("18");
                 if (Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player)) return;
-                Core.Debug.OutputDebugString("19");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -161,7 +141,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass) && vehClass.MarkedForDelete)
                     {
-                        Debug.OutputDebugString("DeleteVehicleThreadSafe : " + i++);
+                        //Debug.OutputDebugString("DeleteVehicleThreadSafe : " + i++);
                         VenoXV.Globals.Main.AllVehicles.Remove(vehClass);
                         vehClass.Remove();
                     }
@@ -178,7 +158,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 {
                     if (Sync.ColShapeList.Contains(colShape) && colShape.MarkedForDelete)
                     {
-                        Debug.OutputDebugString("DeleteColShapesThreadSafe : " + i++);
+                        //Debug.OutputDebugString("DeleteColShapesThreadSafe : " + i++);
                         Sync.ColShapeList.Remove(colShape);
                         Alt.RemoveColShape(colShape);
                     }
