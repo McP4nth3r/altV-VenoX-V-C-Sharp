@@ -163,7 +163,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
@@ -173,18 +173,19 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     if (area.AreaColShapeModel == shape)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast ein Ganggebiet betreten!");
-                        return;
+                        return true;
                     }
 
                     // You entered the TK of an area
                     if (area.TKColShapeModel == shape)
                     {
                         area.Inform(player);
-                        return;
+                        return true;
                     }
                 }
+                return false;
             }
-            catch { }
+            catch { return false; }
         }
 
         public static void OnUpdate()

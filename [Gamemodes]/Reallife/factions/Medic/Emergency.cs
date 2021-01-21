@@ -47,10 +47,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
+                return false;
                 /*if (player.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
                     if (player.IsInVehicle)
@@ -81,9 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     }
                 }*/
             }
-            catch
-            {
-            }
+            catch { return false; }
         }
 
 

@@ -110,25 +110,45 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                Allround.OnPlayerEnterColShapeModel(shape, player);
-                factions.State.Allround.OnStateColShapeHit(shape, player);
-                CarShop.OnPlayerEnterColShapeModel(shape, player);
-                Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player);
-                Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player);
-                Rathaus.OnPlayerEnterColShapeModel(shape, player);
-                Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player);
-                events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player);
-                Rathaus.OnColShapeHit(shape, player);
-                Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player);
-                Emergency.OnPlayerEnterColShapeModel(shape, player);
-                Fraktionskassen.OnPlayerEnterColShapeModel(shape, player);
-                Fun.Allround.OnClientEnterColShape(shape, player);
-                gangwar.Allround.OnPlayerEnterColShapeModel(shape, player);
-                jobs.Allround.OnColShapeHit(shape, player);
-                Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player);
-                Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player);
+                Core.Debug.OutputDebugString("0");
+                if (Allround.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("1");
+                if (factions.State.Allround.OnStateColShapeHit(shape, player)) return;
+                Core.Debug.OutputDebugString("2");
+                if (CarShop.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("3");
+                if (Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("4");
+                if (Environment.ammunation.Ammunation.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("5");
+                if (Rathaus.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("6");
+                if (Environment.Gzone.Zone.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("7");
+                if (events.Christmas.Weihnachtsmarkt.Weihnachtsmarkt.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("8");
+                if (Rathaus.OnColShapeHit(shape, player)) return;
+                Core.Debug.OutputDebugString("9");
+                if (Factions.LSPD.Arrest.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("10");
+                if (Emergency.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("11");
+                if (Fraktionskassen.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("12");
+                if (Fun.Allround.OnClientEnterColShape(shape, player)) return;
+                Core.Debug.OutputDebugString("13");
+                if (gangwar.Allround.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("14");
+                if (jobs.Allround.OnColShapeHit(shape, player)) return;
+                Core.Debug.OutputDebugString("15");
+                if (Vehicles.Verleih.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("16");
+                if (Vehicles.PaynSpray.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("17");
+                if (Vehicles.Tuning.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("18");
+                if (Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player)) return;
+                Core.Debug.OutputDebugString("19");
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

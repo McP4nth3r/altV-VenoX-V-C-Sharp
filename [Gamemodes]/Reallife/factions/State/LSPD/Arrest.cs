@@ -256,16 +256,15 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         }
 
         public static ColShapeModel stellenColShapeModel = RageAPI.CreateColShapeSphere(new Position(441.0676f, -981.1415f, 30.68959f), 1);
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == stellenColShapeModel)
-                {
-                    VenoX.TriggerClientEvent(player, "showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
-                }
+                if (shape != stellenColShapeModel) return false;
+                VenoX.TriggerClientEvent(player, "showStellenWindow", "Wilkommen im Los Santos Police Department,<br> hier kannst du dich stellen falls du <br>gesucht wirst. <br>Dadurch erhältst du eine geringere Strafe.");
+                return true;
             }
-            catch { }
+            catch { return false; }
         }
 
 

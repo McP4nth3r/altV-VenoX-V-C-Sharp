@@ -154,45 +154,40 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
+                if (shape.Faction == Constants.FACTION_NONE || shape.Faction != player.Reallife.Faction) return false;
                 if (shape.Faction > Constants.FACTION_NONE && shape.Faction == player.Reallife.Faction)
                 {
-                    if (player.Reallife.Faction == 0)
+                    if (shape.GangSkinCol == true)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht befugt!");
+                        VenoX.TriggerClientEvent(player, "show_duty_window_bad", player.Username);
+                        return true;
                     }
-                    else
+                    else if (shape.NeutralSkinCol == true)
                     {
-                        if (shape.GangSkinCol == true)
-                        {
-                            VenoX.TriggerClientEvent(player, "show_duty_window_bad", player.Username);
-                            return;
-                        }
-                        else if (shape.NeutralSkinCol == true)
-                        {
-                            VenoX.TriggerClientEvent(player, "show_duty_window_bad", player.Username, true);
-                            return;
-                        }
-                        Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
-                        string completeword = string.Empty;
-                        if (player.Reallife.Faction == 1)
-                        {
-                            completeword = "Das Fraktions Lager des ";
-                        }
-                        else if (player.Reallife.Faction == 2)
-                        {
-                            completeword = "Das Fraktions Lager der ";
-                        }
-                        VenoX.TriggerClientEvent(player, "showFactionStuff", completeword + Faction.GetFactionNameById(player.Reallife.Faction), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
+                        VenoX.TriggerClientEvent(player, "show_duty_window_bad", player.Username, true);
+                        return true;
                     }
+                    Fraktions_Kassen fkasse = Database.GetFactionStats(player.Reallife.Faction);
+                    string completeword = string.Empty;
+                    if (player.Reallife.Faction == 1)
+                    {
+                        completeword = "Das Fraktions Lager des ";
+                    }
+                    else if (player.Reallife.Faction == 2)
+                    {
+                        completeword = "Das Fraktions Lager der ";
+                    }
+                    VenoX.TriggerClientEvent(player, "showFactionStuff", completeword + Faction.GetFactionNameById(player.Reallife.Faction), fkasse.koks, fkasse.mats, fkasse.money, fkasse.weed);
+
+                    return true;
                 }
+                return false;
             }
-            catch
-            {
-            }
+            catch { return false; }
         }
 
 

@@ -37,27 +37,27 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             Core.RageAPI.CreateBlip("Pay'n'Spray", new Vector3(-1155.225f, -2005.886f, 13.1803f), 72, 0, true);
         }
 
-        public static void OnPlayerEnterColShapeModel(IColShape forpaynspray, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(IColShape forpaynspray, VnXPlayer player)
         {
             try
             {
-                if (PaynSprayList.Contains((ColShapeModel)forpaynspray))
+                if (!PaynSprayList.Contains((ColShapeModel)forpaynspray)) return false;
+
+                if (!player.IsInVehicle) return true;
+                if (player.Vehicle.Driver != player) return true;
+                VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                if (vehicle.NPC) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du kannst kein NPC-Fahrzeug Reparieren!"); return true; }
+                int playerMoney = player.Reallife.Money;
+                if (playerMoney >= 180)
                 {
-                    if (!player.IsInVehicle) return;
-                    if (player.Vehicle.Driver != player) return;
-                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    if (vehicle.NPC) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du kannst kein NPC-Fahrzeug Reparieren!"); return; }
-                    int playerMoney = player.Reallife.Money;
-                    if (playerMoney >= 180)
-                    {
-                        player.Reallife.Money -= 180;
-                        vehicle.Repair();
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Fahrzeug Repariert! [180 $]");
-                    }
-                    else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    player.Reallife.Money -= 180;
+                    vehicle.Repair();
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Fahrzeug Repariert! [180 $]");
                 }
+                else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                return true;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
     }
 }

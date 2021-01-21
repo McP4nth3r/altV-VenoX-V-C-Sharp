@@ -163,31 +163,29 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         */
 
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape.vnxGetElementData<bool>("TANKSTELLEN_COL") == true)
+                if (shape.vnxGetElementData<bool>("TANKSTELLEN_COL") != true) return false;
+
+                int kostenWindow = 0;
+                if (player.IsInVehicle)
                 {
-                    int kostenWindow = 0;
-                    if (player.IsInVehicle)
-                    {
-                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                        if (vehicle.NPC) { return; }
-                        float Gas = vehicle.Gas;
-                        float kostenberechnung = 100f - Gas;
-                        kostenWindow = (int)kostenberechnung * 15;
-                        vehicle.Frozen = true;
-                        /*RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + Gas);
-                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenberechnung);
-                        RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenWindow);*/
-                    }
-                    VenoX.TriggerClientEvent(player, "createGasWindow", kostenWindow);
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    if (vehicle.NPC) { return true; }
+                    float Gas = vehicle.Gas;
+                    float kostenberechnung = 100f - Gas;
+                    kostenWindow = (int)kostenberechnung * 15;
+                    vehicle.Frozen = true;
+                    /*RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + Gas);
+                    RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenberechnung);
+                    RageAPI.SendTranslatedChatMessageToAll("[VnX - Debug Module 1.0]" +player.Username + " hat :" + kostenWindow);*/
                 }
+                VenoX.TriggerClientEvent(player, "createGasWindow", kostenWindow);
+                return true;
             }
-            catch
-            {
-            }
+            catch { return false; }
         }
 
 

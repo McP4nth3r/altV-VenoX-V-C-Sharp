@@ -225,10 +225,12 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        public static void OnColShapeHit(IColShape col, VnXPlayer player)
+        public static bool OnColShapeHit(IColShape col, VnXPlayer player)
         {
             try
             {
+                if (!CurrentJobColShapes.Contains(col) || player.vnxGetElementData<IColShape>(JOB_COL_ENTITY) != col) return false;
+
                 if (CurrentJobColShapes.Contains(col) && player.vnxGetElementData<IColShape>(JOB_COL_ENTITY) == col)
                 {
                     switch (player.Reallife.Job)
@@ -243,10 +245,11 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
                             break;
                     }
+                    return true;
                 }
-                else { OnPlayerEnterJobStartShape(col, player); }
+                else { OnPlayerEnterJobStartShape(col, player); return true; }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
         public static void OnPlayerDisconnect(VnXPlayer player)
         {

@@ -194,19 +194,19 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == NoobspawnVerleihColShapeModel || shape == LSPDVerleihCol)
-                {
-                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_VENOXRENTALS);
-                    if (Quests.QuestDict.ContainsKey(Quests.QUEST_VENOXRENTALS))
-                        Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_VENOXRENTALS]);
-                    dxLibary.VnX.DrawWindowSelection(player, "VenoX Rentals", "Wilkommen bei VenoX Rentals, <br>hier kannst du dir ein Fahrzeug ausleihen <br>gegen eine geringe Gebühr.", "Roller<br>[75$]", "Smart<br>[119$]");
-                }
+                if (shape != NoobspawnVerleihColShapeModel || shape != LSPDVerleihCol) return false;
+
+                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_VENOXRENTALS);
+                if (Quests.QuestDict.ContainsKey(Quests.QUEST_VENOXRENTALS))
+                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_VENOXRENTALS]);
+                dxLibary.VnX.DrawWindowSelection(player, "VenoX Rentals", "Wilkommen bei VenoX Rentals, <br>hier kannst du dir ein Fahrzeug ausleihen <br>gegen eine geringe Gebühr.", "Roller<br>[75$]", "Smart<br>[119$]");
+                return true;
             }
-            catch { }
+            catch { return false; }
         }
     }
 }

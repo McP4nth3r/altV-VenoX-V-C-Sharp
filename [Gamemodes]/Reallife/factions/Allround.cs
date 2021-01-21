@@ -191,7 +191,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             catch (Exception) { }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
@@ -202,10 +202,16 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
                         VenoX.TriggerClientEvent(player, "fguns:Open", true);
                         UpdateFgunsWindow(player);
+                        return true;
                     }
                 }
+                return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
+                return false;
+            }
         }
 
         public static bool isBadFaction(VnXPlayer player)

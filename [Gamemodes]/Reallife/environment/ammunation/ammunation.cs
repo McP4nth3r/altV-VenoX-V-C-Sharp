@@ -393,21 +393,22 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 
 
         public static ColShapeModel AmmunationCOL = RageAPI.CreateColShapeSphere(new Position(20.84089f, -1106.488f, 29.79704f), 2);
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == AmmunationCOL)
+                if (shape != AmmunationCOL) return false;
+
+                if (player.Reallife.Waffenschein != 1)
                 {
-                    if (player.Reallife.Waffenschein != 1)
-                    {
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
-                        return;
-                    }
-                    VenoX.TriggerClientEvent(player, "Ammunation:Show");
+                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast keinen Waffenschein!");
+                    return true;
                 }
+                VenoX.TriggerClientEvent(player, "Ammunation:Show");
+                return true;
+
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
     }
 }

@@ -24,8 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                         player.Inventory.Items.Add(items);
                     }
                 }
-                List<ItemModel> inventory = GetPlayerInventory(player);
-                VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
+                player.Inventory.Update();
             }
             catch { }
         }

@@ -3,7 +3,6 @@ using AltV.Net.Data;
 using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -15,20 +14,22 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
         //Marker Adventskalender_Marker = //ToDo Create Marker NAPI.Marker.CreateMarker(0, Adventskalender_Col.position, new Position(0, 0, 0), new Position(0, 0, 0), 2, new Rgba(0, 150, 200), true, 0);
         public static ColShapeModel Markt_Col = RageAPI.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
+                if (shape != Markt_Col || shape != Adventskalender_Col) return false;
                 if (shape == Markt_Col)
                 {
-                    VenoX.TriggerClientEvent(player, "CreateChristmasMarketWindow");
+                    //VenoX.TriggerClientEvent(player, "CreateChristmasMarketWindow");
                 }
                 else if (shape == Adventskalender_Col)
                 {
-                    VenoX.TriggerClientEvent(player, "CreateAdventskalenderWindow");
+                    //VenoX.TriggerClientEvent(player, "CreateAdventskalenderWindow");
                 }
+                return true;
             }
-            catch { }
+            catch { return false; }
         }
 
 

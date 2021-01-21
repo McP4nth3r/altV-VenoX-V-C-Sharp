@@ -18,30 +18,29 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         }
 
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == ClothesShape)
+                if (shape != ClothesShape) return false;
+
+                if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
                 {
-                    if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
-                        return;
-                    }
-                    Random random = new Random();
-                    int dim = random.Next(1, 9999);
-                    //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
-                    player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
-                    dxLibary.VnX.SetElementFrozen(player, true);
-                    player.Rotation = new Rotation(0f, 0f, 160f);
-                    player.vnxSetStreamSharedElementData("HideHUD", 1);
-                    player.Dimension = dim;
-                    VenoX.TriggerClientEvent(player, "showClothesMenu", "Klamottenshop ", 1);
-                    dxLibary.VnX.CreateDiscordUpdate(player, "Kauft grad neue Klamotten", "VenoX - Reallife");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
+                    return true;
                 }
+                Random random = new Random();
+                int dim = random.Next(1, 9999);
+                //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
+                player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
+                dxLibary.VnX.SetElementFrozen(player, true);
+                player.Rotation = new Rotation(0f, 0f, 160f);
+                player.vnxSetStreamSharedElementData("HideHUD", 1);
+                player.Dimension = dim;
+                VenoX.TriggerClientEvent(player, "showClothesMenu", "Klamottenshop ", 1);
+                return true;
             }
-            catch { }
+            catch { return false; }
         }
 
         //[AltV.Net.ClientEvent("CloseClotheShop")]

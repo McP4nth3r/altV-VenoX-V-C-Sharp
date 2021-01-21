@@ -110,45 +110,45 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
 
-                if (shape == TuningGaragenTeleport)
+                if (shape != TuningGaragenTeleport) return false;
+                // _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
+                //return;
+                if (player.IsInVehicle)
                 {
-                    // _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "In der BETA Phase leider nicht möglich...");
-                    //return;
-                    if (player.IsInVehicle)
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    if (vehicle.Faction > Constants.FACTION_NONE)
                     {
-                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                        if (vehicle.Faction > Constants.FACTION_NONE)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
-                            return;
-                        }
-                        else if (vehicle.Owner != player.Username)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
-                            return;
-                        }
-                        else if (vehicle.NotSave == true)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
-                            return;
-                        }
-                        vehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
-                        vehicle.Rotation = new Position(0, 0, 300);
-                        vehicle.Frozen = true;
-                        // anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
-                        EmitTuningWindow(player, vehicle);
-                        //VenoX.TriggerClientEvent(player, "Tuning:Show");
-                        VenoX.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
-                        player.vnxSetElementData("InTuningGarage", true);
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
+                        return true;
                     }
+                    else if (vehicle.Owner != player.Username)
+                    {
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
+                        return true;
+                    }
+                    else if (vehicle.NotSave == true)
+                    {
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
+                        return true;
+                    }
+                    vehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
+                    vehicle.Rotation = new Position(0, 0, 300);
+                    vehicle.Frozen = true;
+                    // anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
+                    EmitTuningWindow(player, vehicle);
+                    //VenoX.TriggerClientEvent(player, "Tuning:Show");
+                    VenoX.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
+                    player.vnxSetElementData("InTuningGarage", true);
                 }
+                return true;
+
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         [ClientEvent("Reallife-Tuning:Close")]

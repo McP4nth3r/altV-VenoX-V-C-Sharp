@@ -99,22 +99,20 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
 
         public static ColShapeModel CARSHOP = RageAPI.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == CARSHOP)
-                {
-                    List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
-                    VenoX.TriggerClientEvent(player, "VehicleCatalog:Show");
-                    // Getting the speed for each IVehicle in the list
-                    foreach (CarShopVehicleModel carShopVehicle in carList)
-                    {
-                        VenoX.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
-                    }
-                }
+                if (shape != CARSHOP) return false;
+                List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
+                VenoX.TriggerClientEvent(player, "VehicleCatalog:Show");
+                // Getting the speed for each IVehicle in the list
+                foreach (CarShopVehicleModel carShopVehicle in carList)
+                    VenoX.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
+
+                return true;
             }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
         [ClientEvent("CarShop:TestVehicle")]

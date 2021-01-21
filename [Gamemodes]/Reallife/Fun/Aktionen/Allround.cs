@@ -120,18 +120,18 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        public static void OnClientEnterColShape(ColShapeModel shape, VnXPlayer player)
+        public static bool OnClientEnterColShape(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (ActionColShapes.Contains(shape))
-                {
-                    Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
-                    Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
-                    //Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
-                }
+                if (!ActionColShapes.Contains(shape)) return false;
+                Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
+                Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
+                return true;
+                //Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
+
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         public static void OnUpdate()

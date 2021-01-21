@@ -307,19 +307,15 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 {
                     string owner = Vehicle.Owner;
                     if (owner != null && owner == player.Username)
-                    {
                         Vehicle.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
-                    }
                 }
                 // Give the weapons to the player
                 weapons.Weapons.GivePlayerWeaponItems(player);
 
                 VenoX.TriggerClientEvent(player, "movecamtocurrentpos_client");
 
-                if (player.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
-                {
-                    player.SetHealth = 0;
-                }
+                if (player.Dead == 1) player.SetHealth = 0;
+
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -335,7 +331,6 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 handy.Allround.UpdatePhonePlayerlist();
                 player.Settings.ShowQuests = 1;
                 Quests.ShowCurrentQuest(player);
-                Core.Debug.OutputDebugString(player.Reallife.Quests.ToString());
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
