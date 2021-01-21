@@ -23,7 +23,7 @@
 <body>
     <audio id="hoversoundtrack" src="files/sounds/hover.mp3" class="d-none" controls="controls"></audio>
     <audio id="clicksoundtrack" src="files/sounds/mouseclick.wav" class="d-none" controls="controls"></audio>
-    <div id="Main" class="all d-nne" onclick="playAudio(2)">
+    <div id="Main" class="all d-none" onclick="playAudio(2)">
         <div class="header_bar">
             <img class="language-button" src="files/images/flag-us.png" onclick="TriggerSelectedLanguage('en')">
             <img class="language-button" src="files/images/flag-de.png" onclick="TriggerSelectedLanguage('de')">
@@ -44,7 +44,7 @@
                 <div class="rec_userinfo d-none" id="rec_0_userinfo">0 / 80 Online</div>
             </div>
         </div>
-        <div id="rectangle" class="rec_1 growanim" onmouseenter="playAudio(1)" onclick="TriggerSelectedGM(0);">
+        <div id="rectangle" class="rec_1 growanim" onmouseenter="playAudio(1)">
             <div class="rec_text">Reallife </div>
             <div class="rec_lobbyinfo_parent d-none">
                 <div class="rec_column_header rec_column rec_columnhover">Roleplay</div>
@@ -95,10 +95,10 @@
             </div>
         </div>
         <script>
-            function TriggerSelectedGM(number) {
+            function TriggerSelectedGM(Gamemode, Lobby = "") {
                 if ("alt" in window) {
                     $('#Main').addClass('d-none');
-                    alt.emit("load_selected_gm", number);
+                    alt.emit("Preload:SelectGamemode", Gamemode, Lobby);
                 }
             }
 

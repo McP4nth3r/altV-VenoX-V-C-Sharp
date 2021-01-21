@@ -77,13 +77,12 @@ if ('alt' in window) {
 
 setTimeout(() => {
     OnWindowLoad(); // get new wallpaper.
-    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', '253 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', '40 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', '54 / 500');
-    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', '84 / 600');
-
+    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', 0, 'ru', '253 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 0, 'de', '40 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 0, 'en', '54 / 500');
+    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 0, 'es', '84 / 600');
 }, 200);
 
-function AddLobbyToGamemode(Id, imgpath, lobbyname, lobbycount) {
-    $('.rec_' + Id).children('.rec_lobbyinfo_parent').children('.rec_lobbyinfo').append('<div class="rec_column"><img src="' + imgpath + '" class="rec_column_lobby_image"><div class="rec_column_lobby_name">' + lobbyname + '</div><div class="rec_column_lobby_count">' + lobbycount + '</div></div>');
+function AddLobbyToGamemode(RectangleId, imgpath, lobbyname, lobbyId, lobbycountry, lobbycount) {
+    $('.rec_' + RectangleId).children('.rec_lobbyinfo_parent').children('.rec_lobbyinfo').append('<div class="rec_column" onclick="TriggerSelectedGM(' + lobbyId + ', `' + lobbycountry + '`)"><img src="' + imgpath + '" class="rec_column_lobby_image"><div class="rec_column_lobby_name">' + lobbyname + '</div><div class="rec_column_lobby_count">' + lobbycount + '</div></div>');
 }
