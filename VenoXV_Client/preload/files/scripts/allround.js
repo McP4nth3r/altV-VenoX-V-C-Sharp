@@ -81,8 +81,17 @@ setTimeout(() => {
     AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 0, 'de', '40 / 700');
     AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 0, 'en', '54 / 500');
     AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 0, 'es', '84 / 600');
+
+    AddLobbyToGamemode(2, '', 'Alpha', 2, '0', '0 / 20');
+    AddLobbyToGamemode(2, '', 'Beta', 2, '1', '10 / 20');
+    AddLobbyToGamemode(2, '', 'Gamma', 2, '2', '10 / 20');
+    AddLobbyToGamemode(2, '', 'Delta', 2, '3', '30 / 50');
+
 }, 200);
 
 function AddLobbyToGamemode(RectangleId, imgpath, lobbyname, lobbyId, lobbycountry, lobbycount) {
-    $('.rec_' + RectangleId).children('.rec_lobbyinfo_parent').children('.rec_lobbyinfo').append('<div class="rec_column" onclick="TriggerSelectedGM(' + lobbyId + ', `' + lobbycountry + '`)"><img src="' + imgpath + '" class="rec_column_lobby_image"><div class="rec_column_lobby_name">' + lobbyname + '</div><div class="rec_column_lobby_count">' + lobbycount + '</div></div>');
+    if (imgpath == '')
+        $('.rec_' + RectangleId).children('.rec_lobbyinfo_parent').children('.rec_lobbyinfo').append('<div class="rec_column" onclick="TriggerSelectedGM(' + lobbyId + ', `' + lobbycountry + '`)"><div class="rec_column_lobby_name">' + lobbyname + '</div><div class="rec_column_lobby_count">' + lobbycount + '</div></div>');
+    else
+        $('.rec_' + RectangleId).children('.rec_lobbyinfo_parent').children('.rec_lobbyinfo').append('<div class="rec_column" onclick="TriggerSelectedGM(' + lobbyId + ', `' + lobbycountry + '`)"><img src="' + imgpath + '" class="rec_column_lobby_image"><div class="rec_column_lobby_name">' + lobbyname + '</div><div class="rec_column_lobby_count">' + lobbycount + '</div></div>');
 }
