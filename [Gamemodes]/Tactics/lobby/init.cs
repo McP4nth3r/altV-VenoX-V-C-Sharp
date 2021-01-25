@@ -197,7 +197,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (VehicleModel veh in TacticVehicleList)
+                foreach (VehicleModel veh in TacticVehicleList.ToList())
                 {
                     if (veh is not null && veh.Exists) RageAPI.DeleteVehicleThreadSafe(veh);
                     TacticVehicleList.Clear();
@@ -221,7 +221,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 // Wir Checken ob bereits eine Runde bereits läuft, falls nein dann setzen wir den Status auf True.
-                if (!IsTacticRoundRunning()) { TACTICMANAGER__ROUND_ISRUNNING = true; }
+                if (!IsTacticRoundRunning()) TACTICMANAGER__ROUND_ISRUNNING = true;
                 List<VnXPlayer> TacticsPlayerMixed = VenoXV.Globals.Main.TacticsPlayers.ToList();
                 TacticsPlayerMixed.ShuffleList();
                 string _Team = EntityData.COPS_NAME;
