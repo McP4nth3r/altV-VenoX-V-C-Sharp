@@ -35,13 +35,25 @@ namespace VenoXV.Globals
         public static List<VehicleModel> AllVehicles = new List<VehicleModel>();
         public static List<VehicleModel> ReallifeVehicles = new List<VehicleModel>();
 
+        // Tactics Dimensions : 
+        public const int TACTICS_DIMENSION = 20;
+        public const int TACTICS_DIMENSION_ALPHA = TACTICS_DIMENSION + 1;
+        public const int TACTICS_DIMENSION_BETA = TACTICS_DIMENSION + 2;
+        public const int TACTICS_DIMENSION_GAMMA = TACTICS_DIMENSION + 3;
+        public const int TACTICS_DIMENSION_DELTA = TACTICS_DIMENSION + 4;
+
+        // Reallife Dimensions : 
+        public const int REALLIFE_DIMENSION = 10; // Standard
+        public const int REALLIFE_DIMENSION_EN = REALLIFE_DIMENSION + (int)_Language_.Main.Languages.English;
+        public const int REALLIFE_DIMENSION_RU = REALLIFE_DIMENSION + (int)_Language_.Main.Languages.Russian;
+        public const int REALLIFE_DIMENSION_ES = REALLIFE_DIMENSION + (int)_Language_.Main.Languages.Spanish;
+        public const int REALLIFE_DIMENSION_DE = REALLIFE_DIMENSION + (int)_Language_.Main.Languages.German;
+
+        // Other GM Dimensions : 
         public const int RACE_DIMENSION = 0;
-        public const int REALLIFE_DIMENSION = 10;
-        public const int TACTICS_DIMENSION = 2;
         public const int SEVENTOWERS_DIMENSION = 4;
         public const int ZOMBIES_DIMENSION = 5;
         public const int SHOOTER_DIMENSION = 6;
-
         public static void RemovePlayerFromGamemodeList(VnXPlayer player)
         {
             try

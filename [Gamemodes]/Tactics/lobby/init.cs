@@ -314,6 +314,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 }
                 SyncStats();
                 SyncPlayerStats();
+                player.Tactics.CurrentLobby = null;
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

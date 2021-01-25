@@ -120,6 +120,7 @@ namespace VenoXV._Preload_
                     case (int)Gamemodes.Tactics:
                         if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
                         int Lobby = Int32.Parse(countrycode);
+                        Core.Debug.OutputDebugString("Lobby : " + Lobby);
                         _Gamemodes_.Tactics.Lobby.Lobbys.OnSelectedTacticLobby(player, Lobby);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;

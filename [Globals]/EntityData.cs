@@ -51,6 +51,5 @@ namespace VenoXV.Globals
         public const string WEAPON_RPG = "WEAPON_RPG";
         public const string WEAPON_RPG_AMMO = "WEAPON_RPG_AMMO";
         public const string WEAPON_MOLOTOV = "WEAPON_MOLOTOV";
-
     }
 }

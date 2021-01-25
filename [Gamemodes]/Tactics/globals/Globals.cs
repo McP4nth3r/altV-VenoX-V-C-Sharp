@@ -10,6 +10,10 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
 
         public static void OnResourceStart()
         {
+            Lobbys.Alpha.TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION_ALPHA;
+            Lobbys.Beta.TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION_BETA;
+            Lobbys.Gamma.TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION_GAMMA;
+            Lobbys.Delta.TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION_DELTA;
         }
 
         public static void OnUpdate()

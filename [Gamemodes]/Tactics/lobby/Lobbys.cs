@@ -6,10 +6,10 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
 {
     public class Lobbys
     {
-        private static Round Alpha = new Round();
-        private static Round Beta = new Round();
-        private static Round Gamma = new Round();
-        private static Round Delta = new Round();
+        public static Round Alpha = new Round();
+        public static Round Beta = new Round();
+        public static Round Gamma = new Round();
+        public static Round Delta = new Round();
 
         public static Dictionary<int, Round> TacticLobbys = new Dictionary<int, Round>
         {
@@ -23,10 +23,15 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                if (TacticLobbys.TryGetValue(Lobby, out Round val)) return;
-                if (val is not null)
-                    val.OnSelectedTacticsGM(player);
+                TacticLobbys.TryGetValue(Lobby, out Round val);
+                if (val is null) return;
+                val.OnSelectedTacticsGM(player);
                 player.Tactics.CurrentLobby = val;
+                // Debug : 
+                Core.Debug.OutputDebugString("Alpha Map-Name : " + Alpha.CurrentMap.Map_Name);
+                Core.Debug.OutputDebugString("Beta Map-Name : " + Beta.CurrentMap.Map_Name);
+                Core.Debug.OutputDebugString("Gamma Map-Name : " + Gamma.CurrentMap.Map_Name);
+                Core.Debug.OutputDebugString("Delta Map-Name : " + Delta.CurrentMap.Map_Name);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
