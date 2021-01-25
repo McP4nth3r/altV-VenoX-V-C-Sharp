@@ -136,7 +136,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int i = 0;
+                //int i = 0;
                 foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
                 {
                     if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass) && vehClass.MarkedForDelete)
@@ -153,7 +153,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int i = 0;
+                //int i = 0;
                 foreach (ColShapeModel colShape in Sync.ColShapeList.ToList())
                 {
                     if (Sync.ColShapeList.Contains(colShape) && colShape.MarkedForDelete)

@@ -11,7 +11,8 @@ namespace VenoXV._RootCore_.Models
     {
 
         //Main
-        public int UID { get; set; }
+        private int _UID { get; set; }
+        public int UID { get { return _UID; } set { _UID = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_UID, value); } }
         private string _Username { get; set; }
         public string Username { get { return _Username; } set { _Username = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
         private int _AdminRank { get; set; }

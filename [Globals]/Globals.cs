@@ -120,7 +120,6 @@ namespace VenoXV.Globals
                 _Discord_.Modules.Notify.SendUpdateLog("BETA apply is now possible! [DEV]! ",
                     "@everyone VenoX V." + Preload.CURRENT_VERSION + " BETA apply is now possible!\n" +
                     "Applies are only valid in the #📝beta-apply channel!\n\n" +
-                    "End : `15.01.2021 - 20:00 CET`\n\n" +
                     "```" +
                     "Nickname : YourNickname.\n" +
                     "Registered : Yes or No.\n" +
@@ -129,6 +128,7 @@ namespace VenoXV.Globals
 
                 Console.WriteLine("Started VenoX Bot.");
                 */
+
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

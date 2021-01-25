@@ -16,6 +16,7 @@ namespace VenoXV.Globals
         public const string GAMEMODE_SEVENTOWERS = "GAMEMODE_SEVENTOWERS";
 
 
+        public const string PLAYER_UID = "PLAYER_UID";
         public const string PLAYER_NAME = "PLAYER_NAME";
         public const string PLAYER_HEALTH = "PLAYER_HEALTH";
         public const string PLAYER_ARMOR = "PLAYER_ARMOR";

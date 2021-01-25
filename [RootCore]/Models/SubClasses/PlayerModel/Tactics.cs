@@ -1,5 +1,6 @@
 ﻿using AltV.Net.Elements.Entities;
 using System;
+using VenoXV._Gamemodes_.Tactics.Lobby;
 
 namespace VenoXV._RootCore_.Models
 {
@@ -14,11 +15,11 @@ namespace VenoXV._RootCore_.Models
         public int CurrentKills { get; set; }
         public int CurrentStreak { get; set; }
         public string Team { get; set; }
+        public Round CurrentLobby { get; set; }
         public Tactics(Player player)
         {
             try
             {
-
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

@@ -1,8 +1,8 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
+using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -12,8 +12,9 @@ namespace VenoXV._Globals_
     public class Commands : IScript
     {
         [Command("skipround")]
-        public static async void SkipRound(VnXPlayer player, string gm)
+        public static async void SkipRound(VnXPlayer player, string gm, int lobby)
         {
+            if (player.AdminRank < _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR) return;
             string Gamemode = gm.ToLower();
             switch (Gamemode)
             {
@@ -21,24 +22,20 @@ namespace VenoXV._Globals_
                     _Gamemodes_.SevenTowers.Main.StartNewRound();
                     break;
                 case "tactics":
-                    if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
+                    _Gamemodes_.Tactics.Lobby.Lobbys.TacticLobbys.TryGetValue(lobby, out Round val);
+                    if (val is null)
                     {
-                        foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
-                        {
-                            string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "hat die Tactic Runde übersprungen!");
-                            players?.SendChatMessage(text);
-                        }
-                        _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " Skipped the Tactic Round!");
-                        _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!");
+                        player.SendTranslatedChatMessage("Tactic Lobby dont exists! Use a lobby between 0 - " + _Gamemodes_.Tactics.Lobby.Lobbys.TacticLobbys.Count + "!");
+                        return;
                     }
+                    _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage("hat die Tactic Runde übersprungen!", val);
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " Skipped the Tactic Round!");
+                    _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!", val);
                     break;
                 case "race":
-                    if (player.AdminRank >= _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR)
-                    {
-                        string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " hat das Rennen übersprungen!");
-                        _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
-                        _Gamemodes_.Race.Lobby.Main.StartNewRound();
-                    }
+                    string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " hat das Rennen übersprungen!");
+                    _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
+                    _Gamemodes_.Race.Lobby.Main.StartNewRound();
                     break;
             }
         }

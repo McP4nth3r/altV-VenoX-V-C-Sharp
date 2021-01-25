@@ -8,46 +8,47 @@ using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.model;
+using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.Lobby
 {
-    public class Main : IScript
+    public class Round
     {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // SETTINGS
 
-        public static int TACTIC_ROUND_MINUTE = 3; // Zeit in Minuten.
-        public static int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
-        public static int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
-        public static int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
-        public static int TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION;
+        public int TACTIC_ROUND_MINUTE = 3; // Zeit in Minuten.
+        public int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
+        public int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
+        public int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
+        public int TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Saved Datas.
 
         //public IPlayer[] TACTICS_PLAYERS_IN_LOBBY { get; set; }
-        public static bool TACTICMANAGER__ROUND_ISRUNNING;
-        public static DateTime TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-        public static DateTime TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now;
-        public static DateTime TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now;
-        public static bool TACTICMANAGER_ROUND_JOIN_ALLOWED;
-        public static int MEMBER_COUNT_COPS = 0;
-        public static int MEMBER_COUNT_BFAC = 0;
-        public static int MEMBER_COUNT_MAX_COPS = 0;
-        public static int MEMBER_COUNT_MAX_BFAC = 0;
-        public static int RandomRound = 0;
-        public static List<IVehicle> TacticVehicleList = new List<IVehicle>();
-        public static RoundModel LastMap = new RoundModel();
-        public static RoundModel CurrentMap;
+        public bool TACTICMANAGER__ROUND_ISRUNNING;
+        public DateTime TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+        public DateTime TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now;
+        public DateTime TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now;
+        public bool TACTICMANAGER_ROUND_JOIN_ALLOWED;
+        public int MEMBER_COUNT_COPS = 0;
+        public int MEMBER_COUNT_BFAC = 0;
+        public int MEMBER_COUNT_MAX_COPS = 0;
+        public int MEMBER_COUNT_MAX_BFAC = 0;
+        public int RandomRound = 0;
+        public List<IVehicle> TacticVehicleList = new List<IVehicle>();
+        public RoundModel LastMap = new RoundModel();
+        public RoundModel CurrentMap;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        private static void GetNewMap()
+        private void GetNewMap()
         {
             try
             {
@@ -59,7 +60,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { CurrentMap = maps.Main.TacticMaps[1]; }
         }
-        private static void InitializePlayerSavedData(VnXPlayer player)
+        private void InitializePlayerSavedData(VnXPlayer player)
         {   // ToDo : Load by Database.
             try
             {
@@ -67,7 +68,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch { }
         }
-        private static async void InitializePlayerData(VnXPlayer player)
+        private async void InitializePlayerData(VnXPlayer player)
         {
             try
             {
@@ -85,13 +86,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static bool IsTacticRoundRunning()
+        public bool IsTacticRoundRunning()
         {
             // Sendet dem Spieler die Antwort ob eine Tactic Lobby am laufen ist.
             if (TACTICMANAGER__ROUND_ISRUNNING) return true;
             else return false;
         }
-        public static void CreateRandomRound()
+        public void CreateRandomRound()
         {
             try
             {
@@ -100,7 +101,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void GivePlayerTacticWeapons(VnXPlayer player)
+        public void GivePlayerTacticWeapons(VnXPlayer player)
         {
             try
             {
@@ -156,7 +157,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void SpawnPlayerOnPoint(VnXPlayer player, string Fac)
+        public void SpawnPlayerOnPoint(VnXPlayer player, string Fac)
         {
             try
             {
@@ -192,7 +193,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        private static void SpawnMapVehicles()
+        private void SpawnMapVehicles()
         {
             try
             {
@@ -215,7 +216,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        public static void PutPlayerInTeam()
+        public void PutPlayerInTeam()
         {
             try
             {
@@ -248,7 +249,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static async void StartNewTacticRound()
+        public async void StartNewTacticRound()
         {
             try
             {
@@ -279,7 +280,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static async void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
+        public async void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
         {
             try
             {
@@ -291,32 +292,32 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 }
                 if (player.Tactics.Team == EntityData.BFAC_NAME)
                 {
-                    Lobby.Main.MEMBER_COUNT_BFAC -= 1;
-                    if (Lobby.Main.MEMBER_COUNT_BFAC <= 0)
+                    MEMBER_COUNT_BFAC -= 1;
+                    if (MEMBER_COUNT_BFAC <= 0)
                     {
-                        Lobby.Main.TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(Lobby.Main.TACTIC_ROUND_START_AFTER_LOADING);
-                        Lobby.Main.TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-                        Lobby.Main.SyncEndTacticRound("Das L.S.P.D gewinnt die Runde.");
+                        TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TACTIC_ROUND_START_AFTER_LOADING);
+                        TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+                        SyncEndTacticRound("Das L.S.P.D gewinnt die Runde.");
                         return;
                     }
                 }
                 else if (player.Tactics.Team == EntityData.COPS_NAME)
                 {
-                    Lobby.Main.MEMBER_COUNT_COPS -= 1;
-                    if (Lobby.Main.MEMBER_COUNT_COPS <= 0)
+                    MEMBER_COUNT_COPS -= 1;
+                    if (MEMBER_COUNT_COPS <= 0)
                     {
-                        Lobby.Main.TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(Lobby.Main.TACTIC_ROUND_START_AFTER_LOADING);
-                        Lobby.Main.TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-                        Lobby.Main.SyncEndTacticRound("Die Grove Street gewinnt die Runde.");
+                        TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TACTIC_ROUND_START_AFTER_LOADING);
+                        TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+                        SyncEndTacticRound("Die Grove Street gewinnt die Runde.");
                         return;
                     }
                 }
-                Lobby.Main.SyncStats();
-                Lobby.Main.SyncPlayerStats();
+                SyncStats();
+                SyncPlayerStats();
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void OnSelectedTacticsGM(VnXPlayer player)
+        public void OnSelectedTacticsGM(VnXPlayer player)
         {
             try
             {
@@ -346,7 +347,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void SyncTime()
+        public void SyncTime()
         {
             try
             {
@@ -355,14 +356,12 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     if (players is null || !players.Exists) continue;
                     double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
                     lock (players)
-                    {
-                        players.EmitLocked("Tactics:LoadTimer", (int)leftTime);
-                    }
+                        VenoX.TriggerClientEvent(players, "Tactics:LoadTimer", (int)leftTime);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void SyncStats()
+        public void SyncStats()
         {
             try
             {
@@ -370,14 +369,12 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 {
                     if (players is null || !players.Exists) continue;
                     lock (players)
-                    {
-                        players.EmitLocked("Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
-                    }
+                        VenoX.TriggerClientEvent(players, "Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void SyncPlayerStats()
+        public void SyncPlayerStats()
         {
             try
             {
@@ -388,13 +385,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     {
                         float DamageDone = players.Tactics.CurrentDamage;
                         int KillsDone = players.Tactics.CurrentKills;
-                        players.EmitLocked("Tactics:UpdatePlayerStats", DamageDone, KillsDone);
+                        VenoX.TriggerClientEvent(players, "Tactics:UpdatePlayerStats", DamageDone, KillsDone);
                     }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static async void SyncEndTacticRound(string text)
+        public async void SyncEndTacticRound(string text)
         {
             try
             {
@@ -405,13 +402,13 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     lock (players)
                     {
                         players.RemoveAllPlayerWeapons();
-                        players.EmitLocked("Tactics:OnTacticEndRound", TranslatedText);
+                        VenoX.TriggerClientEvent(players, "Tactics:OnTacticEndRound", TranslatedText);
                     }
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             try
             {

@@ -1,4 +1,6 @@
 ﻿using AltV.Net;
+using System.Linq;
+using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_.Models;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
@@ -14,8 +16,10 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                if (VenoXV.Globals.Main.TacticsPlayers.Count <= 0) { return; }
-                Lobby.Main.OnUpdate();
+                if (VenoXV.Globals.Main.TacticsPlayers.Count <= 0) return;
+                foreach (Round lobbys in Tactics.Lobby.Lobbys.TacticLobbys.Values.ToList())
+                    if (lobbys.MEMBER_COUNT_MAX_BFAC > 0 || lobbys.MEMBER_COUNT_MAX_COPS > 0)
+                        lobbys.OnUpdate();
             }
             catch { }
         }
@@ -24,7 +28,8 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                Lobby.Main.OnPlayerDisconnect(player, type, reason);
+                if (player.Tactics.CurrentLobby is not null)
+                    player.Tactics.CurrentLobby.OnPlayerDisconnect(player, type, reason);
             }
             catch { }
         }

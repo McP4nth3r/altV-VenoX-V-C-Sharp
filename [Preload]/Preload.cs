@@ -90,7 +90,7 @@ namespace VenoXV._Preload_
                 if (player == null) return;
                 player.Dimension = player.Id;
                 _Language_.Main.Languages language = (_Language_.Main.Languages)player.Language;
-                if (countrycode != "")
+                if (countrycode != "" && value == (int)Gamemodes.Reallife)
                 {
                     language = _Language_.Main.GetLanguageByPair(countrycode);
                     player.Language = (int)language;
@@ -119,7 +119,8 @@ namespace VenoXV._Preload_
                         break;
                     case (int)Gamemodes.Tactics:
                         if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
-                        _Gamemodes_.Tactics.Lobby.Main.OnSelectedTacticsGM(player);
+                        int Lobby = Int32.Parse(countrycode);
+                        _Gamemodes_.Tactics.Lobby.Lobbys.OnSelectedTacticLobby(player, Lobby);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:

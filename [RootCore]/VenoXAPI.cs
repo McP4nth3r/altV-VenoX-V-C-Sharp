@@ -27,6 +27,7 @@ namespace VenoXV._RootCore_
         {
             try
             {
+                if (player is null || !player.Exists) return;
                 player.PreloadEvents.Add(new LoadingModel { EventText = Text, EventName = EventName, EventArgs = args, EventSend = DateTime.Now });
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

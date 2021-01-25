@@ -29,8 +29,10 @@ namespace VenoXV._Discord_.Modules
                     builder.Author = authorBuilder;
                     builder.ThumbnailUrl = "https://cdn.discordapp.com/attachments/754712202891755611/798012891684929596/logo_blue.png";
                 }
-                var embedFooter = new EmbedFooterBuilder();
-                embedFooter.Text = DateTime.Now.ToString("dd'.'MM'.'yyyy hh':'mm");
+                var embedFooter = new EmbedFooterBuilder
+                {
+                    Text = DateTime.Now.ToString("dd'.'MM'.'yyyy hh':'mm")
+                };
                 builder.Footer = embedFooter;
                 builder.Description = content;
                 await client.SendMessageAsync(embeds: new[] { builder.Build() }, text: "@everyone");

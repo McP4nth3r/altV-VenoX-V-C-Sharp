@@ -1,31 +1,33 @@
-﻿using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Linq;
+using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
 {
     public class Functions
     {
-        public static void SendTacticRoundMessage(string text)
+        public static void SendTacticRoundMessage(string text, Round TacticRound)
         {
             try
             {
                 foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
                 {
-                    players?.SendChatMessage(text);
+                    if (players.Tactics.CurrentLobby == TacticRound)
+                        players?.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
         }
 
-        public static void ShowOutroScreen(string text)
+        public static void ShowOutroScreen(string text, Round TacticRound)
         {
             try
             {
-                Lobby.Main.TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(Lobby.Main.TACTIC_ROUND_START_AFTER_LOADING);
-                Lobby.Main.TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-                Lobby.Main.SyncEndTacticRound(text);
+                TacticRound.TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TacticRound.TACTIC_ROUND_START_AFTER_LOADING);
+                TacticRound.TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+                TacticRound.SyncEndTacticRound(text);
             }
             catch { }
         }
