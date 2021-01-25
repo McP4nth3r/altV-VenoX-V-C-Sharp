@@ -104,10 +104,7 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
-                {
-                    return element.Model;
-                }
+                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true) return element.Model;
                 return (uint)AltV.Net.Enums.PedModel.Natalia;
             }
             catch { return (uint)AltV.Net.Enums.PedModel.Natalia; }
@@ -165,10 +162,7 @@ namespace VenoXV.Core
             try
             {
                 if (element == null) return default;
-                if (element.GetSyncedMetaData(key, out T value))
-                {
-                    return value;
-                }
+                if (element.GetSyncedMetaData(key, out T value)) return value;
                 return default;
             }
             catch { return default; }
@@ -198,20 +192,11 @@ namespace VenoXV.Core
         }
         public static VnXPlayer GetPlayerFromName(string name)
         {
-            VnXPlayer player = null;
             try
             {
-                name = name.ToLower();
-                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
-                {
-                    if (players.Username.ToLower() == name)
-                    {
-                        player = players;
-                    }
-                }
-                return player;
+                return VenoX.GetAllPlayers().ToList().FirstOrDefault(x => x.Username.ToLower() == name.ToLower());
             }
-            catch { return player; }
+            catch { return null; }
         }
         public static void GivePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
         {
@@ -299,7 +284,11 @@ namespace VenoXV.Core
         }
         public static void SetPlayerVisible(this VnXPlayer element, bool trueOrFalse)
         {
-            try { VenoX.TriggerClientEvent(element, "Player:Visible", trueOrFalse); }
+            try
+            {
+                element.Visible = trueOrFalse;
+                //VenoX.TriggerClientEvent(element, "Player:Visible", trueOrFalse);
+            }
             catch { }
         }
         public static void SetPlayerAlpha(this VnXPlayer element, int alpha)
