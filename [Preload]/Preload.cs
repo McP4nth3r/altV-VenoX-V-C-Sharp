@@ -72,6 +72,8 @@ namespace VenoXV._Preload_
         {
             try
             {
+                if (player.IsInVehicle) player.WarpOutOfVehicle();
+                player.RemoveAllPlayerWeapons();
                 GetAllPlayersInAllGamemodes(player);
                 player.Dimension = 9000 + player.Id;
                 Main.OnPlayerDisconnected(player, "lobby-leave");
