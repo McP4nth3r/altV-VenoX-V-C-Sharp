@@ -151,11 +151,12 @@ namespace VenoXV.Core
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        public static void Repair(this IVehicle element)
+        public static void Repair(this VehicleModel element)
         {
             try
             {
-                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { VenoX.TriggerClientEvent(player, "Vehicle:Repair", element); }
+                element.Repair();
+                //foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { VenoX.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
