@@ -9,7 +9,9 @@
 import alt from 'alt-client';
 import * as game from "natives";
 
+function test() {
 
+}
 
 import * as BanWindow from '/VenoXV_Client/Globals/Anzeigen/ban/index.js';
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
@@ -227,6 +229,5 @@ alt.setTimeout(() => {
         game.requestIpl('canyonriver01');
         game.requestIpl('CanyonRvrShallow');
         game.requestIpl('CS3_05_water_grp1');
-    }
-    catch { }
+    } catch {}
 }, 1250);
