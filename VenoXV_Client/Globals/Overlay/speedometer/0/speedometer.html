@@ -6,18 +6,22 @@
     <script src="js\gauge.js"></script>
     <script>
         if ("alt" in window) {
-            alt.on("Tacho:Show", () => { showSpeedo(); });
-            alt.on("Tacho:Hide", () => { hideSpeedo(); });
-            alt.on('Tacho:Update', (vel, rpm, gas, kmS) => {
+            alt.on("Speedometer:Visible", state => {
+                if (state) showSpeedo();
+                else hideSpeedo();
+            });
+            alt.on('Tacho:Update', (vel, rpm, gas, kmS, lockstate = null, enginestate = null) => {
                 document.getElementById("tacho").dataset.value = vel;
                 document.getElementById("tacho").dataset.valueText = kmS.toFixed(1) + " KM";
                 document.getElementById("rpm").dataset.value = rpm;
                 document.getElementById("gas").dataset.value = gas;
             });
         }
+
         function showSpeedo() {
             document.body.className = "";
         }
+
         function hideSpeedo() {
             document.body.className = "fade";
         }

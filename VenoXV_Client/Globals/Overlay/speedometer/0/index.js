@@ -40,9 +40,13 @@ alt.onServer('Speedometer:Visible', state => {
 
 alt.setInterval(() => {
 	if (!speedo || !alt.Player.local.vehicle) return;
-	let vel = (game.getEntitySpeed(alt.Player.local.vehicle.scriptID) * 3.6);
-	let rpm = alt.Player.local.vehicle.rpm * 1000;
-	speedo.emit('Speedo:Update', vel, rpm, gas, kmS);
+	let veh = alt.Player.local.vehicle;
+
+	let vel = (game.getEntitySpeed(veh.scriptID) * 3.6);
+	let rpm = veh.rpm * 1000;
+	let lockstate = game.getVehicleDoorLockStatus(veh.scriptID);
+	let enginestate = game.getIsVehicleEngineRunning(veh.scriptID);
+	speedo.emit('Speedo:Update', vel, rpm, gas, kmS, lockstate, enginestate);
 }, 75);
 
 
