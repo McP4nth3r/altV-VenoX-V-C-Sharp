@@ -44,6 +44,9 @@ namespace VenoXV._RootCore_.Models
                 {
                     if (CalculateIfExists) Item.Amount += ItemAmount;
                     else Item.Amount = ItemAmount;
+                    // Update item in DbItem Entry list.
+                    ItemModel DbItem = Player.Inventory.Items.FirstOrDefault(x => x.Id == Item.Id);
+                    DbItem = Item;
                 }
             }
             Update();
