@@ -770,27 +770,25 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         if (Vehicle.Owner == player.Username && Vehicle.Faction == Constants.FACTION_NONE)
                         {
                             Vehicle.Dimension = Constants.VEHICLE_OFFLINE_DIM;
-                            /* ToDo : Fix if (Vehicle.Occupants.Count > 0)
-                             {
-                                 var playersInCar = NAPI.Vehicle.GetIVehicleOccupants(Vehicle);
-                                 var Player = Vehicle.Get
-                                 foreach (var spielerimauto in playersInCar)
-                                 {
-                                     spielerimauto.WarpOutOfIVehicle();
-                                     spielerimauto.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
-                                 }
-
-                             }*/
+                            if (Vehicle.Passenger.Count > 0)
+                            {
+                                foreach (VnXPlayer players in Vehicle.Passenger.ToList())
+                                {
+                                    if (players is not null && players.Exists)
+                                    {
+                                        player.WarpOutOfVehicle();
+                                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                                    }
+                                }
+                            }
                         }
-                        // JOB 
                     }
-                    anzeigen.Usefull.VnX.SavePlayerDatas(player);
+                    SavePlayerDatas(player);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION Global_OnPlayerDisconnected] " + ex.Message);
-                Console.WriteLine("[EXCEPTION Global_OnPlayerDisconnected] " + ex.StackTrace);
+                Core.Debug.CatchExceptions(ex);
             }
         }
 
