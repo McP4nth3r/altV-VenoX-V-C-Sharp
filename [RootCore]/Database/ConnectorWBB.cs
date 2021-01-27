@@ -1,10 +1,12 @@
 ﻿using AltV.Net;
-using AltV.Net.Async;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync.WBB_Sync.models;
+
 namespace VenoXV._Gamemodes_.Reallife.Woltlab
 {
     public class Program : IScript
@@ -13,23 +15,60 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
 
         private static string connString = $"server=5.180.66.158; database=forum_vnx; uid=forum_vnx; pwd=j_4w06xM#T4i4z5q@1Fgaj57";
         private static List<(string, string)> optionsWithDefaultValue;
-        // Neue Gute Forum Sync.
+
+
+        public static List<AccountModel> DatabaseAccounts = new List<AccountModel>();
+
+        public static void LoadDatabaseAccounts()
+        {
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection(connString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM wcf1_user";
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        int UID = reader.GetInt32("userID");
+                        if (DatabaseAccounts.FirstOrDefault(x => x.UID == UID) != null) continue;
+                        AccountModel accClass = new AccountModel
+                        {
+                            UID = reader.GetInt32("userID"),
+                            Username = reader.GetString("Username"),
+                            Email = reader.GetString("email"),
+                            Password = reader.GetString("Password")
+                        };
+                        DatabaseAccounts.Add(accClass);
+                    }
+                }
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
+        public static void SyncAccountInformation(int Id)
+        {
+            try
+            {
+                AddUserOptions(Id);
+                AddUserToGroup(Id, groupId: 3);
+                AddUserToLanguage(Id, languageId: 1);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
 
         public static async void CreateForumUser(VnXPlayer playerClass, string name, string email, string Password)
         {
             try
             {
-                await Task.Run(async () =>
+                await Task.Run(() =>
                 {
-                    await AltAsync.Do(() =>
-                    {
-                        long userId = AddUser(name, email, Password, languageID: 1, rankID: 3, userOnlineGroupID: 3);
-                        //AddUserOptions(userId);
-                        AddUserToGroup(userId, groupId: 1);
-                        AddUserToGroup(userId, groupId: 3);
-                        AddUserToLanguage(userId, languageId: 1);
-                        playerClass.Forum.UID = (int)userId;
-                    });
+                    int userId = AddUser(name, email, Password, languageID: 1, rankID: 3, userOnlineGroupID: 3);
+                    LoadDatabaseAccounts();
+                    SyncAccountInformation(DatabaseAccounts[DatabaseAccounts.Count].UID + 1);
+                    //playerClass.Forum.UID = (int)userId;
                 });
             }
             catch (Exception ex)
@@ -41,9 +80,10 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
         public static void OnResourceStart()
         {
             GetUserOptions();
+
         }
 
-        private static long AddUser(string username, string email, string password, int languageID, int rankID, int userOnlineGroupID)
+        private static int AddUser(string username, string email, string password, int languageID, int rankID, int userOnlineGroupID)
         {
             try
             {
@@ -65,9 +105,9 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                 command.Parameters.AddWithValue("@lastActivityTime", timestamp);
                 command.Parameters.AddWithValue("@rankID", null);
                 command.Parameters.AddWithValue("@userOnlineGroupID", userOnlineGroupID);
-                long LastUID = command.LastInsertedId;
+                int LastUID = (int)command.LastInsertedId;
                 command.ExecuteNonQuery();
-                connection.Close();
+                //connection.Close();
                 return LastUID;
             }
             catch (Exception ex)
@@ -94,11 +134,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                 {
                     optionsWithDefaultValue.Add(("userOption" + Convert.ToInt32(reader["optionID"]), Convert.ToString(reader["defaultValue"])));
                 }
-                Core.Debug.OutputDebugString("User Options Loaded");
                 Core.Debug.OutputDebugString("User Options Loaded - " + optionsWithDefaultValue.Count);
-                Core.Debug.OutputDebugString("User Options Loaded");
-                Core.Debug.OutputDebugString("User Options Loaded");
-                Core.Debug.OutputDebugString("User Options Loaded");
                 return optionsWithDefaultValue;
             }
             catch (Exception ex)

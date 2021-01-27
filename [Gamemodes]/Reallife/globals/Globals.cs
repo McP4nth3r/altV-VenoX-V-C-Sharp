@@ -12,7 +12,6 @@ using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._Preload_;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
@@ -697,7 +696,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 //*///////////////////////////////////// SQL LOADING ///////////////////////////////////////////////////*//
                 // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
                 Database.OnResourceStart();
-                Program.OnResourceStart();
+                //Program.OnResourceStart();
                 // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
                 //*///////////////////////////////////// BASIC LOADING ///////////////////////////////////////////////////*//
                 // Interior Loading

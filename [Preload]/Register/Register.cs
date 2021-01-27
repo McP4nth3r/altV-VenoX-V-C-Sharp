@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace VenoXV._Preload_.Register
             {
                 if (playerClass.HardwareIdHash.ToString() == accClass.HardwareId || playerClass.HardwareIdExHash.ToString() == accClass.HardwareIdExhash || playerClass.SocialClubId.ToString() == accClass.SocialID)
                 {
-                    state = true;
+                    //state = true;
                 }
             }
             return state;
@@ -58,8 +59,8 @@ namespace VenoXV._Preload_.Register
             }
         }
 
-        [ClientEvent("Account:Register")]
-        public static void OnRegisterCall(VnXPlayer player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
+        [AsyncClientEvent("Account:Register")]
+        public static async void OnRegisterCall(VnXPlayer player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
         {
             try
             {

@@ -124,6 +124,7 @@ namespace VenoXV.Globals
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("VenoX V." + Preload.CURRENT_VERSION + " Loaded!");
 
+                VenoXV._Gamemodes_.Reallife.Woltlab.Program.CreateForumUser(null, "DimaIsABratan", "123321", "123321");
 
                 /*Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Starting VenoX Bot...");
