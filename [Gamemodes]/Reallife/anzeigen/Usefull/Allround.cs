@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -171,42 +170,6 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
             catch
             {
-            }
-        }
-
-
-        public static void SavePlayerDatas(VnXPlayer player)
-        {
-            try
-            {
-                Database.SaveCharacterInformation(player);
-            }
-            catch { }
-        }
-
-        public static void SaveIVehicleDatas()
-        {
-            try
-            {
-                List<VehicleModel> IVehicleList = new List<VehicleModel>();
-
-                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
-                {
-                    if (Vehicle.Owner != null)
-                    {
-                        if (Vehicle.IsTestVehicle != true && Vehicle.Faction == 0 && Vehicle.NotSave != false && Vehicle.Dimension == 0)
-                        {
-                            // Add IVehicle into the list
-                            IVehicleList.Add(Vehicle);
-                        }
-                    }
-                }
-                Database.SaveAllIVehicles(IVehicleList);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION SaveIVehicleDatas] " + ex.Message);
-                Console.WriteLine("[EXCEPTION SaveIVehicleDatas] " + ex.StackTrace);
             }
         }
     }

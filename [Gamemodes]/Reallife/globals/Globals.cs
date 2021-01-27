@@ -14,6 +14,7 @@ using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._Preload_;
+using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -189,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                 weather = 0;
                                 break;
                             case 1:
-                                weather = 10;
+                                weather = 8;
                                 break;
                             case 2:
                                 weather = 9;
@@ -219,10 +220,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 if (player.Playing)
                 {
-                    SyncDatabaseItems(player);
-                    int played = player.Played;
-                    if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
-                    player.Played += 1;
                     switch (player.Reallife.Hunger)
                     {
                         case 30:
@@ -236,7 +233,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                     if (player.Reallife.Hunger > 0) player.Reallife.Hunger -= 1;
                     if (player.Reallife.Hunger <= 20) player.Health -= 5;
-
 
                     if (player.Reallife.Knastzeit == 5) player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
                     if (player.Reallife.Knastzeit > 0)
@@ -261,9 +257,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int played = player.Played;
-                if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
-                player.Played += 1;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -272,9 +265,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                int played = player.Played;
-                if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
-                player.Played += 1;
+
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -299,6 +290,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
                 foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
+                    int played = player.Played;
+                    if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
+                    player.Played += 1;
+                    SyncDatabaseItems(player);
                     switch (player.Gamemode)
                     {
                         case (int)_Preload_.Preload.Gamemodes.Reallife:
@@ -311,19 +306,63 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                             OnMinuteSpentZombieGM(player);
                             break;
                     }
-                    anzeigen.Usefull.VnX.SavePlayerDatas(player);
+
+                    AccountModel accClass = Register.AccountList.ToList().FirstOrDefault(x => x.UID == player.UID);
+                    string langpair = _Language_.Main.GetClientLanguagePair((_Language_.Main.Languages)player.Language);
+                    if (accClass is not null && accClass.Language != langpair)
+                        Database.UpdatePlayerLanguage(accClass.UID, langpair);
+
+                    SavePlayerDatas(player);
                     DateTime CurrentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, CurrentHour, 0, 0);
                     player.SetDateTime(CurrentDateTime);
                     SyncWeather(player);
                 }
                 Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
-                anzeigen.Usefull.VnX.SaveIVehicleDatas();
+                SaveVehicleDatas();
                 DeleteVehicleThreadSafe();
                 DeleteColShapesThreadSafe();
                 Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
+
+
+        public static void SavePlayerDatas(VnXPlayer player)
+        {
+            try
+            {
+                Database.SaveCharacterInformation(player);
+            }
+            catch { }
+        }
+
+        public static void SaveVehicleDatas()
+        {
+            try
+            {
+                List<VehicleModel> IVehicleList = new List<VehicleModel>();
+
+                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                {
+                    if (Vehicle.Owner != null)
+                    {
+                        if (Vehicle.IsTestVehicle != true && Vehicle.Faction == 0 && Vehicle.NotSave != false && Vehicle.Dimension == 0)
+                        {
+                            // Add IVehicle into the list
+                            IVehicleList.Add(Vehicle);
+                        }
+                    }
+                }
+                Database.SaveAllIVehicles(IVehicleList);
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
+            }
+        }
+        //
+
+
 
         public static bool CheckBadElementDatas(string elementdata)
         {
