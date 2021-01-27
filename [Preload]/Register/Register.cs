@@ -92,7 +92,8 @@ namespace VenoXV._Preload_.Register
                     HardwareIdExhash = player.HardwareIdExHash.ToString(),
                     Name = nickname,
                     Password = Login.Login.Sha256(password),
-                    SocialID = player.SocialClubId.ToString()
+                    SocialID = player.SocialClubId.ToString(),
+                    Language = _Language_.Main.GetClientLanguagePair(_Language_.Main.Languages.English)
                 };
                 AccountList.Add(account);
                 Program.CreateForumUser(player, nickname, email, password);

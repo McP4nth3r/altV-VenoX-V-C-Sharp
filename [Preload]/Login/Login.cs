@@ -88,6 +88,7 @@ namespace VenoXV._Preload_.Login
                 if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
                 accClass = GetAccountModel(Nickname, Sha256(Password));
                 if (accClass == null) return;
+                player.Language = (int)_Language_.Main.GetLanguageByPair(accClass.Language);
                 Database.LoadCharacterInformationById(player, accClass.UID);
                 if (!Character_Creator.Main.PlayerHaveSkin(player))
                 {

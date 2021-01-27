@@ -280,6 +280,25 @@ namespace VenoXV._RootCore_.Database
             }
             catch { }
         }
+
+
+        public static void UpdatePlayerLanguage(int UID, string language)
+        {
+            try
+            {
+                using MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET Language = @Language WHERE UID = @UID";
+                command.Parameters.AddWithValue("@UID", UID);
+                command.Parameters.AddWithValue("@Language", language);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
+
+
         public static void UpdateDiscordInformations(string Spielername, string DiscordID, string DiscordAvatar)
         {
             try
