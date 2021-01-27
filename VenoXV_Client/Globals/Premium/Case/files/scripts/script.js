@@ -50,8 +50,8 @@ $("#spin_button").click(() => {
                 rect1.addClass('.winning-card');
                 //rect1.css('transition', 'all 300ms');
                 //rect1.css('transform', 'translateX(' + 5 + 'px) scale(1.5) rotate3d(1,1,0, 360deg');
-                console.log(rect1.children().text());
-                console.log(Object.keys(rect1));
+                //console.log(rect1.children().text());
+                //console.log(Object.keys(rect1));
                 alt.emit('CaseOpening:Winning', rect1.children().text());
                 //finishedSliding(rect1, rect1, winningCardNumber);
             } else {
@@ -85,10 +85,16 @@ $("#spin_button").click(() => {
 
 
 let itemTypes = []
-function AddChances(Class) { itemTypes.push(Class); }
+
+function AddChances(Class) {
+    itemTypes.push(Class);
+}
 
 let CurrentCaseItems = [];
-function AddCaseItems(CaseItem) { CurrentCaseItems.push(CaseItem); }
+
+function AddCaseItems(CaseItem) {
+    CurrentCaseItems.push(CaseItem);
+}
 
 alt.on('CaseOpening:LoadChances', (ChancesJson) => {
     itemTypes = JSON.parse(ChancesJson);
@@ -118,34 +124,32 @@ function fillCards(caseData, cards, totalCardsAmount, startItem) {
     var chosenItem;
     var itemType;
     var previousChance;
-
-    for (k = 0; k < itemTypes.length; k++) {
-        if (k === 0) {
+    let exec = false;
+    for (var _c in itemTypes) {
+        if (_c == 0) {
             previousChance = 0;
-            currentChance = itemTypes[k].Chance;
+            currentChance = itemTypes[_c].Chance;
         } else {
-            previousChance = previousChance + itemTypes[k - 1].Chance;
-            currentChance = itemTypes[k].Chance + previousChance;
+            previousChance += itemTypes[_c - 1].Chance;
+            currentChance = itemTypes[_c].Chance + previousChance;
         }
-
         if (randomNumber <= currentChance && randomNumber > previousChance) {
-            var allItemsOfType = caseData.find(item => item.Type == itemTypes[k].Name)
-            console.log(allItemsOfType[Math.floor(Math.random() * allItemsOfType.length)]);
+            var allItemsOfType = caseData.find(item => item.Type == itemTypes[_c].Name)
             if (allItemsOfType != null) {
                 allItemsOfType = allItemsOfType.Items
                 chosenItem = allItemsOfType[Math.floor(Math.random() * allItemsOfType.length)];
-                itemType = itemTypes[k].Class;
+                itemType = itemTypes[_c].Class;
                 cards.push(`<div class="Card">
                     <img class="Card-Image" src="` + chosenItem.URL + `">
-                    <div class="Card-State ` + itemTypes[k].Class + `">
+                    <div class="Card-State ` + itemTypes[_c].Class + `">
                         <div class="Card-Name">` + chosenItem.Name + `</div>
                         <div class="Card-Info">` + chosenItem.Info + `</div>
                     </div>
                 </div>`);
-                k = itemTypes.length;
+                //k = itemTypes.length;
             }
         }
-    };
+    }
     startItem++;
     fillCards(caseData, cards, totalCardsAmount, startItem)
 }

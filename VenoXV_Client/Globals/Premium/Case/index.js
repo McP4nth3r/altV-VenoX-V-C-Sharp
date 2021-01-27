@@ -5,13 +5,17 @@
 //----------------------------------//
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { vnxCreateCEF, vnxDestroyCEF, ShowCursor } from '../../VnX-Lib/index';
+import {
+    vnxCreateCEF,
+    vnxDestroyCEF,
+    ShowCursor
+} from '../../VnX-Lib/index';
 
 
 let CaseOpeningWindow;
 
 alt.onServer('CaseOpening:Show', () => {
-    if (CaseOpeningWindow) { vnxDestroyCEF('CaseWindow'); }
+    if (CaseOpeningWindow) vnxDestroyCEF('CaseWindow');
     CaseOpeningWindow = vnxCreateCEF('CaseWindow', 'Globals/Premium/Case/index.html');
     ShowCursor(true);
     CaseOpeningWindow.focus();
@@ -26,15 +30,16 @@ alt.onServer('CaseOpening:Show', () => {
 });
 
 alt.onServer('CaseOpening:LoadChances', (json) => {
-    if (!CaseOpeningWindow) { return; }
+    if (!CaseOpeningWindow) return;
+
     alt.setTimeout(() => {
         alt.log(json);
         CaseOpeningWindow.emit('CaseOpening:LoadChances', json);
-    }, 2000);
+    }, 1000);
 });
 
 alt.onServer('CaseOpening:LoadCase', (json) => {
-    if (!CaseOpeningWindow) { return; }
+    if (!CaseOpeningWindow) return;
     alt.setTimeout(() => {
         alt.log(json);
         CaseOpeningWindow.emit('CaseOpening:LoadCases', json);
