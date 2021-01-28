@@ -12,7 +12,6 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
-using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
@@ -922,9 +921,16 @@ namespace VenoXV._Admin_
                 bool exestiert = Database.FindCharacterByName(name);
                 if (exestiert)
                 {
-                    _Preload_.Login.Login.ChangeAccountPW(name, passwort);
-                    Database.ChangeUserPasswort(name, passwort);
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
+                    string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
+                    string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(passwort, salt), salt);
+                    if (_Preload_.Login.Login.ChangeAccountPW(name, ByCryptedPassword))
+                    {
+                        Core.Debug.OutputDebugString("Changed PW : " + passwort);
+                        Core.Debug.OutputDebugString("Changed PW : " + ByCryptedPassword);
+                        Database.ChangeUserPasswort(name, ByCryptedPassword);
+                        _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(name, ByCryptedPassword);
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
+                    }
                 }
                 else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
             }
@@ -1102,7 +1108,7 @@ namespace VenoXV._Admin_
         {
             if (player.AdminRank >= Constants.ADMINLVL_STELLVP)
             {
-                Program.CreateForumUser(null, Name, email, passwort);
+                //Program.CreateForumUser(null, Name, email, passwort);
                 player.SendTranslatedChatMessage("Du hast einen Forum account namens : " + Name + " erstellt!");
             }
         }
