@@ -44,7 +44,7 @@ namespace VenoXV._Preload_.Login
             {
                 if (accClass.Name.ToLower() == Nickname.ToLower())
                 {
-                    accClass.Password = Sha256(Password);
+                    accClass.Password = Password;
                     return true;
                 }
             }
@@ -85,7 +85,14 @@ namespace VenoXV._Preload_.Login
             {
                 if (Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
                 AccountModel accClass;
+                string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
+                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(Password, salt), salt);
+
                 if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
+                else player.LoggedInWithShaPassword = true;
+
+                if (!LoginAccount(Nickname, ByCryptedPassword) && !player.LoggedInWithShaPassword) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
+
                 accClass = GetAccountModel(Nickname, Sha256(Password));
                 if (accClass == null) return;
                 player.Language = (int)_Language_.Main.GetLanguageByPair(accClass.Language);
@@ -103,6 +110,15 @@ namespace VenoXV._Preload_.Login
                 //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 Preload.ShowPreloadList(player);
+
+                // If Method is old-sha256 method : Update!
+                if (player.LoggedInWithShaPassword)
+                {
+                    Core.Debug.OutputDebugString("Updated PW to " + ByCryptedPassword);
+                    _Preload_.Login.Login.ChangeAccountPW(Nickname, ByCryptedPassword);
+                    Database.ChangeUserPasswort(Nickname, ByCryptedPassword);
+                    _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(Nickname, ByCryptedPassword);
+                }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

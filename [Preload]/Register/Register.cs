@@ -64,6 +64,7 @@ namespace VenoXV._Preload_.Register
         {
             try
             {
+
                 if (nickname.Length < 1 || email.Length < 1 || password.Length < 1 || passwordwdh.Length < 1) return;
                 if (PlayerHaveAlreadyAccount(player)) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Account!"); return; }
                 if (FoundAccountbyName(nickname)) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
@@ -73,7 +74,11 @@ namespace VenoXV._Preload_.Register
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
-                Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, password, geschlechtalsstring, 0);
+
+                string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
+                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(password, salt), salt);
+
+                Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, ByCryptedPassword, geschlechtalsstring, 0);
                 int UID = Database.GetPlayerUID(nickname);
                 player.Username = nickname;
                 player.UID = UID;
@@ -92,12 +97,13 @@ namespace VenoXV._Preload_.Register
                     HardwareId = player.HardwareIdHash.ToString(),
                     HardwareIdExhash = player.HardwareIdExHash.ToString(),
                     Name = nickname,
-                    Password = Login.Login.Sha256(password),
+                    Email = email,
+                    Password = ByCryptedPassword,
                     SocialID = player.SocialClubId.ToString(),
                     Language = _Language_.Main.GetClientLanguagePair(_Language_.Main.Languages.English)
                 };
                 AccountList.Add(account);
-                Program.CreateForumUser(player, nickname, email, password);
+                Program.CreateForumUser(player.UID, nickname, email, password);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
