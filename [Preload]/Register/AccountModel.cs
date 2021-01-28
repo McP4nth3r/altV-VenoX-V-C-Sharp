@@ -4,6 +4,7 @@
     {
         public int UID { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public string HardwareId { get; set; }
         public string HardwareIdExhash { get; set; }
         public string SocialID { get; set; }
