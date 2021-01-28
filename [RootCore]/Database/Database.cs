@@ -273,12 +273,12 @@ namespace VenoXV._RootCore_.Database
                 using MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "UPDATE spieler SET Passwort = SHA2(@Passwort, '256') WHERE SpielerName = @SpielerName";
+                command.CommandText = "UPDATE spieler SET Passwort = Passwort WHERE SpielerName = @SpielerName";
                 command.Parameters.AddWithValue("@SpielerName", Spielername);
                 command.Parameters.AddWithValue("@Passwort", password);
                 command.ExecuteNonQuery();
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
 
@@ -1794,6 +1794,7 @@ namespace VenoXV._RootCore_.Database
                             HardwareId = reader.GetString("HardwareIdHash"),
                             HardwareIdExhash = reader.GetString("HardwareIdExHash"),
                             Name = reader.GetString("SpielerName"),
+                            Email = reader.GetString("Email"),
                             Password = reader.GetString("Passwort"),
                             SocialID = reader.GetString("SpielerSocial")
                         };
