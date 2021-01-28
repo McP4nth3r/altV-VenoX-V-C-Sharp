@@ -693,11 +693,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                //*///////////////////////////////////// SQL LOADING ///////////////////////////////////////////////////*//
-                // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
-                Database.OnResourceStart();
-                //Program.OnResourceStart();
-                // IMMER ALS ERSTES VERBINDEN & STARTEN!!!
+
                 //*///////////////////////////////////// BASIC LOADING ///////////////////////////////////////////////////*//
                 // Interior Loading
                 //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_dt1_02_office_02b");
