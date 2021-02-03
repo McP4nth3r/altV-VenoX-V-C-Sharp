@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using AltV.Net.Data;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
@@ -60,7 +61,7 @@ namespace VenoXV._Preload_.Register
         }
 
         [AsyncClientEvent("Account:Register")]
-        public static async void OnRegisterCall(VnXPlayer player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
+        public static async Task OnRegisterCall(VnXPlayer player, string nickname, string email, string password, string passwordwdh, int geschlecht, bool evalid)
         {
             try
             {
@@ -75,8 +76,7 @@ namespace VenoXV._Preload_.Register
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
 
-                string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
-                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(password, salt), salt);
+                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
                 Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, ByCryptedPassword, geschlechtalsstring, 0);
                 int UID = Database.GetPlayerUID(nickname);
@@ -103,7 +103,7 @@ namespace VenoXV._Preload_.Register
                     Language = _Language_.Main.GetClientLanguagePair(_Language_.Main.Languages.English)
                 };
                 AccountList.Add(account);
-                Program.CreateForumUser(player.UID, nickname, email, password);
+                await Program.CreateForumUser(player.UID, nickname, email, password);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

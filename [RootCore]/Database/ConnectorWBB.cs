@@ -181,24 +181,22 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
             }
         }
         // On Resource Start
-        public static void OnResourceStart()
+        public static async void OnResourceStart()
         {
             try
             {
                 GetUserOptions();
                 RefreshForumDb();
-                /* await Task.Run(async () =>
-                 {
-                     await Task.Delay(5000);
-                     GetUserOptions();
-                     RefreshForumDb();
-                     foreach (var accClass in _Preload_.Register.Register.AccountList.ToList())
-                     {
-                         AccountModel acc = DatabaseAccounts.FirstOrDefault(x => x.UID == accClass.UID);
-                         if (acc is null) CreateForumUser(accClass.UID, accClass.Name, accClass.Email, accClass.Password);
-                     }
-                 });
-                */
+                await Task.Run(async () =>
+                {
+                    await Task.Delay(5000);
+                    foreach (var accClass in _Preload_.Register.Register.AccountList.ToList())
+                    {
+                        AccountModel acc = DatabaseAccounts.FirstOrDefault(x => x.UID == accClass.UID);
+                        if (acc is null) CreateForumUser(accClass.UID, accClass.Name, accClass.Email, accClass.Password);
+                    }
+                });
+
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -206,7 +204,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
 
 
         // Create Accounts
-        public static async void CreateForumUser(int UID, string name, string email, string Password)
+        public static async Task CreateForumUser(int UID, string name, string email, string Password)
         {
             try
             {

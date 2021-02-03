@@ -922,13 +922,12 @@ namespace VenoXV._Admin_
                 if (exestiert)
                 {
                     string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
-                    string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(passwort, salt), salt);
+                    string ByCryptedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(passwort, salt), salt);
+                    string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(passwort);
                     if (_Preload_.Login.Login.ChangeAccountPW(name, ByCryptedPassword))
                     {
-                        Core.Debug.OutputDebugString("Changed PW : " + passwort);
-                        Core.Debug.OutputDebugString("Changed PW : " + ByCryptedPassword);
                         Database.ChangeUserPasswort(name, ByCryptedPassword);
-                        _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(name, ByCryptedPassword);
+                        _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(name, ByCryptedPasswordWoltlab);
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
                     }
                 }

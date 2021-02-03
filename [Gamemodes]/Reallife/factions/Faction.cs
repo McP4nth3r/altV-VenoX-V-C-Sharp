@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Faction : IScript
     {
-        public static void CreateFactionInformation(int FID, string text)
+        public static void CreateFactionInformation(int FID, string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
         {
             try
             {
@@ -19,37 +19,32 @@ namespace VenoXV._Gamemodes_.Reallife.factions
 
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    if (target.Reallife.Faction == FID)
+                    if (target.Reallife.Faction == FID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
                 }
             }
             catch { }
         }
-        public static void CreateCustomFactionInformation(int FID, string text)
+        public static void CreateCustomFactionInformation(int FID, string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
         {
             try
             {
-                if (FID == Constants.FACTION_NONE)
-                {
-                    return;
-                }
+                if (FID == Constants.FACTION_NONE) return;
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    if (target.Reallife.Faction == FID)
-                    {
+                    if (target.Reallife.Faction == FID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
-                    }
                 }
             }
             catch { }
         }
-        public static void CreateStateFactionInformation(string text)
+        public static void CreateStateFactionInformation(string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
         {
             try
             {
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isStateFaction(target))
+                    if (Allround.isStateFaction(target) && target.Language == (int)language)
                     {
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + text);
                     }
@@ -58,31 +53,25 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             catch { }
 
         }
-        public static void CreateCustomStateFactionMessage(string text)
+        public static void CreateCustomStateFactionMessage(string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
         {
             try
             {
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isStateFaction(target))
-                    {
+                    if (Allround.isStateFaction(target) && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
-                    }
                 }
             }
             catch { }
         }
-        public static void CreateCustomBadFactionMessage(string text, int UID)
+        public static void CreateCustomBadFactionMessage(string text, int UID, _Language_.Main.Languages language = _Language_.Main.Languages.English)
         {
             try
             {
                 foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
-                {
-                    if (Allround.isBadFaction(target) && target.Reallife.Faction == UID)
-                    {
+                    if (Allround.isBadFaction(target) && target.Reallife.Faction == UID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
-                    }
-                }
             }
             catch { }
         }

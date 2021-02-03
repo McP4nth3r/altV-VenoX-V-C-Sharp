@@ -30,7 +30,7 @@ namespace VenoXV._RootCore_.Database
             // Set the encoding
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            string host = "5.180.66.146";
+            string host = "185.240.243.29";
             string user = "VenoXV_Security";
             string pass = "0Ux1k^x8k30vDx2*1g0dOt9@";
             string db = "VenoXV_Security";
@@ -241,30 +241,6 @@ namespace VenoXV._RootCore_.Database
             }
         }
 
-        public static bool LoginAccountByName(string name, string password)
-        {
-            try
-            {
-                bool login = false;
-
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName AND Passwort = SHA2(@Passwort, '256') LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
-                    command.Parameters.AddWithValue("@Passwort", password);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        login = reader.HasRows;
-                    }
-                }
-
-                return login;
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
-        }
 
         public static void ChangeUserPasswort(string Spielername, string password)
         {
@@ -273,7 +249,7 @@ namespace VenoXV._RootCore_.Database
                 using MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "UPDATE spieler SET Passwort = Passwort WHERE SpielerName = @SpielerName";
+                command.CommandText = "UPDATE spieler SET Passwort = @Passwort WHERE SpielerName = @SpielerName";
                 command.Parameters.AddWithValue("@SpielerName", Spielername);
                 command.Parameters.AddWithValue("@Passwort", password);
                 command.ExecuteNonQuery();
@@ -324,7 +300,7 @@ namespace VenoXV._RootCore_.Database
                 using MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, Passwort, Geschlecht, ForumUID) VALUES(@SpielerName, @SpielerSocial, @HardwareIdHash, @HardwareIdExHash, @email, SHA2(@passwort, '256'), @Geschlecht, @ForumUID)";
+                command.CommandText = "INSERT INTO spieler (SpielerName, SpielerSocial, HardwareIdHash, HardwareIdExHash, email, Passwort, Geschlecht, ForumUID) VALUES(@SpielerName, @SpielerSocial, @HardwareIdHash, @HardwareIdExHash, @email, @passwort, @Geschlecht, @ForumUID)";
                 command.Parameters.AddWithValue("@SpielerName", nickname);
                 command.Parameters.AddWithValue("@SpielerSocial", SocialClub);
                 command.Parameters.AddWithValue("@HardwareIdHash", HardwareIdHash);

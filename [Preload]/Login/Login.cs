@@ -26,17 +26,27 @@ namespace VenoXV._Preload_.Login
             }
             return hash;
         }
-        public static bool LoginAccount(string Nickname, string Password)
+        public static bool LoginAccount(string Nickname, string Password, bool bcrypt)
         {
-            foreach (AccountModel accClass in Register.Register.AccountList)
+            try
             {
-                if (accClass.Name.ToLower() == Nickname.ToLower())
+                foreach (AccountModel accClass in Register.Register.AccountList)
                 {
-                    if (accClass.Password == Password)
-                        return true;
+                    if (accClass.Name.ToLower() == Nickname.ToLower())
+                    {
+                        if (bcrypt)
+                        {
+                            if (BCrypt.Net.BCrypt.Verify(Password, accClass.Password))
+                                return true;
+                        }
+
+                        if (accClass.Password == Password)
+                            return true;
+                    }
                 }
+                return false;
             }
-            return false;
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
         public static bool ChangeAccountPW(string Nickname, string Password)
         {
@@ -50,16 +60,18 @@ namespace VenoXV._Preload_.Login
             }
             return false;
         }
-        public static AccountModel GetAccountModel(string Nickname, string Password)
+        public static AccountModel GetAccountModel(string Nickname, string Password, bool bcrypt = false)
         {
             foreach (AccountModel accClass in Register.Register.AccountList)
             {
                 if (accClass.Name.ToLower() == Nickname.ToLower())
                 {
+                    if (bcrypt)
+                        if (BCrypt.Net.BCrypt.Verify(Password, accClass.Password))
+                            return accClass;
+
                     if (accClass.Password == Password)
-                    {
                         return accClass;
-                    }
                 }
             }
             return null;
@@ -85,15 +97,13 @@ namespace VenoXV._Preload_.Login
             {
                 if (Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
                 AccountModel accClass;
-                string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
-                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(Password, salt), salt);
 
-                if (!LoginAccount(Nickname, Sha256(Password))) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
-                else player.LoggedInWithShaPassword = true;
+                if (!LoginAccount(Nickname, Sha256(Password), false) && !LoginAccount(Nickname, Password, true)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
+                else if (LoginAccount(Nickname, Sha256(Password), false)) player.LoggedInWithShaPassword = true;
 
-                if (!LoginAccount(Nickname, ByCryptedPassword) && !player.LoggedInWithShaPassword) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
+                if (player.LoggedInWithShaPassword) accClass = GetAccountModel(Nickname, Sha256(Password));
+                else accClass = GetAccountModel(Nickname, Password, true);
 
-                accClass = GetAccountModel(Nickname, Sha256(Password));
                 if (accClass == null) return;
                 player.Language = (int)_Language_.Main.GetLanguageByPair(accClass.Language);
                 Database.LoadCharacterInformationById(player, accClass.UID);
@@ -114,10 +124,17 @@ namespace VenoXV._Preload_.Login
                 // If Method is old-sha256 method : Update!
                 if (player.LoggedInWithShaPassword)
                 {
-                    Core.Debug.OutputDebugString("Updated PW to " + ByCryptedPassword);
-                    _Preload_.Login.Login.ChangeAccountPW(Nickname, ByCryptedPassword);
-                    Database.ChangeUserPasswort(Nickname, ByCryptedPassword);
-                    _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(Nickname, ByCryptedPassword);
+                    // Woltlab change
+                    string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
+                    string hashedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(Password, salt), salt);
+                    //Normal Change.
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
+                    if (_Preload_.Login.Login.ChangeAccountPW(Nickname, hashedPassword))
+                    {
+                        Core.Debug.OutputDebugString("Updated PW to " + hashedPassword);
+                        Database.ChangeUserPasswort(Nickname, hashedPassword);
+                        _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(Nickname, hashedPasswordWoltlab);
+                    }
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

@@ -113,25 +113,32 @@ namespace VenoXV._Gamemodes_.Race.Lobby
 
         public static void SendRaceMessage(string text)
         {
-            foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+            try
             {
-                players.SendTranslatedChatMessage(text);
+                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                {
+                    players.SendTranslatedChatMessage(text);
+                }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
         public static void SyncPlayerPlaceInRound()
         {
-
-            int counter = 0;
-            foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
+            try
             {
-                VenoX.TriggerClientEvent(player, "Race:ClearPlayerList", player.Username);
-                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
+                int counter = 0;
+                foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
                 {
-                    counter++;
-                    players.Race.RoundPlace = counter;
-                    VenoX.TriggerClientEvent(player, "Race:FillPlayerList", players.Username);
+                    VenoX.TriggerClientEvent(player, "Race:ClearPlayerList", player.Username);
+                    foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
+                    {
+                        counter++;
+                        players.Race.RoundPlace = counter;
+                        VenoX.TriggerClientEvent(player, "Race:FillPlayerList", players.Username);
+                    }
                 }
             }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
         public static async void OnClientRaceFinish(VnXPlayer player)
