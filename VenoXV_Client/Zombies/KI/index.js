@@ -6,7 +6,9 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { DrawText } from '../../Globals/VnX-Lib';
+import {
+    DrawText
+} from '../../Globals/VnX-Lib';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +22,7 @@ let SyncInterval;
 let ZombieClothes = {};
 let ZombieAccessories = {};
 let ZombieSkins = {};
-
+var CurrentDateTime = new Date().toUTCString();
 // Require 
 game.requestAnimSet('move_m@drunk@verydrunk');
 game.requestAnimSet('facials@gen_male@base');
@@ -48,16 +50,15 @@ alt.onServer('Zombies:Sync', async (state, playerCount = 0) => {
                         numb++;
                     }
                 };
-            }, 850);
-        }
-        else {
+            }, 5000);
+
+        } else {
             if (SyncInterval) {
                 alt.clearInterval(SyncInterval);
                 SyncInterval = null;
             }
         }
-    }
-    catch { }
+    } catch {}
 });
 
 alt.onServer('Zombies:SpawnKI', async (Id, RandomSkinUID, Hash, Position, Target) => {
@@ -123,14 +124,20 @@ alt.onServer('Zombies:DeleteTempZombieById', async (ID) => {
 });
 
 
-alt.onServer('Zombies:MoveToTarget', async (ID, Hash, Position, TargetEntity) => {
+alt.onServer('Zombies:MoveToTarget', async (ID, Hash, Position, Rotation, TargetEntity, move) => {
     if (!Zombies[parseInt(ID)]) {
         SpawnZombie(parseInt(ID), Hash, Position, TargetEntity);
         return;
     }
     if (!TargetEntity) return;
-    MoveZombieToTarget(parseInt(ID), TargetEntity);
+    var dotNetDate = "/Date(" + move + ")/";
+    var javaScriptDate = new Date(parseInt(dotNetDate.substr(6))).toUTCString();
+    Zombies[parseInt(ID)].MoveTime = javaScriptDate;
+    game.setEntityCoords(Zombies[parseInt(ID)].Entity, Position.x, Position.y, Position.z);
+    game.setEntityRotation(Zombies[parseInt(ID)].Entity, Rotation.x, Rotation.y, Rotation.z, 2, true);
 });
+
+
 
 alt.onServer('Zombies:LoadEntityClassClothes', async (ID, Slot1Drawable, Slot1Texture, Slot2Drawable, Slot2Texture, Slot3Drawable, Slot3Texture, Slot4Drawable, Slot4Texture, Slot5Drawable, Slot5Texture, Slot6Drawable, Slot6Texture, Slot7Drawable, Slot7Texture, Slot8Drawable, Slot8Texture, Slot9Drawable, Slot9Texture, Slot10Drawable, Slot10Texture, Slot11Drawable, Slot11Texture) => {
     if (ZombieClothes[parseInt(ID)]) return;
@@ -247,6 +254,7 @@ function CheckZombieHealths() {
 
 alt.setInterval(() => {
     CheckZombieHealths();
+    CurrentDateTime = new Date().toUTCString();
 }, 500);
 
 
@@ -256,7 +264,7 @@ function DrawNametags() {
             let playerPos2 = game.getEntityCoords(Zombies[Id].Entity);
             let distance = game.getDistanceBetweenCoords(alt.Player.local.pos.x, alt.Player.local.pos.y, alt.Player.local.pos.z, playerPos2.x, playerPos2.y, playerPos2.z, true);
             let screenPos = game.getScreenCoordFromWorldCoord(playerPos2.x, playerPos2.y, playerPos2.z + 1);
-            if (distance <= 30) DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~w~IsDead : ~b~" + Zombies[Id].IsDead, [screenPos[1], screenPos[2] - 0.035], [0.55, 0.55], 4, [255, 255, 255, 255], true, true);
+            if (distance <= 30) DrawText("Zombie ~r~[" + Zombies[Id].Id + "]\n~b~ Move : ~w~" + Zombies[Id].MoveTime + "\nCDate : " + CurrentDateTime, [screenPos[1], screenPos[2] - 0.035], [0.55, 0.55], 4, [255, 255, 255, 255], true, true);
         }
     }
 }
@@ -387,10 +395,11 @@ async function SpawnZombie(Id, RandomSkinUID, Hash, Position, Target) {
             Frozen: true,
             OutOfStreamingRange: false,
             TargetEntity: Target,
+            MoveTime: null
         }
+        game.freezeEntityPosition(Zombies[Id].Entity, true);
         SetZombieCorrectSkin(Zombies[Id].Entity, RandomSkinUID);
         SetZombieAttributes(Zombies[Id].Entity);
-        alt.log(RandomSkinUID);
     });
 }
 
@@ -399,7 +408,8 @@ async function SpawnZombie(Id, RandomSkinUID, Hash, Position, Target) {
 function MoveZombieToTarget(ID, TargetEntity) {
     if (Zombies[ID].IsDead) return;
     if (Zombies[ID].Frozen)
-        game.freezeEntityPosition(Zombies[ID].Entity, false); Zombies[ID].Frozen = false;
+        game.freezeEntityPosition(Zombies[ID].Entity, false);
+    Zombies[ID].Frozen = false;
 
     Zombies[ID].TargetEntity = TargetEntity;
     Zombies[ID].OutOfStreamingRange = false;
@@ -416,15 +426,13 @@ function MoveZombieToTarget(ID, TargetEntity) {
 
 }
 
-/*
+
 alt.everyTick(() => {
-    DrawNametags();
+    //DrawNametags();
+    for (var Id in Zombies)
+        if (Zombies[Id].MoveTime && Zombies[Id].MoveTime <= CurrentDateTime)
+            MoveZombieToTarget(Id, Zombies[Id].TargetEntity);
 });
-*/
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
