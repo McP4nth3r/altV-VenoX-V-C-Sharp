@@ -36,14 +36,14 @@ namespace VenoXV._Gamemodes_.Zombie.Models
                     if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
             }
         }
-        public void UpdatePositionAndRotation(Vector3 position, Vector3 rotation)
+        public void UpdatePositionAndRotation(Vector3 position, Vector3 rotation, bool sync = false)
         {
             try
             {
                 _Position = position;
                 _Rotation = rotation;
                 foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer && sync) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
             catch { }
         }

@@ -148,6 +148,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
+                long move = Convert.ToInt64(DateTime.UtcNow.AddSeconds(5).Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds);
                 foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
                 {
                     foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
@@ -157,7 +158,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                             if (player.Position.Distance(zombieClass.Position) < 150 && !zombieClass.IsDead)
                             {
                                 if (!player.Zombies.NearbyZombies.Contains(zombieClass)) player.Zombies.NearbyZombies.Add(zombieClass);
-                                VenoX.TriggerClientEvent(player, "Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.Position, zombieClass.TargetEntity);
+                                VenoX.TriggerClientEvent(player, "Zombies:MoveToTarget", zombieClass.ID, zombieClass.SkinName, zombieClass.Position, zombieClass.Rotation, zombieClass.TargetEntity, move);
                             }
                             else
                             {
@@ -208,7 +209,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 {
                     TIME_TO_GET_NEW_TARGET = DateTime.Now.AddSeconds(TIME_INTERVAL_TARGET_UPDATE);
                     GetNewZombieTarget();
-                    SyncZombieTargeting();
+                    //SyncZombieTargeting();
                 }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

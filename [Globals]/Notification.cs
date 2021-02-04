@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 namespace VenoXV._Notifications_
@@ -25,11 +24,8 @@ namespace VenoXV._Notifications_
         {
             try
             {
-                await Task.Run(async () =>
-                {
-                    string TranslatedMessage = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, message);
-                    VenoX.TriggerClientEvent(player, "createVnXLiteNotify", (int)type, TranslatedMessage);
-                });
+                string TranslatedMessage = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, message);
+                VenoX.TriggerClientEvent(player, "createVnXLiteNotify", (int)type, TranslatedMessage);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

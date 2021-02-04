@@ -193,7 +193,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
                     foreach (var accClass in _Preload_.Register.Register.AccountList.ToList())
                     {
                         AccountModel acc = DatabaseAccounts.FirstOrDefault(x => x.UID == accClass.UID);
-                        if (acc is null) CreateForumUser(accClass.UID, accClass.Name, accClass.Email, accClass.Password);
+                        if (acc is null) await CreateForumUser(accClass.UID, accClass.Name, accClass.Email, accClass.Password);
                     }
                 });
 

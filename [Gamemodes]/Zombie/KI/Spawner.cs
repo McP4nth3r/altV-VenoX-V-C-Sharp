@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.KI
         private static int CurrentZombieCounter = 0;
         private static int PositionCounter = 0;
         private static int DIST_ZOMBIES = 12;
-        private static int MAX_ZOMBIES = 25;
+        private static int MAX_ZOMBIES = 15;
 
         //
         private static void CreateNewRandomZombie(VnXPlayer player)

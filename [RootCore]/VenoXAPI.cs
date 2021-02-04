@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using System;
 using System.Collections.Generic;
 using VenoXV._RootCore_.Models;
@@ -17,7 +18,8 @@ namespace VenoXV._RootCore_
         {
             try
             {
-                Alt.Server.TriggerClientEvent(player, EventName, args);
+                player.EmitLocked(EventName, args);
+                //Alt.Server.TriggerClientEvent(player, EventName, args);
                 //Core.Debug.OutputDebugString("[ClientEvent] : [" + player.Name + "] | [" + player.Username + "] called EventName : " + EventName);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

@@ -67,18 +67,9 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                int playerId = player.UID;
-                foreach (ItemModel item in player.Inventory.Items)
-                {
-                    if (item.UID == playerId)
-                    {
-                        if ((item.Hash + ".png") == ClickedHash)
-                        {
-                            UseItem(player, item);
-                            return;
-                        }
-                    }
-                }
+                ItemModel item = player.Inventory.Items.ToList().FirstOrDefault(x => x.UID == player.Id && (x.Hash + ".png") == ClickedHash);
+                if (item is not null)
+                    UseItem(player, item);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
