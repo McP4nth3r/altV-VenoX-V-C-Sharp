@@ -1,4 +1,5 @@
 ﻿using AltV.Net;
+using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.Environment.Rathaus;
 using VenoXV._Gamemodes_.Reallife.Factions;
@@ -788,8 +790,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-        [ClientEvent("checkPlayerEventKey")]
-        public async void CheckPlayerEventKeyEvent(VnXPlayer player)
+        [AsyncClientEvent("checkPlayerEventKey")]
+        public async Task CheckPlayerEventKeyEvent(VnXPlayer player)
         {
             try
             {

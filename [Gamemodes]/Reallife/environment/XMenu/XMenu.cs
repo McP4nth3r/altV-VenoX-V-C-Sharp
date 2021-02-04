@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
         {
             try
             {
-                if (vehicle == null) { return; }
+                if (vehicle == null) return;
                 if (!IsVehicleOwner(player, vehicle)) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nicht der Besitzer dieses Fahrzeuges!"); return; }
                 if (vehicle.Gas <= 0) { player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "[Fehler] : Fahrzeug tank ist leer..."); return; }
                 switch (Button)
