@@ -64,48 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                vehicle.ModKit = 1;
-                //Primärfarbe:100;Sekundärfarbe:200;Pearl-Effekt:250;Neonröhren:300;
-                string tuningItems = "Primärfarbe:100;Sekundärfarbe:200;";
-                if (ReturnMaxVehicleMods(vehicle, 0) != 0) { tuningItems += ";Spoiler:0"; }
-                if (ReturnMaxVehicleMods(vehicle, 1) != 0) { tuningItems += ";Frontstoßstange:1"; }
-                if (ReturnMaxVehicleMods(vehicle, 2) != 0) { tuningItems += ";Heckstoßstange:2"; }
-                if (ReturnMaxVehicleMods(vehicle, 3) != 0) { tuningItems += ";Seitenverkleidung:3"; }
-                if (ReturnMaxVehicleMods(vehicle, 4) != 0) { tuningItems += ";Auspuff:4"; }
-                if (ReturnMaxVehicleMods(vehicle, 5) != 0) { tuningItems += ";Überrollkäfig:5"; }
-                if (ReturnMaxVehicleMods(vehicle, 6) != 0) { tuningItems += ";Kühlergrill:6"; }
-                if (ReturnMaxVehicleMods(vehicle, 7) != 0) { tuningItems += ";Motorhaube:7"; }
-                if (ReturnMaxVehicleMods(vehicle, 8) != 0) { tuningItems += ";Linker Kotflügel:8"; }
-                if (ReturnMaxVehicleMods(vehicle, 9) != 0) { tuningItems += ";Rechter Kotflügel:9"; }
-                if (ReturnMaxVehicleMods(vehicle, 10) != 0) { tuningItems += ";Dach:10"; }
-                if (ReturnMaxVehicleMods(vehicle, 11) != 0) { tuningItems += ";Motor:11"; }
-                //  if (ServerVehicles.ReturnMaxTuningWheels(11) != 0) { tuningItems += ";Motor:11"; }
-                if (ReturnMaxTuningWheels(12) != 0) { tuningItems += ";Bremsen:12"; }
-                if (ReturnMaxTuningWheels(13) != 0) { tuningItems += ";Getriebe:13"; }
-                if (ReturnMaxTuningWheels(14) != 0) { tuningItems += ";Hupe:14"; }
-                if (ReturnMaxTuningWheels(15) != 0) { tuningItems += ";Federung:15"; }
-                if (ReturnMaxTuningWheels(22) != 0) { tuningItems += ";Xenon:22"; }
-                tuningItems += ";Scheinwerferfarbe:280";
-                //ToDo: Reifentyp
-                //if (ServerVehicles.ReturnMaxTuningWheels(131) != 0) { tuningItems += ";Reifen Typ:131"; }
-
-                int wheelT = vehicle.WheelType;
-                if (wheelT == 255 || wheelT == 0) wheelT = 0;
-
-                if (ReturnMaxTuningWheels(Convert.ToInt32(23 + "" + wheelT)) != 0) { tuningItems += ";Reifen:23"; }
-                if (ReturnMaxTuningWheels(132) != 0) { tuningItems += ";Reifen Farbe:132"; }
-                if (ReturnMaxVehicleMods(vehicle, 25) != 0) { tuningItems += ";Nummernschild Rahmen:25"; }
-                if (ReturnMaxVehicleMods(vehicle, 27) != 0) { tuningItems += ";Innenpolster:27"; }
-                if (ReturnMaxVehicleMods(vehicle, 28) != 0) { tuningItems += ";Wackelkopf:28"; }
-                if (ReturnMaxVehicleMods(vehicle, 30) != 0) { tuningItems += ";Tacho Design:30"; }
-                if (ReturnMaxVehicleMods(vehicle, 33) != 0) { tuningItems += ";Lenkrad:33"; }
-                if (ReturnMaxVehicleMods(vehicle, 34) != 0) { tuningItems += ";Schaltknüppel:34"; }
-                if (ReturnMaxVehicleMods(vehicle, 35) != 0) { tuningItems += ";Tafel:35"; }
-                if (ReturnMaxVehicleMods(vehicle, 40) != 0) { tuningItems += ";Luftfilter:40"; }
-                if (ReturnMaxTuningWheels(46) != 0) { tuningItems += ";Fenstertönung:46"; }
-                if (ReturnMaxVehicleMods(vehicle, 48) != 0) { tuningItems += ";Vinyls:48"; }
-
-                VenoX.TriggerClientEvent(player, "Tuning:Show", vehicle, tuningItems); //Emit to open UI Client 
+                VenoX.TriggerClientEvent(player, "Tuning:Show"); //Emit to open UI Client 
             }
             catch { }
         }
