@@ -307,10 +307,11 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
         {
             if (NPC_NextUpdate_Pos < DateTime.Now)
             {
-                NPC_NextUpdate_Pos = DateTime.Now.AddHours(NPC_UPDATE_TIME);
+                /*NPC_NextUpdate_Pos = DateTime.Now.AddHours(NPC_UPDATE_TIME);
                 DeleteAllNPCs();
                 CreateNewNPC();
                 Debug.OutputDebugString("Es wurden neue Random - NPC's nun erstellt!");
+                */
             }
         }
 

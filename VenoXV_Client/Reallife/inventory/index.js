@@ -1,139 +1,89 @@
 //----------------------------------//
-///// VenoX Gaming & Fun 2019 © ///////
+///// VenoX Gaming & Fun 2020 © ///////
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-import alt, {
-    gameControlsEnabled
-} from 'alt-client';
-import * as game from "natives";
 
+import * as alt from 'alt-client';
+import * as game from 'natives';
 import {
-    ShowCursor,
-    GetCursorStatus,
     vnxCreateCEF,
-    vnxDestroyCEF,
-    Draw3DText,
-    frontOfPlayer
-} from '../../Globals/VnX-Lib';
+    ShowCursor,
+    vnxDestroyCEF
+} from '../../../Globals/VnX-Lib';
 
-let InventoryCreated = false;
-let InventoryOpen = false;
-let InventoryBrowser;
 
-export function OnInventoryKeyPressed(key) {
-    if (key == 0x49) {
-        if (!InventoryCreated) return;
-        if (GetCursorStatus() && !InventoryOpen) return;
-        if (!InventoryOpen) {
-            InventoryBrowser.focus();
-            ShowCursor(true);
-            InventoryBrowser.emit("Inventory:Open");
-        } else {
-            ShowCursor(false);
-            InventoryBrowser.emit("Inventory:Close");
+var TuningNumbers = {}
+TuningNumbers[0] = true
+TuningNumbers[1] = true
+TuningNumbers[2] = true
+TuningNumbers[3] = true
+TuningNumbers[4] = true
+TuningNumbers[5] = true
+TuningNumbers[6] = true
+TuningNumbers[7] = true
+TuningNumbers[8] = true
+TuningNumbers[9] = true
+TuningNumbers[10] = true
+TuningNumbers[11] = true
+TuningNumbers[12] = true
+TuningNumbers[13] = true
+TuningNumbers[14] = true
+TuningNumbers[15] = true
+TuningNumbers[18] = true
+TuningNumbers[22] = true
+TuningNumbers[23] = true
+TuningNumbers[24] = true
+TuningNumbers[25] = true
+TuningNumbers[27] = true
+TuningNumbers[28] = true
+TuningNumbers[30] = true
+TuningNumbers[33] = true
+TuningNumbers[34] = true
+TuningNumbers[35] = true
+TuningNumbers[38] = true
+TuningNumbers[46] = true
+TuningNumbers[48] = true
+TuningNumbers[69] = true
+TuningNumbers[200] = true
+
+
+
+
+function FillTuningList() {
+    const menu = [];
+    for (let i = 0; i < 61; i++) {
+        const item = {
+            type: 'mod',
+            modIndex: i
+        };
+        if (!item.name || game.getNumVehicleMods(alt.Player.local.vehicle.scriptID, i) <= 0) {
+            continue;
         }
-        InventoryOpen = !InventoryOpen;
+        alt.log(item.modIndex + " | " + game.getModSlotName(alt.Player.local.vehicle.scriptID, item.modIndex));
+        menu.push(item);
     }
+    /*
+    for (var i in TuningNumbers) {
+        if (TuningNumbers[i]) {
+            let VEHICLE_MOD_ID = game.getNumVehicleMods(alt.Player.local.vehicle.scriptID, Number(i));
+            alt.log(game.getModSlotName(alt.Player.local.vehicle.scriptID, Number(i)));
+            if (VEHICLE_MOD_ID > 0) {
+                alt.log(game.getModSlotName(alt.Player.local.vehicle.scriptID, i));
+            }
+        }
+    }
+    */
 }
 
-
-
-alt.onServer('Inventory:Update', (InventoryJson) => {
-    if (!InventoryCreated) return;
-    let InventoryItems = JSON.parse(InventoryJson);
-    for (let i = 0; i < InventoryItems.length; i++) {
-        let data = InventoryItems[i];
-        InventoryBrowser.emit('Inventory:Update', data.Hash, data.Amount, data.Type, data.Weight);
-    }
-});
-
-alt.onServer('Inventory:RemoveAll', () => {
-    if (!InventoryCreated) return;
-    InventoryBrowser.emit('Inventory:RemoveAll');
-});
-
-
-alt.onServer('Inventory:Load', () => {
-    if (InventoryCreated) return;
-    InventoryBrowser = vnxCreateCEF("Inventory-Reallife", "Reallife/inventory/main.html", "Reallife");
-    InventoryCreated = true;
-
-    InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
-        switch (Btn) {
-            case 'use':
-                alt.emitServer('Inventory:Use', Hash);
-            case 'remove':
-                alt.emitServer('Inventory:Remove', Hash);
-        }
+alt.onServer('Tuning:Show', () => {
+    let cTuning = vnxCreateCEF("Reallife-Tuning", "Reallife/vehicles/tuning/main.html", "Reallife");
+    cTuning.focus();
+    ShowCursor(true);
+    cTuning.on('Tuning:Destroy', () => {
+        vnxDestroyCEF('Reallife-Tuning');
+        alt.emitServer('Reallife-Tuning:Close');
     });
-
-    InventoryBrowser.on('Inventory:DropItem', (Hash, Amount) => {
-        alt.emitServer('Inventory:DropItem', Hash, parseInt(Amount));
-    });
+    FillTuningList();
 });
-
-alt.onServer('Inventory:Unload', () => {
-    if (!InventoryCreated) {
-        return;
-    }
-    vnxDestroyCEF("Inventory-Reallife");
-    InventoryCreated = false;
-});
-
-
-
-// Obj Drop : 
-
-let DroppedObjList = {};
-alt.everyTick(() => {
-    for (var obj in DroppedObjList) {
-        let coords = game.getEntityCoords(DroppedObjList[obj].Obj);
-        Draw3DText(DroppedObjList[obj].Text, coords.x, coords.y, coords.z, 0, [255, 255, 255, 255], 10, true, true, 0.2);
-    }
-});
-
-alt.onServer('Inventory:DropObj', (Id, Hash, Text) => {
-    if (DroppedObjList[Id]) return;
-    Hash = game.getHashKey(Hash);
-    let Position = frontOfPlayer(0.5);
-    if (!game.hasModelLoaded(Hash)) game.requestModel(Hash);
-    let Obj = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, true);
-    game.setActivateObjectPhysicsAsSoonAsItIsUnfrozen(Obj, true);
-    game.activatePhysics(Obj);
-    game.setEntityHasGravity(Obj, true);
-    DroppedObjList[Id] = {
-        Id: Id,
-        Hash: Hash,
-        Text: Text,
-        Obj: Obj
-    };
-});
-
-alt.onServer('Inventory:DeleteObj', Id => {
-    DeleteDroppedItem(Id);
-});
-
-
-function DeleteDroppedItem(Id) {
-    if (!DroppedObjList[Id]) return;
-    game.deleteObject(DroppedObjList[Id].Obj);
-    delete DroppedObjList[Id];
-    alt.log('Called DeleteDroppedItem');
-}
-
-export function CheckDroppedObjects() {
-    for (var counter in DroppedObjList) {
-        if (!DroppedObjList[counter] || !DroppedObjList[counter].Obj) continue;
-        let objCoords = game.getEntityCoords(DroppedObjList[counter].Obj);
-        let playerCoords = alt.Player.local.pos;
-        let Distance = game.getDistanceBetweenCoords(objCoords.x, objCoords.y, objCoords.z, playerCoords.x, playerCoords.y, playerCoords.z, true);
-        if (Distance < 1.5) {
-            alt.emitServer('Inventory:PickupItem', parseInt(DroppedObjList[counter].Id));
-            DeleteDroppedItem(DroppedObjList[counter].Id);
-            return true;
-        }
-    }
-    return false;
-}

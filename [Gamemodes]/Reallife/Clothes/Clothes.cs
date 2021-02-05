@@ -23,7 +23,6 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             try
             {
                 if (shape != ClothesShape) return false;
-
                 if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
                 {
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
@@ -33,14 +32,13 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                 int dim = random.Next(1, 9999);
                 //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                 player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
-                dxLibary.VnX.SetElementFrozen(player, true);
+                player.Freeze = true;
                 player.Rotation = new Rotation(0f, 0f, 160f);
-                player.vnxSetStreamSharedElementData("HideHUD", 1);
                 player.Dimension = dim;
                 VenoX.TriggerClientEvent(player, "showClothesMenu", "Klamottenshop ", 1);
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         //[AltV.Net.ClientEvent("CloseClotheShop")]
