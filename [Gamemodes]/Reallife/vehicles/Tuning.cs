@@ -1,7 +1,6 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -13,15 +12,6 @@ using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
-    public class Server_All_Vehicle_Mods
-    {
-        public int id { get; set; }
-        public long vehicleHash { get; set; }
-        public string modName { get; set; }
-        public int modType { get; set; }
-        public int modId { get; set; }
-    }
-
     public class Tuning : IScript
     {
         public static void OnResourceStart()
@@ -32,34 +22,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static ColShapeModel TuningGaragenTeleport = RageAPI.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);
 
 
-        public static List<Server_All_Vehicle_Mods> ServerAllVehicleMods_ = new List<Server_All_Vehicle_Mods>();
-
-        public static int ReturnMaxVehicleMods(VehicleModel veh, int modType)
-        {
-            int maxMods = 0;
-            try
-            {
-                maxMods = ServerAllVehicleMods_.Where(x => x.vehicleHash == veh.Model && x.modType == modType).Count();
-            }
-            catch (Exception e)
-            {
-                Alt.Log($"{e}");
-            }
-            return maxMods;
-        }
-        public static int ReturnMaxTuningWheels(int modType)
-        {
-            try
-            {
-                int count = ServerAllVehicleMods_.Where(x => (int)x.vehicleHash == 0 && x.modType == modType).Count();
-                return count;
-            }
-            catch (Exception e)
-            {
-                Alt.Log($"{e}");
-            }
-            return 0;
-        }
         public static void EmitTuningWindow(VnXPlayer player, VehicleModel vehicle)
         {
             try
@@ -131,24 +93,22 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                /*foreach (TunningModel tunning in Main.tunningList)
+                foreach (TunningModel tunning in Main.tunningList)
                 {
-                    if (Vehicle.ID == tunning.IVehicle)
-                    {
-                        IVehicle.SetMod(tunning.slot, tunning.component);
-                    }
-                }*/
+                    if (vehClass.ID == tunning.IVehicle)
+                        vehClass.SetMod((byte)tunning.slot, (byte)tunning.component);
+                }
             }
-            catch { }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        private int GetIVehicleTunningComponent(int IVehicleId, int slot)
+        private byte GetIVehicleTunningComponent(int IVehicleId, int slot)
         {
             try
             {
                 // Get the component on the specified slot
                 TunningModel tunning = Main.tunningList.Where(tunningModel => tunningModel.IVehicle == IVehicleId && tunningModel.slot == slot).FirstOrDefault();
 
-                return tunning == null ? 255 : tunning.component;
+                return tunning == null ? 255 : (byte)tunning.component;
             }
             catch { return 0; }
         }
@@ -156,21 +116,18 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        //[AltV.Net.ClientEvent("modifyIVehicle")]
-        public void ModifyIVehicleEvent(VnXPlayer player, int slot, int component)
+        [ClientEvent("modifyIVehicle")]
+        public void ModifyIVehicleEvent(VnXPlayer player, byte slot, byte component)
         {
             try
             {
+                if (!player.IsInVehicle) return;
                 VehicleModel vehicle = (VehicleModel)player.Vehicle;
 
                 if (component > 0)
-                {
-                    //(VehicleModel)player.Vehicle.SetMod(slot, component);
-                }
-                else
-                {
-                    //(VehicleModel)player.Vehicle.RemoveMod(slot);
-                }
+                    vehicle.SetMod(slot, component);
+                //else
+                //vehicle.RemoveMod(slot);
             }
             catch { }
         }
@@ -183,13 +140,13 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
                 int IVehicleId = vehClass.ID;
 
-                for (int i = 0; i < 49; i++)
+                for (byte i = 0; i < 49; i++)
                 {
                     // Get the component in the slot
-                    int component = GetIVehicleTunningComponent(IVehicleId, i);
+                    byte component = GetIVehicleTunningComponent(IVehicleId, i);
 
                     // Remove or add the tunning part
-                    // (VehicleModel)player.Vehicle.SetMod(i, component);
+                    player.Vehicle.SetMod(i, component);
                 }
             }
             catch { }
