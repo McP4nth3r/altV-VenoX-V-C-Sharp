@@ -1,9 +1,13 @@
-﻿using System;
+﻿using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Sync
 {
@@ -14,6 +18,8 @@ namespace VenoXV._RootCore_.Sync
         public static int EntityUpdateInterval = 10; // Sync Update in Seconds.
         public static int RenderDistance = 1500; // Distance to a Obj to Create.
         public static int EntityDistance = 300; // Distance to a Obj to Create.
+        private static int CurrentHour = 15; // Current Hour for DateTime Sync.
+
 
         public static List<BlipModel> BlipList = new List<BlipModel>();
         public static List<LabelModel> LabelList = new List<LabelModel>();
@@ -91,7 +97,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 foreach (ObjectModel obj in ObjectList.ToList())
                 {
-                    if (playerClass.Position.Distance(obj.Position) <= RenderDistance && obj.Dimension == playerClass.Dimension)
+                    if (playerClass.Position.Distance(obj.Position) <= RenderDistance && (obj.Dimension == playerClass.Dimension || obj.Dimension == Dimension.GlobalDimension))
                     {
                         if (obj.VisibleOnlyFor == playerClass || obj.VisibleOnlyFor == null)
                         {
@@ -119,7 +125,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 foreach (LabelModel labels in LabelList.ToList())
                 {
-                    if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= RenderDistance && labels.Dimension == playerClass.Dimension)
+                    if (playerClass.Position.Distance(new Vector3(labels.PosX, labels.PosY, labels.PosZ)) <= RenderDistance && (labels.Dimension == playerClass.Dimension || labels.Dimension == Dimension.GlobalDimension))
                     {
                         if (labels.VisibleOnlyFor == null || labels.VisibleOnlyFor == playerClass)
                         {
@@ -152,7 +158,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 foreach (MarkerModel marker in MarkerList.ToList())
                 {
-                    if (playerClass.Position.Distance(marker.Position) <= RenderDistance && marker.Dimension == playerClass.Dimension)
+                    if (playerClass.Position.Distance(marker.Position) <= RenderDistance && (marker.Dimension == playerClass.Dimension || marker.Dimension == Dimension.GlobalDimension))
                     {
                         if (marker.VisibleOnlyFor == null || marker.VisibleOnlyFor == playerClass)
                         {
@@ -228,5 +234,112 @@ namespace VenoXV._RootCore_.Sync
             }
             catch { }
         }
+        public static void OnMinuteSpend()
+        {
+            if (CurrentHour < 23) CurrentHour++;
+            else CurrentHour = 0;
+        }
+
+
+
+        /* Weather & DateTime Sync */
+        public static int WEATHER_COUNTER = 0;
+        public static int WEATHER_CURRENT = 0; // Current Weather
+        public static int GetRandomWeather(int min, int max)
+        {
+            Random random = new Random();
+            int cevent = random.Next(min, max);
+            return cevent;
+        }
+        public static void SyncWeather(VnXPlayer player)
+        {
+            try
+            {
+                if (WEATHER_COUNTER >= 60)
+                {
+                    int weather = 0;
+                    if (WEATHER_CURRENT == 9)
+                    {
+                        weather = 0;
+                    }
+                    else
+                    {
+                        //weather = 13;
+                        weather = GetRandomWeather(0, 2);
+                        switch (weather)
+                        {
+                            case 0:
+                                weather = 0;
+                                break;
+                            case 1:
+                                weather = 8;
+                                break;
+                            case 2:
+                                weather = 9;
+                                break;
+                            case 3:
+                                weather = 3;
+                                break;
+                        }
+                    }
+                    WEATHER_COUNTER = 0;
+                    WEATHER_CURRENT = weather;
+
+                    player.SetWeather((AltV.Net.Enums.WeatherType)WEATHER_CURRENT);
+                }
+                else if (WEATHER_COUNTER < 60)
+                {
+                    player.SetWeather((AltV.Net.Enums.WeatherType)WEATHER_CURRENT);
+                    WEATHER_COUNTER += 1;
+                }
+            }
+            catch { }
+        }
+        public static void SyncDateTime(VnXPlayer player)
+        {
+            try
+            {
+                DateTime CurrentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, CurrentHour, 0, 0);
+                player.SetDateTime(CurrentDateTime);
+            }
+            catch { }
+        }
+
+        // Assets for better stable results : 
+        public static void DeleteVehicleThreadSafe()
+        {
+            try
+            {
+                //int i = 0;
+                foreach (VehicleModel vehClass in VenoXV._Globals_.Main.AllVehicles.ToList())
+                {
+                    if (VenoXV._Globals_.Main.AllVehicles.ToList().Contains(vehClass) && vehClass.MarkedForDelete)
+                    {
+                        //Debug.OutputDebugString("DeleteVehicleThreadSafe : " + i++);
+                        VenoXV._Globals_.Main.AllVehicles.Remove(vehClass);
+                        vehClass.Remove();
+                    }
+                }
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+        public static void DeleteColShapesThreadSafe()
+        {
+            try
+            {
+                //int i = 0;
+                foreach (ColShapeModel colShape in Sync.ColShapeList.ToList())
+                {
+                    if (Sync.ColShapeList.Contains(colShape) && colShape.MarkedForDelete)
+                    {
+                        //Debug.OutputDebugString("DeleteColShapesThreadSafe : " + i++);
+                        Sync.ColShapeList.Remove(colShape);
+                        Alt.RemoveColShape(colShape);
+                    }
+                }
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
+        }
+
     }
 }
