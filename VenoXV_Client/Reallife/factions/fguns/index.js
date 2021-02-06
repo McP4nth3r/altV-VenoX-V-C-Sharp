@@ -4,7 +4,11 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../Globals/VnX-Lib';
+import {
+    ShowCursor,
+    vnxCreateCEF,
+    vnxDestroyCEF
+} from '../../../Globals/VnX-Lib';
 let FgunsWindow;
 alt.onServer('fguns:Open', (State) => {
     if (FgunsWindow) return;

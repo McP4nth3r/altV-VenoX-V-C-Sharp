@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="menu.css" />
+    <link rel="stylesheet" href="scrollbar.css" />
+</head>
+
+<body>
+    <div class="menu-content">
+        <div id="bluelineheader" class="menu-bluelineheader"></div>
+        <div id="header" class="menu-header"></div>
+        <div id="content" class="menu-body"></div>
+        <div id="options" class="menu-options"></div>
+    </div>
+</body>
+
+<script src="assets/html-dev-lib-asset.js"></script>
+<script src="jquery-3.1.1.min.js"></script>
+<script src="i18next.min.js"></script>
+<script src="jquery-i18next.min.js"></script>
+<script src="i18nextXHRBackend.min.js"></script>
+<script src="menu.js"></script>
+
+<script>
+    if ('alt' in window) {
+        alt.on('populateClothesShopMenu', (clothesTypeArray, business, price) => {
+            populateClothesShopMenu(clothesTypeArray, business, price);
+            console.log('Called : populateClothesShopMenu');
+        });
+        alt.on('populateTypeClothes', typeClothesJson => {
+            populateTypeClothes(typeClothesJson);
+        });
+    }
+</script>
+
+</html>

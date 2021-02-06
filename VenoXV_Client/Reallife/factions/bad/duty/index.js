@@ -4,14 +4,20 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 import * as alt from 'alt-client';
-import * as game from "natives";
-import { FreezeClient } from '../../../../Globals/VnX-Lib/events';
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../../Globals/VnX-Lib';
-
+import {
+    ShowCursor,
+    vnxCreateCEF,
+    vnxDestroyAllCEF
+} from '../../../../Globals/VnX-Lib';
+import {
+    FreezeClient
+} from '../../../../Globals/VnX-Lib/events';
 
 let dutybadbrowser = null;
 alt.onServer('show_duty_window_bad', (Name, Neutral) => {
-    if (dutybadbrowser) { return; }
+    if (dutybadbrowser) {
+        return;
+    }
     FreezeClient(true);
     dutybadbrowser = vnxCreateCEF("DutyBad", "Reallife/factions/bad/duty/main.html", "Reallife");
     alt.setTimeout(() => {
@@ -33,4 +39,3 @@ alt.onServer('show_duty_window_bad', (Name, Neutral) => {
         FreezeClient(false);
     });
 });
-

@@ -287,3 +287,26 @@ alt.everyTick(() => {
         DrawText("GO!", [0.5, 0.5], [1, 1], 0, [0, 200, 255, 255], true, true);
     }
 });
+
+
+// html-dev-lib
+
+let SideMenu;
+alt.onServer('VnX-Lib:CreateSideMenu', CreateSideMenu);
+export function CreateSideMenu() {
+    SideMenu = vnxCreateCEF('Side-Menu', "Globals/VnX-Lib/sidemenu/main.html");
+    SideMenu.on('sidemenu:purchaseItem', (selected, purchasedAmount) => {
+        alt.emitServer('sidemenu:purchaseItem', selected, purchasedAmount);
+    });
+    SideMenu.on('sidemenu:destroy', () => {
+        vnxDestroyCEF('Side-Menu');
+        SideMenu = null;
+    });
+    return SideMenu;
+}
+
+export function DestroySideMenu() {
+    if (!SideMenu) return;
+    vnxDestroyCEF('Side-Menu');
+    SideMenu = null;
+}

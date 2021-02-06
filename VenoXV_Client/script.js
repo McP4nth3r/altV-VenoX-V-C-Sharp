@@ -9,57 +9,97 @@
 import alt from 'alt-client';
 import * as game from "natives";
 
-function test() {
-
-}
-
-import * as BanWindow from '/VenoXV_Client/Globals/Anzeigen/ban/index.js';
+let i = -1;
+alt.log(i++);
+import * as BanWindow from '/VenoXV_Client/Globals/Overlay/ban/index.js';
+alt.log(i++);
 import * as Notification from '/VenoXV_Client/Globals/Notification/index.js';
+alt.log(i++);
 import * as CaseOpening from '/VenoXV_Client/Globals/Premium/Case/index.js';
+alt.log(i++);
 import * as Chat from '/VenoXV_Client/Globals/Chat/index.js';
+alt.log(i++);
 import * as ServerLibary from '/VenoXV_Client/Globals/VnX-Lib/index.js';
+alt.log(i++);
 import * as CameraLib from '/VenoXV_Client/Globals/VnX-Lib/camera.js';
+alt.log(i++);
 import * as EventLib from '/VenoXV_Client/Globals/VnX-Lib/events.js';
-import * as Nametags from '/VenoXV_Client/Globals/Anzeigen/nametags/nametags.js';
+alt.log(i++);
+import * as Nametags from '/VenoXV_Client/Globals/Overlay/nametags/nametags.js';
+alt.log(i++);
 import * as CharCreator from '/VenoXV_Client/Globals/Charcreator/index.js';
-import * as Tacho from '/VenoXV_Client/Globals/Anzeigen/tacho/index.js';
-import * as hud from '/VenoXV_Client/Globals/Anzeigen/hud/index.js';
+alt.log(i++);
+import * as Tacho from '/VenoXV_Client/Globals/Overlay/speedometer/index.js';
+alt.log(i++);
+import * as hud from '/VenoXV_Client/Globals/Overlay/hud/index.js';
+alt.log(i++);
 import * as Sync from '/VenoXV_Client/Globals/Sync/index.js';
+alt.log(i++);
 import * as Settings from '/VenoXV_Client/Globals/Settings/index.js';
+alt.log(i++);
 import * as Rathaus from '/VenoXV_Client/Reallife/environment/rathaus/index.js';
-
+alt.log(i++);
 import * as serverEvents from '/VenoXV_Client/preload/login/index.js';
+alt.log(i++);
 import * as Handy from '/VenoXV_Client/Reallife/handy/index.js';
-
+alt.log(i++);
+import * as Clothes from '/VenoXV_Client/Reallife/clothes/index.js';
+alt.log(i++);
 import * as PreloadEvent from '/VenoXV_Client/preload/index.js';
+alt.log(i++);
 import * as TacticsLobby from '/VenoXV_Client/Tactics/Lobby/index.js';
+alt.log(i++);
 import * as TacticsSpectator from '/VenoXV_Client/Tactics/Spectator/index.js';
+alt.log(i++);
 import * as jobs from '/VenoXV_Client/Reallife/jobs/allround.js';
+//
+alt.log(i++);
 import * as environment_house from '/VenoXV_Client/Reallife/environment/house/index.js';
+alt.log(i++);
 import * as environment_greenzone from '/VenoXV_Client/Reallife/environment/greenzone/index.js';
+alt.log(i++);
 import * as environment_gas from '/VenoXV_Client/Reallife/environment/tankstellen/index.js';
+alt.log(i++);
 import * as bank from '/VenoXV_Client/Reallife/bank/index.js';
+alt.log(i++);
 import * as StateFguns from '/VenoXV_Client/Reallife/factions/fguns/index.js';
+alt.log(i++);
 import * as BadDuty from '/VenoXV_Client/Reallife/factions/bad/duty/index.js';
+alt.log(i++);
 import * as StateDuty from '/VenoXV_Client/Reallife/factions/state/duty/index.js';
+alt.log(i++);
 import * as Gangwar from '/VenoXV_Client/Reallife/factions/gangwar/index.js';
+alt.log(i++);
 import * as Fkasse from '/VenoXV_Client/Reallife/factions/fkasse/index.js';
+alt.log(i++);
 
 import * as Inventory from '/VenoXV_Client/Reallife/inventory/index.js';
+alt.log(i++);
 import * as StateStellen from '/VenoXV_Client/Reallife/factions/state/stellen/index.js';
+alt.log(i++);
 import * as XMenu from '/VenoXV_Client/Reallife/xmenu/index.js';
+alt.log(i++);
 import * as WeedShop from '/VenoXV_Client/Reallife/environment/weed/index.js';
+alt.log(i++);
 import * as Death from '/VenoXV_Client/Reallife/environment/death/index.js';
+alt.log(i++);
 import * as GasStation from '/VenoXV_Client/Reallife/vehicles/gasstation/index.js';
+alt.log(i++);
 import * as RaceGM from '/VenoXV_Client/Race/index.js';
+alt.log(i++);
 import * as ZombiesGM from '/VenoXV_Client/Zombies/KI/index.js';
+alt.log(i++);
 import * as Ammunation from '/VenoXV_Client/Reallife/ammunation/index.js';
+alt.log(i++);
 //import * as Tuning from '/VenoXV_Client/Reallife/vehicles/tuning/index.js';
 import * as VehCatalog from '/VenoXV_Client/Reallife/vehicles/catalog/index.js';
+alt.log(i++);
 import * as VehPreview from '/VenoXV_Client/Reallife/vehicles/preview/index.js';
+alt.log(i++);
 import * as SevenTowers from '/VenoXV_Client/SevenTowers/Lobby/index.js';
+alt.log(i++);
 import * as ZombiesHUD from '/VenoXV_Client/Zombies/HUD/index.js';
-
+alt.log(i++);
 
 alt.setStat('stamina', 100);
 alt.setStat('strength', 100);

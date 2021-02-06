@@ -6,7 +6,9 @@
 
 import * as alt from 'alt-client';
 import * as game from "natives";
-import { CreateBlip } from '../../../Globals/VnX-Lib';
+import {
+    CreateBlip
+} from '../../../Globals/VnX-Lib';
 
 let HouseBlip = {};
 let counter = 0;
