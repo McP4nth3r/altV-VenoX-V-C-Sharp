@@ -4,10 +4,11 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Linq;
+using VenoXV._Globals_;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
-using VenoXV.Globals;
 
 namespace VenoXV._Preload_
 {
@@ -27,7 +28,7 @@ namespace VenoXV._Preload_
         }
         public override void OnStart()
         {
-            Globals.Main.OnResourceStart();
+            _Globals_.Main.OnResourceStart();
             //Console.WriteLine("Started");
         }
 
@@ -178,6 +179,8 @@ namespace VenoXV._Preload_
                 GetAllPlayersInAllGamemodes(player);
                 _Gamemodes_.Zombie.Assets.ZombieAssets.LoadZombieEntityData(player);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.SHOOTER_MAP);
+                Sync.SyncDateTime(player);
+                Sync.SyncWeather(player);
                 /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
