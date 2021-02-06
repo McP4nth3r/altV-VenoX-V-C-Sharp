@@ -41,15 +41,13 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
-        //[AltV.Net.ClientEvent("CloseClotheShop")]
+        [ClientEvent("CloseClotheShop")]
         public void CloseClotheShop(VnXPlayer player)
         {
             try
             {
-                player.vnxSetStreamSharedElementData("HideHUD", 0);
                 player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
-                anzeigen.Usefull.VnX.ResetDiscordData(player);
-                dxLibary.VnX.SetElementFrozen(player, false);
+                player.Freeze = false;
             }
             catch { }
         }

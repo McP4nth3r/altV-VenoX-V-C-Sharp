@@ -309,7 +309,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
             catch { }
         }
 
-        //[AltV.Net.ClientEvent("wardrobeClothesItemSelected")]
+        //[ClientEvent("wardrobeClothesItemSelected")]
         public void WardrobeClothesItemSelectedEvent(VnXPlayer player, int clothesId)
         {
             try
