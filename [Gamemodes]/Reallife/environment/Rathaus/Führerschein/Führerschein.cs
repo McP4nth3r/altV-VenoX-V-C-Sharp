@@ -108,7 +108,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     RageAPI.DeleteVehicleThreadSafe((VehicleModel)player.Vehicle);
                     //player.Vehicle.Remove();
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                    player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                     //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_AUTOSCHEIN);
                     if (Quests.QuestDict.ContainsKey(Quests.QUEST_AUTOSCHEIN))
                         Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_AUTOSCHEIN]);
@@ -154,7 +154,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     dxLibary.VnX.DestroyRadarElement(player, "Blip");
                     dxLibary.VnX.DrawWaypoint(player, player.Position.X, player.Position.Y);
                     player.SetPosition = new Position(-542.6733f, -208.2215f, 37.64983f);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                    player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Fahrprüfung Abgebrochen!");
                     player.SetSyncedMetaData("PLAYER_DRIVINGSCHOOL", false);
                     VenoX.TriggerClientEvent(player, "Destroy_Rathaus_License_Ped");

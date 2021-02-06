@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             {
                 if (FID == Constants.FACTION_NONE) return;
 
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
@@ -30,7 +30,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             try
             {
                 if (FID == Constants.FACTION_NONE) return;
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (target.Reallife.Faction == FID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) && target.Language == (int)language)
                     {
@@ -57,7 +57,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
@@ -69,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                     if (Allround.isBadFaction(target) && target.Reallife.Faction == UID && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
             }
@@ -80,7 +80,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             try
             {
                 if (FID == Constants.FACTION_NONE) return;
-                foreach (var target in from VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList() where target.Reallife.Faction == FID select target)
+                foreach (var target in from VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList() where target.Reallife.Faction == FID select target)
                 {
                     target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
@@ -93,7 +93,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
                         target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Allround.isBadFaction(target))
                         target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);

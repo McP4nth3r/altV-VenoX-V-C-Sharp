@@ -120,12 +120,12 @@ namespace VenoXV._Gamemodes_.Reallife.business
         {
             try
             {
-                foreach (VehicleModel vehicleClass in VenoXV.Globals.Main.AllVehicles.ToList())
+                foreach (VehicleModel vehicleClass in VenoXV._Globals_.Main.AllVehicles.ToList())
                 {
                     if (vehicleClass.IsTestVehicle && vehicleClass.Owner == player.Username)
                         Core.RageAPI.DeleteVehicleThreadSafe(vehicleClass);
                 }
-                player.Dimension = (VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language) + player.Id;
+                player.Dimension = (VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language) + player.Id;
                 AltV.Net.Enums.VehicleModel vehicleModel = (AltV.Net.Enums.VehicleModel)Alt.Hash(Model);
                 Console.WriteLine("vehicleModel : " + vehicleModel + " | firstColor : " + firstColor + " | secondColor : " + secondColor);
                 string[] firstColor1 = firstColor.Split(',');
@@ -189,7 +189,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
         {
             try
             {
-                foreach (VehicleModel vehicleClass in VenoXV.Globals.Main.AllVehicles.ToList())
+                foreach (VehicleModel vehicleClass in VenoXV._Globals_.Main.AllVehicles.ToList())
                 {
                     if (vehicleClass.IsTestVehicle && vehicleClass.Owner == player.Username)
                         RageAPI.DeleteVehicleThreadSafe(vehicleClass);
@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     switch (carShop)
                     {
                         case 0:
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                            player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                             // Create a new car
                             string[] firstColor1 = firstColor.Split(',');
                             string[] secondColor1 = secondColor.Split(',');
@@ -248,7 +248,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                 if (Vehicle.IsTestVehicle && Vehicle.Owner == player.Username)
                 {
                     RageAPI.DeleteVehicleThreadSafe(Vehicle);
-                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                    player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                 }
 
             }

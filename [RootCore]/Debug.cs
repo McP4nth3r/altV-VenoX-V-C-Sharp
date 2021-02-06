@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace VenoXV.Core
 {
@@ -14,7 +15,7 @@ namespace VenoXV.Core
             try
             {
                 if (!DEBUG_MODE_ENABLED) return;
-                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | : " + textt);
+                Console.WriteLine("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + textt);
                 string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
                 if (DEBUG_MODE_LOG)
                 {
@@ -26,6 +27,35 @@ namespace VenoXV.Core
             }
             catch { }
         }
+        public static void OutputDebugStringColored(string message, ConsoleColor color)
+        {
+            try
+            {
+                if (!DEBUG_MODE_ENABLED) return;
+                string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "|" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "| " + message };
+                var pieces = Regex.Split(text[1], @"(\[[^\]]*\])");
+                for (int i = 0; i < pieces.Length; i++)
+                {
+                    string piece = pieces[i];
+                    if (piece.StartsWith("[") && piece.EndsWith("]"))
+                    {
+                        Console.ForegroundColor = color;
+                        piece = piece[1..^1];
+                    }
+                    Console.Write(piece);
+                    Console.ResetColor();
+                }
+                Console.WriteLine();
+                if (DEBUG_MODE_LOG)
+                {
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[1]);
+                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                }
+            }
+            catch { }
+        }
+
         public static void CatchExceptions(Exception ex, [CallerMemberName] string FunctionName = "")
         {
             if (!DEBUG_MODE_ENABLED) return;

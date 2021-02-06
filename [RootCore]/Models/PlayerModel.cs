@@ -12,11 +12,11 @@ namespace VenoXV._RootCore_.Models
 
         //Main
         private int _UID { get; set; }
-        public int UID { get { return _UID; } set { _UID = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_UID, value); } }
+        public int UID { get { return _UID; } set { _UID = value; this.vnxSetStreamSharedElementData(_Globals_.EntityData.PLAYER_UID, value); } }
         private string _Username { get; set; }
-        public string Username { get { return _Username; } set { _Username = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_NAME, value); } }
+        public string Username { get { return _Username; } set { _Username = value; this.vnxSetStreamSharedElementData(_Globals_.EntityData.PLAYER_NAME, value); } }
         private int _AdminRank { get; set; }
-        public int AdminRank { get { return _AdminRank; } set { _AdminRank = value; this.vnxSetStreamSharedElementData(Globals.EntityData.PLAYER_ADMIN_RANK, value); } }
+        public int AdminRank { get { return _AdminRank; } set { _AdminRank = value; this.vnxSetStreamSharedElementData(_Globals_.EntityData.PLAYER_ADMIN_RANK, value); } }
         public int Language { get; set; }
         // Gamemode Classes
         public Reallife Reallife { get; }
@@ -37,7 +37,7 @@ namespace VenoXV._RootCore_.Models
         private int _Sex { get; set; }
         public int Sex { get { return _Sex; } set { _Sex = value; } }
         private int _Gamemode { get; set; }
-        public int Gamemode { get { return _Gamemode; } set { _Gamemode = value; this.vnxSetElementData(Globals.EntityData.PLAYER_CURRENT_GAMEMODE, value); } }
+        public int Gamemode { get { return _Gamemode; } set { _Gamemode = value; this.vnxSetElementData(_Globals_.EntityData.PLAYER_CURRENT_GAMEMODE, value); } }
         public int Dead { get; set; }
         private int _Played { get; set; }
         public int Played { get { return _Played; } set { _Played = value; } }

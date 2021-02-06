@@ -5,7 +5,7 @@ using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV.Globals
+namespace VenoXV._Globals_
 {
     public class Functions : IScript
     {

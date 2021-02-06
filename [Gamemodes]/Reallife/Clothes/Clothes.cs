@@ -22,6 +22,8 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         {
             try
             {
+                Core.Debug.OutputDebugString("-- Entered ColShape 2--");
+
                 if (shape != ClothesShape) return false;
 
                 if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
@@ -29,18 +31,19 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Geh zuerst Off-Duty!");
                     return true;
                 }
+                Core.Debug.OutputDebugString("-- Entered ColShape 3--");
+
                 Random random = new Random();
                 int dim = random.Next(1, 9999);
-                //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                 player.SetPosition = new Position(-158.886f, -296.9503f, 39.73328f);
-                dxLibary.VnX.SetElementFrozen(player, true);
+                player.Freeze = true;
                 player.Rotation = new Rotation(0f, 0f, 160f);
                 player.vnxSetStreamSharedElementData("HideHUD", 1);
                 player.Dimension = dim;
                 VenoX.TriggerClientEvent(player, "showClothesMenu", "Klamottenshop ", 1);
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
         [ClientEvent("CloseClotheShop")]
@@ -48,7 +51,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         {
             try
             {
-                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                 player.Freeze = false;
             }
             catch { }

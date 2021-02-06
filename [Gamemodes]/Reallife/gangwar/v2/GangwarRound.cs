@@ -203,7 +203,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                         this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
                         informDefender();
                         SyncTime();
-                        foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer _c in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                         {
                             VenoX.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
                         }
@@ -307,7 +307,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (VnXPlayer _c in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer _c in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     VenoX.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
                 }
@@ -412,7 +412,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
                     playerEntry._player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
 
-                    playerEntry._player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney + earnings);
+                    playerEntry._player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney + earnings);
 
                     if (!playerEntry._isRespawned)
                     {

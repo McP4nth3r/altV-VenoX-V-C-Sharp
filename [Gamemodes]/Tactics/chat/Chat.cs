@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Tactics.chat
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [Tactics]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.Username + " : " + message);
                 }

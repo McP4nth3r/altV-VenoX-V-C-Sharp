@@ -166,7 +166,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        public static VehicleModel CreateJobVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, bool WarpIntoVehicle = true)
+        public static VehicleModel CreateJobVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel veh, Vector3 Position, Vector3 Rotation, string Job, int Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION, bool WarpIntoVehicle = true)
         {
             try
             {
@@ -256,7 +256,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             try
             {
                 DestroyJobMarker(player);
-                foreach (VehicleModel vehClass in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel vehClass in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                 {
                     if (vehClass.Job == player.Reallife.Job && vehClass.Owner == player.Reallife.Job)
                     {

@@ -18,7 +18,7 @@ namespace VenoXV._RootCore_.Models
             List<ItemModel> inventory = Items;
             VenoX.TriggerClientEvent(Player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
-        public void GiveItem(string ItemHash, ItemType ItemArt, int ItemAmount, bool CalculateIfExists, int Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION, float Weight = 0.1f)
+        public void GiveItem(string ItemHash, ItemType ItemArt, int ItemAmount, bool CalculateIfExists, int Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION, float Weight = 0.1f)
         {
             int playerId = Player.UID;
             if (playerId > 0)
@@ -29,7 +29,7 @@ namespace VenoXV._RootCore_.Models
                     Item = new ItemModel
                     {
                         Amount = ItemAmount,
-                        Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION,
+                        Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION,
                         Position = new Vector3(0.0f, 0.0f, 0.0f),
                         Hash = ItemHash,
                         UID = playerId,

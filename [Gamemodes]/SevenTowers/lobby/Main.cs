@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
         public static int SEVENTOWERS_ROUND_START_AFTER_LOADING = 5;            // Zeit in Sekunden.
         public static int SEVENTOWERS_VEHICLE_COOLDOWN = 3;                     // Zeit in Sekunden. < -- Cooldown für neues Auto
         public static int SEVENTOWERS_ROUND_JOINTIME = 5;                       // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
-        public static int SEVENTOWERS_DIM = Globals.Main.SEVENTOWERS_DIMENSION;
+        public static int SEVENTOWERS_DIM = _Globals_.Main.SEVENTOWERS_DIMENSION;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -186,7 +186,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 ColShapeModel newCol = RageAPI.CreateColShapeSphere(Position, 5, SEVENTOWERS_DIM);
                 ColShapeModelList.Add(newCol);
                 CurrentColShape = newCol;
-                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList()) _RootCore_.Sync.Sync.ForceClientSyncUpdate(players);
+                foreach (VnXPlayer players in _Globals_.Main.SevenTowersPlayers.ToList()) _RootCore_.Sync.Sync.ForceClientSyncUpdate(players);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
@@ -207,7 +207,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 }
                 CurrentlyInRound.Clear();
                 foreach (SpawnModel Spawns in SevenTowerSpawns.ToList()) Spawns.Spawned = false;
-                foreach (VnXPlayer player in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.SevenTowersPlayers.ToList())
                 {
                     InitializePlayerData(player);
                     SpawnPlayerInRound(player);
@@ -224,7 +224,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             {
                 SEVENTOWERS_ROUND_IS_RUNNING = false;
                 SEVENTOWERS_ROUND_WILL_START = DateTime.Now.AddSeconds(SEVENTOWERS_ROUND_START_AFTER_LOADING);
-                foreach (VnXPlayer player in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.SevenTowersPlayers.ToList())
                 {
                     if (CurrentlyInRound.Count == 1)
                     {
@@ -232,7 +232,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                         {
                             if (winner.SevenTowers.Spawned == true)
                             {
-                                if (Globals.Main.SevenTowersPlayers.ToList().Count > 1) winner.SevenTowers.Wins += 1;
+                                if (_Globals_.Main.SevenTowersPlayers.ToList().Count > 1) winner.SevenTowers.Wins += 1;
                                 CURRENT_WINNER = winner.Username;
                                 TakePlayerFromRound(player);
                             }
@@ -287,7 +287,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             try
             {
 
-                foreach (VnXPlayer players in Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer players in _Globals_.Main.SevenTowersPlayers.ToList())
                 {
                     string joinedLobbytext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, " hat die SevenTowers Lobby betreten!");
                     players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " " + joinedLobbytext);
@@ -308,7 +308,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
                 // will spawn player near map.
                 player.Freeze = true;
                 player.SetPosition = new Vector3(210.13187f, -5742.5933f, 120.78833f);
-                if (Globals.Main.SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
+                if (_Globals_.Main.SevenTowersPlayers.Count <= 1) { StartNewRound(); return; }
                 if (CanPlayerJoin()) PutPlayerInRound(player);
                 else PutPlayerSpectate(player);
             }
@@ -386,17 +386,17 @@ namespace VenoXV._Gamemodes_.SevenTowers
         {
             try
             {
-                if (Globals.Main.SevenTowersPlayers.Count <= 0) return;
+                if (_Globals_.Main.SevenTowersPlayers.Count <= 0) return;
 
                 if (SEVENTOWERS_ROUND_END <= DateTime.Now && SEVENTOWERS_ROUND_IS_RUNNING)
                 {
-                    foreach (VnXPlayer playerClass in Globals.Main.SevenTowersPlayers.ToList()) TakePlayerFromRound(playerClass);
+                    foreach (VnXPlayer playerClass in _Globals_.Main.SevenTowersPlayers.ToList()) TakePlayerFromRound(playerClass);
                     EndRound();
                 }
                 else if (!SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
                     StartNewRound();
                 else if (SEVENTOWERS_ROUND_IS_RUNNING && SEVENTOWERS_ROUND_WILL_START <= DateTime.Now)
-                    foreach (var playerClass in Globals.Main.SevenTowersPlayers.ToList().Where(playerClass => playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned))
+                    foreach (var playerClass in _Globals_.Main.SevenTowersPlayers.ToList().Where(playerClass => playerClass.Position.Z <= 0 && playerClass.SevenTowers.Spawned))
                         TakePlayerFromRound(playerClass);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }

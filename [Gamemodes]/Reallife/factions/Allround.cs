@@ -335,7 +335,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_Enter;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
 
@@ -349,7 +349,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Exit;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
 
@@ -362,7 +362,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = LCN_Teleport_Base_heli_Enter;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
                 }
@@ -391,7 +391,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = YAKUZA_Teleport_Base_Enter;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
                 }
@@ -496,7 +496,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
                         player.SetPosition = MS13_Teleport_Base_Enter;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
 
@@ -550,7 +550,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.SetPosition = Ballas_Teleport_Base_Enter;
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
                 }
@@ -579,7 +579,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         player.SetPosition = Compton_Teleport_Base_Enter;
                         player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                         return true;
                     }
                 }

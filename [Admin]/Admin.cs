@@ -17,6 +17,7 @@ using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
+using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 
 namespace VenoXV._Admin_
@@ -283,10 +284,10 @@ namespace VenoXV._Admin_
                     if (targetplayer != null)
                     {
                         //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                        targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + targetplayer.Language;
+                        targetplayer.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + targetplayer.Language;
                         targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                         _Gamemodes_.Reallife.anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
-                        targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, 0);
+                        targetplayer.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_PRISON_TIME, 0);
                         targetplayer.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Du bist nun aus dem Prison.... Verhalte dich in Zukunft besser!");
                         Spawn.SpawnPlayerOnSpawnpoint(targetplayer);
                     }
@@ -478,7 +479,7 @@ namespace VenoXV._Admin_
             if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
             {
                 //AntiCheat_Allround.SetTimeOutTeleport(player, 5000);
-                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                 player.SetPosition = new Position(posX, posY, posZ);
                 player.vnxSetElementData(EntityData.PLAYER_HOUSE_ENTERED, 0);
                 player.vnxSetElementData(EntityData.PLAYER_BUSINESS_ENTERED, 0);
@@ -554,43 +555,43 @@ namespace VenoXV._Admin_
                 {
                     Database.SetVIPStats((int)target.UID, "Abgelaufen", 0);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "-");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "-");
                 }
                 else if (PaketNr == 1)
                 {
                     Database.SetVIPStats((int)target.UID, "Bronze", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Bronze");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "Bronze");
                 }
                 else if (PaketNr == 2)
                 {
                     Database.SetVIPStats((int)target.UID, "Silber", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Silber");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "Silber");
                 }
                 else if (PaketNr == 3)
                 {
                     Database.SetVIPStats((int)target.UID, "Gold", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Gold");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "Gold");
                 }
                 else if (PaketNr == 4)
                 {
                     Database.SetVIPStats((int)target.UID, "UltimateRed", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "UltimateRed");
                 }
                 else if (PaketNr == 5)
                 {
                     Database.SetVIPStats((int)target.UID, "Platin", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "Platin");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "Platin");
                 }
                 else if (PaketNr == 6)
                 {
                     Database.SetVIPStats((int)target.UID, "TOP DONATOR", Tage);
                     sendAdminNotification(player.Username + " hat das VIP Level von " + target.Username + " auf " + PaketNr + " geändert! (" + Tage + " Tage)");
-                    target.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
+                    target.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_VIP_LEVEL, "TOP DONATOR");
                 }
                 else
                 {
@@ -613,8 +614,8 @@ namespace VenoXV._Admin_
                     players.SetWeather((AltV.Net.Enums.WeatherType)weather);
                 }
                 RageAPI.SendTranslatedChatMessageToAll(Constants.Rgba_ADMIN_CLANTAG + player.Username + " hat das Wetter zu " + weather + " gewechselt!");
-                Main.WEATHER_CURRENT = weather;
-                Main.WEATHER_COUNTER = 0;
+                Sync.WEATHER_CURRENT = weather;
+                Sync.WEATHER_COUNTER = 0;
             }
         }
 
@@ -695,7 +696,7 @@ namespace VenoXV._Admin_
             {
                 if (player.AdminRank >= Constants.ADMINLVL_ADMINISTRATOR)
                 {
-                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                    foreach (VehicleModel Vehicle in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Position.Distance(player.Position) < 20 && Vehicle.Faction <= Constants.FACTION_NONE)
                         {
@@ -720,7 +721,7 @@ namespace VenoXV._Admin_
                     _Gamemodes_.Reallife.Fun.Allround.DestroyTargetMarker();
                     _Gamemodes_.Reallife.Fun.Allround.ActionCooldown = DateTime.Now;
                     _Gamemodes_.Reallife.Fun.Allround.ActionRunning = false;
-                    foreach (VnXPlayer otherp in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (VnXPlayer otherp in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                     {
                         string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)otherp.Language, "hat den Aktions-Timer zurückgesetzt!");
                         otherp.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "[Reallife] : " + player.Username + " " + TranslatedText);
@@ -949,7 +950,7 @@ namespace VenoXV._Admin_
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(player, 1000);
                         player.SendChatMessage("[GW] Teleported to '" + area.Name + "'.");
                         player.SetPosition = area.TK;
-                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                     }
                 }
 

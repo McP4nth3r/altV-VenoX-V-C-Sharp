@@ -196,7 +196,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         //Anti_Cheat.//AntiCheat_Allround.SetTimeOutTeleport(target, 7000);
                         target.Reallife.Knastzeit = 0;
                         target.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                        target.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + target.Language;
+                        target.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + target.Language;
                         target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du bist nun Frei! Verhalte dich in Zukunft besser!");
                         target.Freeze = false;
                         RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(0, 105, 145) + Faction.GetPlayerFactionRank(player) + " | " + player.Username + " hat " + target.Username + " ausgeknastet.");

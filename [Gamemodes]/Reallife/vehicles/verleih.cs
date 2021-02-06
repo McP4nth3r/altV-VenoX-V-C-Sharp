@@ -51,22 +51,22 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (Roller)
                     {
-                        VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Faggio, new Position(-2282.231f, 404.0836f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
+                        VenoXV._Globals_.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Faggio, new Position(-2282.231f, 404.0836f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                     else
                     {
-                        VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(-2283.869f, 407.4549f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
+                        VenoXV._Globals_.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(-2283.869f, 407.4549f, 174.4667f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                 }
                 else if (player.Position.Distance(LSPD_RENTALS) <= 5)
                 {
                     if (Roller)
                     {
-                        VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Faggio, new Position(340.4336f, -950.1079f, 29.41012f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
+                        VenoXV._Globals_.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Faggio, new Position(340.4336f, -950.1079f, 29.41012f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                     else
                     {
-                        VenoXV.Globals.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(346.5351f, -950.4115f, 29.39716f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
+                        VenoXV._Globals_.Functions.CreateVehicle(player, AltV.Net.Enums.VehicleModel.Panto, new Position(346.5351f, -950.4115f, 29.39716f), 120f, new Rgba(0, 255, 155, 255), new Rgba(0, 0, 0, 255), true, true, Constants.JOB_NONE, "VenoX");
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         int playerMoney = player.Reallife.Money;
                         if (playerMoney >= FAGGIO_COSTS)
                         {
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
+                            player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
                             player.vnxSetStreamSharedElementData(HAVE_PLAYER_RENTED_VEHICLE, 1);
                             player.vnxSetStreamSharedElementData(CURRENT_VEHICLE_RENT, 0);
                             GetNearestRentalsSpawn(player, true);
@@ -101,7 +101,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         int playerMoney = player.Reallife.Money;
                         if (player.Reallife.Money >= PANTO_COSTS)
                         {
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
+                            player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
                             player.vnxSetStreamSharedElementData(HAVE_PLAYER_RENTED_VEHICLE, 1);
                             player.vnxSetStreamSharedElementData(CURRENT_VEHICLE_RENT, 1);
                             GetNearestRentalsSpawn(player, false);
@@ -133,7 +133,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (player.Reallife.Money >= FAGGIO_COSTS)
                     {
-                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
+                        player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney - FAGGIO_COSTS);
                         VenoX.TriggerClientEvent(player, "VnX_UpdateRent", player);
                     }
                     else
@@ -145,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     if (player.Reallife.Money >= PANTO_COSTS)
                     {
-                        player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
+                        player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney - PANTO_COSTS);
                         VenoX.TriggerClientEvent(player, "VnX_UpdateRent", player);
                     }
                     else
@@ -164,7 +164,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel Vehicle in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                 {
                     if (Vehicle.Rented && Vehicle.Owner == player.Username)
                     {

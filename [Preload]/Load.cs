@@ -38,7 +38,7 @@ namespace VenoXV._Preload_
                     break;
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
-                    List<VnXPlayer> SevenTowersPlayers = Globals.Main.SevenTowersPlayers.Where(p => p != player).ToList();
+                    List<VnXPlayer> SevenTowersPlayers = _Globals_.Main.SevenTowersPlayers.Where(p => p != player).ToList();
                     foreach (VnXPlayer otherplayers in SevenTowersPlayers)
                     {
                         VenoX.TriggerClientEvent(otherplayers, "SevenTowers:AddPlayer", player);
@@ -80,7 +80,7 @@ namespace VenoXV._Preload_
                 case Gamemodes.SevenTowers:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
                     _Gamemodes_.SevenTowers.Main.TakePlayerFromRound(player);
-                    foreach (VnXPlayer otherplayers in Globals.Main.SevenTowersPlayers.ToList().Where(p => p != player))
+                    foreach (VnXPlayer otherplayers in _Globals_.Main.SevenTowersPlayers.ToList().Where(p => p != player))
                         VenoX.TriggerClientEvent(player, "SevenTowers:RemovePlayer", player);
                     break;
                 case Gamemodes.Derby:

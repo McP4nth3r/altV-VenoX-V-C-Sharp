@@ -85,7 +85,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     return;
                 }
                 player.SendTranslatedChatMessage("---------------Fahrzeuge---------------");
-                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel veh in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                 {
                     if (veh != null && veh.Owner == player.Username)
                     {

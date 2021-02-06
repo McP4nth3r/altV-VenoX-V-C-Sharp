@@ -97,7 +97,7 @@ namespace VenoXV._Gamemodes_.KI
         {
             try
             {
-                foreach (VnXPlayer player in Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.ZombiePlayers.ToList())
                 {
                     if (player is null || !player.Exists) continue;
                     AddNearbyZombiesIntoList(player);

@@ -6,7 +6,7 @@
         {
             try
             {
-                if (VenoXV.Globals.Main.RacePlayers.Count <= 0) { return; }
+                if (VenoXV._Globals_.Main.RacePlayers.Count <= 0) { return; }
                 Lobby.Main.OnUpdate();
             }
             catch { }

@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         public int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
         public int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
         public int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
-        public int TACTIC_PLAYER_DIMENSION = VenoXV.Globals.Main.TACTICS_DIMENSION;
+        public int TACTIC_PLAYER_DIMENSION = VenoXV._Globals_.Main.TACTICS_DIMENSION;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -222,7 +222,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 // Wir Checken ob bereits eine Runde bereits läuft, falls nein dann setzen wir den Status auf True.
                 if (!IsTacticRoundRunning()) TACTICMANAGER__ROUND_ISRUNNING = true;
-                List<VnXPlayer> TacticsPlayerMixed = VenoXV.Globals.Main.TacticsPlayers.ToList();
+                List<VnXPlayer> TacticsPlayerMixed = VenoXV._Globals_.Main.TacticsPlayers.ToList();
                 TacticsPlayerMixed.ShuffleList();
                 string _Team = EntityData.COPS_NAME;
                 foreach (VnXPlayer p in TacticsPlayerMixed.ToList())
@@ -263,7 +263,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 CreateRandomRound();
                 SpawnMapVehicles();
                 PutPlayerInTeam();
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     string RoundStartText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "Eine neue Runde startet.");
@@ -285,7 +285,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 player.Tactics.Deaths -= 1;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "ist Disconnected!");
                     players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " " + Translatedtext);
@@ -352,7 +352,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
@@ -366,7 +366,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     lock (players)
@@ -379,7 +379,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     lock (players)
@@ -396,7 +396,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text);

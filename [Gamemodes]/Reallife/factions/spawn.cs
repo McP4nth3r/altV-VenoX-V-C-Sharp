@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 player.Reallife.Hunger = 100;
                 VenoX.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
-                player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION;
+                player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION;
                 player.Freeze = true;
                 player.FreezeAfterMS(10000, false);
                 if (player.Reallife.Knastzeit > 0)

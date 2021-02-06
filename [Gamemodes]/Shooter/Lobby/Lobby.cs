@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
         {
             SpawnModel spawn = Spawnmap.FirstOrDefault(x => !x.IsBeingUsed);
             if (spawn is null) return;
-            player.Dimension = Globals.Main.SHOOTER_DIMENSION;
+            player.Dimension = _Globals_.Main.SHOOTER_DIMENSION;
             player.Position = spawn.Coord;
             player.Rotation = spawn.Rotation;
             spawn.IsBeingUsed = true;
@@ -91,13 +91,13 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
             vehicle.EngineOn = true;
             vehicle.Frozen = false;
             vehicle.Godmode = false;
-            vehicle.Dimension = Globals.Main.SHOOTER_DIMENSION;
+            vehicle.Dimension = _Globals_.Main.SHOOTER_DIMENSION;
         }
         public static void OnPlayerDeath(VnXPlayer player)
         {
             TakePlayerFromRound(player);
             int Counter = 0;
-            foreach (VnXPlayer players in Globals.Main.ShooterPlayers.ToList())
+            foreach (VnXPlayer players in _Globals_.Main.ShooterPlayers.ToList())
             {
                 if (players.Shooter.IsAlive)
                     Counter++;
@@ -105,7 +105,7 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
             if (Counter <= 1)
             {
                 string WinnerName = String.Empty;
-                VnXPlayer Winner = Globals.Main.ShooterPlayers.ToList().FirstOrDefault(x => x.Shooter.IsAlive);
+                VnXPlayer Winner = _Globals_.Main.ShooterPlayers.ToList().FirstOrDefault(x => x.Shooter.IsAlive);
                 if (Winner is not null) WinnerName = player.Username;
                 ShowWinner(WinnerName);
                 EndRound();
@@ -123,7 +123,7 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
         {
             try
             {
-                foreach (VnXPlayer player in Globals.Main.ShooterPlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.ShooterPlayers.ToList())
                 {
                     VenoX.TriggerClientEvent(player, "Shooter:ShowWinner", WinnerName);
                 }
@@ -135,7 +135,7 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
             try
             {
                 await Task.Delay(3000);
-                foreach (VnXPlayer player in Globals.Main.ShooterPlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.ShooterPlayers.ToList())
                 {
                     PutPlayerInRound(player);
                 }

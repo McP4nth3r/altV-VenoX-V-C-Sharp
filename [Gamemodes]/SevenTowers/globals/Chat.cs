@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.SevenTowers.globals
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.SevenTowersPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.SevenTowersPlayers.ToList())
                 {
                     players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [SevenTowers]" + RageAPI.GetHexColorcode(255, 255, 255) + " " + player.Username + " : " + message);
                 }

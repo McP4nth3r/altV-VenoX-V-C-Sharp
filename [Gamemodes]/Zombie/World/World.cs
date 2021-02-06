@@ -58,7 +58,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 Random random = new Random();
                 int randomnumb = random.Next(0, PLAYER_SPAWNS.Count);
                 player.SpawnPlayer(PLAYER_SPAWNS[randomnumb]);
-                player.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
+                player.Dimension = VenoXV._Globals_.Main.ZOMBIES_DIMENSION;
                 //VenoX.TriggerClientEvent(player, "Zombie:OnResourceStart");
                 LevelSystem.GivePlayerWeaponsByLevel(player);
                 SendPlayerWelcomeNotify(player);
@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 Random random = new Random();
                 int randomnumb = random.Next(0, PLAYER_SPAWNS.Count);
                 player.SpawnPlayer(PLAYER_SPAWNS[randomnumb]);
-                player.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
+                player.Dimension = VenoXV._Globals_.Main.ZOMBIES_DIMENSION;
                 player.Zombies.Zombie_tode += 1;
                 LevelSystem.GivePlayerWeaponsByLevel(player);
             }
@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                 {
                     if (player != null)
                     {
@@ -134,7 +134,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
             {
                 foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
                 {
-                    foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    foreach (VnXPlayer player in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     {
                         if (player is null || !player.Exists) continue;
                         // Get new Zombie Target Entity.
@@ -151,7 +151,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 long move = Convert.ToInt64(DateTime.UtcNow.AddSeconds(5).Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds);
                 foreach (ZombieModel zombieClass in Spawner.CurrentZombies.ToList())
                 {
-                    foreach (VnXPlayer player in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                    foreach (VnXPlayer player in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     {
                         if (player != null && player.Exists)
                         {

@@ -2,11 +2,9 @@
 using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.Environment.Rathaus;
@@ -15,11 +13,9 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Preload_;
-using VenoXV._Preload_.Register;
 using VenoXV._RootCore_;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
-using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Globals
@@ -30,9 +26,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public static List<TattooModel> tattooList;
         public static List<TunningModel> tunningList;
         public static List<FactionAllroundModel> FactionAllroundList;
-        public static Timer minuteTimer;
-        public static Timer OnTickTimer;
-        public static Timer ScoreboardTimer;
         public static Position GetHouseIplExit(string ipl)
         {
             try
@@ -56,7 +49,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             try
             {
                 VehicleModel vehicle = null;
-                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel veh in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                 {
                     Position vehPos = veh.Position;
                     float distanceIVehicleToPlayer = player.Position.Distance(vehPos);
@@ -78,20 +71,11 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         }
 
 
-
-        public static int WEATHER_COUNTER = 0;
-        public static int WEATHER_CURRENT = 0; // Aktuelles Wetter
-        public static int GetRandomWeather(int min, int max)
-        {
-            Random random = new Random();
-            int cevent = random.Next(min, max);
-            return cevent;
-        }
         public static void OnUpdate()
         {
             try
             {
-                if (VenoXV.Globals.Main.ReallifePlayers.ToList().Count <= 0) return;
+                if (VenoXV._Globals_.Main.ReallifePlayers.ToList().Count <= 0) return;
                 gangwar.Allround.OnUpdate();
                 Fun.Allround.OnUpdate();
                 environment.NPC.NPC.OnUpdate();
@@ -134,86 +118,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        private static void DeleteVehicleThreadSafe()
-        {
-            try
-            {
-                //int i = 0;
-                foreach (VehicleModel vehClass in VenoXV.Globals.Main.AllVehicles.ToList())
-                {
-                    if (VenoXV.Globals.Main.AllVehicles.ToList().Contains(vehClass) && vehClass.MarkedForDelete)
-                    {
-                        //Debug.OutputDebugString("DeleteVehicleThreadSafe : " + i++);
-                        VenoXV.Globals.Main.AllVehicles.Remove(vehClass);
-                        vehClass.Remove();
-                    }
-                }
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
-        }
-        private static void DeleteColShapesThreadSafe()
-        {
-            try
-            {
-                //int i = 0;
-                foreach (ColShapeModel colShape in Sync.ColShapeList.ToList())
-                {
-                    if (Sync.ColShapeList.Contains(colShape) && colShape.MarkedForDelete)
-                    {
-                        //Debug.OutputDebugString("DeleteColShapesThreadSafe : " + i++);
-                        Sync.ColShapeList.Remove(colShape);
-                        Alt.RemoveColShape(colShape);
-                    }
-                }
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
-        }
-
-
-        public static void SyncWeather(VnXPlayer player)
-        {
-            try
-            {
-                if (WEATHER_COUNTER >= 60)
-                {
-                    int weather = 0;
-                    if (WEATHER_CURRENT == 9)
-                    {
-                        weather = 0;
-                    }
-                    else
-                    {
-                        //weather = 13;
-                        weather = GetRandomWeather(0, 2);
-                        switch (weather)
-                        {
-                            case 0:
-                                weather = 0;
-                                break;
-                            case 1:
-                                weather = 8;
-                                break;
-                            case 2:
-                                weather = 9;
-                                break;
-                            case 3:
-                                weather = 3;
-                                break;
-                        }
-                    }
-                    WEATHER_COUNTER = 0;
-                    WEATHER_CURRENT = weather;
-
-                    player.SetWeather((AltV.Net.Enums.WeatherType)WEATHER_CURRENT);
-                }
-                else if (WEATHER_COUNTER < 60)
-                {
-                    player.SetWeather((AltV.Net.Enums.WeatherType)WEATHER_CURRENT);
-                    WEATHER_COUNTER += 1;
-                }
-            }
-            catch { }
-        }
 
         public static void OnMinuteSpentReallifeGM(VnXPlayer player)
         {
@@ -242,7 +146,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         if (player.Reallife.Knastzeit == 0)
                         {
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                            player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                             player.Freeze = false;
@@ -254,22 +158,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
         }
 
-        public static void OnMinuteSpentTacticGM(VnXPlayer player)
-        {
-            try
-            {
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
-        }
-
-        public static void OnMinuteSpentZombieGM(VnXPlayer player)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
-        }
         public static void SyncDatabaseItems(VnXPlayer player)
         {
             try
@@ -280,96 +168,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        private static int CurrentHour = 15;
-        public static void OnMinuteSpent(object unused)
-        {
-            try
-            {
-                if (CurrentHour < 23) CurrentHour++;
-                else CurrentHour = 0;
-                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 55) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in 5 Minuten!");
-                if (DateTime.Now.Hour == 03 && DateTime.Now.Minute == 59) RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Server neustart in einer Minute!");
-                foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
-                {
-                    int played = player.Played;
-                    if (played > 0 && played % 60 == 0) GeneratePlayerPayday(player);
-                    player.Played += 1;
-                    SyncDatabaseItems(player);
-                    switch (player.Gamemode)
-                    {
-                        case (int)_Preload_.Preload.Gamemodes.Reallife:
-                            OnMinuteSpentReallifeGM(player);
-                            break;
-                        case (int)_Preload_.Preload.Gamemodes.Tactics:
-                            OnMinuteSpentTacticGM(player);
-                            break;
-                        case (int)_Preload_.Preload.Gamemodes.Zombies:
-                            OnMinuteSpentZombieGM(player);
-                            break;
-                    }
-
-                    AccountModel accClass = Register.AccountList.ToList().FirstOrDefault(x => x.UID == player.UID);
-                    string langpair = _Language_.Main.GetClientLanguagePair((_Language_.Main.Languages)player.Language);
-                    if (accClass is not null && accClass.Language != langpair)
-                        Database.UpdatePlayerLanguage(accClass.UID, langpair);
-
-                    SavePlayerDatas(player);
-                    DateTime CurrentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, CurrentHour, 0, 0);
-                    player.SetDateTime(CurrentDateTime);
-                    SyncWeather(player);
-                }
-                Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
-                SaveVehicleDatas();
-                DeleteVehicleThreadSafe();
-                DeleteColShapesThreadSafe();
-                Console.WriteLine(DateTime.Now.Hour + " : " + DateTime.Now.Minute + " | OnMinuteSpent = OK!");
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
-        }
-
-
-        public static void SavePlayerDatas(VnXPlayer player)
-        {
-            try
-            {
-                Database.SaveCharacterInformation(player);
-            }
-            catch { }
-        }
-
-        public static void SaveVehicleDatas()
-        {
-            try
-            {
-                List<VehicleModel> IVehicleList = new List<VehicleModel>();
-
-                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
-                {
-                    if (Vehicle.Owner != null)
-                    {
-                        if (Vehicle.IsTestVehicle != true && Vehicle.Faction == 0 && Vehicle.NotSave != false && Vehicle.Dimension == 0)
-                        {
-                            // Add IVehicle into the list
-                            IVehicleList.Add(Vehicle);
-                        }
-                    }
-                }
-                Database.SaveAllIVehicles(IVehicleList);
-            }
-            catch (Exception ex)
-            {
-                Core.Debug.CatchExceptions(ex);
-            }
-        }
-        //
-
-
 
         public static bool CheckBadElementDatas(string elementdata)
         {
             return elementdata switch
             {
-                VenoXV.Globals.EntityData.PLAYER_MONEY => true,
+                VenoXV._Globals_.EntityData.PLAYER_MONEY => true,
                 EntityData.PLAYER_ADMIN_RANK => true,
                 _ => false,
             };
@@ -410,179 +214,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        public static async void GeneratePlayerPayday(VnXPlayer player)
-        {
-            try
-            {
-                int total = 0;
-                int bank = player.Reallife.Bank;
-                int playerRank = player.Reallife.FactionRank;
-                int playerFaction = player.Reallife.Faction;
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                VnXPlayer VipL = Database.GetPlayerVIP(player, player.UID);
 
-                if (player.Reallife.Wanteds > 0) { player.Reallife.Wanteds -= 1; }
-                if (playerFaction > 0)
-                {
-                    foreach (FactionModel faction in Constants.FACTION_RANK_LIST)
-                    {
-                        if (faction.faction == playerFaction && faction.rank == playerRank)
-                        {
-                            total += faction.salary;
-                            break;
-                        }
-                    }
-                }
-                string Gehalt = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Gehalt");
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Gehalt + " : " + RageAPI.GetHexColorcode(255, 255, 255) + total + " $");
-
-
-                int gwboni = 0;
-                foreach (var area in gangwar.Allround._gangwarManager.GangwarAreas)
-                {
-                    if (area.IDOwner == player.Reallife.Faction)
-                    {
-                        gwboni += 250;
-                    }
-                }
-
-                total += gwboni;
-
-                string GwBoni = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "GW - Boni");
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + GwBoni + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +gwboni + " $");
-
-                int bankInterest = (int)Math.Round(bank * 0.001);
-                total += bankInterest;
-                if (bankInterest > 0)
-                {
-                    string Bankzinsen = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Bankzinsen");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Bankzinsen + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +bankInterest + " $");
-                }
-
-                foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
-                {
-                    AltV.Net.Enums.VehicleModel IVehicleHass = (AltV.Net.Enums.VehicleModel)Vehicle.Model;
-                    if (Vehicle.Owner == player.Username && Vehicle.NotSave != true)
-                    {
-
-                        int IVehicleTaxes = (int)Math.Round((int)Vehicle.Price * Constants.TAXES_IVehicle);
-                        int IVehicleTaxes_ = 0;
-                        if (VipL.Vip_BisZum > DateTime.Now)
-                        {
-                            string Paket = VipL.Vip_Paket;
-                            if (Paket == "Silber")
-                            {
-                                IVehicleTaxes_ = (int)Math.Round(IVehicleTaxes * Constants.VIP_BONI_AUTOSTEUER_SILVER);
-                            }
-                            else if (Paket == "Gold")
-                            {
-                                IVehicleTaxes_ = (int)Math.Round(IVehicleTaxes * Constants.VIP_BONI_AUTOSTEUER_GOLD);
-                            }
-                            else if (Paket == "UltimateRed")
-                            {
-                                IVehicleTaxes_ = (int)Math.Round(IVehicleTaxes * Constants.VIP_BONI_AUTOSTEUER_ULTIMATERED);
-                            }
-                            else if (Paket == "Platin")
-                            {
-                                IVehicleTaxes_ = (int)Math.Round(IVehicleTaxes * Constants.VIP_BONI_AUTOSTEUER_PLATIN);
-                            }
-                            else if (Paket == "TOP DONATOR")
-                            {
-                                IVehicleTaxes_ = (int)Math.Round(IVehicleTaxes * Constants.VIP_BONI_AUTOSTEUER_TOPDONATOR);
-                            }
-                        }
-
-                        int IVehicleId = Vehicle.ID;
-                        //string VehicleModel vehicle = Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_MODEL);
-                        //string IVehiclePlate = Vehicle.Plate == string.Empty ? "LS " + (1000 + IVehicleId) : Vehicle.vnxGetElementData<string>(VenoXV.Globals.EntityData.VEHICLE_PLATE);
-                        //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " VIP Fahrzeugsteuer Abzug : " + RageAPI.GetHexColorcode(255, 255, 255) + +IVehicleTaxes_ + "$");
-                        //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " Fahrzeugsteuer : " + RageAPI.GetHexColorcode(255, 255, 255) + VehicleModel + " (" + IVehiclePlate + "): - " + IVehicleTaxes + " $");
-                        total -= IVehicleTaxes;
-                        total += IVehicleTaxes_;
-                    }
-                }
-                if (House.houseList != null)
-                {
-                    // House taxes
-                    foreach (HouseModel house in House.houseList)
-                    {
-                        if (house.owner == player.Username)
-                        {
-                            int houseTaxes = (int)Math.Round((int)house.price * Constants.TAXES_HOUSE);
-                            string Immobiliensteuer = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Immobiliensteuer : ");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Immobiliensteuer + " : " + RageAPI.GetHexColorcode(255, 255, 255) + house.name + ": -" + houseTaxes + "$");
-                            total -= houseTaxes;
-                        }
-                        if (house.id == player.Reallife.HouseRent)
-                        {
-                            string Miete = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Miete");
-                            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + Miete + " : " + house.name + " : " + RageAPI.GetHexColorcode(255, 255, 255) + +house.rental + "$");
-                            Database.TransferMoneyToPlayer(house.owner, house.rental);
-                            total -= house.rental;
-                        }
-                    }
-                }
-                int VIPBONI = 0;
-                if (VipL.Vip_BisZum > DateTime.Now)
-                {
-                    string Paket = VipL.Vip_Paket;
-                    if (Paket == "Bronze")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_BRONZE);
-                    }
-                    else if (Paket == "Silber")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_SILBER);
-                    }
-                    else if (Paket == "Gold")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_GOLD);
-                    }
-                    else if (Paket == "UltimateRed")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_RED);
-                    }
-                    else if (Paket == "Platin")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_PLATIN);
-                    }
-                    else if (Paket == "TOP DONATOR")
-                    {
-                        VIPBONI = (int)Math.Round(total * Constants.VIP_BONI_TOP);
-                    }
-                }
-                if (VIPBONI > 0)
-                {
-                    total += VIPBONI;
-                }
-                else if (VIPBONI < 100)
-                {
-                    total += 100;
-                }
-                string VIP = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "VIP Bonus");
-                player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " " + VIP + ": " + RageAPI.GetHexColorcode(255, 255, 255) + VIPBONI + "$");
-                // EVENT !!
-                //total = total * 4;  // 4FACHER PAYDAY.
-                player.SendChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 150, 200) + "⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯");
-                string EinnahmenGesamt = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Einnahmen insgesamt");
-                player.SendChatMessage(Constants.Rgba_HELP + RageAPI.GetHexColorcode(0, 200, 255) + " " + EinnahmenGesamt + " :" + RageAPI.GetHexColorcode(255, 255, 255) + +total + " $");
-
-                if (total < 0)
-                {
-                    player.Reallife.Bank -= Math.Abs(total);
-                }
-                else
-                {
-                    player.Reallife.Bank += Math.Abs(total);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION GeneratePlayerPayday] " + ex.Message);
-                Console.WriteLine("[EXCEPTION GeneratePlayerPayday] " + ex.StackTrace);
-            }
-        }
 
 
         public static TunningModel GetIVehicleTuningBySlot()
@@ -606,7 +238,15 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
 
 
 
+        public static void OnMinuteSpend()
+        {
+            try
+            {
+                Fun.Aktionen.Shoprob.Shoprob.OnMinuteSpend();
 
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
 
         public static ItemModel GetPlayerItemModelFromHash(VnXPlayer player, string hash)
         {
@@ -697,15 +337,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
 
                 //*///////////////////////////////////// BASIC LOADING ///////////////////////////////////////////////////*//
-                // Interior Loading
-                //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_dt1_02_office_02b");
-                //ToDo: Requesting Offices NAPI.World.RequestIpl ("FINBANK");
-                // Avoid player's respawn
-                //NAPI.Server.SetAutoRespawnAfterDeath(false);
-                //NAPI.Server.SetAutoSpawnOnConnect(false);
-                // Disable global server chat
-                //NAPI.Server.SetGlobalServerChat(false);
-                // Interior list Loading ( Example : LSPD, Hospital Interior etc.)
 
                 foreach (InteriorModel interior in Constants.INTERIOR_LIST)
                 {
@@ -720,10 +351,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                         Core.RageAPI.CreateTextLabel(interior.captionMessage, interior.entrancePosition, 20.0f, 0.75f, 4, new int[] { interior.labelRgbaR, interior.labelRgbaG, interior.labelRgbaB, 255 }, 0);
                     }
                 }
-
-                minuteTimer = new Timer(OnMinuteSpent, null, 60000, 60000); // Payday Generation und alles was nach einer Minute passiert!
-                OnTickTimer = new Timer(VenoXV.Globals.Main.OnUpdate, null, 50, 50); // Tick/OnUpdateEvent
-                ScoreboardTimer = new Timer(_Globals_.Scoreboard.Scoreboard.Fill_Playerlist, null, 7000, 7000); // Scoreboard Updater.
 
 
                 //*///////////////////////////////////// OTHER STUFF LOADING ///////////////////////////////////////////////////*//
@@ -762,7 +389,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 jobs.Allround.OnPlayerDisconnect(player);
                 if (player.Playing == true)
                 {
-                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                    foreach (VehicleModel Vehicle in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Owner == player.Username && Vehicle.Faction == Constants.FACTION_NONE)
                         {
@@ -774,13 +401,13 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                     if (players is not null && players.Exists)
                                     {
                                         player.WarpOutOfVehicle();
-                                        player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                                     }
                                 }
                             }
                         }
                     }
-                    SavePlayerDatas(player);
+                    _Globals_.Main.SavePlayerDatas(player);
                 }
             }
             catch (Exception ex)
@@ -855,7 +482,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                                         player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Das Haus ist abgeschlossen!");
                                     }
                                     player.SetPosition = house.position;
-                                    player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                                    player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                                     player.Reallife.HouseEntered = 0;
 
                                     /*foreach (Client target in VenoX.GetAllPlayers().ToList())

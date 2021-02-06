@@ -1319,7 +1319,7 @@ namespace VenoXV._RootCore_.Database
                         if (vehClass.Faction > 0)
                         {
                             //vehClass.Dimension = reader.GetInt32("dimension");
-                            vehClass.Dimension = Globals.Main.REALLIFE_DIMENSION;
+                            vehClass.Dimension = _Globals_.Main.REALLIFE_DIMENSION;
                         }
                         else
                         {
@@ -1348,8 +1348,8 @@ namespace VenoXV._RootCore_.Database
                         {
                             vehClass.LockState = AltV.Net.Enums.VehicleLockState.Locked;
                         }
-                        Globals.Main.AllVehicles.Add(vehClass);
-                        Globals.Main.ReallifeVehicles.Add(vehClass);
+                        _Globals_.Main.AllVehicles.Add(vehClass);
+                        _Globals_.Main.ReallifeVehicles.Add(vehClass);
                     }
                 }
 

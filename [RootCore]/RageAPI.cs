@@ -443,7 +443,7 @@ namespace VenoXV.Core
                 vehicleClass.EngineOn = false;
                 vehicleClass.Locked = true;
                 vehicleClass.MarkedForDelete = true;
-                if (!Globals.Main.AllVehicles.Contains(vehicleClass)) Globals.Main.AllVehicles.Add(vehicleClass);
+                if (!_Globals_.Main.AllVehicles.Contains(vehicleClass)) _Globals_.Main.AllVehicles.Add(vehicleClass);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

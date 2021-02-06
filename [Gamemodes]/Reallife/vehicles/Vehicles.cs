@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                foreach (VehicleModel veh in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel veh in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                 {
                     if (veh.ID == VehicleId)
                     {
@@ -68,7 +68,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 int fraktionsID = player.Reallife.Faction;
                 if (fraktionsID > 0)
                 {
-                    foreach (VehicleModel Vehicle in VenoXV.Globals.Main.ReallifeVehicles.ToList())
+                    foreach (VehicleModel Vehicle in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
                     {
                         if (Vehicle.Faction == fraktionsID && Vehicle.Driver == null)
                         {
@@ -333,7 +333,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
                     }
-                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - kosten);
+                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - kosten);
 
                     VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
                     VenoX.TriggerClientEvent(player, "destroyGasWindow");

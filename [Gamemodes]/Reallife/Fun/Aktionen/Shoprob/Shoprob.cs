@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     foreach (ColShapeModel col in ShopColShapeModels)
                     {
@@ -196,7 +196,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                                     player.vnxSetElementData(PLAYER_ROB_STARTED, false);
                                     factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
                                     player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
-                                    player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money + SHOP_ROB_MONEY);
+                                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money + SHOP_ROB_MONEY);
                                 }
                                 else
                                 {

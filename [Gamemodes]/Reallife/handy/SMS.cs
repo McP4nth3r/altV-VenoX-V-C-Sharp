@@ -14,7 +14,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             try
             {
                 VnXPlayer Found = null;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (players.Username == Name) { Found = players; }
                 }

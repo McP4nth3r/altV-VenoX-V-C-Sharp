@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
@@ -134,7 +134,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             }
             else
             {
-                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(VenoXV.Globals.EntityData.PLAYER_STATUS));
+                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(VenoXV._Globals_.EntityData.PLAYER_STATUS));
             }
         }
 

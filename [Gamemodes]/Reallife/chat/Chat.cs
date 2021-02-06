@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     player.SendChatMessage(text);
                 }

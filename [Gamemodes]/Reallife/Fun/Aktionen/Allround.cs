@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 int cops = 0;
-                foreach (VnXPlayer Spieler in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer Spieler in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Factions.Allround.isStateFaction(Spieler))
                     {
@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, Position, Rotation);
-                veh.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                veh.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                 veh.Reallife.ActionVehicle = true;
                 veh.NotSave = true;
                 veh.Owner = ACTION_VEHICLE;
@@ -83,12 +83,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     ActionBlips.Add(RageAPI.CreateBlip(Name, Position, Sprite, Color, ShortRange, player));
                 }
                 ActionMarkers.Add(RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }));
-                ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f, VenoXV.Globals.Main.REALLIFE_DIMENSION);
+                ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f, VenoXV._Globals_.Main.REALLIFE_DIMENSION);
                 col.AktionCol = Action;
                 ActionColShapes.Add(col);
             }

@@ -161,7 +161,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 int result = 0;
-                foreach (var player in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (var player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (player.Reallife.Faction == facId)
                         ++result;

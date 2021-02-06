@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
             {
                 if (player.vnxGetElementData<bool>("PLAYER_IS_LIVE") == true)
                 {
-                    foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (VnXPlayer targetsingame in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {
@@ -105,7 +105,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews
                     VnXPlayer target = RageAPI.GetPlayerFromName(targetName);
                     player.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
                     target.vnxSetElementData("LIVE_ANFRAGE_ERHALTEN_VON", "false");
-                    foreach (VnXPlayer targetsingame in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                    foreach (VnXPlayer targetsingame in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                     {
                         if (targetsingame.vnxGetElementData<int>("settings_reporter") == 1)
                         {

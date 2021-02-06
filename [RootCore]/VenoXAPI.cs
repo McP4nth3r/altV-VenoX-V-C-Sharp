@@ -10,7 +10,7 @@ namespace VenoXV._RootCore_
     {
         public static List<VnXPlayer> GetAllPlayers()
         {
-            try { return Globals.Main.AllPlayers; }
+            try { return _Globals_.Main.AllPlayers; }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<VnXPlayer>(); }
         }
 
@@ -39,7 +39,7 @@ namespace VenoXV._RootCore_
         {
             try
             {
-                if (Globals.Main.AllPlayers.Count <= 0) return;
+                if (_Globals_.Main.AllPlayers.Count <= 0) return;
                 Alt.EmitAllClients(EventName, args);
                 //Core.Debug.OutputDebugString("[ClientEvent] : called EventName for everyone : " + EventName);
             }

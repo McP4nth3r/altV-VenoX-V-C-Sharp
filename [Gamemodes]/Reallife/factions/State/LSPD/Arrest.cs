@@ -32,11 +32,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             Fraktions_Kassen fkasse = Database.GetFactionStats(Constants.FACTION_LSPD);
                             Database.SetFactionStats(Constants.FACTION_LSPD, fkasse.money + kaution, fkasse.weed, fkasse.koks, fkasse.mats);
                             Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat die Kaution in Höhe von " + kaution + "$ bezahlt!");
-                            player.vnxSetStreamSharedElementData(VenoXV.Globals.EntityData.PLAYER_MONEY, player.Reallife.Money - kaution);
+                            player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - kaution);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                            player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                             player.Freeze = false;
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                             //AntiCheat_Allround.SetTimeOutTeleport(player, 7000);
                             player.vnxSetStreamSharedElementData(EntityData.PLAYER_KNASTZEIT, 0);
                             player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language;
+                            player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
                             player.Reallife.Kaution = 0;
                             player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
                             player.Freeze = false;
@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
             {
                 if (player.Reallife.Knastzeit > 0)
                 {
-                    player.SendTranslatedChatMessage("Du bist noch " + RageAPI.GetHexColorcode(0, 200, 255) + " " + player.vnxGetElementData<int>(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME) + RageAPI.GetHexColorcode(255, 255, 255) + " Minuten im Prison!");
+                    player.SendTranslatedChatMessage("Du bist noch " + RageAPI.GetHexColorcode(0, 200, 255) + " " + player.vnxGetElementData<int>(VenoXV._Globals_.EntityData.PLAYER_PRISON_TIME) + RageAPI.GetHexColorcode(255, 255, 255) + " Minuten im Prison!");
                 }
             }
             catch { }

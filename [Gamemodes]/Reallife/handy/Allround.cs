@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
         public static void UpdatePhonePlayerlist()
         {
             List<CallContactModel> CallClassList = new List<CallContactModel>();
-            foreach (VnXPlayer players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
             {
                 CallContactModel CallClass = new CallContactModel
                 {
@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
                 };
                 if (!CallClassList.Contains(CallClass)) { CallClassList.Add(CallClass); }
             }
-            foreach (VnXPlayer players in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
             {
                 VenoX.TriggerClientEvent(players, "Phone:LoadPlayerList", JsonConvert.SerializeObject(CallClassList, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             }

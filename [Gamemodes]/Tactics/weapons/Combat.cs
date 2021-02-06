@@ -2,7 +2,7 @@
 using System;
 using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_.Models;
-using VenoXV.Globals;
+using VenoXV._Globals_;
 
 namespace VenoXV._Gamemodes_.Tactics.weapons
 {

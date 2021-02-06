@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 
-namespace VenoXV.Globals
+namespace VenoXV._Globals_
 {
     public class EntityData : IScript
     {

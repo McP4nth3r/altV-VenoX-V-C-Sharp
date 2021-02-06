@@ -177,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                         logfile.WriteLogs("admin", player.Username + " hat " + Target.Username + " wiederbelebt!");
                         VenoX.TriggerClientEvent(Target, "destroyKrankenhausTimer");
                         VenoX.TriggerClientEvent(Target, "VnX_DestroyIPlayerSideTimer_KH");
-                        foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                             if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                 VenoX.TriggerClientEvent(medics, "Destroy_MedicBlips", Target.Username);
                     }
@@ -217,10 +217,10 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
                         if (targetplayer != null)
                         {
                             //AntiCheat_Allround.SetTimeOutTeleport(targetplayer, 5000);
-                            targetplayer.Dimension = VenoXV.Globals.Main.REALLIFE_DIMENSION + targetplayer.Language;
+                            targetplayer.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + targetplayer.Language;
                             targetplayer.SetPosition = new Position(1651.441f, 2569.83f, 45.56486f);
                             anzeigen.Usefull.VnX.RemoveAllWeapons(targetplayer);
-                            targetplayer.vnxSetElementData(VenoXV.Globals.EntityData.PLAYER_PRISON_TIME, zeit);
+                            targetplayer.vnxSetElementData(VenoXV._Globals_.EntityData.PLAYER_PRISON_TIME, zeit);
                         }
                     }
                     else

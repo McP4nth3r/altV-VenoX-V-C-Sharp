@@ -12,7 +12,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
                 {
                     if (players.Tactics.CurrentLobby == TacticRound)
                         players?.SendTranslatedChatMessage(text);

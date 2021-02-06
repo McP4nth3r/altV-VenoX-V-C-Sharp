@@ -8,8 +8,8 @@ namespace VenoXV.Core
     public class VnX : IScript
     {
         public static object Usefull { get; internal set; }
-        public static string PLAYER_MONEY = Globals.EntityData.PLAYER_MONEY;
-        public static string PLAYER_BANKMONEY = Globals.EntityData.PLAYER_BANK;
+        public static string PLAYER_MONEY = _Globals_.EntityData.PLAYER_MONEY;
+        public static string PLAYER_BANKMONEY = _Globals_.EntityData.PLAYER_BANK;
 
         /// <summary>
         /// 

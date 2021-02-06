@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             set
             {
                 _Position = value;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
             }
         }
@@ -32,7 +32,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             set
             {
                 _Rotation = value;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
             }
         }
@@ -42,7 +42,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Position = position;
                 _Rotation = rotation;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer && sync) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
             catch { }
@@ -53,7 +53,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             get { return _Armor; }
             set
             {
-                _Armor = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                _Armor = value; foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetArmor", this.ID, value);
             }
         }
@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             get { return _Health; }
             set
             {
-                _Health = value; foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                _Health = value; foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetHealth", this.ID, value);
             }
         }
@@ -74,7 +74,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             set
             {
                 _IsDead = value;
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this) && this.Killer != players) VenoX.TriggerClientEvent(players, "Zombies:SetDead", this.ID, value);
             }
         }
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Zombie.Models
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.ZombiePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this)) { VenoX.TriggerClientEvent(players, "Zombies:Destroy", this.ID); players?.Zombies.NearbyZombies.Remove(this); }
                 Spawner.CurrentZombies.Remove(this);
             }

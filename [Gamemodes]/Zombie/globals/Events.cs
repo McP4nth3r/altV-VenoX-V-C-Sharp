@@ -66,7 +66,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                     Random random1 = new Random();
                     int RandomVehIndex = random1.Next(0, RandomVehicleList.Count);
                     VehicleModel veh = (VehicleModel)Alt.CreateVehicle(RandomVehicleList[RandomVehIndex], Position, Rotation);
-                    veh.Dimension = VenoXV.Globals.Main.ZOMBIES_DIMENSION;
+                    veh.Dimension = VenoXV._Globals_.Main.ZOMBIES_DIMENSION;
                     veh.NotSave = true;
                     veh.EngineOn = true;
                     veh.Owner = player.Username;
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
             try
             {
                 player.Zombies.IsSyncer = false;
-                if (VenoXV.Globals.Main.ZombiePlayers.Count <= 0)
+                if (VenoXV._Globals_.Main.ZombiePlayers.Count <= 0)
                 {
                     foreach (VehicleModel vehicleClass in ZombieVehicles.ToList())
                         RageAPI.DeleteVehicleThreadSafe(vehicleClass);

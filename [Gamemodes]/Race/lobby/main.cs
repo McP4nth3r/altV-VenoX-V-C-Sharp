@@ -45,7 +45,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             {
                 if (CurrentMap != null) { foreach (SpawnModel spawn in CurrentMap.PlayerSpawnPoints.ToList()) { if (spawn.Spawned) spawn.Spawned = false; } }
                 foreach (VehicleModel vehClass in RaceVehicles.ToList()) { if (vehClass != null) { RageAPI.DeleteVehicleThreadSafe(vehClass); } }
-                foreach (VnXPlayer racePlayers in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer racePlayers in VenoXV._Globals_.Main.RacePlayers.ToList())
                 {
                     if (racePlayers.Race.LastMarker != null) { RageAPI.RemoveMarker(racePlayers.Race.LastMarker); racePlayers.Race.LastMarker = null; }
                     if (racePlayers.Race.LastColShapeModel != null) { RageAPI.RemoveColShape(racePlayers.Race.LastColShapeModel); racePlayers.Race.LastColShapeModel = null; }
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.RacePlayers.ToList())
                 {
                     if (!player.Race.IsRacing)
                     {
@@ -81,7 +81,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                             }
                         }
                         player.SpawnPlayer(Spawnpoint);
-                        player.Dimension = VenoXV.Globals.Main.RACE_DIMENSION;
+                        player.Dimension = VenoXV._Globals_.Main.RACE_DIMENSION;
                         double leftTime = (DateTime.Now - DateTime.Now.AddMinutes(RACE_ROUND_MINUTES)).TotalSeconds * -1;
                         VenoX.TriggerClientEvent(player, "Race:StartTimer", leftTime, 3);
                         VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(CurrentMap.PlayerVehicleHash, Spawnpoint, Rotation);
@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.RacePlayers.ToList())
                 {
                     players.SendTranslatedChatMessage(text);
                 }
@@ -127,10 +127,10 @@ namespace VenoXV._Gamemodes_.Race.Lobby
             try
             {
                 int counter = 0;
-                foreach (VnXPlayer player in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer player in VenoXV._Globals_.Main.RacePlayers.ToList())
                 {
                     VenoX.TriggerClientEvent(player, "Race:ClearPlayerList", player.Username);
-                    foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
+                    foreach (VnXPlayer players in VenoXV._Globals_.Main.RacePlayers.OrderBy(p => p.Race.CurrentMarker).Reverse())
                     {
                         counter++;
                         players.Race.RoundPlace = counter;
@@ -154,17 +154,17 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 player.Race.IsRacing = false;
 
                 string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "hat das Rennen beendet!");
-                foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                foreach (VnXPlayer players in VenoXV._Globals_.Main.RacePlayers.ToList())
                 {
                     players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + player.Username + RageAPI.GetHexColorcode(255, 255, 255) + " " + TranslatedText);
                 }
                 RacePlayersFinished.Add(player);
-                if (RacePlayersFinished.Count == VenoXV.Globals.Main.RacePlayers.Count)
+                if (RacePlayersFinished.Count == VenoXV._Globals_.Main.RacePlayers.Count)
                 {
                     string TranslatedText1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 1 :  ");
                     string TranslatedText2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 2 :  ");
                     string TranslatedText3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " [Race] : Gewinner - 3 :  ");
-                    foreach (VnXPlayer players in VenoXV.Globals.Main.RacePlayers.ToList())
+                    foreach (VnXPlayer players in VenoXV._Globals_.Main.RacePlayers.ToList())
                     {
                         players.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " ~~~~~~~~~~~~~~~~~~~~ ");
                         players.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + TranslatedText1 + " " + RACE_FIRST_WINNER);
@@ -258,7 +258,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                if (!CanPlayerJoin() || VenoXV.Globals.Main.RacePlayers.Count >= 2)
+                if (!CanPlayerJoin() || VenoXV._Globals_.Main.RacePlayers.Count >= 2)
                 {
                     player.SetPosition = new Vector3(CurrentMap.PlayerSpawnPoints[0].Position.X, CurrentMap.PlayerSpawnPoints[0].Position.Y, CurrentMap.PlayerSpawnPoints[0].Position.Z - 30f);
                     Reallife.dxLibary.VnX.SetElementFrozen(player, true);
@@ -291,7 +291,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
         {
             try
             {
-                if (VenoXV.Globals.Main.RacePlayers.Count == 0) return;
+                if (VenoXV._Globals_.Main.RacePlayers.Count == 0) return;
                 if (RACE_ROUND_IS_RUNNING && RACE_WILL_END <= DateTime.Now)
                 {
                     RACE_NEXT_ROUND_WILL_START = DateTime.Now.AddSeconds(RACE_ROUND_WILL_START_IN);

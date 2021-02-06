@@ -18,8 +18,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         public static Dictionary<VnXPlayer, BlipModel> CurrentActiveMedicBlips = new Dictionary<VnXPlayer, BlipModel>();
         public static async void OnPlayerDeath(VnXPlayer player)
         {
-            if (player.Dimension != (VenoXV.Globals.Main.REALLIFE_DIMENSION + player.Language)) return;
-            foreach (VnXPlayer Medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+            if (player.Dimension != (VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language)) return;
+            foreach (VnXPlayer Medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
             {
                 if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                 {
@@ -36,7 +36,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             if (CurrentActiveMedicBlips.ContainsKey(player))
             {
                 CurrentActiveMedicBlips.TryGetValue(player, out BlipModel BlipClass);
-                foreach (VnXPlayer Medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer Medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY) RageAPI.RemoveBlip(BlipClass, Medics);
                 }
@@ -114,7 +114,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 VenoX.TriggerClientEvent(target, "destroyKrankenhausTimer");
                                 VenoX.TriggerClientEvent(target, "VnX_DestroyIPlayerSideTimer_KH");
 
-                                foreach (VnXPlayer medics in VenoXV.Globals.Main.ReallifePlayers.ToList())
+                                foreach (VnXPlayer medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
                                 {
                                     if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
                                     {
