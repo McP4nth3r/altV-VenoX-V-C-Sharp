@@ -262,8 +262,8 @@ namespace VenoXV.Core
             try
             {
                 //Debug.OutputDebugString("Clothes : " + clothesslot + " | " + clothesdrawable + " | " + clothestexture);
-                Alt.Emit("GlobalSystems:SetClothes", element, clothesslot, clothesdrawable, clothestexture);
-                //VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
+                //Alt.Emit("GlobalSystems:SetClothes", element, clothesslot, clothesdrawable, clothestexture);
+                VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

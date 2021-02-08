@@ -36,6 +36,10 @@ import {
     interpolateCamera,
     destroyCamera
 } from './camera';
+import {
+    GetFemaleTorsoLists,
+    GetMaleTorsoLists
+} from './assets';
 export let PLAYER_LOBBY_MAIN = "Lobby";
 export let PLAYER_LOBBY_REALLIFE = "Reallife";
 export let PLAYER_LOBBY_ZOMBIES = "Zombies";
@@ -175,10 +179,37 @@ alt.onServer("Clothes:Reset", () => {
 });
 
 
-alt.onServer("Clothes:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    try {
-        game.setPedComponentVariation(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
-    } catch {}
+const torsoDataMale = GetMaleTorsoLists();
+const torsoDataFemale = GetFemaleTorsoLists();
+const freemodeModels = [game.getHashKey("mp_m_freemode_01"), game.getHashKey("mp_f_freemode_01")];
+alt.onServer("Clothes:Load", (slot, drawable, texture) => {
+    if (slot == 11) {
+        drawable = Number(drawable);
+        texture = Number(texture);
+        if (isNaN(drawable) || isNaN(texture)) {
+            alt.log("SYNTAX: [drawable] [texture]");
+        } else {
+            if (alt.Player.local.model == freemodeModels[0]) {
+                // male
+                if (torsoDataMale[drawable] === undefined || torsoDataMale[drawable][texture] === undefined) {
+                    alt.log("Invalid top drawable/texture.");
+                } else {
+                    player.setClothes(11, drawable, texture, 2);
+                    if (torsoDataMale[drawable][texture].BestTorsoDrawable != -1) game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataMale[drawable][texture].BestTorsoDrawable, torsoDataMale[drawable][texture].BestTorsoTexture, 2);
+                }
+            } else {
+                // female
+                if (torsoDataFemale[drawable] === undefined || torsoDataFemale[drawable][texture] === undefined) {
+                    alt.log("Invalid top drawable/texture.");
+                } else {
+                    player.setClothes(11, drawable, texture, 2);
+                    if (torsoDataFemale[drawable][texture].BestTorsoDrawable != -1) game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataFemale[drawable][texture].BestTorsoDrawable, torsoDataFemale[drawable][texture].BestTorsoTexture, 2);
+                }
+            }
+        }
+    } else {
+        game.setPedComponentVariation(LocalPlayer.scriptID, slot, drawable, texture, 0);
+    }
 });
 
 alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
