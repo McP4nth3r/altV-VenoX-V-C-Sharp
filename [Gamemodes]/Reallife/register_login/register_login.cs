@@ -44,7 +44,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
         }
 
 
-        [ClientEvent("Load_New_Login_Cam")]
+        [VenoXRemoteEvent("Load_New_Login_Cam")]
         public static void CreateNewLogin_Cam(VnXPlayer player, int number, int new_lastNumber)
         {
             try
@@ -269,7 +269,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
 
 
 
-        [ClientEvent("load_data_login")]
+        [VenoXRemoteEvent("load_data_login")]
         public static void LoadDatasRemote(VnXPlayer player)
         {
             try
@@ -335,7 +335,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        /*[ClientEvent("Send_Player_Where_From")]
+        /*[VnXEvent("Send_Player_Where_From")]
         public void Send_To_Server_Where_Player_From(VnXPlayer player, string Where)
         {
             try

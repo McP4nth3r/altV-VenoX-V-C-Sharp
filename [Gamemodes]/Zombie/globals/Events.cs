@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("Zombies:OnSyncerCall")]
+        [VenoXRemoteEvent("Zombies:OnSyncerCall")]
         public static void OnZombiesSyncerCall(VnXPlayer player = null, int ZombieId = 0, float ZombiePosX = 0, float ZombiePosY = 0, float ZombiePosZ = 0, float ZombieRotX = 0, float ZombieRotY = 0, float ZombieRotZ = 0)
         {
             try

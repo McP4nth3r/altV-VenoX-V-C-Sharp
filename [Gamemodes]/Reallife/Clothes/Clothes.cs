@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
-        [ClientEvent("CloseClotheShop")]
+        [VenoXRemoteEvent("CloseClotheShop")]
         public void CloseClotheShop(VnXPlayer player)
         {
             try

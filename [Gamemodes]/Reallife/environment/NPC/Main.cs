@@ -398,7 +398,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.NPC
             }
         }
 
-        [ClientEvent("NPC:OnFinishedMission")]
+        [VenoXRemoteEvent("NPC:OnFinishedMission")]
         public static void NPC_OnFinishedMission(VnXPlayer player, string Event)
         {
             if (Event == "TargetNPC:Killed")

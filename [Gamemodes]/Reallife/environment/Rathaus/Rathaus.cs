@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch { return false; }
         }
 
-        [ClientEvent("On_Clicked_Button_Rathaus")]
+        [VenoXRemoteEvent("On_Clicked_Button_Rathaus")]
         public static void OnClickedButton_Rathaus(VnXPlayer player, string button)
         {
             try
@@ -364,7 +364,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
 
-        [ClientEvent("CancelDrivingSchool")]
+        [VenoXRemoteEvent("CancelDrivingSchool")]
         public static void CancelDrivingSchhol(VnXPlayer player, int speed)
         {
             try

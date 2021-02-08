@@ -22,7 +22,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
         }
-        [ClientEvent("Phone:OnSMSMessageSend")]
+        [VenoXRemoteEvent("Phone:OnSMSMessageSend")]
         public static void OnSMSMessageSend(VnXPlayer player, string Name, string Message)
         {
             try

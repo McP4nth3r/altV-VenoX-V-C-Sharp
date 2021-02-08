@@ -12,7 +12,7 @@ namespace VenoXV._Preload_.Character_Creator
     public class Main : IScript
     {
         public static List<CharacterModel> CharacterSkins;
-        [ClientEvent("CharCreator:Create")]
+        [VenoXRemoteEvent("CharCreator:Create")]
         public static void OnCharCreatorCreateCall(VnXPlayer player, string facefeatures, string headblends, string headoverlays)
         {
             try

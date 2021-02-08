@@ -90,7 +90,7 @@ namespace VenoXV._Preload_.Login
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("LoginAccount")]
+        [VenoXRemoteEvent("LoginAccount")]
         public static void LoginAccountEvent(VnXPlayer player, string Nickname, string Password)
         {
             try

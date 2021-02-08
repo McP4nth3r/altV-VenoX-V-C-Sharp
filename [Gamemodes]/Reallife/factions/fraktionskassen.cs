@@ -192,7 +192,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
 
-        [ClientEvent("StoreFactionDatasServer")]
+        [VenoXRemoteEvent("StoreFactionDatasServer")]
         public void StoreFactionDatas(VnXPlayer player, int money, int mats, int koks, int weed, string state)
         {
             try

@@ -115,7 +115,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
-        [ClientEvent("CarShop:TestVehicle")]
+        [VenoXRemoteEvent("CarShop:TestVehicle")]
         public static void TestVehicle(VnXPlayer player, string Model, string firstColor, string secondColor)
         {
             try
@@ -184,7 +184,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             }
             catch { return 0; }
         }
-        [ClientEvent("CarShop:BuyVehicle")]
+        [VenoXRemoteEvent("CarShop:BuyVehicle")]
         public static void BuyVehicle(VnXPlayer player, string Model, string firstColor, string secondColor)
         {
             try

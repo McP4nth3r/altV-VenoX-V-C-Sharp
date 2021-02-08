@@ -85,7 +85,7 @@ namespace VenoXV._Preload_
         }
 
 
-        [ClientEvent("Preload:SelectGamemode")]
+        [VenoXRemoteEvent("Preload:SelectGamemode")]
         public static void Load_selected_gm_server(VnXPlayer player, int value, string countrycode)
         {
             try
@@ -191,7 +191,7 @@ namespace VenoXV._Preload_
         }
 
 
-        [ClientEvent("Preload:FinishedPrivacyPolicy")]
+        [VenoXRemoteEvent("Preload:FinishedPrivacyPolicy")]
         public static void FinishedPrivacyPolicy(VnXPlayer player)
         {
             player.FinishedPrivacyPolicy = true;

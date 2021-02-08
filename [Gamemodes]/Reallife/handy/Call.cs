@@ -16,7 +16,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             VenoX.TriggerClientEvent(player, "Phone:ChangeCallTargetAvatar", ID, Avatar);
         }
 
-        [ClientEvent("VenoXPhone:CallTarget")]
+        [VenoXRemoteEvent("VenoXPhone:CallTarget")]
         public static void OnTargetCallButtonPressed(VnXPlayer player, string TargetName)
         {
             VnXPlayer target = Core.RageAPI.GetPlayerFromName(TargetName);
@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             VenoX.TriggerClientEvent(target, "Phone:ShowIncomingCall", player.Username, player.Phone.Number);
         }
 
-        [ClientEvent("VenoXPhone:CallAccepted")]
+        [VenoXRemoteEvent("VenoXPhone:CallAccepted")]
         public static void OnCallAccepted(VnXPlayer player, string TargetName)
         {
             VnXPlayer target = Core.RageAPI.GetPlayerFromName(TargetName);
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             PlayerCalls.Add(callClass);
         }
 
-        [ClientEvent("VenoXPhone:CallDenied")]
+        [VenoXRemoteEvent("VenoXPhone:CallDenied")]
         public static void OnCallDenied(VnXPlayer player, string TargetName)
         {
             VnXPlayer target = Core.RageAPI.GetPlayerFromName(TargetName);
@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
             player.SendChatMessage("Du hast aufgelegt!");
         }
 
-        [ClientEvent("VenoXPhone:CallHangup")]
+        [VenoXRemoteEvent("VenoXPhone:CallHangup")]
         public static void OnCallHangup(VnXPlayer player, string TargetName)
         {
             VnXPlayer target = Core.RageAPI.GetPlayerFromName(TargetName);

@@ -47,7 +47,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return null; }
         }
 
-        [ClientEvent("getClothesByType")]
+        [VenoXRemoteEvent("getClothesByType")]
         public void GetClothesByTypeEvent(VnXPlayer player, int type, int slot)
         {
             try
@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("clothesItemSelected")]
+        [VenoXRemoteEvent("clothesItemSelected")]
         public void ClothesItemSelectedEvent(VnXPlayer player, string clothesJson)
         {
             try
@@ -99,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("dressEquipedClothes")]
+        [VenoXRemoteEvent("dressEquipedClothes")]
         public void DressEquipedClothesEvent(VnXPlayer player, int type, int slot)
         {
             try

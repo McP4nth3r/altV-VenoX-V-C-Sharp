@@ -179,7 +179,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             };
         }
 
-        [ClientEvent("Store_Delayed_Element_Data_INT")]
+        [VenoXRemoteEvent("Store_Delayed_Element_Data_INT")]
         public static void Store_Delayed_ElementData_INT(VnXPlayer player, string elementdata, int value)
         {
             try
@@ -190,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        [ClientEvent("Store_Delayed_Element_Data_STRING")]
+        [VenoXRemoteEvent("Store_Delayed_Element_Data_STRING")]
         public static void Store_Delayed_ElementData_INT(VnXPlayer player, string elementdata, string value)
         {
             try
@@ -202,7 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        [ClientEvent("Store_Delayed_Element_Data_BOOL")]
+        [VenoXRemoteEvent("Store_Delayed_Element_Data_BOOL")]
         public static void Store_Delayed_ElementData_BOOL(VnXPlayer player, string elementdata, bool value)
         {
             try
@@ -507,7 +507,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch { }
         }
 
-        [ClientEvent("reset_drug_state")]
+        [VenoXRemoteEvent("reset_drug_state")]
         public static void ResetDrugState(VnXPlayer player, int drug)
         {
             try

@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
             RageAPI.CreateBlip("Ammunation", new System.Numerics.Vector3(21.11444f, -1106.664f, 29.79703f), 110, 4, false);
         }
 
-        [ClientEvent("Ammunation:BuyAmmo")]
+        [VenoXRemoteEvent("Ammunation:BuyAmmo")]
         public void BuyWeaponAmmuAmmunation(VnXPlayer player, string item)
         {
             try
@@ -172,7 +172,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
         }
 
 
-        [ClientEvent("Ammunation:BuyWeapon")]
+        [VenoXRemoteEvent("Ammunation:BuyWeapon")]
         public void BuyWeaponAmmunation(VnXPlayer player, string item)
         {
             try

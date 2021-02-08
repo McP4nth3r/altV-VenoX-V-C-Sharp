@@ -328,7 +328,7 @@ namespace VenoXV._Globals_
             catch { }
         }
 
-        [ClientEvent("Discord:Auth")]
+        [VenoXRemoteEvent("Discord:Auth")]
         public static void LoadDiscordInformations(VnXPlayer player, bool IsOpen, string Id, string Name, string Avatar, string Discriminator)
         {
             try

@@ -202,7 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
-        [ClientEvent("Settings:SelectSpawnpoint")]
+        [VenoXRemoteEvent("Settings:SelectSpawnpoint")]
         public void ChangePlayerSpawnpoint(VnXPlayer player, int spawn)
         {
             try

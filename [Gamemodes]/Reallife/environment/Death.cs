@@ -24,7 +24,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("Reallife:Revive")]
+        [VenoXRemoteEvent("Reallife:Revive")]
         public static void RevivePlayer(VnXPlayer player)
         {
             try

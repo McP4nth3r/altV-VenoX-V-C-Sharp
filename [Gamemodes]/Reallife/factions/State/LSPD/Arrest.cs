@@ -268,7 +268,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
         }
 
 
-        [ClientEvent("Stellen_Server_Event")]
+        [VenoXRemoteEvent("Stellen_Server_Event")]
         public void Stellen_server_event(VnXPlayer player)
         {
             try

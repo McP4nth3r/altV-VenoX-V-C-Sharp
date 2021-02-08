@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
         public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch { } }
 
-        [ClientEvent("Inventory:Use")]
+        [VenoXRemoteEvent("Inventory:Use")]
         public static void OnInventoryUseButtonClicked(VnXPlayer player, string ClickedHash)
         {
             try

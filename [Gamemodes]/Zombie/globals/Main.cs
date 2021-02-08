@@ -17,7 +17,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
             catch { }
         }
 
-        [ClientEvent("OnZombieKill")]
+        [VenoXRemoteEvent("OnZombieKill")]
         public static void OnZombieKill(VnXPlayer player)
         {
             try

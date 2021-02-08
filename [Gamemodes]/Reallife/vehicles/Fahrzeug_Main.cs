@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [ClientEvent("ParkVehicleServer")]
+        [VenoXRemoteEvent("ParkVehicleServer")]
         public void ParkLocalIVehicle(VnXPlayer player)
         {
             try

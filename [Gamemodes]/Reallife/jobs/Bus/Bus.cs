@@ -139,7 +139,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("BusJob:TimeoutDone")]
+        [VenoXRemoteEvent("BusJob:TimeoutDone")]
         public static void BusJobTimeOut(VnXPlayer player)
         {
             try

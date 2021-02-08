@@ -189,7 +189,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [ClientEvent("Buy_Snack_Server")]
+        [VenoXRemoteEvent("Buy_Snack_Server")]
         public void Give_Snack_Func(VnXPlayer player)
         {
             /*
@@ -234,7 +234,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [ClientEvent("Buy_Kanister_Server")]
+        [VenoXRemoteEvent("Buy_Kanister_Server")]
         public void Give_Kanister_Func(VnXPlayer player)
         {
             /*
@@ -282,7 +282,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             */
         }
 
-        [ClientEvent("Close_Gas_Window")]
+        [VenoXRemoteEvent("Close_Gas_Window")]
         public void Close_Gas_Window(VnXPlayer player)
         {
             try
@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [ClientEvent("Fill_Car_Done")]
+        [VenoXRemoteEvent("Fill_Car_Done")]
         public static void FilLCar_Done(VnXPlayer player, int value)
         {
             try
@@ -347,7 +347,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
 
-        [ClientEvent("Fill_Gas_Liter")]
+        [VenoXRemoteEvent("Fill_Gas_Liter")]
         public void Fill_Car_Liter(VnXPlayer player, int value)
         {
             try
@@ -436,7 +436,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         //  VenoX.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
 
 
-        [ClientEvent("Tacho:CalculateTank")]
+        [VenoXRemoteEvent("Tacho:CalculateTank")]
         public static void CalculateVehicleTank(VnXPlayer player, float speed)
         {
             try
@@ -606,7 +606,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
-        [ClientEvent("OnPlayerEnterVehicleCall")]
+        [VenoXRemoteEvent("OnPlayerEnterVehicleCall")]
         public static void OnPlayerEnterVehicleCall(VnXPlayer player)
         {
             try
@@ -667,7 +667,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch { }
         }
 
-        [ClientEvent("engineOnEventKey")]
+        [VenoXRemoteEvent("engineOnEventKey")]
         public void EngineOnEventKeyEvent(VnXPlayer player)
         {
             try

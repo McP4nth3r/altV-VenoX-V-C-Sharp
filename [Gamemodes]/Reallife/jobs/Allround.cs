@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         }
 
         // Wenn der Spieler seinen Job annimmt im Marker.
-        [ClientEvent("accept_job_server")]
+        [VenoXRemoteEvent("accept_job_server")]
         public void Accept_job(VnXPlayer player, string windowname)
         {
             try
@@ -95,7 +95,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("Job:StartStage")]
+        [VenoXRemoteEvent("Job:StartStage")]
         public void trigger_job_window_1_buttons(VnXPlayer player, int stage)
         {
             try

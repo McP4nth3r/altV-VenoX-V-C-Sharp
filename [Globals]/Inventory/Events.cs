@@ -30,7 +30,7 @@ namespace VenoXV._Globals_.Inventory
             //Core.Debug.OutputDebugString("You picked up : " + item.Hash);
         }
 
-        [ClientEvent("Inventory:DropItem")]
+        [VenoXRemoteEvent("Inventory:DropItem")]
         public static void DropItem(VnXPlayer player, string Hash, int Amount)
         {
             try

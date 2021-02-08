@@ -174,7 +174,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
 
-        [ClientEvent("fguns:selectweapon")]
+        [VenoXRemoteEvent("fguns:selectweapon")]
         public static void FgunsSelectWeapon(VnXPlayer player, string weapon)
         {
             try
@@ -796,7 +796,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        [ClientEvent("goDUTYBADServer")]
+        [VenoXRemoteEvent("goDUTYBADServer")]
         public void GoDUTYBADServer(VnXPlayer player, string state)
         {
             try
@@ -856,7 +856,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
         }
 
-        [ClientEvent("goDUTYServer")]
+        [VenoXRemoteEvent("goDUTYServer")]
         public void GoDutyIPlayer(VnXPlayer player)
         {
             try
@@ -890,7 +890,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("goSWATServer")]
+        [VenoXRemoteEvent("goSWATServer")]
         public void goSWATDutyPlayer(VnXPlayer player)
         {
             try
@@ -918,7 +918,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
         }
 
-        [ClientEvent("goOFFDUTYServer")]
+        [VenoXRemoteEvent("goOFFDUTYServer")]
         public void OffDuty_Server_EVENT(VnXPlayer player)
         {
             try

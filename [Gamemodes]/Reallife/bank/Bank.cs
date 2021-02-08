@@ -11,7 +11,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
     public class Bank : IScript
     {
 
-        [ClientEvent("ATM_MONEY_BUTTON_TRIGGER")]
+        [VenoXRemoteEvent("ATM_MONEY_BUTTON_TRIGGER")]
         public static void ATM_BUTTON_TRIGGERED(VnXPlayer player, string button, string v)
         {
             try
@@ -73,7 +73,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
             catch { }
         }
 
-        [ClientEvent("ATM_MONEY_SEND_TO")]
+        [VenoXRemoteEvent("ATM_MONEY_SEND_TO")]
         public static void SendToPlayerMoney_ATM(VnXPlayer player, string name, string svalue, string reason)
         {
             try

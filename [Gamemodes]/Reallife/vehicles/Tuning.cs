@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
         }
 
-        [ClientEvent("Reallife-Tuning:Close")]
+        [VenoXRemoteEvent("Reallife-Tuning:Close")]
         public static void CloseTunningWindow(VnXPlayer player)
         {
             try
@@ -116,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
 
 
-        [ClientEvent("modifyIVehicle")]
+        [VenoXRemoteEvent("modifyIVehicle")]
         public void ModifyIVehicleEvent(VnXPlayer player, byte slot, byte component)
         {
             try

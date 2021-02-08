@@ -21,7 +21,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
             catch { return false; }
         }
 
-        [ClientEvent("XMenu:ApplyServerButtonVehicle")]
+        [VenoXRemoteEvent("XMenu:ApplyServerButtonVehicle")]
         public static void OnXMenuButtonPressedVehicle(VnXPlayer player, int Button, VehicleModel vehicle = null)
         {
             try
@@ -54,7 +54,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
 
-        [ClientEvent("XMenu:ApplyServerButton")]
+        [VenoXRemoteEvent("XMenu:ApplyServerButton")]
         public static void OnXMenuButtonPressed(VnXPlayer player, int Button, VnXPlayer target)
         {
             try

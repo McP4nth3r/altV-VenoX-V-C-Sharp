@@ -128,7 +128,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
 
 
         //[ServerEvent(Event.ChatMessage)]
-        [ClientEvent("chat:message")]
+        [VenoXRemoteEvent("chat:message")]
         public void OnChatMessage(VnXPlayer player, string message)
         {
             try
