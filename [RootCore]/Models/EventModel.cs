@@ -15,7 +15,6 @@ namespace VenoXV._RootCore_.Models
             Name = name;
         }
     }
-
     public class EventAssets : IScript
     {
         [ScriptEvent(ScriptEventType.PlayerEvent)]
@@ -23,14 +22,16 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
+                /* Debug */
                 //Core.Debug.OutputDebugStringColored("Called [OnServerEventReceive]", ConsoleColor.Green);
+
                 var methods = AppDomain.CurrentDomain.GetAssemblies() // Returns all currenlty loaded assemblies
                .SelectMany(x => x.GetTypes()) // returns all types defined in this assemblies
                .Where(x => x.IsClass) // only yields classes
                .SelectMany(x => x.GetMethods()) // returns all methods defined in those classes
-               .Where(x => x.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false).FirstOrDefault() != null); // returns only methods that have the InvokeAttribute
+               .Where(x => x.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false).FirstOrDefault() != null); // returns only methods that have VenoXRemoteEventAttribute
 
-                foreach (var method in methods) // iterate through all found methods
+                foreach (MethodInfo method in methods)
                 {
                     object[] _Attr = method.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false);
                     if (_Attr is not null && _Attr.Length > 0)
@@ -38,21 +39,26 @@ namespace VenoXV._RootCore_.Models
                         VenoXRemoteEventAttribute __obj = (VenoXRemoteEventAttribute)_Attr[0];
                         if (__obj is not null && __obj.Name == EventName)
                         {
-                            //Core.Debug.OutputDebugStringColored("Called EventName : [" + EventName + "]", ConsoleColor.Green);
-                            var obj = Activator.CreateInstance(method.DeclaringType); // Instantiate the class
-                            //Core.Debug.OutputDebugString("[ServerEvent] : [" + player.Name + "] | [" + player.Username + "] called EventName : " + EventName + " | Args : " + string.Join(", ", args));
 
+                            /* Variables */
                             List<object> objList = new List<object> { player };
                             ParameterInfo[] __MethodParameters = method.GetParameters();
                             int i = 1;
-                            foreach (object value in args)
-                            {
-                                objList.Add(Convert.ChangeType(value, __MethodParameters[i].ParameterType));
-                                i++;
-                            }
+
+                            /* Debug */
+                            //Core.Debug.OutputDebugStringColored("Called EventName : [" + EventName + "]", ConsoleColor.Green);
+                            //Core.Debug.OutputDebugString("[ServerEvent] : [" + player.Name + "] | [" + player.Username + "] called EventName : " + EventName + " | Args : " + string.Join(", ", args));
+
+                            // Creating a new Instance
+                            object __Instance = Activator.CreateInstance(method.DeclaringType);
+
+                            // Fix - obj value types.
+                            foreach (object __v in args) { objList.Add(Convert.ChangeType(__v, __MethodParameters[i].ParameterType)); i++; }
+
+                            //Convert our list to a obj-Array.
                             object[] builder = objList.ToArray();
                             // invoke the method
-                            method.Invoke(obj, builder);
+                            method.Invoke(__Instance, builder);
                             return;
                         }
                     }
