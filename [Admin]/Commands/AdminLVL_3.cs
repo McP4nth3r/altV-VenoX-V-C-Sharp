@@ -29,24 +29,17 @@ namespace VenoXV._Gamemodes_.Reallife.admin.Commands
         public void TpCommand(VnXPlayer player, string target_name)
         {
             VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
-            if (target == null) { return; }
+            if (target == null) return;
             if (player.AdminRank >= Constants.ADMINLVL_SUPPORTER)
             {
                 // We get the player from the input string
-                if (target != null)
-                {
-                    // Change player's position and dimension
-                    //AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
-                    player.SetPosition = target.Position;
-                    player.Dimension = target.Dimension;
-                    player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast dich zu " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "teleportiert!");
-                    target.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VnX]" + player.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "hat sich zu dir teleportiert!");
-                    logfile.WriteLogs("admin", player.Username + " hat sich zu " + target.Username + " geportet!");
-                }
-                else
-                {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "[Admin - Info]" + RageAPI.GetHexColorcode(255, 255, 255) + " : Spieler wurde nicht gefunden!");
-                }
+                // Change player's position and dimension
+                //AntiCheat_Allround.SetTimeOutTeleport(player, 2000);
+                player.SetPosition = target.Position;
+                player.Dimension = target.Dimension;
+                player.SendChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast dich zu " + RageAPI.GetHexColorcode(0, 200, 255) + target.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "teleportiert!");
+                target.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + "[VnX]" + player.Username + " " + RageAPI.GetHexColorcode(255, 255, 255) + "hat sich zu dir teleportiert!");
+                logfile.WriteLogs("admin", player.Username + " hat sich zu " + target.Username + " geportet!");
             }
         }
 

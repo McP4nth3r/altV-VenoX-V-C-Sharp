@@ -17,6 +17,12 @@ namespace VenoXV._RootCore_.Models
     }
     public class EventAssets : IScript
     {
+        public static IEnumerable<MethodInfo> methods = AppDomain.CurrentDomain.GetAssemblies()
+        .SelectMany(x => x.GetTypes()) // returns all types defined in this assemblies
+        .Where(x => x.IsClass) // only yields classes
+        .SelectMany(x => x.GetMethods()) // returns all methods defined in those classes
+        .Where(x => x.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false).FirstOrDefault() != null); // returns only methods that have VenoXRemoteEventAttribute
+
         [ScriptEvent(ScriptEventType.PlayerEvent)]
         public static void OnServerEventReceive(VnXPlayer player, string EventName, params object[] args)
         {
@@ -24,12 +30,6 @@ namespace VenoXV._RootCore_.Models
             {
                 /* Debug */
                 //Core.Debug.OutputDebugStringColored("Called [OnServerEventReceive]", ConsoleColor.Green);
-
-                var methods = AppDomain.CurrentDomain.GetAssemblies() // Returns all currenlty loaded assemblies
-               .SelectMany(x => x.GetTypes()) // returns all types defined in this assemblies
-               .Where(x => x.IsClass) // only yields classes
-               .SelectMany(x => x.GetMethods()) // returns all methods defined in those classes
-               .Where(x => x.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false).FirstOrDefault() != null); // returns only methods that have VenoXRemoteEventAttribute
 
                 foreach (MethodInfo method in methods)
                 {
@@ -39,7 +39,6 @@ namespace VenoXV._RootCore_.Models
                         VenoXRemoteEventAttribute __obj = (VenoXRemoteEventAttribute)_Attr[0];
                         if (__obj is not null && __obj.Name == EventName)
                         {
-
                             /* Variables */
                             List<object> objList = new List<object> { player };
                             ParameterInfo[] __MethodParameters = method.GetParameters();

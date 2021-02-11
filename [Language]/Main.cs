@@ -305,7 +305,7 @@ namespace VenoXV._Language_
                 // if german main language => return.
                 if (language == Languages.German) return text;
 
-                // Simple Check if it's exits in the Async Thread ( so don't need to switch back to the main thread ) 
+                // Simple Check if it's exists in the Async Thread ( so don't need to switch back to the main thread ) 
                 List<LanguageModel> CachedLanguage = GetLanguageCache(language);
                 LanguageModel languageClass = CachedLanguage.ToList().FirstOrDefault(x => x.Text == text);
 

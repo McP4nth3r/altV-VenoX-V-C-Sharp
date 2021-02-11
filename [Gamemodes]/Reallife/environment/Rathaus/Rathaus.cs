@@ -4,6 +4,7 @@ using AltV.Net.Elements.Entities;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._RootCore_;
@@ -28,32 +29,44 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
             try
             {
                 if (shape != RathausColShapeModel) return false;
+                Task.Run(async () =>
+                {
+                    string price = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Preis:");
+                    string PERSO_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Personalausweis");
+                    string CAR_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Führerschein");
+                    string LKW_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "LKW-Führerschein");
+                    string BIKE_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Motorradschein");
+                    string PLANE_A_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Flugschein A");
+                    string PLANE_B_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Flugschein B");
+                    string HELICOPTER_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Helikopterschein");
+                    string BOAT_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Bootsschein");
+                    string FISHER_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Angelschein");
+                    string WEAPON_BTN = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Waffenschein");
 
-                string PERSO_BTN = "Personalausweis";
-                string CAR_BTN = "Führerschein";
-                string LKW_BTN = "LKW-Führerschein";
-                string BIKE_BTN = "Motorradschein";
-                string PLANE_A_BTN = "Flugschein A";
-                string PLANE_B_BTN = "Flugschein B";
-                string HELICOPTER_BTN = "Helikopterschein";
-                string BOAT_BTN = "Bootsschein";
-                string FISHER_BTN = "Angelschein";
-                string WEAPON_BTN = "Waffenschein";
-                string perso = "Der Personalausweis ist das<br> wichtigste was du bei dir<br>haben kannst, mit diesem<br> Identifizierst du dich<br>bei den Behörden. <br><br>Preis: 450$";
-                string fuehrer = "Der Führerschein wird<br>benötigt um ein Auto fahren<br>zu duerfen, solltest du<br>ohne einen Führerschein<br>erwischt wirst, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 10.500$";
-                string lkw = "Der LKW-Führerschein wird<br>benötigt um ein LKW fahren<br>zu duerfen, solltest du<br>ohne einen LKW-Führerschein<br>erwischt wirst, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 16.750$";
-                string bike = "Der Motorradschein wird<br>benötigt um ein Motorrad fahren<br>zu duerfen, solltest du<br>ohne ein Motorradschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 8.750$";
-                string fa = "Der Flugschein (A) wird<br>benötigt um kleine Flugzeuge<br>fliegen zu duerfen, solltest du<br>ohne einen Flugschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 28.250$";
-                string fb = "Der Flugschein (B) wird<br>benötigt um groessere Flugzeuge<br>fliegen zu duerfen, solltest<br>du ohne einen Flugschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 37.625$";
-                string heli = "Der Helikopterschein wird<br>benötigt um Helikopter<br>fliegen zu duerfen, solltest<br>du ohne einen Helikopterschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 25.438$";
-                string boot = "Der Bootschein wird<br>benötigt um ein Boot<br>fahren zu duerfen, solltest<br>du ohne einen Bootschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 5.220$";
-                string angel = "Der Angelschein wird<br>benötigt um Angeln<br>zu duerfen, solltest du<br>ohne einen Angelschein<br>beim Angeln erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 1.150$";
-                string waffen = "Der Waffenschein wird<br>benötigt um eine Waffe<br>zu besitzen, solltest du<br>ohne einen Waffenschein<br>mit einer Waffe erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 21.250$";
-                VenoX.TriggerClientEvent(player, "showRathausWindow", "Stadthalle", PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN, PLANE_A_BTN, PLANE_B_BTN, HELICOPTER_BTN, BOAT_BTN, FISHER_BTN, WEAPON_BTN, perso, fuehrer, lkw, bike, fa, fb, heli, boot, angel, waffen);
-                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_STADTHALLE);
-                if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_STADTHALLE))
-                    Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_STADTHALLE]);
+                    string perso_asset = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Der Personalausweis ist das");
+                    string perso_asset1 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "wichtigste was du bei dir");
+                    string perso_asset2 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "haben kannst, mit diesem");
+                    string perso_asset3 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Identifizierst du dich");
+                    string perso_asset4 = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "bei den Behörden.");
 
+                    string perso = perso_asset + "<br> " + perso_asset1 + "<br>" + perso_asset2 + "<br>" + perso_asset3 + "<br>" + perso_asset4 + " <br><br>" + price + " 450$";
+
+
+
+                    string fuehrer = "Der Führerschein wird<br>benötigt um ein Auto fahren<br>zu duerfen, solltest du<br>ohne einen Führerschein<br>erwischt wirst, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 10.500$";
+                    string lkw = "Der LKW-Führerschein wird<br>benötigt um ein LKW fahren<br>zu duerfen, solltest du<br>ohne einen LKW-Führerschein<br>erwischt wirst, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 16.750$";
+                    string bike = "Der Motorradschein wird<br>benötigt um ein Motorrad fahren<br>zu duerfen, solltest du<br>ohne ein Motorradschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 8.750$";
+                    string fa = "Der Flugschein (A) wird<br>benötigt um kleine Flugzeuge<br>fliegen zu duerfen, solltest du<br>ohne einen Flugschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 28.250$";
+                    string fb = "Der Flugschein (B) wird<br>benötigt um groessere Flugzeuge<br>fliegen zu duerfen, solltest<br>du ohne einen Flugschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 37.625$";
+                    string heli = "Der Helikopterschein wird<br>benötigt um Helikopter<br>fliegen zu duerfen, solltest<br>du ohne einen Helikopterschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 25.438$";
+                    string boot = "Der Bootschein wird<br>benötigt um ein Boot<br>fahren zu duerfen, solltest<br>du ohne einen Bootschein<br>erwischt werden, drohen<br>dir Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 5.220$";
+                    string angel = "Der Angelschein wird<br>benötigt um Angeln<br>zu duerfen, solltest du<br>ohne einen Angelschein<br>beim Angeln erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 1.150$";
+                    string waffen = "Der Waffenschein wird<br>benötigt um eine Waffe<br>zu besitzen, solltest du<br>ohne einen Waffenschein<br>mit einer Waffe erwischt<br>werden, drohen dir<br>Fahndungslevel von den<br>Behörden und Strafgelder.<br><br>Preis: 21.250$";
+                    VenoX.TriggerClientEvent(player, "showRathausWindow", "Stadthalle", PERSO_BTN, CAR_BTN, LKW_BTN, BIKE_BTN, PLANE_A_BTN, PLANE_B_BTN, HELICOPTER_BTN, BOAT_BTN, FISHER_BTN, WEAPON_BTN, perso, fuehrer, lkw, bike, fa, fb, heli, boot, angel, waffen);
+                    //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_STADTHALLE);
+                    if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_STADTHALLE))
+                        Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_STADTHALLE]);
+                });
                 return true;
             }
             catch { return false; }
