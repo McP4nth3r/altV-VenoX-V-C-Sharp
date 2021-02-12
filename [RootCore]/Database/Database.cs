@@ -1741,13 +1741,18 @@ namespace VenoXV._RootCore_.Database
                         item.Weight = reader.GetFloat("weight");
                         item.Type = (ItemType)reader.GetInt32("type");
 
+                        item.ClothesSlot = reader.GetInt32("ClotheSlot");
+                        item.ClothesDrawable = reader.GetInt32("ClotheDrawable");
+                        item.ClothesTexture = reader.GetInt32("ClotheTexture");
+                        item.IsUsing = reader.GetBoolean("IsUsing");
+
                         itemList.Add(item);
                     }
                 }
 
                 return itemList;
             }
-            catch { return null; }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<ItemModel>(); }
         }
         public static List<AccountModel> LoadAllAccounts()
         {

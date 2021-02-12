@@ -17,11 +17,6 @@ namespace VenoXV.Core
     public static class RageAPI
     {
         //RageAPI.CreateColShapeSphere(new Position(732.712f, -1088.656f, 21.77967f), 2);
-        public static List<ColShapeModel> GetAllColShapes()
-        {
-            try { return Sync.ColShapeList; }
-            catch (Exception ex) { Debug.CatchExceptions(ex); return new List<ColShapeModel>(); }
-        }
         public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = Dimension.GlobalDimension)
         {
             try

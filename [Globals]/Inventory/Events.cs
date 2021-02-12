@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using System;
 using System.Linq;
 using System.Numerics;
+using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
@@ -39,6 +40,22 @@ namespace VenoXV._Globals_.Inventory
                 if (item is null || item.UID == -1) return;
                 player.Inventory.Items.Remove(item);
                 Inventory.CreateDroppedObject(player, item);
+            }
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+
+        [VenoXRemoteEvent("Inventory:UseItem")]
+        public static void UseItem(VnXPlayer player, int ID)
+        {
+            try
+            {
+                ItemModel item = player.Inventory.Items.FirstOrDefault(x => x.Id == ID);
+                if (item is null || item.UID == -1) return;
+                if (item.ClothesSlot > 0 && item.Type == ItemType.Clothes)
+                {
+                    item.IsUsing = !item.IsUsing;
+                    Customization.ApplyPlayerClothes(player);
+                }
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }

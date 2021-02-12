@@ -136,6 +136,10 @@ namespace VenoXV._Gamemodes_.Reallife.model
         public int Dimension { get; set; }
         public float Weight { get; set; }
         public ItemType Type { get; set; }
+        public int ClothesSlot { get; set; }
+        public int ClothesDrawable { get; set; }
+        public int ClothesTexture { get; set; }
+        public bool IsUsing { get; set; }
         public void Update()
         {
             ItemModel offlineItem = _Globals_.Inventory.Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Id);

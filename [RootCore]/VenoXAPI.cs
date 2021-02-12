@@ -3,6 +3,7 @@ using AltV.Net.Async;
 using System;
 using System.Collections.Generic;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_
 {
@@ -44,6 +45,11 @@ namespace VenoXV._RootCore_
                 //Core.Debug.OutputDebugString("[ClientEvent] : called EventName for everyone : " + EventName);
             }
             catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+        }
+        public static List<ColShapeModel> GetAllColShapes()
+        {
+            try { return Sync.Sync.ColShapeList; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new List<ColShapeModel>(); }
         }
         [ScriptEvent(ScriptEventType.PlayerEvent)]
         public static void OnServerEventReceive(VnXPlayer player, string EventName, params object[] args)

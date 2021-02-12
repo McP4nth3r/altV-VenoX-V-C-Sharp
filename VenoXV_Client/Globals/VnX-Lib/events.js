@@ -194,7 +194,7 @@ alt.onServer("Clothes:Load", (slot, drawable, texture) => {
                 if (torsoDataMale[drawable] === undefined || torsoDataMale[drawable][texture] === undefined) {
                     alt.log("Invalid top drawable/texture.");
                 } else {
-                    player.setClothes(11, drawable, texture, 2);
+                    game.setPedComponentVariation(LocalPlayer.scriptID, 11, drawable, texture, 2);
                     if (torsoDataMale[drawable][texture].BestTorsoDrawable != -1) game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataMale[drawable][texture].BestTorsoDrawable, torsoDataMale[drawable][texture].BestTorsoTexture, 2);
                 }
             } else {
@@ -202,7 +202,7 @@ alt.onServer("Clothes:Load", (slot, drawable, texture) => {
                 if (torsoDataFemale[drawable] === undefined || torsoDataFemale[drawable][texture] === undefined) {
                     alt.log("Invalid top drawable/texture.");
                 } else {
-                    player.setClothes(11, drawable, texture, 2);
+                    game.setPedComponentVariation(LocalPlayer.scriptID, 11, drawable, texture, 2);
                     if (torsoDataFemale[drawable][texture].BestTorsoDrawable != -1) game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataFemale[drawable][texture].BestTorsoDrawable, torsoDataFemale[drawable][texture].BestTorsoTexture, 2);
                 }
             }

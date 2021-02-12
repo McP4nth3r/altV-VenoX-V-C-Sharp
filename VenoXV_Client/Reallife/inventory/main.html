@@ -16,8 +16,8 @@
 			alt.on("Inventory:RemoveAll", () => {
 				RemoveAllItems();
 			});
-			alt.on("Inventory:Update", (hash, amount, name, iteminfo) => {
-				OnUpdateItems(hash, amount, name, iteminfo);
+			alt.on("Inventory:Update", (Id, hash, amount, name, iteminfo) => {
+				OnUpdateItems(Id, hash, amount, name, iteminfo);
 			});
 		}
 	</script>

@@ -45,7 +45,7 @@ alt.onServer('Inventory:Update', (InventoryJson) => {
     let InventoryItems = JSON.parse(InventoryJson);
     for (let i = 0; i < InventoryItems.length; i++) {
         let data = InventoryItems[i];
-        InventoryBrowser.emit('Inventory:Update', data.Hash, data.Amount, data.Type, data.Weight);
+        InventoryBrowser.emit('Inventory:Update', data.Id, data.Hash, data.Amount, data.Type, data.Weight);
     }
 });
 
@@ -69,6 +69,11 @@ alt.onServer('Inventory:Load', () => {
         }
     });
 
+
+    InventoryBrowser.on('Inventory:UseItem', (Id) => {
+        alt.emitServer('Inventory:UseItem', Id);
+    });
+
     InventoryBrowser.on('Inventory:DropItem', (Hash, Amount) => {
         alt.emitServer('Inventory:DropItem', Hash, parseInt(Amount));
     });
@@ -85,7 +90,6 @@ alt.onServer('Inventory:Unload', () => {
 
 
 // Obj Drop : 
-
 let DroppedObjList = {};
 alt.everyTick(() => {
     for (var obj in DroppedObjList) {

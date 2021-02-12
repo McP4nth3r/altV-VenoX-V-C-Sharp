@@ -11,9 +11,9 @@ let LastItemClicked = null;
 let CurrentInventoryItems = {};
 
 let ClothesColumnId = "ClothesColumn";
-let ClothesColumnString = `<div class="column" id="` + ClothesColumnId + `"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Benutzen</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen</div></div></div>`;
+let ClothesColumnString = `<div class="column" id="` + ClothesColumnId + `" data-ItemId="-1"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Use</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Drop</div></div></div>`;
 let GunColumnId = "GunColumn";
-let GunColumnString = `<div class="column" id="` + GunColumnId + `"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Benutzen</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen</div></div></div>`;
+let GunColumnString = `<div class="column" id="` + GunColumnId + `" data-ItemId="-1"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Use</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Drop</div></div></div>`;
 
 let ItemTypes = {}
 ItemTypes[0] = "Drugs";
@@ -38,7 +38,7 @@ for (let i = 0; i < GunSlotColumnCount; i++) {
     $('.InventoryCharacterWeaponbar').append(GunColumnString);
 }
 for (let i = 0; i < ColumnCount; i++) {
-    $('.inventar_column_container').append(`<div class="column"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Benutzen</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen</div></div></div>`);
+    $('.inventar_column_container').append(`<div class="column" data-ItemId="-1"><div class="column_amount"></div><div class="info d-none"></div><div class="OptionsMenu d-none"><div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use ');">Use</div><div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Drop</div></div></div>`);
 }
 
 // After initializing stuff.
@@ -133,6 +133,10 @@ box.droppable({
             // Creating Drag-Point Copy
             let DragId = DragPoint.attr('id');
             let DropId = DropPoint.attr('id');
+
+            // Item Id 
+            let DragItemId = DragPoint.data('ItemId');
+            let DropItemId = DropPoint.data('ItemId');
             //
             let DragPointContent = DragPoint.html();
             let DragPointStyle = DragPoint.attr('style');
@@ -146,9 +150,12 @@ box.droppable({
             // Swapping the Items : 
             DragPoint.html(DropPointContent);
             DragPoint.attr('style', DropPointStyle);
+            DragPoint.data('ItemId', DropItemId);
+
 
             DropPoint.html(DragPointContent);
             DropPoint.attr('style', DragPointStyle);
+            DropPoint.data('ItemId', DragItemId);
 
             // Fix ID - Spawn
             if (DragId == undefined || DragId == '') {
@@ -159,11 +166,17 @@ box.droppable({
                 } else if (DropPointId == ClothesColumnId) {
                     DropPoint.attr('id', ClothesColumnId);
                     DragPoint.attr('id', "Clothes");
+                    console.log(DragPoint.data('ItemId') + " is now not more active!")
+                    if ('alt' in window)
+                        alt.emit('Inventory:UseItem', parseInt(DragPoint.data('ItemId')));
                 } else
                     DragPoint.attr('id', DropPointId);
             } else if (DragId == GunColumnId || DragId == ClothesColumnId) {
                 DragPoint.attr('id', DragId);
                 DropPoint.attr('id', DropId);
+                console.log(DropPoint.data('ItemId') + " is now active!")
+                if ('alt' in window)
+                    alt.emit('Inventory:UseItem', parseInt(DropPoint.data('ItemId')));
             } else if (DropId.length > 0) {
                 DragPoint.attr('id', DropId);
                 DropPoint.attr('id', DragId);
@@ -285,7 +298,7 @@ function ItemExists(itemName) {
 }
 
 
-function AddItem(hash, amount, itemtype, weight) {
+function AddItem(id, hash, amount, itemtype, weight) {
     var cols = document.querySelectorAll('#columns .column');
     [].forEach.call(cols, function (col) {
         let name = $(col).css('background-image');
@@ -298,6 +311,7 @@ function AddItem(hash, amount, itemtype, weight) {
                 $(col).children('.column_amount').html(amount.toString());
                 $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
                 CurrentInventoryItems[hash] = {
+                    Id: id,
                     Element: col,
                     Hash: hash,
                     Image: $(col).css('background-image'),
@@ -306,27 +320,28 @@ function AddItem(hash, amount, itemtype, weight) {
                     Weight: weight
                 }
                 UpdateInventoryWeight();
+                $(col).data('ItemId', id);
                 return;
             }
         }
     });
 }
 
-function UpdateItem(hash, amount, weight) {
-    if (!CurrentInventoryItems[hash].Element) return;
-    $(CurrentInventoryItems[hash].Element).children('.column_amount').html(amount.toString());
-    $(CurrentInventoryItems[hash].Element).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
-    CurrentInventoryItems[hash].Weight = weight;
-    CurrentInventoryItems[hash].Amount = amount;
+function UpdateItem(id, hash, amount, weight) {
+    if (!CurrentInventoryItems[id].Element) return;
+    $(CurrentInventoryItems[id].Element).children('.column_amount').html(amount.toString());
+    $(CurrentInventoryItems[id].Element).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+    CurrentInventoryItems[id].Weight = weight;
+    CurrentInventoryItems[id].Amount = amount;
     UpdateInventoryWeight();
     console.log('Updated');
 }
 
 
 // called if a new item got inserted.
-function OnUpdateItems(hash, amount, itemtype, weight) {
-    if (!ItemExists(hash)) AddItem(hash, amount, itemtype, weight);
-    else UpdateItem(hash, amount, weight);
+function OnUpdateItems(id, hash, amount, itemtype, weight) {
+    if (!ItemExists(id)) AddItem(id, hash, amount, itemtype, weight);
+    else UpdateItem(id, hash, amount, weight);
 }
 
 
