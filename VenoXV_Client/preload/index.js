@@ -14,7 +14,7 @@ from '../Globals/VnX-Lib';
 let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 
 preloadbrowser.on('Preload:SelectGamemode', (Gamemode, Lobby) => {
-    alt.emitServer("Preload:SelectGamemode", Gamemode, parseInt(Lobby));
+    alt.emitServer("Preload:SelectGamemode", Gamemode, Lobby);
     game.setEntityAlpha(alt.Player.local.scriptID, 255);
     game.freezeEntityPosition(alt.Player.local.scriptID, false);
     game.displayRadar(true);
