@@ -1,5 +1,4 @@
 ﻿using AltV.Net;
-using AltV.Net.Async;
 using System;
 using System.Linq;
 using System.Numerics;
@@ -12,7 +11,7 @@ namespace VenoXV._Globals_.Inventory
 {
     public class Events : IScript
     {
-        [AsyncClientEvent("Inventory:PickupItem")]
+        [VenoXRemoteEvent("Inventory:PickupItem")]
         public static void PickUpItem(VnXPlayer player, int Id)
         {
             //Core.Debug.OutputDebugString("Called PickUp Item : " + Id);

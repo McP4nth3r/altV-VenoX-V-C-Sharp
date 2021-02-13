@@ -298,31 +298,90 @@ function ItemExists(itemName) {
 }
 
 
-function AddItem(id, hash, amount, itemtype, weight) {
+function AddItem(id, hash, amount, itemtype, weight, isusing) {
+    let AlreadyAdded;
+    if (isusing) {
+        switch (itemtype) {
+            case 2:
+                var cols = document.querySelectorAll('.InventoryCharacterClothebar .column');
+                [].forEach.call(cols, function (col) {
+                    if (AlreadyAdded) return;
+                    let name = $(col).css('background-image');
+                    let patt = /\"|\'|\)/g;
+                    let text = name.split('/').pop().replace(patt, '');
+                    if (text == 'style.css') {
+                        $(col).attr('id', ItemTypes[parseInt(itemtype)]);
+                        $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
+                        $(col).children('.column_amount').html(amount.toString());
+                        $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+                        CurrentInventoryItems[hash] = {
+                            Id: id,
+                            Element: col,
+                            Hash: hash,
+                            Image: $(col).css('background-image'),
+                            Amount: $(col).children('.column_amount').text(),
+                            Info: $(col).children('.info').text(),
+                            Weight: weight
+                        }
+                        UpdateInventoryWeight();
+                        $(col).data('ItemId', id);
+                        AlreadyAdded = true;
+                    }
+                });
+                return;
+            case 3:
+                var cols = document.querySelectorAll('.InventoryCharacterWeaponbar .column');
+                [].forEach.call(cols, function (col) {
+                    if (AlreadyAdded) return;
+                    let name = $(col).css('background-image');
+                    let patt = /\"|\'|\)/g;
+                    let text = name.split('/').pop().replace(patt, '');
+                    if (text == 'style.css') {
+                        $(col).attr('id', ItemTypes[parseInt(itemtype)]);
+                        $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
+                        $(col).children('.column_amount').html(amount.toString());
+                        $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+                        CurrentInventoryItems[hash] = {
+                            Id: id,
+                            Element: col,
+                            Hash: hash,
+                            Image: $(col).css('background-image'),
+                            Amount: $(col).children('.column_amount').text(),
+                            Info: $(col).children('.info').text(),
+                            Weight: weight
+                        }
+                        UpdateInventoryWeight();
+                        $(col).data('ItemId', id);
+                        AlreadyAdded = true;
+                    }
+                });
+                return;
+        }
+        return;
+    }
     var cols = document.querySelectorAll('#columns .column');
     [].forEach.call(cols, function (col) {
+        if (AlreadyAdded) return;
         let name = $(col).css('background-image');
         let patt = /\"|\'|\)/g;
         let text = name.split('/').pop().replace(patt, '');
         if (text == 'style.css') {
-            if (!ItemExists(hash)) {
-                $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
-                $(col).attr('id', ItemTypes[parseInt(itemtype)]);
-                $(col).children('.column_amount').html(amount.toString());
-                $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
-                CurrentInventoryItems[hash] = {
-                    Id: id,
-                    Element: col,
-                    Hash: hash,
-                    Image: $(col).css('background-image'),
-                    Amount: $(col).children('.column_amount').text(),
-                    Info: $(col).children('.info').text(),
-                    Weight: weight
-                }
-                UpdateInventoryWeight();
-                $(col).data('ItemId', id);
-                return;
+            $(col).attr('id', ItemTypes[parseInt(itemtype)]);
+            $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
+            $(col).children('.column_amount').html(amount.toString());
+            $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+            CurrentInventoryItems[hash] = {
+                Id: id,
+                Element: col,
+                Hash: hash,
+                Image: $(col).css('background-image'),
+                Amount: $(col).children('.column_amount').text(),
+                Info: $(col).children('.info').text(),
+                Weight: weight
             }
+            UpdateInventoryWeight();
+            $(col).data('ItemId', id);
+            AlreadyAdded = true;
         }
     });
 }
@@ -339,8 +398,8 @@ function UpdateItem(id, hash, amount, weight) {
 
 
 // called if a new item got inserted.
-function OnUpdateItems(id, hash, amount, itemtype, weight) {
-    if (!ItemExists(id)) AddItem(id, hash, amount, itemtype, weight);
+function OnUpdateItems(id, hash, amount, itemtype, weight, isusing) {
+    if (!ItemExists(id)) AddItem(id, hash, amount, itemtype, weight, isusing);
     else UpdateItem(id, hash, amount, weight);
 }
 

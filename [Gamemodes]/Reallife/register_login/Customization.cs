@@ -14,6 +14,8 @@ namespace VenoXV._Gamemodes_.Reallife.character
         {
             try
             {
+                player.SetClothes(3, 15, 0);
+                player.SetClothes(8, 15, 0);
                 List<int> Equiped = new List<int>();
                 foreach (ItemModel item in player.Inventory.Items.ToList())
                     if (item.Type == ItemType.Clothes && item.IsUsing && !Equiped.Contains(item.ClothesSlot))
@@ -21,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
                         player.SetClothes(item.ClothesSlot, item.ClothesDrawable, item.ClothesTexture);
                         Equiped.Add(item.ClothesSlot);
                     }
-                player.SetClothes(8, 15, 0);
+
                 if (!Equiped.Contains(1)) player.SetClothes(1, 0, 0);
                 if (!Equiped.Contains(11)) player.SetClothes(11, 252, 0);
                 if (!Equiped.Contains(4)) player.SetClothes(4, 21, 0);

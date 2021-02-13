@@ -45,7 +45,7 @@ alt.onServer('Inventory:Update', (InventoryJson) => {
     let InventoryItems = JSON.parse(InventoryJson);
     for (let i = 0; i < InventoryItems.length; i++) {
         let data = InventoryItems[i];
-        InventoryBrowser.emit('Inventory:Update', data.Id, data.Hash, data.Amount, data.Type, data.Weight);
+        InventoryBrowser.emit('Inventory:Update', data.Id, data.Hash, data.Amount, data.Type, data.Weight, data.IsUsing);
     }
 });
 
