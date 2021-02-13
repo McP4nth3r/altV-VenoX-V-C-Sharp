@@ -74,8 +74,8 @@ alt.onServer('Inventory:Load', () => {
         alt.emitServer('Inventory:UseItem', Id);
     });
 
-    InventoryBrowser.on('Inventory:DropItem', (Hash, Amount) => {
-        alt.emitServer('Inventory:DropItem', Hash, parseInt(Amount));
+    InventoryBrowser.on('Inventory:DropItem', (Id, Amount) => {
+        alt.emitServer('Inventory:DropItem', parseInt(Id), parseInt(Amount));
     });
 });
 

@@ -137,6 +137,9 @@ box.droppable({
             // Item Id 
             let DragItemId = DragPoint.data('ItemId');
             let DropItemId = DropPoint.data('ItemId');
+            if (!DragItemId) DragItemId = -1;
+            if (!DropItemId) DropItemId = -1;
+
             //
             let DragPointContent = DragPoint.html();
             let DragPointStyle = DragPoint.attr('style');
@@ -166,6 +169,8 @@ box.droppable({
                 } else if (DropPointId == ClothesColumnId) {
                     DropPoint.attr('id', ClothesColumnId);
                     DragPoint.attr('id', "Clothes");
+
+                    console.log(DropPoint.data('ItemId') + " - DropPoint Id ")
                     console.log(DragPoint.data('ItemId') + " is now not more active!")
                     if ('alt' in window)
                         alt.emit('Inventory:UseItem', parseInt(DragPoint.data('ItemId')));
@@ -174,9 +179,9 @@ box.droppable({
             } else if (DragId == GunColumnId || DragId == ClothesColumnId) {
                 DragPoint.attr('id', DragId);
                 DropPoint.attr('id', DropId);
-                console.log(DropPoint.data('ItemId') + " is now active!")
+                console.log(DragPoint.data('ItemId') + " is now active!")
                 if ('alt' in window)
-                    alt.emit('Inventory:UseItem', parseInt(DropPoint.data('ItemId')));
+                    alt.emit('Inventory:UseItem', parseInt(DragPoint.data('ItemId')));
             } else if (DropId.length > 0) {
                 DragPoint.attr('id', DropId);
                 DropPoint.attr('id', DragId);
@@ -207,25 +212,25 @@ box.droppable({
 drop_area1.droppable({
     drop: function (event, ui) {
         var draggable = ui.draggable;
-        DropItem(draggable, $(draggable).css('background-image'), $(draggable).children('.column_amount').text());
+        DropItem(draggable, $(draggable).data('ItemId'), $(draggable).children('.column_amount').text());
     }
 });
 drop_area2.droppable({
     drop: function (event, ui) {
         var draggable = ui.draggable;
-        DropItem(draggable, $(draggable).css('background-image'), $(draggable).children('.column_amount').text());
+        DropItem(draggable, $(draggable).data('ItemId'), $(draggable).children('.column_amount').text());
     }
 });
 drop_area3.droppable({
     drop: function (event, ui) {
         var draggable = ui.draggable;
-        DropItem(draggable, $(draggable).css('background-image'), $(draggable).children('.column_amount').text());
+        DropItem(draggable, $(draggable).data('ItemId'), $(draggable).children('.column_amount').text());
     }
 });
 drop_area4.droppable({
     drop: function (event, ui) {
         var draggable = ui.draggable;
-        DropItem(draggable, $(draggable).css('background-image'), $(draggable).children('.column_amount').text());
+        DropItem(draggable, $(draggable).data('ItemId'), $(draggable).children('.column_amount').text());
     }
 });
 
@@ -252,21 +257,17 @@ function ClearCachedIds() {
 
 
 // called if item is being dropped out of inventory.
-function DropItem(Draggable, ItemHash, ItemAmount) {
+function DropItem(Draggable, Id, ItemAmount) {
     let DroppedItemId = $(Draggable).attr('id');
     if (DroppedItemId == GunColumnId || DroppedItemId == ClothesColumnId) return;
-    let name = ItemHash;
-    let patt = /\"|\'|\)/g;
-    let text = name.split('/').pop().replace(patt, '');
-    let TextHash = text.split('.').slice(0, -1).join('.');
     $(Draggable).css('background-image', 'url("style.css")');
     $(Draggable).children('.column_amount').html("");
     $(Draggable).children('.info').html("");
-    delete CurrentInventoryItems[TextHash];
+    delete CurrentInventoryItems[Id];
     setTimeout(() => {
         UpdateInventoryWeight();
         if ('alt' in window)
-            alt.emit('Inventory:DropItem', TextHash, ItemAmount);
+            alt.emit('Inventory:DropItem', Id, ItemAmount);
     }, 250);
 }
 
@@ -292,8 +293,8 @@ function UpdateInventoryAmountBar(CurrentlyInInventory) {
 }
 
 // called to check if Item Exists.
-function ItemExists(itemName) {
-    if (CurrentInventoryItems[itemName]) return true;
+function ItemExists(Id) {
+    if (CurrentInventoryItems[Id]) return true;
     return false;
 }
 
@@ -313,8 +314,8 @@ function AddItem(id, hash, amount, itemtype, weight, isusing) {
                         $(col).attr('id', ItemTypes[parseInt(itemtype)]);
                         $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
                         $(col).children('.column_amount').html(amount.toString());
-                        $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
-                        CurrentInventoryItems[hash] = {
+                        $(col).children('.info').html(hash + "[" + id + "]<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+                        CurrentInventoryItems[id] = {
                             Id: id,
                             Element: col,
                             Hash: hash,
@@ -340,8 +341,8 @@ function AddItem(id, hash, amount, itemtype, weight, isusing) {
                         $(col).attr('id', ItemTypes[parseInt(itemtype)]);
                         $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
                         $(col).children('.column_amount').html(amount.toString());
-                        $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
-                        CurrentInventoryItems[hash] = {
+                        $(col).children('.info').html(hash + "[" + id + "]<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+                        CurrentInventoryItems[id] = {
                             Id: id,
                             Element: col,
                             Hash: hash,
@@ -369,8 +370,8 @@ function AddItem(id, hash, amount, itemtype, weight, isusing) {
             $(col).attr('id', ItemTypes[parseInt(itemtype)]);
             $(col).css('background-image', 'url("./files/images/' + hash + '.png")');
             $(col).children('.column_amount').html(amount.toString());
-            $(col).children('.info').html(hash + "<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
-            CurrentInventoryItems[hash] = {
+            $(col).children('.info').html(hash + "[" + id + "]<br>Item Weight : " + (weight * amount).toFixed(2) + " kg");
+            CurrentInventoryItems[id] = {
                 Id: id,
                 Element: col,
                 Hash: hash,

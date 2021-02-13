@@ -1827,8 +1827,8 @@ namespace VenoXV._RootCore_.Database
                     connection.Open();
                     MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO `items` (`hash`, `UID`, `amount`, `posX`, `posY`, `posZ`, `Dimension`, `weight`, `type`)";
-                    command.CommandText += " VALUES (@hash, @UID, @amount, @posX, @posY, @posZ, @Dimension, @weight, @type)";
+                    command.CommandText = "INSERT INTO `items` (`hash`, `UID`, `amount`, `posX`, `posY`, `posZ`, `Dimension`, `weight`, `type`, `IsUsing`)";
+                    command.CommandText += " VALUES (@hash, @UID, @amount, @posX, @posY, @posZ, @Dimension, @weight, @type, @IsUsing)";
                     command.Parameters.AddWithValue("@hash", item.Hash);
                     command.Parameters.AddWithValue("@UID", item.UID);
                     command.Parameters.AddWithValue("@amount", item.Amount);
@@ -1838,6 +1838,7 @@ namespace VenoXV._RootCore_.Database
                     command.Parameters.AddWithValue("@dimension", item.Dimension);
                     command.Parameters.AddWithValue("@weight", item.Dimension);
                     command.Parameters.AddWithValue("@type", item.Type);
+                    command.Parameters.AddWithValue("@IsUsing", item.IsUsing);
 
                     command.ExecuteNonQuery();
                     itemId = (int)command.LastInsertedId;

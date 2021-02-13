@@ -18,39 +18,52 @@ namespace VenoXV._RootCore_.Models
             List<ItemModel> inventory = Items;
             VenoX.TriggerClientEvent(Player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
-        public void GiveItem(string ItemHash, ItemType ItemArt, int ItemAmount, bool CalculateIfExists, int Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION, float Weight = 0.1f)
+        public void GiveItem(string ItemHash, ItemType ItemArt, int ItemAmount, bool CalculateIfExists, int Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION, float Weight = 0.1f, bool Save = true, int Id = -1)
         {
-            int playerId = Player.UID;
-            if (playerId > 0)
+            try
             {
-                ItemModel Item = Player.Inventory.Items.FirstOrDefault(x => x.Hash == ItemHash);
-                if (Item == null)
+                int playerId = Player.UID;
+                if (playerId > 0)
                 {
-                    Item = new ItemModel
+                    ItemModel Item;
+                    if (Id != -1)
+                        Item = _Globals_.Inventory.Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Id);
+                    else
+                        Item = Player.Inventory.Items.FirstOrDefault(x => x.Hash == ItemHash);
+
+                    if (Item == null)
                     {
-                        Amount = ItemAmount,
-                        Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION,
-                        Position = new Vector3(0.0f, 0.0f, 0.0f),
-                        Hash = ItemHash,
-                        UID = playerId,
-                        Type = ItemArt,
-                        Weight = Weight
-                    };
-                    Item.Id = Database.Database.AddNewItem(Item);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Add(Item);
-                    Items.Add(Item);
+                        Item = new ItemModel
+                        {
+                            Amount = ItemAmount,
+                            Dimension = Dimension,
+                            Position = new Vector3(0.0f, 0.0f, 0.0f),
+                            Hash = ItemHash,
+                            UID = playerId,
+                            Type = ItemArt,
+                            Weight = Weight
+                        };
+                        if (Save)
+                        {
+                            Item.Id = Database.Database.AddNewItem(Item);
+                            _Globals_.Inventory.Inventory.DatabaseItems.Add(Item);
+                        }
+                        Items.Add(Item);
+                    }
+                    else
+                    {
+                        if (CalculateIfExists) Item.Amount += ItemAmount;
+                        else Item.Amount = ItemAmount;
+                        // Update item in DbItem Entry list.
+                        ItemModel DbItem = _Globals_.Inventory.Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Item.Id);
+                        DbItem = Item;
+                    }
                 }
-                else
-                {
-                    if (CalculateIfExists) Item.Amount += ItemAmount;
-                    else Item.Amount = ItemAmount;
-                    // Update item in DbItem Entry list.
-                    ItemModel DbItem = Player.Inventory.Items.FirstOrDefault(x => x.Id == Item.Id);
-                    DbItem = Item;
-                }
+                Update();
             }
-            Update();
+            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
         }
+
         public Inventory(Player player)
         {
             try
