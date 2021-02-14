@@ -15,6 +15,7 @@ namespace VenoXV._RootCore_.Models
 
         public void Update()
         {
+            Core.Debug.OutputDebugString("Update()");
             List<ItemModel> inventory = Items;
             VenoX.TriggerClientEvent(Player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
@@ -23,13 +24,15 @@ namespace VenoXV._RootCore_.Models
             try
             {
                 int playerId = Player.UID;
+                Core.Debug.OutputDebugString("UID : " + playerId);
                 if (playerId > 0)
                 {
+                    Core.Debug.OutputDebugString("Id : " + Id);
                     ItemModel Item;
                     if (Id != -1)
-                        Item = _Globals_.Inventory.Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Id);
+                        Item = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == Id);
                     else
-                        Item = Player.Inventory.Items.FirstOrDefault(x => x.Hash == ItemHash);
+                        Item = Player.Inventory.Items.ToList().FirstOrDefault(x => x.Hash == ItemHash);
 
                     if (Item == null)
                     {
@@ -55,8 +58,12 @@ namespace VenoXV._RootCore_.Models
                         if (CalculateIfExists) Item.Amount += ItemAmount;
                         else Item.Amount = ItemAmount;
                         // Update item in DbItem Entry list.
-                        ItemModel DbItem = _Globals_.Inventory.Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Item.Id);
+                        ItemModel DbItem = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == Item.Id);
                         DbItem = Item;
+                        // Update if item not exists.
+                        ItemModel InventoryItem = Items.ToList().FirstOrDefault(x => x.Id == Item.Id);
+                        if (InventoryItem is null)
+                            Items.Add(InventoryItem);
                     }
                 }
                 Update();

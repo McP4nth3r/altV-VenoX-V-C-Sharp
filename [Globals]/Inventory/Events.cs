@@ -22,8 +22,8 @@ namespace VenoXV._Globals_.Inventory
                 {
                     //Core.Debug.OutputDebugString("Called PickUp Item : " + Id);
                     ItemModel item = Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Id);
-                    if (item is null || item.UID > 0) return;
-                    ItemModel playeritem = player.Inventory.Items.FirstOrDefault(x => x.Id == item.Id);
+                    if (item is null || item.UID > 0 || player is null || !player.Exists) return;
+                    ItemModel playeritem = player.Inventory.Items.ToList().FirstOrDefault(x => x.Id == item.Id);
                     if (playeritem is not null) Database.RemoveItem(item.Id);
 
                     foreach (VnXPlayer nearby in player.NearbyPlayers)
@@ -33,7 +33,11 @@ namespace VenoXV._Globals_.Inventory
                     item.Position = new Vector3(0, 0, 0);
                     item.Update();
                     Core.Debug.OutputDebugString("Obj : " + Id);
-                    player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, true, item.Dimension, item.Weight, false, Id);
+                    if (item.ClothesSlot > 0)
+                        player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, false, item.Dimension, item.Weight, false, Id);
+                    else
+                        player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, true, item.Dimension, item.Weight, false, Id);
+
                     //Core.Debug.OutputDebugString("You picked up : " + item.Hash);
                 });
             }
