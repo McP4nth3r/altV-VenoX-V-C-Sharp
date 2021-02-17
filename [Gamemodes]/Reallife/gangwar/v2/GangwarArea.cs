@@ -72,7 +72,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 AreaColShapeModel = RageApi.CreateColShapeSphere(Position, Radius);
                 AreaColShapeModel.VnxSetElementData(GangwarManager.AreaType, true);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public bool SetOwner(int factionId)
@@ -162,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     veh.Dimension = GangwarManager.GwDim;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void RemoveElements()
@@ -175,7 +175,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     RageApi.DeleteVehicleThreadSafe(veh);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void FreezeElements(bool state)
@@ -190,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     //AltV.Net.Async.AltAsync.SetLockStateAsync(veh, state);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void Stop()
@@ -213,7 +213,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     AddPlayer(player);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void AddPlayer(VnXPlayer player)
@@ -225,7 +225,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     GetCurrentRound().AddPlayer(player);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
@@ -19,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
             {
                 VenoX.TriggerClientEvent(player, "Greenzone:Create", "LSPD_COL", LspdColPos.X, LspdColPos.Y, LspdColPos.Z, 50, 3, 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
@@ -54,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
                     VenoX.TriggerClientEvent(player, "Greenzone:ChangeStatus", false, "");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

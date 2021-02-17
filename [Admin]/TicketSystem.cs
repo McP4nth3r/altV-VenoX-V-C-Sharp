@@ -1,4 +1,5 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -35,7 +36,7 @@ namespace VenoXV
                 player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Ticket Erstellt! Bitte gedulde dich einen Augenblick bis unser Team dir zurück schreibt.");
                 player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Im Controlpanel ( www.cp-venox.com ) findest du dein Ticket & alle weiteren Informationen.");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace VenoXV._Gamemodes_.Race.Globals
+﻿using System;
+
+namespace VenoXV._Gamemodes_.Race.Globals
 {
     class Main
     {
@@ -6,10 +8,10 @@
         {
             try
             {
-                if (_Globals_.Main.RacePlayers.Count <= 0) { return; }
+                if (_Globals_.Main.RacePlayers.Count <= 0) return; 
                 Lobby.Main.OnUpdate();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

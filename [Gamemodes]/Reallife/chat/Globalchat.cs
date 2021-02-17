@@ -56,7 +56,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     Main.DrawTranslatedNotification(player, Main.Types.Error, "Der Globalchat ist augeschaltet!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("enablegc")]
@@ -88,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("lang", greedyArg: true, aliases: new[] { "language" })]

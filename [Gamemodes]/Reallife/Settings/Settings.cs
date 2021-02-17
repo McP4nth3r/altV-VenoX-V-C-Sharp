@@ -18,7 +18,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         public static void LoadSettingsWindow(VnXPlayer player)
         {
             try { VenoX.TriggerClientEvent(player, "Settings:Show"); }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -67,7 +67,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.VnxSetStreamSharedElementData("settings_atm", "nein");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("HAUS_STATE_CHANGE_SERVER")]
@@ -103,7 +103,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     // }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
 
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.VnxSetStreamSharedElementData("settings_tacho", "nein");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
 
@@ -140,7 +140,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.VnxSetStreamSharedElementData("settings_quest", "nein");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
 
@@ -164,7 +164,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
 
                 VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.VnxGetElementData<int>(EntityData.PlayerReallifeHud));
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
 
@@ -183,7 +183,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.VnxSetStreamSharedElementData("settings_reporter", "nein");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("GLOBALCHAT_STATE_CHANGE_SERVER")]
@@ -200,7 +200,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                     player.VnxSetStreamSharedElementData("settings_globalchat", "nein");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -254,7 +254,7 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

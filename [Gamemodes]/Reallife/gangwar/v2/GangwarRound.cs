@@ -89,7 +89,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     ResetPlayer();
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void Decided(int winnerId, int loserId, string state)
@@ -117,7 +117,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     RageApi.SendTranslatedChatMessageToAll(RageApi.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public string GetFactionInfo(int facId)
@@ -161,7 +161,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     SyncStats(source, sourceEntry);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void ProcessKill(VnXPlayer source, VnXPlayer player)
@@ -187,7 +187,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void UpdateTime()
@@ -267,7 +267,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void InformDefender()
@@ -301,7 +301,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
                 SyncTime(player);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void InformAllThatPlayerJoined()
@@ -325,7 +325,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     SyncTime(entry.Player);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void SyncTime(VnXPlayer player)
@@ -348,7 +348,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void SyncStats(VnXPlayer player, PlayerEntry playerEntry)
@@ -360,7 +360,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     VenoX.TriggerClientEvent(player, "gw:updateStats", playerEntry.TotalDamage, playerEntry.TotalKills, GetFactionInfo(AttackerId), GetFactionInfo(DefenderId));
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public PlayerEntry GetPlayerEntry(VnXPlayer player)
@@ -402,7 +402,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     ResetPlayer(entry);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void ResetPlayer(PlayerEntry playerEntry)
@@ -426,7 +426,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public int AliveFactionCount(int facId)
@@ -477,7 +477,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void PlayerQuit(PlayerEntry entry)
@@ -487,7 +487,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 entry.IsLeft = true;
                 KillPlayer(entry);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

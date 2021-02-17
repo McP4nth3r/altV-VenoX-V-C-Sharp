@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
                 RageApi.CreateObject("WeedObjects", "prop_weed_01", weed.Position, weed.Rotation, new Quaternion(0, 0, 0, 0), true);
                 RageApi.CreateTextLabel(text, weed.Position, 20, 1, 0, new[] { 255, 255, 255, 255 });
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("createweedplants")]

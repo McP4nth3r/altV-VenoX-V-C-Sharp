@@ -146,7 +146,7 @@ namespace VenoXV.Reallife.Fun.Aktionen
                     ActionRunning = false;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnResourceStart()

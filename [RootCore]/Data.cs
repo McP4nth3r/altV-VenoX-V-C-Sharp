@@ -1,4 +1,5 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Models;
@@ -23,7 +24,7 @@ namespace VenoXV.Core
             {
                 VenoX.TriggerClientEvent(player, "delay_element_data", args[0], args[1], args[2], args[3]);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

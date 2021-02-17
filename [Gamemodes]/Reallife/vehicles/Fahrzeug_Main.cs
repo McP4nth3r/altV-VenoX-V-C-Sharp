@@ -46,7 +46,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     // Player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug! ");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("showIVehicleMenu")]
@@ -64,7 +64,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.VnxSetElementData("HideHUD", 1);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -125,7 +125,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 player.VnxSetElementData("vehinfos_done_cmd", true);
                 player.SendTranslatedChatMessage("---------------------------------------");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("LockIVehicleServer")]
@@ -160,7 +160,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 //player.vnxSetElementData("HideHUD", 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -189,7 +189,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 player.VnxSetElementData("HideHUD", 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         /*
         //[AltV.Net.ClientEvent("RespawnPrivIVehicleServer")]
@@ -258,7 +258,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 }
                 player.vnxSetElementData("HideHUD", 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -293,7 +293,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("ShowIVehicleInformation")]
@@ -323,7 +323,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.vnxSetElementData("HideHUD", 0);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -389,7 +389,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.vnxSetElementData("HideHUD", 0);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("setquestbackagain")]
@@ -399,7 +399,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 player.vnxSetElementData("HideHUD", 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         */
     }

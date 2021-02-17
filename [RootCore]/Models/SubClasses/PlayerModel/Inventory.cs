@@ -1,9 +1,9 @@
-﻿using System;
+﻿using AltV.Net.Elements.Entities;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_;
 using VenoXV.Core;
@@ -13,8 +13,8 @@ namespace VenoXV._RootCore_.Models
 {
     public class Inventory
     {
-        private VnXPlayer _player;
-        public List<ItemModel> Items { get; set; }
+        private readonly VnXPlayer _player;
+        public List<ItemModel> Items { get; }
 
         public void Update()
         {
@@ -31,11 +31,7 @@ namespace VenoXV._RootCore_.Models
                 if (playerId > 0)
                 {
                     Debug.OutputDebugString("Id : " + id);
-                    ItemModel item;
-                    if (id != -1)
-                        item = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == id);
-                    else
-                        item = _player.Inventory.Items.ToList().FirstOrDefault(x => x.Hash == itemHash);
+                    var item = id != -1 ? _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == id) : _player.Inventory.Items.ToList().FirstOrDefault(x => x.Hash == itemHash);
 
                     if (item == null)
                     {
@@ -60,13 +56,10 @@ namespace VenoXV._RootCore_.Models
                     {
                         if (calculateIfExists) item.Amount += itemAmount;
                         else item.Amount = itemAmount;
-                        // Update item in DbItem Entry list.
-                        ItemModel dbItem = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == item.Id);
-                        dbItem = item;
                         // Update if item not exists.
                         ItemModel inventoryItem = Items.ToList().FirstOrDefault(x => x.Id == item.Id);
                         if (inventoryItem is null)
-                            Items.Add(inventoryItem);
+                            Items.Add(item);
                     }
                 }
                 Update();

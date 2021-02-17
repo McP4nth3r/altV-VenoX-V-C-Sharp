@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AltV.Net;
@@ -30,30 +31,18 @@ namespace VenoXV._Gamemodes_.Reallife.house
             }
         }
 
-        public static HouseModel GetHouseById(int id)
+        private static HouseModel GetHouseById(int id)
         {
-            HouseModel house = null;
-            foreach (HouseModel houseModel in HouseList)
-            {
-                if (houseModel.Id == id)
-                {
-                    house = houseModel;
-                    break;
-                }
-            }
-            return house;
+            return HouseList.FirstOrDefault(houseModel => houseModel.Id == id);
         }
 
         public static HouseModel GetClosestHouse(VnXPlayer player, float distance = 1.5f)
         {
             HouseModel house = null;
-            foreach (HouseModel houseModel in HouseList)
+            foreach (var houseModel in HouseList.Where(houseModel => player.Position.Distance(houseModel.Position) < distance))
             {
-                if (player.Position.Distance(houseModel.Position) < distance)
-                {
-                    house = houseModel;
-                    distance = player.Position.Distance(houseModel.Position);
-                }
+                house = houseModel;
+                distance = player.Position.Distance(houseModel.Position);
             }
             return house;
         }
@@ -134,37 +123,35 @@ namespace VenoXV._Gamemodes_.Reallife.house
         }
 
 
-        public static async void BuyHouseS(VnXPlayer player, HouseModel house)
+        private static async void BuyHouseS(VnXPlayer player, HouseModel house)
         {
             try
             {
-                if (house.Status == Constants.HouseStateBuyable)
+                if (house.Status != Constants.HouseStateBuyable) return;
+                if (player.Reallife.Bank >= house.Price)
                 {
-                    if (player.Reallife.Bank >= house.Price)
-                    {
-                        string labelText = await GetHouseLabelText(house);
-                        player.Reallife.Bank -= house.Price;
-                        Logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.Id + " gekauft für " + house.Price + " $ ");
-                        house.Status = Constants.HouseStateNone;
-                        house.Owner = player.Username;
-                        house.Locked = true;
-                        //house.houseLabel.Text = GetHouseLabelText(house);
-                        // Update the house
-                        Database.Database.UpdateHouse(house);
-                        player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
-                    }
-                    else
-                    {
-                        player.SendTranslatedChatMessage(Constants.RgbaError + "Du hast nicht genug Geld!");
-                    }
+                    string labelText = await GetHouseLabelText(house);
+                    player.Reallife.Bank -= house.Price;
+                    Logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.Id + " gekauft für " + house.Price + " $ ");
+                    house.Status = Constants.HouseStateNone;
+                    house.Owner = player.Username;
+                    house.Locked = true;
+                    //house.houseLabel.Text = GetHouseLabelText(house);
+                    // Update the house
+                    Database.Database.UpdateHouse(house);
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
+                }
+                else
+                {
+                    player.SendTranslatedChatMessage(Constants.RgbaError + "Du hast nicht genug Geld!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
         [Command("buyhouse")]
-        public void BuyHouseIPlayer(VnXPlayer player)
+        public static void BuyHouseIPlayer(VnXPlayer player)
         {
             try
             {
@@ -176,14 +163,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
                     }
-                    if (player.Position.Distance(house.Position) <= 1.5f && player.Dimension == house.Dimension)
-                    {
-                        BuyHouseS(player, house);
-                        return;
-                    }
+
+                    if (!(player.Position.Distance(house.Position) <= 1.5f) ||
+                        player.Dimension != house.Dimension) continue;
+                    BuyHouseS(player, house);
+                    return;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         /*[Command("sellhouse")]
@@ -252,7 +239,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("houseinfos")]
@@ -276,7 +263,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -304,7 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     player.SendTranslatedChatMessage(Constants.RgbaError + "Keine Klamotten im Klamottenschrank");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[VnXEvent("wardrobeClothesItemSelected")]
@@ -337,7 +324,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 

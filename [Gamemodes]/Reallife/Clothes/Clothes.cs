@@ -55,7 +55,7 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
                 player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                 player.Freeze = false;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

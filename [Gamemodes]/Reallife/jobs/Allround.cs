@@ -137,7 +137,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du bist nun Arbeitslos.");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         /* Usefull Functions & Calling - Events/Functions */

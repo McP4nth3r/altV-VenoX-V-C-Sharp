@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.vnx_stored_files
                 log.WriteLine(DateTime.Today.ToString("MM-dd-yyyy") + " | " + DateTime.Now.ToString("HH:mm:ss tt") + " | " + strLog);
                 log.Close();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

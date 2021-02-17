@@ -90,7 +90,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                 player.Reallife.DrivingSchool.MarkerStage = 0;
                 Rathaus.CreateDrivingSchoolMarker(player, 611, PruefungsMarker[0], 3, new[] { 255, 255, 255, 255 });
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -162,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein
                     RageApi.DeleteVehicleThreadSafe(vehicle);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

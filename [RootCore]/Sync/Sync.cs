@@ -48,7 +48,7 @@ namespace VenoXV._RootCore_.Sync
                         VenoX.TriggerClientEvent(playerClass, "BlipClass:CreateBlip", blip.Id, blip.Name, blip.PosX, blip.PosY, blip.PosZ, blip.Sprite, blip.Color, blip.ShortRange);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         private static void SyncNearbyDroppedItems(VnXPlayer player)
@@ -122,7 +122,7 @@ namespace VenoXV._RootCore_.Sync
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         // TextLabel Sync
@@ -155,7 +155,7 @@ namespace VenoXV._RootCore_.Sync
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         // Marker Sync
@@ -183,7 +183,7 @@ namespace VenoXV._RootCore_.Sync
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void LoadAllNpCs(VnXPlayer playerClass)
         {
@@ -220,7 +220,7 @@ namespace VenoXV._RootCore_.Sync
                 }
 
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void ForceSyncUpdate()
@@ -229,7 +229,7 @@ namespace VenoXV._RootCore_.Sync
             {
                 NextSyncTick = DateTime.Now;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void ForceClientSyncUpdate(VnXPlayer player)
         {
@@ -239,7 +239,7 @@ namespace VenoXV._RootCore_.Sync
                 SyncMarker(player);
                 SyncObjects(player);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void OnMinuteSpend()
         {
@@ -303,7 +303,7 @@ namespace VenoXV._RootCore_.Sync
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SyncDateTime(VnXPlayer player)
         {
@@ -312,7 +312,7 @@ namespace VenoXV._RootCore_.Sync
                 DateTime currentDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, _currentHour, 0, 0);
                 player.SetDateTime(currentDateTime);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         // Assets for better stable results : 

@@ -71,7 +71,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Main.DrawNotification(player, Main.Types.Error, "Du bist zu weit von " + target.Username + " entfernt!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -207,7 +207,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 else
                     Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 3 verfügbar!");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -345,7 +345,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     player.SendChatMessage("!{200,0,0}" + target.Name + " ist nicht in Reallife online.");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

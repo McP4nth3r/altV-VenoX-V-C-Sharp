@@ -92,7 +92,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 Zone.OnPlayerExitColShapeModel(shape, player);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
@@ -190,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (CheckBadElementDatas(elementdata)) { return; }
                 player.VnxSetStreamSharedElementData(elementdata, value);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("Store_Delayed_Element_Data_STRING")]
@@ -202,7 +202,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 player.VnxSetElementData(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("Store_Delayed_Element_Data_BOOL")]
@@ -214,7 +214,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 player.VnxSetElementData(elementdata, value);
                 player.SetSyncedMetaData(elementdata, value);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -330,7 +330,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -509,7 +509,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("reset_drug_state")]
@@ -522,7 +522,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     player.VnxSetElementData(EntityData.PlayerKoksModusAktiv, false);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

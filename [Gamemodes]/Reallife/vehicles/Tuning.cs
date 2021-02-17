@@ -28,7 +28,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             {
                 VenoX.TriggerClientEvent(player, "Tuning:Show"); //Emit to open UI Client 
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
@@ -131,7 +131,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 //else
                 //vehicle.RemoveMod(slot);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("cancelIVehicleModification")]
@@ -151,7 +151,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.Vehicle.SetMod(i, component);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static int GetTuningCosts(int slot, int modold)

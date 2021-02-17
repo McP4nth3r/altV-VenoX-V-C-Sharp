@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -17,7 +18,7 @@ namespace VenoXV._Gamemodes_.SevenTowers.globals
                     players.SendChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [SevenTowers]" + RageApi.GetHexColorcode(255, 255, 255) + " " + player.Username + " : " + message);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

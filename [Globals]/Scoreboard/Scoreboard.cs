@@ -81,7 +81,7 @@ namespace VenoXV._Globals_.Scoreboard
                     VenoX.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(alleSpieler), player.Gamemode);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

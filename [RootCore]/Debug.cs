@@ -26,7 +26,7 @@ namespace VenoXV.Core
                     Logfile.WriteLogs("DebugStrings", text[0]);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void OutputDebugStringColored(string message, ConsoleColor color)
         {
@@ -54,7 +54,7 @@ namespace VenoXV.Core
                     Logfile.WriteLogs("DebugStrings", text[0]);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void CatchExceptions(Exception ex, [CallerMemberName] string functionName = "")

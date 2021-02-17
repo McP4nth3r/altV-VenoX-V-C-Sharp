@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -19,7 +20,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
             {
                 player.SendChatMessage(text);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SendReallifeMessageToAll(string text)
         {
@@ -30,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     player.SendChatMessage(text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
     public class Chat : IScript
@@ -42,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
             {
                 player.SendChatMessage("[VenoX-Command-System] : " + RageApi.GetHexColorcode(0, 200, 255) + "/" + command + RageApi.GetHexColorcode(255, 255, 255) + " not found...");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SendMessageToNearbyPlayers(VnXPlayer player, string message, int type, float range, bool excludePlayer = false)
         {
@@ -99,7 +100,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         private static string GetChatMessageRgba(float distance, float distanceGap)
@@ -166,7 +167,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("say", true)]
@@ -184,7 +185,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] sagt : " + message);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("s", true)]
@@ -202,7 +203,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] schreit : " + message + " !!!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("l", true)]
@@ -220,7 +221,7 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] flüstert : " + message + " ...");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

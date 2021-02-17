@@ -19,7 +19,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
                         players?.SendTranslatedChatMessage(text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void ShowOutroScreen(string text, Round tacticRound)
@@ -30,7 +30,7 @@ namespace VenoXV._Gamemodes_.Tactics.Globals
                 tacticRound.TacticmanagerRoundCurrenttime = DateTime.Now;
                 tacticRound.SyncEndTacticRound(text);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

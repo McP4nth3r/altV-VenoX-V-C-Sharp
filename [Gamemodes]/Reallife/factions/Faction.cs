@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Factions;
@@ -25,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageApi.GetHexColorcode(255, 255, 255) + text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void CreateCustomFactionInformation(int fid, string text, Main.Languages language = Main.Languages.English)
         {
@@ -38,7 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         target.SendTranslatedChatMessage(text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void CreateStateFactionInformation(string text, Main.Languages language = Main.Languages.English)
         {
@@ -52,7 +53,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
         public static void CreateCustomStateFactionMessage(string text, Main.Languages language = Main.Languages.English)
@@ -65,7 +66,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         target.SendTranslatedChatMessage(text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void CreateCustomBadFactionMessage(string text, int uid, Main.Languages language = Main.Languages.English)
         {
@@ -75,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     if (Allround.IsBadFaction(target) && target.Reallife.Faction == uid && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void CreateFactionMessage(int fid, string text, string rgba, VnXPlayer player)
         {
@@ -87,7 +88,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                     target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -101,7 +102,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -115,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                         target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static string GetFactionNameById(int fid)

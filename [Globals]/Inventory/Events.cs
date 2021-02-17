@@ -24,8 +24,8 @@ namespace VenoXV._Globals_.Inventory
                     //Core.Debug.OutputDebugString("Called PickUp Item : " + Id);
                     ItemModel item = Inventory.DatabaseItems.FirstOrDefault(x => x.Id == id);
                     if (item is null || item.Uid > 0 || player is null || !player.Exists) return;
-                    ItemModel playeritem = player.Inventory.Items.ToList().FirstOrDefault(x => x.Id == item.Id);
-                    if (playeritem is not null) Database.Database.RemoveItem(item.Id);
+                    ItemModel playerItem = player.Inventory.Items.ToList().FirstOrDefault(x => x.Id == item.Id);
+                    if (playerItem is not null) Database.Database.RemoveItem(item.Id);
 
                     foreach (VnXPlayer nearby in player.NearbyPlayers)
                         Inventory.DeleteDroppedObject(nearby, item);
@@ -34,10 +34,7 @@ namespace VenoXV._Globals_.Inventory
                     item.Position = new Vector3(0, 0, 0);
                     item.Update();
                     Debug.OutputDebugString("Obj : " + id);
-                    if (item.ClothesSlot > 0)
-                        player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, false, item.Dimension, item.Weight, false, id);
-                    else
-                        player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, true, item.Dimension, item.Weight, false, id);
+                    player.Inventory.GiveItem(item.Hash, item.Type, item.Amount, item.ClothesSlot <= 0, item.Dimension, item.Weight, false, id);
 
                     //Core.Debug.OutputDebugString("You picked up : " + item.Hash);
                 });

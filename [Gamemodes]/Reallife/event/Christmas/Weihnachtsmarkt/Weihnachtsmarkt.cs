@@ -209,7 +209,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                 }
                 player.vnxSetElementData(EntityData.PLAYER_ADVENTSKALENEDER, Day);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         */
 
@@ -235,7 +235,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                     Main.DrawNotification(player, Main.Types.Error, "Wir haben nicht den " + value + ". Dezember!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("OnChristmasMarketClickServer")]
@@ -311,7 +311,7 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

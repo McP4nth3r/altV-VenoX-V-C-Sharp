@@ -40,7 +40,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     RageApi.CreateBlip("Tankstelle", tankstellen, 361, 3, true);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug gehört dir nicht!"); }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         /*
@@ -162,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         */
 
@@ -297,7 +297,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.Frozen = false;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -313,7 +313,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.Frozen = false;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [ClientEvent("Fill_Car")]
@@ -347,7 +347,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du sitzt in keinem Fahrzeug!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -393,7 +393,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du sitzt in keinem Fahrzeug!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void CreateVehicle(VnXPlayer player, bool adminCreated)
         {
@@ -413,7 +413,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [VenoX Motorsports] : " + RageApi.GetHexColorcode(255, 255, 255) + "Vergiss nicht dein Fahrzeug umzuparken! nutze /car um dein Fahrzeug zu verwalten.");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -667,7 +667,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.EngineOn = false;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("engineOnEventKey")]

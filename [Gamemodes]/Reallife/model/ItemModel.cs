@@ -145,16 +145,14 @@ namespace VenoXV._Gamemodes_.Reallife.model
         public void Update()
         {
             ItemModel offlineItem = Inventory.DatabaseItems.FirstOrDefault(x => x.Id == Id);
-            if (offlineItem is not null)
-            {
-                offlineItem.Amount = Amount;
-                offlineItem.Position = Position;
-                offlineItem.Dropped = Dropped;
-                offlineItem.Dimension = Dimension;
-                offlineItem.Weight = Weight;
-                offlineItem.Type = Type;
-                Debug.OutputDebugString("Updated OfflineItem List!");
-            }
+            if (offlineItem is null) return;
+            offlineItem.Amount = Amount;
+            offlineItem.Position = Position;
+            offlineItem.Dropped = Dropped;
+            offlineItem.Dimension = Dimension;
+            offlineItem.Weight = Weight;
+            offlineItem.Type = Type;
+            Debug.OutputDebugString("Updated OfflineItem List!");
         }
     }
 }

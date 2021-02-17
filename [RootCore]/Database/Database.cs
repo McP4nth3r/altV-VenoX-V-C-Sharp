@@ -337,7 +337,7 @@ namespace VenoXV.Database
                 command.Parameters.AddWithValue("@headoverlays", headoverlays);
                 command.ExecuteNonQuery();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static int GetPlayerWhereFromList(string where)

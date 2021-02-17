@@ -34,7 +34,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 }
                 Database.Database.RemoveAllItemsByType(playerId, ItemType.Gun);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void RemoveAllBadGwWeapons(VnXPlayer player)
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
                 //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Username + " : " + text);
                 Logfile.WriteLogs("chat", "[ME][" + player.Username + "] : " + text);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void SpectatePlayer(VnXPlayer player, string targetName, int einsfürfalse)

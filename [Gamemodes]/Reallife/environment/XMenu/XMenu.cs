@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.environment.XMenu
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

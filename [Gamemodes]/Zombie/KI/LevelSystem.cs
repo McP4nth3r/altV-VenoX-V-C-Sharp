@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AltV.Net.Enums;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
@@ -38,13 +40,12 @@ namespace VenoXV._Gamemodes_.Zombie.KI
             try
             {
                 if (player is null) return;
-                foreach (KeyValuePair<int, WeaponModel> weapon in LevelWeapons)
+                foreach (var weapon in LevelWeapons.Where(weapon => weapon.Key <= player.Zombies.ZombieKills))
                 {
-                    if (weapon.Key <= player.Zombies.ZombieKills)
-                        player.GivePlayerWeapon(weapon.Value, 9999);
+                    player.GivePlayerWeapon(weapon.Value, 9999);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

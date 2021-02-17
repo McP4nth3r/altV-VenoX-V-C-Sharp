@@ -197,7 +197,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 player.SetPosition = new Vector3(startPosition.X, startPosition.Y, startPosition.Z - 200);
                 player.Freeze = true;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -295,7 +295,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 List<ItemModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 

@@ -241,7 +241,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         /* Usefull Functions & Calling - Events/Functions */
@@ -397,7 +397,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                     DestroyDrivingSchoolMarker(player);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

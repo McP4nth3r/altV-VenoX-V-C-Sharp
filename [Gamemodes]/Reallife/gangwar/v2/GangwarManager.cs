@@ -62,7 +62,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     CreateGangwarArea(area);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void ResetCount()
@@ -89,7 +89,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (CurrentArea != null)
                     CurrentArea.GetCurrentRound().UpdateTime();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void ProcessDamage(VnXPlayer source, VnXPlayer target, float damage)
@@ -99,7 +99,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (CurrentArea != null)
                     CurrentArea.GetCurrentRound().ProcessDamage(source, target, damage);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void ProcessKill(VnXPlayer source, VnXPlayer target)
@@ -109,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                 if (CurrentArea != null)
                     CurrentArea.GetCurrentRound().ProcessKill(source, target);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void UpdateData(VnXPlayer player)
@@ -121,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
                     area.Update(player);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public void PrintInfo(string text) => Console.WriteLine("[GANGWAR] " + text);

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -18,21 +19,19 @@ namespace VenoXV.Commands
         /////////////////////////////////////////////////T-Supporter/////////////////////////////////////////////////
 
         [Command("kick")]
-        public static void KickPlayer(VnXPlayer player, string targetName, params string[] grundArray)
+        public static void KickPlayer(VnXPlayer player, string targetName, params string[] reasonArray)
         {
             try
             {
-                string reason = string.Join(" ", grundArray);
+                string reason = string.Join(" ", reasonArray);
                 VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null) return;
-                if (player.AdminRank >= Constants.AdminlvlTsupporter)
-                {
-                    RageApi.SendChatMessageToAll(RageApi.GetHexColorcode(200, 0, 0) + target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
-                    Logfile.WriteLogs("admin", target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
-                    target.Kick(reason);
-                }
+                if (player.AdminRank < Constants.AdminlvlTsupporter) return;
+                RageApi.SendChatMessageToAll(RageApi.GetHexColorcode(200, 0, 0) + target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
+                Logfile.WriteLogs("admin", target.Username + " got kicked by " + player.Username + "! Reason : " + reason);
+                target.Kick(reason);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("achat", true)]
@@ -72,7 +71,7 @@ namespace VenoXV.Commands
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

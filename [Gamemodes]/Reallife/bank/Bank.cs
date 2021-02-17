@@ -65,7 +65,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("ATM_MONEY_SEND_TO")]
@@ -112,7 +112,7 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

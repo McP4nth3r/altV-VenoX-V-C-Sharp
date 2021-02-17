@@ -70,7 +70,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 player.Tactics.CurrentStreak = 0;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         private async void InitializePlayerData(VnXPlayer player)
         {

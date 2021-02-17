@@ -68,34 +68,28 @@ namespace VenoXV
                     element.SetPosition = pos;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void DespawnPlayer(this VnXPlayer element)
         {
             try
             {
-                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer"))
-                {
-                    element.VnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
-                    element.Despawn();
-                }
+                if (!element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return;
+                element.VnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
+                element.Despawn();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SetPlayerSkin(this VnXPlayer element, uint skinHash)
         {
             try
             {
-                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer"))
-                {
-                    if (element.VnxGetElementData<uint>("RAGEAPI:PlayerSkin") != skinHash)
-                    {
-                        element.VnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", skinHash);
-                        element.Model = skinHash;
-                    }
-                }
+                if (!element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return;
+                if (element.VnxGetElementData<uint>("RAGEAPI:PlayerSkin") == skinHash) return;
+                element.VnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", skinHash);
+                element.Model = skinHash;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static uint GetPlayerSkin(this VnXPlayer element)
         {
@@ -176,7 +170,7 @@ namespace VenoXV
                 if (player is null || !player.Exists) return;
                 VenoX.TriggerClientEvent(player, "Player:WarpIntoVehicle", veh, seat);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void WarpOutOfVehicle(this VnXPlayer player)
         {
@@ -185,7 +179,7 @@ namespace VenoXV
                 if (player is null || !player.Exists) return;
                 VenoX.TriggerClientEvent(player, "Player:WarpOutOfVehicle");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static VnXPlayer GetPlayerFromName(string name)
         {
@@ -209,7 +203,7 @@ namespace VenoXV
             {
                 Alt.Emit("GlobalSystems:RemovePlayerWeapon", player, (uint)weapon);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void RemoveAllPlayerWeapons(this VnXPlayer player)
         {
@@ -218,7 +212,7 @@ namespace VenoXV
                 Alt.Emit("GlobalSystems:RemoveAllPlayerWeapons", player);
                 //player.GiveWeapon(weapon, ammo, false);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SetWeaponAmmo(this VnXPlayer player, WeaponModel weapon, int ammo)
         {
@@ -226,7 +220,7 @@ namespace VenoXV
             {
                 Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static async void SendTranslatedChatMessageToAll(string text)
         {
@@ -237,7 +231,7 @@ namespace VenoXV
                     await Main.SendTranslatedChatMessage(players, text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SendChatMessageToAll(string text)
         {
@@ -251,7 +245,7 @@ namespace VenoXV
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void SetClothes(this VnXPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
@@ -277,7 +271,7 @@ namespace VenoXV
         public static void SetAccessories(this VnXPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
             try { VenoX.TriggerClientEvent(element, "Accessories:Load", clothesslot, clothesdrawable, clothestexture); }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SetPlayerVisible(this VnXPlayer element, bool trueOrFalse)
         {
@@ -286,12 +280,12 @@ namespace VenoXV
                 element.Visible = trueOrFalse;
                 //VenoX.TriggerClientEvent(element, "Player:Visible", trueOrFalse);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SetPlayerAlpha(this VnXPlayer element, int alpha)
         {
             try { VenoX.TriggerClientEvent(element, "Player:Alpha", alpha); }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         private static int _textLabelCounter;
         public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Dimension.GlobalDimension, VnXPlayer visibleOnlyFor = null, bool translate = true, bool isHouseLabel = false, int houseLabelId = 0)

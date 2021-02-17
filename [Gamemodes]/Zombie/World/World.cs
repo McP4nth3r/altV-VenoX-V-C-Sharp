@@ -38,7 +38,7 @@ namespace VenoXV._Gamemodes_.Zombie.World
                 player.SendTranslatedChatMessage("Willkommen im VenoX " + RageApi.GetHexColorcode(255, 0, 0) + " Zombie + " + RageApi.GetHexColorcode(255, 255, 255) + "Modus");
                 player.SendTranslatedChatMessage("Kämpfe um dein Überleben!");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static readonly List<Vector3> PlayerSpawns = new List<Vector3>

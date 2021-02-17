@@ -266,7 +266,7 @@ namespace VenoXV
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("unprison")]
@@ -684,7 +684,7 @@ namespace VenoXV
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug exestiert nicht!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("crespawnarea")]
@@ -704,7 +704,7 @@ namespace VenoXV
                     SendAdminInformation(player.Username + " hat alle Fahrzeuge in seiner Nähe despawned!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -862,7 +862,7 @@ namespace VenoXV
                     Logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("setrank")]
@@ -1023,7 +1023,7 @@ namespace VenoXV
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("vnxvehgetshareddata")]
@@ -1040,7 +1040,7 @@ namespace VenoXV
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -1266,7 +1266,7 @@ namespace VenoXV
                      anzeigen.Usefull.VnX.CreateRandomIVehicle(player, NAPI.Util.IVehicleNameToModel(VehicleModel), new Position(player.position.X + 2, player.position.Y, player.position.Z), 0, new Rgba(255, 255, 255), new Rgba(255, 255, 255), true, false, Constants.JOB_NONE, "TESTCAR");
                  }
              }
-             catch { }
+             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
          }*/
 
         // DrugsMichaelAliensFightIn == Sollten wir verwenden für drogen system ^^

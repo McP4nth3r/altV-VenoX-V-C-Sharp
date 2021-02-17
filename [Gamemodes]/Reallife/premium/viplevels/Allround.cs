@@ -61,7 +61,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     player.VnxSetElementData(EntityData.PlayerVipLevel, "-");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -76,7 +76,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                     VenoX.TriggerClientEvent(player, "CreateVIPWindow");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -288,7 +288,7 @@ namespace VenoXV._Gamemodes_.Reallife.premium.viplevels
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

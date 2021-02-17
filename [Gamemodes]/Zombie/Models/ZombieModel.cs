@@ -44,7 +44,7 @@ namespace VenoXV.Zombie.Models
                 foreach (VnXPlayer players in Main.ZombiePlayers.ToList())
                     if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer && sync) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", Id, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         private int _Armor { get; set; }
         public int Armor

@@ -27,7 +27,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 }
                 player.Inventory.Update();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void UnloadPlayerItems(VnXPlayer player)
         {
@@ -41,7 +41,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void RemoveAllItems(VnXPlayer player)
         {
@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 UnloadPlayerItems(player);
                 VenoX.TriggerClientEvent(player, "Inventory:RemoveAll");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static List<ItemModel> GetPlayerInventory(VnXPlayer player)
         {
@@ -60,8 +60,8 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             }
             catch { return new List<ItemModel>(); }
         }
-        public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason) { try { UnloadPlayerItems(player); } catch { } }
-        public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch { } }
+        public static void OnPlayerDisconnect(VnXPlayer player, string type, string reason) { try { UnloadPlayerItems(player); } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
+        public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
 
         [VenoXRemoteEvent("Inventory:Use")]
         public static void OnInventoryUseButtonClicked(VnXPlayer player, string clickedHash)

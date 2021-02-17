@@ -56,7 +56,7 @@ namespace VenoXV._Preload_
         public static void ShowPreloadList(VnXPlayer player)
         {
             try { VenoX.TriggerClientEvent(player, "preload_gm_list"); }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [AsyncClientEvent("Preload:SelectLanguage")]
@@ -67,7 +67,7 @@ namespace VenoXV._Preload_
                 player.Language = (int)_Language_.Main.GetLanguageByPair(languagePair);
                 _Notifications_.Main.DrawNotification(player, type: _Notifications_.Main.Types.Info, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Du hast deine Sprache erfolgreich geändert!"));
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("leave", aliases: new[] { "home", "lobby", "hub" })]
@@ -83,7 +83,7 @@ namespace VenoXV._Preload_
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
                 ShowPreloadList(player);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -156,7 +156,7 @@ namespace VenoXV._Preload_
                 }
                 player.Playing = true;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -167,7 +167,7 @@ namespace VenoXV._Preload_
             {
                 VenoX.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.ReallifeMaxPlayers, Main.TacticsPlayers.Count, Main.TacticsMaxPlayers, Main.ZombiePlayers.Count, Main.ZombiesMaxPlayers, Main.RacePlayers.Count, Main.RaceMaxPlayers, Main.SevenTowersPlayers.Count, Main.SeventowersMaxPlayers);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 

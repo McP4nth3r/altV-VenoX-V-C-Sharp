@@ -35,7 +35,7 @@ namespace VenoXV._Gamemodes_.Reallife.handy
                 if (receiver == player) { player.SendChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Du kannst nicht mit dir selbst Chatten..."); return; }
                 VenoX.TriggerClientEvent(receiver, "Phone:AddNewSMS", player.Username, player.Phone.Number, message);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

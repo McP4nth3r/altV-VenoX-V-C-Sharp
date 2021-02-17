@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
@@ -16,7 +17,7 @@ namespace VenoXV._Gamemodes_.Race.Globals
                     players?.SendTranslatedChatMessage(text);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

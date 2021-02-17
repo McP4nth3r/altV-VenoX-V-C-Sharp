@@ -46,7 +46,7 @@ namespace VenoXV._Preload_.Character_Creator
                 Preload.ShowPreloadList(player);
                 //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static bool PlayerHaveSkin(VnXPlayer player)

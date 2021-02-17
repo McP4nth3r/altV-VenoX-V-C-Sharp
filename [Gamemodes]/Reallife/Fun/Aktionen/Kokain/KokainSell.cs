@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
                     VnX.DrawInputWindow(player, "Kokain Dealer", "Hast du etwas Koks für mich?<br>Ich zahle dir pro Gramm 30$....", "Verkaufen");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void SellKokain(VnXPlayer player, int value)
         {

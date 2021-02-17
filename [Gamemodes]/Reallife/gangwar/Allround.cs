@@ -119,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     else { Main.DrawNotification(player, Main.Types.Error, "Du bist kein Angreifer oder in einer Bösen Fraktion!"); }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("defend")]
@@ -164,7 +164,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     else { Main.DrawNotification(player, Main.Types.Error, "Du bist kein Verteidiger oder in einer Bösen Fraktion!"); }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
@@ -199,7 +199,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                 if (GangwarManager != null)
                     GangwarManager.Update();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnPlayerDisconnected(VnXPlayer player, string type, string reason)
@@ -215,7 +215,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[ServerEvent(Event.PlayerDeath)]
@@ -247,7 +247,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

@@ -124,7 +124,7 @@ namespace VenoXV.Commands
 
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("getdim")]
@@ -224,7 +224,7 @@ namespace VenoXV.Commands
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht Befugt!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("spec")]
@@ -240,7 +240,7 @@ namespace VenoXV.Commands
                     Admin.SendAdminInformation(player.Username + " spectatet grade " + target.Username + "!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("specoff")]
@@ -314,7 +314,7 @@ namespace VenoXV.Commands
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 

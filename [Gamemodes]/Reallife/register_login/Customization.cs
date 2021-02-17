@@ -50,7 +50,7 @@ namespace VenoXV._Gamemodes_.Reallife.character
                     player.SetDecoration(decoration);
                 }*/
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

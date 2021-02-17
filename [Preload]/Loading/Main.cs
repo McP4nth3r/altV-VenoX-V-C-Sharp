@@ -1,4 +1,5 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
@@ -29,7 +30,7 @@ namespace VenoXV._Preload_.Loading
                 player.Gamemode = (int)Preload.Gamemodes.Reallife;
                 _Gamemodes_.Reallife.register_login.Login.CreateNewLogin_Cam(player, 0, 0);
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

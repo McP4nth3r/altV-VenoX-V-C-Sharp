@@ -101,7 +101,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
 
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -120,7 +120,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     VenoX.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", shopCoord.Key, shopCoord.Value);
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
@@ -134,7 +134,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     player.VnxSetElementData(ShopId, shape.VnxGetElementData<int>(ShopId));
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnShopRobClickServer(VnXPlayer player)
@@ -171,7 +171,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnUpdate()
@@ -237,7 +237,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnPlayerDisconnected(VnXPlayer player, string type, string reason)
@@ -261,7 +261,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static void OnMinuteSpend()
@@ -284,7 +284,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //[AltV.Net.ClientEvent("OnShopWindowBTNClickServer")]
@@ -315,7 +315,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                         break;
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
     }

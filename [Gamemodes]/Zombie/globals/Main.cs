@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                 if (_Globals_.Main.ZombiePlayers.Count <= 0) return;
                 World.Main.OnUpdate();
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [VenoXRemoteEvent("OnZombieKill")]
@@ -26,7 +26,7 @@ namespace VenoXV._Gamemodes_.Zombie.Globals
                 player.Zombies.ZombieKills += 1;
                 Console.WriteLine(player.Username + " hat einen Zombie Getötet!");
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
     }
 }

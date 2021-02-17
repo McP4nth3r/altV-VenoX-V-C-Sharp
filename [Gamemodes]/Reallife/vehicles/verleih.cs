@@ -4,6 +4,7 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
+using System;
 using System.Linq;
 using AltV.Net;
 using AltV.Net.Data;
@@ -30,10 +31,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static int FaggioCosts = 75;
         public static int PantoCosts = 119;
 
-
-
-
-
         //Col Creation
         public static ColShapeModel NoobspawnVerleihColShapeModel = RageApi.CreateColShapeSphere(new Position(-2302.628f, 366.7664f, 2), 2);
         public static ColShapeModel LspdVerleihCol = RageApi.CreateColShapeSphere(new Position(333.6211f, -950.823f, 2), 2);
@@ -42,11 +39,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             RageApi.CreateBlip("VenoX Rental Service", NoobspawnRentals, 545, 3, true);
             RageApi.CreateBlip("VenoX Rental Service", LspdRentals, 545, 3, true);
         }
-
-
-
-
-
+        
         /// <param name="player">Player who´s the Owner</param>
         /// <param name="roller">Is it A Roller? If No it should be a Panto.</param>
         public static void GetNearestRentalsSpawn(VnXPlayer player, bool roller)
@@ -76,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         //Function will be called by Lib.
@@ -126,7 +119,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     player.SendTranslatedChatMessage("Warte bis dein Fahrzeug abläuft oder benutze /stoprent !");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("updaterent")]
@@ -180,7 +173,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("stoprent")]
@@ -197,7 +190,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     Main.DrawNotification(player, Main.Types.Error, "VenoX Rental : <br>Du hast bei uns kein Fahrzeug gemietet!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)

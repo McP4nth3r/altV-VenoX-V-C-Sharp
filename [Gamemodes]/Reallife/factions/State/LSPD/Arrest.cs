@@ -63,7 +63,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                     }
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         [Command("bailinfo")]
         public static void BailInfoPlayer(VnXPlayer player)
@@ -82,7 +82,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
 
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         [Command("jailtime")]
         public static void GetPlayerJailTime(VnXPlayer player)
@@ -94,7 +94,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions.LSPD
                     player.SendTranslatedChatMessage("Du bist noch " + RageApi.GetHexColorcode(0, 200, 255) + " " + player.VnxGetElementData<int>(_Globals_.EntityData.PlayerPrisonTime) + RageApi.GetHexColorcode(255, 255, 255) + " Minuten im Prison!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("tie")]

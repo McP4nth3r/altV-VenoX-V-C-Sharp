@@ -131,7 +131,7 @@ namespace VenoXV._Gamemodes_.SevenTowers
             try
             {
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////

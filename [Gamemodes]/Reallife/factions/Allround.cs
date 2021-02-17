@@ -626,7 +626,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     }*/
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
             return false;
         }
 
@@ -645,7 +645,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Zivizeit läuft noch. [" + player.VnxGetElementData<DateTime>(EntityData.PlayerZivizeit) + "]");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("selfuninvite")]
@@ -662,7 +662,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Main.DrawNotification(player, Main.Types.Info, "Du hast dich selbst uninvitet!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
 
         }
 
@@ -699,7 +699,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
         [Command("uninvite")]
@@ -742,7 +742,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 

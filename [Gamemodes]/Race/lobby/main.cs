@@ -289,7 +289,7 @@ namespace VenoXV._Gamemodes_.Race.Lobby
                 RaceRoundIsRunning = false;
                 RaceWillEnd = DateTime.Now;
             }
-            catch { }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
         public static void OnUpdate()
         {
