@@ -127,6 +127,20 @@ function DeleteDroppedItem(Id) {
     alt.log('Called DeleteDroppedItem');
 }
 
+
+let DroppedObjCooldown;
+
+function CooldownExists() {
+    if (!DroppedObjCooldown) {
+        DroppedObjCooldown = true;
+        alt.setTimeout(() => {
+            DroppedObjCooldown = false;
+        }, 500);
+    }
+    return DroppedObjCooldown;
+}
+
+
 export function CheckDroppedObjects() {
     for (var counter in DroppedObjList) {
         if (!DroppedObjList[counter] || !DroppedObjList[counter].Obj) continue;
@@ -134,6 +148,7 @@ export function CheckDroppedObjects() {
         let playerCoords = alt.Player.local.pos;
         let Distance = game.getDistanceBetweenCoords(objCoords.x, objCoords.y, objCoords.z, playerCoords.x, playerCoords.y, playerCoords.z, true);
         if (Distance < 1.5) {
+            if (CooldownExists()) return true;
             alt.emitServer('Inventory:PickupItem', parseInt(DroppedObjList[counter].Id));
             DeleteDroppedItem(DroppedObjList[counter].Id);
             return true;

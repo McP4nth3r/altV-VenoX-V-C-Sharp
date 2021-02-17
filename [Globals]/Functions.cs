@@ -1,9 +1,10 @@
-﻿using AltV.Net;
+﻿using System.Numerics;
+using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Globals_
 {
@@ -14,16 +15,16 @@ namespace VenoXV._Globals_
             try
             {
                 if (player.Gamemode == target.Gamemode) return true;
-                else return false;
+                return false;
             }
             catch { return false; }
         }
 
-        public static VehicleModel CreateVehicle(AltV.Net.Enums.VehicleModel model, Vector3 position, Vector3 rotation, byte[] Color1RGB, byte[] Color2RGB, int dimension)
+        public static VehicleModel CreateVehicle(AltV.Net.Enums.VehicleModel model, Vector3 position, Vector3 rotation, byte[] color1Rgb, byte[] color2Rgb, int dimension)
         {
             IVehicle veh = Alt.CreateVehicle(model, position, rotation);
-            veh.PrimaryColorRgb = new AltV.Net.Data.Rgba(Color1RGB[0], Color1RGB[1], Color1RGB[2], 255);
-            veh.SecondaryColorRgb = new AltV.Net.Data.Rgba(Color2RGB[0], Color2RGB[1], Color2RGB[2], 255);
+            veh.PrimaryColorRgb = new Rgba(color1Rgb[0], color1Rgb[1], color1Rgb[2], 255);
+            veh.SecondaryColorRgb = new Rgba(color2Rgb[0], color2Rgb[1], color2Rgb[2], 255);
             veh.Dimension = dimension;
             veh.EngineOn = false;
 
@@ -36,35 +37,35 @@ namespace VenoXV._Globals_
         /// <param name="rot">Simple Float of Rotation</param>
         /// <param name="primaryC">Primary Rgba of the IVehicle</param>
         /// <param name="secondC">Secondary Rgba of the IVehicle</param>
-        /// <param name="WarpPlayerIntoVeh">Should the Owner warped into the IVehicle?</param>
+        /// <param name="warpPlayerIntoVeh">Should the Owner warped into the IVehicle?</param>
         /// <param name="isRentedIVehicle">Is it a Rented IVehicle?</param>
-        /// <param name="Job">IVehicle Job?</param>
-        /// <param name="NumberplateText">Numberlpate of the IVehicle</param>
-        public static VehicleModel CreateVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool WarpPlayerIntoVeh, bool isRentedIVehicle, string Job, string NumberplateText)
+        /// <param name="job">IVehicle Job?</param>
+        /// <param name="numberplateText">Numberlpate of the IVehicle</param>
+        public static VehicleModel CreateVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehName, Position coord, float rot, Rgba primaryC, Rgba secondC, bool warpPlayerIntoVeh, bool isRentedIVehicle, string job, string numberplateText)
         {
             try
             {
 
-                VehicleModel CreatedVehicle = (VehicleModel)Alt.CreateVehicle(vehName, coord, new Rotation(0, 0, rot));
-                if (WarpPlayerIntoVeh == true)
+                VehicleModel createdVehicle = (VehicleModel)Alt.CreateVehicle(vehName, coord, new Rotation(0, 0, rot));
+                if (warpPlayerIntoVeh)
                 {
-                    player.WarpIntoVehicle(CreatedVehicle, -1);
+                    player.WarpIntoVehicle(createdVehicle, -1);
                 }
 
-                CreatedVehicle.PrimaryColorRgb = new Rgba(primaryC.R, primaryC.G, primaryC.B, 255);
-                CreatedVehicle.SecondaryColorRgb = new Rgba(secondC.R, secondC.G, secondC.B, 255);
+                createdVehicle.PrimaryColorRgb = new Rgba(primaryC.R, primaryC.G, primaryC.B, 255);
+                createdVehicle.SecondaryColorRgb = new Rgba(secondC.R, secondC.G, secondC.B, 255);
                 // EntityData Load & Save
-                CreatedVehicle.Owner = player.Username;
-                CreatedVehicle.Job = Job;
+                createdVehicle.Owner = player.Username;
+                createdVehicle.Job = job;
 
                 // KM & Gas load and Safe.
-                CreatedVehicle.Kms = 0;
-                CreatedVehicle.Gas = 100;
+                createdVehicle.Kms = 0;
+                createdVehicle.Gas = 100;
 
-                CreatedVehicle.NotSave = true;
-                CreatedVehicle.NumberplateText = NumberplateText;
-                CreatedVehicle.EngineOn = true;
-                return CreatedVehicle;
+                createdVehicle.NotSave = true;
+                createdVehicle.NumberplateText = numberplateText;
+                createdVehicle.EngineOn = true;
+                return createdVehicle;
             }
             catch { return null; }
         }

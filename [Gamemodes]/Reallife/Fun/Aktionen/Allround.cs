@@ -1,95 +1,92 @@
-﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
+using VenoXV._Gamemodes_.Reallife.Fun;
+using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain;
+using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Reallife.Fun
+namespace VenoXV.Reallife.Fun.Aktionen
 {
     public class Allround : IScript
     {
         //Settings
-        public const int ACTION_COOLDOWN = 30;      // Zeit in minuten wann eine neue Aktion gestartet werden kann.
-        public const int ACTION_WILL_END = 15;      // Zeit in minuten wann eine Aktion beendet wird automatisch.
+        public static int ActionCooldown = 30;
+        public const int ActionWillEnd = 15;      // Zeit in minuten wann eine Aktion beendet wird automatisch.
 
         // Constants & Statics
-        public static DateTime ActionCooldown = DateTime.Now;
-        public static DateTime ActionWillEnd = DateTime.Now;
-        public static bool ActionRunning = false;
-        public static string ACTION_VEHICLE = "ACTION_VEHICLE";
-        public static string ACTION_COLSHAPE = "ACTION_COLSHAPE";
-        public static List<VehicleModel> ActionVehicles = new List<VehicleModel>();
-        public static List<BlipModel> ActionBlips = new List<BlipModel>();
-        public static List<MarkerModel> ActionMarkers = new List<MarkerModel>();
-        public static List<ColShapeModel> ActionColShapes = new List<ColShapeModel>();
+        public static DateTime ActionCooldownDateTime = DateTime.Now;
+        public static DateTime ActionWillEndDateTime = DateTime.Now;
+        public static bool ActionRunning;
+        private static readonly string ActionVehicle = "ACTION_VEHICLE";
+        private static readonly List<VehicleModel> ActionVehicles = new List<VehicleModel>();
+        private static readonly List<BlipModel> ActionBlips = new List<BlipModel>();
+        private static readonly List<MarkerModel> ActionMarkers = new List<MarkerModel>();
+        private static readonly List<ColShapeModel> ActionColShapes = new List<ColShapeModel>();
 
-        public const string ACTION_KOKAINTRUCK = "ACTION_KOKAINTRUCK";
-        public const string ACTION_WAFFENTRUCK = "ACTION_WAFFENTRUCK";
+        public const string ActionKokaintruck = "ACTION_KOKAINTRUCK";
+        public const string ActionWaffentruck = "ACTION_WAFFENTRUCK";
 
-        public static bool StartAction(VnXPlayer player, int CopCount = 0)
+        public static bool StartAction(VnXPlayer player, int copCount = 0)
         {
             try
             {
-                int cops = 0;
-                foreach (VnXPlayer Spieler in VenoXV._Globals_.Main.ReallifePlayers.ToList())
-                {
-                    if (Factions.Allround.isStateFaction(Spieler))
-                    {
-                        cops += 1;
-                    }
-                }
-                if (cops < CopCount) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht genug Cops Online!"); return false; }
+                int cops = Main.ReallifePlayers.Count(_Gamemodes_.Reallife.Factions.Allround.IsStateFaction);
+                if (cops < copCount) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht genug Cops Online!"); return false; }
 
                 if (ActionRunning)
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Es läuft bereits eine Aktion!");
+                    player.SendChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Es läuft bereits eine Aktion!");
                     return false;
                 }
-                if (ActionCooldown >= DateTime.Now)
+                if (ActionCooldownDateTime >= DateTime.Now)
                 {
-                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Es lief bereits eine Aktion!");
-                    player.SendChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Cooldown bis : " + ActionCooldown);
+                    player.SendChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Es lief bereits eine Aktion!");
+                    player.SendChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Cooldown bis : " + ActionCooldownDateTime);
                     return false;
                 }
                 ActionRunning = true;
-                ActionWillEnd = DateTime.Now.AddMinutes(ACTION_WILL_END);
+                ActionCooldownDateTime = DateTime.Now.AddMinutes(ActionWillEnd);
                 return true;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
-        public static VehicleModel CreateActionVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehClass, Vector3 Position, Vector3 Rotation, bool WarpPlayer)
+        public static VehicleModel CreateActionVehicle(VnXPlayer player, AltV.Net.Enums.VehicleModel vehClass, Vector3 position, Vector3 rotation, bool warpPlayer)
         {
             try
             {
-                VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, Position, Rotation);
-                veh.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                VehicleModel veh = (VehicleModel)Alt.CreateVehicle((uint)vehClass, position, rotation);
+                veh.Dimension = Main.ReallifeDimension + player.Language;
                 veh.Reallife.ActionVehicle = true;
                 veh.NotSave = true;
-                veh.Owner = ACTION_VEHICLE;
+                veh.Owner = ActionVehicle;
                 veh.EngineOn = true;
                 veh.Godmode = false;
-                if (WarpPlayer) RageAPI.WarpIntoVehicle(player, veh, -1);
+                if (warpPlayer) player.WarpIntoVehicle(veh, -1);
                 ActionVehicles.Add(veh);
                 return veh;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }
 
-        public static void CreateTargetMarker(string Name, Vector3 Position, int Sprite, int Color, bool ShortRange, string Action)
+        public static void CreateTargetMarker(string name, Vector3 position, int sprite, int color, bool shortRange, string action)
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in Main.ReallifePlayers.ToList())
                 {
-                    ActionBlips.Add(RageAPI.CreateBlip(Name, Position, Sprite, Color, ShortRange, player));
+                    ActionBlips.Add(RageApi.CreateBlip(name, position, sprite, color, shortRange, player));
                 }
-                ActionMarkers.Add(RageAPI.CreateMarker(30, Position, new Vector3(1.5f, 1.5f, 1.5f), new int[] { 255, 0, 0, 255 }));
-                ColShapeModel col = RageAPI.CreateColShapeSphere(Position, 1.5f, VenoXV._Globals_.Main.REALLIFE_DIMENSION);
-                col.AktionCol = Action;
+                ActionMarkers.Add(RageApi.CreateMarker(30, position, new Vector3(1.5f, 1.5f, 1.5f), new[] { 255, 0, 0, 255 }));
+                ColShapeModel col = RageApi.CreateColShapeSphere(position, 1.5f, Main.ReallifeDimension);
+                col.AktionCol = action;
                 ActionColShapes.Add(col);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -100,13 +97,13 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 //Remoe Blips
-                foreach (BlipModel blipClass in ActionBlips.ToList()) RageAPI.RemoveBlip(blipClass, blipClass.VisibleOnlyFor);
+                foreach (BlipModel blipClass in ActionBlips.ToList()) RageApi.RemoveBlip(blipClass, blipClass.VisibleOnlyFor);
                 //Remove Markers
-                foreach (MarkerModel markerClass in ActionMarkers.ToList()) RageAPI.RemoveMarker(markerClass);
+                foreach (MarkerModel markerClass in ActionMarkers.ToList()) RageApi.RemoveMarker(markerClass);
                 //Remove ColShapes
-                foreach (ColShapeModel colClass in ActionColShapes.ToList()) RageAPI.RemoveColShape(colClass);
+                foreach (ColShapeModel colClass in ActionColShapes.ToList()) RageApi.RemoveColShape(colClass);
 
-                foreach (VehicleModel vehClass in ActionVehicles.ToList()) RageAPI.DeleteVehicleThreadSafe((VehicleModel)vehClass);
+                foreach (VehicleModel vehClass in ActionVehicles.ToList()) RageApi.DeleteVehicleThreadSafe(vehClass);
 
 
                 ActionBlips.Clear();
@@ -114,10 +111,10 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 ActionVehicles.Clear();
                 ActionColShapes.Clear();
                 //Add CoolDown
-                ActionCooldown = DateTime.Now.AddMinutes(ACTION_COOLDOWN);
+                ActionCooldownDateTime = DateTime.Now.AddMinutes(ActionCooldown);
                 ActionRunning = false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static bool OnClientEnterColShape(ColShapeModel shape, VnXPlayer player)
@@ -125,13 +122,13 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 if (!ActionColShapes.Contains(shape)) return false;
-                Aktionen.Kokain.KokainSell.OnPlayerEnterColShapeModel(shape, player);
+                KokainSell.OnPlayerEnterColShapeModel(shape, player);
                 Kokaintruck.OnPlayerEnterColShapeModel(shape, player);
                 return true;
                 //Aktionen.Shoprob.Shoprob.OnPlayerEnterColShapeModel(shape, player);
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
         public static void OnUpdate()
@@ -139,13 +136,13 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             try
             {
                 if (!ActionRunning) return;
-                Aktionen.Shoprob.Shoprob.OnUpdate();
-                if (ActionWillEnd <= DateTime.Now)
+                Shoprob.OnUpdate();
+                if (ActionWillEndDateTime <= DateTime.Now)
                 {
                     foreach (VehicleModel vehClass in ActionVehicles.ToList())
-                        RageAPI.DeleteVehicleThreadSafe((VehicleModel)vehClass);
+                        RageApi.DeleteVehicleThreadSafe(vehClass);
                     ActionVehicles.Clear();
-                    ActionCooldown = DateTime.Now.AddMinutes(ACTION_COOLDOWN);
+                    ActionCooldownDateTime = DateTime.Now.AddMinutes(ActionCooldown);
                     ActionRunning = false;
                 }
             }
@@ -155,8 +152,8 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         public static void OnResourceStart()
         {
             Kokaintruck.OnResourceStart();
-            Aktionen.Kokain.KokainSell.OnResourceStart();
-            Aktionen.Shoprob.Shoprob.OnResourceStart();
+            KokainSell.OnResourceStart();
+            Shoprob.OnResourceStart();
         }
     }
 }

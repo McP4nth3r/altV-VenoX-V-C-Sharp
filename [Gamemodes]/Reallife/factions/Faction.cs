@@ -1,140 +1,142 @@
-﻿using AltV.Net;
+﻿using System.Linq;
+using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
-using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Language_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.factions
 {
     public class Faction : IScript
     {
-        public static void CreateFactionInformation(int FID, string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
+        public static void CreateFactionInformation(int fid, string text, Main.Languages language = Main.Languages.English)
         {
             try
             {
-                if (FID == Constants.FACTION_NONE) return;
+                if (fid == Constants.FactionNone) return;
 
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (target.Reallife.Faction == FID && target.Language == (int)language)
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageAPI.GetHexColorcode(255, 255, 255) + text);
+                    if (target.Reallife.Faction == fid && target.Language == (int)language)
+                        target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageApi.GetHexColorcode(255, 255, 255) + text);
                 }
             }
             catch { }
         }
-        public static void CreateCustomFactionInformation(int FID, string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
+        public static void CreateCustomFactionInformation(int fid, string text, Main.Languages language = Main.Languages.English)
         {
             try
             {
-                if (FID == Constants.FACTION_NONE) return;
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                if (fid == Constants.FactionNone) return;
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (target.Reallife.Faction == FID && target.Language == (int)language)
+                    if (target.Reallife.Faction == fid && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
         }
-        public static void CreateStateFactionInformation(string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
+        public static void CreateStateFactionInformation(string text, Main.Languages language = Main.Languages.English)
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isStateFaction(target) && target.Language == (int)language)
+                    if (Allround.IsStateFaction(target) && target.Language == (int)language)
                     {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 0) + text);
+                        target.SendTranslatedChatMessage(RageApi.GetHexColorcode(150, 0, 0) + text);
                     }
                 }
             }
             catch { }
 
         }
-        public static void CreateCustomStateFactionMessage(string text, _Language_.Main.Languages language = _Language_.Main.Languages.English)
+        public static void CreateCustomStateFactionMessage(string text, Main.Languages language = Main.Languages.English)
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isStateFaction(target) && target.Language == (int)language)
+                    if (Allround.IsStateFaction(target) && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
         }
-        public static void CreateCustomBadFactionMessage(string text, int UID, _Language_.Main.Languages language = _Language_.Main.Languages.English)
+        public static void CreateCustomBadFactionMessage(string text, int uid, Main.Languages language = Main.Languages.English)
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
-                    if (Allround.isBadFaction(target) && target.Reallife.Faction == UID && target.Language == (int)language)
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
+                    if (Allround.IsBadFaction(target) && target.Reallife.Faction == uid && target.Language == (int)language)
                         target.SendTranslatedChatMessage(text);
             }
             catch { }
         }
-        public static void CreateFactionMessage(int FID, string text, string Rgba, VnXPlayer player)
+        public static void CreateFactionMessage(int fid, string text, string rgba, VnXPlayer player)
         {
             try
             {
-                if (FID == Constants.FACTION_NONE) return;
-                foreach (var target in from VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList() where target.Reallife.Faction == FID select target)
+                if (fid == Constants.FactionNone) return;
+                foreach (var target in from VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList() where target.Reallife.Faction == fid select target)
                 {
-                    target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                    target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }
         }
 
 
-        public static void CreateStateMessage(string text, string Rgba, VnXPlayer player)
+        public static void CreateStateMessage(string text, string rgba, VnXPlayer player)
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isStateFaction(target) || target.Reallife.Faction == Constants.FACTION_EMERGENCY)
-                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                    if (Allround.IsStateFaction(target) || target.Reallife.Faction == Constants.FactionEmergency)
+                        target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }
         }
 
 
-        public static void CreateBadMessage(string text, string Rgba, VnXPlayer player)
+        public static void CreateBadMessage(string text, string rgba, VnXPlayer player)
         {
             try
             {
-                foreach (VnXPlayer target in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
                 {
-                    if (Allround.isBadFaction(target))
-                        target.SendChatMessage(Rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
+                    if (Allround.IsBadFaction(target))
+                        target.SendChatMessage(rgba + GetPlayerFactionRank(player) + " | " + player.Username + " : " + text);
                 }
             }
             catch { }
         }
 
-        public static string GetFactionNameById(int FID)
+        public static string GetFactionNameById(int fid)
         {
-            return FID switch
+            return fid switch
             {
-                Constants.FACTION_NONE => Constants.FACTION_NONE_NAME,
-                Constants.FACTION_LSPD => Constants.FACTION_POLICE_NAME,
-                Constants.FACTION_LCN => Constants.FACTION_COSANOSTRA_NAME,
-                Constants.FACTION_YAKUZA => Constants.FACTION_YAKUZA_NAME,
-                Constants.FACTION_TERRORCLOSED => Constants.FACTION_TERRORCLOSED_NAME,
-                Constants.FACTION_NEWS => Constants.FACTION_NEWS_NAME,
-                Constants.FACTION_FBI => Constants.FACTION_FBI_NAME,
-                Constants.FACTION_NARCOS => Constants.FACTION_MS13_NAME,
-                Constants.FACTION_USARMY => Constants.FACTION_USARMY_NAME,
-                Constants.FACTION_SAMCRO => Constants.FACTION_SAMCRO_NAME,
-                Constants.FACTION_EMERGENCY => Constants.FACTION_EMERGENCY_NAME,
-                Constants.FACTION_MECHANIK => Constants.FACTION_MECHANIK_NAME,
-                Constants.FACTION_BALLAS => Constants.FACTION_BALLAS_NAME,
-                Constants.FACTION_COMPTON => Constants.FACTION_GROVE_NAME,
-                _ => "ERROR - " + FID,
+                Constants.FactionNone => Constants.FactionNoneName,
+                Constants.FactionLspd => Constants.FactionPoliceName,
+                Constants.FactionLcn => Constants.FactionCosanostraName,
+                Constants.FactionYakuza => Constants.FactionYakuzaName,
+                Constants.FactionTerrorclosed => Constants.FactionTerrorclosedName,
+                Constants.FactionNews => Constants.FactionNewsName,
+                Constants.FactionFbi => Constants.FactionFbiName,
+                Constants.FactionNarcos => Constants.FactionMs13Name,
+                Constants.FactionUsarmy => Constants.FactionUsarmyName,
+                Constants.FactionSamcro => Constants.FactionSamcroName,
+                Constants.FactionEmergency => Constants.FactionEmergencyName,
+                Constants.FactionMechanik => Constants.FactionMechanikName,
+                Constants.FactionBallas => Constants.FactionBallasName,
+                Constants.FactionCompton => Constants.FactionGroveName,
+                _ => "ERROR - " + fid,
             };
         }
 
@@ -146,11 +148,11 @@ namespace VenoXV._Gamemodes_.Reallife.factions
                 string rankString = string.Empty;
                 int faction = player.Reallife.Faction;
                 int rank = player.Reallife.FactionRank;
-                foreach (FactionModel factionModel in Constants.FACTION_RANK_LIST)
+                foreach (FactionModel factionModel in Constants.FactionRankList)
                 {
-                    if (factionModel.faction == faction && factionModel.rank == rank)
+                    if (factionModel.Faction == faction && factionModel.Rank == rank)
                     {
-                        rankString = player.Sex == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
+                        rankString = player.Sex == Constants.SexMale ? factionModel.DescriptionMale : factionModel.DescriptionFemale;
                         break;
                     }
                 }

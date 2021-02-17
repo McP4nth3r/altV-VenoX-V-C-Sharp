@@ -1,84 +1,87 @@
-﻿using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AltV.Net.Elements.Entities;
+using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.model;
+using VenoXV._Globals_;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._RootCore_.Models
 {
     public class Inventory
     {
-        private VnXPlayer Player;
+        private VnXPlayer _player;
         public List<ItemModel> Items { get; set; }
 
         public void Update()
         {
-            Core.Debug.OutputDebugString("Update()");
+            Debug.OutputDebugString("Update()");
             List<ItemModel> inventory = Items;
-            VenoX.TriggerClientEvent(Player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
+            VenoX.TriggerClientEvent(_player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
         }
-        public void GiveItem(string ItemHash, ItemType ItemArt, int ItemAmount, bool CalculateIfExists, int Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION, float Weight = 0.1f, bool Save = true, int Id = -1)
+        public void GiveItem(string itemHash, ItemType itemArt, int itemAmount, bool calculateIfExists, int dimension = Main.ReallifeDimension, float weight = 0.1f, bool save = true, int id = -1)
         {
             try
             {
-                int playerId = Player.UID;
-                Core.Debug.OutputDebugString("UID : " + playerId);
+                int playerId = _player.UID;
+                Debug.OutputDebugString("UID : " + playerId);
                 if (playerId > 0)
                 {
-                    Core.Debug.OutputDebugString("Id : " + Id);
-                    ItemModel Item;
-                    if (Id != -1)
-                        Item = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == Id);
+                    Debug.OutputDebugString("Id : " + id);
+                    ItemModel item;
+                    if (id != -1)
+                        item = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == id);
                     else
-                        Item = Player.Inventory.Items.ToList().FirstOrDefault(x => x.Hash == ItemHash);
+                        item = _player.Inventory.Items.ToList().FirstOrDefault(x => x.Hash == itemHash);
 
-                    if (Item == null)
+                    if (item == null)
                     {
-                        Item = new ItemModel
+                        item = new ItemModel
                         {
-                            Amount = ItemAmount,
-                            Dimension = Dimension,
+                            Amount = itemAmount,
+                            Dimension = dimension,
                             Position = new Vector3(0.0f, 0.0f, 0.0f),
-                            Hash = ItemHash,
-                            UID = playerId,
-                            Type = ItemArt,
-                            Weight = Weight
+                            Hash = itemHash,
+                            Uid = playerId,
+                            Type = itemArt,
+                            Weight = weight
                         };
-                        if (Save)
+                        if (save)
                         {
-                            Item.Id = Database.Database.AddNewItem(Item);
-                            _Globals_.Inventory.Inventory.DatabaseItems.Add(Item);
+                            item.Id = Database.Database.AddNewItem(item);
+                            _Globals_.Inventory.Inventory.DatabaseItems.Add(item);
                         }
-                        Items.Add(Item);
+                        Items.Add(item);
                     }
                     else
                     {
-                        if (CalculateIfExists) Item.Amount += ItemAmount;
-                        else Item.Amount = ItemAmount;
+                        if (calculateIfExists) item.Amount += itemAmount;
+                        else item.Amount = itemAmount;
                         // Update item in DbItem Entry list.
-                        ItemModel DbItem = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == Item.Id);
-                        DbItem = Item;
+                        ItemModel dbItem = _Globals_.Inventory.Inventory.DatabaseItems.ToList().FirstOrDefault(x => x.Id == item.Id);
+                        dbItem = item;
                         // Update if item not exists.
-                        ItemModel InventoryItem = Items.ToList().FirstOrDefault(x => x.Id == Item.Id);
-                        if (InventoryItem is null)
-                            Items.Add(InventoryItem);
+                        ItemModel inventoryItem = Items.ToList().FirstOrDefault(x => x.Id == item.Id);
+                        if (inventoryItem is null)
+                            Items.Add(inventoryItem);
                     }
                 }
                 Update();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public Inventory(Player player)
         {
             try
             {
-                Player = (VnXPlayer)player;
+                _player = (VnXPlayer)player;
                 Items = new List<ItemModel>();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

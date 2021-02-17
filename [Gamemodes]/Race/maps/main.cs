@@ -1,7 +1,7 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
 using VenoXV._Gamemodes_.Race.model;
 
 namespace VenoXV._Gamemodes_.Race.maps
@@ -16,25 +16,25 @@ namespace VenoXV._Gamemodes_.Race.maps
                 PlayerVehicleHash = Alt.Hash("SultanRS"),
                 PlayerSpawnPoints = new List<SpawnModel>
                 {
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2916f, 3707.855f, 52.06079f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2910.5671f, 3709.8726f, 52.043945f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2908.4834f, 3702.1318f, 52.043945f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2914.0747f, 3700.6814f, 52.06079f),
                         Rotation = new Vector3(0,0,0),
@@ -75,25 +75,25 @@ namespace VenoXV._Gamemodes_.Race.maps
                 PlayerVehicleHash = Alt.Hash("Supra2"),
                 PlayerSpawnPoints = new List<SpawnModel>
                 {
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2916f, 3707.855f, 52.06079f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2910.5671f, 3709.8726f, 52.043945f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2908.4834f, 3702.1318f, 52.043945f),
                         Rotation = new Vector3(0,0,0),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(2914.0747f, 3700.6814f, 52.06079f),
                         Rotation = new Vector3(0,0,0),
@@ -135,73 +135,73 @@ namespace VenoXV._Gamemodes_.Race.maps
                 PlayerVehicleHash = Alt.Hash("T20"),
                 PlayerSpawnPoints = new List<SpawnModel>
                 {
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2399.3801f, -253.17363f, 14.620483f),
                         Rotation = new Vector3(0.015625f, 0f, 1.046875f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2396.9407f, -250.07472f, 14.603638f),
                         Rotation = new Vector3(0.015625f, 0f, 1.0625f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2387.8682f, -256.07474f, 14.350952f),
                         Rotation = new Vector3(0.015625f, 0f, 1f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2389.7012f, -259.0022f, 14.350952f),
                         Rotation = new Vector3(0.015625f, 0f, 1.0625f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2381.077f, -264.52747f, 14.11499f),
                         Rotation = new Vector3(0f, 0f, 1.015625f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2379.4153f, -261.7187f, 14.11499f),
                         Rotation = new Vector3(0.015625f, 0f, 1f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2401.8594f, -257.09012f, 14.637329f),
                         Rotation = new Vector3(0.015625f, 0f, 1f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2392.6418f, -262.93185f, 14.367798f),
                         Rotation = new Vector3(0.015625f, 0f, 1f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2383.9648f, -268.36484f, 14.131836f),
                         Rotation = new Vector3(0f, 0f, 1.015625f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2405.1033f, -261.62637f, 14.637329f),
                         Rotation = new Vector3(0.015625f, 0f, 1.015625f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2395.978f, -267.6791f, 14.367798f),
                         Rotation = new Vector3(0.015625f, 0f, 0.96875f),
                         Spawned = false
                     },
-                    new SpawnModel()
+                    new SpawnModel
                     {
                         Position = new Vector3(-2387.7231f, -273.3231f, 14.131836f),
                         Rotation = new Vector3(0.015625f, -0.015625f, 0.96875f),

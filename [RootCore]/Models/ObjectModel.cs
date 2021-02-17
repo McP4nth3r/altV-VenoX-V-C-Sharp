@@ -1,10 +1,11 @@
 ﻿using System.Numerics;
+using VenoXV.Models;
 
 namespace VenoXV._RootCore_.Models
 {
     public class ObjectModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Parent { get; set; }
         public string Hash { get; set; }
         public Vector3 Position { get; set; }

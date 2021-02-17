@@ -1,16 +1,18 @@
-﻿using AltV.Net;
-using AltV.Net.Async;
-using AltV.Net.Resources.Chat.Api;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using AltV.Net;
+using AltV.Net.Async;
+using AltV.Net.Resources.Chat.Api;
+using Newtonsoft.Json;
 using VenoXV._Language_.Models;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Language_
 {
@@ -30,175 +32,175 @@ namespace VenoXV._Language_
             Chinese = 9,
             Farsi = 10,
             Italien = 11
-        };
+        }
 
         //string jsonString_EN = File.ReadAllText(Alt.Server.Resource.Path + Alt.Server.Resource.Path + "/Languages/language-en.json");
-        public static List<LanguageModel> LANGUAGE_PACK_EN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-en.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_FR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fr.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_PL = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-pl.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_ES = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-es.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_TR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-tr.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_RU = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-ru.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_SV = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_SR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_CN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_FA = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fa.json"));
-        public static List<LanguageModel> LANGUAGE_PACK_IT = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-it.json"));
+        public static List<LanguageModel> LanguagePackEn = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-en.json"));
+        public static List<LanguageModel> LanguagePackFr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fr.json"));
+        public static List<LanguageModel> LanguagePackPl = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-pl.json"));
+        public static List<LanguageModel> LanguagePackEs = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-es.json"));
+        public static List<LanguageModel> LanguagePackTr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-tr.json"));
+        public static List<LanguageModel> LanguagePackRu = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-ru.json"));
+        public static List<LanguageModel> LanguagePackSv = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
+        public static List<LanguageModel> LanguagePackSr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
+        public static List<LanguageModel> LanguagePackCn = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
+        public static List<LanguageModel> LanguagePackFa = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fa.json"));
+        public static List<LanguageModel> LanguagePackIt = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-it.json"));
 
 
         public static void ReloadLanguageCacheLists()
         {
             try
             {
-                LANGUAGE_PACK_EN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-en.json"));
-                LANGUAGE_PACK_FR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fr.json"));
-                LANGUAGE_PACK_PL = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-pl.json"));
-                LANGUAGE_PACK_ES = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-es.json"));
-                LANGUAGE_PACK_TR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-tr.json"));
-                LANGUAGE_PACK_RU = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-ru.json"));
-                LANGUAGE_PACK_SV = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
-                LANGUAGE_PACK_SR = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
-                LANGUAGE_PACK_CN = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
-                LANGUAGE_PACK_FA = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fa.json"));
-                LANGUAGE_PACK_IT = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-it.json"));
-                Core.Debug.OutputDebugString("Language-List-EN " + LANGUAGE_PACK_EN.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-FR " + LANGUAGE_PACK_FR.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-PL " + LANGUAGE_PACK_PL.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-ES " + LANGUAGE_PACK_ES.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-TR " + LANGUAGE_PACK_TR.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-RU " + LANGUAGE_PACK_RU.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-SV " + LANGUAGE_PACK_SV.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-SR " + LANGUAGE_PACK_SR.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-CN " + LANGUAGE_PACK_CN.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-FA " + LANGUAGE_PACK_FA.Count + " translated Text's loaded...");
-                Core.Debug.OutputDebugString("Language-List-IT " + LANGUAGE_PACK_IT.Count + " translated Text's loaded...");
+                LanguagePackEn = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-en.json"));
+                LanguagePackFr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fr.json"));
+                LanguagePackPl = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-pl.json"));
+                LanguagePackEs = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-es.json"));
+                LanguagePackTr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-tr.json"));
+                LanguagePackRu = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-ru.json"));
+                LanguagePackSv = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sv.json"));
+                LanguagePackSr = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-sr.json"));
+                LanguagePackCn = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-zh-cn.json"));
+                LanguagePackFa = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-fa.json"));
+                LanguagePackIt = JsonConvert.DeserializeObject<List<LanguageModel>>(File.ReadAllText(Alt.Server.Resource.Path + "/Languages/language-it.json"));
+                Debug.OutputDebugString("Language-List-EN " + LanguagePackEn.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-FR " + LanguagePackFr.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-PL " + LanguagePackPl.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-ES " + LanguagePackEs.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-TR " + LanguagePackTr.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-RU " + LanguagePackRu.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-SV " + LanguagePackSv.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-SR " + LanguagePackSr.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-CN " + LanguagePackCn.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-FA " + LanguagePackFa.Count + " translated Text's loaded...");
+                Debug.OutputDebugString("Language-List-IT " + LanguagePackIt.Count + " translated Text's loaded...");
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void CleanCacheFiles()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
 
-            Core.Debug.OutputDebugString("Cleaning all Cache - Files");
+            Debug.OutputDebugString("Cleaning all Cache - Files");
             Console.ForegroundColor = ConsoleColor.Cyan;
 
             // English : 
-            List<LanguageModel> EN_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_EN)
+            List<LanguageModel> enCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackEn)
             {
-                if (EN_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    EN_Cache.Add(languageClass);
+                if (enCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    enCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-EN ] : Before [" + LANGUAGE_PACK_EN.Count + "] - Now [" + EN_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.English), JsonConvert.SerializeObject(EN_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-EN ] : Before [" + LanguagePackEn.Count + "] - Now [" + enCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.English), JsonConvert.SerializeObject(enCache));
 
 
             // France : 
-            List<LanguageModel> FR_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_FR)
+            List<LanguageModel> frCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackFr)
             {
-                if (FR_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    FR_Cache.Add(languageClass);
+                if (frCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    frCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-FR ] : Before [" + LANGUAGE_PACK_FR.Count + "] - Now [" + FR_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.France), JsonConvert.SerializeObject(FR_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-FR ] : Before [" + LanguagePackFr.Count + "] - Now [" + frCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.France), JsonConvert.SerializeObject(frCache));
 
 
             // Poland : 
-            List<LanguageModel> PL_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_PL)
+            List<LanguageModel> plCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackPl)
             {
-                if (PL_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    PL_Cache.Add(languageClass);
+                if (plCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    plCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-PL ] : Before [" + LANGUAGE_PACK_PL.Count + "] - Now [" + PL_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Poland), JsonConvert.SerializeObject(PL_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-PL ] : Before [" + LanguagePackPl.Count + "] - Now [" + plCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Poland), JsonConvert.SerializeObject(plCache));
 
             // Spanish : 
-            List<LanguageModel> ES_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_ES)
+            List<LanguageModel> esCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackEs)
             {
-                if (ES_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    ES_Cache.Add(languageClass);
+                if (esCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    esCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-ES ] : Before [" + LANGUAGE_PACK_ES.Count + "] - Now [" + ES_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Spanish), JsonConvert.SerializeObject(ES_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-ES ] : Before [" + LanguagePackEs.Count + "] - Now [" + esCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Spanish), JsonConvert.SerializeObject(esCache));
 
 
             // Turkish : 
-            List<LanguageModel> TR_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_TR)
+            List<LanguageModel> trCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackTr)
             {
-                if (TR_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    TR_Cache.Add(languageClass);
+                if (trCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    trCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-TR ] : Before [" + LANGUAGE_PACK_TR.Count + "] - Now [" + TR_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Turkish), JsonConvert.SerializeObject(TR_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-TR ] : Before [" + LanguagePackTr.Count + "] - Now [" + trCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Turkish), JsonConvert.SerializeObject(trCache));
 
 
             // Russian : 
-            List<LanguageModel> RU_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_RU)
+            List<LanguageModel> ruCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackRu)
             {
-                if (RU_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    RU_Cache.Add(languageClass);
+                if (ruCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    ruCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-RU ] : Before [" + LANGUAGE_PACK_RU.Count + "] - Now [" + RU_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Russian), JsonConvert.SerializeObject(RU_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-RU ] : Before [" + LanguagePackRu.Count + "] - Now [" + ruCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Russian), JsonConvert.SerializeObject(ruCache));
 
             // Swedish : 
-            List<LanguageModel> SV_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_SV)
+            List<LanguageModel> svCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackSv)
             {
-                if (SV_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    SV_Cache.Add(languageClass);
+                if (svCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    svCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-SV ] : Before [" + LANGUAGE_PACK_SV.Count + "] - Now [" + SV_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Swedish), JsonConvert.SerializeObject(SV_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-SV ] : Before [" + LanguagePackSv.Count + "] - Now [" + svCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Swedish), JsonConvert.SerializeObject(svCache));
 
             // Serbian : 
-            List<LanguageModel> SR_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_SR)
+            List<LanguageModel> srCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackSr)
             {
-                if (SR_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    SR_Cache.Add(languageClass);
+                if (srCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    srCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-SR ] : Before [" + LANGUAGE_PACK_SR.Count + "] - Now [" + SR_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Serbian), JsonConvert.SerializeObject(SR_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-SR ] : Before [" + LanguagePackSr.Count + "] - Now [" + srCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Serbian), JsonConvert.SerializeObject(srCache));
 
             // Chinese : 
-            List<LanguageModel> CN_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_CN)
+            List<LanguageModel> cnCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackCn)
             {
-                if (CN_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    CN_Cache.Add(languageClass);
+                if (cnCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    cnCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-CN-ZH ] : Before [" + LANGUAGE_PACK_CN.Count + "] - Now [" + CN_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Chinese), JsonConvert.SerializeObject(CN_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-CN-ZH ] : Before [" + LanguagePackCn.Count + "] - Now [" + cnCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Chinese), JsonConvert.SerializeObject(cnCache));
 
             // Farsi : 
-            List<LanguageModel> FA_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_FA)
+            List<LanguageModel> faCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackFa)
             {
-                if (FA_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    FA_Cache.Add(languageClass);
+                if (faCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    faCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-FA ] : Before [" + LANGUAGE_PACK_FA.Count + "] - Now [" + FA_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Farsi), JsonConvert.SerializeObject(FA_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-FA ] : Before [" + LanguagePackFa.Count + "] - Now [" + faCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Farsi), JsonConvert.SerializeObject(faCache));
 
             // Italian : 
-            List<LanguageModel> IT_Cache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LANGUAGE_PACK_IT)
+            List<LanguageModel> itCache = new List<LanguageModel>();
+            foreach (LanguageModel languageClass in LanguagePackIt)
             {
-                if (IT_Cache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    IT_Cache.Add(languageClass);
+                if (itCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
+                    itCache.Add(languageClass);
             }
-            Core.Debug.OutputDebugString("[Clean-Up | Language-List-IT ] : Before [" + LANGUAGE_PACK_IT.Count + "] - Now [" + IT_Cache.Count + "]");
-            Core.Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Italien), JsonConvert.SerializeObject(IT_Cache));
+            Debug.OutputDebugString("[Clean-Up | Language-List-IT ] : Before [" + LanguagePackIt.Count + "] - Now [" + itCache.Count + "]");
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Italien), JsonConvert.SerializeObject(itCache));
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Core.Debug.OutputDebugString("[Clean-Up] : Done!");
+            Debug.OutputDebugString("[Clean-Up] : Done!");
 
         }
         public static void OnResourceStart()
@@ -229,11 +231,11 @@ namespace VenoXV._Language_
             }
             catch { return "en"; }
         }
-        public static Languages GetLanguageByPair(string Pair)
+        public static Languages GetLanguageByPair(string pair)
         {
             try
             {
-                return Pair switch
+                return pair switch
                 {
                     "de" => Languages.German,
                     "en" => Languages.English,
@@ -252,23 +254,23 @@ namespace VenoXV._Language_
             }
             catch { return Languages.German; }
         }
-        static readonly HttpClient webClient = new HttpClient();
-        public static async Task<string> TranslateText(string Text, string fromPair, string toPair)
+        static readonly HttpClient WebClient = new HttpClient();
+        public static async Task<string> TranslateText(string text, string fromPair, string toPair)
         {
             try
             {
-                Core.Debug.OutputDebugString("Called Translation API");
+                Debug.OutputDebugString("Called Translation API");
                 //return word;
                 string fromLanguage = fromPair;
                 string toLanguage = toPair;
-                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(Text)}";
-                HttpResponseMessage response = await webClient.GetAsync(url);
+                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(text)}";
+                HttpResponseMessage response = await WebClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 string result = await response.Content.ReadAsStringAsync();
                 result = result[4..result.IndexOf("\"", 4, StringComparison.Ordinal)];
                 return result;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return "Error"; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return "Error"; }
         }
         private static List<LanguageModel> GetLanguageCache(Languages language)
         {
@@ -276,26 +278,26 @@ namespace VenoXV._Language_
             {
                 return language switch
                 {
-                    Languages.English => LANGUAGE_PACK_EN,
-                    Languages.France => LANGUAGE_PACK_FR,
-                    Languages.Poland => LANGUAGE_PACK_PL,
-                    Languages.Spanish => LANGUAGE_PACK_ES,
-                    Languages.Turkish => LANGUAGE_PACK_TR,
-                    Languages.Russian => LANGUAGE_PACK_RU,
-                    Languages.Swedish => LANGUAGE_PACK_SV,
-                    Languages.Serbian => LANGUAGE_PACK_SR,
-                    Languages.Chinese => LANGUAGE_PACK_CN,
-                    Languages.Farsi => LANGUAGE_PACK_FA,
-                    Languages.Italien => LANGUAGE_PACK_IT,
+                    Languages.English => LanguagePackEn,
+                    Languages.France => LanguagePackFr,
+                    Languages.Poland => LanguagePackPl,
+                    Languages.Spanish => LanguagePackEs,
+                    Languages.Turkish => LanguagePackTr,
+                    Languages.Russian => LanguagePackRu,
+                    Languages.Swedish => LanguagePackSv,
+                    Languages.Serbian => LanguagePackSr,
+                    Languages.Chinese => LanguagePackCn,
+                    Languages.Farsi => LanguagePackFa,
+                    Languages.Italien => LanguagePackIt,
                     _ => new List<LanguageModel>(),
                 };
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new List<LanguageModel>(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new List<LanguageModel>(); }
         }
-        private static bool IsTranslatedTextCached(List<LanguageModel> LanguageList, string Text)
+        private static bool IsTranslatedTextCached(List<LanguageModel> languageList, string text)
         {
-            foreach (LanguageModel languageClass in LanguageList.ToList())
-                if (languageClass.TranslatedText == Text) return true;
+            foreach (LanguageModel languageClass in languageList.ToList())
+                if (languageClass.TranslatedText == text) return true;
             return false;
         }
         public static async Task<string> GetTranslatedTextAsync(Languages language, string text)
@@ -306,51 +308,51 @@ namespace VenoXV._Language_
                 if (language == Languages.German) return text;
 
                 // Simple Check if it's exists in the Async Thread ( so don't need to switch back to the main thread ) 
-                List<LanguageModel> CachedLanguage = GetLanguageCache(language);
-                LanguageModel languageClass = CachedLanguage.ToList().FirstOrDefault(x => x.Text == text);
+                List<LanguageModel> cachedLanguage = GetLanguageCache(language);
+                LanguageModel languageClass = cachedLanguage.ToList().FirstOrDefault(x => x.Text == text);
 
                 // Return if found.
                 if (languageClass is not null) return languageClass.TranslatedText;
 
-                string TranslatedText = "";
+                string translatedText = "";
                 // Switch to Main-Thread.
                 await AltAsync.Do(async () =>
                 {
                     // Check if the Language stuff is cached into the list & the file.
-                    List<LanguageModel> CachedLanguage = GetLanguageCache(language);
-                    LanguageModel languageClass = CachedLanguage.ToList().FirstOrDefault(x => x.Text == text);
-                    string LanguagePair = GetClientLanguagePair(language);
+                    List<LanguageModel> cachedLanguage = GetLanguageCache(language);
+                    LanguageModel languageClass = cachedLanguage.ToList().FirstOrDefault(x => x.Text == text);
+                    string languagePair = GetClientLanguagePair(language);
                     if (languageClass is null)
                     {
                         // Switch to a new Thread.. so probably it won't bother the main thread ( improve performance ).
                         await Task.Run(async () =>
                         {
                             // Translate the Text & Get the result from Google API's.
-                            string TranslatedText = await TranslateText(text, "de", LanguagePair);
-                            using StringReader readStream = new StringReader(TranslatedText);
+                            string translatedText = await TranslateText(text, "de", languagePair);
+                            using StringReader readStream = new StringReader(translatedText);
                             await AltAsync.Do(() =>
                             {
                                 // If too many request was send... it returns ,,Error" - Simple false information check ^^.
-                                if (TranslatedText != "Error")
+                                if (translatedText != "Error")
                                 {
                                     // Create a new Translated Model.
-                                    languageClass = new LanguageModel { Pair = LanguagePair, Text = text, TranslatedText = TranslatedText };
+                                    languageClass = new LanguageModel { Pair = languagePair, Text = text, TranslatedText = translatedText };
                                     // Add it into the Translated Language List.
-                                    CachedLanguage.Add(languageClass);
+                                    cachedLanguage.Add(languageClass);
                                     // Convert it into a Json Obj. and put it into the file.
-                                    string Json = JsonConvert.SerializeObject(languageClass);
-                                    Core.Debug.WriteJsonString("language-" + LanguagePair, Json);
+                                    string json = JsonConvert.SerializeObject(languageClass);
+                                    Debug.WriteJsonString("language-" + languagePair, json);
                                 }
                             });
                             // Return Text even if it's error.. so it will not be a Empty string.
                             return await readStream.ReadLineAsync();
                         });
                     }
-                    else TranslatedText = languageClass.TranslatedText;
+                    else translatedText = languageClass.TranslatedText;
                 });
-                return TranslatedText;
+                return translatedText;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return text; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return text; }
         }
 
         public static async Task SendTranslatedChatMessage(VnXPlayer playerClass, string text)
@@ -359,7 +361,7 @@ namespace VenoXV._Language_
             {
                 playerClass?.SendChatMessage(await GetTranslatedTextAsync((Languages)playerClass.Language, text));
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

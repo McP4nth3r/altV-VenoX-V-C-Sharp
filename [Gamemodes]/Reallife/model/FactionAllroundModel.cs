@@ -2,8 +2,8 @@
 {
     public class FactionAllroundModel
     {
-        public int FID { get; set; }
+        public int Fid { get; set; }
         public WaffenlagerModel Waffenlager { get; set; }
-        public Fraktions_Kassen Kasse { get; set; }
+        public FraktionsKassen Kasse { get; set; }
     }
 }

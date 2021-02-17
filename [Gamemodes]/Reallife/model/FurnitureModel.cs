@@ -1,15 +1,15 @@
-﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
+﻿using AltV.Net;
+using AltV.Net.Data;
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class FurnitureModel
     {
-        public int id { get; set; }
-        public uint hash { get; set; }
-        public uint house { get; set; }
-        public Position position { get; set; }
-        public Rotation rotation { get; set; }
-        public AltV.Net.IBaseBaseObjectPool handle { get; set; }
+        public int Id { get; set; }
+        public uint Hash { get; set; }
+        public uint House { get; set; }
+        public Position Position { get; set; }
+        public Rotation Rotation { get; set; }
+        public IBaseBaseObjectPool Handle { get; set; }
     }
 }

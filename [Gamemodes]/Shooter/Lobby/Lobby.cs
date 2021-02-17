@@ -1,13 +1,16 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using AltV.Net;
+using AltV.Net.Enums;
 using VenoXV._Gamemodes_.Shooter.Models;
-using VenoXV._RootCore_;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using VehicleModel = VenoXV.Models.VehicleModel;
 
 namespace VenoXV._Gamemodes_.Shooter.Lobby
 {
@@ -82,32 +85,32 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
         {
             SpawnModel spawn = Spawnmap.FirstOrDefault(x => !x.IsBeingUsed);
             if (spawn is null) return;
-            player.Dimension = _Globals_.Main.SHOOTER_DIMENSION;
+            player.Dimension = Main.ShooterDimension;
             player.Position = spawn.Coord;
             player.Rotation = spawn.Rotation;
             spawn.IsBeingUsed = true;
-            player.GivePlayerWeapon(AltV.Net.Enums.WeaponModel.RPG, 20);
+            player.GivePlayerWeapon(WeaponModel.RPG, 20);
             VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Zentorno, spawn.Coord, spawn.Rotation);
             vehicle.EngineOn = true;
             vehicle.Frozen = false;
             vehicle.Godmode = false;
-            vehicle.Dimension = _Globals_.Main.SHOOTER_DIMENSION;
+            vehicle.Dimension = Main.ShooterDimension;
         }
         public static void OnPlayerDeath(VnXPlayer player)
         {
             TakePlayerFromRound(player);
-            int Counter = 0;
-            foreach (VnXPlayer players in _Globals_.Main.ShooterPlayers.ToList())
+            int counter = 0;
+            foreach (VnXPlayer players in Main.ShooterPlayers.ToList())
             {
                 if (players.Shooter.IsAlive)
-                    Counter++;
+                    counter++;
             }
-            if (Counter <= 1)
+            if (counter <= 1)
             {
-                string WinnerName = String.Empty;
-                VnXPlayer Winner = _Globals_.Main.ShooterPlayers.ToList().FirstOrDefault(x => x.Shooter.IsAlive);
-                if (Winner is not null) WinnerName = player.Username;
-                ShowWinner(WinnerName);
+                string winnerName = String.Empty;
+                VnXPlayer winner = Main.ShooterPlayers.ToList().FirstOrDefault(x => x.Shooter.IsAlive);
+                if (winner is not null) winnerName = player.Username;
+                ShowWinner(winnerName);
                 EndRound();
             }
         }
@@ -119,34 +122,34 @@ namespace VenoXV._Gamemodes_.Shooter.Lobby
         {
             PutPlayerInRound(player);
         }
-        private static void ShowWinner(string WinnerName)
+        private static void ShowWinner(string winnerName)
         {
             try
             {
-                foreach (VnXPlayer player in _Globals_.Main.ShooterPlayers.ToList())
+                foreach (VnXPlayer player in Main.ShooterPlayers.ToList())
                 {
-                    VenoX.TriggerClientEvent(player, "Shooter:ShowWinner", WinnerName);
+                    VenoX.TriggerClientEvent(player, "Shooter:ShowWinner", winnerName);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         private static async void EndRound()
         {
             try
             {
                 await Task.Delay(3000);
-                foreach (VnXPlayer player in _Globals_.Main.ShooterPlayers.ToList())
+                foreach (VnXPlayer player in Main.ShooterPlayers.ToList())
                 {
                     PutPlayerInRound(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void OnUpdate()
         {
             if (RoundWillEnd <= DateTime.Now)
             {
-                string Winner = String.Empty;
+                string winner = String.Empty;
                 ShowWinner("Niemand");
             }
         }

@@ -1,12 +1,13 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
     public class Discord
     {
-        private Player Player;
-        public string ID { get; set; }
+        private Player _player;
+        public string Id { get; set; }
         public string Name { get; set; }
         public bool IsOpen { get; set; }
         public string Avatar { get; set; }
@@ -16,14 +17,14 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
-                Player = player;
-                ID = String.Empty;
+                _player = player;
+                Id = String.Empty;
                 Name = String.Empty;
                 IsOpen = false;
                 Avatar = String.Empty;
                 Discriminator = String.Empty;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

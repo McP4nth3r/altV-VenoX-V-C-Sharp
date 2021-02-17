@@ -1,22 +1,20 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class FactionModel
     {
-        public string descriptionMale { get; set; }
-        public string descriptionFemale { get; set; }
-        public int faction { get; set; }
-        public int rank { get; set; }
-        public int salary { get; set; }
+        public string DescriptionMale { get; set; }
+        public string DescriptionFemale { get; set; }
+        public int Faction { get; set; }
+        public int Rank { get; set; }
+        public int Salary { get; set; }
 
         public FactionModel(string descriptionMale, string descriptionFemale, int faction, int rank, int salary)
         {
-            this.descriptionMale = descriptionMale;
-            this.descriptionFemale = descriptionFemale;
-            this.faction = faction;
-            this.rank = rank;
-            this.salary = salary;
+            this.DescriptionMale = descriptionMale;
+            this.DescriptionFemale = descriptionFemale;
+            this.Faction = faction;
+            this.Rank = rank;
+            this.Salary = salary;
         }
     }
 }

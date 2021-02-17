@@ -1,12 +1,13 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AltV.Net;
+using AltV.Net.Data;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
@@ -18,42 +19,42 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         public int BlipRgba { get; set; }
         public int Radius { get; set; }
         public int Rotation { get; set; }
-        public Position TK { get; set; }
-        public int IDOwner { get; set; }
+        public Position Tk { get; set; }
+        public int IdOwner { get; set; }
         public DateTime Cooldown { get; set; }
-        public ColShapeModel TKColShapeModel { get; set; }
+        public ColShapeModel TkColShapeModel { get; set; }
         public ColShapeModel AreaColShapeModel { get; set; }
-        public bool isRunning { get; set; }
-        public VehicleModel[] IVehicles { get; set; }
+        public bool IsRunning { get; set; }
+        public VehicleModel[] Vehicles { get; set; }
         public List<GangwarRound> Rounds { get; set; }
 
         public GangwarArea()
         {
-            this.Rounds = new List<GangwarRound>();
+            Rounds = new List<GangwarRound>();
         }
 
         public GangwarArea(string name, Position position, int radius, Position tk, int id, int rotation, DateTime cooldown) : this()
         {
-            this.Name = name;
-            this.Position = position;
-            this.Radius = radius;
-            this.TK = tk;
-            this.IDOwner = id;
-            this.Rotation = rotation;
-            this.BlipRgba = Allround.GetFactionFactionBlipRgba(this.IDOwner);
-            this.Cooldown = cooldown;
+            Name = name;
+            Position = position;
+            Radius = radius;
+            Tk = tk;
+            IdOwner = id;
+            Rotation = rotation;
+            BlipRgba = Allround.GetFactionFactionBlipRgba(IdOwner);
+            Cooldown = cooldown;
         }
 
         public void Update()
         {
             //RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea");
-            VenoX.TriggerEventForAll("AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
+            VenoX.TriggerEventForAll("AreaBlip:Create", Name, Position.X, Position.Y, Position.Z, Radius, BlipRgba, Rotation);
         }
 
         public void Update(VnXPlayer player)
         {
             // RageAPI.SendTranslatedChatMessageToAll(this.Name + ": Update RadarArea ( " +player.Username + " )");
-            VenoX.TriggerClientEvent(player, "AreaBlip:Create", this.Name, this.Position.X, this.Position.Y, this.Position.Z, this.Radius, this.BlipRgba, this.Rotation);
+            VenoX.TriggerClientEvent(player, "AreaBlip:Create", Name, Position.X, Position.Y, Position.Z, Radius, BlipRgba, Rotation);
         }
 
         public void CreateArea()
@@ -61,15 +62,15 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 /* GANGWAR TK */
-                this.TKColShapeModel = RageAPI.CreateColShapeSphere(this.TK, gangwar.v2.GangwarManager.TKRange);
+                TkColShapeModel = RageApi.CreateColShapeSphere(Tk, GangwarManager.TkRange);
                 //ToDo Create Marker NAPI.Marker.CreateMarker(3, this.TK, new Position(0, 0, 0), new Position(0, 0, 0), 0.75f, new Rgba(200, 200, 200, 150), true, 0);
 
-                RageAPI.CreateTextLabel("TK", new Position(this.TK.X, this.TK.Y, this.TK.Z + 0.13f), 20.0f, 2f, 4, new int[] { 0, 150, 200, 255 });
-                this.TKColShapeModel.vnxSetElementData(gangwar.v2.GangwarManager.TKType, true);
+                RageApi.CreateTextLabel("TK", new Position(Tk.X, Tk.Y, Tk.Z + 0.13f), 20.0f, 2f, 4, new[] { 0, 150, 200, 255 });
+                TkColShapeModel.VnxSetElementData(GangwarManager.TkType, true);
 
                 /* GANGWAR GEBIET */
-                this.AreaColShapeModel = RageAPI.CreateColShapeSphere(this.Position, this.Radius);
-                this.AreaColShapeModel.vnxSetElementData(gangwar.v2.GangwarManager.AreaType, true);
+                AreaColShapeModel = RageApi.CreateColShapeSphere(Position, Radius);
+                AreaColShapeModel.VnxSetElementData(GangwarManager.AreaType, true);
             }
             catch { }
         }
@@ -78,14 +79,14 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (!this.isRunning)
+                if (!IsRunning)
                 {
                     if (factionId > 0 && factionId <= 13)
                     {
                         // Change everything
-                        this.IDOwner = factionId;
-                        this.BlipRgba = Allround.GetFactionFactionBlipRgba(factionId);
-                        Database.UpdateGW(this);
+                        IdOwner = factionId;
+                        BlipRgba = Allround.GetFactionFactionBlipRgba(factionId);
+                        Database.Database.UpdateGw(this);
                         Update();
 
                         return true;
@@ -96,9 +97,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return false; }
         }
 
-        public bool isAttackable()
+        public bool IsAttackable()
         {
-            if (DateTime.Now <= this.Cooldown)
+            if (DateTime.Now <= Cooldown)
             {
                 return false;
             }
@@ -106,36 +107,36 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             return true;
         }
 
-        public void setCooldown(double minutes)
+        public void SetCooldown(double minutes)
         {
-            this.Cooldown = DateTime.Now.AddMinutes(minutes);
+            Cooldown = DateTime.Now.AddMinutes(minutes);
         }
 
-        public GangwarRound GetCurrentRound() => this.Rounds[0];
+        public GangwarRound GetCurrentRound() => Rounds[0];
 
         public TimeSpan GetLeftTime()
         {
-            return DateTime.Now - this.Cooldown;
+            return DateTime.Now - Cooldown;
         }
 
         public void Inform(VnXPlayer player)
         {
-            string Gang_Rgba_Chat = Factions.FactionChat.GetFactionRgba(this.IDOwner);
-            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gebiet: " + this.Name);
-            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Gang: " + factions.Faction.GetFactionNameById(this.IDOwner));
-            player.SendTranslatedChatMessage(Gang_Rgba_Chat + "Nächster Attack möglich: " + this.Cooldown);
+            string gangRgbaChat = FactionChat.GetFactionRgba(IdOwner);
+            player.SendTranslatedChatMessage(gangRgbaChat + "Gebiet: " + Name);
+            player.SendTranslatedChatMessage(gangRgbaChat + "Gang: " + Faction.GetFactionNameById(IdOwner));
+            player.SendTranslatedChatMessage(gangRgbaChat + "Nächster Attack möglich: " + Cooldown);
         }
 
         public Rgba GangwarIVehicleRgbas(int factionId)
         {
             return factionId switch
             {
-                Constants.FACTION_LCN => new Rgba(80, 80, 80, 255),
-                Constants.FACTION_YAKUZA => new Rgba(100, 0, 0, 255),
-                Constants.FACTION_NARCOS => new Rgba(225, 225, 0, 255),
-                Constants.FACTION_SAMCRO => new Rgba(100, 50, 100, 255),
-                Constants.FACTION_BALLAS => new Rgba(138, 43, 226, 255),
-                Constants.FACTION_COMPTON => new Rgba(85, 107, 47, 255),
+                Constants.FactionLcn => new Rgba(80, 80, 80, 255),
+                Constants.FactionYakuza => new Rgba(100, 0, 0, 255),
+                Constants.FactionNarcos => new Rgba(225, 225, 0, 255),
+                Constants.FactionSamcro => new Rgba(100, 50, 100, 255),
+                Constants.FactionBallas => new Rgba(138, 43, 226, 255),
+                Constants.FactionCompton => new Rgba(85, 107, 47, 255),
                 _ => new Rgba(255, 255, 255, 255),
             };
         }
@@ -143,22 +144,22 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                this.IVehicles = new VehicleModel[]
+                Vehicles = new[]
                 {
-                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
-                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y+10, this.TK.Z), new Rotation(0, 0, 355)),
-                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X+10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
-                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(this.TK.X-10, this.TK.Y-10, this.TK.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(Tk.X+10, Tk.Y+10, Tk.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(Tk.X-10, Tk.Y+10, Tk.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(Tk.X+10, Tk.Y-10, Tk.Z), new Rotation(0, 0, 355)),
+                    (VehicleModel)Alt.CreateVehicle(AltV.Net.Enums.VehicleModel.Burrito3, new Position(Tk.X-10, Tk.Y-10, Tk.Z), new Rotation(0, 0, 355)),
                 };
 
-                foreach (var veh in this.IVehicles)
+                foreach (var veh in Vehicles)
                 {
                     veh.EngineOn = true;
                     veh.PrimaryColorRgb = GangwarIVehicleRgbas(GetCurrentRound().AttackerId);
                     veh.Kms = 0;
                     veh.Gas = 100;
                     veh.NotSave = false;
-                    veh.Dimension = GangwarManager.GW_DIM;
+                    veh.Dimension = GangwarManager.GwDim;
                 }
             }
             catch { }
@@ -168,10 +169,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (var veh in this.IVehicles)
+                foreach (var veh in Vehicles)
                 {
                     //veh.Remove();
-                    RageAPI.DeleteVehicleThreadSafe(veh);
+                    RageApi.DeleteVehicleThreadSafe(veh);
                 }
             }
             catch { }
@@ -181,7 +182,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (var veh in this.IVehicles)
+                foreach (var veh in Vehicles)
                 {
                     veh.Frozen = state;
                     veh.Locked = state;
@@ -194,22 +195,22 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void Stop()
         {
-            this.RemoveElements();
-            this.isRunning = false;
-            this.GetCurrentRound().Stop();
+            RemoveElements();
+            IsRunning = false;
+            GetCurrentRound().Stop();
         }
 
         public void Attack(VnXPlayer player)
         {
             try
             {
-                if (!this.isRunning)
+                if (!IsRunning)
                 {
-                    this.isRunning = true;
-                    this.Rounds.Insert(0, new GangwarRound(this, this.IDOwner, player.Reallife.Faction));
+                    IsRunning = true;
+                    Rounds.Insert(0, new GangwarRound(this, IdOwner, player.Reallife.Faction));
 
-                    this.CreateIVehicles();
-                    this.AddPlayer(player);
+                    CreateIVehicles();
+                    AddPlayer(player);
                 }
             }
             catch { }
@@ -219,9 +220,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (!this.GetCurrentRound().isPlayerJoined(player))
+                if (!GetCurrentRound().IsPlayerJoined(player))
                 {
-                    this.GetCurrentRound().AddPlayer(player);
+                    GetCurrentRound().AddPlayer(player);
                 }
             }
             catch { }

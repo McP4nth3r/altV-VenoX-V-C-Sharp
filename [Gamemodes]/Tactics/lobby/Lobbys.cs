@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Tactics.Lobby
 {
@@ -19,21 +21,21 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             { 3, Delta },
         };
 
-        public static void OnSelectedTacticLobby(VnXPlayer player, int Lobby)
+        public static void OnSelectedTacticLobby(VnXPlayer player, int lobby)
         {
             try
             {
-                TacticLobbys.TryGetValue(Lobby, out Round val);
+                TacticLobbys.TryGetValue(lobby, out Round val);
                 if (val is null) return;
                 val.OnSelectedTacticsGM(player);
                 player.Tactics.CurrentLobby = val;
                 // Debug : 
-                Core.Debug.OutputDebugString("Alpha Map-Name : " + Alpha.CurrentMap.Map_Name);
-                Core.Debug.OutputDebugString("Beta Map-Name : " + Beta.CurrentMap.Map_Name);
-                Core.Debug.OutputDebugString("Gamma Map-Name : " + Gamma.CurrentMap.Map_Name);
-                Core.Debug.OutputDebugString("Delta Map-Name : " + Delta.CurrentMap.Map_Name);
+                Debug.OutputDebugString("Alpha Map-Name : " + Alpha.CurrentMap.MapName);
+                Debug.OutputDebugString("Beta Map-Name : " + Beta.CurrentMap.MapName);
+                Debug.OutputDebugString("Gamma Map-Name : " + Gamma.CurrentMap.MapName);
+                Debug.OutputDebugString("Delta Map-Name : " + Delta.CurrentMap.MapName);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

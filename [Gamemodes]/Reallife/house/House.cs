@@ -1,31 +1,31 @@
-﻿using AltV.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Language_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.house
 {
     public class House : IScript
     {
-        public static List<HouseModel> houseList;
+        public static List<HouseModel> HouseList;
 
         public static async void LoadDatabaseHouses()
         {
-            houseList = Database.LoadAllHouses();
-            foreach (HouseModel houseModel in houseList)
+            HouseList = Database.Database.LoadAllHouses();
+            foreach (HouseModel houseModel in HouseList)
             {
                 string houseLabelText = await GetHouseLabelText(houseModel);
-                RageAPI.CreateTextLabel(houseLabelText, houseModel.position, 20.0f, 0.75f, 4, new int[] { 255, 255, 255, 255 }, houseModel.Dimension, null, true, true, houseModel.id);
+                RageApi.CreateTextLabel(houseLabelText, houseModel.Position, 20.0f, 0.75f, 4, new[] { 255, 255, 255, 255 }, houseModel.Dimension, null, true, true, houseModel.Id);
                 //ToDo: Requesting Offices NAPI.World.RequestIpl (houseModel.ipl);
             }
         }
@@ -33,9 +33,9 @@ namespace VenoXV._Gamemodes_.Reallife.house
         public static HouseModel GetHouseById(int id)
         {
             HouseModel house = null;
-            foreach (HouseModel houseModel in houseList)
+            foreach (HouseModel houseModel in HouseList)
             {
-                if (houseModel.id == id)
+                if (houseModel.Id == id)
                 {
                     house = houseModel;
                     break;
@@ -47,12 +47,12 @@ namespace VenoXV._Gamemodes_.Reallife.house
         public static HouseModel GetClosestHouse(VnXPlayer player, float distance = 1.5f)
         {
             HouseModel house = null;
-            foreach (HouseModel houseModel in houseList)
+            foreach (HouseModel houseModel in HouseList)
             {
-                if (player.Position.Distance(houseModel.position) < distance)
+                if (player.Position.Distance(houseModel.Position) < distance)
                 {
                     house = houseModel;
-                    distance = player.Position.Distance(houseModel.position);
+                    distance = player.Position.Distance(houseModel.Position);
                 }
             }
             return house;
@@ -63,11 +63,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
             try
             {
                 Position exit = new Position(0, 0, 0);
-                foreach (HouseIplModel houseIpl in Constants.HOUSE_IPL_LIST)
+                foreach (HouseIplModel houseIpl in Constants.HouseIplList)
                 {
-                    if (houseIpl.ipl == ipl)
+                    if (houseIpl.Ipl == ipl)
                     {
-                        exit = houseIpl.position;
+                        exit = houseIpl.Position;
                         break;
                     }
                 }
@@ -80,57 +80,55 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             try
             {
-                return (player.Username == house.owner || player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == house.id);
+                return (player.Username == house.Owner || player.VnxGetElementData<int>(EntityData.PlayerRentHouse) == house.Id);
             }
             catch { return false; }
         }
 
-        public static async Task<string> GetHouseLabelText(HouseModel house = null, _Language_.Main.Languages pair = _Language_.Main.Languages.German, int houseId = 0)
+        public static async Task<string> GetHouseLabelText(HouseModel house = null, Main.Languages pair = Main.Languages.German, int houseId = 0)
         {
             try
             {
                 string label = string.Empty;
 
-                if (pair is _Language_.Main.Languages.German)
+                if (pair is Main.Languages.German)
                 {
 
-                    switch (house.status)
+                    switch (house.Status)
                     {
-                        case Constants.HOUSE_STATE_NONE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer : ~w~" + house.owner;
+                        case Constants.HouseStateNone:
+                            label = "~b~" + house.Name + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~Besitzer : ~w~" + house.Owner;
                             break;
-                        case Constants.HOUSE_STATE_RENTABLE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.rental + " $";
+                        case Constants.HouseStateRentable:
+                            label = "~b~" + house.Name + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~Besitzer :~w~" + house.Owner + "\n" + "~b~Zu Vermieten" + "\n" + "~b~Preis : ~w~" + house.Rental + " $";
                             //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
                             break;
-                        case Constants.HOUSE_STATE_BUYABLE:
-                            label = "~b~" + house.name + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : ~w~" + house.price + " $";
+                        case Constants.HouseStateBuyable:
+                            label = "~b~" + house.Name + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~Zu Verkaufen" + "\n" + "~b~Preis : ~w~" + house.Price + " $";
                             break;
                     }
                     return label;
                 }
-                else
-                {
-                    if (house is null)
-                        house = houseList.FirstOrDefault(x => x.id == houseId);
 
-                    // if house couldn't be found.
-                    if (house is null) return "";
-                    switch (house.status)
-                    {
-                        case Constants.HOUSE_STATE_NONE:
-                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Besitzer") + " : ~w~" + house.owner;
-                            break;
-                        case Constants.HOUSE_STATE_RENTABLE:
-                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~Besitzer :~w~" + house.owner + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Vermieten") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.rental + " $";
-                            //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
-                            break;
-                        case Constants.HOUSE_STATE_BUYABLE:
-                            label = "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, house.name) + "\n" + "~b~[ID] : ~w~" + house.id + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Zu Verkaufen") + "\n" + "~b~" + await _Language_.Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.price + " $";
-                            break;
-                    }
-                    return label;
+                if (house is null)
+                    house = HouseList.FirstOrDefault(x => x.Id == houseId);
+
+                // if house couldn't be found.
+                if (house is null) return "";
+                switch (house.Status)
+                {
+                    case Constants.HouseStateNone:
+                        label = "~b~" + await Main.GetTranslatedTextAsync(pair, house.Name) + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~" + await Main.GetTranslatedTextAsync(pair, "Besitzer") + " : ~w~" + house.Owner;
+                        break;
+                    case Constants.HouseStateRentable:
+                        label = "~b~" + await Main.GetTranslatedTextAsync(pair, house.Name) + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~Besitzer :~w~" + house.Owner + "\n" + "~b~" + await Main.GetTranslatedTextAsync(pair, "Zu Vermieten") + "\n" + "~b~" + await Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.Rental + " $";
+                        //label = house.name + "\n" + Messages.GEN_STATE_RENT + "\n" + house.rental + "$";
+                        break;
+                    case Constants.HouseStateBuyable:
+                        label = "~b~" + await Main.GetTranslatedTextAsync(pair, house.Name) + "\n" + "~b~[ID] : ~w~" + house.Id + "\n" + "~b~" + await Main.GetTranslatedTextAsync(pair, "Zu Verkaufen") + "\n" + "~b~" + await Main.GetTranslatedTextAsync(pair, "Preis") + " : ~w~" + house.Price + " $";
+                        break;
                 }
+                return label;
             }
             catch { return ""; }
         }
@@ -140,24 +138,24 @@ namespace VenoXV._Gamemodes_.Reallife.house
         {
             try
             {
-                if (house.status == Constants.HOUSE_STATE_BUYABLE)
+                if (house.Status == Constants.HouseStateBuyable)
                 {
-                    if (player.Reallife.Bank >= house.price)
+                    if (player.Reallife.Bank >= house.Price)
                     {
                         string labelText = await GetHouseLabelText(house);
-                        player.Reallife.Bank -= house.price;
-                        logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.id + " gekauft für " + house.price + " $ ");
-                        house.status = Constants.HOUSE_STATE_NONE;
-                        house.owner = player.Username;
-                        house.locked = true;
+                        player.Reallife.Bank -= house.Price;
+                        Logfile.WriteLogs("house", player.Username + " hat sich Haus ID " + house.Id + " gekauft für " + house.Price + " $ ");
+                        house.Status = Constants.HouseStateNone;
+                        house.Owner = player.Username;
+                        house.Locked = true;
                         //house.houseLabel.Text = GetHouseLabelText(house);
                         // Update the house
-                        Database.UpdateHouse(house);
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
+                        Database.Database.UpdateHouse(house);
+                        player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 125, 0) + "Glückwunsch,du hast das Haus gekauft!Für mehr Infos, öffne das Hilfemenü!");
                     }
                     else
                     {
-                        player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Du hast nicht genug Geld!");
+                        player.SendTranslatedChatMessage(Constants.RgbaError + "Du hast nicht genug Geld!");
                     }
                 }
             }
@@ -171,14 +169,14 @@ namespace VenoXV._Gamemodes_.Reallife.house
             try
             {
                 // Get all the houses
-                foreach (HouseModel house in houseList)
+                foreach (HouseModel house in HouseList)
                 {
-                    if (house.owner == player.Username)
+                    if (house.Owner == player.Username)
                     {
                         _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits ein Haus! nutze /sellhouse um es zu verkaufen!");
                         return;
                     }
-                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.Position.Distance(house.Position) <= 1.5f && player.Dimension == house.Dimension)
                     {
                         BuyHouseS(player, house);
                         return;
@@ -232,23 +230,23 @@ namespace VenoXV._Gamemodes_.Reallife.house
             try
             {
                 // Get all the houses
-                foreach (HouseModel house in houseList)
+                foreach (HouseModel house in HouseList)
                 {
-                    if (player.Position.Distance(house.position) <= 1.5f && player.Dimension == house.Dimension)
+                    if (player.Position.Distance(house.Position) <= 1.5f && player.Dimension == house.Dimension)
                     {
-                        if (house.owner == player.Username)
+                        if (house.Owner == player.Username)
                         {
-                            string State = "Abgeschlossen!";
-                            if (house.locked)
+                            string state = "Abgeschlossen!";
+                            if (house.Locked)
                             {
-                                house.locked = false;
-                                State = "Aufgeschlossen!";
+                                house.Locked = false;
+                                state = "Aufgeschlossen!";
                             }
                             else
                             {
-                                house.locked = true;
+                                house.Locked = true;
                             }
-                            player.SendTranslatedChatMessage("Haus " + State);
+                            player.SendTranslatedChatMessage("Haus " + state);
                         }
                         return;
                     }
@@ -264,16 +262,16 @@ namespace VenoXV._Gamemodes_.Reallife.house
             {
                 string status = "Aufgeschlossen";
                 // Get all the houses
-                foreach (HouseModel house in houseList)
+                foreach (HouseModel house in HouseList)
                 {
-                    if (house.owner == player.Username)
+                    if (house.Owner == player.Username)
                     {
-                        if (house.locked == true) { status = "Abgeschlossen"; }
+                        if (house.Locked) { status = "Abgeschlossen"; }
                         player.SendTranslatedChatMessage("__________________________________________");
-                        player.SendTranslatedChatMessage("HAUS : " + house.name);
-                        player.SendTranslatedChatMessage("HAUS ID : " + house.id);
+                        player.SendTranslatedChatMessage("HAUS : " + house.Name);
+                        player.SendTranslatedChatMessage("HAUS ID : " + house.Id);
                         player.SendTranslatedChatMessage("HAUS status : " + status);
-                        player.SendTranslatedChatMessage("HAUS Miete  : " + house.rental + " $");
+                        player.SendTranslatedChatMessage("HAUS Miete  : " + house.Rental + " $");
                         player.SendTranslatedChatMessage("__________________________________________");
                     }
                 }
@@ -292,18 +290,18 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 int playerId = player.UID;
                 int sex = player.Sex;
 
-                List<ClothesModel> clothesList = Main.GetPlayerClothes(playerId).Where(c => c.type == type && c.slot == slot).ToList();
+                List<ClothesModel> clothesList = Globals.Main.GetPlayerClothes(playerId).Where(c => c.Type == type && c.Slot == slot).ToList();
 
                 if (clothesList.Count > 0)
                 {
-                    List<string> clothesNames = Main.GetClothesNames(clothesList);
+                    List<string> clothesNames = Globals.Main.GetClothesNames(clothesList);
 
                     // Show player's clothes
                     VenoX.TriggerClientEvent(player, "showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage(Constants.Rgba_ERROR + "Keine Klamotten im Klamottenschrank");
+                    player.SendTranslatedChatMessage(Constants.RgbaError + "Keine Klamotten im Klamottenschrank");
                 }
             }
             catch { }
@@ -317,29 +315,25 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 int playerId = player.UID;
 
                 // Replace player clothes for the new ones
-                foreach (ClothesModel clothes in Main.clothesList)
+                foreach (ClothesModel clothes in Globals.Main.ClothesList)
                 {
-                    if (clothes.id == clothesId)
+                    if (clothes.Id == clothesId)
                     {
-                        clothes.dressed = true;
-                        if (clothes.type == 0)
+                        clothes.Dressed = true;
+                        if (clothes.Type == 0)
                         {
                             //ToDo Sie Clientseitig Laden! : player.SetClothes(clothes.slot, clothes.drawable, clothes.texture);
                         }
-                        else
-                        {
-                            //player.SetAccessories(clothes.slot, clothes.drawable, clothes.texture);
-                        }
 
                         // Update dressed clothes into database
-                        Database.UpdateClothes(clothes);
+                        Database.Database.UpdateClothes(clothes);
                     }
-                    else if (clothes.id != clothesId && clothes.dressed)
+                    else if (clothes.Id != clothesId && clothes.Dressed)
                     {
-                        clothes.dressed = false;
+                        clothes.Dressed = false;
 
                         // Update dressed clothes into database
-                        Database.UpdateClothes(clothes);
+                        Database.Database.UpdateClothes(clothes);
                     }
                 }
             }
@@ -350,16 +344,16 @@ namespace VenoXV._Gamemodes_.Reallife.house
         [Command("setrent")]
         public void RentableCommand(VnXPlayer player, int amount = 0)
         {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED) == 0)
+            if (player.VnxGetElementData<int>(EntityData.PlayerHouseEntered) == 0)
             {
                 _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dein Haus ist jetzt nicht mehr Mietbar!");
             }
             else
             {
 
-                int houseId = player.vnxGetElementData<int>(EntityData.PLAYER_HOUSE_ENTERED);
+                int houseId = player.VnxGetElementData<int>(EntityData.PlayerHouseEntered);
                 HouseModel house = GetHouseById(houseId);
-                if (house == null || house.owner != player.Username)
+                if (house == null || house.Owner != player.Username)
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dir gehört kein Haus!");
                 }
@@ -367,12 +361,12 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 {
                     if (amount <= 5000)
                     {
-                        house.rental = amount;
-                        house.status = Constants.HOUSE_STATE_RENTABLE;
-                        house.tenants = 2;
+                        house.Rental = amount;
+                        house.Status = Constants.HouseStateRentable;
+                        house.Tenants = 2;
 
                         //house.houseLabel.Text = GetHouseLabelText(house);
-                        Database.UpdateHouse(house);
+                        Database.Database.UpdateHouse(house);
                     }
                     else
                     {
@@ -399,25 +393,25 @@ namespace VenoXV._Gamemodes_.Reallife.house
         [Command("renthouse")]
         public void RentCommand(VnXPlayer player)
         {
-            foreach (HouseModel house in houseList)
+            foreach (HouseModel house in HouseList)
             {
-                if (player.Position.Distance(house.position) <= 1.5 && player.Dimension == house.Dimension)
+                if (player.Position.Distance(house.Position) <= 1.5 && player.Dimension == house.Dimension)
                 {
-                    if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) == 0)
+                    if (player.VnxGetElementData<int>(EntityData.PlayerRentHouse) == 0)
                     {
-                        if (house.status != Constants.HOUSE_STATE_RENTABLE)
+                        if (house.Status != Constants.HouseStateRentable)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Dieses Haus steht nicht zur Vermietung!");
                         }
-                        else if (player.Reallife.Money < house.rental)
+                        else if (player.Reallife.Money < house.Rental)
                         {
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                         }
                         else
                         {
-                            int money = player.Reallife.Money - house.rental;
-                            player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, house.id);
-                            player.vnxSetStreamSharedElementData(Core.VnX.PLAYER_MONEY, money);
+                            int money = player.Reallife.Money - house.Rental;
+                            player.VnxSetElementData(EntityData.PlayerRentHouse, house.Id);
+                            player.VnxSetStreamSharedElementData(VnX.PlayerMoney, money);
                             //house.tenants--;
 
                             /*if (house.tenants == 0)
@@ -437,10 +431,8 @@ namespace VenoXV._Gamemodes_.Reallife.house
                         Database.UpdateHouse(house);
 
                     }*/
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits eine Wohnung!");
-                    }
+
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits eine Wohnung!");
                 }
             }
         }
@@ -450,15 +442,15 @@ namespace VenoXV._Gamemodes_.Reallife.house
 
         public static void UnrentFromHaus(VnXPlayer player)
         {
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) <= 0)
+            if (player.VnxGetElementData<int>(EntityData.PlayerRentHouse) <= 0)
             {
-                player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, 0);
+                player.VnxSetElementData(EntityData.PlayerRentHouse, 0);
                 //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0,200,0) + "DEBUG RENT");
             }
-            if (player.vnxGetElementData<int>(EntityData.PLAYER_RENT_HOUSE) != 0)
+            if (player.VnxGetElementData<int>(EntityData.PlayerRentHouse) != 0)
             {
-                player.vnxSetElementData(EntityData.PLAYER_RENT_HOUSE, 0);
-                player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Du hast dich Erfolgreich ausgemietet!");
+                player.VnxSetElementData(EntityData.PlayerRentHouse, 0);
+                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Du hast dich Erfolgreich ausgemietet!");
                 //Database.KickTenantsOut(house.id);
             }
         }

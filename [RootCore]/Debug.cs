@@ -1,28 +1,29 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using AltV.Net;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 
 namespace VenoXV.Core
 {
     public class Debug : IScript
     {
-        public static bool DEBUG_MODE_ENABLED = true;
-        public static bool DEBUG_MODE_LOG = false;
+        public static bool DebugModeEnabled = true;
+        public static bool DebugModeLog = false;
         public static void OutputDebugString(string textt)
         {
             try
             {
-                if (!DEBUG_MODE_ENABLED) return;
+                if (!DebugModeEnabled) return;
                 Console.WriteLine("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + textt);
-                string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
-                if (DEBUG_MODE_LOG)
+                string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
+                if (DebugModeLog)
                 {
 
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[1]);
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                    Logfile.WriteLogs("DebugStrings", text[0]);
+                    Logfile.WriteLogs("DebugStrings", text[1]);
+                    Logfile.WriteLogs("DebugStrings", text[0]);
                 }
             }
             catch { }
@@ -31,8 +32,8 @@ namespace VenoXV.Core
         {
             try
             {
-                if (!DEBUG_MODE_ENABLED) return;
-                string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "|" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "| " + message };
+                if (!DebugModeEnabled) return;
+                string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "|" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "| " + message };
                 var pieces = Regex.Split(text[1], @"(\[[^\]]*\])");
                 for (int i = 0; i < pieces.Length; i++)
                 {
@@ -46,32 +47,32 @@ namespace VenoXV.Core
                     Console.ResetColor();
                 }
                 Console.WriteLine();
-                if (DEBUG_MODE_LOG)
+                if (DebugModeLog)
                 {
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[1]);
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("DebugStrings", text[0]);
+                    Logfile.WriteLogs("DebugStrings", text[0]);
+                    Logfile.WriteLogs("DebugStrings", text[1]);
+                    Logfile.WriteLogs("DebugStrings", text[0]);
                 }
             }
             catch { }
         }
 
-        public static void CatchExceptions(Exception ex, [CallerMemberName] string FunctionName = "")
+        public static void CatchExceptions(Exception ex, [CallerMemberName] string functionName = "")
         {
-            if (!DEBUG_MODE_ENABLED) return;
-            string[] text = new string[] { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "[EXCEPTION " + FunctionName + "] " + ex.Message, "[EXCEPTION " + FunctionName + "] " + ex.StackTrace };
+            if (!DebugModeEnabled) return;
+            string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "[EXCEPTION " + functionName + "] " + ex.Message, "[EXCEPTION " + functionName + "] " + ex.StackTrace };
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(text[0]);
             Console.WriteLine(text[1]);
             Console.WriteLine(text[2]);
             Console.WriteLine(text[0]);
             Console.ResetColor();
-            if (DEBUG_MODE_LOG)
+            if (DebugModeLog)
             {
-                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[0]);
-                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[1]);
-                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[2]);
-                _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("Exceptions", text[0]);
+                Logfile.WriteLogs("Exceptions", text[0]);
+                Logfile.WriteLogs("Exceptions", text[1]);
+                Logfile.WriteLogs("Exceptions", text[2]);
+                Logfile.WriteLogs("Exceptions", text[0]);
             }
         }
 
@@ -85,7 +86,7 @@ namespace VenoXV.Core
                 content = content.Remove(content.Length - 1) + "," + strLog + "]";
                 File.WriteAllText(logFilePath, content);
             }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
+            catch (Exception ex) { CatchExceptions(ex); }
         }
 
         public static void WriteAllText(string logname, string strLog)
@@ -97,7 +98,7 @@ namespace VenoXV.Core
                     logFilePath = logFilePath + logname + "." + "json";
                     File.WriteAllText(logFilePath, strLog);
                 }
-                catch (Exception ex) { Debug.CatchExceptions(ex); }
+                catch (Exception ex) { CatchExceptions(ex); }
             }
         }
     }

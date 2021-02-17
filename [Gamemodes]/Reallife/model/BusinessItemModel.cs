@@ -4,31 +4,31 @@ namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class BusinessItemModel
     {
-        public string description { get; set; }
-        public string hash { get; set; }
-        public int type { get; set; }
-        public int products { get; set; }
-        public float weight { get; set; }
-        public int health { get; set; }
-        public int uses { get; set; }
-        public Position position { get; set; }
-        public Rotation rotation { get; set; }
-        public int business { get; set; }
-        public float alcoholLevel { get; set; }
+        public string Description { get; set; }
+        public string Hash { get; set; }
+        public int Type { get; set; }
+        public int Products { get; set; }
+        public float Weight { get; set; }
+        public int Health { get; set; }
+        public int Uses { get; set; }
+        public Position Position { get; set; }
+        public Rotation Rotation { get; set; }
+        public int Business { get; set; }
+        public float AlcoholLevel { get; set; }
 
         public BusinessItemModel(string description, string hash, int type, int products, float weight, int health, int uses, Position position, Rotation rotation, int business, float alcoholLevel)
         {
-            this.description = description;
-            this.hash = hash;
-            this.type = type;
-            this.products = products;
-            this.weight = weight;
-            this.health = health;
-            this.uses = uses;
-            this.position = position;
-            this.rotation = rotation;
-            this.business = business;
-            this.alcoholLevel = alcoholLevel;
+            this.Description = description;
+            this.Hash = hash;
+            this.Type = type;
+            this.Products = products;
+            this.Weight = weight;
+            this.Health = health;
+            this.Uses = uses;
+            this.Position = position;
+            this.Rotation = rotation;
+            this.Business = business;
+            this.AlcoholLevel = alcoholLevel;
         }
     }
 }

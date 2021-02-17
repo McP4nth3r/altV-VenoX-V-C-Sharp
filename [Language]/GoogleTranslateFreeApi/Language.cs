@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoogleTranslateFreeApi
 {
@@ -21,7 +18,7 @@ namespace GoogleTranslateFreeApi
 		/// ISO639  table: <see href="http://stnsoft.com/Muxman/mxp/ISO_639.html"/>
 		/// </summary>
 		[DataMember]
-		public string ISO639 { get; }
+		public string Iso639 { get; }
 
 		static Language()
 		{
@@ -45,12 +42,12 @@ namespace GoogleTranslateFreeApi
 		public Language(string fullName, string iso639)
 		{
 			FullName = fullName;
-			ISO639 = iso639;
+			Iso639 = iso639;
 		}
 
 		protected bool Equals(Language other)
 		{
-			return string.Equals(ISO639, other.ISO639, StringComparison.OrdinalIgnoreCase);
+			return string.Equals(Iso639, other.Iso639, StringComparison.OrdinalIgnoreCase);
 		}
 
 		public override bool Equals(object obj)
@@ -64,12 +61,12 @@ namespace GoogleTranslateFreeApi
 
 		public override int GetHashCode()
 		{
-			return StringComparer.OrdinalIgnoreCase.GetHashCode(ISO639);
+			return StringComparer.OrdinalIgnoreCase.GetHashCode(Iso639);
 		}
 
 		public override string ToString()
 		{
-			return $"FullName: {FullName}, ISO639: {ISO639}";
+			return $"FullName: {FullName}, ISO639: {Iso639}";
 		}
 	}
 }

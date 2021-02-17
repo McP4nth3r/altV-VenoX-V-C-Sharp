@@ -1,12 +1,14 @@
-﻿using AltV.Net;
-using AltV.Net.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net;
+using AltV.Net.Enums;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Inventory = VenoXV._Globals_.Inventory.Inventory;
 
 namespace VenoXV._Gamemodes_.Reallife.weapons
 {
@@ -14,44 +16,44 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
     {
         public static Dictionary<string, WeaponModel> WeaponHashList = new Dictionary<string, WeaponModel>
         {
-            { Constants.ITEM_HASH_SWITCHBLADE, WeaponModel.Switchblade },
-            { Constants.ITEM_HASH_NIGHTSTICK, WeaponModel.Nightstick },
-            { Constants.ITEM_HASH_TAZER, WeaponModel.StunGun },
-            { Constants.ITEM_HASH_PISTOLE, WeaponModel.Pistol },
-            { Constants.ITEM_HASH_PISTOLE50, WeaponModel.Pistol50 },
-            { Constants.ITEM_HASH_REVOLVER, WeaponModel.HeavyRevolver },
-            { Constants.ITEM_HASH_PDW, WeaponModel.CombatPDW },
-            { Constants.ITEM_HASH_MP5, WeaponModel.SMG },
-            { Constants.ITEM_HASH_ADVANCEDRIFLE, WeaponModel.AdvancedRifle },
-            { Constants.ITEM_HASH_KARABINER, WeaponModel.CarbineRifle },
-            { Constants.ITEM_HASH_AK47, WeaponModel.AssaultRifle },
-            { Constants.ITEM_HASH_RIFLE, WeaponModel.Musket },
+            { Constants.ItemHashSwitchblade, WeaponModel.Switchblade },
+            { Constants.ItemHashNightstick, WeaponModel.Nightstick },
+            { Constants.ItemHashTazer, WeaponModel.StunGun },
+            { Constants.ItemHashPistole, WeaponModel.Pistol },
+            { Constants.ItemHashPistole50, WeaponModel.Pistol50 },
+            { Constants.ItemHashRevolver, WeaponModel.HeavyRevolver },
+            { Constants.ItemHashPdw, WeaponModel.CombatPDW },
+            { Constants.ItemHashMp5, WeaponModel.SMG },
+            { Constants.ItemHashAdvancedrifle, WeaponModel.AdvancedRifle },
+            { Constants.ItemHashKarabiner, WeaponModel.CarbineRifle },
+            { Constants.ItemHashAk47, WeaponModel.AssaultRifle },
+            { Constants.ItemHashRifle, WeaponModel.Musket },
         };
-        public static WeaponModel GetWeaponByHashName(string HashName)
+        public static WeaponModel GetWeaponByHashName(string hashName)
         {
-            if (!WeaponHashList.ContainsKey(HashName)) { Debug.OutputDebugString("Weapon not Found : " + HashName); return WeaponModel.Fist; }
-            return WeaponHashList[HashName];
+            if (!WeaponHashList.ContainsKey(hashName)) { Debug.OutputDebugString("Weapon not Found : " + hashName); return WeaponModel.Fist; }
+            return WeaponHashList[hashName];
         }
 
         private static void GivePistolAmmo(VnXPlayer player, int ammo)
         {
             int playerId = player.UID;
-            foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+            foreach (ItemModel item in Inventory.DatabaseItems.ToList())
             {
-                if (item.UID == playerId)
+                if (item.Uid == playerId)
                 {
                     if (item.Type == ItemType.Gun || item.Type == ItemType.Useable)
                     {
                         switch (item.Hash)
                         {
-                            case Constants.ITEM_HASH_PISTOLE:
-                                RageAPI.GivePlayerWeapon(player, WeaponModel.Pistol, ammo);
+                            case Constants.ItemHashPistole:
+                                player.GivePlayerWeapon(WeaponModel.Pistol, ammo);
                                 break;
-                            case Constants.ITEM_HASH_PISTOLE50:
-                                RageAPI.GivePlayerWeapon(player, WeaponModel.Pistol50, ammo);
+                            case Constants.ItemHashPistole50:
+                                player.GivePlayerWeapon(WeaponModel.Pistol50, ammo);
                                 break;
-                            case Constants.ITEM_HASH_REVOLVER:
-                                RageAPI.GivePlayerWeapon(player, WeaponModel.HeavyRevolver, ammo);
+                            case Constants.ItemHashRevolver:
+                                player.GivePlayerWeapon(WeaponModel.HeavyRevolver, ammo);
                                 break;
                         }
                     }
@@ -63,14 +65,14 @@ namespace VenoXV._Gamemodes_.Reallife.weapons
             try
             {
                 int playerId = player.UID;
-                foreach (ItemModel item in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+                foreach (ItemModel item in Inventory.DatabaseItems.ToList())
                 {
-                    if (item.UID == playerId)
+                    if (item.Uid == playerId)
                     {
                         if (item.Type == ItemType.Gun || item.Type == ItemType.Useable)
                         {
-                            if (item.Hash == Constants.ITEM_HASH_PISTOL_AMMO) { GivePistolAmmo(player, item.Amount); }
-                            else { RageAPI.GivePlayerWeapon(player, GetWeaponByHashName(item.Hash), item.Amount); }
+                            if (item.Hash == Constants.ItemHashPistolAmmo) { GivePistolAmmo(player, item.Amount); }
+                            else { player.GivePlayerWeapon(GetWeaponByHashName(item.Hash), item.Amount); }
                         }
                     }
                 }

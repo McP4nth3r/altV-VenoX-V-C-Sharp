@@ -2,9 +2,9 @@
 
 namespace VenoXV._RootCore_.Models
 {
-    public class NPCModel
+    public class NpcModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Vector3 Position { get; set; }
         public Vector3 Rotation { get; set; }

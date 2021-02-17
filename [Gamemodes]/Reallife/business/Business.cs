@@ -1,43 +1,43 @@
-﻿using AltV.Net;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using AltV.Net;
+using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.business
 {
     public class Business : IScript
     {
-        public static List<BusinessModel> businessList;
+        public static List<BusinessModel> BusinessList;
         public static int GetClothesProductsPrice(int id, int sex, int type, int slot)
         {
             try
             {
                 int productsPrice = 10000;
-                foreach (BusinessClothesModel clothesModel in Constants.BUSINESS_CLOTHES_LIST)
+                foreach (BusinessClothesModel clothesModel in Constants.BusinessClothesList)
                 {
-                    if (clothesModel.type == type && (clothesModel.sex == sex || Constants.SEX_NONE == clothesModel.sex) && clothesModel.bodyPart == slot && clothesModel.clothesId == id)
+                    if (clothesModel.Type == type && (clothesModel.Sex == sex || Constants.SexNone == clothesModel.Sex) && clothesModel.BodyPart == slot && clothesModel.ClothesId == id)
                     {
-                        productsPrice = clothesModel.products;
+                        productsPrice = clothesModel.Products;
                         break;
                     }
                 }
                 return productsPrice;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return 10000; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return 10000; }
         }
         public static List<BusinessClothesModel> GetBusinessClothesFromSlotType(int sex, int type, int slot)
         {
             try
             {
                 List<BusinessClothesModel> businessClothesList = new List<BusinessClothesModel>();
-                foreach (BusinessClothesModel clothes in Constants.BUSINESS_CLOTHES_LIST)
+                foreach (BusinessClothesModel clothes in Constants.BusinessClothesList)
                 {
-                    if (clothes.type == type && (clothes.sex == sex || Constants.SEX_NONE == clothes.sex) && clothes.bodyPart == slot)
+                    if (clothes.Type == type && (clothes.Sex == sex || Constants.SexNone == clothes.Sex) && clothes.BodyPart == slot)
                     {
                         businessClothesList.Add(clothes);
                     }
@@ -59,7 +59,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     VenoX.TriggerClientEvent(player, "showTypeClothes", JsonConvert.SerializeObject(clothesList));
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [VenoXRemoteEvent("clothesItemSelected")]
@@ -69,7 +69,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             {
                 ClothesModel clothesModel = (ClothesModel)JsonConvert.DeserializeObject(clothesJson);
                 int sex = player.Sex;
-                int products = GetClothesProductsPrice(clothesModel.id, sex, clothesModel.type, clothesModel.slot);
+                int products = GetClothesProductsPrice(clothesModel.Id, sex, clothesModel.Type, clothesModel.Slot);
                 int price = (products * 1);
 
                 int playerMoney = player.Reallife.Money;
@@ -80,13 +80,13 @@ namespace VenoXV._Gamemodes_.Reallife.business
 
                     player.Reallife.Money -= price;
 
-                    Main.UndressClothes(playerId, clothesModel.type, clothesModel.slot);
+                    Main.UndressClothes(playerId, clothesModel.Type, clothesModel.Slot);
 
-                    clothesModel.player = playerId;
-                    clothesModel.dressed = true;
+                    clothesModel.Player = playerId;
+                    clothesModel.Dressed = true;
 
-                    clothesModel.id = Database.AddClothes(clothesModel);
-                    Main.clothesList.Add(clothesModel);
+                    clothesModel.Id = Database.Database.AddClothes(clothesModel);
+                    Main.ClothesList.Add(clothesModel);
                     //NAPI.Chat.SendChatMessageToPlayer(player, "Transaktion in Höhe von !{0,200,200} " + price + "$ !{255,255,255}abgeschlossen!");
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Transaktion in Höhe von " + price + "$ abgeschlossen!");
                     //vnx_stored_files.logfile.WriteLogs("clothes", player.Name + " hat " + " TYPE : " + clothesModel.type + " | Slot : " + clothesModel.slot + " gekauft für " + price + " $");
@@ -96,7 +96,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [VenoXRemoteEvent("dressEquipedClothes")]
@@ -105,32 +105,32 @@ namespace VenoXV._Gamemodes_.Reallife.business
             try
             {
                 int playerId = player.UID;
-                ClothesModel clothes = Globals.Main.GetDressedClothesInSlot(playerId, type, slot);
+                ClothesModel clothes = Main.GetDressedClothesInSlot(playerId, type, slot);
 
                 if (clothes != null)
                 {
                     if (type == 0)
                     {
-                        Core.RageAPI.SetClothes(player, slot, clothes.drawable, clothes.texture);
+                        RageApi.SetClothes(player, slot, clothes.Drawable, clothes.Texture);
                     }
                     else
                     {
-                        Core.RageAPI.SetAccessories(player, slot, clothes.drawable, clothes.texture);
+                        RageApi.SetAccessories(player, slot, clothes.Drawable, clothes.Texture);
                     }
                 }
                 else
                 {
                     if (type == 0)
                     {
-                        Core.RageAPI.SetClothes(player, slot, 0, 0);
+                        RageApi.SetClothes(player, slot, 0, 0);
                     }
                     else
                     {
-                        Core.RageAPI.SetAccessories(player, slot, 255, 255);
+                        RageApi.SetAccessories(player, slot, 255, 255);
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
     }

@@ -1,10 +1,10 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.IO;
+using AltV.Net;
 
 namespace VenoXV._Gamemodes_.Reallife.vnx_stored_files
 {
-    public class logfile : IScript
+    public class Logfile : IScript
     {
 
         public static void WriteLogs(string logname, string strLog)

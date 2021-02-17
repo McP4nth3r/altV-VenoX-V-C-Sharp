@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Race.Globals
 {
@@ -10,7 +11,7 @@ namespace VenoXV._Gamemodes_.Race.Globals
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.RacePlayers.ToList())
+                foreach (VnXPlayer players in _Globals_.Main.RacePlayers.ToList())
                 {
                     players?.SendTranslatedChatMessage(text);
                 }

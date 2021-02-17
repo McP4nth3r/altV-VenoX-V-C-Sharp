@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Database;
+using VenoXV.Core;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
@@ -25,35 +25,35 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         // Waffenlager der Fraktionen.
         public static List<WaffenlagerModel> WaffenlagerList = new List<WaffenlagerModel>
         {
-            new WaffenlagerModel{ Faction = Constants.FACTION_LSPD },
-            new WaffenlagerModel{ Faction = Constants.FACTION_LCN },
-            new WaffenlagerModel{ Faction = Constants.FACTION_YAKUZA },
-            new WaffenlagerModel{ Faction = Constants.FACTION_NARCOS },
-            new WaffenlagerModel{ Faction = Constants.FACTION_SAMCRO },
-            new WaffenlagerModel{ Faction = Constants.FACTION_BALLAS },
-            new WaffenlagerModel{ Faction = Constants.FACTION_COMPTON },
+            new WaffenlagerModel{ Faction = Constants.FactionLspd },
+            new WaffenlagerModel{ Faction = Constants.FactionLcn },
+            new WaffenlagerModel{ Faction = Constants.FactionYakuza },
+            new WaffenlagerModel{ Faction = Constants.FactionNarcos },
+            new WaffenlagerModel{ Faction = Constants.FactionSamcro },
+            new WaffenlagerModel{ Faction = Constants.FactionBallas },
+            new WaffenlagerModel{ Faction = Constants.FactionCompton },
         };
 
-        public static WaffenlagerModel GetWaffenlagerById(int ID)
+        public static WaffenlagerModel GetWaffenlagerById(int id)
         {
             try
             {
-                foreach (WaffenlagerModel _WaffenLager in WaffenlagerList.ToList())
+                foreach (WaffenlagerModel waffenLager in WaffenlagerList.ToList())
                 {
-                    if (_WaffenLager.Faction == ID) { return _WaffenLager; }
+                    if (waffenLager.Faction == id) { return waffenLager; }
                 }
-                Core.Debug.OutputDebugString("[Error] : Waffenlager konnte nicht gefunden werden... [" + ID + "]");
+                Debug.OutputDebugString("[Error] : Waffenlager konnte nicht gefunden werden... [" + id + "]");
                 return new WaffenlagerModel();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new WaffenlagerModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new WaffenlagerModel(); }
         }
 
         public static void WaffenlagerInit()
         {
             try
             {
-                foreach (WaffenlagerModel _WaffenLager in WaffenlagerList.ToList())
-                    Database.RefreshWaffenlager(_WaffenLager);
+                foreach (WaffenlagerModel waffenLager in WaffenlagerList.ToList())
+                    Database.Database.RefreshWaffenlager(waffenLager);
             }
             catch { }
         }

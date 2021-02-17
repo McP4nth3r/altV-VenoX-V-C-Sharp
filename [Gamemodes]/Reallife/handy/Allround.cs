@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using VenoXV._RootCore_;
+using Newtonsoft.Json;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.handy
 {
@@ -15,19 +16,19 @@ namespace VenoXV._Gamemodes_.Reallife.handy
     {
         public static void UpdatePhonePlayerlist()
         {
-            List<CallContactModel> CallClassList = new List<CallContactModel>();
-            foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+            List<CallContactModel> callClassList = new List<CallContactModel>();
+            foreach (VnXPlayer players in Main.ReallifePlayers.ToList())
             {
-                CallContactModel CallClass = new CallContactModel
+                CallContactModel callClass = new CallContactModel
                 {
                     Username = players.Username,
                     Number = players.Phone.Number.ToString()
                 };
-                if (!CallClassList.Contains(CallClass)) { CallClassList.Add(CallClass); }
+                if (!callClassList.Contains(callClass)) { callClassList.Add(callClass); }
             }
-            foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+            foreach (VnXPlayer players in Main.ReallifePlayers.ToList())
             {
-                VenoX.TriggerClientEvent(players, "Phone:LoadPlayerList", JsonConvert.SerializeObject(CallClassList, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
+                VenoX.TriggerClientEvent(players, "Phone:LoadPlayerList", JsonConvert.SerializeObject(callClassList, Formatting.None, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }));
             }
         }
     }

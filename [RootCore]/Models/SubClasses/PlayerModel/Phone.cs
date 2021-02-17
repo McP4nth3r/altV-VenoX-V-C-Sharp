@@ -1,21 +1,22 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
     public class Phone
     {
-        private Player Player;
+        private Player _player;
         public int Number { get; set; }
         public bool IsCallActive { get; set; }
         public Phone(Player player)
         {
             try
             {
-                Player = player;
+                _player = player;
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 

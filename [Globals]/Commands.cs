@@ -1,11 +1,12 @@
-﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Gamemodes_.Tactics.Lobby;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Globals_
 {
@@ -14,27 +15,27 @@ namespace VenoXV._Globals_
         [Command("skipround")]
         public static async void SkipRound(VnXPlayer player, string gm, int lobby)
         {
-            if (player.AdminRank < _Gamemodes_.Reallife.Globals.Constants.ADMINLVL_MODERATOR) return;
-            string Gamemode = gm.ToLower();
-            switch (Gamemode)
+            if (player.AdminRank < _Gamemodes_.Reallife.Globals.Constants.AdminlvlModerator) return;
+            string gamemode = gm.ToLower();
+            switch (gamemode)
             {
                 case "seventowers":
                     _Gamemodes_.SevenTowers.Main.StartNewRound();
                     break;
                 case "tactics":
-                    _Gamemodes_.Tactics.Lobby.Lobbys.TacticLobbys.TryGetValue(lobby, out Round val);
+                    Lobbys.TacticLobbys.TryGetValue(lobby, out Round val);
                     if (val is null)
                     {
-                        player.SendTranslatedChatMessage("Tactic Lobby dont exists! Use a lobby between 0 - " + _Gamemodes_.Tactics.Lobby.Lobbys.TacticLobbys.Count + "!");
+                        player.SendTranslatedChatMessage("Tactic Lobby dont exists! Use a lobby between 0 - " + Lobbys.TacticLobbys.Count + "!");
                         return;
                     }
                     _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage("hat die Tactic Runde übersprungen!", val);
-                    _Gamemodes_.Reallife.vnx_stored_files.logfile.WriteLogs("tactics_admin", player.Username + " Skipped the Tactic Round!");
+                    Logfile.WriteLogs("tactics_admin", player.Username + " Skipped the Tactic Round!");
                     _Gamemodes_.Tactics.Globals.Functions.ShowOutroScreen("[VnX]" + player.Username + " hat die Tactic Runde übersprungen!", val);
                     break;
                 case "race":
                     string text = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, " hat das Rennen übersprungen!");
-                    _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Name + text);
+                    _Gamemodes_.Race.Globals.Functions.SendRaceRoundMessage(RageApi.GetHexColorcode(200, 0, 0) + player.Name + text);
                     _Gamemodes_.Race.Lobby.Main.StartNewRound();
                     break;
             }
@@ -43,16 +44,16 @@ namespace VenoXV._Globals_
         [Command("pos")]
         public static void GetPlayerPos(VnXPlayer player)
         {
-            Core.Debug.OutputDebugString("Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
+            Debug.OutputDebugString("Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
             Vector3 rot = player.Rotation;
             if (player.IsInVehicle)
             {
                 rot = player.Vehicle.Rotation;
             }
-            RageAPI.CreateMarker(0, player.Position, new Vector3(1, 1, 1), new int[] { 0, 150, 200, 255 }, player, player.Dimension);
-            Core.Debug.OutputDebugString("Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
-            player.SendChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
-            player.SendChatMessage(RageAPI.GetHexColorcode(0, 150, 200) + "Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
+            RageApi.CreateMarker(0, player.Position, new Vector3(1, 1, 1), new[] { 0, 150, 200, 255 }, player, player.Dimension);
+            Debug.OutputDebugString("Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
+            player.SendChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Position : " + player.Position.X.ToString().Replace(".", ",") + "f, " + player.Position.Y.ToString().Replace(".", ",") + "f, " + player.Position.Z.ToString().Replace(".", ",") + "f");
+            player.SendChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Rotation : " + rot.X.ToString().Replace(".", ",") + "f, " + rot.Y.ToString().Replace(".", ",") + "f, " + rot.Z.ToString().Replace(".", ",") + "f");
         }
 
         public static List<CameraModel> CurrentPlayerCameras = new List<CameraModel>();
@@ -71,26 +72,26 @@ namespace VenoXV._Globals_
         }
 
         [Command("createcam1")]
-        public static void CreateEasyCameraMovement(VnXPlayer player, double x, double y, double z, double rot_start, double rot_stop, int duration)
+        public static void CreateEasyCameraMovement(VnXPlayer player, double x, double y, double z, double rotStart, double rotStop, int duration)
         {
-            int ID = GetCameraCount(player);
-            if (ID > 3)
+            int id = GetCameraCount(player);
+            if (id > 3)
             {
-                player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du hast bereits 3 Cameras gespeichert... nutze /deletecam [CAM_ID] oder /getallcams");
+                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Du hast bereits 3 Cameras gespeichert... nutze /deletecam [CAM_ID] oder /getallcams");
                 return;
             }
-            CameraModel PlayerCamera = new CameraModel
+            CameraModel playerCamera = new CameraModel
             {
                 CameraCreator = player.Username,
                 StartPosition = player.Position,
-                StartRotation = new Vector3(0, 0, (float)rot_start),
+                StartRotation = new Vector3(0, 0, (float)rotStart),
                 EndPosition = new Vector3((float)x, (float)y, (float)z),
-                EndRotation = new Vector3(0, 0, (float)rot_stop),
-                DurationInMS = duration,
-                ID = ID
+                EndRotation = new Vector3(0, 0, (float)rotStop),
+                DurationInMs = duration,
+                Id = id
             };
             //CurrentPlayerCameras.Add(PlayerCamera);
-            VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rot_start, x, y, z, rot_stop, duration);
+            VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", player.Position.X, player.Position.Y, player.Position.Z, rotStart, x, y, z, rotStop, duration);
         }
         [Command("stopcam")]
         public static void StopCurrentCamera(VnXPlayer player)
@@ -109,17 +110,17 @@ namespace VenoXV._Globals_
                     CurrentPlayerCameras.Remove(cam);
                 }
             }
-            player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 200, 0) + "Alle Cam´s wurden gelöscht!");
+            player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Alle Cam´s wurden gelöscht!");
         }
 
         [Command("deletecam")]
-        public static void DeletePlayerCameras(VnXPlayer player, int ID)
+        public static void DeletePlayerCameras(VnXPlayer player, int id)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.Username && cam.ID == ID)
+                if (cam.CameraCreator == player.Username && cam.Id == id)
                 {
-                    player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(200, 0, 0) + "Du hast die Cam[ID: " + ID + "] gelöscht!");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Du hast die Cam[ID: " + id + "] gelöscht!");
                     CurrentPlayerCameras.Remove(cam);
                 }
             }
@@ -132,19 +133,19 @@ namespace VenoXV._Globals_
             {
                 if (cam.CameraCreator == player.Username)
                 {
-                    player.SendTranslatedChatMessage(Core.RageAPI.GetHexColorcode(0, 150, 200) + "Cam [ID : " + cam.ID + "]");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Cam [ID : " + cam.Id + "]");
                 }
             }
         }
 
         [Command("playcam")]
-        public static void PlayCamByID(VnXPlayer player, int ID)
+        public static void PlayCamById(VnXPlayer player, int id)
         {
             foreach (CameraModel cam in CurrentPlayerCameras)
             {
-                if (cam.CameraCreator == player.Username && cam.ID == ID)
+                if (cam.CameraCreator == player.Username && cam.Id == id)
                 {
-                    VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMS);
+                    VenoX.TriggerClientEvent(player, "Player:CreateCameraMovement", cam.StartPosition.X, cam.StartPosition.Y, cam.StartPosition.Z, cam.StartRotation.Z, cam.EndPosition.X, cam.EndPosition.Y, cam.EndPosition.Z, cam.EndRotation.Z, cam.DurationInMs);
                 }
             }
         }

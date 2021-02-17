@@ -1,6 +1,6 @@
-﻿using AltV.Net.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net.Data;
 
 namespace VenoXV._Gamemodes_.Race.model
 {

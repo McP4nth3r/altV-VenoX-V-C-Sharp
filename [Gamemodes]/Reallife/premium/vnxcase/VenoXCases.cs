@@ -1,6 +1,6 @@
-﻿using AltV.Net;
+﻿using System.Numerics;
+using AltV.Net;
 using AltV.Net.Data;
-using System.Numerics;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
@@ -8,10 +8,10 @@ namespace VenoXV._Gamemodes_.Reallife.premium.vnxcase
 {
     public class VenoXCases : IScript
     {
-        ColShapeModel col = RageAPI.CreateColShapeSphere(new Position(-311.2075f, -278.3156f, 31.5f), 3f);
+        ColShapeModel _col = RageApi.CreateColShapeSphere(new Position(-311.2075f, -278.3156f, 31.5f), 3f);
         public static void OnResourceStart()
         {
-            Core.RageAPI.CreateBlip("VIP Area", new Vector3(-311.2075f, -278.3156f, 31.5f), 304, 46, false);
+            RageApi.CreateBlip("VIP Area", new Vector3(-311.2075f, -278.3156f, 31.5f), 304, 46, false);
         }
 
         /*[Command("gotovipshop")]

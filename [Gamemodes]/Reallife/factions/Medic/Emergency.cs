@@ -1,31 +1,32 @@
-﻿using AltV.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
-using System.Collections.Generic;
-using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Globals_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Emergency : IScript
     {
 
-        public static ColShapeModel EmergencyReviveCol = RageAPI.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
+        public static ColShapeModel EmergencyReviveCol = RageApi.CreateColShapeSphere(new Position(364.3578f, -591.5056f, 28.29856f), 3);
 
         public static Dictionary<VnXPlayer, BlipModel> CurrentActiveMedicBlips = new Dictionary<VnXPlayer, BlipModel>();
         public static async void OnPlayerDeath(VnXPlayer player)
         {
-            if (player.Dimension != (VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language)) return;
-            foreach (VnXPlayer Medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+            if (player.Dimension != (Main.ReallifeDimension + player.Language)) return;
+            foreach (VnXPlayer medics in Main.ReallifePlayers.ToList())
             {
-                if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
+                if (medics.Reallife.Faction == Constants.FactionEmergency)
                 {
-                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)Medics.Language, "braucht hilfe!");
+                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)medics.Language, "braucht hilfe!");
                     if (!CurrentActiveMedicBlips.ContainsKey(player))
-                        CurrentActiveMedicBlips.Add(player, RageAPI.CreateBlip(player.Username + " " + TranslatedText, player.Position, 303, 3, false, Medics));
+                        CurrentActiveMedicBlips.Add(player, RageApi.CreateBlip(player.Username + " " + translatedText, player.Position, 303, 3, false, medics));
                 }
             }
         }
@@ -35,10 +36,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             if (CurrentActiveMedicBlips.ContainsKey(player))
             {
-                CurrentActiveMedicBlips.TryGetValue(player, out BlipModel BlipClass);
-                foreach (VnXPlayer Medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                CurrentActiveMedicBlips.TryGetValue(player, out BlipModel blipClass);
+                foreach (VnXPlayer medics in Main.ReallifePlayers.ToList())
                 {
-                    if (Medics.Reallife.Faction == Constants.FACTION_EMERGENCY) RageAPI.RemoveBlip(BlipClass, Medics);
+                    if (medics.Reallife.Faction == Constants.FactionEmergency) RageApi.RemoveBlip(blipClass, medics);
                 }
                 CurrentActiveMedicBlips.Remove(player);
             }
@@ -87,23 +88,23 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("heal")]
-        public static async void HealIPlayerMedic(VnXPlayer player, string target_name)
+        public static async void HealIPlayerMedic(VnXPlayer player, string targetName)
         {
             try
             {
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null)
                 {
-                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "konnte nicht gefunden werden!");
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, player.Username + " " + TranslatedText);
+                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "konnte nicht gefunden werden!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, player.Username + " " + translatedText);
                     return;
                 };
-                if (target.vnxGetElementData<int>(EntityData.PLAYER_KILLED) == 1)
+                if (target.VnxGetElementData<int>(EntityData.PlayerKilled) == 1)
                 {
                     if (player.IsInVehicle)
                     {
                         VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                        if (vehicle != null || vehicle.Faction == Constants.FACTION_EMERGENCY)
+                        if (vehicle != null || vehicle.Faction == Constants.FactionEmergency)
                         {
                             if (player.Position.Distance(target.Position) < 7)
                             {
@@ -114,11 +115,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                                 VenoX.TriggerClientEvent(target, "destroyKrankenhausTimer");
                                 VenoX.TriggerClientEvent(target, "VnX_DestroyIPlayerSideTimer_KH");
 
-                                foreach (VnXPlayer medics in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                                foreach (VnXPlayer medics in Main.ReallifePlayers.ToList())
                                 {
-                                    if (medics.Reallife.Faction == Constants.FACTION_EMERGENCY)
+                                    if (medics.Reallife.Faction == Constants.FactionEmergency)
                                     {
-                                        medics.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 0) + player.Username + " hat " + target.Username + " aufgesammelt!");
+                                        medics.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 125, 0) + player.Username + " hat " + target.Username + " aufgesammelt!");
                                         VenoX.TriggerClientEvent(medics, "Destroy_MedicBlips", target.Username);
                                     }
                                 }

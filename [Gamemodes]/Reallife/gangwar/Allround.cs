@@ -1,10 +1,15 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
-using System;
+using VenoXV._Gamemodes_.Reallife.Chat;
+using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.gangwar.v2;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar
 {
@@ -14,31 +19,31 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             return factionId switch
             {
-                Constants.FACTION_LCN => 55,
-                Constants.FACTION_YAKUZA => 59,
-                Constants.FACTION_NARCOS => 31,
-                Constants.FACTION_SAMCRO => 76,
-                Constants.FACTION_BALLAS => 7,
-                Constants.FACTION_COMPTON => 52,
+                Constants.FactionLcn => 55,
+                Constants.FactionYakuza => 59,
+                Constants.FactionNarcos => 31,
+                Constants.FactionSamcro => 76,
+                Constants.FactionBallas => 7,
+                Constants.FactionCompton => 52,
                 _ => 44,// ORANGE = FEHLER !!
             };
         }
 
-        public static GangwarManager _gangwarManager { get; set; }
+        public static GangwarManager GangwarManager { get; set; }
         public static void OnResourceStart()
         {
             // Initialize Core
-            _gangwarManager = new GangwarManager();
+            GangwarManager = new GangwarManager();
         }
 
         public static void ProcessDamage(VnXPlayer source, VnXPlayer target, float damage)
         {
-            _gangwarManager.ProcessDamage(source, target, damage);
+            GangwarManager.ProcessDamage(source, target, damage);
         }
 
         public static void ProcessKill(VnXPlayer source, VnXPlayer target)
         {
-            _gangwarManager.ProcessKill(source, target);
+            GangwarManager.ProcessKill(source, target);
         }
 
         [Command("attack")]
@@ -47,48 +52,49 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             try
             {
                 // Is a current gangwar assigned?
-                if (_gangwarManager.currentArea == null)
+                if (GangwarManager.CurrentArea == null)
                 {
-                    if (!Factions.Allround.isBadFaction(player))
+                    if (!Factions.Allround.IsBadFaction(player))
                         return;
 
-                    if (_gangwarManager.attacksCount < GangwarManager.MAX_ATTACKS_DAY)
+                    if (GangwarManager.AttacksCount < GangwarManager.MaxAttacksDay)
                     {
-                        foreach (GangwarArea area in _gangwarManager.GangwarAreas)
+                        foreach (GangwarArea area in GangwarManager.GangwarAreas)
                         {
                             // Is the player close to the TK
-                            if (area.TK.Distance(player.Position) < GangwarManager.TKRange)
+                            if (area.Tk.Distance(player.Position) < GangwarManager.TkRange)
                             {
                                 // Is the player's faction isnt the area's owner id?
-                                if (player.Reallife.Faction != area.IDOwner)
+                                if (player.Reallife.Faction != area.IdOwner)
                                 {
                                     // Is the player's rank above the minimum rank?
-                                    if (player.Reallife.FactionRank >= GangwarManager.MIN_RANK_ATTACK)
+                                    if (player.Reallife.FactionRank >= GangwarManager.MinRankAttack)
                                     {
                                         // Has the Defeneder Faction enough ppl online?
-                                        if (_gangwarManager.GetFactionCount(area.IDOwner) >= GangwarManager.MIN_COUNT_PLAYER)
+                                        if (GangwarManager.GetFactionCount(area.IdOwner) >= GangwarManager.MinCountPlayer)
                                         {
                                             // Is the area's cooldwon expired?
-                                            if (area.isAttackable())
+                                            if (area.IsAttackable())
                                             {
                                                 // Assign the new running gangwar area
-                                                _gangwarManager.currentArea = area;
-                                                _gangwarManager.currentArea.setCooldown(GangwarManager.GW_ATTACK_CD);
-                                                _gangwarManager.currentArea.Attack(player);
-                                                ++_gangwarManager.attacksCount;
+                                                GangwarManager.CurrentArea = area;
+                                                GangwarManager.CurrentArea.SetCooldown(GangwarManager.GwAttackCd);
+                                                GangwarManager.CurrentArea.Attack(player);
+                                                ++GangwarManager.AttacksCount;
 
                                                 // Notify all player about this event
-                                                Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(200, 0, 0) + "Ein Gangwar wird vorbereitet!");
-                                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " hat einen Gangwar gegen " + factions.Faction.GetFactionNameById(_gangwarManager.currentArea.GetCurrentRound().DefenderId) + " gestartet!");
+                                                ReallifeChat.SendReallifeMessageToAll(RageApi.GetHexColorcode(200, 0, 0) + "Ein Gangwar wird vorbereitet!");
+                                                Faction.CreateCustomFactionInformation(GangwarManager.CurrentArea.GetCurrentRound().AttackerId, RageApi.GetHexColorcode(0, 200, 0) + player.Username + " hat einen Gangwar gegen " + Faction.GetFactionNameById(GangwarManager.CurrentArea.GetCurrentRound().DefenderId) + " gestartet!");
                                                 return;
                                             }
-                                            else { Chat.ReallifeChat.SendReallifeMessageToAll(RageAPI.GetHexColorcode(175, 0, 0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime().ToString()); }
+
+                                            ReallifeChat.SendReallifeMessageToAll(RageApi.GetHexColorcode(175, 0, 0) + "Das Gebiet " + area.Name + " hat noch einen Cooldown bis zum : " + area.GetLeftTime());
                                         }
-                                        else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
+                                        else { Main.DrawNotification(player, Main.Types.Error, "Die Verteidiger Fraktion haben haben nicht genug Spieler online!"); }
                                     }
-                                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht befugt dieses Gebiet anzugreifen!"); }
+                                    else { Main.DrawNotification(player, Main.Types.Error, "Du bist nicht befugt dieses Gebiet anzugreifen!"); }
                                 }
-                                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst nicht deine eigene Fraktion angreifen!"); }
+                                else { Main.DrawNotification(player, Main.Types.Error, "Du kannst nicht deine eigene Fraktion angreifen!"); }
                             }
                         }
                     }
@@ -96,23 +102,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                 else
                 {
                     // Add player to the running Gangwar Round 
-                    if (Factions.Allround.isBadFaction(player) && player.Reallife.Faction == _gangwarManager.currentArea.GetCurrentRound().AttackerId)
+                    if (Factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().AttackerId)
                     {
-                        if (_gangwarManager.currentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.PREPARING)
+                        if (GangwarManager.CurrentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.Preparing)
                         {
-                            var attCount = _gangwarManager.currentArea.GetCurrentRound().AliveFactionCount(player.Reallife.Faction);
-                            if ((GangwarManager.AttackerCountMore && attCount <= _gangwarManager.GetFactionCount(_gangwarManager.currentArea.IDOwner))
-                                || (!GangwarManager.AttackerCountMore && attCount < _gangwarManager.GetFactionCount(_gangwarManager.currentArea.IDOwner)))
+                            var attCount = GangwarManager.CurrentArea.GetCurrentRound().AliveFactionCount(player.Reallife.Faction);
+                            if ((GangwarManager.AttackerCountMore && attCount <= GangwarManager.GetFactionCount(GangwarManager.CurrentArea.IdOwner))
+                                || (!GangwarManager.AttackerCountMore && attCount < GangwarManager.GetFactionCount(GangwarManager.CurrentArea.IdOwner)))
                             {
-                                _gangwarManager.currentArea.AddPlayer(player);
-                                factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " nimmt nun am Gangwar teil.");
-                                return;
-
+                                GangwarManager.CurrentArea.AddPlayer(player);
+                                Faction.CreateCustomFactionInformation(GangwarManager.CurrentArea.GetCurrentRound().AttackerId, RageApi.GetHexColorcode(0, 200, 0) + player.Username + " nimmt nun am Gangwar teil.");
                             }
-                            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ihr seid schon genug Angreifer!"); }
+                            else { Main.DrawNotification(player, Main.Types.Error, "Ihr seid schon genug Angreifer!"); }
                         }
                     }
-                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Angreifer oder in einer Bösen Fraktion!"); }
+                    else { Main.DrawNotification(player, Main.Types.Error, "Du bist kein Angreifer oder in einer Bösen Fraktion!"); }
                 }
             }
             catch { }
@@ -124,17 +128,17 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
             try
             {
                 // Ist ein Gangwar schon am laufen?
-                if (_gangwarManager.currentArea != null)
+                if (GangwarManager.CurrentArea != null)
                 {
-                    if (Factions.Allround.isBadFaction(player) && player.Reallife.Faction == _gangwarManager.currentArea.GetCurrentRound().DefenderId)
+                    if (Factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().DefenderId)
                     {
-                        if (_gangwarManager.currentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.RUNNING)
+                        if (GangwarManager.CurrentArea.GetCurrentRound().CurrentState == GangwarRound.RoundStates.Running)
                         {
-                            if (_gangwarManager.currentArea.Position.Distance(player.Position) > GangwarManager.MIN_DIST)
+                            if (GangwarManager.CurrentArea.Position.Distance(player.Position) > GangwarManager.MinDist)
                             {
                                 // Calculation
-                                var allowedDefCount = _gangwarManager.currentArea.GetCurrentRound().AliveFactionCount(_gangwarManager.currentArea.GetCurrentRound().AttackerId);
-                                var defCount = _gangwarManager.currentArea.GetCurrentRound().AliveFactionCount(_gangwarManager.currentArea.GetCurrentRound().DefenderId);
+                                var allowedDefCount = GangwarManager.CurrentArea.GetCurrentRound().AliveFactionCount(GangwarManager.CurrentArea.GetCurrentRound().AttackerId);
+                                var defCount = GangwarManager.CurrentArea.GetCurrentRound().AliveFactionCount(GangwarManager.CurrentArea.GetCurrentRound().DefenderId);
                                 if (GangwarManager.DefenderCountMore)
                                 {
                                     ++allowedDefCount;
@@ -143,21 +147,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                                 // Add if defender count is lower than attacker count + 1
                                 if (defCount < allowedDefCount)
                                 {
-                                    if (DateTime.Now <= _gangwarManager.currentArea.GetCurrentRound().DefenderMaxTime)
+                                    if (DateTime.Now <= GangwarManager.CurrentArea.GetCurrentRound().DefenderMaxTime)
                                     {
-                                        _gangwarManager.currentArea.AddPlayer(player);
-                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().DefenderId, RageAPI.GetHexColorcode(0, 200, 0) + player.Username + " nimmt nun am Gangwar teil.");
-                                        factions.Faction.CreateCustomFactionInformation(_gangwarManager.currentArea.GetCurrentRound().AttackerId, RageAPI.GetHexColorcode(150, 0, 0) + player.Username + " nimmt nun am Gangwar teil.");
+                                        GangwarManager.CurrentArea.AddPlayer(player);
+                                        Faction.CreateCustomFactionInformation(GangwarManager.CurrentArea.GetCurrentRound().DefenderId, RageApi.GetHexColorcode(0, 200, 0) + player.Username + " nimmt nun am Gangwar teil.");
+                                        Faction.CreateCustomFactionInformation(GangwarManager.CurrentArea.GetCurrentRound().AttackerId, RageApi.GetHexColorcode(150, 0, 0) + player.Username + " nimmt nun am Gangwar teil.");
 
                                     }
-                                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist leider zu spaet zum GW!"); }
+                                    else { Main.DrawNotification(player, Main.Types.Error, "Du bist leider zu spaet zum GW!"); }
                                 }
-                                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ihr seid schon zu viele"); }
+                                else { Main.DrawNotification(player, Main.Types.Error, "Ihr seid schon zu viele"); }
                             }
-                            else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du musst weiter weg vom Gebiet sein!"); }
+                            else { Main.DrawNotification(player, Main.Types.Error, "Du musst weiter weg vom Gebiet sein!"); }
                         }
                     }
-                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist kein Verteidiger oder in einer Bösen Fraktion!"); }
+                    else { Main.DrawNotification(player, Main.Types.Error, "Du bist kein Verteidiger oder in einer Bösen Fraktion!"); }
                 }
             }
             catch { }
@@ -167,17 +171,17 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             try
             {
-                foreach (GangwarArea area in _gangwarManager.GangwarAreas)
+                foreach (GangwarArea area in GangwarManager.GangwarAreas)
                 {
                     // You entered a GW Area
                     if (area.AreaColShapeModel == shape)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Warning, "Du hast ein Ganggebiet betreten!");
+                        Main.DrawNotification(player, Main.Types.Warning, "Du hast ein Ganggebiet betreten!");
                         return true;
                     }
 
                     // You entered the TK of an area
-                    if (area.TKColShapeModel == shape)
+                    if (area.TkColShapeModel == shape)
                     {
                         area.Inform(player);
                         return true;
@@ -192,8 +196,8 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             try
             {
-                if (_gangwarManager != null)
-                    _gangwarManager.Update();
+                if (GangwarManager != null)
+                    GangwarManager.Update();
             }
             catch { }
         }
@@ -202,12 +206,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             try
             {
-                if (_gangwarManager.currentArea != null)
+                if (GangwarManager.CurrentArea != null)
                 {
-                    var quiter = _gangwarManager.currentArea.GetCurrentRound().GetPlayerEntry(player);
+                    var quiter = GangwarManager.CurrentArea.GetCurrentRound().GetPlayerEntry(player);
                     if (quiter != null)
                     {
-                        _gangwarManager.currentArea.GetCurrentRound().PlayerQuit(quiter);
+                        GangwarManager.CurrentArea.GetCurrentRound().PlayerQuit(quiter);
                     }
                 }
             }
@@ -219,10 +223,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
         {
             try
             {
-                if (_gangwarManager.currentArea != null)
+                if (GangwarManager.CurrentArea != null)
                 {
-                    var playerEntry = _gangwarManager.currentArea.GetCurrentRound().GetPlayerEntry(player);
-                    var killerEntry = _gangwarManager.currentArea.GetCurrentRound().GetPlayerEntry(killer);
+                    var playerEntry = GangwarManager.CurrentArea.GetCurrentRound().GetPlayerEntry(player);
+                    var killerEntry = GangwarManager.CurrentArea.GetCurrentRound().GetPlayerEntry(killer);
                     if (playerEntry != null)
                     {
                         if (killerEntry != null)
@@ -230,16 +234,16 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar
                             // If source and target has different factions
                             if (playerEntry.GetFaction() != killerEntry.GetFaction())
                             {
-                                killerEntry._totalKills += 1;
+                                killerEntry.TotalKills += 1;
                             }
-                            Allround.ProcessKill(player, killer);
+                            ProcessKill(player, killer);
                         }
 
-                        _gangwarManager.currentArea.GetCurrentRound().KillPlayer(playerEntry);
+                        GangwarManager.CurrentArea.GetCurrentRound().KillPlayer(playerEntry);
 
                         // Respawn target
-                        playerEntry._isRespawned = true;
-                        Factions.Spawn.SpawnPlayerOnSpawnpoint(player);
+                        playerEntry.IsRespawned = true;
+                        Spawn.SpawnPlayerOnSpawnpoint(player);
                     }
                 }
             }

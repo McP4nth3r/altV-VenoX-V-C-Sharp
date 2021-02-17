@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class TattooModel
     {
-        public int player { get; set; }
-        public int slot { get; set; }
-        public string library { get; set; }
-        public string hash { get; set; }
+        public int Player { get; set; }
+        public int Slot { get; set; }
+        public string Library { get; set; }
+        public string Hash { get; set; }
     }
 }

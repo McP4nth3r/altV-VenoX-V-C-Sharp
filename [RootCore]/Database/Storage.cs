@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
+﻿using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace VenoXV._Gamemodes_.Reallife.database
@@ -9,10 +6,10 @@ namespace VenoXV._Gamemodes_.Reallife.database
     class Storage
     {
         /* DB INFOS */
-        private static string DB_HOST = "51.68.181.55";
-        private static string DB_USER = "venox_ingame";
-        private static string DB_PASS = "G#l7wz27";
-        private static string DB_NAME = "venox_ingame";
+        private static string _dbHost = "51.68.181.55";
+        private static string _dbUser = "venox_ingame";
+        private static string _dbPass = "G#l7wz27";
+        private static string _dbName = "venox_ingame";
 
         /* Storage */
         private MySqlConnection _handle;
@@ -20,7 +17,7 @@ namespace VenoXV._Gamemodes_.Reallife.database
         public Storage()
         {
             // Create connect string
-            string connectString = "SERVER=" + DB_HOST + "; DATABASE=" + DB_NAME + "; UID=" + DB_USER + "; PASSWORD=" + DB_PASS + "; SSLMODE=none;";
+            string connectString = "SERVER=" + _dbHost + "; DATABASE=" + _dbName + "; UID=" + _dbUser + "; PASSWORD=" + _dbPass + "; SSLMODE=none;";
 
             // Open connection
             _handle = new MySqlConnection(connectString);

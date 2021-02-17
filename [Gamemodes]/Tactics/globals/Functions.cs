@@ -3,31 +3,32 @@ using System.Linq;
 using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Tactics.Globals
 {
     public class Functions
     {
-        public static void SendTacticRoundMessage(string text, Round TacticRound)
+        public static void SendTacticRoundMessage(string text, Round tacticRound)
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in _Globals_.Main.TacticsPlayers.ToList())
                 {
-                    if (players.Tactics.CurrentLobby == TacticRound)
+                    if (players.Tactics.CurrentLobby == tacticRound)
                         players?.SendTranslatedChatMessage(text);
                 }
             }
             catch { }
         }
 
-        public static void ShowOutroScreen(string text, Round TacticRound)
+        public static void ShowOutroScreen(string text, Round tacticRound)
         {
             try
             {
-                TacticRound.TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TacticRound.TACTIC_ROUND_START_AFTER_LOADING);
-                TacticRound.TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-                TacticRound.SyncEndTacticRound(text);
+                tacticRound.TacticmanagerRoundStartAfterLoading = DateTime.Now.AddSeconds(tacticRound.TacticRoundStartAfterLoading);
+                tacticRound.TacticmanagerRoundCurrenttime = DateTime.Now;
+                tacticRound.SyncEndTacticRound(text);
             }
             catch { }
         }

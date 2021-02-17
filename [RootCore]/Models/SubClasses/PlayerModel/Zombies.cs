@@ -1,28 +1,29 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using VenoXV._Gamemodes_.Zombie.Models;
+using AltV.Net.Elements.Entities;
 using VenoXV.Core;
+using VenoXV.Zombie.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class Zombies
     {
-        private Player client;
-        private int _Zombie_kills { get; set; }
-        public int Zombie_kills { get { return _Zombie_kills; } set { _Zombie_kills = value; client.vnxSetSharedElementData("ZOMBIE_KILLS", value); } }
-        public int Zombie_player_kills { get; set; }
-        public int Zombie_tode { get; set; }
+        private Player _client;
+        private int _ZombieKills { get; set; }
+        public int ZombieKills { get => _ZombieKills;
+            set { _ZombieKills = value; _client.VnxSetSharedElementData("ZOMBIE_KILLS", value); } }
+        public int ZombiePlayerKills { get; set; }
+        public int ZombieDeaths { get; set; }
         public bool IsSyncer { get; set; }
-        public List<ZombieModel> NearbyZombies { get; set; }
+        public List<ZombieModel> NearbyZombies { get; }
         public Zombies(Player player)
         {
             try
             {
-                client = player;
+                _client = player;
                 NearbyZombies = new List<ZombieModel>();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

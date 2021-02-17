@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
+
 namespace VenoXV._Preload_.Loading
 {
     public class Main : IScript
@@ -8,17 +9,17 @@ namespace VenoXV._Preload_.Loading
         public const int LoadingTimer = 45000; //LoadingTimer In MS
         public static void LoadReallifeMaps(VnXPlayer player)
         {
-            _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.STADTHALLE_MAP);
-            _Maps_.Main.LoadMap(player, _Maps_.Main.WUERFELPARK_MAP);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.LspdMap);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.NoobspawnMap);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.StadthalleMap);
+            _Maps_.Main.LoadMap(player, _Maps_.Main.WuerfelparkMap);
         }
         public static void UnloadReallifeMaps(VnXPlayer player)
         {
-            _Maps_.Main.UnloadMap(player, _Maps_.Main.LSPD_MAP);
-            _Maps_.Main.UnloadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
-            _Maps_.Main.UnloadMap(player, _Maps_.Main.STADTHALLE_MAP);
-            _Maps_.Main.UnloadMap(player, _Maps_.Main.WUERFELPARK_MAP);
+            _Maps_.Main.UnloadMap(player, _Maps_.Main.LspdMap);
+            _Maps_.Main.UnloadMap(player, _Maps_.Main.NoobspawnMap);
+            _Maps_.Main.UnloadMap(player, _Maps_.Main.StadthalleMap);
+            _Maps_.Main.UnloadMap(player, _Maps_.Main.WuerfelparkMap);
         }
         public static void ShowLoadingScreen(VnXPlayer player)
         {

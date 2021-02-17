@@ -4,24 +4,24 @@ namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class Accountbans
     {
-        public int BanUID { get; set; }
-        public DateTime banzeit { get; set; }
-        public string banreason { get; set; }
-        public DateTime banerstelltam { get; set; }
+        public int BanUid { get; set; }
+        public DateTime Banzeit { get; set; }
+        public string Banreason { get; set; }
+        public DateTime Banerstelltam { get; set; }
         public string AdminBanned { get; set; }
         public string Bantype { get; set; }
 
 
 
         public Accountbans() { }
-        public Accountbans(int BanUID, DateTime banzeit, string banreason , DateTime banerstelltam, string AdminBanned, string Bantype)
+        public Accountbans(int banUid, DateTime banzeit, string banreason , DateTime banerstelltam, string adminBanned, string bantype)
         {
-            this.BanUID = BanUID;
-            this.banzeit = banzeit;
-            this.banreason = banreason;
-            this.banerstelltam = banerstelltam;
-            this.AdminBanned = AdminBanned;
-            this.Bantype = Bantype;
+            this.BanUid = banUid;
+            this.Banzeit = banzeit;
+            this.Banreason = banreason;
+            this.Banerstelltam = banerstelltam;
+            this.AdminBanned = adminBanned;
+            this.Bantype = bantype;
         }
     }
 }

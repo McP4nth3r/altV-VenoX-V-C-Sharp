@@ -1,24 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net.Enums;
 
 namespace VenoXV._Gamemodes_.Tactics.model
 {
     public class RoundModel
     {
-        public string Map_Name { get; set; }
-        public List<Vector3> Team_A_Spawnpoints { get; set; }
-        public List<Vector3> Team_B_Spawnpoints { get; set; }
-        public string Team_A_Name { get; set; }
-        public string Team_B_Name { get; set; }
-        public int[] Team_A_Color { get; set; }
-        public int[] Team_B_Color { get; set; }
-        public string Team_A_Skin { get; set; }
-        public string Team_B_Skin { get; set; }
-        public bool Custom_Weapon_Map { get; set; }
-        public List<AltV.Net.Enums.WeaponModel> Custom_Weapons { get; set; }
-        public List<MapVehicleModel> Custom_Vehicles { get; set; }
-        public string Custom_Weapon_Mode_Name { get; set; }
-        public string Team_A_WinnerText { get; set; }
-        public string Team_B_WinnerText { get; set; }
+        public string MapName { get; set; }
+        public List<Vector3> TeamASpawnpoints { get; set; }
+        public List<Vector3> TeamBSpawnpoints { get; set; }
+        public string TeamAName { get; set; }
+        public string TeamBName { get; set; }
+        public int[] TeamAColor { get; set; }
+        public int[] TeamBColor { get; set; }
+        public string TeamASkin { get; set; }
+        public string TeamBSkin { get; set; }
+        public bool CustomWeaponMap { get; set; }
+        public List<WeaponModel> CustomWeapons { get; set; }
+        public List<MapVehicleModel> CustomVehicles { get; set; }
+        public string CustomWeaponModeName { get; set; }
+        public string TeamAWinnerText { get; set; }
+        public string TeamBWinnerText { get; set; }
     }
 }

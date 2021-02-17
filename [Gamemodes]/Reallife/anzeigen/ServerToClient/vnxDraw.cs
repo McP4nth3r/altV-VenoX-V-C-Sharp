@@ -7,55 +7,53 @@
 using AltV.Net;
 using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
     public class VnX : IScript
     {
-        public const string WINDOW_JOB_1 = "Job1";
-        public const string WINDOW = "Window";
-        public const string WINDOW_SELECTION = "WindowSelection";
-        public const string WINDOW_INPUT = "WINDOW_INPUT";
+        public const string WindowJob1 = "Job1";
+        public const string Window = "Window";
+        public const string WindowSelection = "WindowSelection";
+        public const string WindowInput = "WINDOW_INPUT";
         public static void DestroyWindow(VnXPlayer player, string window)
         {
-            if (window == "Job1")
+            switch (window)
             {
-                VenoX.TriggerClientEvent(player, "DestroyJobWindow1");
-            }
-            else if (window == "Window")
-            {
-                VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowLib");
-            }
-            else if (window == "WindowSelection")
-            {
-                VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowSel");
-            }
-            else if (window == WINDOW_INPUT)
-            {
-                VenoX.TriggerClientEvent(player, "DestroyInputWindow");
-            }
-            else
-            {
-                VenoX.TriggerClientEvent(player, window);
+                case "Job1":
+                    VenoX.TriggerClientEvent(player, "DestroyJobWindow1");
+                    break;
+                case "Window":
+                    VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowLib");
+                    break;
+                case "WindowSelection":
+                    VenoX.TriggerClientEvent(player, "DestroyVnXSAWindowSel");
+                    break;
+                case WindowInput:
+                    VenoX.TriggerClientEvent(player, "DestroyInputWindow");
+                    break;
+                default:
+                    VenoX.TriggerClientEvent(player, window);
+                    break;
             }
         }
 
         public static void DestroyRadarElement(VnXPlayer player, string element)
         {
-            if (element == "Blip")
+            switch (element)
             {
-                VenoX.TriggerClientEvent(player, "deleteBlipWaypoint");
-            }
-            else if (element == "Blip_lib")
-            {
-                VenoX.TriggerClientEvent(player, "deleteBlip_lib");
-            }
-            else
-            {
-                logfile.WriteLogs("libLogs", "[ERROR] : Schwerwiegender Fehler! Element konnte nicht Gelöscht werden! : " + element);
-                logfile.WriteLogs("libLogs", "[ERROR] : dieser Fehler verursacht das ein Blip oder ein Radar Wegpunkt nicht gelöscht werden konnte!");
+                case "Blip":
+                    VenoX.TriggerClientEvent(player, "deleteBlipWaypoint");
+                    break;
+                case "Blip_lib":
+                    VenoX.TriggerClientEvent(player, "deleteBlip_lib");
+                    break;
+                default:
+                    Logfile.WriteLogs("libLogs", "[ERROR] : Schwerwiegender Fehler! Element konnte nicht Gelöscht werden! : " + element);
+                    Logfile.WriteLogs("libLogs", "[ERROR] : dieser Fehler verursacht das ein Blip oder ein Radar Wegpunkt nicht gelöscht werden konnte!");
+                    break;
             }
         }
 
@@ -77,24 +75,24 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
             VenoX.TriggerClientEvent(player, "createVnXSAWindowSelection", headertext, boxtext, buttontext1, buttontext2);
         }
 
-        public static void DrawBlip(VnXPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
+        public static void DrawBlip(VnXPlayer player, string name, Position position, int blipId, int blipRgba, int dimension)
         {
-            VenoX.TriggerClientEvent(player, "placeBlip", name, position, blipID, blipRgba, Dimension);
+            VenoX.TriggerClientEvent(player, "placeBlip", name, position, blipId, blipRgba, dimension);
         }
 
-        public static void DrawZielBlip(VnXPlayer player, string name, Position position, int blipID, int blipRgba, int Dimension)
+        public static void DrawZielBlip(VnXPlayer player, string name, Position position, int blipId, int blipRgba, int dimension)
         {
-            VenoX.TriggerClientEvent(player, "placeBlipWaypoint", name, position, blipID, blipRgba, Dimension);
+            VenoX.TriggerClientEvent(player, "placeBlipWaypoint", name, position, blipId, blipRgba, dimension);
         }
 
-        public static void DrawCustomZielBlip(VnXPlayer player, string name, Position position, float scale, int blipID, int blipRgba, int Dimension, int r, int g, int b, int a)
+        public static void DrawCustomZielBlip(VnXPlayer player, string name, Position position, float scale, int blipId, int blipRgba, int dimension, int r, int g, int b, int a)
         {
-            VenoX.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipID, blipRgba, Dimension, r, g, b, a);
+            VenoX.TriggerClientEvent(player, "placeCustomBlipWaypoint", name, position, scale, blipId, blipRgba, dimension, r, g, b, a);
         }
 
-        public static void DrawZielBlipTable(VnXPlayer player, string TableName, string name, Position position, int blipID, int blipRgba, int Dimension, int destroyedinms)
+        public static void DrawZielBlipTable(VnXPlayer player, string tableName, string name, Position position, int blipId, int blipRgba, int dimension, int destroyedinms)
         {
-            VenoX.TriggerClientEvent(player, "placeBlipWaypoint_Table", TableName, name, position, blipID, blipRgba, Dimension, destroyedinms);
+            VenoX.TriggerClientEvent(player, "placeBlipWaypoint_Table", tableName, name, position, blipId, blipRgba, dimension, destroyedinms);
         }
         public static void DrawWaypoint(VnXPlayer player, float x, float y)
         {
@@ -110,11 +108,11 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             VenoX.TriggerClientEvent(player, "Player:Freeze", state);
         }
-        public static void SetDelayedIVehicleElementFrozen(VehicleModel Vehicle, VnXPlayer sender, bool state, int TimeInMS)
+        public static void SetDelayedIVehicleElementFrozen(VehicleModel vehicle, VnXPlayer sender, bool state, int timeInMs)
         {
-            if (Vehicle != null)
+            if (vehicle != null)
             {
-                VenoX.TriggerClientEvent(sender, "FreezeVEHICLE_DelayedPLAYER_VnX", Vehicle, state, TimeInMS);
+                VenoX.TriggerClientEvent(sender, "FreezeVEHICLE_DelayedPLAYER_VnX", vehicle, state, timeInMs);
             }
         }
         public static void CreateDiscordUpdate(VnXPlayer player, string top, string main)

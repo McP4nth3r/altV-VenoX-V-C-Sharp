@@ -1,64 +1,63 @@
 ﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class SkinModel : IScript
     {
-        public int firstHeadShape { get; set; }
-        public int secondHeadShape { get; set; }
+        public int FirstHeadShape { get; set; }
+        public int SecondHeadShape { get; set; }
 
-        public int firstSkinTone { get; set; }
-        public int secondSkinTone { get; set; }
+        public int FirstSkinTone { get; set; }
+        public int SecondSkinTone { get; set; }
 
-        public float headMix { get; set; }
-        public float skinMix { get; set; }
+        public float HeadMix { get; set; }
+        public float SkinMix { get; set; }
 
-        public int hairModel { get; set; }
-        public int firstHairColor { get; set; }
-        public int secondHairColor { get; set; }
+        public int HairModel { get; set; }
+        public int FirstHairColor { get; set; }
+        public int SecondHairColor { get; set; }
 
-        public int beardModel { get; set; }
-        public int beardColor { get; set; }
+        public int BeardModel { get; set; }
+        public int BeardColor { get; set; }
 
-        public int chestModel { get; set; }
-        public int chestColor { get; set; }
+        public int ChestModel { get; set; }
+        public int ChestColor { get; set; }
 
-        public int blemishesModel { get; set; }
-        public int ageingModel { get; set; }
-        public int complexionModel { get; set; }
-        public int sundamageModel { get; set; }
-        public int frecklesModel { get; set; }
+        public int BlemishesModel { get; set; }
+        public int AgeingModel { get; set; }
+        public int ComplexionModel { get; set; }
+        public int SundamageModel { get; set; }
+        public int FrecklesModel { get; set; }
 
-        public int eyesColor { get; set; }
-        public int eyebrowsModel { get; set; }
-        public int eyebrowsColor { get; set; }
+        public int EyesColor { get; set; }
+        public int EyebrowsModel { get; set; }
+        public int EyebrowsColor { get; set; }
 
-        public int makeupModel { get; set; }
-        public int blushModel { get; set; }
-        public int blushColor { get; set; }
-        public int lipstickModel { get; set; }
-        public int lipstickColor { get; set; }
+        public int MakeupModel { get; set; }
+        public int BlushModel { get; set; }
+        public int BlushColor { get; set; }
+        public int LipstickModel { get; set; }
+        public int LipstickColor { get; set; }
 
-        public float noseWidth { get; set; }
-        public float noseHeight { get; set; }
-        public float noseLength { get; set; }
-        public float noseBridge { get; set; }
-        public float noseTip { get; set; }
-        public float noseShift { get; set; }
-        public float browHeight { get; set; }
-        public float browWidth { get; set; }
-        public float cheekboneHeight { get; set; }
-        public float cheekboneWidth { get; set; }
-        public float cheeksWidth { get; set; }
-        public float eyes { get; set; }
-        public float lips { get; set; }
-        public float jawWidth { get; set; }
-        public float jawHeight { get; set; }
-        public float chinLength { get; set; }
-        public float chinPosition { get; set; }
-        public float chinWidth { get; set; }
-        public float chinShape { get; set; }
-        public float neckWidth { get; set; }
+        public float NoseWidth { get; set; }
+        public float NoseHeight { get; set; }
+        public float NoseLength { get; set; }
+        public float NoseBridge { get; set; }
+        public float NoseTip { get; set; }
+        public float NoseShift { get; set; }
+        public float BrowHeight { get; set; }
+        public float BrowWidth { get; set; }
+        public float CheekboneHeight { get; set; }
+        public float CheekboneWidth { get; set; }
+        public float CheeksWidth { get; set; }
+        public float Eyes { get; set; }
+        public float Lips { get; set; }
+        public float JawWidth { get; set; }
+        public float JawHeight { get; set; }
+        public float ChinLength { get; set; }
+        public float ChinPosition { get; set; }
+        public float ChinWidth { get; set; }
+        public float ChinShape { get; set; }
+        public float NeckWidth { get; set; }
     }
 }

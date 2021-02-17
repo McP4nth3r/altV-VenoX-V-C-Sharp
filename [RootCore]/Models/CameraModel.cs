@@ -9,7 +9,7 @@ namespace VenoXV._RootCore_.Models
         public Vector3 StartRotation { get; set; }
         public Vector3 EndPosition { get; set; }
         public Vector3 EndRotation { get; set; }
-        public int DurationInMS { get; set; }
-        public int ID { get; set; }
+        public int DurationInMs { get; set; }
+        public int Id { get; set; }
     }
 }

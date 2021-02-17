@@ -2,6 +2,6 @@
 {
     public class UserGroupsModel
     {
-        public int UID { get; set; }
+        public int Uid { get; set; }
     }
 }

@@ -1,30 +1,33 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.quests;
-using VenoXV._RootCore_;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
 {
     public class Shoprob : IScript
     {
 
-        public static int SHOP_COOLDOWN_TIME = 45; // Zeit bis ein Rob wieder verfügbar ist.
-        public static int SHOP_ROB_TIME = 2; // Zeit bis zum Geld.
-        public static int SHOP_ROB_MONEY = 500; // Geld Pro Erfolgreichen Raub.
+        public static int ShopCooldownTime = 45; // Zeit bis ein Rob wieder verfügbar ist.
+        public static int ShopRobTime = 2; // Zeit bis zum Geld.
+        public static int ShopRobMoney = 500; // Geld Pro Erfolgreichen Raub.
         // Blip Property
-        public static string SHOP_BLIP_NAME_POSSIBLE = "Shop";
-        public static string SHOP_BLIP_NAME_BEING_ROBBED = "Shop [Wird ausgeraubt]";
-        public static string SHOP_BLIP_NAME_HAVE_COOLDOWN = "Shop [Wurde ausgeraubt]";
-        public static int SHOP_BLIP_ID = 52;
-        public static int SHOP_Rgba_POSSIBLE = 0;
-        public static int SHOP_Rgba_BEING_ROBBED = 1;
-        public static int SHOP_Rgba_HAVE_COOLDOWN = 3;
+        public static string ShopBlipNamePossible = "Shop";
+        public static string ShopBlipNameBeingRobbed = "Shop [Wird ausgeraubt]";
+        public static string ShopBlipNameHaveCooldown = "Shop [Wurde ausgeraubt]";
+        public static int ShopBlipId = 52;
+        public static int ShopRgbaPossible = 0;
+        public static int ShopRgbaBeingRobbed = 1;
+        public static int ShopRgbaHaveCooldown = 3;
 
 
 
@@ -33,14 +36,14 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         public static List<BlipModel> ShopBlips = new List<BlipModel>();
         public static List<ColShapeModel> ShopColShapeModels = new List<ColShapeModel>();
 
-        public static string SHOP_COOLDOWN = "SHOP_COOLDOWN";
-        public static string SHOP_ROB_POSSIBLE = "SHOP_ROB_POSSIBLE";
-        public static string SHOP_ROB_STARTED = "SHOP_ROB_STARTED";
-        public static string PLAYER_ROB_STARTED = "PLAYER_ROB_STARTED";
-        public static string SHOP_IS_COL = "SHOP_IS_COL";
-        public static string SHOP_ID = "SHOP_ID";
-        public static string SHOP_ROB_ID = "SHOP_ROB_ID";
-        public static string SHOP_ROB_TIMEREMAINING = "SHOP_ROB_TIMEREMAINING";
+        public static string ShopCooldown = "SHOP_COOLDOWN";
+        public static string ShopRobPossible = "SHOP_ROB_POSSIBLE";
+        public static string ShopRobStarted = "SHOP_ROB_STARTED";
+        public static string PlayerRobStarted = "PLAYER_ROB_STARTED";
+        public static string ShopIsCol = "SHOP_IS_COL";
+        public static string ShopId = "SHOP_ID";
+        public static string ShopRobId = "SHOP_ROB_ID";
+        public static string ShopRobTimeremaining = "SHOP_ROB_TIMEREMAINING";
 
 
 
@@ -71,30 +74,30 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                     { new Position(1391.8386f, 3606.2598f, 34.9809f), 200 }
                 };
 
-                int SHOP_ID_COUNTER = 0;
-                foreach (var ShopCoord in ShopSkins)
+                int shopIdCounter = 0;
+                foreach (var shopCoord in ShopSkins)
                 {
-                    ColShapeModel Col = RageAPI.CreateColShapeSphere(ShopCoord.Key, 2.25f);
-                    Col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now);
-                    Col.vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now);
-                    Col.vnxSetElementData(SHOP_ROB_POSSIBLE, true);
-                    Col.vnxSetElementData(SHOP_ROB_STARTED, false);
-                    Col.vnxSetElementData(SHOP_IS_COL, true);
-                    Col.vnxSetElementData(SHOP_ID, SHOP_ID_COUNTER);
-                    ShopColShapeModels.Add(Col);
+                    ColShapeModel col = RageApi.CreateColShapeSphere(shopCoord.Key, 2.25f);
+                    col.VnxSetElementData(ShopCooldown, DateTime.Now);
+                    col.VnxSetElementData(ShopRobTimeremaining, DateTime.Now);
+                    col.VnxSetElementData(ShopRobPossible, true);
+                    col.VnxSetElementData(ShopRobStarted, false);
+                    col.VnxSetElementData(ShopIsCol, true);
+                    col.VnxSetElementData(ShopId, shopIdCounter);
+                    ShopColShapeModels.Add(col);
                     BlipModel blip = new BlipModel
                     {
-                        Name = SHOP_BLIP_NAME_POSSIBLE,
-                        posX = ShopCoord.Key.X,
-                        posY = ShopCoord.Key.Y,
-                        posZ = ShopCoord.Key.Z,
-                        Sprite = SHOP_BLIP_ID,
-                        Color = SHOP_Rgba_POSSIBLE,
+                        Name = ShopBlipNamePossible,
+                        PosX = shopCoord.Key.X,
+                        PosY = shopCoord.Key.Y,
+                        PosZ = shopCoord.Key.Z,
+                        Sprite = ShopBlipId,
+                        Color = ShopRgbaPossible,
                         ShortRange = true
                     };
-                    RageAPI.CreateBlip(SHOP_BLIP_NAME_POSSIBLE, ShopCoord.Key, SHOP_BLIP_ID, SHOP_Rgba_POSSIBLE, true);
+                    RageApi.CreateBlip(ShopBlipNamePossible, shopCoord.Key, ShopBlipId, ShopRgbaPossible, true);
                     ShopBlips.Add(blip);
-                    SHOP_ID_COUNTER += 1;
+                    shopIdCounter += 1;
 
                 }
             }
@@ -112,9 +115,9 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 {
 
                 }
-                foreach (var ShopCoord in ShopSkins)
+                foreach (var shopCoord in ShopSkins)
                 {
-                    VenoX.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", ShopCoord.Key, ShopCoord.Value);
+                    VenoX.TriggerClientEvent(player, "ShopRob:CreateNPC", "s_m_m_ups_01", shopCoord.Key, shopCoord.Value);
                 }
             }
             catch { }
@@ -125,10 +128,10 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                if (shape.vnxGetElementData<bool>(SHOP_IS_COL) == true) // == True = BugFix ( Cannot not Convert null to Bolean) < --- Server Crash verhindung.
+                if (shape.VnxGetElementData<bool>(ShopIsCol)) // == True = BugFix ( Cannot not Convert null to Bolean) < --- Server Crash verhindung.
                 {
                     VenoX.TriggerClientEvent(player, "CreateShopWindow");
-                    player.vnxSetElementData(SHOP_ID, shape.vnxGetElementData<int>(SHOP_ID));
+                    player.VnxSetElementData(ShopId, shape.VnxGetElementData<int>(ShopId));
                 }
             }
             catch { }
@@ -138,32 +141,32 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                if (player.vnxGetElementData<bool>(PLAYER_ROB_STARTED) != true)
+                if (player.VnxGetElementData<bool>(PlayerRobStarted) != true)
                 {
-                    if (player.vnxGetElementData<bool>(SHOP_ID) != false)
+                    if (player.VnxGetElementData<bool>(ShopId))
                     {
-                        if (Factions.Allround.isStateFaction(player) == false)
+                        if (Factions.Allround.IsStateFaction(player) == false)
                         {
-                            int CURRENT_ID = player.vnxGetElementData<int>(SHOP_ID);
-                            if (ShopColShapeModels[CURRENT_ID].vnxGetElementData<bool>(SHOP_ROB_STARTED) == false && ShopColShapeModels[CURRENT_ID].vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now)
-                            {
-                                //Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_BEING_ROBBED);
-                                //RobbedBlip. = SHOP_BLIP_NAME_BEING_ROBBED;
-                                player.vnxSetElementData(SHOP_ROB_ID, CURRENT_ID);
-                                player.vnxSetElementData(PLAYER_ROB_STARTED, true);
-                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_STARTED, true);
-                                ShopColShapeModels[CURRENT_ID].vnxSetElementData(SHOP_ROB_TIMEREMAINING, DateTime.Now.AddMinutes(SHOP_ROB_TIME));
-                                factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
-                                //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
-                                if (Quests.QuestDict.ContainsKey(Quests.QUEST_START_SHOPROB))
-                                    Quests.OnQuestDone(player, Quests.QuestDict[Quests.QUEST_START_SHOPROB]);
-                            }
+                            int currentId = player.VnxGetElementData<int>(ShopId);
+                            if (ShopColShapeModels[currentId].VnxGetElementData<bool>(ShopRobStarted) != false ||
+                                ShopColShapeModels[currentId].VnxGetElementData<DateTime>(ShopCooldown) > DateTime.Now)
+                                return;
+                            //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                            //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_BEING_ROBBED);
+                            //RobbedBlip. = SHOP_BLIP_NAME_BEING_ROBBED;
+                            player.VnxSetElementData(ShopRobId, currentId);
+                            player.VnxSetElementData(PlayerRobStarted, true);
+                            ShopColShapeModels[currentId].VnxSetElementData(ShopRobPossible, false);
+                            ShopColShapeModels[currentId].VnxSetElementData(ShopRobStarted, true);
+                            ShopColShapeModels[currentId].VnxSetElementData(ShopRobTimeremaining, DateTime.Now.AddMinutes(ShopRobTime));
+                            Faction.CreateCustomStateFactionMessage(RageApi.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + currentId + "] wird ausgeraubt! Ihr habt genau 120 Sekunden Zeit!");
+                            //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_START_SHOPROB);
+                            if (Quests.QuestDict.ContainsKey(Quests.QuestStartShoprob))
+                                Quests.OnQuestDone(player, Quests.QuestDict[Quests.QuestStartShoprob]);
                         }
                         else
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in einer Staatsfraktion!");
+                            Main.DrawNotification(player, Main.Types.Error, "Du bist in einer Staatsfraktion!");
                         }
                     }
                 }
@@ -175,64 +178,60 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                foreach (VnXPlayer player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer player in _Globals_.Main.ReallifePlayers.ToList())
                 {
                     foreach (ColShapeModel col in ShopColShapeModels)
                     {
-                        if (col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == true && col.vnxGetElementData<DateTime>(SHOP_ROB_TIMEREMAINING) <= DateTime.Now)
+                        if (col.VnxGetElementData<bool>(ShopRobStarted) && col.VnxGetElementData<DateTime>(ShopRobTimeremaining) <= DateTime.Now)
                         {
-                            int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
-                            if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
+                            int currentId = col.VnxGetElementData<int>(ShopId);
+                            if (player.VnxGetElementData<int>(ShopRobId) != currentId) continue;
+                            if (player.Health >= 0 && player.Position.Distance(new Position(ShopBlips[currentId].PosX, ShopBlips[currentId].PosY, ShopBlips[currentId].PosZ)) < 7)
                             {
-                                if (player.Health >= 0 && player.Position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) < 7)
-                                {
-                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
-                                    //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
+                                //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
 
-                                    col.vnxSetElementData(SHOP_ROB_STARTED, false);
-                                    col.vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                                    col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
-                                    player.vnxSetElementData(PLAYER_ROB_STARTED, false);
-                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war Erfolgreich!");
-                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Shopraub war Erfolgreich! Du erhältst " + SHOP_ROB_MONEY + " $");
-                                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money + SHOP_ROB_MONEY);
-                                }
-                                else
-                                {
-                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
-                                    //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
-                                    col.vnxSetElementData(SHOP_ROB_STARTED, false);
-                                    col.vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                                    col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
+                                col.VnxSetElementData(ShopRobStarted, false);
+                                col.VnxSetElementData(ShopRobPossible, false);
+                                col.VnxSetElementData(ShopCooldown, DateTime.Now.AddMinutes(ShopCooldownTime));
+                                player.VnxSetElementData(PlayerRobStarted, false);
+                                Faction.CreateCustomStateFactionMessage(RageApi.GetHexColorcode(200, 0, 0) + "Der 24/7 Shop[" + currentId + "] Raub war Erfolgreich!");
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Der Shopraub war Erfolgreich! Du erhältst " + ShopRobMoney + " $");
+                                player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money + ShopRobMoney);
+                            }
+                            else
+                            {
+                                //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
+                                col.VnxSetElementData(ShopRobStarted, false);
+                                col.VnxSetElementData(ShopRobPossible, false);
+                                col.VnxSetElementData(ShopCooldown, DateTime.Now.AddMinutes(ShopCooldownTime));
 
-                                    player.vnxSetElementData(PLAYER_ROB_STARTED, false);
-                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
-                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
-                                }
+                                player.VnxSetElementData(PlayerRobStarted, false);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                Faction.CreateCustomStateFactionMessage(RageApi.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + currentId + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                             }
                         }
-                        else if (col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == true && col.vnxGetElementData<DateTime>(SHOP_ROB_TIMEREMAINING) > DateTime.Now)
+                        else if (col.VnxGetElementData<bool>(ShopRobStarted) && col.VnxGetElementData<DateTime>(ShopRobTimeremaining) > DateTime.Now)
                         {
-                            int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
-                            if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
+                            int currentId = col.VnxGetElementData<int>(ShopId);
+                            if (player.VnxGetElementData<int>(ShopRobId) != currentId) continue;
+                            if (player.Health <= 0 || player.Position.Distance(new Position(ShopBlips[currentId].PosX, ShopBlips[currentId].PosY, ShopBlips[currentId].PosZ)) > 7)
                             {
-                                if (player.Health <= 0 || player.Position.Distance(new Position(ShopBlips[CURRENT_ID].posX, ShopBlips[CURRENT_ID].posY, ShopBlips[CURRENT_ID].posZ)) > 7)
-                                {
-                                    //Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                                    //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
-                                    //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
+                                //Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                                //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                                //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
 
 
-                                    col.vnxSetElementData(SHOP_ROB_STARTED, false);
-                                    col.vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                                    col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
+                                col.VnxSetElementData(ShopRobStarted, false);
+                                col.VnxSetElementData(ShopRobPossible, false);
+                                col.VnxSetElementData(ShopCooldown, DateTime.Now.AddMinutes(ShopCooldownTime));
 
-                                    player.vnxSetElementData(PLAYER_ROB_STARTED, false);
-                                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
-                                    factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
-                                }
+                                player.VnxSetElementData(PlayerRobStarted, false);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(200, 0, 0) + "Der Shopraub wurde abgebrochen da du dich zu weit entfernt hast vom Shop!");
+                                Faction.CreateCustomStateFactionMessage(RageApi.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + currentId + "] Raub war nicht Erfolgreich! Der Spieler ist abgehauen.");
                             }
                         }
                     }
@@ -247,19 +246,18 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
             {
                 foreach (ColShapeModel col in ShopColShapeModels)
                 {
-                    if (col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == true && col.vnxGetElementData<DateTime>(SHOP_ROB_TIMEREMAINING) >= DateTime.Now)
+                    if (!col.VnxGetElementData<bool>(ShopRobStarted) ||
+                        col.VnxGetElementData<DateTime>(ShopRobTimeremaining) < DateTime.Now) continue;
+                    int currentId = col.VnxGetElementData<int>(ShopId);
+                    if (player.VnxGetElementData<int>(ShopRobId) == currentId)
                     {
-                        int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
-                        if (player.vnxGetElementData<int>(SHOP_ROB_ID) == CURRENT_ID)
-                        {
-                            // Blip RobbedBlip = ShopBlips[CURRENT_ID];
-                            //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
-                            //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
-                            col.vnxSetElementData(SHOP_ROB_STARTED, false);
-                            col.vnxSetElementData(SHOP_ROB_POSSIBLE, false);
-                            col.vnxSetElementData(SHOP_COOLDOWN, DateTime.Now.AddMinutes(SHOP_COOLDOWN_TIME));
-                            factions.Faction.CreateCustomStateFactionMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + CURRENT_ID + "] Raub war nicht Erfolgreich! Der Spieler ist Disconnected.");
-                        }
+                        // Blip RobbedBlip = ShopBlips[CURRENT_ID];
+                        //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
+                        //RobbedBlip.Name = SHOP_BLIP_NAME_HAVE_COOLDOWN;
+                        col.VnxSetElementData(ShopRobStarted, false);
+                        col.VnxSetElementData(ShopRobPossible, false);
+                        col.VnxSetElementData(ShopCooldown, DateTime.Now.AddMinutes(ShopCooldownTime));
+                        Faction.CreateCustomStateFactionMessage(RageApi.GetHexColorcode(0, 200, 0) + "Der 24/7 Shop[" + currentId + "] Raub war nicht Erfolgreich! Der Spieler ist Disconnected.");
                     }
                 }
             }
@@ -273,12 +271,12 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 return;
                 foreach (IColShape col in Alt.GetAllColShapes())
                 {
-                    if (col.vnxGetElementData<bool>(SHOP_IS_COL) == true)
+                    if (col.VnxGetElementData<bool>(ShopIsCol))
                     {
-                        if (col.vnxGetElementData<DateTime>(SHOP_COOLDOWN) <= DateTime.Now && col.vnxGetElementData<bool>(SHOP_ROB_POSSIBLE) == false && col.vnxGetElementData<bool>(SHOP_ROB_STARTED) == false)
+                        if (col.VnxGetElementData<DateTime>(ShopCooldown) <= DateTime.Now && col.VnxGetElementData<bool>(ShopRobPossible) == false && col.VnxGetElementData<bool>(ShopRobStarted) == false)
                         {
-                            int CURRENT_ID = col.vnxGetElementData<int>(SHOP_ID);
-                            col.vnxSetElementData(SHOP_ROB_POSSIBLE, true);
+                            int currentId = col.VnxGetElementData<int>(ShopId);
+                            col.VnxSetElementData(ShopRobPossible, true);
                             //Blip RobbedBlip = ShopBlips[CURRENT_ID];
                             //RobbedBlip.Color = Convert.ToByte(SHOP_Rgba_HAVE_COOLDOWN);
                             //RobbedBlip.Name = SHOP_BLIP_NAME_POSSIBLE; // Reset Data.
@@ -294,43 +292,28 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
         {
             try
             {
-                if (value == 1)
+                switch (value)
                 {
-
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        OnShopRobClickServer(player);
+                        break;
                 }
-                else if (value == 2)
-                {
-
-                }
-                else if (value == 3)
-                {
-
-                }
-                else if (value == 4)
-                {
-
-                }
-                else if (value == 5)
-                {
-
-                }
-                else if (value == 6)
-                {
-
-                }
-                else if (value == 7)
-                {
-
-                }
-                else if (value == 8)
-                {
-
-                }
-                else if (value == 9)
-                {
-                    OnShopRobClickServer(player);
-                }
-
             }
             catch { }
         }

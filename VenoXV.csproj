@@ -23,6 +23,7 @@
     <None Remove="internationalization\**" />
     <None Remove="VenoXV_Client\**" />
     <None Remove="[Globals]\Models\**" />
+    <None Remove="VenoXV.sln.DotSettings" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AltV.Net" Version="1.48.3" />

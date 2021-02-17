@@ -1,24 +1,26 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_;
+using VenoXV._Maps_.Model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
 {
     public class Bus : IScript
     {
-        public static string BUSJOB_LEVEL = "BUSJOB_LEVEL";
-        public static int BUSJOB_LEVEL_ONE_MONEY = 70;
-        public static int BUSJOB_LEVEL_TWO_MONEY = 140;
-        public static int BUSJOB_LEVEL_THREE_MONEY = 210;
-        public static int BUSJOB_ROUND_BONUS = 350;
-        public static int BUSJOB_FREEZE_TIME = 4000;
+        public static string BusjobLevel = "BUSJOB_LEVEL";
+        public static int BusjobLevelOneMoney = 70;
+        public static int BusjobLevelTwoMoney = 140;
+        public static int BusjobLevelThreeMoney = 210;
+        public static int BusjobRoundBonus = 350;
+        public static int BusjobFreezeTime = 4000;
         // BusJob Punkte
-        public static List<Vector3> AbgabepunkteLVLONE = new List<Vector3>
+        public static List<Vector3> AbgabepunkteLvlone = new List<Vector3>
         {
             new Vector3(402.7597f, -669.9449f, 28.87156f),
             new Vector3(302.9639f, -768.7956f, 29.31038f),
@@ -49,18 +51,18 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             try
             {
                 // Erstellt für jede Koordinate in der Tabelle eine Bus - Station.
-                foreach (Vector3 BusCoord in AbgabepunkteLVLONE)
+                foreach (Vector3 busCoord in AbgabepunkteLvlone)
                 {
 
-                    _Maps_.Model.MapModel mapClass = new _Maps_.Model.MapModel
+                    MapModel mapClass = new MapModel
                     {
                         MapName = "BusJob",
-                        Position = new Vector3(BusCoord.X, BusCoord.Y, BusCoord.Z - 1),
+                        Position = new Vector3(busCoord.X, busCoord.Y, busCoord.Z - 1),
                         Rotation = new Vector3(0, 0, 0),
                     };
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void StartBusJob(VnXPlayer player, int value)
@@ -70,33 +72,33 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                 switch (value)
                 {
                     case 1:
-                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
+                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Bus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JobBus);
                         break;
                     case 2:
-                        if (player.Reallife.BUSJOB_LEVEL < 50)
+                        if (player.Reallife.BusJobLevel < 50)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 50 verfügbar!");
+                            Main.DrawNotification(player, Main.Types.Info, "Erst ab Level 50 verfügbar!");
                             return;
                         }
-                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
+                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Airbus, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JobBus);
                         break;
                     case 3:
-                        if (player.Reallife.BUSJOB_LEVEL < 150)
+                        if (player.Reallife.BusJobLevel < 150)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Erst ab Level 150 verfügbar!");
+                            Main.DrawNotification(player, Main.Types.Info, "Erst ab Level 150 verfügbar!");
                             return;
                         }
-                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JOB_BUS);
+                        Allround.CreateJobVehicle(player, AltV.Net.Enums.VehicleModel.Coach, new Vector3(466.3002f, -595.9792f, 28.10545f), new Vector3(0, 0, 190), Constants.JobBus);
                         break;
                 }
                 player.Reallife.JobMarker = 0;
                 player.Reallife.JobStage = value;
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Mach VenoX Mobil!");
-                player.vnxSetElementData(BUSJOB_LEVEL, 0);
-                Vector3 Destination = AbgabepunkteLVLONE[0];
-                Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
+                Main.DrawNotification(player, Main.Types.Info, "Mach VenoX Mobil!");
+                player.VnxSetElementData(BusjobLevel, 0);
+                Vector3 destination = AbgabepunkteLvlone[0];
+                Allround.CreateJobMarker(player, 480, destination, 5, new[] { 255, 255, 255, 255 });
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void OnJobMarkerHit(VnXPlayer player)
@@ -104,37 +106,37 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
             try
             {
                 if (!player.IsInVehicle) return;
-                if (player.Reallife.JobMarker >= AbgabepunkteLVLONE.Count)
+                if (player.Reallife.JobMarker >= AbgabepunkteLvlone.Count)
                 {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BUSJOB_ROUND_BONUS + " $");
-                    player.Reallife.Money += BUSJOB_ROUND_BONUS;
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(255, 255, 255) + "Du hast eine Runde Erfolgreich absolviert :)");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(255, 0, 0) + "Dein Bonus beträgt : " + BusjobRoundBonus + " $");
+                    player.Reallife.Money += BusjobRoundBonus;
                     player.Reallife.JobMarker = 0;
                 }
                 else player.Reallife.JobMarker += 1;
 
-                int JobMoney = 0;
+                int jobMoney = 0;
                 switch (player.Reallife.JobStage)
                 {
                     case 1:
-                        JobMoney = BUSJOB_LEVEL_ONE_MONEY;
+                        jobMoney = BusjobLevelOneMoney;
                         break;
                     case 2:
-                        JobMoney = BUSJOB_LEVEL_TWO_MONEY;
+                        jobMoney = BusjobLevelTwoMoney;
                         break;
                     case 3:
-                        JobMoney = BUSJOB_LEVEL_THREE_MONEY;
+                        jobMoney = BusjobLevelThreeMoney;
                         break;
                 }
-                player.Reallife.BUSJOB_LEVEL += 1;
-                player.Reallife.Money += JobMoney;
+                player.Reallife.BusJobLevel += 1;
+                player.Reallife.Money += jobMoney;
                 Allround.DestroyJobMarker(player);
-                Vector3 Destination = AbgabepunkteLVLONE[player.Reallife.JobMarker];
+                Vector3 destination = AbgabepunkteLvlone[player.Reallife.JobMarker];
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                VenoX.TriggerClientEvent(player, "BusJob:CreateTimeout", BUSJOB_FREEZE_TIME);
+                VenoX.TriggerClientEvent(player, "BusJob:CreateTimeout", BusjobFreezeTime);
                 vehClass.Frozen = true;
-                _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, JobMoney + " $");
-                Allround.CreateJobMarker(player, 480, Destination, 5, new int[] { 255, 255, 255, 255 });
+                Main.DrawNotification(player, Main.Types.Info, jobMoney + " $");
+                Allround.CreateJobMarker(player, 480, destination, 5, new[] { 255, 255, 255, 255 });
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -150,20 +152,20 @@ namespace VenoXV._Gamemodes_.Reallife.jobs.Bus
                     vehClass.Frozen = false;
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void OnPlayerLeaveVehicle(VehicleModel vehClass, VnXPlayer player)
         {
             try
             {
-                if (player.Reallife.Job != Constants.JOB_BUS || player.Reallife.JobStage <= 0) return;
-                RageAPI.DeleteVehicleThreadSafe(vehClass);
+                if (player.Reallife.Job != Constants.JobBus || player.Reallife.JobStage <= 0) return;
+                RageApi.DeleteVehicleThreadSafe(vehClass);
                 Allround.DestroyJobMarker(player);
-                player.SetPosition = AbgabepunkteLVLONE[0];
+                player.SetPosition = AbgabepunkteLvlone[0];
                 player.Reallife.JobStage = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

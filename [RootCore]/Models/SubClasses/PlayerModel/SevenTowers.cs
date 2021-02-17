@@ -1,5 +1,6 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
@@ -18,7 +19,7 @@ namespace VenoXV._RootCore_.Models
                 LastVehicleGot = DateTime.Now;
                 IsSpectator = false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

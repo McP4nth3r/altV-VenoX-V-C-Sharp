@@ -1,11 +1,13 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.environment.Weed
 {
@@ -20,9 +22,9 @@ namespace VenoXV._Gamemodes_.Reallife.environment.Weed
         {
             try
             {
-                string Text = "~g~" + weed.Name + "\n____________\n ~g~Gewachsen : ~w~" + weed.Value + "% \n ~g~Erstellt am : ~w~ " + weed.Created;
-                Core.RageAPI.CreateObject("WeedObjects", "prop_weed_01", weed.Position, weed.Rotation, new Quaternion(0, 0, 0, 0), true);
-                Core.RageAPI.CreateTextLabel(Text, weed.Position, 20, 1, 0, new int[] { 255, 255, 255, 255 });
+                string text = "~g~" + weed.Name + "\n____________\n ~g~Gewachsen : ~w~" + weed.Value + "% \n ~g~Erstellt am : ~w~ " + weed.Created;
+                RageApi.CreateObject("WeedObjects", "prop_weed_01", weed.Position, weed.Rotation, new Quaternion(0, 0, 0, 0), true);
+                RageApi.CreateTextLabel(text, weed.Position, 20, 1, 0, new[] { 255, 255, 255, 255 });
             }
             catch { }
         }

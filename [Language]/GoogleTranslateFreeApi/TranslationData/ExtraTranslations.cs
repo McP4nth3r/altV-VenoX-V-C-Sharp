@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 
 namespace GoogleTranslateFreeApi.TranslationData
 {
@@ -42,10 +39,8 @@ namespace GoogleTranslateFreeApi.TranslationData
 		[DataMember] public ExtraTranslation[] Abbreviation { get; internal set; }
 		[DataMember] public ExtraTranslation[] Particle { get; internal set; }
 		[DataMember] public ExtraTranslation[] Phrase { get; internal set; }
-		
-		public ExtraTranslations() { }
 
-		
+
 		private string FormatOutput(IEnumerable<ExtraTranslation> formatData, string partOfSpeechName)
 		{
 			if(formatData == null)
@@ -82,7 +77,7 @@ namespace GoogleTranslateFreeApi.TranslationData
 
 		internal override bool TryParseMemberAndAdd(string memberName, JToken parseInformation)
 		{
-			PropertyInfo property = this.GetType().GetRuntimeProperty(memberName.ToCamelCase());
+			PropertyInfo property = GetType().GetRuntimeProperty(memberName.ToCamelCase());
 			if (property == null)
 				return false;
 			

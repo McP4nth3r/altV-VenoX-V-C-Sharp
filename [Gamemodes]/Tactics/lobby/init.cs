@@ -1,16 +1,20 @@
-﻿using AltV.Net;
-using AltV.Net.Async;
-using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using VenoXV._Gamemodes_.Tactics.Globals;
+using AltV.Net;
+using AltV.Net.Async;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
+using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Tactics.model;
-using VenoXV._RootCore_;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using EntityData = VenoXV._Gamemodes_.Tactics.Globals.EntityData;
+using VehicleModel = VenoXV.Models.VehicleModel;
+using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;
 
 namespace VenoXV._Gamemodes_.Tactics.Lobby
 {
@@ -20,27 +24,27 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
 
         // SETTINGS
 
-        public int TACTIC_ROUND_MINUTE = 3; // Zeit in Minuten.
-        public int TACTIC_ROUND_START_AFTER_LOADING = 5; // Zeit in Sekunden.
-        public int TACTIC_ROUND_JOINTIME = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
-        public int TACTIC_MIN_PLAYER_TEAM = 1; // WV Spieler pro Team minimum notwendig sind.
-        public int TACTIC_PLAYER_DIMENSION = VenoXV._Globals_.Main.TACTICS_DIMENSION;
+        public int TacticRoundMinute = 3; // Zeit in Minuten.
+        public int TacticRoundStartAfterLoading = 5; // Zeit in Sekunden.
+        public int TacticRoundJointime = 5; // Zeit in Sekunden. < -- Die zeit zum Joinen nach Rundenstart ( 5 Sek. Standart ).
+        public int TacticMinPlayerTeam = 1; // WV Spieler pro Team minimum notwendig sind.
+        public int TacticPlayerDimension = Main.TacticsDimension;
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Saved Datas.
 
         //public IPlayer[] TACTICS_PLAYERS_IN_LOBBY { get; set; }
-        public bool TACTICMANAGER__ROUND_ISRUNNING;
-        public DateTime TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
-        public DateTime TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now;
-        public DateTime TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now;
-        public bool TACTICMANAGER_ROUND_JOIN_ALLOWED;
-        public int MEMBER_COUNT_COPS = 0;
-        public int MEMBER_COUNT_BFAC = 0;
-        public int MEMBER_COUNT_MAX_COPS = 0;
-        public int MEMBER_COUNT_MAX_BFAC = 0;
-        public int RandomRound = 0;
+        public bool TacticmanagerRoundIsrunning;
+        public DateTime TacticmanagerRoundCurrenttime = DateTime.Now;
+        public DateTime TacticmanagerRoundTimetojoin = DateTime.Now;
+        public DateTime TacticmanagerRoundStartAfterLoading = DateTime.Now;
+        public bool TacticmanagerRoundJoinAllowed;
+        public int MemberCountCops;
+        public int MemberCountBfac;
+        public int MemberCountMaxCops;
+        public int MemberCountMaxBfac;
+        public int RandomRound;
         public List<IVehicle> TacticVehicleList = new List<IVehicle>();
         public RoundModel LastMap = new RoundModel();
         public RoundModel CurrentMap;
@@ -53,8 +57,8 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 Random random = new Random();
-                int RandomMap = random.Next(0, maps.Main.TacticMaps.Count); // Count Spawnpoints
-                CurrentMap = maps.Main.TacticMaps[RandomMap];
+                int randomMap = random.Next(0, maps.Main.TacticMaps.Count); // Count Spawnpoints
+                CurrentMap = maps.Main.TacticMaps[randomMap];
                 if (LastMap == CurrentMap) { GetNewMap(); return; }
                 LastMap = CurrentMap;
             }
@@ -77,20 +81,20 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 player.Tactics.CurrentKills = 0;
                 player.Tactics.IsDead = false;
                 player.Tactics.Spawned = false;
-                string TEAM_A_NAME = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.Team_A_Name);
-                string TEAM_B_NAME = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.Team_B_Name);
+                string teamAName = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.TeamAName);
+                string teamBName = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, CurrentMap.TeamBName);
                 //string TEAM_A_NAME = CurrentMap.Team_A_Name;
                 //string TEAM_B_NAME = CurrentMap.Team_B_Name;
-                player.EmitLocked("LoadTacticUI", TEAM_A_NAME, TEAM_B_NAME, CurrentMap.Team_A_Color[0], CurrentMap.Team_A_Color[1], CurrentMap.Team_A_Color[2], CurrentMap.Team_B_Color[0], CurrentMap.Team_B_Color[1], CurrentMap.Team_B_Color[2]);
-                RageAPI.SetPlayerVisible(player, true);
+                player.EmitLocked("LoadTacticUI", teamAName, teamBName, CurrentMap.TeamAColor[0], CurrentMap.TeamAColor[1], CurrentMap.TeamAColor[2], CurrentMap.TeamBColor[0], CurrentMap.TeamBColor[1], CurrentMap.TeamBColor[2]);
+                player.SetPlayerVisible(true);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public bool IsTacticRoundRunning()
         {
             // Sendet dem Spieler die Antwort ob eine Tactic Lobby am laufen ist.
-            if (TACTICMANAGER__ROUND_ISRUNNING) return true;
-            else return false;
+            if (TacticmanagerRoundIsrunning) return true;
+            return false;
         }
         public void CreateRandomRound()
         {
@@ -99,99 +103,99 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 Random random = new Random();
                 RandomRound = random.Next(0, 20);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void GivePlayerTacticWeapons(VnXPlayer player)
         {
             try
             {
-                if (CurrentMap.Custom_Weapon_Map)
+                if (CurrentMap.CustomWeaponMap)
                 {
-                    foreach (AltV.Net.Enums.WeaponModel weapon in CurrentMap.Custom_Weapons)
+                    foreach (WeaponModel weapon in CurrentMap.CustomWeapons)
                     {
-                        RageAPI.GivePlayerWeapon(player, weapon, 400);
+                        player.GivePlayerWeapon(weapon, 400);
                     }
-                    player.SendTranslatedChatMessage("[Tactics] : Only " + CurrentMap.Custom_Weapon_Mode_Name + " Modus!");
+                    player.SendTranslatedChatMessage("[Tactics] : Only " + CurrentMap.CustomWeaponModeName + " Modus!");
                     return;
                 }
                 switch (RandomRound)
                 {
                     case 0:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
+                        player.GivePlayerWeapon(WeaponModel.HeavyRevolver, 800);
                         player.SendTranslatedChatMessage("[Tactics] : Only Revolver Modus!");
                         break;
                     case 1:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 800);
+                        player.GivePlayerWeapon(WeaponModel.SMG, 800);
                         player.SendTranslatedChatMessage("[Tactics] : Only SMG Modus!");
                         break;
                     case 2:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 800);
+                        player.GivePlayerWeapon(WeaponModel.PumpShotgun, 800);
                         player.SendTranslatedChatMessage("[Tactics] : Only Shotgun Modus!");
                         break;
                     case 3:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SniperRifle, 800);
+                        player.GivePlayerWeapon(WeaponModel.SniperRifle, 800);
                         player.SendTranslatedChatMessage("[Tactics] : Only Sniper Modus!");
                         break;
                     case 4:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.RPG, 800);
-                        player.SetWeaponTintIndex(AltV.Net.Enums.WeaponModel.RPG, 2);
+                        player.GivePlayerWeapon(WeaponModel.RPG, 800);
+                        player.SetWeaponTintIndex(WeaponModel.RPG, 2);
                         player.SendTranslatedChatMessage("[Tactics] : Only RPG Modus!");
                         break;
                     case 5:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Minigun, 1000);
-                        player.SetWeaponAmmo(AltV.Net.Enums.WeaponModel.Minigun, 5000);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Switchblade, 1);
+                        player.GivePlayerWeapon(WeaponModel.Minigun, 1000);
+                        player.SetWeaponAmmo(WeaponModel.Minigun, 5000);
+                        player.GivePlayerWeapon(WeaponModel.Switchblade, 1);
                         player.SendTranslatedChatMessage("[Tactics] : Only Minigun Modus!");
                         break;
                     default:
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.HeavyRevolver, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.PumpShotgun, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.SMG, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CombatPDW, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.CarbineRifle, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.AssaultRifle, 800);
-                        RageAPI.GivePlayerWeapon(player, AltV.Net.Enums.WeaponModel.Musket, 800);
+                        player.GivePlayerWeapon(WeaponModel.HeavyRevolver, 800);
+                        player.GivePlayerWeapon(WeaponModel.PumpShotgun, 800);
+                        player.GivePlayerWeapon(WeaponModel.SMG, 800);
+                        player.GivePlayerWeapon(WeaponModel.CombatPDW, 800);
+                        player.GivePlayerWeapon(WeaponModel.CarbineRifle, 800);
+                        player.GivePlayerWeapon(WeaponModel.AssaultRifle, 800);
+                        player.GivePlayerWeapon(WeaponModel.Musket, 800);
                         break;
 
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public void SpawnPlayerOnPoint(VnXPlayer player, string Fac)
+        public void SpawnPlayerOnPoint(VnXPlayer player, string fac)
         {
             try
             {
                 Random random = new Random();
-                int randomspawnpoint = random.Next(0, CurrentMap.Team_A_Spawnpoints.Count); // Count Spawnpoints
-                if (Fac == EntityData.BFAC_NAME)
+                int randomspawnpoint = random.Next(0, CurrentMap.TeamASpawnpoints.Count); // Count Spawnpoints
+                if (fac == EntityData.BfacName)
                 {
-                    Vector3 Spawnpunkt = CurrentMap.Team_B_Spawnpoints[randomspawnpoint];
-                    player.SpawnPlayer(Spawnpunkt);
-                    player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_B_Skin));
-                    player.Dimension = TACTIC_PLAYER_DIMENSION;
+                    Vector3 spawnpunkt = CurrentMap.TeamBSpawnpoints[randomspawnpoint];
+                    player.SpawnPlayer(spawnpunkt);
+                    player.SetPlayerSkin(Alt.Hash(CurrentMap.TeamBSkin));
+                    player.Dimension = TacticPlayerDimension;
                     player.Tactics.Spawned = true;
-                    player.Tactics.Team = EntityData.BFAC_NAME;
+                    player.Tactics.Team = EntityData.BfacName;
                     GivePlayerTacticWeapons(player);
                     player.SetHealth = 200;
                     player.SetArmor = 100;
-                    player.DrawWaypoint(CurrentMap.Team_A_Spawnpoints[0].X, CurrentMap.Team_A_Spawnpoints[0].Y);
+                    player.DrawWaypoint(CurrentMap.TeamASpawnpoints[0].X, CurrentMap.TeamASpawnpoints[0].Y);
                 }
-                else if (Fac == EntityData.COPS_NAME)
+                else if (fac == EntityData.CopsName)
                 {
-                    Vector3 Spawnpunkt = CurrentMap.Team_A_Spawnpoints[randomspawnpoint];
-                    player.SpawnPlayer(Spawnpunkt); player.SetPlayerSkin(Alt.Hash(CurrentMap.Team_A_Skin));
-                    player.Dimension = TACTIC_PLAYER_DIMENSION;
+                    Vector3 spawnpunkt = CurrentMap.TeamASpawnpoints[randomspawnpoint];
+                    player.SpawnPlayer(spawnpunkt); player.SetPlayerSkin(Alt.Hash(CurrentMap.TeamASkin));
+                    player.Dimension = TacticPlayerDimension;
                     player.Tactics.Spawned = true;
-                    player.Tactics.Team = EntityData.COPS_NAME;
+                    player.Tactics.Team = EntityData.CopsName;
                     GivePlayerTacticWeapons(player);
                     player.SetHealth = 200;
                     player.SetArmor = 100;
-                    player.DrawWaypoint(CurrentMap.Team_B_Spawnpoints[0].X, CurrentMap.Team_B_Spawnpoints[0].Y);
+                    player.DrawWaypoint(CurrentMap.TeamBSpawnpoints[0].X, CurrentMap.TeamBSpawnpoints[0].Y);
                 }
                 //ToDo : ZwischenLösung Finden! player.Transparency = 255;
-                Reallife.dxLibary.VnX.SetElementFrozen(player, false);
+                VnX.SetElementFrozen(player, false);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         private void SpawnMapVehicles()
         {
@@ -199,18 +203,18 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             {
                 foreach (VehicleModel veh in TacticVehicleList.ToList())
                 {
-                    if (veh is not null && veh.Exists) RageAPI.DeleteVehicleThreadSafe(veh);
+                    if (veh is not null && veh.Exists) RageApi.DeleteVehicleThreadSafe(veh);
                     TacticVehicleList.Clear();
                 }
-                foreach (MapVehicleModel vehClass in CurrentMap.Custom_Vehicles.ToList())
+                foreach (MapVehicleModel vehClass in CurrentMap.CustomVehicles.ToList())
                 {
-                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.Vehicle_Hash, vehClass.Vehicle_Position, vehClass.Vehicle_Rotation);
+                    VehicleModel vehicle = (VehicleModel)Alt.CreateVehicle(vehClass.VehicleHash, vehClass.VehiclePosition, vehClass.VehicleRotation);
                     vehicle.EngineOn = true;
                     vehicle.Frozen = false;
                     vehicle.Godmode = false;
-                    vehicle.Dimension = TACTIC_PLAYER_DIMENSION;
+                    vehicle.Dimension = TacticPlayerDimension;
                     TacticVehicleList.Add(vehicle);
-                    Debug.OutputDebugString("Created Tactics Vehicle with Dimension " + vehicle.Dimension + " | Model : " + vehClass.Vehicle_Hash + " | Position : " + vehClass.Vehicle_Position);
+                    Debug.OutputDebugString("Created Tactics Vehicle with Dimension " + vehicle.Dimension + " | Model : " + vehClass.VehicleHash + " | Position : " + vehClass.VehiclePosition);
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -221,93 +225,93 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
             try
             {
                 // Wir Checken ob bereits eine Runde bereits läuft, falls nein dann setzen wir den Status auf True.
-                if (!IsTacticRoundRunning()) TACTICMANAGER__ROUND_ISRUNNING = true;
-                List<VnXPlayer> TacticsPlayerMixed = VenoXV._Globals_.Main.TacticsPlayers.ToList();
-                TacticsPlayerMixed.ShuffleList();
-                string _Team = EntityData.COPS_NAME;
-                foreach (VnXPlayer p in TacticsPlayerMixed.ToList())
+                if (!IsTacticRoundRunning()) TacticmanagerRoundIsrunning = true;
+                List<VnXPlayer> tacticsPlayerMixed = Main.TacticsPlayers.ToList();
+                tacticsPlayerMixed.ShuffleList();
+                string team = EntityData.CopsName;
+                foreach (VnXPlayer p in tacticsPlayerMixed.ToList())
                 {
-                    if (_Team == EntityData.COPS_NAME)
+                    if (team == EntityData.CopsName)
                     {
                         Alt.Emit("GlobalSystems:PlayerTeam", p, 0);
-                        MEMBER_COUNT_BFAC += 1;
-                        MEMBER_COUNT_MAX_BFAC += 1;
-                        SpawnPlayerOnPoint(p, EntityData.BFAC_NAME);
+                        MemberCountBfac += 1;
+                        MemberCountMaxBfac += 1;
+                        SpawnPlayerOnPoint(p, EntityData.BfacName);
                         InitializePlayerData(p);
-                        _Team = EntityData.BFAC_NAME;
+                        team = EntityData.BfacName;
                     }
                     else
                     {
                         Alt.Emit("GlobalSystems:PlayerTeam", p, 1);
-                        MEMBER_COUNT_COPS += 1;
-                        MEMBER_COUNT_MAX_COPS += 1;
-                        SpawnPlayerOnPoint(p, EntityData.COPS_NAME);
+                        MemberCountCops += 1;
+                        MemberCountMaxCops += 1;
+                        SpawnPlayerOnPoint(p, EntityData.CopsName);
                         InitializePlayerData(p);
-                        _Team = EntityData.COPS_NAME;
+                        team = EntityData.CopsName;
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public async void StartNewTacticRound()
         {
             try
             {
                 GetNewMap();
-                TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now.AddMinutes(TACTIC_ROUND_MINUTE);
-                TACTICMANAGER_ROUND_TIMETOJOIN = DateTime.Now.AddSeconds(TACTIC_ROUND_JOINTIME);
-                MEMBER_COUNT_BFAC = 0;
-                MEMBER_COUNT_COPS = 0;
-                MEMBER_COUNT_MAX_BFAC = 0;
-                MEMBER_COUNT_MAX_COPS = 0;
+                TacticmanagerRoundCurrenttime = DateTime.Now.AddMinutes(TacticRoundMinute);
+                TacticmanagerRoundTimetojoin = DateTime.Now.AddSeconds(TacticRoundJointime);
+                MemberCountBfac = 0;
+                MemberCountCops = 0;
+                MemberCountMaxBfac = 0;
+                MemberCountMaxCops = 0;
                 CreateRandomRound();
                 SpawnMapVehicles();
                 PutPlayerInTeam();
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
-                    string RoundStartText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "Eine neue Runde startet.");
-                    string MapNameText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, CurrentMap.Map_Name);
+                    string roundStartText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "Eine neue Runde startet.");
+                    string mapNameText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, CurrentMap.MapName);
                     lock (players)
                     {
-                        players.SendChatMessage(RageAPI.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + RoundStartText);
-                        players.SendChatMessage(RageAPI.GetHexColorcode(0, 105, 145) + "[Map] : " + RageAPI.GetHexColorcode(200, 200, 200) + MapNameText);
+                        players.SendChatMessage(RageApi.GetHexColorcode(200, 200, 200) + "[VenoX - Tactics] : " + roundStartText);
+                        players.SendChatMessage(RageApi.GetHexColorcode(0, 105, 145) + "[Map] : " + RageApi.GetHexColorcode(200, 200, 200) + mapNameText);
                     }
                 }
                 SyncTime();
                 SyncPlayerStats();
                 SyncStats();
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public async void OnPlayerDisconnect(VnXPlayer player, string type, string reason)
         {
             try
             {
                 player.Tactics.Deaths -= 1;
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
-                    string Translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "ist Disconnected!");
-                    players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(200, 0, 0) + player.Username + " " + Translatedtext);
+                    string translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, "ist Disconnected!");
+                    players.SendTranslatedChatMessage(RageApi.GetHexColorcode(200, 0, 0) + player.Username + " " + translatedtext);
                 }
-                if (player.Tactics.Team == EntityData.BFAC_NAME)
+                if (player.Tactics.Team == EntityData.BfacName)
                 {
-                    MEMBER_COUNT_BFAC -= 1;
-                    if (MEMBER_COUNT_BFAC <= 0)
+                    MemberCountBfac -= 1;
+                    if (MemberCountBfac <= 0)
                     {
-                        TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TACTIC_ROUND_START_AFTER_LOADING);
-                        TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+                        TacticmanagerRoundStartAfterLoading = DateTime.Now.AddSeconds(TacticRoundStartAfterLoading);
+                        TacticmanagerRoundCurrenttime = DateTime.Now;
                         SyncEndTacticRound("Das L.S.P.D gewinnt die Runde.");
                         return;
                     }
                 }
-                else if (player.Tactics.Team == EntityData.COPS_NAME)
+                else if (player.Tactics.Team == EntityData.CopsName)
                 {
-                    MEMBER_COUNT_COPS -= 1;
-                    if (MEMBER_COUNT_COPS <= 0)
+                    MemberCountCops -= 1;
+                    if (MemberCountCops <= 0)
                     {
-                        TACTICMANAGER_ROUND_START_AFTER_LOADING = DateTime.Now.AddSeconds(TACTIC_ROUND_START_AFTER_LOADING);
-                        TACTICMANAGER_ROUND_CURRENTTIME = DateTime.Now;
+                        TacticmanagerRoundStartAfterLoading = DateTime.Now.AddSeconds(TacticRoundStartAfterLoading);
+                        TacticmanagerRoundCurrenttime = DateTime.Now;
                         SyncEndTacticRound("Die Grove Street gewinnt die Runde.");
                         return;
                     }
@@ -316,7 +320,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 SyncPlayerStats();
                 player.Tactics.CurrentLobby = null;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void OnSelectedTacticsGM(VnXPlayer player)
         {
@@ -326,9 +330,9 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                 //AntiCheat_Allround.StartTimerTeleport(player);
                 InitializePlayerSavedData(player);
                 player.Tactics.Team = "NULL";
-                if (TACTICMANAGER__ROUND_ISRUNNING && TACTICMANAGER_ROUND_TIMETOJOIN < DateTime.Now)
+                if (TacticmanagerRoundIsrunning && TacticmanagerRoundTimetojoin < DateTime.Now)
                 {
-                    if (MEMBER_COUNT_MAX_BFAC == 0 || MEMBER_COUNT_MAX_COPS == 0)
+                    if (MemberCountMaxBfac == 0 || MemberCountMaxCops == 0)
                     {
                         StartNewTacticRound();
                     }
@@ -338,7 +342,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                         player.DespawnPlayer();
                         player.Freeze = true;
                         player.RemoveAllPlayerWeapons();
-                        player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
+                        player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Es läuft bereits eine Runde... Bitte gedulde dich ein wenig...");
                     }
                 }
                 else
@@ -346,84 +350,84 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
                     StartNewTacticRound();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void SyncTime()
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
-                    double leftTime = (DateTime.Now - TACTICMANAGER_ROUND_CURRENTTIME).TotalSeconds * -1;
+                    double leftTime = (DateTime.Now - TacticmanagerRoundCurrenttime).TotalSeconds * -1;
                     lock (players)
                         VenoX.TriggerClientEvent(players, "Tactics:LoadTimer", (int)leftTime);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void SyncStats()
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     lock (players)
-                        VenoX.TriggerClientEvent(players, "Tactics:UpdateMemberInfo", MEMBER_COUNT_MAX_COPS, MEMBER_COUNT_COPS, MEMBER_COUNT_MAX_BFAC, MEMBER_COUNT_BFAC);
+                        VenoX.TriggerClientEvent(players, "Tactics:UpdateMemberInfo", MemberCountMaxCops, MemberCountCops, MemberCountMaxBfac, MemberCountBfac);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void SyncPlayerStats()
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
                     lock (players)
                     {
-                        float DamageDone = players.Tactics.CurrentDamage;
-                        int KillsDone = players.Tactics.CurrentKills;
-                        VenoX.TriggerClientEvent(players, "Tactics:UpdatePlayerStats", DamageDone, KillsDone);
+                        float damageDone = players.Tactics.CurrentDamage;
+                        int killsDone = players.Tactics.CurrentKills;
+                        VenoX.TriggerClientEvent(players, "Tactics:UpdatePlayerStats", damageDone, killsDone);
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public async void SyncEndTacticRound(string text)
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.TacticsPlayers.ToList())
+                foreach (VnXPlayer players in Main.TacticsPlayers.ToList())
                 {
                     if (players is null || !players.Exists) continue;
-                    string TranslatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text);
+                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)players.Language, text);
                     lock (players)
                     {
                         players.RemoveAllPlayerWeapons();
-                        VenoX.TriggerClientEvent(players, "Tactics:OnTacticEndRound", TranslatedText);
+                        VenoX.TriggerClientEvent(players, "Tactics:OnTacticEndRound", translatedText);
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public void OnUpdate()
         {
             try
             {
-                if (IsTacticRoundRunning() && TACTICMANAGER_ROUND_CURRENTTIME <= DateTime.Now)
+                if (IsTacticRoundRunning() && TacticmanagerRoundCurrenttime <= DateTime.Now)
                 {
-                    if (TACTICMANAGER_ROUND_START_AFTER_LOADING <= DateTime.Now)
+                    if (TacticmanagerRoundStartAfterLoading <= DateTime.Now)
                     {
-                        TACTICMANAGER__ROUND_ISRUNNING = false;
+                        TacticmanagerRoundIsrunning = false;
                         // RageAPI.SendTranslatedChatMessageToAll("RUNDE BEENDET.");
                         StartNewTacticRound();
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

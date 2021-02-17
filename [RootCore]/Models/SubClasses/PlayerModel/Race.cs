@@ -1,11 +1,12 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
     public class Race
     {
-        private Player Player;
+        private Player _player;
         public bool IsRacing { get; set; }
         public int RoundPlace { get; set; }
         public int CurrentMarker { get; set; }
@@ -15,12 +16,12 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
-                Player = player;
+                _player = player;
                 IsRacing = false;
                 RoundPlace = 0;
                 CurrentMarker = 0;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

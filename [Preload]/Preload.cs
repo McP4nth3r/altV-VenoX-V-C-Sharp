@@ -1,14 +1,16 @@
-﻿using AltV.Net;
+﻿using System;
+using System.Linq;
+using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using System.Linq;
+using VenoXV._Gamemodes_.Tactics.Lobby;
+using VenoXV._Gamemodes_.Zombie.Assets;
 using VenoXV._Globals_;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Preload_
 {
@@ -28,7 +30,7 @@ namespace VenoXV._Preload_
         }
         public override void OnStart()
         {
-            _Globals_.Main.OnResourceStart();
+            Main.OnResourceStart();
             //Console.WriteLine("Started");
         }
 
@@ -39,7 +41,7 @@ namespace VenoXV._Preload_
     }
     public class Preload : IScript
     {
-        public const string CURRENT_VERSION = "2.1.2";
+        public const string CurrentVersion = "2.1.2";
         public enum Gamemodes
         {
             Reallife = 0,
@@ -49,7 +51,7 @@ namespace VenoXV._Preload_
             SevenTowers = 4,
             Derby = 5,
             Shooter = 7
-        };
+        }
 
         public static void ShowPreloadList(VnXPlayer player)
         {
@@ -58,17 +60,17 @@ namespace VenoXV._Preload_
         }
 
         [AsyncClientEvent("Preload:SelectLanguage")]
-        public static async void OnSelectedClientLanguage(VnXPlayer player, string LanguagePair)
+        public static async void OnSelectedClientLanguage(VnXPlayer player, string languagePair)
         {
             try
             {
-                player.Language = (int)_Language_.Main.GetLanguageByPair(LanguagePair);
+                player.Language = (int)_Language_.Main.GetLanguageByPair(languagePair);
                 _Notifications_.Main.DrawNotification(player, type: _Notifications_.Main.Types.Info, await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Du hast deine Sprache erfolgreich geändert!"));
             }
             catch { }
         }
 
-        [Command("leave", aliases: new string[] { "home", "lobby", "hub" })]
+        [Command("leave", aliases: new[] { "home", "lobby", "hub" })]
         public static void ShowGamemodeSelection(VnXPlayer player)
         {
             try
@@ -97,10 +99,10 @@ namespace VenoXV._Preload_
                 {
                     language = _Language_.Main.GetLanguageByPair(countrycode);
                     player.Language = (int)language;
-                    Core.Debug.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
+                    Debug.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Welcome to VenoX!");
                 }
-                VenoX.TriggerClientEvent(player, "Gameversion:Update", CURRENT_VERSION);
+                VenoX.TriggerClientEvent(player, "Gameversion:Update", CurrentVersion);
                 player.Gamemode = value;
                 Load.LoadGamemodeWindows(player, (Gamemodes)value);
                 if (!Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
@@ -122,9 +124,9 @@ namespace VenoXV._Preload_
                         break;
                     case (int)Gamemodes.Tactics:
                         if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
-                        int Lobby = Int32.Parse(countrycode);
-                        Core.Debug.OutputDebugString("Lobby : " + Lobby);
-                        _Gamemodes_.Tactics.Lobby.Lobbys.OnSelectedTacticLobby(player, Lobby);
+                        int lobby = Int32.Parse(countrycode);
+                        Debug.OutputDebugString("Lobby : " + lobby);
+                        Lobbys.OnSelectedTacticLobby(player, lobby);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:
@@ -163,7 +165,7 @@ namespace VenoXV._Preload_
         {
             try
             {
-                VenoX.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.REALLIFE_MAX_PLAYERS, Main.TacticsPlayers.Count, Main.TACTICS_MAX_PLAYERS, Main.ZombiePlayers.Count, Main.ZOMBIES_MAX_PLAYERS, Main.RacePlayers.Count, Main.RACE_MAX_PLAYERS, Main.SevenTowersPlayers.Count, Main.SEVENTOWERS_MAX_PLAYERS);
+                VenoX.TriggerClientEvent(player, "LoadPreloadUserInfo", VenoX.GetAllPlayers().ToList().Count, 1000, Main.ReallifePlayers.Count, Main.ReallifeMaxPlayers, Main.TacticsPlayers.Count, Main.TacticsMaxPlayers, Main.ZombiePlayers.Count, Main.ZombiesMaxPlayers, Main.RacePlayers.Count, Main.RaceMaxPlayers, Main.SevenTowersPlayers.Count, Main.SeventowersMaxPlayers);
             }
             catch { }
         }
@@ -177,8 +179,8 @@ namespace VenoXV._Preload_
                 player.RemoveAllPlayerWeapons();
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
-                _Gamemodes_.Zombie.Assets.ZombieAssets.LoadZombieEntityData(player);
-                _Maps_.Main.LoadMap(player, _Maps_.Main.SHOOTER_MAP);
+                ZombieAssets.LoadZombieEntityData(player);
+                _Maps_.Main.LoadMap(player, _Maps_.Main.ShooterMap);
                 Sync.SyncDateTime(player);
                 Sync.SyncWeather(player);
                 /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
@@ -202,16 +204,16 @@ namespace VenoXV._Preload_
         {
             try
             {
-                var LoadingPlayers = Alt.GetAllPlayers().ToList().Where(x => !((VnXPlayer)x).Loading && ((VnXPlayer)x).FinishedPrivacyPolicy);
-                foreach (VnXPlayer players in LoadingPlayers)
+                var loadingPlayers = Alt.GetAllPlayers().ToList().Where(x => !((VnXPlayer)x).Loading && ((VnXPlayer)x).FinishedPrivacyPolicy);
+                foreach (VnXPlayer players in loadingPlayers)
                 {
                     //Core.Debug.OutputDebugString("Event-Count : " + players.PreloadEvents.ToList().Count);
-                    var Event = players.PreloadEvents.ToList().OrderBy(x => x.EventName).FirstOrDefault(x => !x.Send);
-                    if (Event is null) continue;
+                    var @event = players.PreloadEvents.ToList().OrderBy(x => x.EventName).FirstOrDefault(x => !x.Send);
+                    if (@event is null) continue;
                     //Core.Debug.OutputDebugString("Called Event : " + Event.EventName + " | " + Event.EventText);
-                    VenoX.TriggerClientEvent(players, "Preload:UpdateDownloadState", Event.EventText);
-                    VenoX.TriggerClientEvent(players, Event.EventName, Event.EventArgs);
-                    players.PreloadEvents.Remove(Event);
+                    VenoX.TriggerClientEvent(players, "Preload:UpdateDownloadState", @event.EventText);
+                    VenoX.TriggerClientEvent(players, @event.EventName, @event.EventArgs);
+                    players.PreloadEvents.Remove(@event);
                     if (players.PreloadEvents.ToList().Count <= 0)
                     {
                         players.Loading = false;

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace GoogleTranslateFreeApi
 {
@@ -35,7 +31,7 @@ namespace GoogleTranslateFreeApi
 
 		internal static string ToCamelCase(this string src)
 		{
-			string[] words = src.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+			string[] words = src.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
 			return string.Concat(words.Select(word
 				=> char.ToUpper(word[0]) + word.Substring(1).ToLower()));

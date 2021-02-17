@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
-using VenoXV._RootCore_;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV.Core
 {
@@ -8,8 +9,8 @@ namespace VenoXV.Core
     public class VnX : IScript
     {
         public static object Usefull { get; internal set; }
-        public static string PLAYER_MONEY = _Globals_.EntityData.PLAYER_MONEY;
-        public static string PLAYER_BANKMONEY = _Globals_.EntityData.PLAYER_BANK;
+        public static string PlayerMoney = EntityData.PlayerMoney;
+        public static string PlayerBankmoney = EntityData.PlayerBank;
 
         /// <summary>
         /// 

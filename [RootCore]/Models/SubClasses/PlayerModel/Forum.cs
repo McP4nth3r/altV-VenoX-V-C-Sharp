@@ -1,20 +1,21 @@
-﻿using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
     public class Forum
     {
-        private Player Player;
-        public int UID { get; set; }
+        private Player _player;
+        public int Uid { get; set; }
         public Forum(Player player)
         {
             try
             {
-                Player = player;
-                UID = -1;
+                _player = player;
+                Uid = -1;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 

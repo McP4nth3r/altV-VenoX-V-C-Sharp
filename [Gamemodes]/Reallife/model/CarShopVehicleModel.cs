@@ -1,21 +1,23 @@
-﻿namespace VenoXV._Gamemodes_.Reallife.model
+﻿using AltV.Net.Enums;
+
+namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class CarShopVehicleModel
     {
-        public string model { get; set; }
-        public AltV.Net.Enums.VehicleModel hash { get; set; }
-        public int carShop { get; set; }
-        public string type { get; set; }
-        public int speed { get; set; }
-        public int price { get; set; }
+        public string Model { get; set; }
+        public VehicleModel Hash { get; set; }
+        public int CarShop { get; set; }
+        public string Type { get; set; }
+        public int Speed { get; set; }
+        public int Price { get; set; }
 
-        public CarShopVehicleModel(string model, AltV.Net.Enums.VehicleModel hash, int carShop, string type, int price)
+        public CarShopVehicleModel(string model, VehicleModel hash, int carShop, string type, int price)
         {
-            this.model = model;
-            this.hash = hash;
-            this.carShop = carShop;
-            this.type = type;
-            this.price = price;
+            this.Model = model;
+            this.Hash = hash;
+            this.CarShop = carShop;
+            this.Type = type;
+            this.Price = price;
         }
     }
 }

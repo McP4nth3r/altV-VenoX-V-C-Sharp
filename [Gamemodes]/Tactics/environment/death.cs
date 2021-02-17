@@ -1,12 +1,13 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using AltV.Net.Data;
-using System;
 using VenoXV._Gamemodes_.Tactics.Globals;
 using VenoXV._Gamemodes_.Tactics.Lobby;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 using static VenoXV._Language_.Main;
+using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;
 
 namespace VenoXV._Gamemodes_.Tactics.environment
 {
@@ -16,23 +17,23 @@ namespace VenoXV._Gamemodes_.Tactics.environment
         {
             try
             {
-                Round CurrentPlayerLobby = player.Tactics.CurrentLobby;
-                if (CurrentPlayerLobby is null) return;
+                Round currentPlayerLobby = player.Tactics.CurrentLobby;
+                if (currentPlayerLobby is null) return;
                 if (!player.Tactics.IsDead)
                 {
-                    Languages Pair = (Languages)player.Language;
+                    Languages pair = (Languages)player.Language;
                     if (player != killer && killer != null)
                     {
                         switch (killer.Tactics.CurrentStreak)
                         {
                             case 3:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Tripple-Kill erzielt!"), CurrentPlayerLobby);
+                                Functions.SendTacticRoundMessage(RageApi.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(pair, " hat einen Tripple-Kill erzielt!"), currentPlayerLobby);
                                 break;
                             case 5:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Penta-Kill Streak erzielt!"), CurrentPlayerLobby);
+                                Functions.SendTacticRoundMessage(RageApi.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(pair, " hat einen Penta-Kill Streak erzielt!"), currentPlayerLobby);
                                 break;
                             case 7:
-                                Functions.SendTacticRoundMessage(Core.RageAPI.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(Pair, " hat einen Ultimate-Kill Streak erzielt!"), CurrentPlayerLobby);
+                                Functions.SendTacticRoundMessage(RageApi.GetHexColorcode(200, 0, 200) + killer.Username + await GetTranslatedTextAsync(pair, " hat einen Ultimate-Kill Streak erzielt!"), currentPlayerLobby);
                                 break;
                         }
                         killer.Tactics.Kills += 1;
@@ -41,48 +42,48 @@ namespace VenoXV._Gamemodes_.Tactics.environment
                     }
 
 
-                    Functions.SendTacticRoundMessage(RageAPI.GetHexColorcode(0, 200, 0) + killer.Username + " killed " + player.Username + "!", CurrentPlayerLobby);
+                    Functions.SendTacticRoundMessage(RageApi.GetHexColorcode(0, 200, 0) + killer.Username + " killed " + player.Username + "!", currentPlayerLobby);
                     player.Tactics.Spawned = false;
                     player.Tactics.IsDead = true;
                     player.Tactics.Deaths += 1;
                     player.Tactics.CurrentStreak = 0;
 
-                    if (player.Tactics.Team == EntityData.BFAC_NAME)
+                    if (player.Tactics.Team == EntityData.BfacName)
                     {
-                        CurrentPlayerLobby.MEMBER_COUNT_BFAC -= 1;
-                        if (CurrentPlayerLobby.MEMBER_COUNT_BFAC <= 0)
+                        currentPlayerLobby.MemberCountBfac -= 1;
+                        if (currentPlayerLobby.MemberCountBfac <= 0)
                         {
                             //Functions.ShowOutroScreen(Lobby.Main.CurrentMap.Team_A_WinnerText);
                             //Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_A_WinnerText));
-                            Functions.ShowOutroScreen(CurrentPlayerLobby.CurrentMap.Team_A_WinnerText, CurrentPlayerLobby);
+                            Functions.ShowOutroScreen(currentPlayerLobby.CurrentMap.TeamAWinnerText, currentPlayerLobby);
                             return;
                         }
                     }
-                    else if (player.Tactics.Team == EntityData.COPS_NAME)
+                    else if (player.Tactics.Team == EntityData.CopsName)
                     {
-                        CurrentPlayerLobby.MEMBER_COUNT_COPS -= 1;
-                        if (CurrentPlayerLobby.MEMBER_COUNT_COPS <= 0)
+                        currentPlayerLobby.MemberCountCops -= 1;
+                        if (currentPlayerLobby.MemberCountCops <= 0)
                         {
                             //Functions.ShowOutroScreen(await GetTranslatedTextAsync(Pair, Lobby.Main.CurrentMap.Team_B_WinnerText));
-                            Functions.ShowOutroScreen(CurrentPlayerLobby.CurrentMap.Team_B_WinnerText, CurrentPlayerLobby);
+                            Functions.ShowOutroScreen(currentPlayerLobby.CurrentMap.TeamBWinnerText, currentPlayerLobby);
                             return;
                         }
                     }
                     else
                     {
                         Debug.OutputDebugString("[ERROR]: UNKNOWN TEAM " + player.Tactics.Team);
-                        RageAPI.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.Tactics.Team);
+                        RageApi.SendTranslatedChatMessageToAll("[ERROR]: UNKNOWN TEAM " + player.Tactics.Team);
                     }
                     player.SpawnPlayer(new Position(player.Position.X, player.Position.Y, player.Position.Z + 50));
-                    CurrentPlayerLobby.SyncStats();
-                    CurrentPlayerLobby.SyncPlayerStats();
-                    RageAPI.SetPlayerVisible(player, false);
+                    currentPlayerLobby.SyncStats();
+                    currentPlayerLobby.SyncPlayerStats();
+                    player.SetPlayerVisible(false);
                     VenoX.TriggerClientEvent(player, "Tactics:OnDeath");
-                    Reallife.dxLibary.VnX.SetElementFrozen(player, true);
+                    VnX.SetElementFrozen(player, true);
                     player.RemoveAllPlayerWeapons();
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

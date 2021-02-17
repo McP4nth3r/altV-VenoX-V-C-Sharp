@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using System.Runtime;
 
 namespace GoogleTranslateFreeApi
 {
@@ -92,7 +87,7 @@ namespace GoogleTranslateFreeApi
 		/// <returns>Token for the current string</returns>
 		/// <exception cref="NotSupportedException">The method is no longer valid, or something went wrong</exception>
 		/// <exception cref="HttpRequestException">Http exception</exception>
-		/// <exception cref="GoogleTranslateIPBannedException"></exception>
+		/// <exception cref="GoogleTranslateIpBannedException"></exception>
 		public virtual async Task<string> GenerateAsync(string source)
 		{
 			if (IsExternalKeyObsolete)
@@ -118,7 +113,7 @@ namespace GoogleTranslateFreeApi
 				httpClient = new HttpClient();
 			else
 				httpClient = new HttpClient(
-					new HttpClientHandler()
+					new HttpClientHandler
 					{
 						Proxy = Proxy,
 						UseProxy = true,
@@ -143,8 +138,8 @@ namespace GoogleTranslateFreeApi
 				}
 				catch (HttpRequestException ex) when (ex.Message.Contains("503"))
 				{
-					throw new GoogleTranslateIPBannedException(
-						GoogleTranslateIPBannedException.Operation.TokenGeneration);
+					throw new GoogleTranslateIpBannedException(
+						GoogleTranslateIpBannedException.Operation.TokenGeneration);
 				}
 				
 				result = await response.Content.ReadAsStringAsync();

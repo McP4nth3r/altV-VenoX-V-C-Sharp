@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using Discord.WebSocket;
 
 namespace TutorialBot.Modules
 {
@@ -30,7 +25,7 @@ namespace TutorialBot.Modules
 
             await Context.Guild.AddBanAsync(user, 1, reason);
 
-            var EmbedBuilder = new EmbedBuilder()
+            var embedBuilder = new EmbedBuilder()
                 .WithDescription($":white_check_mark: {user.Mention} was banned\n**Reason** {reason}")
                 .WithFooter(footer =>
                 {
@@ -38,11 +33,11 @@ namespace TutorialBot.Modules
                     .WithText("User Ban Log")
                     .WithIconUrl("https://i.imgur.com/6Bi17B3.png");
                 });
-            Embed embed = EmbedBuilder.Build();
+            Embed embed = embedBuilder.Build();
             await ReplyAsync(embed: embed);
 
             ITextChannel logChannel = Context.Client.GetChannel(642698444431032330) as ITextChannel;
-            var EmbedBuilderLog = new EmbedBuilder()
+            var embedBuilderLog = new EmbedBuilder()
                 .WithDescription($"{user.Mention} was banned\n**Reason** {reason}\n**Moderator** {Context.User.Mention}")
                 .WithFooter(footer =>
                 {
@@ -50,7 +45,7 @@ namespace TutorialBot.Modules
                     .WithText("User Ban Log")
                     .WithIconUrl("https://i.imgur.com/6Bi17B3.png");
                 });
-            Embed embedLog = EmbedBuilderLog.Build();
+            Embed embedLog = embedBuilderLog.Build();
             await logChannel.SendMessageAsync(embed: embedLog);
 
         }

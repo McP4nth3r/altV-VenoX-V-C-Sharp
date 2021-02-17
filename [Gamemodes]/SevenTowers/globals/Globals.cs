@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV.SevenTowers.globals
 {
@@ -16,7 +17,7 @@ namespace VenoXV.SevenTowers.globals
         }
         public static void OnColShapeHit(IColShape shape, VnXPlayer player)
         {
-            VenoXV._Gamemodes_.SevenTowers.Main.OnColShapeHit(shape, player);
+            _Gamemodes_.SevenTowers.Main.OnColShapeHit(shape, player);
         }
     }
 }

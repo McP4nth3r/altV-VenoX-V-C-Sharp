@@ -71,13 +71,13 @@ namespace GoogleTranslateFreeApi.TranslationData
 			int i = 1;
 			string tmp = '\n' + partOfSpeechName + ':';
 			return formatData.Aggregate(
-				tmp, (current, definition) => current + ($"\n{i++}) " + definition.ToString()));
+				tmp, (current, definition) => current + ($"\n{i++}) " + definition));
 		}
 
 
 		internal override bool TryParseMemberAndAdd(string memberName, JToken parseInformation)
 		{
-			PropertyInfo property = this.GetType().GetRuntimeProperty(memberName.ToCamelCase());
+			PropertyInfo property = GetType().GetRuntimeProperty(memberName.ToCamelCase());
 			if (property == null)
 				return false;
 			

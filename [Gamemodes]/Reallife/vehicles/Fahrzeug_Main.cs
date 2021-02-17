@@ -1,19 +1,20 @@
-﻿using AltV.Net;
+﻿using System;
+using System.Linq;
+using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
-using System;
-using System.Linq;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
-    public class Fahrzeug_Main : IScript
+    public class FahrzeugMain : IScript
     {
         [Command("car")]
-        public void showIVehicleMenu(VnXPlayer player)
+        public void ShowIVehicleMenu(VnXPlayer player)
         {
             try
             {
@@ -25,7 +26,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         return;
                     }
                     VenoX.TriggerClientEvent(player, "showIVehicleMenu");
-                    player.vnxSetElementData("HideHUD", 1);
+                    player.VnxSetElementData("HideHUD", 1);
                 }
                 else
                 {
@@ -36,12 +37,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     }
                     if (vehicle.IsTestVehicle)
                     {
-                        return;
                     }
                     else
                     {
                         VenoX.TriggerClientEvent(player, "showIVehicleMenu");
-                        player.vnxSetElementData("HideHUD", 1);
+                        player.VnxSetElementData("HideHUD", 1);
                     }
                     // Player.SendTranslatedChatMessage("Du bist in keinem Fahrzeug! ");
                 }
@@ -50,18 +50,18 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         }
 
         //[AltV.Net.ClientEvent("showIVehicleMenu")]
-        public static void showIVehicleMenuClicked(VnXPlayer player, VehicleModel Vehicle)
+        public static void ShowIVehicleMenuClicked(VnXPlayer player, VehicleModel vehicle)
         {
             try
             {
-                if (Vehicle == null)
+                if (vehicle == null)
                 {
                     player.SendTranslatedChatMessage("~r~Du bist in/an keinem Fahrzeug!");
                 }
                 else
                 {
                     VenoX.TriggerClientEvent(player, "showIVehicleMenu");
-                    player.vnxSetElementData("HideHUD", 1);
+                    player.VnxSetElementData("HideHUD", 1);
                 }
             }
             catch { }
@@ -71,61 +71,58 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         //[AltV.Net.ClientEvent("ResetIVehicleTimer")]
         public static void ResetIVehicleAktionsTimer(VnXPlayer player)
         {
-            player.vnxSetElementData("vehinfos_done_cmd", false);
+            player.VnxSetElementData("vehinfos_done_cmd", false);
         }
 
         [Command("vehinfos")]
-        public void IVehiclelist(VnXPlayer player)
+        public void Vehiclelist(VnXPlayer player)
         {
             try
             {
-                if (player.vnxGetElementData<bool>("vehinfos_done_cmd") == true)
+                if (player.VnxGetElementData<bool>("vehinfos_done_cmd"))
                 {
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Nur alle 30 Sekunden möglich!");
                     return;
                 }
                 player.SendTranslatedChatMessage("---------------Fahrzeuge---------------");
-                foreach (VehicleModel veh in VenoXV._Globals_.Main.ReallifeVehicles.ToList())
+                foreach (VehicleModel veh in _Globals_.Main.ReallifeVehicles.ToList())
                 {
                     if (veh != null && veh.Owner == player.Username)
                     {
                         Random random = new Random();
                         int cevent = random.Next(1, 5);
-                        string Model = veh.Model.ToString().ToLower();
-                        if (Model == "" || Model.ToString() == null)
+                        string model = veh.Model.ToString().ToLower();
+                        if (model == "" || model == null)
                         {
-                            Model = veh.Name;
+                            model = veh.Name;
                         }
-                        if (cevent == 1)
+                        switch (cevent)
                         {
-
-                            dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.ID);
-                        }
-                        else if (cevent == 2)
-                        {
-                            dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.ID);
-                        }
-                        else if (cevent == 3)
-                        {
-                            dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 125, 175) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.ID);
-                        }
-                        else if (cevent == 4)
-                        {
-                            dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 5, player.Dimension, 30000);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 140, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.ID);
-                        }
-                        else if (cevent == 5)
-                        {
-                            dxLibary.VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 7, player.Dimension, 30000);
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(165, 0, 165) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.ID);
+                            case 1:
+                                VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.DatabaseId);
+                                break;
+                            case 2:
+                                VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 175, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.DatabaseId);
+                                break;
+                            case 3:
+                                VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, cevent, player.Dimension, 30000);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 125, 175) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.DatabaseId);
+                                break;
+                            case 4:
+                                VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 5, player.Dimension, 30000);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(255, 140, 0) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.DatabaseId);
+                                break;
+                            case 5:
+                                VnX.DrawZielBlipTable(player, "vehinfos", veh.ToString().ToLower(), new Position(veh.Position.X, veh.Position.Y, veh.Position.Z), 669, 7, player.Dimension, 30000);
+                                player.SendTranslatedChatMessage(RageApi.GetHexColorcode(165, 0, 165) + "Fahrzeug Name : " + veh.Name + " - Slot : " + veh.DatabaseId);
+                                break;
                         }
 
                     }
                 }
-                player.vnxSetElementData("vehinfos_done_cmd", true);
+                player.VnxSetElementData("vehinfos_done_cmd", true);
                 player.SendTranslatedChatMessage("---------------------------------------");
             }
             catch { }
@@ -144,10 +141,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         //IVehicle.Locked = !IVehicle.Locked;
                         //player.SendTranslatedChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
                     }
-                    else
-                    {
-                        //player.SendTranslatedChatMessage( "~r~Das Fahrzeug gehört dir nicht!", true);
-                    }
                 }
                 else
                 {
@@ -162,10 +155,6 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         {
                             //IVehicle.Locked = !IVehicle.Locked;
                             //player.SendTranslatedChatMessage( IVehicle.Locked ? "Fahrzeug ~r~Abgeschlossen" : "Fahrzeug ~g~Aufgeschlossen", true);
-                        }
-                        else
-                        {
-                            //player.SendTranslatedChatMessage( "~r~Das Fahrzeug gehört dir nicht!", true);
                         }
                     }
                 }
@@ -198,7 +187,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 {
                     player.SendTranslatedChatMessage("~r~Dafür musst du im Fahrzeug sitzen!");
                 }
-                player.vnxSetElementData("HideHUD", 0);
+                player.VnxSetElementData("HideHUD", 0);
             }
             catch { }
         }

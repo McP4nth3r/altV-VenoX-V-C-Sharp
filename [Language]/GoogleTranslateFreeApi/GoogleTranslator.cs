@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GoogleTranslateFreeApi.TranslationData;
@@ -78,7 +76,7 @@ namespace GoogleTranslateFreeApi
 	  // ReSharper disable once InconsistentNaming
 		public static Language GetLanguageByISO(string iso)
 			=> LanguagesSupported.FirstOrDefault(i
-				=> i.ISO639.Equals(iso, StringComparison.OrdinalIgnoreCase));
+				=> i.Iso639.Equals(iso, StringComparison.OrdinalIgnoreCase));
 
 		/// <summary>
 		/// Check is available language to translate
@@ -125,7 +123,7 @@ namespace GoogleTranslateFreeApi
 		/// <param name="toLanguage">Target language</param>
 		/// <exception cref="LanguageIsNotSupportedException">Language is not supported</exception>
 		/// <exception cref="InvalidOperationException">Thrown when target language is auto</exception>
-		/// <exception cref="GoogleTranslateIPBannedException">Thrown when the IP used for requests is banned </exception>
+		/// <exception cref="GoogleTranslateIpBannedException">Thrown when the IP used for requests is banned </exception>
 		/// <exception cref="HttpRequestException">Thrown when getting the HTTP exception</exception>
 		public async Task<TranslationResult> TranslateAsync(string originalText, Language fromLanguage, Language toLanguage)
 		{
@@ -140,7 +138,7 @@ namespace GoogleTranslateFreeApi
 		/// <param name="item">The object that implements the interface ITranslatable</param>
 		/// <exception cref="LanguageIsNotSupportedException">Language is not supported</exception>
 		/// <exception cref="InvalidOperationException">Thrown when target language is auto</exception>
-		/// <exception cref="GoogleTranslateIPBannedException">Thrown when the IP used for requests is banned </exception>
+		/// <exception cref="GoogleTranslateIpBannedException">Thrown when the IP used for requests is banned </exception>
 		/// <exception cref="HttpRequestException">Thrown when getting the HTTP exception</exception>
 		public async Task<TranslationResult> TranslateAsync(ITranslatable item)
 		{
@@ -158,7 +156,7 @@ namespace GoogleTranslateFreeApi
 		/// <param name="toLanguage">Target language</param>
 		/// <exception cref="LanguageIsNotSupportedException">Language is not supported</exception>
 		/// <exception cref="InvalidOperationException">Thrown when target language is auto</exception>
-		/// <exception cref="GoogleTranslateIPBannedException">Thrown when the IP used for requests is banned </exception>
+		/// <exception cref="GoogleTranslateIpBannedException">Thrown when the IP used for requests is banned </exception>
 		/// <exception cref="HttpRequestException">Thrown when getting the HTTP exception</exception>
 		public async Task<TranslationResult> TranslateLiteAsync(string originalText, Language fromLanguage, Language toLanguage)
 	  {
@@ -174,7 +172,7 @@ namespace GoogleTranslateFreeApi
 	  /// <param name="item">The object that implements the interface ITranslatable</param>
 	  /// <exception cref="LanguageIsNotSupportedException">Language is not supported</exception>
 	  /// <exception cref="InvalidOperationException">Thrown when target language is auto</exception>
-	  /// <exception cref="GoogleTranslateIPBannedException">Thrown when the IP used for requests is banned</exception>
+	  /// <exception cref="GoogleTranslateIpBannedException">Thrown when the IP used for requests is banned</exception>
 	  /// <exception cref="HttpRequestException">Thrown when getting the HTTP exception</exception>
 	  public async Task<TranslationResult> TranslateLiteAsync(ITranslatable item)
 	  {
@@ -193,7 +191,7 @@ namespace GoogleTranslateFreeApi
 
 			if (originalText.Trim() == string.Empty)
 			{
-				return new TranslationResult()
+				return new TranslationResult
 				{
 					OriginalText = originalText, 
 					FragmentedTranslation = new string[0], 
@@ -204,9 +202,9 @@ namespace GoogleTranslateFreeApi
 
 			string token = await _generator.GenerateAsync(originalText);
 
-			string postData = $"sl={fromLanguage.ISO639}&" +
-												$"tl={toLanguage.ISO639}&" +
-												$"hl=en&" +
+			string postData = $"sl={fromLanguage.Iso639}&" +
+												$"tl={toLanguage.Iso639}&" +
+												"hl=en&" +
 												$"q={Uri.EscapeDataString(originalText)}&" +
 												$"tk={token}&" +
 												"client=t&" +
@@ -226,7 +224,7 @@ namespace GoogleTranslateFreeApi
 			}
 			catch (HttpRequestException ex) when (ex.Message.Contains("503"))
 			{
-				throw new GoogleTranslateIPBannedException(GoogleTranslateIPBannedException.Operation.Translation);
+				throw new GoogleTranslateIpBannedException(GoogleTranslateIpBannedException.Operation.Translation);
 			}
 			catch
 			{

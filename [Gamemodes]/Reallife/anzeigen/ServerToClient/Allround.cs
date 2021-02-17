@@ -1,11 +1,13 @@
 ﻿using AltV.Net;
+using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain;
 using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.dxLibary
 {
-    public class VnXDraw_Allround : IScript
+    public class VnXDrawAllround : IScript
     {
 
         //[AltV.Net.ClientEvent("clicked_button_server")]
@@ -13,19 +15,19 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             if (headertext == "VenoX Rentals")
             {
-                if (button == "button_1")
+                switch (button)
                 {
-                    dxLibary.VnX.DestroyWindow(player, "WindowSelection");
-                    Verleih.GivePlayerRentedIVehicle(player, 0);
-                }
-                else if (button == "button_2")
-                {
-                    dxLibary.VnX.DestroyWindow(player, "WindowSelection");
-                    Verleih.GivePlayerRentedIVehicle(player, 1);
-                }
-                else
-                {
-                    logfile.WriteLogs("libLogs", "[ERROR] : Button konnte nicht gefunden werden! @Window_Selection_Class Button_Information:" + button);
+                    case "button_1":
+                        VnX.DestroyWindow(player, "WindowSelection");
+                        Verleih.GivePlayerRentedIVehicle(player, 0);
+                        break;
+                    case "button_2":
+                        VnX.DestroyWindow(player, "WindowSelection");
+                        Verleih.GivePlayerRentedIVehicle(player, 1);
+                        break;
+                    default:
+                        Logfile.WriteLogs("libLogs", "[ERROR] : Button konnte nicht gefunden werden! @Window_Selection_Class Button_Information:" + button);
+                        break;
                 }
             }
         }
@@ -35,11 +37,11 @@ namespace VenoXV._Gamemodes_.Reallife.dxLibary
         {
             if (headertext == "Kokain Dealer")
             {
-                Fun.Aktionen.Kokain.KokainSell.SellKokain(player, value);
+                KokainSell.SellKokain(player, value);
             }
             else
             {
-                logfile.WriteLogs("libLogs", "[ERROR] : Headertext konnte nicht gefunden werden! @Input_submit_button Input_Header_Information:" + headertext);
+                Logfile.WriteLogs("libLogs", "[ERROR] : Headertext konnte nicht gefunden werden! @Input_submit_button Input_Header_Information:" + headertext);
             }
         }
     }

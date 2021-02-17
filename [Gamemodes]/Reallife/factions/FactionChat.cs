@@ -1,83 +1,76 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
-using System;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class FactionChat : IScript
     {
 
-        public static string GetFactionRgba(int FID)
+        public static string GetFactionRgba(int fid)
         {
-            string Rgbacode = string.Empty;
-            if (FID == Constants.FACTION_LSPD)
+            string rgbacode = string.Empty;
+            switch (fid)
             {
-                Rgbacode = RageAPI.GetHexColorcode(100, 100, 255);
+                case Constants.FactionLspd:
+                    rgbacode = RageApi.GetHexColorcode(100, 100, 255);
+                    break;
+                case Constants.FactionLcn:
+                    rgbacode = RageApi.GetHexColorcode(80, 80, 80);
+                    break;
+                case Constants.FactionYakuza:
+                    rgbacode = RageApi.GetHexColorcode(100, 0, 0);
+                    break;
+                case Constants.FactionTerrorclosed:
+                    rgbacode = "CLOSED!!";
+                    break;
+                case Constants.FactionNews:
+                    rgbacode = RageApi.GetHexColorcode(125, 50, 200);
+                    break;
+                case Constants.FactionFbi:
+                    rgbacode = RageApi.GetHexColorcode(50, 50, 255);
+                    break;
+                case Constants.FactionNarcos:
+                    rgbacode = RageApi.GetHexColorcode(225, 225, 0);
+                    break;
+                case Constants.FactionUsarmy:
+                    rgbacode = RageApi.GetHexColorcode(0, 125, 0);
+                    break;
+                case Constants.FactionSamcro:
+                    rgbacode = RageApi.GetHexColorcode(100, 50, 100);
+                    break;
+                case Constants.FactionEmergency:
+                    rgbacode = RageApi.GetHexColorcode(255, 51, 51);
+                    break;
+                case Constants.FactionMechanik:
+                    rgbacode = RageApi.GetHexColorcode(255, 100, 0);
+                    break;
+                case Constants.FactionBallas:
+                    rgbacode = RageApi.GetHexColorcode(138, 43, 226);
+                    break;
+                case Constants.FactionCompton:
+                    rgbacode = RageApi.GetHexColorcode(85, 107, 47);
+                    break;
             }
-            else if (FID == Constants.FACTION_LCN)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(80, 80, 80);
-            }
-            else if (FID == Constants.FACTION_YAKUZA)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(100, 0, 0);
-            }
-            else if (FID == Constants.FACTION_TERRORCLOSED)
-            {
-                Rgbacode = "CLOSED!!";
-            }
-            else if (FID == Constants.FACTION_NEWS)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(125, 50, 200);
-            }
-            else if (FID == Constants.FACTION_FBI)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(50, 50, 255);
-            }
-            else if (FID == Constants.FACTION_NARCOS)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(225, 225, 0);
-            }
-            else if (FID == Constants.FACTION_USARMY)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(0, 125, 0);
-            }
-            else if (FID == Constants.FACTION_SAMCRO)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(100, 50, 100);
-            }
-            else if (FID == Constants.FACTION_EMERGENCY)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(255, 51, 51);
-            }
-            else if (FID == Constants.FACTION_MECHANIK)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(255, 100, 0);
-            }
-            else if (FID == Constants.FACTION_BALLAS)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(138, 43, 226);
-            }
-            else if (FID == Constants.FACTION_COMPTON)
-            {
-                Rgbacode = RageAPI.GetHexColorcode(85, 107, 47);
-            }
-            return Rgbacode;
+            return rgbacode;
         }
 
         // BASIC TEAMCHAT
-        [Command("t", true, new string[] { "teamsay" })]
+        [Command("t", true, new[] { "teamsay" })]
         public void SendFactionChatMessage(VnXPlayer player, string text)
         {
             try
             {
-                int FraktionsID = player.Reallife.Faction;
-                Faction.CreateFactionMessage(FraktionsID, text, GetFactionRgba(FraktionsID), player);
-                vnx_stored_files.logfile.WriteLogs("teamsay" + player.Reallife.Faction, "[TEAMSAY FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                int fraktionsId = player.Reallife.Faction;
+                Faction.CreateFactionMessage(fraktionsId, text, GetFactionRgba(fraktionsId), player);
+                Logfile.WriteLogs("teamsay" + player.Reallife.Faction, "[TEAMSAY FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] : " + text);
             }
             catch (Exception ex)
             {
@@ -96,14 +89,14 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (Allround.isStateFaction(player) || player.Reallife.Faction == Constants.FACTION_EMERGENCY)
+                if (Allround.IsStateFaction(player) || player.Reallife.Faction == Constants.FactionEmergency)
                 {
-                    Faction.CreateStateMessage(text, RageAPI.GetHexColorcode(140, 10, 10), player);
-                    vnx_stored_files.logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                    Faction.CreateStateMessage(text, RageApi.GetHexColorcode(140, 10, 10), player);
+                    Logfile.WriteLogs("staatschat", "[G-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] : " + text);
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Staats/Neutralen Fraktion!");
+                    Main.DrawNotification(player, Main.Types.Error, "Du bist in keiner Staats/Neutralen Fraktion!");
                 }
             }
             catch (Exception ex)
@@ -120,21 +113,21 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (Allround.isBadFaction(player))
+                if (Allround.IsBadFaction(player))
                 {
                     if (player.Reallife.FactionRank >= 2)
                     {
-                        Faction.CreateBadMessage(text, RageAPI.GetHexColorcode(107, 107, 107), player);
-                        vnx_stored_files.logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] : " + text);
+                        Faction.CreateBadMessage(text, RageApi.GetHexColorcode(107, 107, 107), player);
+                        Logfile.WriteLogs("badchat", "[B-CHAT FID : " + player.Reallife.Faction + "]" + "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] : " + text);
                     }
                     else
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 2!");
+                        Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 2!");
                     }
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Bösen Fraktion!");
+                    Main.DrawNotification(player, Main.Types.Error, "Du bist in keiner Bösen Fraktion!");
                 }
             }
             catch (Exception ex)

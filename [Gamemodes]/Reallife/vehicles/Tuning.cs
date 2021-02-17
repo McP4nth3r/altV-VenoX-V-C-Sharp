@@ -1,14 +1,14 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Linq;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles
 {
@@ -16,10 +16,10 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
     {
         public static void OnResourceStart()
         {
-            RageAPI.CreateBlip("Werkstatt", new Vector3(-354.7027f, -135.3738f, 38.57238f), 446, 0, true);
+            RageApi.CreateBlip("Werkstatt", new Vector3(-354.7027f, -135.3738f, 38.57238f), 446, 0, true);
         }
 
-        public static ColShapeModel TuningGaragenTeleport = RageAPI.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);
+        public static ColShapeModel TuningGaragenTeleport = RageApi.CreateColShapeSphere(new Position(-354.7027f, -135.3738f, 38.57238f), 1);
 
 
         public static void EmitTuningWindow(VnXPlayer player, VehicleModel vehicle)
@@ -42,19 +42,21 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 if (player.IsInVehicle)
                 {
                     VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    if (vehicle.Faction > Constants.FACTION_NONE)
+                    if (vehicle.Faction > Constants.FactionNone)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
+                        Main.DrawNotification(player, Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                         return true;
                     }
-                    else if (vehicle.Owner != player.Username)
+
+                    if (vehicle.Owner != player.Username)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
+                        Main.DrawNotification(player, Main.Types.Error, "Du kannst keine Fraktions fahrzeuge Tunen!");
                         return true;
                     }
-                    else if (vehicle.NotSave == true)
+
+                    if (vehicle.NotSave)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
+                        Main.DrawNotification(player, Main.Types.Error, "Du kannst dieses Fahrzeug nicht Tunen!");
                         return true;
                     }
                     vehicle.Position = new Position(-337.9052f, -136.9406f, 38.58294f);
@@ -64,12 +66,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     EmitTuningWindow(player, vehicle);
                     //VenoX.TriggerClientEvent(player, "Tuning:Show");
                     VenoX.TriggerClientEvent(player, "Remote_Speedo_Hide", true);
-                    player.vnxSetElementData("InTuningGarage", true);
+                    player.VnxSetElementData("InTuningGarage", true);
                 }
                 return true;
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
         [VenoXRemoteEvent("Reallife-Tuning:Close")]
@@ -86,29 +88,29 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                     vehicle.Position = new Position(-363.4763f, -131.8629f, 38.68012f);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void AddTunningToIVehicle(VehicleModel vehClass)
         {
             try
             {
-                foreach (TunningModel tunning in Main.tunningList)
+                foreach (TunningModel tunning in Globals.Main.TunningList)
                 {
-                    if (vehClass.ID == tunning.IVehicle)
-                        vehClass.SetMod((byte)tunning.slot, (byte)tunning.component);
+                    if (vehClass.DatabaseId == tunning.Vehicle)
+                        vehClass.SetMod((byte)tunning.Slot, (byte)tunning.Component);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        private byte GetIVehicleTunningComponent(int IVehicleId, int slot)
+        private byte GetIVehicleTunningComponent(int vehicleId, int slot)
         {
             try
             {
                 // Get the component on the specified slot
-                TunningModel tunning = Main.tunningList.Where(tunningModel => tunningModel.IVehicle == IVehicleId && tunningModel.slot == slot).FirstOrDefault();
+                TunningModel tunning = Globals.Main.TunningList.Where(tunningModel => tunningModel.Vehicle == vehicleId && tunningModel.Slot == slot).FirstOrDefault();
 
-                return tunning == null ? 255 : (byte)tunning.component;
+                return tunning == null ? 255 : (byte)tunning.Component;
             }
             catch { return 0; }
         }
@@ -138,12 +140,12 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             try
             {
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                int IVehicleId = vehClass.ID;
+                int vehicleId = vehClass.DatabaseId;
 
                 for (byte i = 0; i < 49; i++)
                 {
                     // Get the component in the slot
-                    byte component = GetIVehicleTunningComponent(IVehicleId, i);
+                    byte component = GetIVehicleTunningComponent(vehicleId, i);
 
                     // Remove or add the tunning part
                     player.Vehicle.SetMod(i, component);
@@ -155,99 +157,61 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         public static int GetTuningCosts(int slot, int modold)
         {
             int mod = modold / 3;
-            if (slot == 0)
+            switch (slot)
             {
-                return 2500;
+                case 0:
+                    return 2500;
+                case 1:
+                    return mod * 3500;
+                case 2:
+                    return mod * 3500;
+                case 3:
+                    return mod * 3500;
+                case 4:
+                    return mod * 2000;
+                case 5:
+                    return mod * 5500;
+                case 6:
+                    return mod * 3200;
+                case 7:
+                    return mod * 4500;
+                case 8:
+                    return mod * 3000;
+                case 9:
+                    return mod * 3000;
+                case 10:
+                    return mod * 2500;
+                case 11:
+                    return mod * 6000;
+                case 12:
+                    return mod * 5000;
             }
-            else if (slot == 1)
+
+            switch (slot)
             {
-                return mod * 3500;
+                case 12:
+                    return mod * 5000;
+                case 13:
+                    return mod * 5500;
+                case 14:
+                    return 10000;
+                case 15:
+                    return mod * 4000;
+                case 18:
+                    return 12000;
+                case 22:
+                    return mod * 1500;
+                case 23:
+                    return 8500;
+                case 24:
+                    return 5000;
+                case 25:
+                    return 2500;
+                case 46:
+                    return mod * 4000;
+                default:
+                    return 2000;
             }
-            else if (slot == 2)
-            {
-                return mod * 3500;
-            }
-            else if (slot == 3)
-            {
-                return mod * 3500;
-            }
-            else if (slot == 4)
-            {
-                return mod * 2000;
-            }
-            else if (slot == 5)
-            {
-                return mod * 5500;
-            }
-            else if (slot == 6)
-            {
-                return mod * 3200;
-            }
-            else if (slot == 7)
-            {
-                return mod * 4500;
-            }
-            else if (slot == 8)
-            {
-                return mod * 3000;
-            }
-            else if (slot == 9)
-            {
-                return mod * 3000;
-            }
-            else if (slot == 10)
-            {
-                return mod * 2500;
-            }
-            else if (slot == 11)
-            {
-                return mod * 6000;
-            }
-            else if (slot == 12)
-            {
-                return mod * 5000;
-            }
-            else if (slot == 12)
-            {
-                return mod * 5000;
-            }
-            else if (slot == 13)
-            {
-                return mod * 5500;
-            }
-            else if (slot == 14)
-            {
-                return 10000;
-            }
-            else if (slot == 15)
-            {
-                return mod * 4000;
-            }
-            else if (slot == 18)
-            {
-                return 12000;
-            }
-            else if (slot == 22)
-            {
-                return mod * 1500;
-            }
-            else if (slot == 23)
-            {
-                return 8500;
-            }
-            else if (slot == 24)
-            {
-                return 5000;
-            }
-            else if (slot == 25)
-            {
-                return 2500;
-            }
-            else if (slot == 46)
-            {
-                return mod * 4000;
-            }
-            return 2000;
         }
 
         //[AltV.Net.ClientEvent("confirmIVehicleModification")]
@@ -258,35 +222,35 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
 
                 // Get the IVehicle's id
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
-                int IVehicleId = vehClass.ID;
+                int vehicleId = vehClass.DatabaseId;
                 int playerId = player.UID;
-                TunningModel Tunning = Main.GetIVehicleTuningBySlot();
-                if (Tunning != null && Tunning.slot == slot)
+                TunningModel tunning = Globals.Main.GetIVehicleTuningBySlot();
+                if (tunning != null && tunning.Slot == slot)
                 {
-                    Database.RemoveTunning(IVehicleId, slot);
-                    Main.tunningList.Remove(Tunning);
+                    Database.Database.RemoveTunning(vehicleId, slot);
+                    Globals.Main.TunningList.Remove(tunning);
                     player.SendTranslatedChatMessage("Dein Altes Tuning wurde gelöscht!.");
                     TunningModel tunningModel = new TunningModel();
                     {
-                        tunningModel.slot = slot;
-                        tunningModel.component = mod;
-                        tunningModel.IVehicle = IVehicleId;
+                        tunningModel.Slot = slot;
+                        tunningModel.Component = mod;
+                        tunningModel.Vehicle = vehicleId;
                     }
-                    tunningModel.id = Database.AddTunning(tunningModel);
-                    Main.tunningList.Add(tunningModel);
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Tunning Erfolgreich gekauft!");
+                    tunningModel.Id = Database.Database.AddTunning(tunningModel);
+                    Globals.Main.TunningList.Add(tunningModel);
+                    Main.DrawNotification(player, Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
                 else
                 {
                     TunningModel tunningModel = new TunningModel();
                     {
-                        tunningModel.slot = slot;
-                        tunningModel.component = mod;
-                        tunningModel.IVehicle = IVehicleId;
+                        tunningModel.Slot = slot;
+                        tunningModel.Component = mod;
+                        tunningModel.Vehicle = vehicleId;
                     }
-                    tunningModel.id = Database.AddTunning(tunningModel);
-                    Main.tunningList.Add(tunningModel);
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Tunning Erfolgreich gekauft!");
+                    tunningModel.Id = Database.Database.AddTunning(tunningModel);
+                    Globals.Main.TunningList.Add(tunningModel);
+                    Main.DrawNotification(player, Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
             }
             catch

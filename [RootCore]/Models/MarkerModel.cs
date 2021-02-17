@@ -1,10 +1,11 @@
 ﻿using System.Numerics;
+using VenoXV.Models;
 
 namespace VenoXV._RootCore_.Models
 {
     public class MarkerModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Type { get; set; }
         public Vector3 Position { get; set; }
         public int[] Color { get; set; }

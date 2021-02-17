@@ -1,31 +1,34 @@
 ﻿
-using AltV.Net;
-using AltV.Net.Data;
 using System;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using EntityData = VenoXV._Globals_.EntityData;
+using Inventory = VenoXV._Globals_.Inventory.Inventory;
+using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
 {
     public class KokainSell : IScript
     {
-        public static ColShapeModel KokainSell_Col = RageAPI.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
+        public static ColShapeModel KokainSellCol = RageApi.CreateColShapeSphere(new Position(140.425f, -239.0754f, 51.52684f), 1.5f);
         public static void OnResourceStart()
         {
-            Core.RageAPI.CreateBlip("Dealer", new Vector3(140.425f, -239.0754f, 51.52684f), 51, 27, true);
+            RageApi.CreateBlip("Dealer", new Vector3(140.425f, -239.0754f, 51.52684f), 51, 27, true);
         }
 
         public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape == KokainSell_Col)
+                if (shape == KokainSellCol)
                 {
-                    dxLibary.VnX.DrawInputWindow(player, "Kokain Dealer", "Hast du etwas Koks für mich?<br>Ich zahle dir pro Gramm 30$....", "Verkaufen");
+                    VnX.DrawInputWindow(player, "Kokain Dealer", "Hast du etwas Koks für mich?<br>Ich zahle dir pro Gramm 30$....", "Verkaufen");
                 }
             }
             catch { }
@@ -34,25 +37,25 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Kokain
         {
             try
             {
-                ItemModel KOKS = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_KOKS);
-                if (KOKS != null)
+                ItemModel koks = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashKoks);
+                if (koks != null)
                 {
                     if (value > 0)
                     {
-                        if (value <= KOKS.Amount)
+                        if (value <= koks.Amount)
                         {
                             int koksverkauf = value * 30;
-                            player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 150, 200) + value + "g " + RageAPI.GetHexColorcode(255, 255, 255) + " Kokain für " + RageAPI.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageAPI.GetHexColorcode(255, 255, 255) + "verkauft.");
-                            player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money + koksverkauf);
-                            dxLibary.VnX.DestroyWindow(player, dxLibary.VnX.WINDOW_INPUT);
-                            KOKS.Amount -= value;
+                            player.SendTranslatedChatMessage("Du hast " + RageApi.GetHexColorcode(0, 150, 200) + value + "g " + RageApi.GetHexColorcode(255, 255, 255) + " Kokain für " + RageApi.GetHexColorcode(0, 150, 200) + koksverkauf + "$ " + RageApi.GetHexColorcode(255, 255, 255) + "verkauft.");
+                            player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money + koksverkauf);
+                            VnX.DestroyWindow(player, VnX.WindowInput);
+                            koks.Amount -= value;
                             // Update the amount into the database
-                            Database.UpdateItem(KOKS);
-                            if (KOKS.Amount == 0)
+                            Database.Database.UpdateItem(koks);
+                            if (koks.Amount == 0)
                             {
                                 // Remove the item from the database
-                                Database.RemoveItem(KOKS.Id);
-                                _Globals_.Inventory.Inventory.DatabaseItems.Remove(KOKS);
+                                Database.Database.RemoveItem(koks.Id);
+                                Inventory.DatabaseItems.Remove(koks);
                             }
                         }
                         else

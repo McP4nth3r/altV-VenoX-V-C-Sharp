@@ -7,12 +7,12 @@
         public string[] ShortReasons { get; set; }
         public string Description { get; set; }
 
-        public WantedModel(string WantedReason, int WantedCount, string[] WantedShortReasons, string Description = "")
+        public WantedModel(string wantedReason, int wantedCount, string[] wantedShortReasons, string description = "")
         {
-            this.Reason = WantedReason;
-            this.Wanteds = WantedCount;
-            this.ShortReasons = WantedShortReasons;
-            this.Description = Description;
+            Reason = wantedReason;
+            Wanteds = wantedCount;
+            ShortReasons = wantedShortReasons;
+            this.Description = description;
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class CharacterModel
     {
-        public int UID { get; set; }
+        public int Uid { get; set; }
         public string FaceFeatures { get; set; }
         public string HeadBlendData { get; set; }
         public string HeadOverlays { get; set; }

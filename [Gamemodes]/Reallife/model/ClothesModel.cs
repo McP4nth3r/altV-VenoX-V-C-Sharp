@@ -2,12 +2,12 @@
 {
     public class ClothesModel
     {
-        public int id { get; set; }
-        public int player { get; set; }
-        public int type { get; set; }
-        public int slot { get; set; }
-        public int drawable { get; set; }
-        public int texture { get; set; }
-        public bool dressed { get; set; }
+        public int Id { get; set; }
+        public int Player { get; set; }
+        public int Type { get; set; }
+        public int Slot { get; set; }
+        public int Drawable { get; set; }
+        public int Texture { get; set; }
+        public bool Dressed { get; set; }
     }
 }

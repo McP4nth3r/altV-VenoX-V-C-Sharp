@@ -2,9 +2,9 @@
 {
     public class TunningModel
     {
-        public int id { get; set; }
-        public int IVehicle { get; set; }
-        public int slot { get; set; }
-        public int component { get; set; }
+        public int Id { get; set; }
+        public int Vehicle { get; set; }
+        public int Slot { get; set; }
+        public int Component { get; set; }
     }
 }

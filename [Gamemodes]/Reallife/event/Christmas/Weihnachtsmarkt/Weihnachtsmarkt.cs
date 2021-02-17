@@ -1,29 +1,32 @@
-﻿using AltV.Net;
+﻿using System;
+using AltV.Net;
 using AltV.Net.Data;
-using System;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using EntityData = VenoXV._Globals_.EntityData;
+using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
 {
     public class Weihnachtsmarkt : IScript
     {
-        public static ColShapeModel Adventskalender_Col = RageAPI.CreateColShapeSphere(new Position(213.1452f, -923.5319f, 30.69199f), 1.5f);
+        public static ColShapeModel AdventskalenderCol = RageApi.CreateColShapeSphere(new Position(213.1452f, -923.5319f, 30.69199f), 1.5f);
         //Marker Adventskalender_Marker = //ToDo Create Marker NAPI.Marker.CreateMarker(0, Adventskalender_Col.position, new Position(0, 0, 0), new Position(0, 0, 0), 2, new Rgba(0, 150, 200), true, 0);
-        public static ColShapeModel Markt_Col = RageAPI.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
+        public static ColShapeModel MarktCol = RageApi.CreateColShapeSphere(new Position(192.4393f, -910.426f, 30.6932f), 1.5f);
 
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape != Markt_Col || shape != Adventskalender_Col) return false;
-                if (shape == Markt_Col)
+                if (shape != MarktCol || shape != AdventskalenderCol) return false;
+                if (shape == MarktCol)
                 {
                     //VenoX.TriggerClientEvent(player, "CreateChristmasMarketWindow");
                 }
-                else if (shape == Adventskalender_Col)
+                else if (shape == AdventskalenderCol)
                 {
                     //VenoX.TriggerClientEvent(player, "CreateAdventskalenderWindow");
                 }
@@ -218,18 +221,18 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
             {
                 if (DateTime.Now.Day == value && DateTime.Now.Month == 12)
                 {
-                    if (player.Reallife.Adventskalender != DateTime.Now.Day)
+                    if (player.Reallife.AdventCalender != DateTime.Now.Day)
                     {
                         //GivePlayerPresent(player, value);
                     }
                     else
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits das heutige Türchen geöffnet.");
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast bereits das heutige Türchen geöffnet.");
                     }
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wir haben nicht den " + value + ". Dezember!");
+                    Main.DrawNotification(player, Main.Types.Error, "Wir haben nicht den " + value + ". Dezember!");
                 }
             }
             catch { }
@@ -240,93 +243,72 @@ namespace VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt
         {
             try
             {
-                if (v == 1)
+                switch (v)
                 {
-                    if (player.Reallife.Money < 12)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 1 when player.Reallife.Money < 12:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // Schockolade
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_SCHOKOLADE, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 12);
-                }
-                else if (v == 2)
-                {
-                    if (player.Reallife.Money < 17)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 1:
+                        player.Inventory.GiveItem(Constants.ItemHashSchokolade, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 12);
+                        break;
+                    case 2 when player.Reallife.Money < 17:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // Cookies
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_COOKIES, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 17);
-                }
-                else if (v == 3)
-                {
-                    if (player.Reallife.Money < 34)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 2:
+                        player.Inventory.GiveItem(Constants.ItemHashCookies, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 17);
+                        break;
+                    case 3 when player.Reallife.Money < 34:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // Lebkuchen
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_LEBKUCHENMAENNCHEN, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 34);
-                }
-                else if (v == 4)
-                {
-                    if (player.Reallife.Money < 60)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 3:
+                        player.Inventory.GiveItem(Constants.ItemHashLebkuchenmaennchen, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 34);
+                        break;
+                    case 4 when player.Reallife.Money < 60:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // sparerips
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_SPARERIPS, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 60);
-                }
-                else if (v == 5)
-                {
-                    if (player.Reallife.Money < 15)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 4:
+                        player.Inventory.GiveItem(Constants.ItemHashSparerips, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 60);
+                        break;
+                    case 5 when player.Reallife.Money < 15:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // gluehwein
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_GLUEHWEIN, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 15);
-                }
-                else if (v == 6)
-                {
-                    if (player.Reallife.Money < 6)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 5:
+                        player.Inventory.GiveItem(Constants.ItemHashGluehwein, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 15);
+                        break;
+                    case 6 when player.Reallife.Money < 6:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // milk
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_MILCH, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 6);
-                }
-                else if (v == 7)
-                {
-                    if (player.Reallife.Money < 12)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 6:
+                        player.Inventory.GiveItem(Constants.ItemHashMilch, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 6);
+                        break;
+                    case 7 when player.Reallife.Money < 12:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
                     // hotchocolate
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_HEISSESCHOKOLADE, ItemType.Useable, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 12);
-                }
-                else if (v == 8)
-                {
-                    if (player.Reallife.Money < 75)
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                    case 7:
+                        player.Inventory.GiveItem(Constants.ItemHashHeisseschokolade, ItemType.Useable, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 12);
+                        break;
+                    case 8 when player.Reallife.Money < 75:
+                        Main.DrawNotification(player, Main.Types.Error, "Du hast nicht genug Geld!");
                         return;
-                    }
-                    player.Inventory.GiveItem(Constants.ITEM_HASH_SNOWBALL, ItemType.Gun, 1, true);
-                    player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, player.Reallife.Money - 75);
                     //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_GET225);
+                    case 8:
+                        player.Inventory.GiveItem(Constants.ItemHashSnowball, ItemType.Gun, 1, true);
+                        player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, player.Reallife.Money - 75);
+                        break;
                 }
             }
             catch { }

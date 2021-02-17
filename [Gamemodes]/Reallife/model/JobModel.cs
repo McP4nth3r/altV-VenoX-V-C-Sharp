@@ -1,20 +1,18 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class JobModel
     {
-        public string descriptionMale { get; set; }
-        public string descriptionFemale { get; set; }
-        public int job { get; set; }
-        public int salary { get; set; }
+        public string DescriptionMale { get; set; }
+        public string DescriptionFemale { get; set; }
+        public int Job { get; set; }
+        public int Salary { get; set; }
 
         public JobModel(string descriptionMale, string descriptionFemale, int job, int salary)
         {
-            this.descriptionMale = descriptionMale;
-            this.descriptionFemale = descriptionFemale;
-            this.job = job;
-            this.salary = salary;
+            this.DescriptionMale = descriptionMale;
+            this.DescriptionFemale = descriptionFemale;
+            this.Job = job;
+            this.Salary = salary;
         }
     }
 }

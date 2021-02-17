@@ -1,24 +1,22 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class BusinessClothesModel
     {
-        public int type { get; set; }
-        public string description { get; set; }
-        public int bodyPart { get; set; }
-        public int clothesId { get; set; }
-        public int sex { get; set; }
-        public int products { get; set; }
+        public int Type { get; set; }
+        public string Description { get; set; }
+        public int BodyPart { get; set; }
+        public int ClothesId { get; set; }
+        public int Sex { get; set; }
+        public int Products { get; set; }
 
         public BusinessClothesModel(int type, string description, int bodyPart, int clothesId, int sex, int products)
         {
-            this.type = type;
-            this.description = description;
-            this.bodyPart = bodyPart;
-            this.clothesId = clothesId;
-            this.sex = sex;
-            this.products = products;
+            this.Type = type;
+            this.Description = description;
+            this.BodyPart = bodyPart;
+            this.ClothesId = clothesId;
+            this.Sex = sex;
+            this.Products = products;
         }
     }
 }

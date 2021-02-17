@@ -2,38 +2,37 @@
 using System.Linq;
 using System.Numerics;
 using VenoXV._Gamemodes_.KI;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Models;
+using VenoXV._Globals_;
+using VenoXV.Core;
+using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Zombie.Models
+namespace VenoXV.Zombie.Models
 {
     public class ZombieModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int Sex { get; set; }
-        public int RandomSkinUID { get; set; }
+        public int RandomSkinUid { get; set; }
         public string SkinName { get; set; }
         private Vector3 _Position { get; set; }
         public VnXPlayer Killer { get; set; }
         public Vector3 Position
         {
-            get { return _Position; }
-            set
+            get => _Position;
+            init
             {
                 _Position = value;
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetPosition", this.ID, value.X, value.Y, value.Z);
+                foreach (var players in Main.ZombiePlayers.ToList().Where(players => players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer)) VenoX.TriggerClientEvent(players, "Zombies:SetPosition", Id, value.X, value.Y, value.Z);
             }
         }
         private Vector3 _Rotation { get; set; }
         public Vector3 Rotation
         {
-            get { return _Rotation; }
+            get => _Rotation;
             set
             {
                 _Rotation = value;
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer) VenoX.TriggerClientEvent(players, "Zombies:SetRotation", this.ID, value.X, value.Y, value.Z);
+                foreach (var players in Main.ZombiePlayers.ToList().Where(players => players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer)) VenoX.TriggerClientEvent(players, "Zombies:SetRotation", Id, value.X, value.Y, value.Z);
             }
         }
         public void UpdatePositionAndRotation(Vector3 position, Vector3 rotation, bool sync = false)
@@ -42,51 +41,51 @@ namespace VenoXV._Gamemodes_.Zombie.Models
             {
                 _Position = position;
                 _Rotation = rotation;
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer && sync) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", this.ID, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
+                foreach (VnXPlayer players in Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this) && !players.Zombies.IsSyncer && sync) VenoX.TriggerClientEvent(players, "Zombies:UpdatePositionAndRotation", Id, position.X, position.Y, position.Z, rotation.X, rotation.Y, rotation.Z);
             }
             catch { }
         }
         private int _Armor { get; set; }
         public int Armor
         {
-            get { return _Armor; }
+            get => _Armor;
             set
             {
-                _Armor = value; foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetArmor", this.ID, value);
+                _Armor = value;
+                foreach (var players in Main.ZombiePlayers.ToList().Where(players => players.Zombies.NearbyZombies.Contains(this))) VenoX.TriggerClientEvent(players, "Zombies:SetArmor", Id, value);
             }
         }
         private int _Health { get; set; }
         public int Health
         {
-            get { return _Health; }
+            get => _Health;
             set
             {
-                _Health = value; foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) VenoX.TriggerClientEvent(players, "Zombies:SetHealth", this.ID, value);
+                _Health = value;
+                foreach (var players in Main.ZombiePlayers.ToList().Where(players => players.Zombies.NearbyZombies.Contains(this))) VenoX.TriggerClientEvent(players, "Zombies:SetHealth", Id, value);
             }
         }
         private bool _IsDead { get; set; }
         public bool IsDead
         {
-            get { return _IsDead; }
+            get => _IsDead;
             set
             {
                 _IsDead = value;
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this) && this.Killer != players) VenoX.TriggerClientEvent(players, "Zombies:SetDead", this.ID, value);
+                foreach (var players in Main.ZombiePlayers.ToList().Where(players => players.Zombies.NearbyZombies.Contains(this) && Killer != players)) VenoX.TriggerClientEvent(players, "Zombies:SetDead", Id, value);
             }
         }
         public void Destroy()
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ZombiePlayers.ToList())
-                    if (players.Zombies.NearbyZombies.Contains(this)) { VenoX.TriggerClientEvent(players, "Zombies:Destroy", this.ID); players?.Zombies.NearbyZombies.Remove(this); }
+                foreach (VnXPlayer players in Main.ZombiePlayers.ToList())
+                    if (players.Zombies.NearbyZombies.Contains(this)) { VenoX.TriggerClientEvent(players, "Zombies:Destroy", Id); players?.Zombies.NearbyZombies.Remove(this); }
+                
                 Spawner.CurrentZombies.Remove(this);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public VnXPlayer TargetEntity { get; set; }
     }

@@ -1,8 +1,10 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AltV.Net;
+using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._RootCore_.Models
 {
@@ -17,31 +19,31 @@ namespace VenoXV._RootCore_.Models
     }
     public class EventAssets : IScript
     {
-        public static IEnumerable<MethodInfo> methods = AppDomain.CurrentDomain.GetAssemblies()
+        public static IEnumerable<MethodInfo> Methods = AppDomain.CurrentDomain.GetAssemblies()
         .SelectMany(x => x.GetTypes()) // returns all types defined in this assemblies
         .Where(x => x.IsClass) // only yields classes
         .SelectMany(x => x.GetMethods()) // returns all methods defined in those classes
         .Where(x => x.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false).FirstOrDefault() != null); // returns only methods that have VenoXRemoteEventAttribute
 
         [ScriptEvent(ScriptEventType.PlayerEvent)]
-        public static void OnServerEventReceive(VnXPlayer player, string EventName, params object[] args)
+        public static void OnServerEventReceive(VnXPlayer player, string eventName, params object[] args)
         {
             try
             {
                 /* Debug */
                 //Core.Debug.OutputDebugStringColored("Called [OnServerEventReceive]", ConsoleColor.Green);
 
-                foreach (MethodInfo method in methods)
+                foreach (MethodInfo method in Methods)
                 {
-                    object[] _Attr = method.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false);
-                    if (_Attr is not null && _Attr.Length > 0)
+                    object[] attr = method.GetCustomAttributes(typeof(VenoXRemoteEventAttribute), false);
+                    if (attr is not null && attr.Length > 0)
                     {
-                        VenoXRemoteEventAttribute __obj = (VenoXRemoteEventAttribute)_Attr[0];
-                        if (__obj is not null && __obj.Name == EventName)
+                        VenoXRemoteEventAttribute obj = (VenoXRemoteEventAttribute)attr[0];
+                        if (obj is not null && obj.Name == eventName)
                         {
                             /* Variables */
                             List<object> objList = new List<object> { player };
-                            ParameterInfo[] __MethodParameters = method.GetParameters();
+                            ParameterInfo[] methodParameters = method.GetParameters();
                             int i = 1;
 
                             /* Debug */
@@ -49,21 +51,21 @@ namespace VenoXV._RootCore_.Models
                             //Core.Debug.OutputDebugString("[ServerEvent] : [" + player.Name + "] | [" + player.Username + "] called EventName : " + EventName + " | Args : " + string.Join(", ", args));
 
                             // Creating a new Instance
-                            object __Instance = Activator.CreateInstance(method.DeclaringType);
+                            object instance = Activator.CreateInstance(method.DeclaringType);
 
                             // Fix - obj value types.
-                            foreach (object __v in args) { objList.Add(Convert.ChangeType(__v, __MethodParameters[i].ParameterType)); i++; }
+                            foreach (object v in args) { objList.Add(Convert.ChangeType(v, methodParameters[i].ParameterType)); i++; }
 
                             //Convert our list to a obj-Array.
                             object[] builder = objList.ToArray();
                             // invoke the method
-                            method.Invoke(__Instance, builder);
+                            method.Invoke(instance, builder);
                             return;
                         }
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex, "OnServerEventReceive - " + EventName); }
+            catch (Exception ex) { Debug.CatchExceptions(ex, "OnServerEventReceive - " + eventName); }
         }
     }
 }

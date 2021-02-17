@@ -1,22 +1,20 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class WeaponProbabilityModel
     {
-        public int type { get; set; }
-        public string hash { get; set; }
-        public int amount { get; set; }
-        public int minChance { get; set; }
-        public int maxChance { get; set; }
+        public int Type { get; set; }
+        public string Hash { get; set; }
+        public int Amount { get; set; }
+        public int MinChance { get; set; }
+        public int MaxChance { get; set; }
 
         public WeaponProbabilityModel(int type, string hash, int amount, int minChance, int maxChance)
         {
-            this.type = type;
-            this.hash = hash;
-            this.amount = amount;
-            this.minChance = minChance;
-            this.maxChance = maxChance;
+            this.Type = type;
+            this.Hash = hash;
+            this.Amount = amount;
+            this.MinChance = minChance;
+            this.MaxChance = maxChance;
         }
     }
 }

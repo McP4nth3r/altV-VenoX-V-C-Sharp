@@ -1,9 +1,4 @@
-﻿using AltV.Net.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class HeadBlend
     {

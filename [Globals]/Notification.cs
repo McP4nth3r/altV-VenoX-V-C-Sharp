@@ -1,6 +1,8 @@
 ﻿using System;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
+
 namespace VenoXV._Notifications_
 {
     public class Main
@@ -11,23 +13,23 @@ namespace VenoXV._Notifications_
             Info = 0,
             Warning = 1,
             Error = 2
-        };
+        }
         public static void DrawNotification(VnXPlayer player, Types type, string message)
         {
             try
             {
                 VenoX.TriggerClientEvent(player, "createVnXLiteNotify", (int)type, message);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static async void DrawTranslatedNotification(VnXPlayer player, Types type, string message)
         {
             try
             {
-                string TranslatedMessage = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, message);
-                VenoX.TriggerClientEvent(player, "createVnXLiteNotify", (int)type, TranslatedMessage);
+                string translatedMessage = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, message);
+                VenoX.TriggerClientEvent(player, "createVnXLiteNotify", (int)type, translatedMessage);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

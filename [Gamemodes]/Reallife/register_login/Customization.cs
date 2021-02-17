@@ -1,10 +1,11 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.character
 {
@@ -16,20 +17,20 @@ namespace VenoXV._Gamemodes_.Reallife.character
             {
                 player.SetClothes(3, 15, 0);
                 player.SetClothes(8, 15, 0);
-                List<int> Equiped = new List<int>();
+                List<int> equiped = new List<int>();
                 foreach (ItemModel item in player.Inventory.Items.ToList())
-                    if (item.Type == ItemType.Clothes && item.IsUsing && !Equiped.Contains(item.ClothesSlot))
+                    if (item.Type == ItemType.Clothes && item.IsUsing && !equiped.Contains(item.ClothesSlot))
                     {
                         player.SetClothes(item.ClothesSlot, item.ClothesDrawable, item.ClothesTexture);
-                        Equiped.Add(item.ClothesSlot);
+                        equiped.Add(item.ClothesSlot);
                     }
 
-                if (!Equiped.Contains(1)) player.SetClothes(1, 0, 0);
-                if (!Equiped.Contains(11)) player.SetClothes(11, 252, 0);
-                if (!Equiped.Contains(4)) player.SetClothes(4, 21, 0);
-                if (!Equiped.Contains(6)) player.SetClothes(6, 34, 0);
+                if (!equiped.Contains(1)) player.SetClothes(1, 0, 0);
+                if (!equiped.Contains(11)) player.SetClothes(11, 252, 0);
+                if (!equiped.Contains(4)) player.SetClothes(4, 21, 0);
+                if (!equiped.Contains(6)) player.SetClothes(6, 34, 0);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void ApplyPlayerTattoos(VnXPlayer player)

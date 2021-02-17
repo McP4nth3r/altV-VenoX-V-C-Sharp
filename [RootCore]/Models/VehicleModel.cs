@@ -1,42 +1,44 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
+using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models
 {
     public class VehRace
     {
-        private Vehicle Vehicle;
+        private Vehicle _vehicle;
         public VnXPlayer Owner { get; set; }
         public VehRace(Vehicle vehicle)
         {
             try
             {
-                Vehicle = vehicle;
+                _vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
     public class Weapons
     {
-        private Vehicle Vehicle;
-        public static List<AltV.Net.Enums.WeaponModel> List = new List<AltV.Net.Enums.WeaponModel>();
+        private Vehicle _vehicle;
+        public static List<WeaponModel> List = new List<WeaponModel>();
         public Weapons(Vehicle vehicle)
         {
             try
             {
-                Vehicle = vehicle;
+                _vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
     public class VehReallife
     {
-        private Vehicle Vehicle;
+        private Vehicle _vehicle;
         public bool DrivingSchoolVehicle { get; set; }
         public string DrivingSchoolLicense { get; set; }
         public bool ActionVehicle { get; set; }
@@ -46,20 +48,21 @@ namespace VenoXV._RootCore_.Models
         {
             try
             {
-                Vehicle = vehicle;
+                _vehicle = vehicle;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
     public class VehicleModel : Vehicle
     {
-        public int ID { get; set; }
+        public int DatabaseId { get; set; }
         public string Name { get; set; }
         public string Owner { get; set; }
         public Vector3 SpawnCoord { get; set; }
         public Vector3 SpawnRot { get; set; }
-        public string _Plate { get; set; }
-        public string Plate { get { return _Plate; } set { _Plate = value; NumberplateText = Plate; } }
+        private string _Plate { get; set; }
+        public string Plate { get => _Plate;
+            set { _Plate = value; NumberplateText = Plate; } }
         public string FirstColor { get; set; }
         public string SecondColor { get; set; }
         public int Faction { get; set; }
@@ -67,17 +70,17 @@ namespace VenoXV._RootCore_.Models
         public int Price { get; set; }
         public string Job { get; set; }
         public bool NotSave { get; set; }
-        private bool vehGodmode { get; set; }
-        public bool NPC { get; set; }
-        public bool Godmode { get { return vehGodmode; } set { vehGodmode = value; VenoX.TriggerEventForAll("Vehicle:Godmode", this, value); this.vnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
+        private bool VehGodmode { get; set; }
+        public bool Npc { get; set; }
+        public bool Godmode { get { return VehGodmode; } set { VehGodmode = value; VenoX.TriggerEventForAll("Vehicle:Godmode", this, value); this.VnxSetStreamSharedElementData("VEHICLE_GODMODE", value); } }
         public bool IsTestVehicle { get; set; }
         public bool Rented { get; set; }
-        private bool vehFrozen { get; set; }
-        public bool Frozen { get { return vehFrozen; } set { vehFrozen = value; VenoX.TriggerEventForAll("Vehicle:Freeze", this, value); this.vnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
-        private float vehGas { get; set; }
-        public float Gas { get { return vehGas; } set { vehGas = value; this.vnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
-        private float vehKms { get; set; }
-        public float Kms { get { return vehKms; } set { vehKms = value; this.vnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
+        private bool VehFrozen { get; set; }
+        public bool Frozen { get { return VehFrozen; } set { VehFrozen = value; VenoX.TriggerEventForAll("Vehicle:Freeze", this, value); this.VnxSetStreamSharedElementData("VEHICLE_FROZEN", value); } }
+        private float VehGas { get; set; }
+        public float Gas { get { return VehGas; } set { VehGas = value; this.VnxSetStreamSharedElementData("VEHICLE_GAS", value); } }
+        private float VehKms { get; set; }
+        public float Kms { get { return VehKms; } set { VehKms = value; this.VnxSetStreamSharedElementData("VEHICLE_KMS", value); } }
         public bool MarkedForDelete { get; set; }
         public VehRace Race { get; }
         public VehReallife Reallife { get; }
@@ -100,7 +103,7 @@ namespace VenoXV._RootCore_.Models
                 Weapons = new Weapons(this)
             };
             ManualEngineControl = true;
-            NPC = true;
+            Npc = true;
         }
         public List<VnXPlayer> Passenger = new List<VnXPlayer>();
 
@@ -113,7 +116,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new VehicleModel(playerPointer, id);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }
     }
 

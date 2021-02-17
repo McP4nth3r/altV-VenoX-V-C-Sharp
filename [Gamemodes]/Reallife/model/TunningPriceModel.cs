@@ -2,13 +2,13 @@
 {
     public class TunningPriceModel
     {
-        public int slot { get; set; }
-        public int products { get; set; }
+        public int Slot { get; set; }
+        public int Products { get; set; }
 
         public TunningPriceModel(int slot, int products)
         {
-            this.slot = slot;
-            this.products = products;
+            this.Slot = slot;
+            this.Products = products;
         }
     }
 }

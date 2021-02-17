@@ -1,31 +1,32 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Database;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
     public class GangwarManager : IScript
     {
         /* GLOBALS */
-        public static string TKType = "GW_TK_POINT";
+        public static string TkType = "GW_TK_POINT";
         public static string AreaType = "GW_AREA_ZONE";
-        public static float TKRange = 2.25f;
-        public static int ATT_BLIP_Rgba = 1;
-        public static int GW_PREPARE_TIME = 3;
-        public static int GW_RUNNING_TIME = 15;
-        public static int GW_ATTACK_CD = 60;
-        public static int MIN_COUNT_PLAYER = 0;
-        public static int MIN_RANK_ATTACK = 3;
-        public static int MIN_DIST = 100;
-        public static int MAX_ATTACKS_DAY = 16;
-        public static int GW_DIM = 72;
+        public static float TkRange = 2.25f;
+        public static int AttBlipRgba = 1;
+        public static int GwPrepareTime = 3;
+        public static int GwRunningTime = 15;
+        public static int GwAttackCd = 60;
+        public static int MinCountPlayer = 0;
+        public static int MinRankAttack = 3;
+        public static int MinDist = 100;
+        public static int MaxAttacksDay = 16;
+        public static int GwDim = 72;
 
-        public static int EARN_KILL = 1500;
-        public static int EARN_DMG = 10;
+        public static int EarnKill = 1500;
+        public static int EarnDmg = 10;
 
         public static bool AttackerCountMore = true;
         public static bool DefenderCountMore = false;
@@ -33,32 +34,32 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         /* GANGWAR MANAGER */
         public List<GangwarArea> GangwarAreas { get; set; }
-        public GangwarArea currentArea { get; set; }
-        public int attacksCount { get; set; }
-        public DateTime resetTime;
+        public GangwarArea CurrentArea { get; set; }
+        public int AttacksCount { get; set; }
+        public DateTime ResetTime;
         public static bool DatabaseConnectionCreated = false;
 
         public GangwarManager()
         {
-            currentArea = null;
+            CurrentArea = null;
             GangwarAreas = new List<GangwarArea>();
-            resetTime = DateTime.Today.AddDays(1);
-            attacksCount = 0;
-            if (DatabaseConnectionCreated) fetchAreas();
+            ResetTime = DateTime.Today.AddDays(1);
+            AttacksCount = 0;
+            if (DatabaseConnectionCreated) FetchAreas();
         }
 
-        public void fetchAreas()
+        public void FetchAreas()
         {
             try
             {
                 //ToDo: Add function to remove any gangwar area
-                List<GangwarModel> areas = Database.LoadAllGWAreas();
+                List<GangwarModel> areas = Database.Database.LoadAllGwAreas();
 
                 foreach (var aModel in areas)
                 {
-                    var area = new GangwarArea(aModel.gang_area_name, aModel.gang_area_position, (int)aModel.gang_area_radius, aModel.gang_area_tk_position,
-                        aModel.GANG_AREA_OWNER, aModel.gang_area_rotation, aModel.GANG_AREA_COOLDOWN);
-                    this.CreateGangwarArea(area);
+                    var area = new GangwarArea(aModel.GangAreaName, aModel.GangAreaPosition, (int)aModel.GangAreaRadius, aModel.GangAreaTkPosition,
+                        aModel.GangAreaOwner, aModel.GangAreaRotation, aModel.GangAreaCooldown);
+                    CreateGangwarArea(area);
                 }
             }
             catch { }
@@ -66,13 +67,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void ResetCount()
         {
-            resetTime = DateTime.Now.AddDays(1);
-            attacksCount = 0;
+            ResetTime = DateTime.Now.AddDays(1);
+            AttacksCount = 0;
         }
 
         public void CheckDay()
         {
-            if (DateTime.Now >= resetTime)
+            if (DateTime.Now >= ResetTime)
                 ResetCount();
 
         }
@@ -82,11 +83,11 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 // Update gangwar manager
-                this.CheckDay();
+                CheckDay();
 
                 // Update current gangwar if one is running
-                if (this.currentArea != null)
-                    this.currentArea.GetCurrentRound().UpdateTime();
+                if (CurrentArea != null)
+                    CurrentArea.GetCurrentRound().UpdateTime();
             }
             catch { }
         }
@@ -95,8 +96,8 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (this.currentArea != null)
-                    this.currentArea.GetCurrentRound().ProcessDamage(source, target, damage);
+                if (CurrentArea != null)
+                    CurrentArea.GetCurrentRound().ProcessDamage(source, target, damage);
             }
             catch { }
         }
@@ -105,8 +106,8 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (this.currentArea != null)
-                    this.currentArea.GetCurrentRound().ProcessKill(source, target);
+                if (CurrentArea != null)
+                    CurrentArea.GetCurrentRound().ProcessKill(source, target);
             }
             catch { }
         }
@@ -123,21 +124,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void printInfo(string text) => Console.WriteLine("[GANGWAR] " + text);
+        public void PrintInfo(string text) => Console.WriteLine("[GANGWAR] " + text);
 
         public void CreateGangwarArea(GangwarArea area)
         {
-            this.GangwarAreas.Add(area);
-            printInfo(area.Name + " is created!");
+            GangwarAreas.Add(area);
+            PrintInfo(area.Name + " is created!");
             area.CreateArea();
         }
 
         public void StopCurrentGangwar()
         {
-            if (currentArea != null)
+            if (CurrentArea != null)
             {
-                this.currentArea.Stop();
-                this.currentArea = null;
+                CurrentArea.Stop();
+                CurrentArea = null;
             }
         }
 
@@ -145,7 +146,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (var area in this.GangwarAreas)
+                foreach (var area in GangwarAreas)
                 {
                     if (area.Name == name)
                         return area;
@@ -161,7 +162,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 int result = 0;
-                foreach (var player in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (var player in Main.ReallifePlayers.ToList())
                 {
                     if (player.Reallife.Faction == facId)
                         ++result;

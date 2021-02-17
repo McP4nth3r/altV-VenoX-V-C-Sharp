@@ -3,12 +3,14 @@
 //////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
-using AltV.Net;
+
 using System;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Globals_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
@@ -24,19 +26,19 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 player.Reallife.Hunger = 100;
                 VenoX.TriggerClientEvent(player, "start_screen_fx", "RaceTurbo", 2000, false);
-                player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION;
+                player.Dimension = Main.ReallifeDimension;
                 player.Freeze = true;
-                player.FreezeAfterMS(10000, false);
-                if (player.Reallife.Knastzeit > 0)
+                player.FreezeAfterMs(10000, false);
+                if (player.Reallife.JailTime > 0)
                 {
                     Random random = new Random();
                     int dim = random.Next(1, 9999);
                     player.Dimension = dim;
-                    player.SetPosition = Constants.JAIL_SPAWNS[random.Next(3)];
+                    player.SetPosition = Constants.JailSpawns[random.Next(3)];
                     player.Reallife.Handcuffed = false;
                     return;
                 }
-                if (player.Reallife.Faction != Constants.FACTION_NONE) player.SetTeam(player.Reallife.Faction);
+                if (player.Reallife.Faction != Constants.FactionNone) player.SetTeam(player.Reallife.Faction);
                 else player.SetTeam(player.Id + 153);
                 player.SpawnPlayer(player.Reallife.LastPosition);
                 /*
@@ -119,7 +121,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 */
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
     }

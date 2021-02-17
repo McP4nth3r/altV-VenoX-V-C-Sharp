@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace GoogleTranslateFreeApi
 {
-	public class Proxy : System.Net.IWebProxy
+	public class Proxy : IWebProxy
 	{
-		public System.Net.ICredentials Credentials
+		public ICredentials Credentials
 		{
 			get;
 			set;

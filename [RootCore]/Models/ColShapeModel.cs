@@ -1,7 +1,8 @@
-﻿using AltV.Net;
-using AltV.Net.Elements.Entities;
-using System;
+﻿using System;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Elements.Entities;
+using VenoXV.Core;
 
 namespace VenoXV._RootCore_.Models
 {
@@ -31,7 +32,7 @@ namespace VenoXV._RootCore_.Models
             {
                 return new ColShapeModel(playerPointer);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }
     }
 }

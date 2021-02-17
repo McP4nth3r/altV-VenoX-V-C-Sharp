@@ -1,8 +1,10 @@
-﻿namespace VenoXV._RootCore_.Models
+﻿using VenoXV.Models;
+
+namespace VenoXV._RootCore_.Models
 {
     public class LabelModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Text { get; set; }
         public float PosX { get; set; }
         public float PosY { get; set; }

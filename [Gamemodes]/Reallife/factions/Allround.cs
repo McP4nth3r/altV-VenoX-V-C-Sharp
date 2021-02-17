@@ -1,71 +1,75 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using VenoXV._Admin_;
+using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Enums;
+using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Notifications_.Main;
+using VehicleModel = VenoXV.Models.VehicleModel;
+using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
+using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions
 {
     public class Allround : IScript
     {
-        public static Position LCN_Teleport_Base_Enter = new Position(-842.2286f, -25.041758f, 40.38391f);
-        public static Position LCN_Teleport_Base_Exit = new Position(266.1213f, -1007.609f, -101.0086f);
+        public static Position LcnTeleportBaseEnter = new Position(-842.2286f, -25.041758f, 40.38391f);
+        public static Position LcnTeleportBaseExit = new Position(266.1213f, -1007.609f, -101.0086f);
 
-        public static Position FIB_Teleport_Heli_Exit = new Position(141.338f, -734.9205f, 262.8516f);
-        public static Position FIB_Teleport_Heli_Enter = new Position(142.3689f, -769.2345f, 45.75201f);
-        public static Position FIB_Teleport_Garage_Exit = new Position(144.0502f, -688.8917f, 33.12821f);
-        public static Position FIB_Teleport_Garage_Enter = new Position(141.121f, -765.5373f, 45.75201f);
+        public static Position FibTeleportHeliExit = new Position(141.338f, -734.9205f, 262.8516f);
+        public static Position FibTeleportHeliEnter = new Position(142.3689f, -769.2345f, 45.75201f);
+        public static Position FibTeleportGarageExit = new Position(144.0502f, -688.8917f, 33.12821f);
+        public static Position FibTeleportGarageEnter = new Position(141.121f, -765.5373f, 45.75201f);
 
-        public static Position Emergency_Teleport_Heli_Enter = new Position(359.6378f, -584.9634f, 28.81754f);
-        public static Position Emergency_Teleport_Heli_Exit = new Position(338.7505f, -583.8655f, 74.16565f);
+        public static Position EmergencyTeleportHeliEnter = new Position(359.6378f, -584.9634f, 28.81754f);
+        public static Position EmergencyTeleportHeliExit = new Position(338.7505f, -583.8655f, 74.16565f);
 
-        public static Position Ballas_Teleport_Base_Enter = new Position(294.0073f, -2087.792f, 17.66358f);
-        public static Position Ballas_Teleport_Base_Exit = new Position(266.1213f, -1007.609f, -101.0086f);
+        public static Position BallasTeleportBaseEnter = new Position(294.0073f, -2087.792f, 17.66358f);
+        public static Position BallasTeleportBaseExit = new Position(266.1213f, -1007.609f, -101.0086f);
 
-        public static Position Compton_Teleport_Base_Enter = new Position(126.6941f, -1930.021f, 21.38243f);
-        public static Position Compton_Teleport_Base_Exit = new Position(266.1213f, -1007.609f, -101.0086f);
+        public static Position ComptonTeleportBaseEnter = new Position(126.6941f, -1930.021f, 21.38243f);
+        public static Position ComptonTeleportBaseExit = new Position(266.1213f, -1007.609f, -101.0086f);
 
-        public static Position YAKUZA_Teleport_Base_Enter = new Position(-1516.701f, 851.7410f, 181.5947f);
-        public static Position YAKUZA_Teleport_Base_Exit = new Position(346.4642f, -1013.237f, -99.19626f);
+        public static Position YakuzaTeleportBaseEnter = new Position(-1516.701f, 851.7410f, 181.5947f);
+        public static Position YakuzaTeleportBaseExit = new Position(346.4642f, -1013.237f, -99.19626f);
 
-        public static Position MS13_Teleport_Base_Enter = new Position(-1549.369f, -91.01895f, 54.92917f);
-        public static Position MS13_Teleport_Base_Exit = new Position(-1289.76f, 449.9201f, 97.90071f);
+        public static Position Ms13TeleportBaseEnter = new Position(-1549.369f, -91.01895f, 54.92917f);
+        public static Position Ms13TeleportBaseExit = new Position(-1289.76f, 449.9201f, 97.90071f);
 
         //public static Position SAM_Teleport_Base_Enter = new Position(982.1898f, -103.258f, 74.84872f); // 982,1898, -103,258, 74,84872
         //public static Position SAM_Teleport_Base_Exit = new Position(981.1188f, -102.3915f, 74.84511f); // 981.1188, -102.3915, 74.84511
 
-        public static Position MS13_Teleport_Base_heli_Enter = new Position(-1554.938f, -115.0005f, 54.51854f);
-        public static Position MS13_Teleport_Base_heli_Exit = new Position(-1553.669f, -106.2555f, 67.1683f);
+        public static Position Ms13TeleportBaseHeliEnter = new Position(-1554.938f, -115.0005f, 54.51854f);
+        public static Position Ms13TeleportBaseHeliExit = new Position(-1553.669f, -106.2555f, 67.1683f);
 
-        public static Position LCN_Teleport_Base_heli_Enter = new Position(-855.75824f, -33.66593f, 44.141357f);
-        public static Position LCN_Teleport_Base_heli_Exit = new Position(-849.33624f, -27.995604f, 50.931885f);
-
-
+        public static Position LcnTeleportBaseHeliEnter = new Position(-855.75824f, -33.66593f, 44.141357f);
+        public static Position LcnTeleportBaseHeliExit = new Position(-849.33624f, -27.995604f, 50.931885f);
 
 
-        public static Position LSPD_FGUNS_COL = new Position(451.5455f, -993.3593f, 30.6896f);
-        public static ColShapeModel LSPDCOL_FGUNS = RageAPI.CreateColShapeSphere(LSPD_FGUNS_COL, 2f);
-
-        public static Position FBI_FGUNS_COL = new Position(136.1328f, -761.8464f, 45.75203f);
-        public static ColShapeModel FBICOL_FGUNS = RageAPI.CreateColShapeSphere(FBI_FGUNS_COL, 1.5f);
 
 
-        public static Position BAD_INTERIOR_FGUNS_COL = new Position(256.6112f, -996.761f, -99.00867f);
-        public static Position BAD_INTERIOR2_FGUNS_COL = new Position(350.1265f, -993.4926f, -99.19615f);
-        public static Position BAD_INTERIOR3_FGUNS_COL = new Position(973.5081f, -101.8594f, 74.84988f);
-        public static Position BAD_INTERIOR4_FGUNS_COL = new Position(-1286.099f, 438.3797f, 94.09482f);
-        public static ColShapeModel BAD_INTERIOR_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR_FGUNS_COL, 1.5f);
-        public static ColShapeModel BAD_INTERIOR2_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR2_FGUNS_COL, 1.5f);
-        public static ColShapeModel BAD_INTERIOR3_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR3_FGUNS_COL, 1.5f);
-        public static ColShapeModel BAD_INTERIOR4_FGUNS = RageAPI.CreateColShapeSphere(BAD_INTERIOR4_FGUNS_COL, 1.5f);
+        public static Position LspdFgunsCol = new Position(451.5455f, -993.3593f, 30.6896f);
+        public static ColShapeModel LspdcolFguns = RageApi.CreateColShapeSphere(LspdFgunsCol, 2f);
+
+        public static Position FbiFgunsCol = new Position(136.1328f, -761.8464f, 45.75203f);
+        public static ColShapeModel FbicolFguns = RageApi.CreateColShapeSphere(FbiFgunsCol, 1.5f);
+
+
+        public static Position BadInteriorFgunsCol = new Position(256.6112f, -996.761f, -99.00867f);
+        public static Position BadInterior2FgunsCol = new Position(350.1265f, -993.4926f, -99.19615f);
+        public static Position BadInterior3FgunsCol = new Position(973.5081f, -101.8594f, 74.84988f);
+        public static Position BadInterior4FgunsCol = new Position(-1286.099f, 438.3797f, 94.09482f);
+        public static ColShapeModel BadInteriorFguns = RageApi.CreateColShapeSphere(BadInteriorFgunsCol, 1.5f);
+        public static ColShapeModel BadInterior2Fguns = RageApi.CreateColShapeSphere(BadInterior2FgunsCol, 1.5f);
+        public static ColShapeModel BadInterior3Fguns = RageApi.CreateColShapeSphere(BadInterior3FgunsCol, 1.5f);
+        public static ColShapeModel BadInterior4Fguns = RageApi.CreateColShapeSphere(BadInterior4FgunsCol, 1.5f);
 
 
         public static void OnResourceStart()
@@ -73,43 +77,43 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             //Wantedgründe Laden : 
             Police.AddToWantedDictionary();
             //
-            BAD_INTERIOR3_FGUNS.Dimension = Constants.FACTION_SAMCRO;
-            BAD_INTERIOR4_FGUNS.Dimension = Constants.FACTION_NARCOS;
+            BadInterior3Fguns.Dimension = Constants.FactionSamcro;
+            BadInterior4Fguns.Dimension = Constants.FactionNarcos;
             //ToDo: ClientSide erstellen NAPI.
             //.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new Rgba(40, 40, 40, 255));
-            RageAPI.CreateTextLabel("LCN Eingang", LCN_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 });
-            RageAPI.CreateTextLabel("LCN Ausgang", LCN_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_LCN);
+            RageApi.CreateTextLabel("LCN Eingang", LcnTeleportBaseEnter, 10.0f, 0.5f, 4, new[] { 40, 40, 40, 255 });
+            RageApi.CreateTextLabel("LCN Ausgang", LcnTeleportBaseExit, 10.0f, 0.5f, 4, new[] { 40, 40, 40, 255 }, Constants.FactionLcn);
 
-            RageAPI.CreateTextLabel("Yakuza Eingang", YAKUZA_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 175, 0, 0, 255 });
-            RageAPI.CreateTextLabel("Yakuza Ausgang", YAKUZA_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 175, 0, 0, 255 }, Constants.FACTION_YAKUZA);
+            RageApi.CreateTextLabel("Yakuza Eingang", YakuzaTeleportBaseEnter, 10.0f, 0.5f, 4, new[] { 175, 0, 0, 255 });
+            RageApi.CreateTextLabel("Yakuza Ausgang", YakuzaTeleportBaseExit, 10.0f, 0.5f, 4, new[] { 175, 0, 0, 255 }, Constants.FactionYakuza);
 
-            RageAPI.CreateTextLabel("Mitarbeiter Ausgang", FIB_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new int[] { 0, 86, 184, 255 });
-            RageAPI.CreateTextLabel("Mitarbeiter Eingang", FIB_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new int[] { 0, 86, 184, 255 });
-            RageAPI.CreateTextLabel("Tiefgaragen Ausgang", FIB_Teleport_Garage_Exit, 10.0f, 0.5f, 4, new int[] { 0, 86, 184, 255 });
-            RageAPI.CreateTextLabel("Tiefgaragen Eingang", FIB_Teleport_Garage_Enter, 10.0f, 0.5f, 4, new int[] { 0, 86, 184, 255 });
+            RageApi.CreateTextLabel("Mitarbeiter Ausgang", FibTeleportHeliExit, 10.0f, 0.5f, 4, new[] { 0, 86, 184, 255 });
+            RageApi.CreateTextLabel("Mitarbeiter Eingang", FibTeleportHeliEnter, 10.0f, 0.5f, 4, new[] { 0, 86, 184, 255 });
+            RageApi.CreateTextLabel("Tiefgaragen Ausgang", FibTeleportGarageExit, 10.0f, 0.5f, 4, new[] { 0, 86, 184, 255 });
+            RageApi.CreateTextLabel("Tiefgaragen Eingang", FibTeleportGarageEnter, 10.0f, 0.5f, 4, new[] { 0, 86, 184, 255 });
 
-            RageAPI.CreateTextLabel("Mitarbeiter Eingang", Emergency_Teleport_Heli_Enter, 10.0f, 0.5f, 4, new int[] { 255, 51, 51, 255 });
-            RageAPI.CreateTextLabel("Mitarbeiter Ausgang", Emergency_Teleport_Heli_Exit, 10.0f, 0.5f, 4, new int[] { 255, 51, 51, 255 });
+            RageApi.CreateTextLabel("Mitarbeiter Eingang", EmergencyTeleportHeliEnter, 10.0f, 0.5f, 4, new[] { 255, 51, 51, 255 });
+            RageApi.CreateTextLabel("Mitarbeiter Ausgang", EmergencyTeleportHeliExit, 10.0f, 0.5f, 4, new[] { 255, 51, 51, 255 });
 
-            RageAPI.CreateTextLabel("Narcos Eingang", MS13_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
-            RageAPI.CreateTextLabel("Narcos Ausgang", MS13_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NARCOS);
+            RageApi.CreateTextLabel("Narcos Eingang", Ms13TeleportBaseEnter, 10.0f, 0.5f, 4, new[] { 128, 129, 150, 255 });
+            RageApi.CreateTextLabel("Narcos Ausgang", Ms13TeleportBaseExit, 10.0f, 0.5f, 4, new[] { 128, 129, 150, 255 }, Constants.FactionNarcos);
 
             //RageAPI.CreateTextLabel("SAMCRO Eingang", SAM_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 });
             //RageAPI.CreateTextLabel("SAMCRO Ausgang", SAM_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_SAMCRO);
 
-            RageAPI.CreateTextLabel("Narcos Dach Eingang", MS13_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NONE);
-            RageAPI.CreateTextLabel("Narcos Dach Ausgang", MS13_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new int[] { 128, 129, 150, 255 }, Constants.FACTION_NONE);
+            RageApi.CreateTextLabel("Narcos Dach Eingang", Ms13TeleportBaseHeliEnter, 10.0f, 0.5f, 4, new[] { 128, 129, 150, 255 }, Constants.FactionNone);
+            RageApi.CreateTextLabel("Narcos Dach Ausgang", Ms13TeleportBaseHeliExit, 10.0f, 0.5f, 4, new[] { 128, 129, 150, 255 }, Constants.FactionNone);
 
-            RageAPI.CreateTextLabel("Mafia Dach Eingang", LCN_Teleport_Base_heli_Enter, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_NONE);
-            RageAPI.CreateTextLabel("Mafia Dach Ausgang", LCN_Teleport_Base_heli_Exit, 10.0f, 0.5f, 4, new int[] { 40, 40, 40, 255 }, Constants.FACTION_NONE);
+            RageApi.CreateTextLabel("Mafia Dach Eingang", LcnTeleportBaseHeliEnter, 10.0f, 0.5f, 4, new[] { 40, 40, 40, 255 }, Constants.FactionNone);
+            RageApi.CreateTextLabel("Mafia Dach Ausgang", LcnTeleportBaseHeliExit, 10.0f, 0.5f, 4, new[] { 40, 40, 40, 255 }, Constants.FactionNone);
 
-            RageAPI.CreateTextLabel("Rollin Height´s Eingang", Ballas_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 });
-            RageAPI.CreateTextLabel("Rollin Height´s Ausgang", Ballas_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 }, Constants.FACTION_BALLAS);
+            RageApi.CreateTextLabel("Rollin Height´s Eingang", BallasTeleportBaseEnter, 10.0f, 0.5f, 4, new[] { 138, 43, 226, 255 });
+            RageApi.CreateTextLabel("Rollin Height´s Ausgang", BallasTeleportBaseExit, 10.0f, 0.5f, 4, new[] { 138, 43, 226, 255 }, Constants.FactionBallas);
             //RageAPI.CreateTextLabel("Danke für Alles" + "\n_______________\n" + "For Palma", new Position(276.7415f, -2066.709f, 17.17801f), 10.0f, 0.5f, 4, new int[] { 138, 43, 226, 255 }, 0);
 
 
-            RageAPI.CreateTextLabel("Compton Family´s Eingang", Compton_Teleport_Base_Enter, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 });
-            RageAPI.CreateTextLabel("Compton Family´s Ausgang", Compton_Teleport_Base_Exit, 10.0f, 0.5f, 4, new int[] { 0, 152, 0, 255 }, Constants.FACTION_COMPTON);
+            RageApi.CreateTextLabel("Compton Family´s Eingang", ComptonTeleportBaseEnter, 10.0f, 0.5f, 4, new[] { 0, 152, 0, 255 });
+            RageApi.CreateTextLabel("Compton Family´s Ausgang", ComptonTeleportBaseExit, 10.0f, 0.5f, 4, new[] { 0, 152, 0, 255 }, Constants.FactionCompton);
 
 
             //ToDo: Requesting Offices NAPI.World.RequestIpl ("ex_sm_15_office_01b");
@@ -117,59 +121,54 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
             /* ColShapeModels */
 
-            RageAPI.CreateTextLabel("L.S.P.D Equip", LSPD_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 0, 105, 145, 255 });
+            RageApi.CreateTextLabel("L.S.P.D Equip", LspdFgunsCol, 10.0f, 0.5f, 4, new[] { 0, 105, 145, 255 });
 
-            RageAPI.CreateTextLabel("F.I.B Equip", FBI_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 0, 86, 184, 255 });
+            RageApi.CreateTextLabel("F.I.B Equip", FbiFgunsCol, 10.0f, 0.5f, 4, new[] { 0, 86, 184, 255 });
 
 
-            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
-            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR2_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
-            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR3_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
-            RageAPI.CreateTextLabel("BAD Equip", BAD_INTERIOR4_FGUNS_COL, 10.0f, 0.5f, 4, new int[] { 200, 0, 0, 255 });
+            RageApi.CreateTextLabel("BAD Equip", BadInteriorFgunsCol, 10.0f, 0.5f, 4, new[] { 200, 0, 0, 255 });
+            RageApi.CreateTextLabel("BAD Equip", BadInterior2FgunsCol, 10.0f, 0.5f, 4, new[] { 200, 0, 0, 255 });
+            RageApi.CreateTextLabel("BAD Equip", BadInterior3FgunsCol, 10.0f, 0.5f, 4, new[] { 200, 0, 0, 255 });
+            RageApi.CreateTextLabel("BAD Equip", BadInterior4FgunsCol, 10.0f, 0.5f, 4, new[] { 200, 0, 0, 255 });
 
-            BAD_INTERIOR_FGUNS.vnxSetElementData("isWeaponSelectShape", true);
-            BAD_INTERIOR2_FGUNS.vnxSetElementData("isWeaponSelectShape", true);
-            BAD_INTERIOR3_FGUNS.vnxSetElementData("isWeaponSelectShape", true);
-            BAD_INTERIOR4_FGUNS.vnxSetElementData("isWeaponSelectShape", true);
+            BadInteriorFguns.VnxSetElementData("isWeaponSelectShape", true);
+            BadInterior2Fguns.VnxSetElementData("isWeaponSelectShape", true);
+            BadInterior3Fguns.VnxSetElementData("isWeaponSelectShape", true);
+            BadInterior4Fguns.VnxSetElementData("isWeaponSelectShape", true);
 
         }
 
 
-        private static Dictionary<string, AltV.Net.Enums.WeaponModel> FgunsWeapons = new Dictionary<string, AltV.Net.Enums.WeaponModel>
+        private static Dictionary<string, WeaponModel> _fgunsWeapons = new Dictionary<string, WeaponModel>
         {
-            {   "Schlagstock",  AltV.Net.Enums.WeaponModel.Nightstick },
-            {   "Tazer",        AltV.Net.Enums.WeaponModel.StunGun },
-            {   "Pistole",      AltV.Net.Enums.WeaponModel.Pistol },
-            {   "Pistole50",    AltV.Net.Enums.WeaponModel.Pistol50 },
-            {   "Shotgun",      AltV.Net.Enums.WeaponModel.PumpShotgun },
-            {   "PDW",          AltV.Net.Enums.WeaponModel.CombatPDW },
-            {   "Karabiner",    AltV.Net.Enums.WeaponModel.CarbineRifle },
-            {   "Kampfgewehr",  AltV.Net.Enums.WeaponModel.AdvancedRifle },
-            {   "Sniper",       AltV.Net.Enums.WeaponModel.SniperRifle },
+            {   "Schlagstock",  WeaponModel.Nightstick },
+            {   "Tazer",        WeaponModel.StunGun },
+            {   "Pistole",      WeaponModel.Pistol },
+            {   "Pistole50",    WeaponModel.Pistol50 },
+            {   "Shotgun",      WeaponModel.PumpShotgun },
+            {   "PDW",          WeaponModel.CombatPDW },
+            {   "Karabiner",    WeaponModel.CarbineRifle },
+            {   "Kampfgewehr",  WeaponModel.AdvancedRifle },
+            {   "Sniper",       WeaponModel.SniperRifle },
         };
 
         public static void UpdateFgunsWindow(VnXPlayer player)
         {
-            if (isStateFaction(player))
+            if (IsStateFaction(player))
             {
-                WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
+                WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FactionLspd);
 
                 VenoX.TriggerClientEvent(player, "fguns:ForceStateWindowUpdate",
-                    "Schlagstock", " [ " + fweapon.weapon_nightstick.Amount + " ] ",
-                    "Tazer", " [ " + fweapon.weapon_tazer.Amount + " ] ",
-                    "Pistole", " [ " + fweapon.weapon_pistol.Amount + " ] ",
-                    "Pistole50", " [ " + fweapon.weapon_pistol50.Amount + " ] ",
-                    "Shotgun", " [ " + fweapon.weapon_pumpshotgun.Amount + " ] ",
-                    "PDW", " [ " + fweapon.weapon_combatpdw.Amount + " ] ",
-                    "Karabiner", " [ " + fweapon.weapon_carbinerifle.Amount + " ] ",
-                    "Kampfgewehr", " [ " + fweapon.weapon_advancedrifle.Amount + " ] ",
-                    "Sniper", " [ " + fweapon.weapon_sniperrifle.Amount + " ] "
+                    "Schlagstock", " [ " + fweapon.WeaponNightstick.Amount + " ] ",
+                    "Tazer", " [ " + fweapon.WeaponTazer.Amount + " ] ",
+                    "Pistole", " [ " + fweapon.WeaponPistol.Amount + " ] ",
+                    "Pistole50", " [ " + fweapon.WeaponPistol50.Amount + " ] ",
+                    "Shotgun", " [ " + fweapon.WeaponPumpshotgun.Amount + " ] ",
+                    "PDW", " [ " + fweapon.WeaponCombatpdw.Amount + " ] ",
+                    "Karabiner", " [ " + fweapon.WeaponCarbinerifle.Amount + " ] ",
+                    "Kampfgewehr", " [ " + fweapon.WeaponAdvancedrifle.Amount + " ] ",
+                    "Sniper", " [ " + fweapon.WeaponSniperrifle.Amount + " ] "
                     );
-            }
-            else
-            {
-                //WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
-
             }
         }
 
@@ -179,8 +178,8 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.Reallife.Faction == Constants.FACTION_NONE) return;
-                if (!FgunsWeapons.TryGetValue(weapon, out AltV.Net.Enums.WeaponModel WeaponHash))
+                if (player.Reallife.Faction == Constants.FactionNone) return;
+                if (!_fgunsWeapons.TryGetValue(weapon, out WeaponModel weaponHash))
                 {
                     Debug.OutputDebugString("fguns:selectweapon not found weapon ID : " + weapon);
                     return;
@@ -195,11 +194,11 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (shape == LSPDCOL_FGUNS || shape == FBICOL_FGUNS)
+                if (shape == LspdcolFguns || shape == FbicolFguns)
                 {
-                    if (isStateFaction(player))
+                    if (IsStateFaction(player))
                     {
-                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FACTION_LSPD);
+                        WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(Constants.FactionLspd);
                         VenoX.TriggerClientEvent(player, "fguns:Open", true);
                         UpdateFgunsWindow(player);
                         return true;
@@ -209,94 +208,94 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             }
             catch (Exception ex)
             {
-                Core.Debug.CatchExceptions(ex);
+                Debug.CatchExceptions(ex);
                 return false;
             }
         }
 
-        public static bool isBadFaction(VnXPlayer player)
+        public static bool IsBadFaction(VnXPlayer player)
         {
             try
             {
-                int player_Fraktion = player.Reallife.Faction;
+                int playerFraktion = player.Reallife.Faction;
                 if
-                (player_Fraktion == Constants.FACTION_LCN || player_Fraktion == Constants.FACTION_YAKUZA ||
-                player_Fraktion == Constants.FACTION_NARCOS || player_Fraktion == Constants.FACTION_SAMCRO ||
-                player_Fraktion == Constants.FACTION_BALLAS || player_Fraktion == Constants.FACTION_COMPTON)
+                (playerFraktion == Constants.FactionLcn || playerFraktion == Constants.FactionYakuza ||
+                playerFraktion == Constants.FactionNarcos || playerFraktion == Constants.FactionSamcro ||
+                playerFraktion == Constants.FactionBallas || playerFraktion == Constants.FactionCompton)
                 {
                     return true;
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
-        public static bool isStateFaction(VnXPlayer player)
+        public static bool IsStateFaction(VnXPlayer player)
         {
             try
             {
-                int player_Fraktion = player.Reallife.Faction;
-                if (player_Fraktion == Constants.FACTION_LSPD || player_Fraktion == Constants.FACTION_FBI || player_Fraktion == Constants.FACTION_USARMY)
+                int playerFraktion = player.Reallife.Faction;
+                if (playerFraktion == Constants.FactionLspd || playerFraktion == Constants.FactionFbi || playerFraktion == Constants.FactionUsarmy)
                 {
                     return true;
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
-        public static bool isStateIVehicle(VehicleModel Vehicle)
+        public static bool IsStateIVehicle(VehicleModel vehicle)
         {
             try
             {
-                int VEHICLE_Fraktion = Vehicle.Faction;
-                if (VEHICLE_Fraktion == Constants.FACTION_LSPD || VEHICLE_Fraktion == Constants.FACTION_FBI || VEHICLE_Fraktion == Constants.FACTION_USARMY)
+                int vehicleFraktion = vehicle.Faction;
+                if (vehicleFraktion == Constants.FactionLspd || vehicleFraktion == Constants.FactionFbi || vehicleFraktion == Constants.FactionUsarmy)
                 {
                     return true;
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
-        }
-
-        public static bool isBadIVehicle(VehicleModel Vehicle)
-        {
-            try
-            {
-                int VEHICLE_Fraktion = Vehicle.Faction;
-                if (VEHICLE_Fraktion == Constants.FACTION_LCN || VEHICLE_Fraktion == Constants.FACTION_YAKUZA || VEHICLE_Fraktion == Constants.FACTION_NARCOS || VEHICLE_Fraktion == Constants.FACTION_SAMCRO || VEHICLE_Fraktion == Constants.FACTION_BALLAS || VEHICLE_Fraktion == Constants.FACTION_COMPTON)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
-        }
-        public static bool isNeutralIVehicle(VehicleModel Vehicle)
-        {
-            try
-            {
-                int VEHICLE_Fraktion = Vehicle.Faction;
-                if (VEHICLE_Fraktion == Constants.FACTION_NEWS || VEHICLE_Fraktion == Constants.FACTION_EMERGENCY || VEHICLE_Fraktion == Constants.FACTION_MECHANIK)
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
-
-        public static bool isNeutralFaction(VnXPlayer player)
+        public static bool IsBadIVehicle(VehicleModel vehicle)
         {
             try
             {
-                int player_Fraktion = player.Reallife.Faction;
-                if (player_Fraktion == Constants.FACTION_EMERGENCY || player_Fraktion == Constants.FACTION_NEWS || player_Fraktion == Constants.FACTION_MECHANIK)
+                int vehicleFraktion = vehicle.Faction;
+                if (vehicleFraktion == Constants.FactionLcn || vehicleFraktion == Constants.FactionYakuza || vehicleFraktion == Constants.FactionNarcos || vehicleFraktion == Constants.FactionSamcro || vehicleFraktion == Constants.FactionBallas || vehicleFraktion == Constants.FactionCompton)
                 {
                     return true;
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
+        }
+        public static bool IsNeutralIVehicle(VehicleModel vehicle)
+        {
+            try
+            {
+                int vehicleFraktion = vehicle.Faction;
+                if (vehicleFraktion == Constants.FactionNews || vehicleFraktion == Constants.FactionEmergency || vehicleFraktion == Constants.FactionMechanik)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
+        }
+
+
+        public static bool IsNeutralFaction(VnXPlayer player)
+        {
+            try
+            {
+                int playerFraktion = player.Reallife.Faction;
+                if (playerFraktion == Constants.FactionEmergency || playerFraktion == Constants.FactionNews || playerFraktion == Constants.FactionMechanik)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
 
 
@@ -304,287 +303,297 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                int player_Fraktion = player.Reallife.Faction;
+                int playerFraktion = player.Reallife.Faction;
 
-                if (player_Fraktion == Constants.FACTION_NONE)
+                if (playerFraktion == Constants.FactionNone)
                 {
                     return false;
                 }
-                int CoolDown = 3;
-                if (player_Fraktion == Constants.FACTION_LCN || isStateFaction(player) || Admin.HaveAdminRights(player))
+                int coolDown = 3;
+                if (playerFraktion == Constants.FactionLcn || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (LCN_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
+                    if (LcnTeleportBaseEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = LCN_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_LCN;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = LcnTeleportBaseExit;
+                        player.Dimension = Constants.FactionLcn;
                         return true;
                     }
-                    else if (LCN_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_LCN)
+
+                    if (LcnTeleportBaseExit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FactionLcn)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = LCN_Teleport_Base_Enter;
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = LcnTeleportBaseEnter;
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
 
                     // HELI DACH
-                    if (LCN_Teleport_Base_heli_Enter.Distance(player.Position) < 1.25f)
+                    if (LcnTeleportBaseHeliEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = LCN_Teleport_Base_heli_Exit;
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = LcnTeleportBaseHeliExit;
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
 
-                    if (LCN_Teleport_Base_heli_Exit.Distance(player.Position) < 1.25f)
+                    if (LcnTeleportBaseHeliExit.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = LCN_Teleport_Base_heli_Enter;
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = LcnTeleportBaseHeliEnter;
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_YAKUZA || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionYakuza || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (YAKUZA_Teleport_Base_Enter.Distance(player.Position) < 1.55f)
+                    if (YakuzaTeleportBaseEnter.Distance(player.Position) < 1.55f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = YAKUZA_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_YAKUZA;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = YakuzaTeleportBaseExit;
+                        player.Dimension = Constants.FactionYakuza;
                         return true;
                     }
-                    else if (YAKUZA_Teleport_Base_Exit.Distance(player.Position) < 1.55f && player.Dimension == Constants.FACTION_YAKUZA)
+
+                    if (YakuzaTeleportBaseExit.Distance(player.Position) < 1.55f && player.Dimension == Constants.FactionYakuza)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = YAKUZA_Teleport_Base_Enter;
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = YakuzaTeleportBaseEnter;
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_FBI || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionFbi || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (FIB_Teleport_Heli_Enter.Distance(player.Position) < 1.25f)
+                    if (FibTeleportHeliEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = FIB_Teleport_Heli_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = FibTeleportHeliExit;
                         return true;
                     }
-                    else if (FIB_Teleport_Heli_Exit.Distance(player.Position) < 1.25f)
+
+                    if (FibTeleportHeliExit.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = FIB_Teleport_Heli_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = FibTeleportHeliEnter;
                         return true;
                     }
-                    if (FIB_Teleport_Garage_Enter.Distance(player.Position) < 1.25f)
+                    if (FibTeleportGarageEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = FIB_Teleport_Garage_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = FibTeleportGarageExit;
                         return true;
                     }
-                    else if (FIB_Teleport_Garage_Exit.Distance(player.Position) < 1.25f)
+
+                    if (FibTeleportGarageExit.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = FIB_Teleport_Garage_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = FibTeleportGarageEnter;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_EMERGENCY || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionEmergency || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (Emergency_Teleport_Heli_Enter.Distance(player.Position) < 1.25f)
+                    if (EmergencyTeleportHeliEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = Emergency_Teleport_Heli_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = EmergencyTeleportHeliExit;
                         return true;
                     }
-                    else if (Emergency_Teleport_Heli_Exit.Distance(player.Position) < 1.25f)
+
+                    if (EmergencyTeleportHeliExit.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = Emergency_Teleport_Heli_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = EmergencyTeleportHeliEnter;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_NARCOS || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionNarcos || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (MS13_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
+                    if (Ms13TeleportBaseEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = MS13_Teleport_Base_Exit;
-                        player.Dimension = Constants.FACTION_NARCOS;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = Ms13TeleportBaseExit;
+                        player.Dimension = Constants.FactionNarcos;
                         return true;
                     }
-                    else if (MS13_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_NARCOS)
+
+                    if (Ms13TeleportBaseExit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FactionNarcos)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = MS13_Teleport_Base_Enter;
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = Ms13TeleportBaseEnter;
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
 
                     // Eingang
-                    else if (MS13_Teleport_Base_heli_Enter.Distance(player.Position) < 1.25f)
+
+                    if (Ms13TeleportBaseHeliEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = MS13_Teleport_Base_heli_Exit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = Ms13TeleportBaseHeliExit;
                         return true;
                     }
-                    else if (MS13_Teleport_Base_heli_Exit.Distance(player.Position) < 1.25f)
+
+                    if (Ms13TeleportBaseHeliExit.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.SetPosition = MS13_Teleport_Base_heli_Enter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.SetPosition = Ms13TeleportBaseHeliEnter;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_BALLAS || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionBallas || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (Ballas_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
+                    if (BallasTeleportBaseEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
 
-                        player.SetPosition = Ballas_Teleport_Base_Exit;
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = Constants.FACTION_BALLAS;
+                        player.SetPosition = BallasTeleportBaseExit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.Dimension = Constants.FactionBallas;
                         return true;
                     }
-                    else if (Ballas_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_BALLAS)
+
+                    if (BallasTeleportBaseExit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FactionBallas)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetPosition = Ballas_Teleport_Base_Enter;
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.SetPosition = BallasTeleportBaseEnter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_COMPTON || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionCompton || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
-                    if (Compton_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
+                    if (ComptonTeleportBaseEnter.Distance(player.Position) < 1.25f)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetPosition = Compton_Teleport_Base_Exit;
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = Constants.FACTION_COMPTON;
+                        player.SetPosition = ComptonTeleportBaseExit;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.Dimension = Constants.FactionCompton;
                         return true;
                     }
-                    else if (Compton_Teleport_Base_Exit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FACTION_COMPTON)
+
+                    if (ComptonTeleportBaseExit.Distance(player.Position) < 1.25f && player.Dimension == Constants.FactionCompton)
                     {
                         if (player.Reallife.LastFactionTeleport > DateTime.Now)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Bitte warte 3 Sekunden!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Warning, "Bitte warte 3 Sekunden!");
                             return true;
                         }
-                        player.SetPosition = Compton_Teleport_Base_Enter;
-                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(CoolDown);
-                        player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                        player.SetPosition = ComptonTeleportBaseEnter;
+                        player.Reallife.LastFactionTeleport = DateTime.Now.AddSeconds(coolDown);
+                        player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
                         return true;
                     }
                 }
 
-                if (player_Fraktion == Constants.FACTION_SAMCRO || isStateFaction(player) || Admin.HaveAdminRights(player))
+                if (playerFraktion == Constants.FactionSamcro || IsStateFaction(player) || Admin.HaveAdminRights(player))
                 {
                     // Eingang
                     /*if (SAM_Teleport_Base_Enter.Distance(player.Position) < 1.25f)
@@ -627,13 +636,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) < DateTime.Now)
+                if (player.VnxGetElementData<DateTime>(EntityData.PlayerZivizeit) < DateTime.Now)
                 {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 200, 0) + "Zivizeit Abgelaufen. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 0) + "Zivizeit Abgelaufen. [" + player.VnxGetElementData<DateTime>(EntityData.PlayerZivizeit) + "]");
                 }
                 else
                 {
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Zivizeit läuft noch. [" + player.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Zivizeit läuft noch. [" + player.VnxGetElementData<DateTime>(EntityData.PlayerZivizeit) + "]");
                 }
             }
             catch { }
@@ -644,13 +653,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         {
             try
             {
-                if (player.Reallife.Faction != Constants.FACTION_NONE)
+                if (player.Reallife.Faction != Constants.FactionNone)
                 {
                     Faction.CreateFactionInformation(player.Reallife.Faction, player.Username + " hat die Fraktion verlassen...");
-                    player.Reallife.Faction = Constants.FACTION_NONE;
+                    player.Reallife.Faction = Constants.FactionNone;
                     player.Reallife.SpawnLocation = "noobspawn";
-                    player.Reallife.Zivizeit = DateTime.Now.AddDays(1);
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du hast dich selbst uninvitet!");
+                    player.Reallife.FactionCooldown = DateTime.Now.AddDays(1);
+                    Main.DrawNotification(player, Main.Types.Info, "Du hast dich selbst uninvitet!");
                 }
             }
             catch { }
@@ -658,55 +667,55 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [Command("invite")]
-        public static void InvitePlayerToFaction(VnXPlayer player, string target_name)
+        public static void InvitePlayerToFaction(VnXPlayer player, string targetName)
         {
             try
             {
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null) { return; }
-                if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
+                if (player.Reallife.Faction != Constants.FactionNone && player.Reallife.FactionRank >= 4)
                 {
-                    if (target.Reallife.Faction == Constants.FACTION_NONE)
+                    if (target.Reallife.Faction == Constants.FactionNone)
                     {
-                        if (target.Reallife.Zivizeit < DateTime.Now)
+                        if (target.Reallife.FactionCooldown < DateTime.Now)
                         {
                             target.Reallife.Faction = player.Reallife.Faction;
                             target.Reallife.FactionRank = 0;
-                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 150, 0) + "Du hast den Spieler " + target.Username + " in deine Fraktion aufgenommen!");
+                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 0) + "Du wurdest soeben in eine Fraktion aufgenommen! Tippe /t [Text] für den Chat und F2, um mehr zu erfahren!");
+                            player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 0) + "Du hast den Spieler " + target.Username + " in deine Fraktion aufgenommen!");
                         }
                         else
                         {
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Der Spieler " + target.Username + " hat noch eine Zivizeit am laufen. [" + target.vnxGetElementData<DateTime>(EntityData.PLAYER_ZIVIZEIT) + "]");
+                            player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Der Spieler " + target.Username + " hat noch eine Zivizeit am laufen. [" + target.VnxGetElementData<DateTime>(EntityData.PlayerZivizeit) + "]");
                         }
                     }
                     else
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist bereits in einer Fraktion!");
+                        Main.DrawNotification(player, Main.Types.Error, "Der Spieler ist bereits in einer Fraktion!");
                     }
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 4 möglich!");
+                    Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
             catch { }
         }
 
         [Command("uninvite")]
-        public static void UninviteFromFactionPlayer(VnXPlayer player, string target_name)
+        public static void UninviteFromFactionPlayer(VnXPlayer player, string targetName)
         {
             try
             {
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null) { return; }
-                if (player.Reallife.Faction != Constants.FACTION_NONE && player.Reallife.FactionRank >= 4)
+                if (player.Reallife.Faction != Constants.FactionNone && player.Reallife.FactionRank >= 4)
                 {
                     if (target.Reallife.Faction == player.Reallife.Faction)
                     {
                         if (target.Username == player.Username)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
+                            Main.DrawNotification(player, Main.Types.Error, "Du kannst dich nicht selbst Rauswerfen... Nutze /selfuninvite");
                             return;
                         }
                         if (target.Reallife.FactionRank < 5)
@@ -714,23 +723,23 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                             target.Reallife.Faction = 0;
                             target.Reallife.FactionRank = 0;
                             target.Reallife.SpawnLocation = "noobspawn";
-                            target.Reallife.Zivizeit = DateTime.Now.AddDays(1);
-                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
-                            player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast den Spieler " + target.Username + " aus deiner Fraktion entfernt!");
+                            target.Reallife.FactionCooldown = DateTime.Now.AddDays(1);
+                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Du wurdest soeben aus deiner Fraktion geworfen!");
+                            player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 175, 0) + "Du hast den Spieler " + target.Username + " aus deiner Fraktion entfernt!");
                         }
                         else
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst keinen Leader un-inviten!");
+                            Main.DrawNotification(player, Main.Types.Error, "Du kannst keinen Leader un-inviten!");
                         }
                     }
                     else
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
+                        Main.DrawNotification(player, Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
                     }
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Erst ab Rank 4 möglich!");
+                    Main.DrawNotification(player, Main.Types.Error, "Erst ab Rank 4 möglich!");
                 }
             }
             catch { }
@@ -738,57 +747,57 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
 
 
         [Command("giverank")]
-        public static void SetPlayerFraktionsRang(VnXPlayer player, string target_name, int number)
+        public static void SetPlayerFraktionsRang(VnXPlayer player, string targetName, int number)
         {
             try
             {
-                VnXPlayer target = RageAPI.GetPlayerFromName(target_name);
+                VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null) { return; }
                 if (number > 4 || number < 0)
                 {
                     return;
                 }
-                if (player.Reallife.FactionRank >= 4 && player.Reallife.Faction > Constants.FACTION_NONE)
+                if (player.Reallife.FactionRank >= 4 && player.Reallife.Faction > Constants.FactionNone)
                 {
                     if (target.Reallife.Faction != player.Reallife.Faction)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
+                        Main.DrawNotification(player, Main.Types.Error, "Der Spieler ist nicht in deiner Fraktion!");
                         return;
                     }
                     if (target.Reallife.FactionRank == 5)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du kannst einen Leader/Co-Leader nicht seinen Rang ändern!");
+                        Main.DrawNotification(player, Main.Types.Error, "Du kannst einen Leader/Co-Leader nicht seinen Rang ändern!");
                         return;
                     }
                     if (target.Reallife.FactionRank == number)
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler hat bereits diesen Rang...");
+                        Main.DrawNotification(player, Main.Types.Error, "Der Spieler hat bereits diesen Rang...");
                         return;
                     }
                     string rankString = string.Empty;
-                    foreach (FactionModel factionModel in Constants.FACTION_RANK_LIST)
+                    foreach (FactionModel factionModel in Constants.FactionRankList)
                     {
-                        if (factionModel.faction == player.Reallife.Faction && factionModel.rank == number)
+                        if (factionModel.Faction == player.Reallife.Faction && factionModel.Rank == number)
                         {
-                            rankString = player.Sex == Constants.SEX_MALE ? factionModel.descriptionMale : factionModel.descriptionFemale;
+                            rankString = player.Sex == Constants.SexMale ? factionModel.DescriptionMale : factionModel.DescriptionFemale;
                             break;
                         }
                     }
                     if (target.Reallife.FactionRank < number)
                     {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Glückwunsch, du wurdest soeben von " + player.Username + " zum " + rankString + " befördert!");
+                        target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 175, 0) + "Glückwunsch, du wurdest soeben von " + player.Username + " zum " + rankString + " befördert!");
                     }
                     else
                     {
-                        target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Du wurdest soeben von " + player.Username + " zum " + rankString + " degradiert!");
+                        target.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Du wurdest soeben von " + player.Username + " zum " + rankString + " degradiert!");
                     }
-                    player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 175, 0) + "Du hast " + target.Username + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 175, 0) + "Du hast " + target.Username + " soeben Rang " + rankString + " ( " + number + " ) gegeben!");
                     target.Reallife.FactionRank = number;
 
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist nicht befugt!");
+                    Main.DrawNotification(player, Main.Types.Error, "Du bist nicht befugt!");
                 }
             }
             catch
@@ -797,37 +806,36 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
         }
 
         [VenoXRemoteEvent("goDUTYBADServer")]
-        public void GoDUTYBADServer(VnXPlayer player, string state)
+        public void GoDutybadServer(VnXPlayer player, string state)
         {
             try
             {
                 int playerSex = player.Sex;
                 int playerFaction = player.Reallife.Faction;
 
-                if (player.IsDead) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!"); return; }
+                if (player.IsDead) { Main.DrawNotification(player, Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!"); return; }
 
                 if (state == "anziehen")
                 {
-                    if (player.Reallife.Faction > Constants.FACTION_NONE)
+                    if (player.Reallife.Faction > Constants.FactionNone)
                     {
-                        foreach (UniformModel uniform in Constants.UNIFORM_LIST)
+                        foreach (UniformModel uniform in Constants.UniformList)
                         {
-                            if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
+                            switch (uniform.Type)
                             {
-                                RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                            }
-                            else if (uniform.type == 1 && playerSex == uniform.characterSex)
-                            {
-                                RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                                case 0 when uniform.FactionJob == playerFaction && playerSex == uniform.CharacterSex:
+                                case 1 when playerSex == uniform.CharacterSex:
+                                    player.SetClothes(uniform.UniformSlot, uniform.UniformDrawable, uniform.UniformTexture);
+                                    break;
                             }
                         }
                         player.SetHealth = 200;
                         player.SetArmor = 100;
-                        if (isBadFaction(player))
+                        if (IsBadFaction(player))
                         {
                             player.Reallife.OnDutyBad = 1;
                         }
-                        else if (isNeutralFaction(player))
+                        else if (IsNeutralFaction(player))
                         {
                             player.Reallife.OnDutyNeutral = 1;
                         }
@@ -840,12 +848,12 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     Customization.ApplyPlayerClothes(player);
                     player.SetHealth = 200;
                     player.SetArmor = 100;
-                    weapons.Weapons.GivePlayerWeaponItems(player);
-                    if (isBadFaction(player))
+                    Weapons.GivePlayerWeaponItems(player);
+                    if (IsBadFaction(player))
                     {
                         player.Reallife.OnDutyBad = 0;
                     }
-                    else if (isNeutralFaction(player))
+                    else if (IsNeutralFaction(player))
                     {
                         player.Reallife.OnDutyNeutral = 0;
                     }
@@ -865,42 +873,43 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 int playerFaction = player.Reallife.Faction;
                 if (player.IsDead)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    Main.DrawNotification(player, Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                     return;
                 }
-                if (isStateFaction(player))
+                if (IsStateFaction(player))
                 {
-                    foreach (UniformModel uniform in Constants.UNIFORM_LIST)
+                    foreach (UniformModel uniform in Constants.UniformList)
                     {
-                        if (uniform.type == 0 && uniform.factionJob == playerFaction && playerSex == uniform.characterSex)
+                        switch (uniform.Type)
                         {
-                            RageAPI.SetClothes(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
-                        }
-                        else if (uniform.type == 1 && playerSex == uniform.characterSex)
-                        {
-                            RageAPI.SetProp(player, uniform.uniformSlot, uniform.uniformDrawable, uniform.uniformTexture);
+                            case 0 when uniform.FactionJob == playerFaction && playerSex == uniform.CharacterSex:
+                                player.SetClothes(uniform.UniformSlot, uniform.UniformDrawable, uniform.UniformTexture);
+                                break;
+                            case 1 when playerSex == uniform.CharacterSex:
+                                player.SetProp(uniform.UniformSlot, uniform.UniformDrawable, uniform.UniformTexture);
+                                break;
                         }
                     }
                     player.Reallife.OnDuty = 1;
                     player.SetHealth = 200;
                     player.SetArmor = 100;
-                    weapons.Weapons.GivePlayerWeaponItems(player);
+                    Weapons.GivePlayerWeaponItems(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [VenoXRemoteEvent("goSWATServer")]
-        public void goSWATDutyPlayer(VnXPlayer player)
+        public void GoSwatDutyPlayer(VnXPlayer player)
         {
             try
             {
                 if (player.IsDead)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    Main.DrawNotification(player, Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                     return;
                 }
-                if (!isStateFaction(player)) { return; }
+                if (!IsStateFaction(player)) { return; }
 
                 player.Reallife.OnDuty = 1;
                 player.SetHealth = 200;
@@ -912,9 +921,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 player.SetProp(0, 144, 0);
                 player.SetClothes(3, 4, 0);
                 player.SetClothes(8, 15, 0);
-                weapons.Weapons.GivePlayerWeaponItems(player);
+                Weapons.GivePlayerWeaponItems(player);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
 
         }
 
@@ -925,7 +934,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 if (player.IsDead)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                    Main.DrawNotification(player, Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
                     return;
                 }
                 if (player.Reallife.OnDuty == 1)
@@ -938,7 +947,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     // Load selected character
                     player.SpawnPlayer(player.Position);
                     Customization.ApplyPlayerTattoos(player);
-                    anzeigen.Usefull.VnX.RemoveAllWeapons(player);
+                    VnX.RemoveAllWeapons(player);
                 }
             }
             catch

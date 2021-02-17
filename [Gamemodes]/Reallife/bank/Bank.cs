@@ -1,10 +1,11 @@
-﻿using AltV.Net;
-using System;
-using VenoXV._Admin_;
+﻿using System;
+using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.quests;
-using VenoXV._RootCore_.Database;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._Notifications_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.bank
 {
@@ -18,56 +19,50 @@ namespace VenoXV._Gamemodes_.Reallife.bank
             {
                 int value = int.Parse(v);
                 if (value < 0) { return; }
-                if (button == "einzahlen")
+                switch (button)
                 {
-                    if (value != 0)
+                    case "einzahlen" when value != 0:
                     {
                         if (value >= 1000)
                         {
                             //anzeigen.Usefull.VnX.UpdateQuestLVL(player, anzeigen.Usefull.VnX.QUEST_ATM_EINZAHLEN);
-                            if (quests.Quests.QuestDict.ContainsKey(Quests.QUEST_ATM_EINZAHLEN))
-                                Quests.OnQuestDone(player, quests.Quests.QuestDict[Quests.QUEST_ATM_EINZAHLEN]);
+                            if (Quests.QuestDict.ContainsKey(Quests.QuestAtmEinzahlen))
+                                Quests.OnQuestDone(player, Quests.QuestDict[Quests.QuestAtmEinzahlen]);
                         }
                         if (value > player.Reallife.Money)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
+                            Main.DrawNotification(player, Main.Types.Error, "Soviel Geld hast du nicht!");
                             return;
                         }
-                        else
-                        {
-                            player.Reallife.Bank += value;
-                            player.Reallife.Money -= value;
-                            player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " eingezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ eingezahlt!");
-                        }
-                    }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige Eingabe!");
-                    }
-                }
 
-                if (button == "auszahlen")
-                {
-                    if (value != 0)
+                        player.Reallife.Bank += value;
+                        player.Reallife.Money -= value;
+                        player.SendTranslatedChatMessage("Du hast " + RageApi.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageApi.GetHexColorcode(255, 255, 255) + " eingezahlt!");
+                        Logfile.WriteLogs("bank", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] hat " + value + " $ eingezahlt!");
+                        break;
+                    }
+                    case "einzahlen":
+                        Main.DrawNotification(player, Main.Types.Error, "Ungültige Eingabe!");
+                        break;
+                    case "auszahlen" when value != 0:
                     {
                         if (value > player.Reallife.Bank)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
-                            return;
+                            Main.DrawNotification(player, Main.Types.Error, "Soviel Geld hast du nicht!");
                         }
                         else
                         {
                             player.Reallife.Bank -= value;
                             player.Reallife.Money += value;
-                            player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageAPI.GetHexColorcode(255, 255, 255) + " ausgezahlt!");
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat " + value + " $ aussgezahlt!");
+                            player.SendTranslatedChatMessage("Du hast " + RageApi.GetHexColorcode(0, 200, 255) + " " + value + " $" + RageApi.GetHexColorcode(255, 255, 255) + " ausgezahlt!");
+                            Logfile.WriteLogs("bank", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] hat " + value + " $ aussgezahlt!");
                         }
+
+                        break;
                     }
-                    else
-                    {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Ungültige Eingabe!");
-                    }
+                    case "auszahlen":
+                        Main.DrawNotification(player, Main.Types.Error, "Ungültige Eingabe!");
+                        break;
                 }
             }
             catch { }
@@ -85,37 +80,35 @@ namespace VenoXV._Gamemodes_.Reallife.bank
                 }
                 if (player.Reallife.Bank < value)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Soviel Geld hast du nicht!");
-                    return;
+                    Main.DrawNotification(player, Main.Types.Error, "Soviel Geld hast du nicht!");
                 }
                 else
                 {
-                    bool charakterexestiert = Database.FindCharacterByName(name);
+                    bool charakterexestiert = Database.Database.FindCharacterByName(name);
                     if (charakterexestiert)
                     {
-                        string SpielerNameNormal = Database.GetAccountSpielerName(Database.GetCharakterSocialName(name));
-                        VnXPlayer target = RageAPI.GetPlayerFromName(SpielerNameNormal);
+                        string spielerNameNormal = Database.Database.GetAccountSpielerName(Database.Database.GetCharakterSocialName(name));
+                        VnXPlayer target = RageApi.GetPlayerFromName(spielerNameNormal);
                         if (target == null || target.Playing != true)
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler ist nicht Online!");
-                            return;
+                            Main.DrawNotification(player, Main.Types.Error, "Der Spieler ist nicht Online!");
                         }
                         else
                         {
-                            player.SendTranslatedChatMessage("Du hast " + RageAPI.GetHexColorcode(0, 200, 255) + " " + SpielerNameNormal + " " + RageAPI.GetHexColorcode(255, 255, 255) + +value + "  " + RageAPI.GetHexColorcode(0, 200, 255) + "  $ überwiesen!!");
-                            target.SendTranslatedChatMessage(RageAPI.GetHexColorcode(0, 255, 0) + player.Username + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            player.SendTranslatedChatMessage("Du hast " + RageApi.GetHexColorcode(0, 200, 255) + " " + spielerNameNormal + " " + RageApi.GetHexColorcode(255, 255, 255) + +value + "  " + RageApi.GetHexColorcode(0, 200, 255) + "  $ überwiesen!!");
+                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 255, 0) + player.Username + " hat dir " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             player.Reallife.Bank -= value;
                             target.Reallife.Bank += value;
-                            vnx_stored_files.logfile.WriteLogs("bank", "[ " + player.SocialClubId.ToString() + " ]" + "[ " + player.Username + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Username + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
+                            Logfile.WriteLogs("bank", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] hat [ " + target.SocialClubId + " ]" + "[ " + target.Username + " ] " + value + " $ überwiesen! ( Grund : " + reason + ")");
                             if (value >= 150000)
                             {
-                                Admin.sendAdminNotification(player.Username + " hat " + target.Username + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
+                                Admin.SendAdminNotification(player.Username + " hat " + target.Username + " " + value + " $ Geld überwiesen! ( Grund : " + reason + ")");
                             }
                         }
                     }
                     else
                     {
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Der Spieler exestiert nicht!");
+                        Main.DrawNotification(player, Main.Types.Error, "Der Spieler exestiert nicht!");
                     }
                 }
             }

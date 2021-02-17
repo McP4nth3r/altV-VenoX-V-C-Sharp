@@ -1,14 +1,17 @@
-﻿using AltV.Net;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Linq;
+using AltV.Net;
+using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
+using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using EntityData = VenoXV._Globals_.EntityData;
+using Inventory = VenoXV._Globals_.Inventory.Inventory;
+using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;
 
 namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 {
@@ -20,21 +23,21 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllPlayerWeapons();
                 int playerId = player.UID;
-                foreach (ItemModel waffen in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+                foreach (ItemModel waffen in Inventory.DatabaseItems.ToList())
                 {
-                    if (waffen.Type == ItemType.Gun && waffen.UID == playerId)
+                    if (waffen.Type == ItemType.Gun && waffen.Uid == playerId)
                     {
 
-                        _Globals_.Inventory.Inventory.DatabaseItems.Remove(waffen);
+                        Inventory.DatabaseItems.Remove(waffen);
                         player.Inventory.Items.Remove(waffen);
                     }
                 }
-                Database.RemoveAllItemsByType(playerId, ItemType.Gun);
+                Database.Database.RemoveAllItemsByType(playerId, ItemType.Gun);
             }
             catch { }
         }
 
-        public static void RemoveAllBadGWWeapons(VnXPlayer player)
+        public static void RemoveAllBadGwWeapons(VnXPlayer player)
         {
             try
             {
@@ -42,52 +45,52 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
 
                 int playerId = player.UID;
 
-                ItemModel Switchblade = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SWITCHBLADE);
-                ItemModel Nightstick = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_NIGHTSTICK);
-                ItemModel Baseball = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_BASEBALL);
-                ItemModel Tazer = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_TAZER);
+                ItemModel switchblade = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashSwitchblade);
+                ItemModel nightstick = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashNightstick);
+                ItemModel baseball = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashBaseball);
+                ItemModel tazer = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashTazer);
 
-                ItemModel Shotgun = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SHOTGUN);
+                ItemModel shotgun = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashShotgun);
 
-                ItemModel Sniperrifle = Main.GetPlayerItemModelFromHash(player, Constants.ITEM_HASH_SNIPERRIFLE);
+                ItemModel sniperrifle = Main.GetPlayerItemModelFromHash(player, Constants.ItemHashSniperrifle);
 
-                if (Switchblade != null)
+                if (switchblade != null)
                 {
-                    Database.RemoveItem(Switchblade.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Switchblade);
+                    Database.Database.RemoveItem(switchblade.Id);
+                    Inventory.DatabaseItems.Remove(switchblade);
                 }
 
-                if (Baseball != null)
+                if (baseball != null)
                 {
-                    Database.RemoveItem(Baseball.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Baseball);
+                    Database.Database.RemoveItem(baseball.Id);
+                    Inventory.DatabaseItems.Remove(baseball);
                 }
 
-                if (Nightstick != null)
+                if (nightstick != null)
                 {
-                    Database.RemoveItem(Nightstick.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Nightstick);
+                    Database.Database.RemoveItem(nightstick.Id);
+                    Inventory.DatabaseItems.Remove(nightstick);
                 }
 
-                if (Tazer != null)
+                if (tazer != null)
                 {
-                    Database.RemoveItem(Tazer.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Tazer);
+                    Database.Database.RemoveItem(tazer.Id);
+                    Inventory.DatabaseItems.Remove(tazer);
                 }
 
-                if (Shotgun != null)
+                if (shotgun != null)
                 {
-                    Database.RemoveItem(Shotgun.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Shotgun);
+                    Database.Database.RemoveItem(shotgun.Id);
+                    Inventory.DatabaseItems.Remove(shotgun);
                 }
 
-                if (Sniperrifle != null)
+                if (sniperrifle != null)
                 {
-                    Database.RemoveItem(Sniperrifle.Id);
-                    _Globals_.Inventory.Inventory.DatabaseItems.Remove(Sniperrifle);
+                    Database.Database.RemoveItem(sniperrifle.Id);
+                    Inventory.DatabaseItems.Remove(sniperrifle);
                 }
 
-                weapons.Weapons.GivePlayerWeaponItems(player);
+                Weapons.GivePlayerWeaponItems(player);
             }
             catch
             {
@@ -107,20 +110,20 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         {
             try
             {
-                foreach (VnXPlayer players in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer players in _Globals_.Main.ReallifePlayers.ToList())
                 {
                     if (player.Position.Distance(players.Position) < 5)
                     {
-                        players.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150, 0, 150) + player.Username + " : " + text);
+                        players.SendTranslatedChatMessage(RageApi.GetHexColorcode(150, 0, 150) + player.Username + " : " + text);
                     }
                 }
                 //player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(150,0,150) +player.Username + " : " + text);
-                vnx_stored_files.logfile.WriteLogs("chat", "[ME][" + player.Username + "] : " + text);
+                Logfile.WriteLogs("chat", "[ME][" + player.Username + "] : " + text);
             }
             catch { }
         }
 
-        public static void SpectatePlayer(VnXPlayer player, string target_name, int einsfürfalse)
+        public static void SpectatePlayer(VnXPlayer player, string targetName, int einsfürfalse)
         {
             // VenoX.TriggerClientEvent(player,"VnX_Start_S", Target, einsfürfalse);
         }
@@ -128,27 +131,28 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
         //[AltV.Net.ClientEvent("CreateTypingEffect")]
         public static void CreateTypingEffect(VnXPlayer player, bool state)
         {
-            if (state == true)
+            if (state)
             {
                 player.SetStreamSyncedMetaData("SocialState_NAMETAG", "Schreibt...");
             }
             else
             {
-                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.vnxGetSharedData<string>(VenoXV._Globals_.EntityData.PLAYER_STATUS));
+                player.SetStreamSyncedMetaData("SocialState_NAMETAG", player.VnxGetSharedData<string>(EntityData.PlayerStatus));
             }
         }
 
         public static void ResetDiscordData(VnXPlayer player)
         {
-            if (Allround.isStateFaction(player))
+            if (Allround.IsStateFaction(player))
             {
-                if (player.Reallife.Faction == Constants.FACTION_LSPD)
+                switch (player.Reallife.Faction)
                 {
-                    VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [L.S.P.D]", "VenoX - Reallife");
-                }
-                else if (player.Reallife.Faction == Constants.FACTION_FBI)
-                {
-                    VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [F.I.B]", "VenoX - Reallife");
+                    case Constants.FactionLspd:
+                        VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [L.S.P.D]", "VenoX - Reallife");
+                        break;
+                    case Constants.FactionFbi:
+                        VenoX.TriggerClientEvent(player, "discord_update", "Auf Streife [F.I.B]", "VenoX - Reallife");
+                        break;
                 }
             }
             else

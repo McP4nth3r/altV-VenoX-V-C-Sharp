@@ -1,24 +1,22 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class BusinessTattooModel
     {
-        public int slot { get; set; }
-        public string name { get; set; }
-        public string library { get; set; }
-        public string maleHash { get; set; }
-        public string femaleHash { get; set; }
-        public int price { get; set; }
+        public int Slot { get; set; }
+        public string Name { get; set; }
+        public string Library { get; set; }
+        public string MaleHash { get; set; }
+        public string FemaleHash { get; set; }
+        public int Price { get; set; }
 
         public BusinessTattooModel(int slot, string name, string library, string maleHash, string femaleHash, int price)
         {
-            this.slot = slot;
-            this.name = name;
-            this.library = library;
-            this.maleHash = maleHash;
-            this.femaleHash = femaleHash;
-            this.price = price;
+            this.Slot = slot;
+            this.Name = name;
+            this.Library = library;
+            this.MaleHash = maleHash;
+            this.FemaleHash = femaleHash;
+            this.Price = price;
         }
     }
 }

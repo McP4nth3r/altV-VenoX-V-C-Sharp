@@ -2,8 +2,8 @@
 {
     public class EntityData
     {
-        public const string PLAYER_ZOMBIE_KILLS = "PLAYER_ZOMBIE_KILLS";
-        public const string PLAYER_ZOMBIE_PLAYERS_KILLED = "PLAYER_ZOMBIE_PLAYERS_KILLED";
-        public const string PLAYER_ZOMBIE_TODE = "PLAYER_ZOMBIE_TODE";
+        public const string PlayerZombieKills = "PLAYER_ZOMBIE_KILLS";
+        public const string PlayerZombiePlayersKilled = "PLAYER_ZOMBIE_PLAYERS_KILLED";
+        public const string PlayerZombieTode = "PLAYER_ZOMBIE_TODE";
     }
 }

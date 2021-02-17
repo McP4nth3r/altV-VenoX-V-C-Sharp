@@ -1,11 +1,12 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VenoXV._RootCore_;
+using AltV.Net;
+using AltV.Net.Data;
+using Newtonsoft.Json;
+using VenoXV._Preload_;
 using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV._Globals_.Scoreboard
 {
@@ -19,7 +20,7 @@ namespace VenoXV._Globals_.Scoreboard
         {
             public string Username { get; set; }
             public int Gamemode { get; set; }
-            public int FID { get; set; }
+            public int Fid { get; set; }
             public string[] Entry { get; set; }
         }
         public static List<ScoreboardModel> AllPlayers = new List<ScoreboardModel>();
@@ -27,27 +28,27 @@ namespace VenoXV._Globals_.Scoreboard
         public static void InitializeTacticsEntrys(VnXPlayer player)
         {
             TimeSpan spielzeittab = TimeSpan.FromMinutes(player.Played);
-            string Spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
+            string spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
 
             ScoreboardModel pClass = new ScoreboardModel
             {
                 Username = player.Username,
                 Gamemode = player.Gamemode,
-                FID = 0,
-                Entry = new string[] { player.Username, Spielzeit, player.Reallife.SocialState, player.Tactics.Kills.ToString(), player.Tactics.Deaths.ToString(), player.Ping.ToString(), player.Ping.ToString() }
+                Fid = 0,
+                Entry = new[] { player.Username, spielzeit, player.Reallife.SocialState, player.Tactics.Kills.ToString(), player.Tactics.Deaths.ToString(), player.Ping.ToString(), player.Ping.ToString() }
             };
             AllPlayers.Add(pClass);
         }
         public static void InitializeReallifeEntrys(VnXPlayer player)
         {
             TimeSpan spielzeittab = TimeSpan.FromMinutes(player.Played);
-            string Spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
+            string spielzeit = string.Format("{0:00}:{1:00}", (int)spielzeittab.TotalHours, spielzeittab.Minutes);
             ScoreboardModel pClass = new ScoreboardModel
             {
                 Username = player.Username,
                 Gamemode = player.Gamemode,
-                FID = player.Reallife.Faction,
-                Entry = new string[] { player.Username, Spielzeit, player.Reallife.SocialState, "13212321", "-", player.Reallife.Faction.ToString(), player.Ping.ToString() }
+                Fid = player.Reallife.Faction,
+                Entry = new[] { player.Username, spielzeit, player.Reallife.SocialState, "13212321", "-", player.Reallife.Faction.ToString(), player.Ping.ToString() }
             };
             AllPlayers.Add(pClass);
         }
@@ -59,13 +60,11 @@ namespace VenoXV._Globals_.Scoreboard
             {
                 switch (player.Gamemode)
                 {
-                    case (int)_Preload_.Preload.Gamemodes.Tactics:
+                    case (int)Preload.Gamemodes.Tactics:
                         InitializeTacticsEntrys(player);
                         break;
-                    case (int)_Preload_.Preload.Gamemodes.Reallife:
+                    case (int)Preload.Gamemodes.Reallife:
                         InitializeReallifeEntrys(player);
-                        break;
-                    default:
                         break;
                 }
             }
@@ -76,10 +75,10 @@ namespace VenoXV._Globals_.Scoreboard
             try
             {
                 UpdateScoreboard();
-                List<ScoreboardModel> AlleSpieler = AllPlayers;
+                List<ScoreboardModel> alleSpieler = AllPlayers;
                 foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList())
                 {
-                    VenoX.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(AlleSpieler), player.Gamemode);
+                    VenoX.TriggerClientEvent(player, "UpdateScoreboard_Event", JsonConvert.SerializeObject(alleSpieler), player.Gamemode);
                 }
             }
             catch { }

@@ -1,15 +1,16 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using VenoXV._Admin_;
+using AltV.Net;
+using AltV.Net.Data;
+using VenoXV._Gamemodes_.Reallife.Woltlab;
+using VenoXV._Notifications_;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
 
 namespace VenoXV._Preload_.Login
 {
@@ -26,51 +27,51 @@ namespace VenoXV._Preload_.Login
             }
             return hash;
         }
-        public static bool LoginAccount(string Nickname, string Password, bool bcrypt)
+        public static bool LoginAccount(string nickname, string password, bool bcrypt)
         {
             try
             {
                 foreach (AccountModel accClass in Register.Register.AccountList)
                 {
-                    if (accClass.Name.ToLower() == Nickname.ToLower())
+                    if (accClass.Name.ToLower() == nickname.ToLower())
                     {
                         if (bcrypt)
                         {
-                            if (BCrypt.Net.BCrypt.Verify(Password, accClass.Password))
+                            if (BCrypt.Net.BCrypt.Verify(password, accClass.Password))
                                 return true;
                         }
 
-                        if (accClass.Password == Password)
+                        if (accClass.Password == password)
                             return true;
                     }
                 }
                 return false;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return false; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
-        public static bool ChangeAccountPW(string Nickname, string Password)
+        public static bool ChangeAccountPw(string nickname, string password)
         {
             foreach (AccountModel accClass in Register.Register.AccountList)
             {
-                if (accClass.Name.ToLower() == Nickname.ToLower())
+                if (accClass.Name.ToLower() == nickname.ToLower())
                 {
-                    accClass.Password = Password;
+                    accClass.Password = password;
                     return true;
                 }
             }
             return false;
         }
-        public static AccountModel GetAccountModel(string Nickname, string Password, bool bcrypt = false)
+        public static AccountModel GetAccountModel(string nickname, string password, bool bcrypt = false)
         {
             foreach (AccountModel accClass in Register.Register.AccountList)
             {
-                if (accClass.Name.ToLower() == Nickname.ToLower())
+                if (accClass.Name.ToLower() == nickname.ToLower())
                 {
                     if (bcrypt)
-                        if (BCrypt.Net.BCrypt.Verify(Password, accClass.Password))
+                        if (BCrypt.Net.BCrypt.Verify(password, accClass.Password))
                             return accClass;
 
-                    if (accClass.Password == Password)
+                    if (accClass.Password == password)
                         return accClass;
                 }
             }
@@ -81,38 +82,39 @@ namespace VenoXV._Preload_.Login
         {
             try
             {
-                BanModel BanClass = Admin.GetClientBanModel(player);
-                Core.Debug.OutputDebugString("Function called because " + player.Name + " is banned");
-                if (BanClass is null) return;
-                if (BanClass.BanType == "Permaban") VenoX.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, "Permanently", BanClass.Reason);
-                else VenoX.TriggerClientEvent(player, "BanWindow:Create", BanClass.Name, BanClass.BannedTill.ToString(), BanClass.Reason);
+                BanModel banClass = Admin.GetClientBanModel(player);
+                Debug.OutputDebugString("Function called because " + player.Name + " is banned");
+                if (banClass is null) return;
+                if (banClass.BanType == "Permaban") VenoX.TriggerClientEvent(player, "BanWindow:Create", banClass.Name, "Permanently", banClass.Reason);
+                else VenoX.TriggerClientEvent(player, "BanWindow:Create", banClass.Name, banClass.BannedTill.ToString(), banClass.Reason);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         [VenoXRemoteEvent("LoginAccount")]
-        public static void LoginAccountEvent(VnXPlayer player, string Nickname, string Password)
+        public static void LoginAccountEvent(VnXPlayer player, string nickname, string password)
         {
             try
             {
                 if (Admin.IsClientBanned(player)) { ShowBanWindow(player); return; }
                 AccountModel accClass;
 
-                if (!LoginAccount(Nickname, Sha256(Password), false) && !LoginAccount(Nickname, Password, true)) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Wrong Username/Password"); return; }
-                else if (LoginAccount(Nickname, Sha256(Password), false)) player.LoggedInWithShaPassword = true;
+                if (!LoginAccount(nickname, Sha256(password), false) && !LoginAccount(nickname, password, true)) { Main.DrawNotification(player, Main.Types.Error, "Wrong Username/Password"); return; }
 
-                if (player.LoggedInWithShaPassword) accClass = GetAccountModel(Nickname, Sha256(Password));
-                else accClass = GetAccountModel(Nickname, Password, true);
+                if (LoginAccount(nickname, Sha256(password), false)) player.LoggedInWithShaPassword = true;
+
+                if (player.LoggedInWithShaPassword) accClass = GetAccountModel(nickname, Sha256(password));
+                else accClass = GetAccountModel(nickname, password, true);
 
                 if (accClass == null) return;
                 player.Language = (int)_Language_.Main.GetLanguageByPair(accClass.Language);
-                Database.LoadCharacterInformationById(player, accClass.UID);
+                Database.Database.LoadCharacterInformationById(player, accClass.Uid);
                 if (!Character_Creator.Main.PlayerHaveSkin(player))
                 {
                     VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                     VenoX.TriggerClientEvent(player, "CharCreator:Start", player.Sex);
                     player.Playing = true;
-                    _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
+                    VnX.PutPlayerInRandomDim(player);
                     player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                     Register.Register.ChangeCharacterSexEvent(player, player.Sex);
                     return;
@@ -125,15 +127,15 @@ namespace VenoXV._Preload_.Login
                 if (player.LoggedInWithShaPassword)
                 {
                     // Woltlab change
-                    string salt = _Gamemodes_.Reallife.Woltlab.Program.GetRandomSalt();
-                    string hashedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(Password, salt), salt);
+                    string salt = Program.GetRandomSalt();
+                    string hashedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(password, salt), salt);
                     //Normal Change.
-                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
-                    if (_Preload_.Login.Login.ChangeAccountPW(Nickname, hashedPassword))
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                    if (ChangeAccountPw(nickname, hashedPassword))
                     {
-                        Core.Debug.OutputDebugString("Updated PW to " + hashedPassword);
-                        Database.ChangeUserPasswort(Nickname, hashedPassword);
-                        _Gamemodes_.Reallife.Woltlab.Program.ChangeUserPasswort(Nickname, hashedPasswordWoltlab);
+                        Debug.OutputDebugString("Updated PW to " + hashedPassword);
+                        Database.Database.ChangeUserPasswort(nickname, hashedPassword);
+                        Program.ChangeUserPasswort(nickname, hashedPasswordWoltlab);
                     }
                 }
             }

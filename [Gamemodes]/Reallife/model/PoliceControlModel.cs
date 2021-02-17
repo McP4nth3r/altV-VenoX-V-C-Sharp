@@ -1,18 +1,15 @@
-﻿using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using System;
+﻿using AltV.Net;
+using AltV.Net.Data;
 
 namespace VenoXV._Gamemodes_.Reallife.model
 {
     public class PoliceControlModel
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public int item { get; set; }
-        public Position position { get; set; }
-        public Rotation rotation { get; set; }
-        public AltV.Net.IBaseBaseObjectPool controlObject { get; set; }
-
-        public PoliceControlModel() { }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Item { get; set; }
+        public Position Position { get; set; }
+        public Rotation Rotation { get; set; }
+        public IBaseBaseObjectPool ControlObject { get; set; }
     }
 }

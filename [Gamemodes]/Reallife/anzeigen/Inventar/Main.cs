@@ -1,13 +1,14 @@
-﻿using AltV.Net;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net;
+using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Inventory = VenoXV._Globals_.Inventory.Inventory;
 
 namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
 {
@@ -17,9 +18,9 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+                foreach (ItemModel items in Inventory.DatabaseItems.ToList())
                 {
-                    if (items.UID == player.UID)
+                    if (items.Uid == player.UID)
                     {
                         player.Inventory.Items.Add(items);
                     }
@@ -32,9 +33,9 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         {
             try
             {
-                foreach (ItemModel items in _Globals_.Inventory.Inventory.DatabaseItems.ToList())
+                foreach (ItemModel items in Inventory.DatabaseItems.ToList())
                 {
-                    if (items.UID == player.UID)
+                    if (items.Uid == player.UID)
                     {
                         player.Inventory.Items.Add(items);
                     }
@@ -63,15 +64,15 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
         public static void OnPlayerConnect(VnXPlayer player) { try { LoadPlayerItems(player); } catch { } }
 
         [VenoXRemoteEvent("Inventory:Use")]
-        public static void OnInventoryUseButtonClicked(VnXPlayer player, string ClickedHash)
+        public static void OnInventoryUseButtonClicked(VnXPlayer player, string clickedHash)
         {
             try
             {
-                ItemModel item = player.Inventory.Items.ToList().FirstOrDefault(x => x.UID == player.Id && (x.Hash + ".png") == ClickedHash);
+                ItemModel item = player.Inventory.Items.ToList().FirstOrDefault(x => x.Uid == player.Id && (x.Hash + ".png") == clickedHash);
                 if (item is not null)
                     UseItem(player, item);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public static void UseItem(VnXPlayer player, ItemModel item)
@@ -80,27 +81,27 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
             {
                 switch (item.Hash)
                 {
-                    case Constants.ITEM_HASH_TANKSTELLENSNACK:
+                    case Constants.ItemHashTankstellensnack:
                         if ((player.Reallife.Hunger + 10) > 100) { player.SendTranslatedChatMessage("Du bist satt."); return; }
                         player.Reallife.Hunger += 10;
                         item.Amount -= 1;
                         break;
-                    case Constants.ITEM_HASH_BENZINKANNISTER:
+                    case Constants.ItemHashBenzinkannister:
                         if (!player.IsInVehicle)
                         {
                             _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Du bist in keinem Fahrzeug!");
                             return;
                         }
-                        VehicleModel VehicleClass = (VehicleModel)player.Vehicle;
-                        if ((VehicleClass.Gas + 20) > 100)
+                        VehicleModel vehicleClass = (VehicleModel)player.Vehicle;
+                        if ((vehicleClass.Gas + 20) > 100)
                         {
                             _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
                             return;
                         }
-                        VehicleClass.Gas += 20;
+                        vehicleClass.Gas += 20;
                         item.Amount -= 1;
                         break;
-                    case Constants.ITEM_HASH_KOKS:
+                    case Constants.ItemHashKoks:
                         break;
                     default:
                         player.SendTranslatedChatMessage("Dein ItemHash : " + item.Hash);
@@ -109,7 +110,7 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 List<ItemModel> inventory = GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

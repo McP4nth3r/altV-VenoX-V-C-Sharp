@@ -1,12 +1,14 @@
-﻿namespace VenoXV._RootCore_.Models
+﻿using VenoXV.Models;
+
+namespace VenoXV._RootCore_.Models
 {
     public class BlipModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public float posX { get; set; }
-        public float posY { get; set; }
-        public float posZ { get; set; }
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+        public float PosZ { get; set; }
         public int Sprite { get; set; }
         public int Color { get; set; }
         public bool ShortRange { get; set; }

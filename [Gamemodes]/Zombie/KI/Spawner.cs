@@ -1,70 +1,72 @@
-﻿using AltV.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using VenoXV._Gamemodes_.Zombie.Models;
-using VenoXV._RootCore_;
+using AltV.Net;
+using VenoXV._Preload_.Character_Creator;
 using VenoXV._RootCore_.Models;
+using VenoXV.Core;
+using VenoXV.Models;
+using VenoXV.Zombie.Models;
 
 namespace VenoXV._Gamemodes_.KI
 {
     public class Spawner : IScript
     {
         public static List<ZombieModel> CurrentZombies = new List<ZombieModel>();
-        private static int CurrentZombieCounter = 0;
-        private static int PositionCounter = 0;
-        private static int DIST_ZOMBIES = 12;
-        private static int MAX_ZOMBIES = 15;
+        private static int _currentZombieCounter;
+        private static int _positionCounter;
+        private static int _distZombies = 12;
+        private static int _maxZombies = 15;
 
         //
         private static void CreateNewRandomZombie(VnXPlayer player)
         {
             try
             {
-                Vector3 Position = new Vector3();
-                switch (PositionCounter)
+                Vector3 position = new Vector3();
+                switch (_positionCounter)
                 {
                     case 0:
-                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y + DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        position = new Vector3(player.Position.X + _distZombies, player.Position.Y + _distZombies, player.Position.Z - 0.5f);
                         break;
                     case 1:
-                        Position = new Vector3(player.Position.X - DIST_ZOMBIES, player.Position.Y + DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        position = new Vector3(player.Position.X - _distZombies, player.Position.Y + _distZombies, player.Position.Z - 0.5f);
                         break;
                     case 2:
-                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y - DIST_ZOMBIES, player.Position.Z - 0.5f);
+                        position = new Vector3(player.Position.X + _distZombies, player.Position.Y - _distZombies, player.Position.Z - 0.5f);
                         break;
                     case 3:
-                        Position = new Vector3(player.Position.X + DIST_ZOMBIES, player.Position.Y - DIST_ZOMBIES, player.Position.Z - 0.5f);
-                        PositionCounter = 0;
+                        position = new Vector3(player.Position.X + _distZombies, player.Position.Y - _distZombies, player.Position.Z - 0.5f);
+                        _positionCounter = 0;
                         break;
                 }
                 Random random = new Random();
-                int RandomSkin = random.Next(0, _Preload_.Character_Creator.Main.CharacterSkins.ToList().Count);
-                PositionCounter++;
+                int randomSkin = random.Next(0, Main.CharacterSkins.ToList().Count);
+                _positionCounter++;
                 ZombieModel zombieClass = new ZombieModel
                 {
-                    ID = CurrentZombieCounter++,
+                    Id = _currentZombieCounter++,
                     SkinName = "mp_m_freemode_01",
-                    RandomSkinUID = _Preload_.Character_Creator.Main.CharacterSkins.ToList()[RandomSkin].UID,
+                    RandomSkinUid = Main.CharacterSkins.ToList()[randomSkin].Uid,
                     Sex = 0,
                     Armor = 100,
                     Health = 100,
                     IsDead = false,
-                    Position = Position,
+                    Position = position,
                     TargetEntity = player
                 };
                 player.Zombies.NearbyZombies.Add(zombieClass);
                 CurrentZombies.Add(zombieClass);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         private static void AddNearbyZombiesIntoList(VnXPlayer player)
         {
             try
             {
-                if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < MAX_ZOMBIES)
+                if (player.Zombies.IsSyncer && player.Zombies.NearbyZombies.Count < _maxZombies)
                 {
                     CreateNewRandomZombie(player);
                     foreach (VnXPlayer nearbyPlayer in player.NearbyPlayers.ToList()) CreateNewRandomZombie(nearbyPlayer);
@@ -72,7 +74,7 @@ namespace VenoXV._Gamemodes_.KI
                 //else if (player.Zombies.IsSyncer)
                 //Core.Debug.OutputDebugString("[Zombies] : " + player.Username + " hat das Limit von " + MAX_ZOMBIES + " Zombies erreicht.");
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         private static void SpawnZombiesArroundPlayers(VnXPlayer player)
@@ -81,9 +83,9 @@ namespace VenoXV._Gamemodes_.KI
             {
                 foreach (ZombieModel zombieClass in CurrentZombies.ToList())
                 {
-                    if (player.Position.Distance(zombieClass.Position) < Zombie.World.Main.MAX_ZOMBIE_RANGE)
+                    if (player.Position.Distance(zombieClass.Position) < Zombie.World.Main.MaxZombieRange)
                     {
-                        VenoX.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.RandomSkinUID, zombieClass.SkinName, zombieClass.Position, zombieClass.TargetEntity);
+                        VenoX.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.Id, zombieClass.RandomSkinUid, zombieClass.SkinName, zombieClass.Position, zombieClass.TargetEntity);
                         //player?.EmitLocked("Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                         //VenoX.TriggerClientEvent(player, "Zombies:SpawnKI", zombieClass.ID, zombieClass.SkinName, zombieClass.FaceFeatures, zombieClass.HeadBlendData, zombieClass.HeadOverlays, zombieClass.Position, zombieClass.TargetEntity);
                         zombieClass.Armor = 200;
@@ -91,7 +93,7 @@ namespace VenoXV._Gamemodes_.KI
                     }
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void SpawnZombiesForEveryPlayer()
         {
@@ -104,7 +106,7 @@ namespace VenoXV._Gamemodes_.KI
                     SpawnZombiesArroundPlayers(player);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
 

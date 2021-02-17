@@ -1,14 +1,16 @@
-﻿using AltV.Net;
-using AltV.Net.Async;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AltV.Net;
+using AltV.Net.Async;
+using AltV.Net.Data;
+using AltV.Net.Enums;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
+using VenoXV._Notifications_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
 
 namespace VenoXV._Preload_.Register
 {
@@ -22,7 +24,7 @@ namespace VenoXV._Preload_.Register
             bool state = false;
             foreach (AccountModel accClass in AccountList)
             {
-                if (playerClass.HardwareIdHash.ToString() == accClass.HardwareId || playerClass.HardwareIdExHash.ToString() == accClass.HardwareIdExhash || playerClass.SocialClubId.ToString() == accClass.SocialID)
+                if (playerClass.HardwareIdHash.ToString() == accClass.HardwareId || playerClass.HardwareIdExHash.ToString() == accClass.HardwareIdExhash || playerClass.SocialClubId.ToString() == accClass.SocialId)
                 {
                     //state = true;
                 }
@@ -30,11 +32,11 @@ namespace VenoXV._Preload_.Register
             return state;
         }
 
-        public static bool FoundAccountbyName(string Name)
+        public static bool FoundAccountbyName(string name)
         {
             foreach (AccountModel accClass in AccountList)
             {
-                if (accClass.Name.ToLower() == Name.ToLower())
+                if (accClass.Name.ToLower() == name.ToLower())
                 {
                     return true;
                 }
@@ -46,7 +48,7 @@ namespace VenoXV._Preload_.Register
         {
             try
             {
-                player.SetPlayerSkin(sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
+                player.SetPlayerSkin(sex == 0 ? (uint)PedModel.FreemodeMale01 : (uint)PedModel.FreemodeFemale01);
                 VenoX.TriggerClientEvent(player, "Player:DefaultComponentVariation");
                 /*player.SetClothes(11, 15, 0);
                 player.SetClothes(3, 15, 0);
@@ -67,45 +69,45 @@ namespace VenoXV._Preload_.Register
             {
 
                 if (nickname.Length < 1 || email.Length < 1 || password.Length < 1 || passwordwdh.Length < 1) return;
-                if (PlayerHaveAlreadyAccount(player)) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du hast bereits einen Account!"); return; }
-                if (FoundAccountbyName(nickname)) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
-                if (password != passwordwdh) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Passwörter sind nicht identisch!"); return; }
-                if (nickname.Contains(" ")) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Leerzeichen sind nicht erlaubt!"); return; }
-                if (!evalid) { _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Ungültige E-Mail!"); }
+                if (PlayerHaveAlreadyAccount(player)) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Du hast bereits einen Account!"); return; }
+                if (FoundAccountbyName(nickname)) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Nickname ist bereits vergeben!"); return; }
+                if (password != passwordwdh) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Passwörter sind nicht identisch!"); return; }
+                if (nickname.Contains(" ")) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Leerzeichen sind nicht erlaubt!"); return; }
+                if (!evalid) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Ungültige E-Mail!"); }
                 int sex = 0;
                 string geschlechtalsstring = "Männlich";
                 if (geschlecht == 1) { sex = 1; geschlechtalsstring = "Weiblich"; }
 
-                string ByCryptedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+                string byCryptedPassword = BCrypt.Net.BCrypt.HashPassword(password);
 
-                Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, ByCryptedPassword, geschlechtalsstring, 0);
-                int UID = Database.GetPlayerUID(nickname);
+                Database.Database.RegisterAccount(nickname, player.SocialClubId.ToString(), player.HardwareIdHash.ToString(), player.HardwareIdExHash.ToString(), email, byCryptedPassword, geschlechtalsstring, 0);
+                int uid = Database.Database.GetPlayerUid(nickname);
                 player.Username = nickname;
-                player.UID = UID;
+                player.UID = uid;
                 player.Sex = sex;
-                Database.CreateCharacter(player, player.UID);
+                Database.Database.CreateCharacter(player, player.UID);
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
                 VenoX.TriggerClientEvent(player, "CharCreator:Start", sex);
                 player.Visible = false;
                 player.Playing = true;
-                _Gamemodes_.Reallife.anzeigen.Usefull.VnX.PutPlayerInRandomDim(player);
+                VnX.PutPlayerInRandomDim(player);
                 player.SpawnPlayer(new Position(402.778f, -998.9758f, -99));
                 ChangeCharacterSexEvent(player, sex);
                 AccountModel account = new AccountModel
                 {
-                    UID = player.UID,
+                    Uid = player.UID,
                     HardwareId = player.HardwareIdHash.ToString(),
                     HardwareIdExhash = player.HardwareIdExHash.ToString(),
                     Name = nickname,
                     Email = email,
-                    Password = ByCryptedPassword,
-                    SocialID = player.SocialClubId.ToString(),
+                    Password = byCryptedPassword,
+                    SocialId = player.SocialClubId.ToString(),
                     Language = _Language_.Main.GetClientLanguagePair(_Language_.Main.Languages.English)
                 };
                 AccountList.Add(account);
                 await Program.CreateForumUser(player.UID, nickname, email, password);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

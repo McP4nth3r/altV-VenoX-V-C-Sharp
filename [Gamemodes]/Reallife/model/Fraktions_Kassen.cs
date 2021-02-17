@@ -1,23 +1,21 @@
-﻿using System;
-
-namespace VenoXV._Gamemodes_.Reallife.model
+﻿namespace VenoXV._Gamemodes_.Reallife.model
 {
-    public class Fraktions_Kassen
+    public class FraktionsKassen
     {
         
-        public int mats { get; set; }
-        public int koks { get; set; }
-        public int weed { get; set; }
-        public int money { get; set; }
+        public int Mats { get; set; }
+        public int Koks { get; set; }
+        public int Weed { get; set; }
+        public int Money { get; set; }
 
 
-        public Fraktions_Kassen() { }
-        public Fraktions_Kassen(int mats, int koks, int weed, int money)
+        public FraktionsKassen() { }
+        public FraktionsKassen(int mats, int koks, int weed, int money)
         {
-            this.mats = mats;
-            this.koks = koks;
-            this.weed = weed;
-            this.money = money;
+            this.Mats = mats;
+            this.Koks = koks;
+            this.Weed = weed;
+            this.Money = money;
         }
         
     }

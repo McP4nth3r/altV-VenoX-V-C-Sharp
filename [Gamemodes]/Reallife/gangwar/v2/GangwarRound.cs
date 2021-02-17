@@ -1,74 +1,76 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.factions;
-using VenoXV._RootCore_;
+using VenoXV._Gamemodes_.Reallife.Factions;
+using VenoXV._Globals_;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 {
     public class GangwarRound
     {
-        public enum RoundStates { PREPARING, RUNNING, DECIDED, STOPPED }
+        public enum RoundStates { Preparing, Running, Decided, Stopped }
 
         public class PlayerEntry
         {
-            public VnXPlayer _player;
-            public float _totalDamage;
-            public int _totalKills;
-            public bool _isInTK;
-            public bool _isRespawned;
-            public bool _isKilled;
-            public bool _isLeft;
+            public VnXPlayer Player;
+            public float TotalDamage;
+            public int TotalKills;
+            public bool IsInTk;
+            public bool IsRespawned;
+            public bool IsKilled;
+            public bool IsLeft;
 
             public PlayerEntry(VnXPlayer player)
             {
-                _player = player;
-                _totalDamage = 0.0f;
-                _totalKills = 0;
-                _isRespawned = false;
-                _isKilled = false;
-                _isLeft = false;
+                Player = player;
+                TotalDamage = 0.0f;
+                TotalKills = 0;
+                IsRespawned = false;
+                IsKilled = false;
+                IsLeft = false;
             }
 
-            public int GetFaction() => _player.Reallife.Faction;
+            public int GetFaction() => Player.Reallife.Faction;
         }
 
         public int DefenderId;
         public int AttackerId;
-        private GangwarArea GangwarArea;
+        private GangwarArea _gangwarArea;
         public RoundStates CurrentState;
         public List<PlayerEntry> PlayerList;
-        private DateTime StartTime;
-        private DateTime StopTime;
-        private DateTime PreparingCD;
-        private DateTime MaxTime;
-        private DateTime TKCooldown;
-        public int TKCounter;
+        private DateTime _startTime;
+        private DateTime _stopTime;
+        private DateTime _preparingCd;
+        private DateTime _maxTime;
+        private DateTime _tkCooldown;
+        public int TkCounter;
         public DateTime DefenderMaxTime;
         public GangwarRound(GangwarArea gangwar, int defenderId, int attackerId)
         {
-            GangwarArea = gangwar;
+            _gangwarArea = gangwar;
             DefenderId = defenderId;
             AttackerId = attackerId;
-            CurrentState = RoundStates.PREPARING;
+            CurrentState = RoundStates.Preparing;
             PlayerList = new List<PlayerEntry>();
-            StartTime = DateTime.Now;
-            StopTime = StartTime;
-            PreparingCD = StartTime.AddMinutes(GangwarManager.GW_PREPARE_TIME);
-            MaxTime = PreparingCD.AddMinutes(GangwarManager.GW_RUNNING_TIME);
-            DefenderMaxTime = PreparingCD.AddMinutes(GangwarManager.GW_PREPARE_TIME);
-            TKCooldown = PreparingCD;
-            TKCounter = 0;
-            informAttacker();
+            _startTime = DateTime.Now;
+            _stopTime = _startTime;
+            _preparingCd = _startTime.AddMinutes(GangwarManager.GwPrepareTime);
+            _maxTime = _preparingCd.AddMinutes(GangwarManager.GwRunningTime);
+            DefenderMaxTime = _preparingCd.AddMinutes(GangwarManager.GwPrepareTime);
+            _tkCooldown = _preparingCd;
+            TkCounter = 0;
+            InformAttacker();
         }
 
-        public void PlayerUpdateTKTime(DateTime time)
+        public void PlayerUpdateTkTime(DateTime time)
         {
-            this.TKCooldown = time;
+            _tkCooldown = time;
         }
 
         public void Inform(VnXPlayer player)
@@ -80,10 +82,10 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (this.CurrentState == RoundStates.PREPARING || this.CurrentState == RoundStates.RUNNING)
+                if (CurrentState == RoundStates.Preparing || CurrentState == RoundStates.Running)
                 {
-                    StopTime = DateTime.Now;
-                    CurrentState = RoundStates.STOPPED;
+                    _stopTime = DateTime.Now;
+                    CurrentState = RoundStates.Stopped;
                     ResetPlayer();
                 }
             }
@@ -94,25 +96,25 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                StopTime = DateTime.Now;
-                CurrentState = RoundStates.DECIDED;
+                _stopTime = DateTime.Now;
+                CurrentState = RoundStates.Decided;
 
-                GangwarArea.isRunning = false;
-                GangwarArea.SetOwner(winnerId);
-                GangwarArea.RemoveElements();
+                _gangwarArea.IsRunning = false;
+                _gangwarArea.SetOwner(winnerId);
+                _gangwarArea.RemoveElements();
 
-                Allround._gangwarManager.currentArea = null;
+                Allround.GangwarManager.CurrentArea = null;
 
                 ResetPlayer();
-                VenoX.TriggerEventForAll("StopCurrentGangwar", this.GangwarArea.Name);
+                VenoX.TriggerEventForAll("StopCurrentGangwar", _gangwarArea.Name);
 
                 if (state == "verteidigt!")
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + GangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
+                    RageApi.SendTranslatedChatMessageToAll(RageApi.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich ihr Gebiet " + _gangwarArea.Name + " gegen die " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
                 else
                 {
-                    RageAPI.SendTranslatedChatMessageToAll(RageAPI.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
+                    RageApi.SendTranslatedChatMessageToAll(RageApi.GetHexColorcode(100, 150, 0) + "Die " + Faction.GetFactionNameById(winnerId) + " haben erfolgreich das Gebiet der " + Faction.GetFactionNameById(loserId) + " " + state);
                 }
             }
             catch { }
@@ -124,14 +126,14 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 int max = 0;
                 int alive = 0;
-                foreach (var entry in this.PlayerList.ToList())
+                foreach (var entry in PlayerList.ToList())
                 {
-                    if (!entry._isLeft)
+                    if (!entry.IsLeft)
                     {
                         if (entry.GetFaction() == facId)
                         {
                             ++max;
-                            if (entry._isKilled == false)
+                            if (entry.IsKilled == false)
                             {
                                 ++alive;
                             }
@@ -144,17 +146,17 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return "999 / 999"; }
         }
 
-        public void ProcessDamage(VnXPlayer source, VnXPlayer Player, float damage)
+        public void ProcessDamage(VnXPlayer source, VnXPlayer player, float damage)
         {
             try
             {
-                var sourceEntry = this.GetPlayerEntry(source);
-                var IPlayerEntry = this.GetPlayerEntry(Player);
-                if (sourceEntry != null && IPlayerEntry != null)
+                var sourceEntry = GetPlayerEntry(source);
+                var playerEntry = GetPlayerEntry(player);
+                if (sourceEntry != null && playerEntry != null)
                 {
                     // If source and target has different factions
-                    if (IPlayerEntry.GetFaction() != sourceEntry.GetFaction())
-                        sourceEntry._totalDamage += damage;
+                    if (playerEntry.GetFaction() != sourceEntry.GetFaction())
+                        sourceEntry.TotalDamage += damage;
 
                     SyncStats(source, sourceEntry);
                 }
@@ -162,26 +164,26 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { }
         }
 
-        public void ProcessKill(VnXPlayer source, VnXPlayer Player)
+        public void ProcessKill(VnXPlayer source, VnXPlayer player)
         {
             try
             {
-                var sourceEntry = this.GetPlayerEntry(source);
-                var IPlayerEntry = this.GetPlayerEntry(Player);
-                if (sourceEntry != null && IPlayerEntry != null)
+                var sourceEntry = GetPlayerEntry(source);
+                var playerEntry = GetPlayerEntry(player);
+                if (sourceEntry != null && playerEntry != null)
                 {
-                    if (!IPlayerEntry._isLeft || !IPlayerEntry._isKilled)
+                    if (!playerEntry.IsLeft || !playerEntry.IsKilled)
                     {
                         // If source and target has different factions
-                        if (IPlayerEntry.GetFaction() != sourceEntry.GetFaction())
+                        if (playerEntry.GetFaction() != sourceEntry.GetFaction())
                         {
-                            sourceEntry._totalKills += 1;
+                            sourceEntry.TotalKills += 1;
                         }
-                        KillPlayer(IPlayerEntry);
+                        KillPlayer(playerEntry);
 
                         // Respawn target
-                        IPlayerEntry._isRespawned = true;
-                        Factions.Spawn.SpawnPlayerOnSpawnpoint(Player);
+                        playerEntry.IsRespawned = true;
+                        Spawn.SpawnPlayerOnSpawnpoint(player);
                     }
                 }
             }
@@ -193,108 +195,107 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 // PPEPARING TIME
-                if (this.CurrentState == RoundStates.PREPARING)
+                if (CurrentState == RoundStates.Preparing)
                 {
-                    if (DateTime.Now >= this.PreparingCD)
+                    if (DateTime.Now >= _preparingCd)
                     {
                         // Prepare Time is over
                         //RageAPI.SendTranslatedChatMessageToAll("UPDATE");
-                        CurrentState = RoundStates.RUNNING;
-                        this.GangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
-                        informDefender();
+                        CurrentState = RoundStates.Running;
+                        _gangwarArea.FreezeElements(GangwarManager.FreezeIVehicles);
+                        InformDefender();
                         SyncTime();
-                        foreach (VnXPlayer _c in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                        foreach (VnXPlayer c in Main.ReallifePlayers.ToList())
                         {
-                            VenoX.TriggerClientEvent(_c, "gw:aa", this.GangwarArea.Position.X, this.GangwarArea.Position.Y, this.GangwarArea.Position.Z, this.GangwarArea.Radius, this.GangwarArea.Rotation, GangwarManager.ATT_BLIP_Rgba);
+                            VenoX.TriggerClientEvent(c, "gw:aa", _gangwarArea.Position.X, _gangwarArea.Position.Y, _gangwarArea.Position.Z, _gangwarArea.Radius, _gangwarArea.Rotation, GangwarManager.AttBlipRgba);
                         }
                     }
                 }
 
                 // RUNNING TIME
-                if (this.CurrentState == RoundStates.RUNNING)
+                if (CurrentState == RoundStates.Running)
                 {
                     // If the first 5sec expires
-                    if (DateTime.Now >= this.TKCooldown)
+                    if (DateTime.Now >= _tkCooldown)
                     {
                         // Check if player's position is close to the TK pos
-                        bool inTK = false;
+                        bool inTk = false;
                         foreach (var entry in PlayerList)
                         {
                             if (entry.GetFaction() == AttackerId)
                             {
-                                if (GangwarArea.TK.Distance(entry._player.Position) <= GangwarManager.TKRange)
+                                if (_gangwarArea.Tk.Distance(entry.Player.Position) <= GangwarManager.TkRange)
                                 {
-                                    inTK = true;
-                                    if (TKCounter > 0)
+                                    inTk = true;
+                                    if (TkCounter > 0)
                                     {
-                                        TKCounter = 0;
-                                        Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 255, 0) + entry._player.Username + " hat den TK beesetzt!", AttackerId);
+                                        TkCounter = 0;
+                                        Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(0, 255, 0) + entry.Player.Username + " hat den TK beesetzt!", AttackerId);
                                     }
                                     break;
                                 }
                             }
                         }
-                        if (!inTK)
+                        if (!inTk)
                         {
-                            ++TKCounter;
-                            switch (TKCounter)
+                            ++TkCounter;
+                            switch (TkCounter)
                             {
                                 case 1:
-                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
-                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(175, 0, 0) + "Besetzt sofort den TK, ansonsten verliert ihr nach 15 Sekunden!", AttackerId);
+                                    PlayerUpdateTkTime(DateTime.Now.AddSeconds(5));
                                     break;
                                 case 2:
-                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
-                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(175, 0, 0) + "Ihr habt noch 10 Sekunden!", AttackerId);
+                                    PlayerUpdateTkTime(DateTime.Now.AddSeconds(5));
                                     break;
                                 case 3:
-                                    Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
-                                    PlayerUpdateTKTime(DateTime.Now.AddSeconds(5));
+                                    Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(175, 0, 0) + "Ihr habt noch 5 Sekunden!", AttackerId);
+                                    PlayerUpdateTkTime(DateTime.Now.AddSeconds(5));
                                     break;
                                 case 4:
-                                    Decided(this.DefenderId, this.AttackerId, "verteidigt!");
+                                    Decided(DefenderId, AttackerId, "verteidigt!");
                                     return;
                             }
                         }
                     }
 
-                    if (DateTime.Now >= this.MaxTime)
+                    if (DateTime.Now >= _maxTime)
                     {
                         // Prepare Time is over
-                        Decided(this.AttackerId, this.DefenderId, "erobert!");
-                        return;
+                        Decided(AttackerId, DefenderId, "erobert!");
                     }
                 }
             }
             catch { }
         }
 
-        public void informDefender()
+        public void InformDefender()
         {
-            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 180, 0) + "Eurer Ganggebiet " + this.GangwarArea.Name + " wird von " + Faction.GetFactionNameById(this.AttackerId) + " angegriffen !", this.DefenderId);
-            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 180, 0) + "Benutzt /defend um am Gangwar teilzunehmen!", this.DefenderId);
+            Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(0, 180, 0) + "Eurer Ganggebiet " + _gangwarArea.Name + " wird von " + Faction.GetFactionNameById(AttackerId) + " angegriffen !", DefenderId);
+            Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(0, 180, 0) + "Benutzt /defend um am Gangwar teilzunehmen!", DefenderId);
         }
 
-        public void informAttacker()
+        public void InformAttacker()
         {
-            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 225, 0) + "Eure Gang greift das Ganggebiet " + this.GangwarArea.Name + " an!", this.AttackerId);
-            Faction.CreateCustomBadFactionMessage(RageAPI.GetHexColorcode(0, 225, 0) + "Benutzt /attack um am Gangwar teilzunehmen!", this.AttackerId);
+            Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(0, 225, 0) + "Eure Gang greift das Ganggebiet " + _gangwarArea.Name + " an!", AttackerId);
+            Faction.CreateCustomBadFactionMessage(RageApi.GetHexColorcode(0, 225, 0) + "Benutzt /attack um am Gangwar teilzunehmen!", AttackerId);
         }
 
         public void AddPlayer(VnXPlayer player)
         {
             try
             {
-                anzeigen.Usefull.VnX.RemoveAllBadGWWeapons(player);
+                VnX.RemoveAllBadGwWeapons(player);
                 // Add player to the round
                 PlayerEntry playerEntry = new PlayerEntry(player);
-                player.Dimension = GangwarManager.GW_DIM;
-                this.PlayerList.Add(playerEntry);
+                player.Dimension = GangwarManager.GwDim;
+                PlayerList.Add(playerEntry);
 
                 // Display Player DX for joined Player 
-                Rgba AttackRGB = GangwarArea.GangwarIVehicleRgbas(this.AttackerId);
-                Rgba DefenderRGB = GangwarArea.GangwarIVehicleRgbas(this.DefenderId);
-                VenoX.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(this.AttackerId), Faction.GetFactionNameById(this.DefenderId), AttackRGB.R, AttackRGB.G, AttackRGB.B, DefenderRGB.R, DefenderRGB.G, DefenderRGB.B);
+                Rgba attackRgb = _gangwarArea.GangwarIVehicleRgbas(AttackerId);
+                Rgba defenderRgb = _gangwarArea.GangwarIVehicleRgbas(DefenderId);
+                VenoX.TriggerClientEvent(player, "gw:showUp", true, Faction.GetFactionNameById(AttackerId), Faction.GetFactionNameById(DefenderId), attackRgb.R, attackRgb.G, attackRgb.B, defenderRgb.R, defenderRgb.G, defenderRgb.B);
                 SyncStats(player, playerEntry);
                 InformAllThatPlayerJoined();
 
@@ -307,21 +308,21 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (VnXPlayer _c in VenoXV._Globals_.Main.ReallifePlayers.ToList())
+                foreach (VnXPlayer c in Main.ReallifePlayers.ToList())
                 {
-                    VenoX.TriggerClientEvent(_c, "gw:joinedPlayer", GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+                    VenoX.TriggerClientEvent(c, "gw:joinedPlayer", GetFactionInfo(AttackerId), GetFactionInfo(DefenderId));
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
         public void SyncTime()
         {
             try
             {
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in PlayerList)
                 {
-                    SyncTime(entry._player);
+                    SyncTime(entry.Player);
                 }
             }
             catch { }
@@ -331,15 +332,20 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (this.CurrentState == RoundStates.PREPARING)
+                switch (CurrentState)
                 {
-                    double leftTime = (DateTime.Now - this.PreparingCD).TotalSeconds * -1;
-                    VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
-                }
-                if (this.CurrentState == RoundStates.RUNNING)
-                {
-                    double leftTime = (DateTime.Now - this.MaxTime).TotalSeconds * -1;
-                    VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
+                    case RoundStates.Preparing:
+                    {
+                        double leftTime = (DateTime.Now - _preparingCd).TotalSeconds * -1;
+                        VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
+                        break;
+                    }
+                    case RoundStates.Running:
+                    {
+                        double leftTime = (DateTime.Now - _maxTime).TotalSeconds * -1;
+                        VenoX.TriggerClientEvent(player, "gw:updateTime", (int)leftTime);
+                        break;
+                    }
                 }
             }
             catch { }
@@ -349,9 +355,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (!playerEntry._isLeft)
+                if (!playerEntry.IsLeft)
                 {
-                    VenoX.TriggerClientEvent(player, "gw:updateStats", playerEntry._totalDamage, playerEntry._totalKills, GetFactionInfo(this.AttackerId), GetFactionInfo(this.DefenderId));
+                    VenoX.TriggerClientEvent(player, "gw:updateStats", playerEntry.TotalDamage, playerEntry.TotalKills, GetFactionInfo(AttackerId), GetFactionInfo(DefenderId));
                 }
             }
             catch { }
@@ -361,9 +367,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in PlayerList)
                 {
-                    if (entry._player == player)
+                    if (entry.Player == player)
                         return entry;
                 }
                 return null;
@@ -371,13 +377,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             catch { return null; }
         }
 
-        public bool isPlayerJoined(VnXPlayer player)
+        public bool IsPlayerJoined(VnXPlayer player)
         {
             try
             {
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in PlayerList)
                 {
-                    if (entry._player == player)
+                    if (entry.Player == player)
                     {
                         return true;
                     }
@@ -391,7 +397,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in PlayerList)
                 {
                     ResetPlayer(entry);
                 }
@@ -403,20 +409,20 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                playerEntry._isKilled = false;
+                playerEntry.IsKilled = false;
 
-                if (!playerEntry._isLeft)
+                if (!playerEntry.IsLeft)
                 {
-                    VenoX.TriggerClientEvent(playerEntry._player, "gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
-                    int playerMoney = playerEntry._player.Reallife.Money;
-                    int earnings = ((GangwarManager.EARN_KILL * Convert.ToInt32(playerEntry._totalKills)) + (GangwarManager.EARN_DMG * Convert.ToInt32(playerEntry._totalDamage)));
-                    playerEntry._player.SendTranslatedChatMessage(RageAPI.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry._totalKills + " Kills und " + playerEntry._totalDamage + " DMG " + earnings + "$");
+                    VenoX.TriggerClientEvent(playerEntry.Player, "gw:showUp", false, "FAC 1", "FAC 2", 255, 255, 255, 255, 255, 255);
+                    int playerMoney = playerEntry.Player.Reallife.Money;
+                    int earnings = ((GangwarManager.EarnKill * Convert.ToInt32(playerEntry.TotalKills)) + (GangwarManager.EarnDmg * Convert.ToInt32(playerEntry.TotalDamage)));
+                    playerEntry.Player.SendTranslatedChatMessage(RageApi.GetHexColorcode(255, 0, 0) + "Du erhältst für " + playerEntry.TotalKills + " Kills und " + playerEntry.TotalDamage + " DMG " + earnings + "$");
 
-                    playerEntry._player.vnxSetStreamSharedElementData(VenoXV._Globals_.EntityData.PLAYER_MONEY, playerMoney + earnings);
+                    playerEntry.Player.VnxSetStreamSharedElementData(EntityData.PlayerMoney, playerMoney + earnings);
 
-                    if (!playerEntry._isRespawned)
+                    if (!playerEntry.IsRespawned)
                     {
-                        Factions.Spawn.SpawnPlayerOnSpawnpoint(playerEntry._player);
+                        Spawn.SpawnPlayerOnSpawnpoint(playerEntry.Player);
                     }
                 }
             }
@@ -428,13 +434,13 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 int result = 0;
-                foreach (var entry in this.PlayerList)
+                foreach (var entry in PlayerList)
                 {
-                    if (!entry._isLeft)
+                    if (!entry.IsLeft)
                     {
                         if (entry.GetFaction() == facId)
                         {
-                            if (entry._isKilled == false)
+                            if (entry.IsKilled == false)
                             {
                                 result++;
                             }
@@ -451,25 +457,23 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             try
             {
                 // Set player death
-                entry._isKilled = true;
+                entry.IsKilled = true;
 
                 // Sync info with each player in the GW
-                foreach (var pentrys in this.PlayerList)
+                foreach (var pentrys in PlayerList)
                 {
-                    SyncStats(pentrys._player, this.GetPlayerEntry(pentrys._player));
+                    SyncStats(pentrys.Player, GetPlayerEntry(pentrys.Player));
                 }
 
-                if (this.CurrentState == RoundStates.RUNNING) // Bug Fix for preparing Time !
+                if (CurrentState == RoundStates.Running) // Bug Fix for preparing Time !
                 {
                     if (AliveFactionCount(DefenderId) == 0) // Check if defender are dead
                     {
                         Decided(AttackerId, DefenderId, "erobert!");
-                        return;
                     }
                     else if (AliveFactionCount(AttackerId) == 0) // Check if attacker are dead
                     {
                         Decided(DefenderId, AttackerId, "verteidigt!");
-                        return;
                     }
                 }
             }
@@ -480,7 +484,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                entry._isLeft = true;
+                entry.IsLeft = true;
                 KillPlayer(entry);
             }
             catch { }

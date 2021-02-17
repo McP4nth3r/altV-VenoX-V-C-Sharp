@@ -1,28 +1,29 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AltV.Net;
+using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_;
-using VenoXV._RootCore_.Database;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
+using VenoXV.Models;
+using Main = VenoXV._Globals_.Main;
+using VehicleModel = AltV.Net.Enums.VehicleModel;
 
 namespace VenoXV._Gamemodes_.Reallife.business
 {
     public class CarShop : IScript
     {
-        public static ColShapeModel carShopTextLabel; // Eig Text label!
+        public static ColShapeModel CarShopTextLabel; // Eig Text label!
 
         private int GetClosestCarShop(VnXPlayer player, float distance = 2.0f)
         {
             try
             {
                 int carShop = -1;
-                if (player.Position.Distance(carShopTextLabel.CurrentPosition) < distance)
+                if (player.Position.Distance(CarShopTextLabel.CurrentPosition) < distance)
                 {
                     carShop = 0;
                 }
@@ -36,21 +37,21 @@ namespace VenoXV._Gamemodes_.Reallife.business
             try
             {
                 // Get all the IVehicles in the list
-                return Constants.CARSHOP_VEHICLE_LIST.Where(IVehicle => IVehicle.carShop == carShop).ToList();
+                return Constants.CarshopVehicleList.Where(vehicle => vehicle.CarShop == carShop).ToList();
             }
             catch { return null; }
         }
 
-        private int GetIVehiclePrice(AltV.Net.Enums.VehicleModel VehicleModel)
+        private int GetIVehiclePrice(VehicleModel vehicleModel)
         {
             try
             {
                 int price = 0;
-                foreach (CarShopVehicleModel IVehicle in Constants.CARSHOP_VEHICLE_LIST)
+                foreach (CarShopVehicleModel vehicle in Constants.CarshopVehicleList)
                 {
-                    if (IVehicle.hash == VehicleModel)
+                    if (vehicle.Hash == vehicleModel)
                     {
-                        price = IVehicle.price;
+                        price = vehicle.Price;
                         break;
                     }
                 }
@@ -59,16 +60,16 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return 0; }
         }
 
-        private string GetVehicleModel(AltV.Net.Enums.VehicleModel VehicleModel)
+        private string GetVehicleModel(VehicleModel vehicleModel)
         {
             try
             {
                 string model = string.Empty;
-                foreach (CarShopVehicleModel IVehicle in Constants.CARSHOP_VEHICLE_LIST)
+                foreach (CarShopVehicleModel vehicle in Constants.CarshopVehicleList)
                 {
-                    if (IVehicle.hash == VehicleModel)
+                    if (vehicle.Hash == vehicleModel)
                     {
-                        model = IVehicle.model;
+                        model = vehicle.Model;
                         break;
                     }
                 }
@@ -80,8 +81,8 @@ namespace VenoXV._Gamemodes_.Reallife.business
         public static void OnResourceStart()
         {
             // Car dealer creation
-            Core.RageAPI.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new int[] { 255, 255, 255, 255 });
-            RageAPI.CreateBlip("Autohändler", new Vector3(-56.88f, -1097.12f, 26.52f), 225, 0, false);
+            RageApi.CreateTextLabel("VENOX CARSHOP", new Position(-56.88f, -1097.12f, 26.52f), 10.0f, 0.5f, 4, new[] { 255, 255, 255, 255 });
+            RageApi.CreateBlip("Autohändler", new Vector3(-56.88f, -1097.12f, 26.52f), 225, 0, false);
             // Motorcycle dealer creation
             /*motorbikeShopTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel("/" + "CSHOP", new Position(286.76f, -1148.36f, 29.29f), 10.0f, 0.5f, 4, new Rgba(255, 255, 153));
             //TextLabel motorbikeShopSubTextLabel = //ToDo: ClientSide erstellen NAPI.TextLabel.CreateTextLabel(Messages.GEN_CATALOG_HELP, new Position(286.76f, -1148.36f, 29.19f), 10.0f, 0.5f, 4, new Rgba(255, 255, 255));
@@ -98,17 +99,17 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
 
-        public static ColShapeModel CARSHOP = RageAPI.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
+        public static ColShapeModel Carshop = RageApi.CreateColShapeSphere(new Position(-56.88f, -1097.12f, 26.52f), 2.25f);
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
-                if (shape != CARSHOP) return false;
+                if (shape != Carshop) return false;
                 List<CarShopVehicleModel> carList = GetIVehicleListInCarShop(0);
                 VenoX.TriggerClientEvent(player, "VehicleCatalog:Show");
                 // Getting the speed for each IVehicle in the list
                 foreach (CarShopVehicleModel carShopVehicle in carList)
-                    VenoX.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.type, carShopVehicle.model, carShopVehicle.price, carList.Count);
+                    VenoX.TriggerClientEvent(player, "VehicleCatalog:Fill", carShopVehicle.Type, carShopVehicle.Model, carShopVehicle.Price, carList.Count);
 
                 return true;
             }
@@ -116,27 +117,27 @@ namespace VenoXV._Gamemodes_.Reallife.business
         }
 
         [VenoXRemoteEvent("CarShop:TestVehicle")]
-        public static void TestVehicle(VnXPlayer player, string Model, string firstColor, string secondColor)
+        public static void TestVehicle(VnXPlayer player, string model, string firstColor, string secondColor)
         {
             try
             {
-                foreach (VehicleModel vehicleClass in VenoXV._Globals_.Main.AllVehicles.ToList())
+                foreach (Models.VehicleModel vehicleClass in Main.AllVehicles.ToList())
                 {
                     if (vehicleClass.IsTestVehicle && vehicleClass.Owner == player.Username)
-                        Core.RageAPI.DeleteVehicleThreadSafe(vehicleClass);
+                        RageApi.DeleteVehicleThreadSafe(vehicleClass);
                 }
-                player.Dimension = (VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language) + player.Id;
-                AltV.Net.Enums.VehicleModel vehicleModel = (AltV.Net.Enums.VehicleModel)Alt.Hash(Model);
+                player.Dimension = (Main.ReallifeDimension + player.Language) + player.Id;
+                VehicleModel vehicleModel = (VehicleModel)Alt.Hash(model);
                 Console.WriteLine("vehicleModel : " + vehicleModel + " | firstColor : " + firstColor + " | secondColor : " + secondColor);
                 string[] firstColor1 = firstColor.Split(',');
                 string[] secondColor1 = secondColor.Split(',');
-                Rgba Color1 = new Rgba(byte.Parse(firstColor1[0]), byte.Parse(firstColor1[1]), byte.Parse(firstColor1[2]), 255);
-                Rgba Color2 = new Rgba(byte.Parse(secondColor1[0]), byte.Parse(secondColor1[1]), byte.Parse(secondColor1[2]), 255);
+                Rgba color1 = new Rgba(byte.Parse(firstColor1[0]), byte.Parse(firstColor1[1]), byte.Parse(firstColor1[2]), 255);
+                Rgba color2 = new Rgba(byte.Parse(secondColor1[0]), byte.Parse(secondColor1[1]), byte.Parse(secondColor1[2]), 255);
 
-                VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(vehicleModel, new Vector3(-51.54087f, -1076.941f, 26.94754f), new Vector3(0, 0, 180f));
+                Models.VehicleModel vehClass = (Models.VehicleModel)Alt.CreateVehicle(vehicleModel, new Vector3(-51.54087f, -1076.941f, 26.94754f), new Vector3(0, 0, 180f));
                 vehClass.Name = "" + vehicleModel;
-                vehClass.FirstColor = Color1.R + "," + Color1.G + "," + Color1.B;
-                vehClass.SecondColor = Color2.R + "," + Color2.G + "," + Color2.B;
+                vehClass.FirstColor = color1.R + "," + color1.G + "," + color1.B;
+                vehClass.SecondColor = color2.R + "," + color2.G + "," + color2.B;
                 vehClass.Owner = player.Username;
                 vehClass.Plate = "TEST-VEHICLE";
                 vehClass.Gas = 100;
@@ -158,11 +159,11 @@ namespace VenoXV._Gamemodes_.Reallife.business
             try
             {
                 int price = 0;
-                foreach (CarShopVehicleModel vehicle in Constants.CARSHOP_VEHICLE_LIST)
+                foreach (CarShopVehicleModel vehicle in Constants.CarshopVehicleList)
                 {
-                    if ((uint)vehicle.hash == vehicleHash)
+                    if ((uint)vehicle.Hash == vehicleHash)
                     {
-                        price = vehicle.price;
+                        price = vehicle.Price;
                         break;
                     }
                 }
@@ -176,7 +177,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
             try
             {
                 int carShop = 0;
-                if (player.Position.Distance(carShopTextLabel.Position) < 2)
+                if (player.Position.Distance(CarShopTextLabel.Position) < 2)
                 {
                     carShop = 0;
                 }
@@ -185,17 +186,17 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch { return 0; }
         }
         [VenoXRemoteEvent("CarShop:BuyVehicle")]
-        public static void BuyVehicle(VnXPlayer player, string Model, string firstColor, string secondColor)
+        public static void BuyVehicle(VnXPlayer player, string model, string firstColor, string secondColor)
         {
             try
             {
-                foreach (VehicleModel vehicleClass in VenoXV._Globals_.Main.AllVehicles.ToList())
+                foreach (Models.VehicleModel vehicleClass in Main.AllVehicles.ToList())
                 {
                     if (vehicleClass.IsTestVehicle && vehicleClass.Owner == player.Username)
-                        RageAPI.DeleteVehicleThreadSafe(vehicleClass);
+                        RageApi.DeleteVehicleThreadSafe(vehicleClass);
                 }
                 int carShop = GetClosestCarShop(player);
-                AltV.Net.Enums.VehicleModel vehicleModel = (AltV.Net.Enums.VehicleModel)Alt.Hash(Model);
+                VehicleModel vehicleModel = (VehicleModel)Alt.Hash(model);
 
                 int vehiclePrice = GetVehiclePrice((uint)vehicleModel);
                 if (vehiclePrice > 0 && player.Reallife.Bank >= vehiclePrice)
@@ -203,19 +204,19 @@ namespace VenoXV._Gamemodes_.Reallife.business
                     switch (carShop)
                     {
                         case 0:
-                            player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                            player.Dimension = Main.ReallifeDimension + player.Language;
                             // Create a new car
                             string[] firstColor1 = firstColor.Split(',');
                             string[] secondColor1 = secondColor.Split(',');
-                            Rgba Color1 = new Rgba(byte.Parse(firstColor1[0]), byte.Parse(firstColor1[1]), byte.Parse(firstColor1[2]), 255);
-                            Rgba Color2 = new Rgba(byte.Parse(secondColor1[0]), byte.Parse(secondColor1[1]), byte.Parse(secondColor1[2]), 255);
+                            Rgba color1 = new Rgba(byte.Parse(firstColor1[0]), byte.Parse(firstColor1[1]), byte.Parse(firstColor1[2]), 255);
+                            Rgba color2 = new Rgba(byte.Parse(secondColor1[0]), byte.Parse(secondColor1[1]), byte.Parse(secondColor1[2]), 255);
 
-                            VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(vehicleModel, new Vector3(-51.54087f, -1076.941f, 26.94754f), new Vector3(0, 0, 180f));
+                            Models.VehicleModel vehClass = (Models.VehicleModel)Alt.CreateVehicle(vehicleModel, new Vector3(-51.54087f, -1076.941f, 26.94754f), new Vector3(0, 0, 180f));
                             vehClass.Name = "" + vehicleModel;
-                            vehClass.FirstColor = Color1.R + "," + Color1.G + "," + Color1.B;
-                            vehClass.SecondColor = Color2.R + "," + Color2.G + "," + Color2.B;
-                            vehClass.PrimaryColorRgb = Color1;
-                            vehClass.SecondaryColorRgb = Color2;
+                            vehClass.FirstColor = color1.R + "," + color1.G + "," + color1.B;
+                            vehClass.SecondColor = color2.R + "," + color2.G + "," + color2.B;
+                            vehClass.PrimaryColorRgb = color1;
+                            vehClass.SecondaryColorRgb = color2;
                             vehClass.Owner = player.Username;
                             vehClass.Plate = player.Username;
                             vehClass.Gas = 100;
@@ -228,7 +229,7 @@ namespace VenoXV._Gamemodes_.Reallife.business
                             vehClass.Price = vehiclePrice;
                             player.Position = vehClass.Position;
                             player.WarpIntoVehicle(vehClass, -1);
-                            Database.AddNewIVehicle(vehClass);
+                            Database.Database.AddNewIVehicle(vehClass);
                             player.Reallife.Bank -= vehiclePrice;
                             break;
                     }
@@ -241,18 +242,18 @@ namespace VenoXV._Gamemodes_.Reallife.business
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        public static void OnPlayerLeaveVehicle(VehicleModel Vehicle, VnXPlayer player)
+        public static void OnPlayerLeaveVehicle(Models.VehicleModel vehicle, VnXPlayer player)
         {
             try
             {
-                if (Vehicle.IsTestVehicle && Vehicle.Owner == player.Username)
+                if (vehicle.IsTestVehicle && vehicle.Owner == player.Username)
                 {
-                    RageAPI.DeleteVehicleThreadSafe(Vehicle);
-                    player.Dimension = VenoXV._Globals_.Main.REALLIFE_DIMENSION + player.Language;
+                    RageApi.DeleteVehicleThreadSafe(vehicle);
+                    player.Dimension = Main.ReallifeDimension + player.Language;
                 }
 
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
     }
 }

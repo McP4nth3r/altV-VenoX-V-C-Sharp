@@ -1,44 +1,46 @@
-﻿using AltV.Net;
-using AltV.Net.Data;
-using AltV.Net.Elements.Entities;
-using AltV.Net.Resources.Chat.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
-using VenoXV._RootCore_;
+using AltV.Net;
+using AltV.Net.Data;
+using AltV.Net.Elements.Entities;
+using AltV.Net.Enums;
+using AltV.Net.Resources.Chat.Api;
+using VenoXV._Language_;
 using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
+using VenoXV.Core;
+using VenoXV.Models;
+using VehicleModel = VenoXV.Models.VehicleModel;
 
-namespace VenoXV.Core
+namespace VenoXV
 {
-    public static class RageAPI
+    public static class RageApi
     {
         //RageAPI.CreateColShapeSphere(new Position(732.712f, -1088.656f, 21.77967f), 2);
-        public static ColShapeModel CreateColShapeSphere(Vector3 Position, float Radius, int Dimension = Dimension.GlobalDimension)
+        public static ColShapeModel CreateColShapeSphere(Vector3 position, float radius, int dimension = Dimension.GlobalDimension)
         {
             try
             {
-                ColShapeModel Entity = (ColShapeModel)Alt.CreateColShapeSphere(Position, Radius);
-                Entity.Dimension = Dimension;
-                Sync.ColShapeList.Add(Entity);
-                return Entity;
+                ColShapeModel entity = (ColShapeModel)Alt.CreateColShapeSphere(position, radius);
+                entity.Dimension = dimension;
+                Sync.ColShapeList.Add(entity);
+                return entity;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }
 
-        public static void RemoveColShape(ColShapeModel ColShape)
+        public static void RemoveColShape(ColShapeModel colShape)
         {
             try
             {
-                if (Sync.ColShapeList.Contains(ColShape) && ColShape != null && ColShape.Exists)
-                {
-                    ColShape.MarkedForDelete = true;
-                    ColShape.CurrentPosition = new Vector3(0, 0, 0);
-                    ColShape.Position = new Vector3(0, 0, 0);
-                }
+                if (!Sync.ColShapeList.Contains(colShape) || colShape == null || !colShape.Exists) return;
+                colShape.MarkedForDelete = true;
+                colShape.CurrentPosition = new Vector3(0, 0, 0);
+                colShape.Position = new Vector3(0, 0, 0);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -46,19 +48,19 @@ namespace VenoXV.Core
         {
             try
             {
-                await _Language_.Main.SendTranslatedChatMessage(element, msg);
+                await Main.SendTranslatedChatMessage(element, msg);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void SpawnPlayer(this VnXPlayer element, Vector3 pos, uint DelayInMS = 0)
+        public static void SpawnPlayer(this VnXPlayer element, Vector3 pos, uint delayInMs = 0)
         {
             try
             {
-                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
+                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
                 {
-                    element.vnxSetElementData("RAGEAPI:SpawnedPlayer", true);
+                    element.VnxSetElementData("RAGEAPI:SpawnedPlayer", true);
                     element.SetPosition = pos;
-                    element.Spawn(pos, DelayInMS);
+                    element.Spawn(pos, delayInMs);
                     VenoX.TriggerClientEvent(element, "Player:Spawn");
                 }
                 else
@@ -72,24 +74,24 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
+                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer"))
                 {
-                    element.vnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
+                    element.VnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
                     element.Despawn();
                 }
             }
             catch { }
         }
-        public static void SetPlayerSkin(this VnXPlayer element, uint SkinHash)
+        public static void SetPlayerSkin(this VnXPlayer element, uint skinHash)
         {
             try
             {
-                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true)
+                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer"))
                 {
-                    if (element.vnxGetElementData<uint>("RAGEAPI:PlayerSkin") != SkinHash)
+                    if (element.VnxGetElementData<uint>("RAGEAPI:PlayerSkin") != skinHash)
                     {
-                        element.vnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", SkinHash);
-                        element.Model = SkinHash;
+                        element.VnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", skinHash);
+                        element.Model = skinHash;
                     }
                 }
             }
@@ -99,12 +101,12 @@ namespace VenoXV.Core
         {
             try
             {
-                if (element.vnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") == true) return element.Model;
-                return (uint)AltV.Net.Enums.PedModel.Natalia;
+                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return element.Model;
+                return (uint)PedModel.Natalia;
             }
-            catch { return (uint)AltV.Net.Enums.PedModel.Natalia; }
+            catch { return (uint)PedModel.Natalia; }
         }
-        public static T vnxGetElementData<T>(this IBaseObject element, string key)
+        public static T VnxGetElementData<T>(this IBaseObject element, string key)
         {
             try
             {
@@ -114,16 +116,16 @@ namespace VenoXV.Core
             }
             catch { return default; }
         }
-        public static void vnxSetElementData(this IBaseObject element, string key, object value)
+        public static void VnxSetElementData(this IBaseObject element, string key, object value)
         {
             try
             {
                 if (element == null) return;
                 element.SetData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void vnxSetSharedElementData<T>(this IEntity element, string key, T value)
+        public static void VnxSetSharedElementData<T>(this IEntity element, string key, T value)
         {
             try
             {
@@ -131,9 +133,9 @@ namespace VenoXV.Core
                 element.SetData(key, value);
                 element.SetSyncedMetaData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void vnxSetStreamSharedElementData<T>(this IEntity element, string key, T value)
+        public static void VnxSetStreamSharedElementData<T>(this IEntity element, string key, T value)
         {
             try
             {
@@ -141,7 +143,7 @@ namespace VenoXV.Core
                 element.SetData(key, value);
                 element.SetStreamSyncedMetaData(key, value);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void Repair(this VehicleModel element)
         {
@@ -150,9 +152,9 @@ namespace VenoXV.Core
                 element.Repair();
                 //foreach (VnXPlayer player in VenoX.GetAllPlayers().ToList()) { VenoX.TriggerClientEvent(player, "Vehicle:Repair", element); }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static T vnxGetSharedData<T>(this IEntity element, string key)
+        public static T VnxGetSharedData<T>(this IEntity element, string key)
         {
             try
             {
@@ -193,15 +195,15 @@ namespace VenoXV.Core
             }
             catch { return null; }
         }
-        public static void GivePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void GivePlayerWeapon(this VnXPlayer player, WeaponModel weapon, int ammo)
         {
             try
             {
                 Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void RemovePlayerWeapon(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon)
+        public static void RemovePlayerWeapon(this VnXPlayer player, WeaponModel weapon)
         {
             try
             {
@@ -218,7 +220,7 @@ namespace VenoXV.Core
             }
             catch { }
         }
-        public static void SetWeaponAmmo(this VnXPlayer player, AltV.Net.Enums.WeaponModel weapon, int ammo)
+        public static void SetWeaponAmmo(this VnXPlayer player, WeaponModel weapon, int ammo)
         {
             try
             {
@@ -232,7 +234,7 @@ namespace VenoXV.Core
             {
                 foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
-                    await _Language_.Main.SendTranslatedChatMessage(players, text);
+                    await Main.SendTranslatedChatMessage(players, text);
                 }
             }
             catch { }
@@ -260,17 +262,17 @@ namespace VenoXV.Core
                 //Alt.Emit("GlobalSystems:SetClothes", element, clothesslot, clothesdrawable, clothestexture);
                 VenoX.TriggerClientEvent(element, "Clothes:Load", clothesslot, clothesdrawable, clothestexture);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void SetProp(this VnXPlayer element, int propID, int drawableID, int textureID)
+        public static void SetProp(this VnXPlayer element, int propId, int drawableId, int textureId)
         {
             try
             {
                 //Debug.OutputDebugString("Prop : " + propID + " | " + drawableID + " | " + textureID);
-                Alt.Emit("GlobalSystems:SetProps", element, propID, drawableID, textureID);
+                Alt.Emit("GlobalSystems:SetProps", element, propId, drawableId, textureId);
                 //VenoX.TriggerClientEvent(element, "Prop:Load", propID, drawableID, textureID);
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
         public static void SetAccessories(this VnXPlayer element, int clothesslot, int clothesdrawable, int clothestexture)
         {
@@ -291,14 +293,14 @@ namespace VenoXV.Core
             try { VenoX.TriggerClientEvent(element, "Player:Alpha", alpha); }
             catch { }
         }
-        private static int TextLabelCounter = 0;
-        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Dimension.GlobalDimension, VnXPlayer VisibleOnlyFor = null, bool Translate = true, bool IsHouseLabel = false, int HouseLabelId = 0)
+        private static int _textLabelCounter;
+        public static LabelModel CreateTextLabel(string text, Position pos, float range, float size, int font, int[] color, int dimension = Dimension.GlobalDimension, VnXPlayer visibleOnlyFor = null, bool translate = true, bool isHouseLabel = false, int houseLabelId = 0)
         {
             try
             {
                 LabelModel label = new LabelModel
                 {
-                    ID = TextLabelCounter++,
+                    Id = _textLabelCounter++,
                     Text = text,
                     PosX = pos.X,
                     PosY = pos.Y,
@@ -311,15 +313,15 @@ namespace VenoXV.Core
                     ColorG = color[1],
                     ColorB = color[2],
                     ColorA = color[3],
-                    VisibleOnlyFor = VisibleOnlyFor,
-                    Translate = Translate,
-                    IsHouseLabel = IsHouseLabel,
-                    HouseLabelId = HouseLabelId
+                    VisibleOnlyFor = visibleOnlyFor,
+                    Translate = translate,
+                    IsHouseLabel = isHouseLabel,
+                    HouseLabelId = houseLabelId
                 };
                 Sync.LabelList.Add(label);
                 return label;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new LabelModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new LabelModel(); }
         }
         public static void RemoveTextLabel(LabelModel labelClass)
         {
@@ -328,70 +330,70 @@ namespace VenoXV.Core
                 if (labelClass == null) return;
                 if (Sync.LabelList.Contains(labelClass))
                 {
-                    VenoX.TriggerEventForAll("Sync:RemoveLabelByID", labelClass.ID);
+                    VenoX.TriggerEventForAll("Sync:RemoveLabelByID", labelClass.Id);
                     Sync.LabelList.Remove(labelClass);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        public static void RemoveBlip(BlipModel blipClass, VnXPlayer DeleteFor = null)
+        public static void RemoveBlip(BlipModel blipClass, VnXPlayer deleteFor = null)
         {
             try
             {
                 if (blipClass == null) return;
-                if (DeleteFor != null) VenoX.TriggerClientEvent(DeleteFor, "BlipClass:RemoveBlip", blipClass.ID);
-                else VenoX.TriggerEventForAll("BlipClass:RemoveBlip", blipClass.ID);
+                if (deleteFor != null) VenoX.TriggerClientEvent(deleteFor, "BlipClass:RemoveBlip", blipClass.Id);
+                else VenoX.TriggerEventForAll("BlipClass:RemoveBlip", blipClass.Id);
                 if (Sync.BlipList.Contains(blipClass)) Sync.BlipList.Remove(blipClass);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        private static int BlipCounter = 0;
-        public static BlipModel CreateBlip(string Name, Vector3 coord, int Sprite, int Color, bool ShortRange, VnXPlayer VisibleOnlyFor = null)
+        private static int _blipCounter;
+        public static BlipModel CreateBlip(string name, Vector3 coord, int sprite, int color, bool shortRange, VnXPlayer visibleOnlyFor = null)
         {
             try
             {
                 BlipModel blip = new BlipModel
                 {
-                    ID = BlipCounter,
-                    Name = Name,
-                    posX = coord.X,
-                    posY = coord.Y,
-                    posZ = coord.Z,
-                    Sprite = Sprite,
-                    Color = Color,
-                    ShortRange = ShortRange,
-                    VisibleOnlyFor = VisibleOnlyFor
+                    Id = _blipCounter,
+                    Name = name,
+                    PosX = coord.X,
+                    PosY = coord.Y,
+                    PosZ = coord.Z,
+                    Sprite = sprite,
+                    Color = color,
+                    ShortRange = shortRange,
+                    VisibleOnlyFor = visibleOnlyFor
                 };
                 Sync.BlipList.Add(blip);
-                BlipCounter++;
-                if (VisibleOnlyFor is null) VenoX.TriggerEventForAll("BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
-                else VenoX.TriggerClientEvent(VisibleOnlyFor, "BlipClass:CreateBlip", blip.ID, blip.Name, blip.posX, blip.posY, blip.posZ, blip.Sprite, blip.Color, blip.ShortRange);
+                _blipCounter++;
+                if (visibleOnlyFor is null) VenoX.TriggerEventForAll("BlipClass:CreateBlip", blip.Id, blip.Name, blip.PosX, blip.PosY, blip.PosZ, blip.Sprite, blip.Color, blip.ShortRange);
+                else VenoX.TriggerClientEvent(visibleOnlyFor, "BlipClass:CreateBlip", blip.Id, blip.Name, blip.PosX, blip.PosY, blip.PosZ, blip.Sprite, blip.Color, blip.ShortRange);
                 /*foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                     Sync.LoadBlips(players);*/
                 return blip;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new BlipModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new BlipModel(); }
         }
-        private static int MarkerCounter = 0;
-        public static MarkerModel CreateMarker(int Type, Vector3 Position, Vector3 Scale, int[] Color, VnXPlayer VisibleOnlyFor = null, int Dimension = Dimension.GlobalDimension)
+        private static int _markerCounter;
+        public static MarkerModel CreateMarker(int type, Vector3 position, Vector3 scale, int[] color, VnXPlayer visibleOnlyFor = null, int dimension = Dimension.GlobalDimension)
         {
             try
             {
                 MarkerModel marker = new MarkerModel
                 {
-                    ID = MarkerCounter++,
-                    Type = Type,
-                    Position = Position,
-                    Scale = Scale,
-                    Color = Color,
-                    Dimension = Dimension,
+                    Id = _markerCounter++,
+                    Type = type,
+                    Position = position,
+                    Scale = scale,
+                    Color = color,
+                    Dimension = dimension,
                     Visible = true,
-                    VisibleOnlyFor = VisibleOnlyFor
+                    VisibleOnlyFor = visibleOnlyFor
                 };
                 Sync.MarkerList.Add(marker);
                 return marker;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new MarkerModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new MarkerModel(); }
         }
         public static void RemoveMarker(MarkerModel markerClass)
         {
@@ -399,31 +401,31 @@ namespace VenoXV.Core
             {
                 if (Sync.MarkerList.Contains(markerClass))
                 {
-                    VenoX.TriggerEventForAll("Sync:RemoveMarkerByID", markerClass.ID);
+                    VenoX.TriggerEventForAll("Sync:RemoveMarkerByID", markerClass.Id);
                     Sync.MarkerList.Remove(markerClass);
                 }
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        private static int ObjectCounter = 0;
-        public static ObjectModel CreateObject(string Parent, string Hash, Vector3 Position, Vector3 Rotation, Quaternion Quaternion, bool HashNeeded = false, int Dimension = Dimension.GlobalDimension, VnXPlayer VisibleOnlyFor = null)
+        private static int _objectCounter;
+        public static ObjectModel CreateObject(string parent, string hash, Vector3 position, Vector3 rotation, Quaternion quaternion, bool hashNeeded = false, int dimension = Dimension.GlobalDimension, VnXPlayer visibleOnlyFor = null)
         {
             try
             {
                 ObjectModel obj = new ObjectModel
                 {
-                    ID = ObjectCounter,
-                    Parent = Parent,
-                    Hash = Hash,
-                    Position = Position,
-                    Rotation = Rotation,
-                    Quaternion = Quaternion,
-                    HashNeeded = HashNeeded,
-                    Dimension = Dimension,
-                    VisibleOnlyFor = VisibleOnlyFor
+                    Id = _objectCounter,
+                    Parent = parent,
+                    Hash = hash,
+                    Position = position,
+                    Rotation = rotation,
+                    Quaternion = quaternion,
+                    HashNeeded = hashNeeded,
+                    Dimension = dimension,
+                    VisibleOnlyFor = visibleOnlyFor
                 };
                 Sync.ObjectList.Add(obj);
-                ObjectCounter++;
+                _objectCounter++;
                 return obj;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return new ObjectModel(); }
@@ -443,62 +445,62 @@ namespace VenoXV.Core
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        public static NPCModel CreateNPC(string HashName, Vector3 Position, Vector3 Rotation, int Gamemode, VnXPlayer VisibleOnlyFor = null)
+        public static NpcModel CreateNpc(string hashName, Vector3 position, Vector3 rotation, int gamemode, VnXPlayer visibleOnlyFor = null)
         {
             try
             {
-                NPCModel NPC = new NPCModel
+                NpcModel npc = new NpcModel
                 {
-                    ID = 0,
-                    Gamemode = Gamemode,
+                    Id = 0,
+                    Gamemode = gamemode,
                     Health = 200,
                     Armor = 100,
-                    Name = HashName,
-                    Position = Position,
-                    Rotation = Rotation
+                    Name = hashName,
+                    Position = position,
+                    Rotation = rotation
                 };
                 foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
                 {
                     if (players.Playing)
                     {
-                        if (players.Gamemode == Gamemode && VisibleOnlyFor == null)
+                        if (players.Gamemode == gamemode && visibleOnlyFor == null)
                         {
-                            VenoX.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
+                            VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
                         }
-                        else if (players.Gamemode == Gamemode && VisibleOnlyFor == players)
+                        else if (players.Gamemode == gamemode && visibleOnlyFor == players)
                         {
-                            VenoX.TriggerClientEvent(players, "NPC:Create", HashName, Position, Rotation.Z);
+                            VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
                         }
                     }
                 }
-                Sync.NPCList.Add(NPC);
-                return NPC;
+                Sync.NpcList.Add(npc);
+                return npc;
             }
-            catch (Exception ex) { Core.Debug.CatchExceptions(ex); return new NPCModel(); }
+            catch (Exception ex) { Debug.CatchExceptions(ex); return new NpcModel(); }
         }
-        public static void UpdateNPCPosition(NPCModel npcClass)
+        public static void UpdateNpcPosition(NpcModel npcClass)
         {
 
         }
-        public static void UpdateNPCPositionById(int npcId)
+        public static void UpdateNpcPositionById(int npcId)
         {
 
         }
-        public static void RemoveNPC(NPCModel npcClass)
+        public static void RemoveNpc(NpcModel npcClass)
         {
-            if (Sync.NPCList.Contains(npcClass)) { Sync.NPCList.Remove(npcClass); }
+            if (Sync.NpcList.Contains(npcClass)) { Sync.NpcList.Remove(npcClass); }
         }
-        public static void RemoveNPCById(int npcId)
+        public static void RemoveNpcById(int npcId)
         {
 
         }
         public static float ToRadians(float val)
         {
-            return (float)(System.Math.PI / 180) * val;
+            return (float)(Math.PI / 180) * val;
         }
         public static float ToDegrees(float val)
         {
-            return (float)(val * (180 / System.Math.PI));
+            return (float)(val * (180 / Math.PI));
         }
         public static void ShuffleList<T>(this IList<T> list)
         {
