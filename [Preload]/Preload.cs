@@ -11,6 +11,7 @@ using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Tactics.lobby;
 
 namespace VenoXV._Preload_
 {
@@ -126,7 +127,7 @@ namespace VenoXV._Preload_
                         if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
                         int lobby = Int32.Parse(countrycode);
                         Debug.OutputDebugString("Lobby : " + lobby);
-                        Lobbys.OnSelectedTacticLobby(player, lobby);
+                        Pointer.OnSelectedTacticLobby(player, lobby);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
                     case (int)Gamemodes.Race:

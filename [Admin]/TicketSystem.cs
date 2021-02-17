@@ -26,10 +26,7 @@ namespace VenoXV
                     return;
                 }
 
-                AdminTickets ticket = new AdminTickets();
-                ticket.PlayerName = player.Username;
-                ticket.Betreff = betreff;
-                ticket.Frage = text;
+                AdminTickets ticket = new AdminTickets {PlayerName = player.Username, Betreff = betreff, Frage = text};
                 ticket.Id = Database.Database.AddNewAdminTicket(ticket);
                 VenoX.TriggerClientEvent(player, "Destroy_Ticket_Window");
                 Admin.SendAdminInformation(player.Username + " hat ein neues Ticket erstellt. [" + ticket.Id + "]");

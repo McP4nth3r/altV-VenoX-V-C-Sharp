@@ -7,6 +7,7 @@ using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Tactics.lobby;
 
 namespace VenoXV._Globals_
 {
@@ -23,10 +24,10 @@ namespace VenoXV._Globals_
                     _Gamemodes_.SevenTowers.Main.StartNewRound();
                     break;
                 case "tactics":
-                    Lobbys.TacticLobbys.TryGetValue(lobby, out Round val);
+                    Pointer._TacticLobbyPointers.TryGetValue(lobby, out Round val);
                     if (val is null)
                     {
-                        player.SendTranslatedChatMessage("Tactic Lobby dont exists! Use a lobby between 0 - " + Lobbys.TacticLobbys.Count + "!");
+                        player.SendTranslatedChatMessage("Tactic Lobby dont exists! Use a lobby between 0 - " + Pointer._TacticLobbyPointers.Count + "!");
                         return;
                     }
                     _Gamemodes_.Tactics.Globals.Functions.SendTacticRoundMessage("hat die Tactic Runde übersprungen!", val);

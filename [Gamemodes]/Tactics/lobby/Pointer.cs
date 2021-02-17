@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using VenoXV._RootCore_.Models;
+using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV.Core;
 using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Tactics.Lobby
+namespace VenoXV.Tactics.lobby
 {
-    public class Lobbys
+    public class Pointer
     {
-        public static Round Alpha = new Round();
-        public static Round Beta = new Round();
-        public static Round Gamma = new Round();
-        public static Round Delta = new Round();
+        public static readonly Round Alpha = new Round();
+        public static readonly Round Beta = new Round();
+        public static readonly Round Gamma = new Round();
+        public static readonly Round Delta = new Round();
 
-        public static Dictionary<int, Round> TacticLobbys = new Dictionary<int, Round>
+        public static readonly Dictionary<int, Round> _TacticLobbyPointers = new Dictionary<int, Round>
         {
             { 0, Alpha },
             { 1, Beta },
@@ -25,7 +25,7 @@ namespace VenoXV._Gamemodes_.Tactics.Lobby
         {
             try
             {
-                TacticLobbys.TryGetValue(lobby, out Round val);
+                _TacticLobbyPointers.TryGetValue(lobby, out Round val);
                 if (val is null) return;
                 val.OnSelectedTacticsGM(player);
                 player.Tactics.CurrentLobby = val;
