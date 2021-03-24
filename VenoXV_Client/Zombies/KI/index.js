@@ -42,7 +42,7 @@ alt.onServer('Zombies:Sync', async (state, playerCount = 0) => {
                 for (var counter in Zombies) {
                     let Zombie = Zombies[counter];
                     if (!Zombie) continue;
-                    if (numb >= 25) return;
+                    if (numb >= 25) continue;
                     if (Zombie.Entity != null && !Zombie.OutOfStreamingRange) {
                         let zombiePos = game.getEntityCoords(Zombie.Entity, true);
                         let zombieRot = game.getEntityRotation(Zombie.Entity, 2);
