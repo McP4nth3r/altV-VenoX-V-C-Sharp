@@ -60,19 +60,18 @@ namespace VenoXV.Core
         public static void CatchExceptions(Exception ex, [CallerMemberName] string functionName = "")
         {
             if (!DebugModeEnabled) return;
-            string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "[EXCEPTION " + functionName + "] " + ex.Message, "[EXCEPTION " + functionName + "] " + ex.StackTrace };
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(text[0]);
-            Console.WriteLine(text[1]);
-            Console.WriteLine(text[2]);
-            Console.WriteLine(text[0]);
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("[EXCEPTION " + functionName + "] " + ex.Message);
+            Console.WriteLine("[EXCEPTION " + functionName + "] " + ex.StackTrace);
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.ResetColor();
             if (DebugModeLog)
             {
-                Logfile.WriteLogs("Exceptions", text[0]);
+                Logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Logfile.WriteLogs("Exceptions", text[1]);
                 Logfile.WriteLogs("Exceptions", text[2]);
-                Logfile.WriteLogs("Exceptions", text[0]);
+                Logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
 
