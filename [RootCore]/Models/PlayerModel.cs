@@ -30,13 +30,14 @@ namespace VenoXV.Models
             set { _AdminRank = value; this.VnxSetStreamSharedElementData(EntityData.PlayerAdminRank, value); } }
 
         public int Language { get; set; }
-
+        public bool Spawned { get; set; }
+        
         // Gamemode Classes
         public _RootCore_.Models.Reallife Reallife { get; }
 
         public Zombies Zombies { get; }
 
-        public Tactics Tactics { get; }
+        public _RootCore_.Models.Tactics Tactics { get; }
 
         public _RootCore_.Models.SevenTowers SevenTowers { get; }
 
@@ -126,7 +127,7 @@ namespace VenoXV.Models
                 NearbyPlayers = new List<VnXPlayer>();
                 Settings = new Settings(this);
                 Reallife = new _RootCore_.Models.Reallife(this);
-                Tactics = new Tactics(this);
+                Tactics = new _RootCore_.Models.Tactics(this);
                 Zombies = new Zombies(this);
                 Race = new Race(this);
                 Inventory = new Inventory(this);

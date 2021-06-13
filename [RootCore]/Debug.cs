@@ -69,8 +69,8 @@ namespace VenoXV.Core
             if (DebugModeLog)
             {
                 Logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Logfile.WriteLogs("Exceptions", text[1]);
-                Logfile.WriteLogs("Exceptions", text[2]);
+                Logfile.WriteLogs("Exceptions", ex.Message);
+                Logfile.WriteLogs("Exceptions", ex.StackTrace);
                 Logfile.WriteLogs("Exceptions", "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             }
         }
@@ -79,8 +79,7 @@ namespace VenoXV.Core
         {
             try
             {
-                string logFilePath = Alt.Server.Resource.Path + "/Languages/";
-                logFilePath = logFilePath + logname + "." + "json";
+                string logFilePath = Alt.Server.Resource.Path + "/Languages/" + logname + "." + "json";
                 string content = File.ReadAllText(logFilePath);
                 content = content.Remove(content.Length - 1) + "," + strLog + "]";
                 File.WriteAllText(logFilePath, content);

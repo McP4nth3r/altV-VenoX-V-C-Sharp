@@ -56,9 +56,9 @@ namespace VenoXV
         {
             try
             {
-                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer") != true)
+                if (element.Spawned != true)
                 {
-                    element.VnxSetElementData("RAGEAPI:SpawnedPlayer", true);
+                    element.Spawned = true;
                     element.SetPosition = pos;
                     element.Spawn(pos, delayInMs);
                     VenoX.TriggerClientEvent(element, "Player:Spawn");
@@ -74,8 +74,8 @@ namespace VenoXV
         {
             try
             {
-                if (!element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return;
-                element.VnxSetStreamSharedElementData("RAGEAPI:SpawnedPlayer", false);
+                if (!element.Spawned) return;
+                element.Spawned = false;
                 element.Despawn();
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -84,9 +84,8 @@ namespace VenoXV
         {
             try
             {
-                if (!element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return;
-                if (element.VnxGetElementData<uint>("RAGEAPI:PlayerSkin") == skinHash) return;
-                element.VnxSetStreamSharedElementData("RAGEAPI:PlayerSkin", skinHash);
+                if (!element.Spawned) return;
+                if (element.Model == skinHash) return;
                 element.Model = skinHash;
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -95,7 +94,7 @@ namespace VenoXV
         {
             try
             {
-                if (element.VnxGetElementData<bool>("RAGEAPI:SpawnedPlayer")) return element.Model;
+                if (element.Spawned) return element.Model;
                 return (uint)PedModel.Natalia;
             }
             catch { return (uint)PedModel.Natalia; }
@@ -453,19 +452,12 @@ namespace VenoXV
                     Position = position,
                     Rotation = rotation
                 };
-                foreach (VnXPlayer players in VenoX.GetAllPlayers().ToList())
+                foreach (var players in VenoX.GetAllPlayers().ToList().Where(players => players.Playing))
                 {
-                    if (players.Playing)
-                    {
-                        if (players.Gamemode == gamemode && visibleOnlyFor == null)
-                        {
-                            VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
-                        }
-                        else if (players.Gamemode == gamemode && visibleOnlyFor == players)
-                        {
-                            VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
-                        }
-                    }
+                    if (players.Gamemode == gamemode && visibleOnlyFor == null)
+                        VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
+                    else if (players.Gamemode == gamemode && visibleOnlyFor == players)
+                        VenoX.TriggerClientEvent(players, "NPC:Create", hashName, position, rotation.Z);
                 }
                 Sync.NpcList.Add(npc);
                 return npc;

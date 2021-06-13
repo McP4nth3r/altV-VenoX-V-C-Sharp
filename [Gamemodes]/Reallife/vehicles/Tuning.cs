@@ -103,14 +103,14 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
-        private byte GetIVehicleTunningComponent(int vehicleId, int slot)
+        private int GetIVehicleTunningComponent(int vehicleId, int slot)
         {
             try
             {
                 // Get the component on the specified slot
                 TunningModel tunning = Globals.Main.TunningList.Where(tunningModel => tunningModel.Vehicle == vehicleId && tunningModel.Slot == slot).FirstOrDefault();
 
-                return tunning == null ? 255 : (byte)tunning.Component;
+                return tunning == null ? 255 : (int)tunning.Component;
             }
             catch { return 0; }
         }
@@ -145,10 +145,10 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 for (byte i = 0; i < 49; i++)
                 {
                     // Get the component in the slot
-                    byte component = GetIVehicleTunningComponent(vehicleId, i);
+                    int component = GetIVehicleTunningComponent(vehicleId, i);
 
                     // Remove or add the tunning part
-                    player.Vehicle.SetMod(i, component);
+                    player.Vehicle.SetMod(i, (byte)component);
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
