@@ -160,8 +160,13 @@ namespace VenoXV
 
 
 
-
-
+        [Command("debugcef")]
+        public static void CheckIfCEFExists(VnXPlayer player)
+        {
+            if (player.AdminRank < Constants.AdminlvlProjektleiter) return;
+            VenoX.TriggerClientEvent(player, "Lib:DebugCEFBrowser");
+            Core.Debug.OutputDebugString("Lib:DebugCEFBrowser Called!");
+        }
 
 
 
@@ -177,14 +182,12 @@ namespace VenoXV
         [Command("clearchat")]
         public static void ClearChatForEveryone(VnXPlayer player)
         {
-            if (player.AdminRank >= Constants.AdminlvlModerator)
+            if (player.AdminRank < Constants.AdminlvlModerator) return;
+            for (int i = 0; i < 50; ++i)
             {
-                for (int i = 0; i < 50; ++i)
-                {
-                    RageApi.SendTranslatedChatMessageToAll(" ");
-                }
-                Logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
+                RageApi.SendTranslatedChatMessageToAll(" ");
             }
+            Logfile.WriteLogs("admin", player.Username + " hat den Chat gecleared!");
         }
 
         [Command("clearc")]

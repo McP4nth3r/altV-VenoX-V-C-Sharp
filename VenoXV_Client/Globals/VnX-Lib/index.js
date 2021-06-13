@@ -169,11 +169,9 @@ export function frontOfPlayer(distance) {
 
 export function vnxCreateCEF(Name, Path) {
     try {
-        for (var Browser in cBrowserList) {
-            if (cBrowserList[Browser].Name == Name) {
-                return;
-            }
-        }
+        for (var Browser in cBrowserList)
+            if (cBrowserList[Browser].Name == Name) return;
+
         let cPath = "http://resource/VenoXV_Client/";
         let cBrowser = new alt.WebView(cPath + Path);
         cBrowserList[cBrowserId++] = {
@@ -188,6 +186,11 @@ export function vnxCreateCEF(Name, Path) {
         return null;
     }
 }
+
+alt.onServer('Lib:DebugCEFBrowser', () => {
+    for (var Browser in cBrowserList)
+        alt.emitServer('CEF:Debug', cBrowserList[Browser].Name, cBrowserList[Browser].Path);
+});
 
 export function vnxDestroyCEF(Name) {
     try {

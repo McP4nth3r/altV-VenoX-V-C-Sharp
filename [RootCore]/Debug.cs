@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
+using VenoXV._RootCore_.Models;
+using VenoXV.Models;
 
 namespace VenoXV.Core
 {
@@ -98,6 +100,23 @@ namespace VenoXV.Core
                 }
                 catch (Exception ex) { CatchExceptions(ex); }
             }
+        }
+
+
+        [VenoXRemoteEvent("CEF:Debug")]
+        public static void DebugCEFPaths(VnXPlayer player, string name, string path)
+        {
+            try
+            {
+                string fixedPath = path.Replace("/", "\\");
+                const string clientLogPath = "C:\\Users\\Administrator\\Desktop\\Server\\altV-VenoX-Server - TestServer#2\\resources\\VenoXV_Client\\VenoXV_Client\\";
+                
+                if(File.Exists(clientLogPath + fixedPath)) 
+                    Core.Debug.OutputDebugStringColored("File Exists = [True]", ConsoleColor.Green);
+                else 
+                    Core.Debug.OutputDebugStringColored("File Exists = [False] - " + name + " | " + clientLogPath + fixedPath, ConsoleColor.Red);
+            }
+            catch (Exception ex) { CatchExceptions(ex); }
         }
     }
 }
