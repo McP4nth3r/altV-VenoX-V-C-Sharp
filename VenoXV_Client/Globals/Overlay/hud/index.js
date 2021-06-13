@@ -24,7 +24,7 @@ let handcuffed = false;
 alt.onServer('Reallife:LoadHUD', (e) => {
 	try {
 		vnxDestroyCEF("ReallifeHUD");
-		HUD_BROWSER = vnxCreateCEF("ReallifeHUD", "Globals/Anzeigen/hud/Reallife/HUD-" + e + "/main.html", "Reallife");
+		HUD_BROWSER = vnxCreateCEF("ReallifeHUD", "Globals/Overlay/hud/Reallife/HUD-" + e + "/main.html", "Reallife");
 		CURRENT_HUD = e;
 		HUD_BROWSER.emit("HUD:Show", true);
 	} catch {}
