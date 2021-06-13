@@ -111,7 +111,7 @@ namespace VenoXV._Preload_
                 {
                     case (int)Gamemodes.Reallife:
                         if (!Main.ReallifePlayers.Contains(player)) Main.ReallifePlayers.Add(player);
-                        _Gamemodes_.Reallife.register_login.Login.OnSelectedReallifeGM(player);
+                        Reallife.register_login.Login.OnSelectedReallifeGM(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                         break;
                     case (int)Gamemodes.Zombies:
@@ -218,7 +218,7 @@ namespace VenoXV._Preload_
                     {
                         players.Loading = false;
                         VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
-                        VenoX.TriggerClientEvent(players, "showLoginWindow", "Willkommen auf VenoX", _Gamemodes_.Reallife.register_login.Login.GetCurrentChangelogs());
+                        VenoX.TriggerClientEvent(players, "showLoginWindow", "Willkommen auf VenoX", Reallife.register_login.Login.GetCurrentChangelogs());
                     }
                 }
             }

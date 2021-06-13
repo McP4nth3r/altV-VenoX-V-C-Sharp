@@ -7,7 +7,7 @@ import * as alt from 'alt-client';
 import {
     ShowCursor,
     vnxCreateCEF,
-    vnxDestroyAllCEF
+    vnxDestroyCEF
 } from '../../../../Globals/VnX-Lib';
 import {
     FreezeClient

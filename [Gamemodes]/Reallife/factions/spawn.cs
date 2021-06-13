@@ -5,13 +5,17 @@
 //----------------------------------//
 
 using System;
+using System.Linq;
+using System.Numerics;
 using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.Globals;
+using VenoXV._Gamemodes_.Reallife.house;
+using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Globals_.Main;
 
-namespace VenoXV._Gamemodes_.Reallife.Factions
+namespace VenoXV.Reallife.factions
 {
     public class Spawn : IScript
     {
@@ -39,8 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 }
                 if (player.Reallife.Faction != Constants.FactionNone) player.SetTeam(player.Reallife.Faction);
                 else player.SetTeam(player.Id + 153);
-                player.SpawnPlayer(player.Reallife.LastPosition);
-                /*
+                
                 switch (player.Reallife.SpawnLocation)
                 {
                     case "noobspawn":
@@ -52,73 +55,73 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                     case "Wuerfelpark":
                         player.SetPosition = new Vector3(180.3914f, -923.7885f, 30.68681f);
                         return;
+                    case "Street":
+                        player.SpawnPlayer(player.Reallife.LastPosition);
+                        return;
                     case "Basis":
                         switch (player.Reallife.Faction)
                         {
-                            case Constants.FACTION_LSPD:
+                            case Constants.FactionLspd:
                                 player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                                 return;
-                            case Constants.FACTION_LCN:
+                            case Constants.FactionLcn:
                                 player.Dimension = player.Reallife.Faction;
                                 player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                                 return;
-                            case Constants.FACTION_YAKUZA:
+                            case Constants.FactionYakuza:
                                 player.Dimension = player.Reallife.Faction;
                                 player.SetPosition = new Vector3(339.3727f, -997.0941f, -99.19626f);
                                 return;
-                            case Constants.FACTION_TERRORCLOSED:
+                            case Constants.FactionTerrorclosed:
                                 player.SetPosition = new Vector3(469.8354f, -985.0742f, 33.89248f);
                                 return;
-                            case Constants.FACTION_NEWS:
+                            case Constants.FactionNews:
                                 player.SetPosition = new Vector3(-562.649f, -920.7836f, 23.87799f);
                                 return;
-                            case Constants.FACTION_FBI:
+                            case Constants.FactionFbi:
                                 player.SetPosition = new Vector3(139.1606f, -762.1356f, 45.75201f);
                                 return;
-                            case Constants.FACTION_NARCOS:
+                            case Constants.FactionNarcos:
                                 player.Dimension = player.Reallife.Faction;
                                 player.SetPosition = new Vector3(-1283.504f, 432.7738f, 97.52215f);
                                 return;
-                            case Constants.FACTION_USARMY:
+                            case Constants.FactionUsarmy:
                                 player.SetPosition = new Vector3(468.65933f, -3205.8594f, 9.784668f);
                                 return;
-                            case Constants.FACTION_SAMCRO:
+                            case Constants.FactionSamcro:
                                 player.SetPosition = new Vector3(982.0083f, -100.8747f, 74.84512f);
                                 return;
-                            case Constants.FACTION_EMERGENCY:
+                            case Constants.FactionEmergency:
                                 player.SetPosition = new Vector3(319.5905f, -560.0225f, 28.74378f);
                                 return;
-                            case Constants.FACTION_MECHANIK:
+                            case Constants.FactionMechanik:
                                 player.SetPosition = new Vector3(482.47913f, -1312.9846f, 29.195557f);
                                 return;
-                            case Constants.FACTION_BALLAS:
+                            case Constants.FactionBallas:
                                 player.Dimension = player.Reallife.Faction;
                                 player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                                 return;
-                            case Constants.FACTION_COMPTON:
+                            case Constants.FactionCompton:
                                 player.Dimension = player.Reallife.Faction;
                                 player.SetPosition = new Vector3(266.2531f, -1007.264f, -101.0095f);
                                 return;
                         }
                         return;
                     case "Basis-2":
-                        if (player.Reallife.Faction == Constants.FACTION_USARMY)
+                        if (player.Reallife.Faction == Constants.FactionUsarmy)
                             player.SetPosition = new Vector3(-2089.4636f, 3273.7056f, 32.801514f);
                         break;
                     case "House":
-                        foreach (HouseModel house in House.houseList.ToList())
+                        foreach (var house in House.HouseList.ToList().Where(house => player.Reallife.HouseRent > 0 || player.Username == house.Owner))
                         {
-                            if (player.Reallife.HouseRent > 0 || player.Username == house.owner)
-                            {
-                                player.SetPosition = Main.GetHouseIplExit(house.ipl);
-                                player.Dimension = house.id;
-                                player.Reallife.HouseIPL = house.ipl;
-                                player.Reallife.HouseEntered = house.id;
-                            }
+                            player.SetPosition = House.GetHouseExitPoint(house.Ipl);
+                            player.Dimension = house.Id;
+                            player.Reallife.HouseIpl = house.Ipl;
+                            player.Reallife.HouseEntered = house.Id;
                         }
                         return;
                 }
-                */
+                
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

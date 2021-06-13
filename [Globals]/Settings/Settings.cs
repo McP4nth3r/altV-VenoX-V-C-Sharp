@@ -253,6 +253,10 @@ namespace VenoXV.Settings
                             player.SendTranslatedChatMessage(Constants.RgbaError + "Dafür musst du in einer Fraktion sein!");
                         }
                         break;
+                    case 5:
+                        player.Reallife.SpawnLocation = "Street";
+                        player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageApi.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Straße!");
+                        break;
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}

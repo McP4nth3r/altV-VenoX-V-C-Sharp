@@ -94,12 +94,12 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
-        public static void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
+        public static async void OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
         {
             try
             {
                 if (Factions.Allround.OnPlayerEnterColShapeModel(shape, player)) return;
-                if (factions.State.Allround.OnStateColShapeHit(shape, player)) return;
+                if (await VenoXV.Reallife.factions.State.Allround.OnStateColShapeHit(shape, player)) return;
                 if (CarShop.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Ammunation.OnPlayerEnterColShapeModel(shape, player)) return;

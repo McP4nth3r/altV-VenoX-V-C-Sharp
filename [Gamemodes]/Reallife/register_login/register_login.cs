@@ -8,7 +8,6 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.Environment.Gzone;
-using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -18,12 +17,13 @@ using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.factions;
 using Allround = VenoXV._Gamemodes_.Reallife.gangwar.Allround;
 using Main = VenoXV._Globals_.Main;
 using VnX = VenoXV.Settings.VnX;
 using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;
 
-namespace VenoXV._Gamemodes_.Reallife.register_login
+namespace VenoXV.Reallife.register_login
 {
     public class Login : IScript
     {
@@ -291,7 +291,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 Shoprob.CreateShopRobPedsIPlayer(player);
                 Zone.CreateGreenzone(player);
                 Allround.GangwarManager.UpdateData(player);
-                List<ItemModel> inventory = anzeigen.Inventar.Main.GetPlayerInventory(player);
+                List<ItemModel> inventory = _Gamemodes_.Reallife.anzeigen.Inventar.Main.GetPlayerInventory(player);
                 VenoX.TriggerClientEvent(player, "Inventory:Update", JsonConvert.SerializeObject(inventory));
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -305,7 +305,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                 //player.SetPlayerSkin(player.Sex == 0 ? (uint)AltV.Net.Enums.PedModel.FreemodeMale01 : (uint)AltV.Net.Enums.PedModel.FreemodeFemale01);
                 _Preload_.Character_Creator.Main.LoadCharacterSkin(player);
                 Customization.ApplyPlayerClothes(player);
-                anzeigen.Inventar.Main.OnPlayerConnect(player);
+                _Gamemodes_.Reallife.anzeigen.Inventar.Main.OnPlayerConnect(player);
                 Sync.LoadBlips(player);
                 foreach (VehicleModel vehicle in Main.ReallifeVehicles.ToList())
                 {
@@ -332,7 +332,7 @@ namespace VenoXV._Gamemodes_.Reallife.register_login
                     player.LoadIpl(obj.Ipl);
 
                 LoadDatasAfterLogin(player);
-                handy.Allround.UpdatePhonePlayerlist();
+                _Gamemodes_.Reallife.handy.Allround.UpdatePhonePlayerlist();
                 player.Settings.ShowQuests = 1;
                 Quests.ShowCurrentQuest(player);
             }
