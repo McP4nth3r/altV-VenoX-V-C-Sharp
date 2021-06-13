@@ -5,7 +5,6 @@ using AltV.Net;
 using AltV.Net.Data;
 using Newtonsoft.Json;
 using VenoXV._Preload_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
 namespace VenoXV._Globals_.Scoreboard

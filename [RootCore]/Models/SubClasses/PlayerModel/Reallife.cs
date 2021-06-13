@@ -4,9 +4,8 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using VenoXV._Globals_;
 using VenoXV.Core;
-using VenoXV.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class DrivingSchool
     {
@@ -37,9 +36,6 @@ namespace VenoXV._RootCore_.Models
         private int _Faction { get; set; }
         public int Faction { get => _Faction;
             set { _Faction = value; _client.VnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PlayerFaction, value); _client.VnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PlayerFaction, value); } }
-        private int _Hud { get; set; }
-        public int Hud {
-            get { return _Hud; } set { _Hud = value; _client.VnxSetStreamSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PlayerReallifeHud, value); } }
         private int _Hunger { get; set; }
         public int Hunger { get => _Hunger;
             set { _Hunger = value; _client.VnxSetSharedElementData(_Gamemodes_.Reallife.Globals.EntityData.PlayerHunger, value); } }
@@ -97,7 +93,6 @@ namespace VenoXV._RootCore_.Models
                 DrivingSchool = new DrivingSchool(player);
                 Position rotation = new Position(0.0f, 0.0f, 0.0f);
                 Money = 0;
-                Hud = 0;
                 Hunger = 100;
                 Faction = 0;
                 FactionCooldown = DateTime.Now;

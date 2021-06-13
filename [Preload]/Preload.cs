@@ -7,7 +7,6 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._Gamemodes_.Zombie.Assets;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;

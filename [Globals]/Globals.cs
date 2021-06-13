@@ -18,7 +18,6 @@ using VenoXV._Gamemodes_.Tactics.weapons;
 using VenoXV._Gamemodes_.Zombie.Globals;
 using VenoXV._Preload_;
 using VenoXV._Preload_.Register;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;

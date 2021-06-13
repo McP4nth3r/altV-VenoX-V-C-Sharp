@@ -7,7 +7,6 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Chat;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.Fun.Aktionen;

@@ -6,7 +6,6 @@ using AltV.Net;
 using AltV.Net.Data;
 using VenoXV._Gamemodes_.KI;
 using VenoXV._Gamemodes_.Zombie.KI;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Zombie.Models;

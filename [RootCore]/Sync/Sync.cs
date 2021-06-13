@@ -10,7 +10,6 @@ using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Language_;
 using VenoXV._Preload_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;

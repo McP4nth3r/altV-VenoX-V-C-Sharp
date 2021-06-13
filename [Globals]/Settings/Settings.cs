@@ -4,12 +4,10 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Models;
-using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Language_.Main;
 
-namespace VenoXV._Gamemodes_.Reallife.Settings
+namespace VenoXV.Settings
 {
     public class VnX : IScript
     {
@@ -27,20 +25,16 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
             try
             {
                 if (player.Settings.ShowAtm == 1) VenoX.TriggerClientEvent(player, "Reallife:ShowATMBlips");
-                if (player.Settings.ShowHouse == 1)
+                if (player.Settings.ShowHouse != 1) return;
+                if (House.HouseList == null) return;
+                string translatedText = await Main.GetTranslatedTextAsync((Main.Languages)player.Language, "Haus [Verkauf]");
+                string translatedText1 = await Main.GetTranslatedTextAsync((Main.Languages)player.Language, "Haus [Verkauf]");
+                foreach (HouseModel house in House.HouseList)
                 {
-                    if (House.HouseList != null)
-                    {
-                        string translatedText = await Main.GetTranslatedTextAsync((Main.Languages)player.Language, "Haus [Verkauf]");
-                        string translatedText1 = await Main.GetTranslatedTextAsync((Main.Languages)player.Language, "Haus [Verkauf]");
-                        foreach (HouseModel house in House.HouseList)
-                        {
-                            if (house.Status == Constants.HouseStateBuyable)
-                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.Position, 2, translatedText);
-                            else
-                                VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.Position, 76, translatedText1);
-                        }
-                    }
+                    if (house.Status == Constants.HouseStateBuyable)
+                        VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.Position, 2, translatedText);
+                    else
+                        VenoX.TriggerClientEvent(player, "ShowHouseBlips", house.Position, 76, translatedText1);
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -204,15 +198,22 @@ namespace VenoXV._Gamemodes_.Reallife.Settings
         }
 
 
+        [VenoXRemoteEvent("Settings:SelectHUD")]
+        public static void ChangePlayerHUD(VnXPlayer player, int hud)
+        {
+            //player.Settings.
+            player.Settings.ReallifeHud = hud;
+        }
+
         [VenoXRemoteEvent("Settings:SelectSpawnpoint")]
-        public void ChangePlayerSpawnpoint(VnXPlayer player, int spawn)
+        public static void ChangePlayerSpawnpoint(VnXPlayer player, int spawn)
         {
             try
             {
                 switch (spawn)
                 {
                     case 0:
-                        player.Reallife.SpawnLocation = "noobspawn";
+                        player.Reallife.SpawnLocation = "Noobspawn";
                         player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageApi.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Noobspawn!");
                         break;
                     case 1:

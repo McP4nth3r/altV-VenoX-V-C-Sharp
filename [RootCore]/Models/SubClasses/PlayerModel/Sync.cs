@@ -4,7 +4,7 @@ using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class SyncClass
     {

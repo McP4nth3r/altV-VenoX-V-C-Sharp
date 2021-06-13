@@ -2,7 +2,6 @@
 using System.Linq;
 using AltV.Net;
 using VenoXV._Preload_.Loading;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
@@ -24,7 +23,7 @@ namespace VenoXV._Preload_
                     VenoX.TriggerClientEvent(player, "Inventory:Load");
                     VenoX.TriggerClientEvent(player, "XMenu:Load");
                     VenoX.TriggerClientEvent(player, "Phone:Load");
-                    VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.Reallife.Hud);
+                    VenoX.TriggerClientEvent(player, "Reallife:LoadHUD", player.Settings.ReallifeHud);
                     VenoX.TriggerClientEvent(player, "Quests:Show", true);
                     Sync.LoadAllNpCs(player);
                     break;

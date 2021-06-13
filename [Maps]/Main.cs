@@ -6,7 +6,6 @@ using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using VenoXV._Maps_.Model;
 using VenoXV._Maps_.Models;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 

@@ -2,7 +2,6 @@
 using AltV.Net;
 using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 

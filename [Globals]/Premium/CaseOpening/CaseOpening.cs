@@ -3,7 +3,6 @@ using AltV.Net;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
 using VenoXV._Globals_.Premium.CaseOpening;
-using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
 namespace VenoXV._Globals_.Premium

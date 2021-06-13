@@ -18,7 +18,6 @@ using VenoXV._Preload_;
 using VenoXV._Preload_.Character_Creator;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
@@ -88,28 +87,25 @@ namespace VenoXV.Database
             try
             {
                 FraktionsKassen fraktion = new FraktionsKassen();
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT FRAKTION_MONEY, FRAKTION_WEED, FRAKTION_MATS,FRAKTION_KOKAIN FROM fraktionskassen WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
+                command.Parameters.AddWithValue("@FRAKTION_ID", factionId);
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (!reader.HasRows) return fraktion;
+                reader.Read();
+                fraktion.Weed = reader.GetInt32("FRAKTION_WEED");
+                fraktion.Koks = reader.GetInt32("FRAKTION_KOKAIN");
+                fraktion.Mats = reader.GetInt32("FRAKTION_MATS");
+                fraktion.Money = reader.GetInt32("FRAKTION_MONEY");
+                /*fraktion.banreason = reader.GetString("banreason");
+                if (!reader.IsDBNull(1))
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT FRAKTION_MONEY, FRAKTION_WEED, FRAKTION_MATS,FRAKTION_KOKAIN FROM fraktionskassen WHERE FRAKTION_ID = @FRAKTION_ID LIMIT 1";
-                    command.Parameters.AddWithValue("@FRAKTION_ID", factionId);
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        reader.Read();
-                        fraktion.Weed = reader.GetInt32("FRAKTION_WEED");
-                        fraktion.Koks = reader.GetInt32("FRAKTION_KOKAIN");
-                        fraktion.Mats = reader.GetInt32("FRAKTION_MATS");
-                        fraktion.Money = reader.GetInt32("FRAKTION_MONEY");
-                        /*fraktion.banreason = reader.GetString("banreason");
-                        if (!reader.IsDBNull(1))
-                        {
-                            account.banzeit = reader.GetDateTime("banzeit");
-                        }
-                        */
-                    }
+                    account.banzeit = reader.GetDateTime("banzeit");
                 }
+                */
+
                 return fraktion;
             }
             catch { return null; }
@@ -345,20 +341,19 @@ namespace VenoXV.Database
             try
             {
                 int wherefrom = 0;
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM advertised WHERE ID = 0";
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM advertised WHERE ID = 0";
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.Read())
+                    if (reader.HasRows)
                     {
-                        if (reader.HasRows)
-                        {
-                            wherefrom = reader.GetInt32(where);
-                        }
+                        wherefrom = reader.GetInt32(@where);
                     }
                 }
+
                 return wherefrom;
             }
             catch { return 0; }
@@ -402,44 +397,40 @@ namespace VenoXV.Database
 
         public static void SetPlayerWhereFromList(string where, int howmuch)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE advertised SET " + where + " = @Value LIMIT 1";
-                    command.Parameters.AddWithValue("@Value", howmuch);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE advertised SET " + @where + " = @Value LIMIT 1";
+                command.Parameters.AddWithValue("@Value", howmuch);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetPlayerWhereFromList] " + ex.StackTrace);
             }
         }
 
         public static int CreateCharacter(VnXPlayer player, int uid)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "INSERT INTO users (UID, SpielerName, sex) VALUES (@UID, @playerName, @playerSex)";
-                    command.Parameters.AddWithValue("@playerName", player.Username);
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@playerSex", player.Sex);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.StackTrace);
-                }
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO users (UID, SpielerName, sex) VALUES (@UID, @playerName, @playerSex)";
+                command.Parameters.AddWithValue("@playerName", player.Username);
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@playerSex", player.Sex);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.Message);
+                Console.WriteLine("[EXCEPTION CreateCharacter] " + ex.StackTrace);
             }
 
             return uid;
@@ -501,7 +492,7 @@ namespace VenoXV.Database
                     character.Reallife.Quests = reader.GetInt32("quests");
                     character.Reallife.WantedStars = reader.GetInt32("wanteds");
                     character.Reallife.Bail = reader.GetInt32("kaution");
-                    character.Reallife.Hud = reader.GetInt32("REALLIFE_HUD");
+                    character.Settings.ReallifeHud = reader.GetInt32("REALLIFE_HUD");
 
                     character.Settings.ShowAtm = reader.GetInt32("atm_anzeigen");
                     character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
@@ -582,7 +573,7 @@ namespace VenoXV.Database
                 command.Parameters.AddWithValue("@wanteds", player.Reallife.WantedStars);
                 command.Parameters.AddWithValue("@knastzeit", player.Reallife.JailTime);
                 command.Parameters.AddWithValue("@kaution", player.Reallife.Bail);
-                command.Parameters.AddWithValue("@REALLIFE_HUD", player.Reallife.Hud);
+                command.Parameters.AddWithValue("@REALLIFE_HUD", player.Settings.ReallifeHud);
                 command.Parameters.AddWithValue("@atm_anzeigen", player.Settings.ShowAtm);
                 command.Parameters.AddWithValue("@haus_anzeigen", player.Settings.ShowHouse);
                 command.Parameters.AddWithValue("@tacho_anzeigen", player.Settings.ShowSpeedometer);
@@ -618,18 +609,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", name);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", name);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -641,18 +628,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", name);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -665,16 +648,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdHash = @HardwareIdHash LIMIT 1";
-                    command.Parameters.AddWithValue("@HardwareIdHash", hardwareIdHash);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdHash = @HardwareIdHash LIMIT 1";
+                command.Parameters.AddWithValue("@HardwareIdHash", hardwareIdHash);
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    found = reader.HasRows;
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -687,16 +668,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdExHash = @HardwareIdExHash LIMIT 1";
-                    command.Parameters.AddWithValue("@HardwareIdExHash", hardwareIdExHash);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT serial FROM spieler WHERE HardwareIdExHash = @HardwareIdExHash LIMIT 1";
+                command.Parameters.AddWithValue("@HardwareIdExHash", hardwareIdExHash);
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    found = reader.HasRows;
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -710,16 +689,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM users WHERE socialName = @socialName LIMIT 1";
-                    command.Parameters.AddWithValue("@socialName", name);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM users WHERE socialName = @socialName LIMIT 1";
+                command.Parameters.AddWithValue("@socialName", name);
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    found = reader.HasRows;
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -732,18 +709,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT SpielerName FROM users WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT SpielerName FROM users WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", name);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -756,18 +729,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM users WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", uid);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM users WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", uid);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -780,18 +749,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -802,22 +767,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT PrisonZeit FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT PrisonZeit FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetInt32("PrisonZeit");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetInt32("PrisonZeit");
                 }
+
                 return 0;
             }
             catch { return 0; }
@@ -827,22 +789,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT PrisonGrund FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT PrisonGrund FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("PrisonGrund");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("PrisonGrund");
                 }
+
                 return "ERROR | BITTE BEI EINEM ADMINISTRATOR ODER HÖHER MELDEN!";
             }
             catch { return "ERROR | BITTE BEI EINEM ADMINISTRATOR ODER HÖHER MELDEN!"; }
@@ -852,22 +811,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT PrisonVon FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT PrisonVon FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("PrisonVon");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("PrisonVon");
                 }
+
                 return "ERROR | BITTE BEI EINEM ADMINISTRATOR ODER HÖHER MELDEN!";
             }
             catch { return "ERROR | BITTE BEI EINEM ADMINISTRATOR ODER HÖHER MELDEN!"; }
@@ -877,22 +833,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT PrisonErstelltAm FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT PrisonErstelltAm FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetDateTime("PrisonErstelltAm");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetDateTime("PrisonErstelltAm");
                 }
+
                 return DateTime.Now;
             }
             catch { return DateTime.Now; }
@@ -904,18 +857,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM users WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM users WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", name);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -929,18 +878,14 @@ namespace VenoXV.Database
             {
                 bool found = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm FROM ban WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm FROM ban WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        found = reader.HasRows;
-                    }
-                }
+                using MySqlDataReader reader = command.ExecuteReader();
+                found = reader.HasRows;
 
                 return found;
             }
@@ -951,22 +896,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM users WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM users WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetInt32("UID");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetInt32("UID");
                 }
+
                 return -1;
             }
             catch { return -1; }
@@ -976,20 +918,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT UID FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    if (reader.HasRows)
-                    {
-                        reader.Read();
-                        return reader.GetInt32("UID");
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetInt32("UID");
                 }
+
                 return -1;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return -1; }
@@ -1000,22 +941,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT Geschlecht FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", socialName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT Geschlecht FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", socialName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("Geschlecht");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("Geschlecht");
                 }
+
                 return "Männlich";
             }
             catch
@@ -1028,22 +966,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT SpielerName FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", socialName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT SpielerName FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", socialName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("SpielerName");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("SpielerName");
                 }
+
                 return "ERROR";
             }
             catch { return "ERROR"; }
@@ -1052,22 +987,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT serial FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", socialName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT serial FROM spieler WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", socialName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("serial");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("serial");
                 }
+
                 return "ERROR";
             }
             catch { return "ERROR"; }
@@ -1077,22 +1009,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT HardwareId FROM spieler WHERE HardwareId = @HardwareId LIMIT 1";
-                    command.Parameters.AddWithValue("@HardwareId", hardwareId);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT HardwareId FROM spieler WHERE HardwareId = @HardwareId LIMIT 1";
+                command.Parameters.AddWithValue("@HardwareId", hardwareId);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("HardwareId");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("HardwareId");
                 }
+
                 return "ERROR";
             }
             catch { return "ERROR"; }
@@ -1102,22 +1031,19 @@ namespace VenoXV.Database
         {
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielername);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT SpielerSocial FROM spieler WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielername);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            return reader.GetString("SpielerSocial");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    return reader.GetString("SpielerSocial");
                 }
+
                 return "ERROR";
             }
             catch { return "ERROR"; }
@@ -1125,100 +1051,90 @@ namespace VenoXV.Database
 
         public static VnXPlayer GetPlayerVip(VnXPlayer spieler, int uid)
         {
-
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT VIP_Paket, VIP_BisZum, VIP_GekauftAm FROM spieler WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", uid);
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT VIP_Paket, VIP_BisZum, VIP_GekauftAm FROM spieler WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            spieler.VipPaket = reader.GetString("VIP_Paket");
-                            spieler.VipTill = reader.GetDateTime("VIP_BisZum");
-                            spieler.VipBought = reader.GetDateTime("VIP_GekauftAm");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.StackTrace);
+                    reader.Read();
+                    spieler.VipPaket = reader.GetString("VIP_Paket");
+                    spieler.VipTill = reader.GetDateTime("VIP_BisZum");
+                    spieler.VipBought = reader.GetDateTime("VIP_GekauftAm");
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.Message);
+                Console.WriteLine("[EXCEPTION GetPlayerVIP] " + ex.StackTrace);
+            }
+
             return spieler;
         }
 
         public static void SetVipStats(int uid, string paket, int tage)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE spieler SET VIP_Paket = @VIP_Paket, VIP_BisZum = @VIP_BisZum WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@VIP_Paket", paket);
-                    command.Parameters.AddWithValue("@VIP_BisZum", DateTime.Now.AddDays(tage));
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET VIP_Paket = @VIP_Paket, VIP_BisZum = @VIP_BisZum WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@VIP_Paket", paket);
+                command.Parameters.AddWithValue("@VIP_BisZum", DateTime.Now.AddDays(tage));
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetVIPStats] " + ex.StackTrace);
             }
         }
 
         public static void SetPlayerSerial(string spielerSocial, string serial)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE spieler SET serial = @serial WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
-                    command.Parameters.AddWithValue("@serial", serial);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET serial = @serial WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
+                command.Parameters.AddWithValue("@serial", serial);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetPlayerSerial] " + ex.StackTrace);
             }
         }
 
         public static void SetPlayerSocialClubByUid(int uid, string spielerSocial)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE spieler SET SpielerSocial = @SpielerSocial WHERE UID = @UID LIMIT 1";
-                    //command.CommandText = "UPDATE users SET socialName = @SpielerSocial WHERE UID = @UID";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE spieler SET SpielerSocial = @SpielerSocial WHERE UID = @UID LIMIT 1";
+                //command.CommandText = "UPDATE users SET socialName = @SpielerSocial WHERE UID = @UID";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.Message);
+                Console.WriteLine("[EXCEPTION SetPlayerSocialClubBySerial] " + ex.StackTrace);
             }
         }
 
@@ -1228,26 +1144,23 @@ namespace VenoXV.Database
             {
                 Accountbans accountBans = new Accountbans();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm, Bantype FROM ban WHERE SpielerSocial = @SpielerSocial LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerSocial", socialName);
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT Bangrund, Admin, Banzeit, BanerstelltAm, Bantype FROM ban WHERE SpielerSocial = @SpielerSocial LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerSocial", socialName);
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.HasRows)
-                        {
-                            reader.Read();
-                            accountBans.Banreason = reader.GetString("Bangrund");
-                            accountBans.AdminBanned = reader.GetString("Admin");
-                            accountBans.Banzeit = reader.GetDateTime("Banzeit");
-                            accountBans.Banerstelltam = reader.GetDateTime("BanerstelltAm");
-                            accountBans.Bantype = reader.GetString("Bantype");
-                        }
-                    }
+                using MySqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    accountBans.Banreason = reader.GetString("Bangrund");
+                    accountBans.AdminBanned = reader.GetString("Admin");
+                    accountBans.Banzeit = reader.GetDateTime("Banzeit");
+                    accountBans.Banerstelltam = reader.GetDateTime("BanerstelltAm");
+                    accountBans.Bantype = reader.GetString("Bantype");
                 }
+
                 return accountBans;
             }
             catch { return null; }
@@ -1272,23 +1185,21 @@ namespace VenoXV.Database
 
         public static void RemoveOldPrison(string spielerName)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
+                command.CommandText = "DELETE FROM prison WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.Message);
+                Console.WriteLine("[EXCEPTION RemoveOldPrison] " + ex.StackTrace);
             }
         }
 
@@ -1299,65 +1210,63 @@ namespace VenoXV.Database
             {
                 List<VehicleModel> vehicleList = new List<VehicleModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM Vehicles";
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM Vehicles";
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    float posX = reader.GetFloat("posX");
+                    float posY = reader.GetFloat("posY");
+                    float posZ = reader.GetFloat("posZ");
+                    float rotX = reader.GetFloat("rotX");
+                    float rotY = reader.GetFloat("rotY");
+                    float rotZ = reader.GetFloat("rotZ");
+                    VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
+                    vehClass.DatabaseId = reader.GetInt32("id");
+                    vehClass.Name = reader.GetString("model");
+                    vehClass.FirstColor = reader.GetString("firstColor");
+                    vehClass.SecondColor = reader.GetString("secondColor");
+                    vehClass.Owner = reader.GetString("owner");
+                    vehClass.Plate = reader.GetString("plate");
+                    vehClass.NumberplateText = reader.GetString("plate");
+                    vehClass.Faction = reader.GetInt32("faction");
+                    if (vehClass.Faction > 0)
                     {
-                        float posX = reader.GetFloat("posX");
-                        float posY = reader.GetFloat("posY");
-                        float posZ = reader.GetFloat("posZ");
-                        float rotX = reader.GetFloat("rotX");
-                        float rotY = reader.GetFloat("rotY");
-                        float rotZ = reader.GetFloat("rotZ");
-                        VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
-                        vehClass.DatabaseId = reader.GetInt32("id");
-                        vehClass.Name = reader.GetString("model");
-                        vehClass.FirstColor = reader.GetString("firstColor");
-                        vehClass.SecondColor = reader.GetString("secondColor");
-                        vehClass.Owner = reader.GetString("owner");
-                        vehClass.Plate = reader.GetString("plate");
-                        vehClass.NumberplateText = reader.GetString("plate");
-                        vehClass.Faction = reader.GetInt32("faction");
-                        if (vehClass.Faction > 0)
-                        {
-                            //vehClass.Dimension = reader.GetInt32("dimension");
-                            vehClass.Dimension = _Globals_.Main.ReallifeDimension;
-                        }
-                        else
-                        {
-                            vehClass.Dimension = Constants.VehicleOfflineDim;
-                        }
-                        vehClass.Price = reader.GetInt32("price");
-                        vehClass.Gas = reader.GetFloat("gas");
-                        vehClass.Kms = reader.GetFloat("kms");
-                        vehClass.Position = new Vector3(posX, posY, posZ);
-                        vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
-                        vehClass.SpawnCoord = vehClass.Position;
-                        vehClass.SpawnRot = vehClass.Rotation;
-                        string[] firstRgba = vehClass.FirstColor.Split(',');
-                        string[] secondRgba = vehClass.SecondColor.Split(',');
-                        vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                        vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                        vehClass.EngineOn = false;
-                        vehClass.Frozen = true;
-                        vehClass.Godmode = true;
-                        vehClass.Npc = false;
-                        if (vehClass.Faction > Constants.FactionNone)
-                        {
-                            vehClass.LockState = VehicleLockState.Unlocked;
-                        }
-                        else
-                        {
-                            vehClass.LockState = VehicleLockState.Locked;
-                        }
-                        _Globals_.Main.AllVehicles.Add(vehClass);
-                        _Globals_.Main.ReallifeVehicles.Add(vehClass);
+                        //vehClass.Dimension = reader.GetInt32("dimension");
+                        vehClass.Dimension = _Globals_.Main.ReallifeDimension;
                     }
+                    else
+                    {
+                        vehClass.Dimension = Constants.VehicleOfflineDim;
+                    }
+                    vehClass.Price = reader.GetInt32("price");
+                    vehClass.Gas = reader.GetFloat("gas");
+                    vehClass.Kms = reader.GetFloat("kms");
+                    vehClass.Position = new Vector3(posX, posY, posZ);
+                    vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
+                    vehClass.SpawnCoord = vehClass.Position;
+                    vehClass.SpawnRot = vehClass.Rotation;
+                    string[] firstRgba = vehClass.FirstColor.Split(',');
+                    string[] secondRgba = vehClass.SecondColor.Split(',');
+                    vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                    vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
+                    vehClass.EngineOn = false;
+                    vehClass.Frozen = true;
+                    vehClass.Godmode = true;
+                    vehClass.Npc = false;
+                    if (vehClass.Faction > Constants.FactionNone)
+                    {
+                        vehClass.LockState = VehicleLockState.Unlocked;
+                    }
+                    else
+                    {
+                        vehClass.LockState = VehicleLockState.Locked;
+                    }
+                    _Globals_.Main.AllVehicles.Add(vehClass);
+                    _Globals_.Main.ReallifeVehicles.Add(vehClass);
                 }
 
                 return vehicleList;
@@ -1373,24 +1282,20 @@ namespace VenoXV.Database
 
                 List<GangwarModel> gwList = new List<GangwarModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM gangwar";
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM gangwar";
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
                     {
-                        while (reader.Read())
+                        GangwarModel area = new GangwarModel(reader);
+                        if (area.Aktiv == 1)
                         {
-                            if (reader.HasRows)
-                            {
-                                GangwarModel area = new GangwarModel(reader);
-                                if (area.Aktiv == 1)
-                                {
-                                    gwList.Add(area);
-                                }
-                            }
+                            gwList.Add(area);
                         }
                     }
                 }
@@ -1407,37 +1312,35 @@ namespace VenoXV.Database
             {
                 int vehId = 0;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                try
                 {
-                    try
-                    {
-                        connection.Open();
-                        MySqlCommand command = connection.CreateCommand();
-                        command.CommandText = "INSERT INTO Vehicles (model, posX, posY, posZ, rotX, rotY, rotZ, FirstColor, SecondColor, dimension, faction, owner, plate, gas) ";
-                        command.CommandText += "VALUES (@model, @posX, @posY, @posZ, @rotX, @rotY, @rotZ, @FirstColor, @SecondColor, @dimension, @faction, @owner, @plate, @gas)";
-                        command.Parameters.AddWithValue("@model", vehicle.Name);
-                        command.Parameters.AddWithValue("@posX", vehicle.Position.X);
-                        command.Parameters.AddWithValue("@posY", vehicle.Position.Y);
-                        command.Parameters.AddWithValue("@posZ", vehicle.Position.Z);
-                        Vector3 rot = vehicle.Rotation;
-                        command.Parameters.AddWithValue("@rotX", rot.X);
-                        command.Parameters.AddWithValue("@rotY", rot.Y);
-                        command.Parameters.AddWithValue("@rotZ", rot.Z);
-                        command.Parameters.AddWithValue("@FirstColor", vehicle.FirstColor);
-                        command.Parameters.AddWithValue("@SecondColor", vehicle.SecondColor);
-                        command.Parameters.AddWithValue("@dimension", vehicle.Dimension);
-                        command.Parameters.AddWithValue("@faction", vehicle.Faction);
-                        command.Parameters.AddWithValue("@owner", vehicle.Owner);
-                        command.Parameters.AddWithValue("@plate", vehicle.Plate);
-                        command.Parameters.AddWithValue("@gas", vehicle.Gas);
-                        command.ExecuteNonQuery();
-                        vehId = (int)command.LastInsertedId;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.Message);
-                        Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.StackTrace);
-                    }
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "INSERT INTO Vehicles (model, posX, posY, posZ, rotX, rotY, rotZ, FirstColor, SecondColor, dimension, faction, owner, plate, gas) ";
+                    command.CommandText += "VALUES (@model, @posX, @posY, @posZ, @rotX, @rotY, @rotZ, @FirstColor, @SecondColor, @dimension, @faction, @owner, @plate, @gas)";
+                    command.Parameters.AddWithValue("@model", vehicle.Name);
+                    command.Parameters.AddWithValue("@posX", vehicle.Position.X);
+                    command.Parameters.AddWithValue("@posY", vehicle.Position.Y);
+                    command.Parameters.AddWithValue("@posZ", vehicle.Position.Z);
+                    Vector3 rot = vehicle.Rotation;
+                    command.Parameters.AddWithValue("@rotX", rot.X);
+                    command.Parameters.AddWithValue("@rotY", rot.Y);
+                    command.Parameters.AddWithValue("@rotZ", rot.Z);
+                    command.Parameters.AddWithValue("@FirstColor", vehicle.FirstColor);
+                    command.Parameters.AddWithValue("@SecondColor", vehicle.SecondColor);
+                    command.Parameters.AddWithValue("@dimension", vehicle.Dimension);
+                    command.Parameters.AddWithValue("@faction", vehicle.Faction);
+                    command.Parameters.AddWithValue("@owner", vehicle.Owner);
+                    command.Parameters.AddWithValue("@plate", vehicle.Plate);
+                    command.Parameters.AddWithValue("@gas", vehicle.Gas);
+                    command.ExecuteNonQuery();
+                    vehId = (int)command.LastInsertedId;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddNewIVehicle] " + ex.StackTrace);
                 }
 
                 return vehId;
@@ -1450,28 +1353,26 @@ namespace VenoXV.Database
 
             int vehId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "INSERT INTO support (player, subject, message, state) ";
-                    command.CommandText += "VALUES ( @playerName, @Betreff, @Frage, @Status)";
-                    command.Parameters.AddWithValue("@playerName", ticket.PlayerName);
-                    command.Parameters.AddWithValue("@Betreff", ticket.Betreff);
-                    command.Parameters.AddWithValue("@Frage", "Spieler " + ticket.PlayerName + "[" + DateTime.Now + "]:" + ticket.Frage);
-                    command.Parameters.AddWithValue("@Status", "open");
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO support (player, subject, message, state) ";
+                command.CommandText += "VALUES ( @playerName, @Betreff, @Frage, @Status)";
+                command.Parameters.AddWithValue("@playerName", ticket.PlayerName);
+                command.Parameters.AddWithValue("@Betreff", ticket.Betreff);
+                command.Parameters.AddWithValue("@Frage", "Spieler " + ticket.PlayerName + "[" + DateTime.Now + "]:" + ticket.Frage);
+                command.Parameters.AddWithValue("@Status", "open");
 
 
-                    command.ExecuteNonQuery();
-                    vehId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+                vehId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddNewAdminTicket] " + ex.StackTrace);
             }
 
             return vehId;
@@ -1480,24 +1381,22 @@ namespace VenoXV.Database
 
         public static void UpdateIVehicleSingleString(string table, string value, int vehicleId)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE Vehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
-                    command.Parameters.AddWithValue("@value", value);
-                    command.Parameters.AddWithValue("@vehId", vehicleId);
+                command.CommandText = "UPDATE Vehicles SET " + table + " = @value WHERE id = @vehId LIMIT 1";
+                command.Parameters.AddWithValue("@value", value);
+                command.Parameters.AddWithValue("@vehId", vehicleId);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateIVehicleSingleString] " + ex.StackTrace);
             }
         }
 
@@ -1587,23 +1486,21 @@ namespace VenoXV.Database
 
         public static void RemoveIVehicle(int vehicleId)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM IVehicles WHERE id = @IVehicleId LIMIT 1";
-                    command.Parameters.AddWithValue("@IVehicleId", vehicleId);
+                command.CommandText = "DELETE FROM IVehicles WHERE id = @IVehicleId LIMIT 1";
+                command.Parameters.AddWithValue("@IVehicleId", vehicleId);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.Message);
+                Console.WriteLine("[EXCEPTION RemoveIVehicle] " + ex.StackTrace);
             }
         }
 
@@ -1614,27 +1511,23 @@ namespace VenoXV.Database
             {
                 List<TunningModel> tunningList = new List<TunningModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM tunning";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM tunning";
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    TunningModel tunning = new TunningModel();
                     {
-                        while (reader.Read())
-                        {
-                            TunningModel tunning = new TunningModel();
-                            {
-                                tunning.Id = reader.GetInt32("id");
-                                tunning.Vehicle = reader.GetInt32("Vehicle");
-                                tunning.Slot = reader.GetInt32("slot");
-                                tunning.Component = reader.GetInt32("component");
-                            }
-
-                            tunningList.Add(tunning);
-                        }
+                        tunning.Id = reader.GetInt32("id");
+                        tunning.Vehicle = reader.GetInt32("Vehicle");
+                        tunning.Slot = reader.GetInt32("slot");
+                        tunning.Component = reader.GetInt32("component");
                     }
+
+                    tunningList.Add(tunning);
                 }
 
                 return tunningList;
@@ -1646,26 +1539,24 @@ namespace VenoXV.Database
         {
             int tunningId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO tunning (IVehicle, slot, component) VALUES (@IVehicle, @slot, @component)";
-                    command.Parameters.AddWithValue("@IVehicle", tunning.Vehicle);
-                    command.Parameters.AddWithValue("@slot", tunning.Slot);
-                    command.Parameters.AddWithValue("@component", tunning.Component);
+                command.CommandText = "INSERT INTO tunning (IVehicle, slot, component) VALUES (@IVehicle, @slot, @component)";
+                command.Parameters.AddWithValue("@IVehicle", tunning.Vehicle);
+                command.Parameters.AddWithValue("@slot", tunning.Slot);
+                command.Parameters.AddWithValue("@component", tunning.Component);
 
-                    command.ExecuteNonQuery();
-                    tunningId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddTunning] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddTunning] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+                tunningId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddTunning] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddTunning] " + ex.StackTrace);
             }
 
             return tunningId;
@@ -1673,47 +1564,43 @@ namespace VenoXV.Database
 
         public static void RemoveTunning(int vehicleid, int slot)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM tunning WHERE IVehicle = @IVehicle AND slot = @slot LIMIT 1";
-                    command.Parameters.AddWithValue("@IVehicle", vehicleid);
-                    command.Parameters.AddWithValue("@slot", slot);
+                command.CommandText = "DELETE FROM tunning WHERE IVehicle = @IVehicle AND slot = @slot LIMIT 1";
+                command.Parameters.AddWithValue("@IVehicle", vehicleid);
+                command.Parameters.AddWithValue("@slot", slot);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.Message);
+                Console.WriteLine("[EXCEPTION RemoveTunning] " + ex.StackTrace);
             }
         }
 
         public static void TransferMoneyToPlayer(string name, int amount)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE users SET bank = bank + @amount WHERE SpielerName = @SpielerName LIMIT 1";
-                    command.Parameters.AddWithValue("@SpielerName", name);
-                    command.Parameters.AddWithValue("@amount", amount);
+                command.CommandText = "UPDATE users SET bank = bank + @amount WHERE SpielerName = @SpielerName LIMIT 1";
+                command.Parameters.AddWithValue("@SpielerName", name);
+                command.Parameters.AddWithValue("@amount", amount);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.Message);
+                Console.WriteLine("[EXCEPTION TransferMoneyToPlayer] " + ex.StackTrace);
             }
         }
 
@@ -1725,36 +1612,34 @@ namespace VenoXV.Database
             {
                 List<ItemModel> itemList = new List<ItemModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM items";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM items";
+                    ItemModel item = new ItemModel();
+                    float posX = reader.GetFloat("posX");
+                    float posY = reader.GetFloat("posY");
+                    float posZ = reader.GetFloat("posZ");
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        ItemModel item = new ItemModel();
-                        float posX = reader.GetFloat("posX");
-                        float posY = reader.GetFloat("posY");
-                        float posZ = reader.GetFloat("posZ");
+                    item.Id = reader.GetInt32("id");
+                    item.Uid = reader.GetInt32("uid");
+                    item.Hash = reader.GetString("hash");
+                    item.Amount = reader.GetInt32("amount");
+                    item.Position = new Position(posX, posY, posZ);
+                    item.Dimension = reader.GetInt32("dimension");
+                    item.Weight = reader.GetFloat("weight");
+                    item.Type = (ItemType)reader.GetInt32("type");
 
-                        item.Id = reader.GetInt32("id");
-                        item.Uid = reader.GetInt32("uid");
-                        item.Hash = reader.GetString("hash");
-                        item.Amount = reader.GetInt32("amount");
-                        item.Position = new Position(posX, posY, posZ);
-                        item.Dimension = reader.GetInt32("dimension");
-                        item.Weight = reader.GetFloat("weight");
-                        item.Type = (ItemType)reader.GetInt32("type");
+                    item.ClothesSlot = reader.GetInt32("ClotheSlot");
+                    item.ClothesDrawable = reader.GetInt32("ClotheDrawable");
+                    item.ClothesTexture = reader.GetInt32("ClotheTexture");
+                    item.IsUsing = reader.GetBoolean("IsUsing");
 
-                        item.ClothesSlot = reader.GetInt32("ClotheSlot");
-                        item.ClothesDrawable = reader.GetInt32("ClotheDrawable");
-                        item.ClothesTexture = reader.GetInt32("ClotheTexture");
-                        item.IsUsing = reader.GetBoolean("IsUsing");
-
-                        itemList.Add(item);
-                    }
+                    itemList.Add(item);
                 }
 
                 return itemList;
@@ -1767,28 +1652,27 @@ namespace VenoXV.Database
             {
                 List<AccountModel> accountList = new List<AccountModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM spieler";
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM spieler";
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    AccountModel account = new AccountModel
                     {
-                        AccountModel account = new AccountModel
-                        {
-                            Uid = reader.GetInt32("UID"),
-                            HardwareId = reader.GetString("HardwareIdHash"),
-                            HardwareIdExhash = reader.GetString("HardwareIdExHash"),
-                            Name = reader.GetString("SpielerName"),
-                            Email = reader.GetString("Email"),
-                            Password = reader.GetString("Passwort"),
-                            SocialId = reader.GetString("SpielerSocial")
-                        };
-                        accountList.Add(account);
-                    }
+                        Uid = reader.GetInt32("UID"),
+                        HardwareId = reader.GetString("HardwareIdHash"),
+                        HardwareIdExhash = reader.GetString("HardwareIdExHash"),
+                        Name = reader.GetString("SpielerName"),
+                        Email = reader.GetString("Email"),
+                        Password = reader.GetString("Passwort"),
+                        SocialId = reader.GetString("SpielerSocial")
+                    };
+                    accountList.Add(account);
                 }
+
                 return accountList;
             }
             catch { return null; }
@@ -1799,25 +1683,24 @@ namespace VenoXV.Database
             {
                 List<CharacterModel> characterList = new List<CharacterModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM skins";
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM skins";
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    CharacterModel ccharacter = new CharacterModel
                     {
-                        CharacterModel ccharacter = new CharacterModel
-                        {
-                            Uid = reader.GetInt32("UID"),
-                            FaceFeatures = reader.GetString("facefeatures"),
-                            HeadBlendData = reader.GetString("headblends"),
-                            HeadOverlays = reader.GetString("headoverlays")
-                        };
-                        characterList.Add(ccharacter);
-                    }
+                        Uid = reader.GetInt32("UID"),
+                        FaceFeatures = reader.GetString("facefeatures"),
+                        HeadBlendData = reader.GetString("headblends"),
+                        HeadOverlays = reader.GetString("headoverlays")
+                    };
+                    characterList.Add(ccharacter);
                 }
+
                 return characterList;
             }
             catch { return null; }
@@ -1827,33 +1710,31 @@ namespace VenoXV.Database
         {
             int itemId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO `items` (`hash`, `UID`, `amount`, `posX`, `posY`, `posZ`, `Dimension`, `weight`, `type`, `IsUsing`)";
-                    command.CommandText += " VALUES (@hash, @UID, @amount, @posX, @posY, @posZ, @Dimension, @weight, @type, @IsUsing)";
-                    command.Parameters.AddWithValue("@hash", item.Hash);
-                    command.Parameters.AddWithValue("@UID", item.Uid);
-                    command.Parameters.AddWithValue("@amount", item.Amount);
-                    command.Parameters.AddWithValue("@posX", item.Position.X);
-                    command.Parameters.AddWithValue("@posY", item.Position.Y);
-                    command.Parameters.AddWithValue("@posZ", item.Position.Z);
-                    command.Parameters.AddWithValue("@dimension", item.Dimension);
-                    command.Parameters.AddWithValue("@weight", item.Dimension);
-                    command.Parameters.AddWithValue("@type", item.Type);
-                    command.Parameters.AddWithValue("@IsUsing", item.IsUsing);
+                command.CommandText = "INSERT INTO `items` (`hash`, `UID`, `amount`, `posX`, `posY`, `posZ`, `Dimension`, `weight`, `type`, `IsUsing`)";
+                command.CommandText += " VALUES (@hash, @UID, @amount, @posX, @posY, @posZ, @Dimension, @weight, @type, @IsUsing)";
+                command.Parameters.AddWithValue("@hash", item.Hash);
+                command.Parameters.AddWithValue("@UID", item.Uid);
+                command.Parameters.AddWithValue("@amount", item.Amount);
+                command.Parameters.AddWithValue("@posX", item.Position.X);
+                command.Parameters.AddWithValue("@posY", item.Position.Y);
+                command.Parameters.AddWithValue("@posZ", item.Position.Z);
+                command.Parameters.AddWithValue("@dimension", item.Dimension);
+                command.Parameters.AddWithValue("@weight", item.Dimension);
+                command.Parameters.AddWithValue("@type", item.Type);
+                command.Parameters.AddWithValue("@IsUsing", item.IsUsing);
 
-                    command.ExecuteNonQuery();
-                    itemId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Debug.CatchExceptions(ex);
-                }
+                command.ExecuteNonQuery();
+                itemId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Debug.CatchExceptions(ex);
             }
 
             return itemId;
@@ -1955,34 +1836,30 @@ namespace VenoXV.Database
             {
                 List<BusinessModel> businessList = new List<BusinessModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM business";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM business";
+                    BusinessModel business = new BusinessModel();
+                    float posX = reader.GetFloat("posX");
+                    float posY = reader.GetFloat("posY");
+                    float posZ = reader.GetFloat("posZ");
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            BusinessModel business = new BusinessModel();
-                            float posX = reader.GetFloat("posX");
-                            float posY = reader.GetFloat("posY");
-                            float posZ = reader.GetFloat("posZ");
+                    business.Id = reader.GetInt32("id");
+                    business.Type = reader.GetInt32("type");
+                    business.Ipl = reader.GetString("ipl");
+                    business.Name = reader.GetString("Name");
+                    business.Position = new Position(posX, posY, posZ);
+                    business.Dimension = reader.GetInt32("dimension");
+                    business.Owner = reader.GetString("owner");
+                    business.Multiplier = reader.GetFloat("multiplier");
+                    business.Locked = reader.GetBoolean("locked");
 
-                            business.Id = reader.GetInt32("id");
-                            business.Type = reader.GetInt32("type");
-                            business.Ipl = reader.GetString("ipl");
-                            business.Name = reader.GetString("Name");
-                            business.Position = new Position(posX, posY, posZ);
-                            business.Dimension = reader.GetInt32("dimension");
-                            business.Owner = reader.GetString("owner");
-                            business.Multiplier = reader.GetFloat("multiplier");
-                            business.Locked = reader.GetBoolean("locked");
-
-                            businessList.Add(business);
-                        }
-                    }
+                    businessList.Add(business);
                 }
 
                 return businessList;
@@ -1992,15 +1869,52 @@ namespace VenoXV.Database
 
         public static void UpdateBusiness(BusinessModel business)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE business SET type = @type, ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, ";
-                    command.CommandText += "owner = @owner, funds = @funds, products = @products, multiplier = @multiplier, locked = @locked WHERE id = @id LIMIT 1";
+                command.CommandText = "UPDATE business SET type = @type, ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, ";
+                command.CommandText += "owner = @owner, funds = @funds, products = @products, multiplier = @multiplier, locked = @locked WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@type", business.Type);
+                command.Parameters.AddWithValue("@ipl", business.Ipl);
+                command.Parameters.AddWithValue("@posX", business.Position.X);
+                command.Parameters.AddWithValue("@posY", business.Position.Y);
+                command.Parameters.AddWithValue("@posZ", business.Position.Z);
+                command.Parameters.AddWithValue("@dimension", business.Dimension);
+                command.Parameters.AddWithValue("@name", business.Name);
+                command.Parameters.AddWithValue("@owner", business.Owner);
+                command.Parameters.AddWithValue("@funds", business.Funds);
+                command.Parameters.AddWithValue("@products", business.Products);
+                command.Parameters.AddWithValue("@multiplier", business.Multiplier);
+                command.Parameters.AddWithValue("@locked", business.Locked);
+                command.Parameters.AddWithValue("@id", business.Id);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.StackTrace);
+            }
+        }
+
+        public static void UpdateAllBusiness(List<BusinessModel> businessList)
+        {
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
+            {
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+
+                command.CommandText = "UPDATE business SET type = @type, ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, ";
+                command.CommandText += "owner = @owner, funds = @funds, products = @products, multiplier = @multiplier, locked = @locked WHERE id = @id LIMIT 1";
+
+                foreach (BusinessModel business in businessList)
+                {
+                    command.Parameters.Clear();
+
                     command.Parameters.AddWithValue("@type", business.Type);
                     command.Parameters.AddWithValue("@ipl", business.Ipl);
                     command.Parameters.AddWithValue("@posX", business.Position.X);
@@ -2017,52 +1931,11 @@ namespace VenoXV.Database
 
                     command.ExecuteNonQuery();
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateBusiness] " + ex.StackTrace);
-                }
             }
-        }
-
-        public static void UpdateAllBusiness(List<BusinessModel> businessList)
-        {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            catch (Exception ex)
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-
-                    command.CommandText = "UPDATE business SET type = @type, ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, ";
-                    command.CommandText += "owner = @owner, funds = @funds, products = @products, multiplier = @multiplier, locked = @locked WHERE id = @id LIMIT 1";
-
-                    foreach (BusinessModel business in businessList)
-                    {
-                        command.Parameters.Clear();
-
-                        command.Parameters.AddWithValue("@type", business.Type);
-                        command.Parameters.AddWithValue("@ipl", business.Ipl);
-                        command.Parameters.AddWithValue("@posX", business.Position.X);
-                        command.Parameters.AddWithValue("@posY", business.Position.Y);
-                        command.Parameters.AddWithValue("@posZ", business.Position.Z);
-                        command.Parameters.AddWithValue("@dimension", business.Dimension);
-                        command.Parameters.AddWithValue("@name", business.Name);
-                        command.Parameters.AddWithValue("@owner", business.Owner);
-                        command.Parameters.AddWithValue("@funds", business.Funds);
-                        command.Parameters.AddWithValue("@products", business.Products);
-                        command.Parameters.AddWithValue("@multiplier", business.Multiplier);
-                        command.Parameters.AddWithValue("@locked", business.Locked);
-                        command.Parameters.AddWithValue("@id", business.Id);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.StackTrace);
-                }
+                Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateAllBusiness] " + ex.StackTrace);
             }
         }
 
@@ -2070,29 +1943,27 @@ namespace VenoXV.Database
         {
             int businessId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO business (type, ipl, posX, posY, posZ, dimension) VALUES (@type, @ipl, @posX, @posY, @posZ, @dimension)";
-                    command.Parameters.AddWithValue("@type", business.Type);
-                    command.Parameters.AddWithValue("@ipl", business.Ipl);
-                    command.Parameters.AddWithValue("@posX", business.Position.X);
-                    command.Parameters.AddWithValue("@posY", business.Position.Y);
-                    command.Parameters.AddWithValue("@posZ", business.Position.Z);
-                    command.Parameters.AddWithValue("@dimension", business.Dimension);
+                command.CommandText = "INSERT INTO business (type, ipl, posX, posY, posZ, dimension) VALUES (@type, @ipl, @posX, @posY, @posZ, @dimension)";
+                command.Parameters.AddWithValue("@type", business.Type);
+                command.Parameters.AddWithValue("@ipl", business.Ipl);
+                command.Parameters.AddWithValue("@posX", business.Position.X);
+                command.Parameters.AddWithValue("@posY", business.Position.Y);
+                command.Parameters.AddWithValue("@posZ", business.Position.Z);
+                command.Parameters.AddWithValue("@dimension", business.Dimension);
 
-                    command.ExecuteNonQuery();
-                    businessId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+                businessId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
             }
 
             return businessId;
@@ -2100,23 +1971,21 @@ namespace VenoXV.Database
 
         public static void DeleteBusiness(int businessId)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM business WHERE id = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@id", businessId);
+                command.CommandText = "DELETE FROM business WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@id", businessId);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddNewBusiness] " + ex.StackTrace);
             }
         }
 
@@ -2126,34 +1995,32 @@ namespace VenoXV.Database
             {
                 List<HouseModel> houseList = new List<HouseModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM houses";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM houses";
+                    HouseModel house = new HouseModel();
+                    float posX = reader.GetFloat("posX");
+                    float posY = reader.GetFloat("posY");
+                    float posZ = reader.GetFloat("posZ");
 
-                    using MySqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        HouseModel house = new HouseModel();
-                        float posX = reader.GetFloat("posX");
-                        float posY = reader.GetFloat("posY");
-                        float posZ = reader.GetFloat("posZ");
+                    house.Id = reader.GetInt32("id");
+                    house.Ipl = reader.GetString("ipl");
+                    house.Name = reader.GetString("Name");
+                    house.Position = new Position(posX, posY, posZ);
+                    house.Dimension = reader.GetInt32("dimension");
+                    house.Price = reader.GetInt32("price");
+                    house.Owner = reader.GetString("owner");
+                    house.Status = reader.GetInt32("status");
+                    house.Tenants = reader.GetInt32("tenants");
+                    house.Rental = reader.GetInt32("rental");
+                    house.Locked = reader.GetBoolean("locked");
 
-                        house.Id = reader.GetInt32("id");
-                        house.Ipl = reader.GetString("ipl");
-                        house.Name = reader.GetString("Name");
-                        house.Position = new Position(posX, posY, posZ);
-                        house.Dimension = reader.GetInt32("dimension");
-                        house.Price = reader.GetInt32("price");
-                        house.Owner = reader.GetString("owner");
-                        house.Status = reader.GetInt32("status");
-                        house.Tenants = reader.GetInt32("tenants");
-                        house.Rental = reader.GetInt32("rental");
-                        house.Locked = reader.GetBoolean("locked");
-
-                        houseList.Add(house);
-                    }
+                    houseList.Add(house);
                 }
 
                 return houseList;
@@ -2165,30 +2032,28 @@ namespace VenoXV.Database
         {
             int houseId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO houses (ipl, posX, posY, posZ, dimension, name, price) VALUES (@ipl, @posX, @posY, @posZ, @dimension, @name, @preis)";
-                    command.Parameters.AddWithValue("@ipl", house.Ipl);
-                    command.Parameters.AddWithValue("@posX", house.Position.X);
-                    command.Parameters.AddWithValue("@posY", house.Position.Y);
-                    command.Parameters.AddWithValue("@posZ", house.Position.Z);
-                    command.Parameters.AddWithValue("@dimension", house.Dimension);
-                    command.Parameters.AddWithValue("@name", house.Name);
-                    command.Parameters.AddWithValue("@preis", house.Price);
+                command.CommandText = "INSERT INTO houses (ipl, posX, posY, posZ, dimension, name, price) VALUES (@ipl, @posX, @posY, @posZ, @dimension, @name, @preis)";
+                command.Parameters.AddWithValue("@ipl", house.Ipl);
+                command.Parameters.AddWithValue("@posX", house.Position.X);
+                command.Parameters.AddWithValue("@posY", house.Position.Y);
+                command.Parameters.AddWithValue("@posZ", house.Position.Z);
+                command.Parameters.AddWithValue("@dimension", house.Dimension);
+                command.Parameters.AddWithValue("@name", house.Name);
+                command.Parameters.AddWithValue("@preis", house.Price);
 
-                    command.ExecuteNonQuery();
-                    houseId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddHouse] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddHouse] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+                houseId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddHouse] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddHouse] " + ex.StackTrace);
             }
 
             return houseId;
@@ -2196,80 +2061,74 @@ namespace VenoXV.Database
 
         public static void UpdateHouse(HouseModel house)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE houses SET ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, price = @price, ";
-                    command.CommandText += "owner = @owner, status = @status, tenants = @tenants, rental = @rental, locked = @locked WHERE id = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@ipl", house.Ipl);
-                    command.Parameters.AddWithValue("@posX", house.Position.X);
-                    command.Parameters.AddWithValue("@posY", house.Position.Y);
-                    command.Parameters.AddWithValue("@posZ", house.Position.Z);
-                    command.Parameters.AddWithValue("@dimension", house.Dimension);
-                    command.Parameters.AddWithValue("@name", house.Name);
-                    command.Parameters.AddWithValue("@price", house.Price);
-                    command.Parameters.AddWithValue("@owner", house.Owner);
-                    command.Parameters.AddWithValue("@status", house.Status);
-                    command.Parameters.AddWithValue("@tenants", house.Tenants);
-                    command.Parameters.AddWithValue("@rental", house.Rental);
-                    command.Parameters.AddWithValue("@locked", house.Locked);
-                    command.Parameters.AddWithValue("@id", house.Id);
+                command.CommandText = "UPDATE houses SET ipl = @ipl, posX = @posX, posY = @posY, posZ = @posZ, dimension = @dimension, name = @name, price = @price, ";
+                command.CommandText += "owner = @owner, status = @status, tenants = @tenants, rental = @rental, locked = @locked WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@ipl", house.Ipl);
+                command.Parameters.AddWithValue("@posX", house.Position.X);
+                command.Parameters.AddWithValue("@posY", house.Position.Y);
+                command.Parameters.AddWithValue("@posZ", house.Position.Z);
+                command.Parameters.AddWithValue("@dimension", house.Dimension);
+                command.Parameters.AddWithValue("@name", house.Name);
+                command.Parameters.AddWithValue("@price", house.Price);
+                command.Parameters.AddWithValue("@owner", house.Owner);
+                command.Parameters.AddWithValue("@status", house.Status);
+                command.Parameters.AddWithValue("@tenants", house.Tenants);
+                command.Parameters.AddWithValue("@rental", house.Rental);
+                command.Parameters.AddWithValue("@locked", house.Locked);
+                command.Parameters.AddWithValue("@id", house.Id);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateHouse] " + ex.StackTrace);
             }
         }
 
         public static void DeleteHouse(int houseId)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "DELETE FROM houses WHERE id = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@id", houseId);
+                command.CommandText = "DELETE FROM houses WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@id", houseId);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.Message);
+                Console.WriteLine("[EXCEPTION DeleteHouse] " + ex.StackTrace);
             }
         }
 
         public static void KickTenantsOut(int houseId)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE users SET houseRent = 0 where houseRent = @houseRent";
-                    command.Parameters.AddWithValue("@houseRent", houseId);
+                command.CommandText = "UPDATE users SET houseRent = 0 where houseRent = @houseRent";
+                command.Parameters.AddWithValue("@houseRent", houseId);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.Message);
+                Console.WriteLine("[EXCEPTION KickTenantsOut] " + ex.StackTrace);
             }
         }
 
@@ -2279,28 +2138,24 @@ namespace VenoXV.Database
             {
                 List<ClothesModel> clothesList = new List<ClothesModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM clothes";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM clothes";
+                    ClothesModel clothes = new ClothesModel();
+                    clothes.Id = reader.GetInt32("id");
+                    clothes.Player = reader.GetInt32("player");
+                    clothes.Type = reader.GetInt32("type");
+                    clothes.Slot = reader.GetInt32("slot");
+                    clothes.Drawable = reader.GetInt32("drawable");
+                    clothes.Texture = reader.GetInt32("texture");
+                    clothes.Dressed = reader.GetBoolean("dressed");
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ClothesModel clothes = new ClothesModel();
-                            clothes.Id = reader.GetInt32("id");
-                            clothes.Player = reader.GetInt32("player");
-                            clothes.Type = reader.GetInt32("type");
-                            clothes.Slot = reader.GetInt32("slot");
-                            clothes.Drawable = reader.GetInt32("drawable");
-                            clothes.Texture = reader.GetInt32("texture");
-                            clothes.Dressed = reader.GetBoolean("dressed");
-
-                            clothesList.Add(clothes);
-                        }
-                    }
+                    clothesList.Add(clothes);
                 }
 
                 return clothesList;
@@ -2312,30 +2167,28 @@ namespace VenoXV.Database
         {
             int clothesId = 0;
 
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO clothes (player, type, slot, drawable, texture, dressed) VALUES (@player, @type, @slot, @drawable, @texture, @dressed)";
-                    command.Parameters.AddWithValue("@player", clothes.Player);
-                    command.Parameters.AddWithValue("@type", clothes.Type);
-                    command.Parameters.AddWithValue("@slot", clothes.Slot);
-                    command.Parameters.AddWithValue("@drawable", clothes.Drawable);
-                    command.Parameters.AddWithValue("@texture", clothes.Texture);
-                    command.Parameters.AddWithValue("@dressed", clothes.Dressed);
+                command.CommandText = "INSERT INTO clothes (player, type, slot, drawable, texture, dressed) VALUES (@player, @type, @slot, @drawable, @texture, @dressed)";
+                command.Parameters.AddWithValue("@player", clothes.Player);
+                command.Parameters.AddWithValue("@type", clothes.Type);
+                command.Parameters.AddWithValue("@slot", clothes.Slot);
+                command.Parameters.AddWithValue("@drawable", clothes.Drawable);
+                command.Parameters.AddWithValue("@texture", clothes.Texture);
+                command.Parameters.AddWithValue("@dressed", clothes.Dressed);
 
-                    command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
-                    clothesId = (int)command.LastInsertedId;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddClothes] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddClothes] " + ex.StackTrace);
-                }
+                clothesId = (int)command.LastInsertedId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddClothes] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddClothes] " + ex.StackTrace);
             }
 
             return clothesId;
@@ -2343,24 +2196,22 @@ namespace VenoXV.Database
 
         public static void UpdateClothes(ClothesModel clothes)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "UPDATE clothes SET dressed = @dressed WHERE id = @id LIMIT 1";
-                    command.Parameters.AddWithValue("@dressed", clothes.Dressed);
-                    command.Parameters.AddWithValue("@id", clothes.Id);
+                command.CommandText = "UPDATE clothes SET dressed = @dressed WHERE id = @id LIMIT 1";
+                command.Parameters.AddWithValue("@dressed", clothes.Dressed);
+                command.Parameters.AddWithValue("@id", clothes.Id);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateClothes] " + ex.StackTrace);
             }
         }
 
@@ -2395,25 +2246,21 @@ namespace VenoXV.Database
             {
                 List<TattooModel> tattooList = new List<TattooModel>();
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM tattoos";
+
+                using MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "SELECT * FROM tattoos";
+                    TattooModel tattoo = new TattooModel();
+                    tattoo.Player = reader.GetInt32("player");
+                    tattoo.Slot = reader.GetInt32("zone");
+                    tattoo.Library = reader.GetString("library");
+                    tattoo.Hash = reader.GetString("hash");
 
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            TattooModel tattoo = new TattooModel();
-                            tattoo.Player = reader.GetInt32("player");
-                            tattoo.Slot = reader.GetInt32("zone");
-                            tattoo.Library = reader.GetString("library");
-                            tattoo.Hash = reader.GetString("hash");
-
-                            tattooList.Add(tattoo);
-                        }
-                    }
+                    tattooList.Add(tattoo);
                 }
 
                 return tattooList;
@@ -2428,27 +2275,25 @@ namespace VenoXV.Database
             {
                 bool inserted = false;
 
-                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                using MySqlConnection connection = new MySqlConnection(_connectionString);
+                try
                 {
-                    try
-                    {
-                        connection.Open();
-                        MySqlCommand command = connection.CreateCommand();
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
 
-                        command.CommandText = "INSERT INTO tattoos (player, zone, library, hash) VALUES (@player, @zone, @library, @hash)";
-                        command.Parameters.AddWithValue("@player", tattoo.Player);
-                        command.Parameters.AddWithValue("@zone", tattoo.Slot);
-                        command.Parameters.AddWithValue("@library", tattoo.Library);
-                        command.Parameters.AddWithValue("@hash", tattoo.Hash);
+                    command.CommandText = "INSERT INTO tattoos (player, zone, library, hash) VALUES (@player, @zone, @library, @hash)";
+                    command.Parameters.AddWithValue("@player", tattoo.Player);
+                    command.Parameters.AddWithValue("@zone", tattoo.Slot);
+                    command.Parameters.AddWithValue("@library", tattoo.Library);
+                    command.Parameters.AddWithValue("@hash", tattoo.Hash);
 
-                        command.ExecuteNonQuery();
-                        inserted = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("[EXCEPTION AddTattoo] " + ex.Message);
-                        Console.WriteLine("[EXCEPTION AddTattoo] " + ex.StackTrace);
-                    }
+                    command.ExecuteNonQuery();
+                    inserted = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("[EXCEPTION AddTattoo] " + ex.Message);
+                    Console.WriteLine("[EXCEPTION AddTattoo] " + ex.StackTrace);
                 }
 
                 return inserted;
@@ -2461,79 +2306,73 @@ namespace VenoXV.Database
 
         public static void AddAdminLog(string admin, string player, string action, int time, string reason)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO admin (source, target, action, time, reason, date) VALUES (@source, @target, @action, @time, @reason, NOW())";
-                    command.Parameters.AddWithValue("@source", admin);
-                    command.Parameters.AddWithValue("@target", player);
-                    command.Parameters.AddWithValue("@action", action);
-                    command.Parameters.AddWithValue("@time", time);
-                    command.Parameters.AddWithValue("@reason", reason);
+                command.CommandText = "INSERT INTO admin (source, target, action, time, reason, date) VALUES (@source, @target, @action, @time, @reason, NOW())";
+                command.Parameters.AddWithValue("@source", admin);
+                command.Parameters.AddWithValue("@target", player);
+                command.Parameters.AddWithValue("@action", action);
+                command.Parameters.AddWithValue("@time", time);
+                command.Parameters.AddWithValue("@reason", reason);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddAdminLog] " + ex.StackTrace);
             }
         }
 
         public static void AddLicensedWeapon(int itemId, string buyer)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO licensed (item, buyer, date) VALUES (@item, @buyer, NOW())";
-                    command.Parameters.AddWithValue("@item", itemId);
-                    command.Parameters.AddWithValue("@buyer", buyer);
+                command.CommandText = "INSERT INTO licensed (item, buyer, date) VALUES (@item, @buyer, NOW())";
+                command.Parameters.AddWithValue("@item", itemId);
+                command.Parameters.AddWithValue("@buyer", buyer);
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddLicensedWeapon] " + ex.StackTrace);
             }
         }
 
 
         public static void AddPlayerToPrison(int uid, string spielerName, int prisonZeit, string prisonGrund, string admin, DateTime prisonErstelltAm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO prison (UID, SpielerName, PrisonZeit, PrisonGrund, PrisonVon, PrisonErstelltAm) VALUES (@UID, @SpielerName, @PrisonZeit, @PrisonGrund, @PrisonVon, @PrisonErstelltAm)";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@SpielerName", spielerName);
-                    command.Parameters.AddWithValue("@PrisonZeit", prisonZeit);
-                    command.Parameters.AddWithValue("@PrisonGrund", prisonGrund);
-                    command.Parameters.AddWithValue("@PrisonVon", admin);
-                    command.Parameters.AddWithValue("@PrisonErstelltAm", prisonErstelltAm);
+                command.CommandText = "INSERT INTO prison (UID, SpielerName, PrisonZeit, PrisonGrund, PrisonVon, PrisonErstelltAm) VALUES (@UID, @SpielerName, @PrisonZeit, @PrisonGrund, @PrisonVon, @PrisonErstelltAm)";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@SpielerName", spielerName);
+                command.Parameters.AddWithValue("@PrisonZeit", prisonZeit);
+                command.Parameters.AddWithValue("@PrisonGrund", prisonGrund);
+                command.Parameters.AddWithValue("@PrisonVon", admin);
+                command.Parameters.AddWithValue("@PrisonErstelltAm", prisonErstelltAm);
 
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddPlayerToPrison] " + ex.StackTrace);
             }
         }
 
@@ -2601,100 +2440,92 @@ namespace VenoXV.Database
         }
         public static void AddPlayerTimeBan(int uid, string spielerSocial, string serial, string bangrund, string admin, DateTime banzeit, DateTime bannerstelltAm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
 
-                    command.CommandText = "INSERT INTO ban (UID, SpielerSocial, serial, Bangrund, Admin, Banzeit, BanerstelltAm, Bantype) VALUES (@UID, @SpielerSocial, @serial, @Bangrund, @Admin, @Banzeit, @BanerstelltAm, @Bantype)";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
-                    command.Parameters.AddWithValue("@serial", serial);
-                    command.Parameters.AddWithValue("@Bangrund", bangrund);
-                    command.Parameters.AddWithValue("@Admin", admin);
-                    command.Parameters.AddWithValue("@Banzeit", banzeit);
-                    command.Parameters.AddWithValue("@BanerstelltAm", bannerstelltAm);
-                    command.Parameters.AddWithValue("@Bantype", "Timeban");
+                command.CommandText = "INSERT INTO ban (UID, SpielerSocial, serial, Bangrund, Admin, Banzeit, BanerstelltAm, Bantype) VALUES (@UID, @SpielerSocial, @serial, @Bangrund, @Admin, @Banzeit, @BanerstelltAm, @Bantype)";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@SpielerSocial", spielerSocial);
+                command.Parameters.AddWithValue("@serial", serial);
+                command.Parameters.AddWithValue("@Bangrund", bangrund);
+                command.Parameters.AddWithValue("@Admin", admin);
+                command.Parameters.AddWithValue("@Banzeit", banzeit);
+                command.Parameters.AddWithValue("@BanerstelltAm", bannerstelltAm);
+                command.Parameters.AddWithValue("@Bantype", "Timeban");
 
 
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
-                }
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.Message);
+                Console.WriteLine("[EXCEPTION AddPlayerTimeBan] " + ex.StackTrace);
             }
         }
         public static void UpdatePlayerTimeBan(int uid, string bangrund, string admin, DateTime banzeit, DateTime bannerstelltAm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE ban SET Bangrund = @Bangrund, Admin = @Admin, Banzeit = @Banzeit, BannerstelltAm = @BannerstelltAm  WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@Bangrund", bangrund);
-                    command.Parameters.AddWithValue("@Admin", admin);
-                    command.Parameters.AddWithValue("@Banzeit", banzeit);
-                    command.Parameters.AddWithValue("@BannerstelltAm", bannerstelltAm);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.StackTrace);
-                }
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE ban SET Bangrund = @Bangrund, Admin = @Admin, Banzeit = @Banzeit, BannerstelltAm = @BannerstelltAm  WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@Bangrund", bangrund);
+                command.Parameters.AddWithValue("@Admin", admin);
+                command.Parameters.AddWithValue("@Banzeit", banzeit);
+                command.Parameters.AddWithValue("@BannerstelltAm", bannerstelltAm);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdatePlayerTimeBan] " + ex.StackTrace);
             }
         }
 
         public static void UpdatePlayerPrisonTime(int uid, int prisonZeit, string prisonGrund, string prisonVon, DateTime prisonErstelltAm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE prison SET PrisonZeit = @PrisonZeit, PrisonGrund = @PrisonGrund, PrisonVon = @PrisonVon, PrisonErstelltAm = @PrisonErstelltAm  WHERE UID = @UID LIMIT 1";
-                    command.Parameters.AddWithValue("@UID", uid);
-                    command.Parameters.AddWithValue("@PrisonZeit", prisonZeit);
-                    command.Parameters.AddWithValue("@PrisonGrund", prisonGrund);
-                    command.Parameters.AddWithValue("@PrisonVon", prisonVon);
-                    command.Parameters.AddWithValue("@PrisonErstelltAm", prisonErstelltAm);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.StackTrace);
-                }
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE prison SET PrisonZeit = @PrisonZeit, PrisonGrund = @PrisonGrund, PrisonVon = @PrisonVon, PrisonErstelltAm = @PrisonErstelltAm  WHERE UID = @UID LIMIT 1";
+                command.Parameters.AddWithValue("@UID", uid);
+                command.Parameters.AddWithValue("@PrisonZeit", prisonZeit);
+                command.Parameters.AddWithValue("@PrisonGrund", prisonGrund);
+                command.Parameters.AddWithValue("@PrisonVon", prisonVon);
+                command.Parameters.AddWithValue("@PrisonErstelltAm", prisonErstelltAm);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdatePlayerPrisonTime] " + ex.StackTrace);
             }
         }
 
         public static void UpdateGw(GangwarArea area)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            using MySqlConnection connection = new MySqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    MySqlCommand command = connection.CreateCommand();
-                    command.CommandText = "UPDATE gangwar SET FID = @facId, cooldown = @areaCD WHERE gang_area = @areaName LIMIT 1";
-                    command.Parameters.AddWithValue("@facId", area.IdOwner);
-                    command.Parameters.AddWithValue("@areaCD", area.Cooldown);
-                    command.Parameters.AddWithValue("@areaName", area.Name);
-                    command.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("[EXCEPTION UpdateGW] " + ex.Message);
-                    Console.WriteLine("[EXCEPTION UpdateGW] " + ex.StackTrace);
-                }
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = "UPDATE gangwar SET FID = @facId, cooldown = @areaCD WHERE gang_area = @areaName LIMIT 1";
+                command.Parameters.AddWithValue("@facId", area.IdOwner);
+                command.Parameters.AddWithValue("@areaCD", area.Cooldown);
+                command.Parameters.AddWithValue("@areaName", area.Name);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION UpdateGW] " + ex.Message);
+                Console.WriteLine("[EXCEPTION UpdateGW] " + ex.StackTrace);
             }
         }
 

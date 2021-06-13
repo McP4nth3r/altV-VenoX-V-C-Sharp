@@ -1,7 +1,6 @@
 ﻿using System;
 using AltV.Net;
 using AltV.Net.Elements.Entities;
-using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
 namespace VenoXV.SevenTowers.globals

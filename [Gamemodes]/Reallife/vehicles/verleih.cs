@@ -12,7 +12,6 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using EntityData = VenoXV._Globals_.EntityData;

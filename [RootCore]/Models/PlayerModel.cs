@@ -5,7 +5,6 @@ using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models.SubClasses.PlayerModel;
 using Main = VenoXV._Language_.Main;
@@ -33,13 +32,13 @@ namespace VenoXV.Models
         public bool Spawned { get; set; }
         
         // Gamemode Classes
-        public _RootCore_.Models.Reallife Reallife { get; }
+        public SubClasses.PlayerModel.Reallife Reallife { get; }
 
         public Zombies Zombies { get; }
 
-        public _RootCore_.Models.Tactics Tactics { get; }
+        public SubClasses.PlayerModel.Tactics Tactics { get; }
 
-        public _RootCore_.Models.SevenTowers SevenTowers { get; }
+        public SubClasses.PlayerModel.SevenTowers SevenTowers { get; }
 
         public Race Race { get; }
 
@@ -49,7 +48,7 @@ namespace VenoXV.Models
 
         public Phone Phone { get; }
 
-        public _RootCore_.Models.Discord Discord { get; }
+        public SubClasses.PlayerModel.Discord Discord { get; }
 
         public Forum Forum { get; }
 
@@ -58,7 +57,7 @@ namespace VenoXV.Models
         public Usefull Usefull { get; }
 
         // Settings - Classes
-        public Settings Settings { get; }
+        public SubClasses.PlayerModel.Settings Settings { get; }
 
         public Position SetPosition { set => Alt.Emit("GlobalSystems:PlayerPosition", this, value); }
 
@@ -125,18 +124,18 @@ namespace VenoXV.Models
                 PreloadEvents = new List<LoadingModel>();
                 //
                 NearbyPlayers = new List<VnXPlayer>();
-                Settings = new Settings(this);
-                Reallife = new _RootCore_.Models.Reallife(this);
-                Tactics = new _RootCore_.Models.Tactics(this);
+                Settings = new SubClasses.PlayerModel.Settings(this);
+                Reallife = new SubClasses.PlayerModel.Reallife(this);
+                Tactics = new SubClasses.PlayerModel.Tactics(this);
                 Zombies = new Zombies(this);
                 Race = new Race(this);
                 Inventory = new Inventory(this);
-                SevenTowers = new _RootCore_.Models.SevenTowers(this);
+                SevenTowers = new SubClasses.PlayerModel.SevenTowers(this);
                 Shooter = new Shooter(this);
                 Phone = new Phone(this);
                 Forum = new Forum(this);
                 Usefull = new Usefull(this);
-                Discord = new _RootCore_.Models.Discord(this);
+                Discord = new SubClasses.PlayerModel.Discord(this);
                 Sync = new SyncClass(this);
                 this.SpawnPlayer(Position);
                 Language = (int)Main.Languages.English;

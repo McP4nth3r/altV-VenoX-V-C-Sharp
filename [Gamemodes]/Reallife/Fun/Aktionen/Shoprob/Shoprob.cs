@@ -7,7 +7,6 @@ using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Notifications_.Main;

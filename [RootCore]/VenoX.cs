@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AltV.Net;
 using AltV.Net.Async;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;

@@ -10,7 +10,6 @@ using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Preload_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using EntityData = VenoXV._Globals_.EntityData;

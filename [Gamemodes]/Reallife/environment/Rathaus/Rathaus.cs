@@ -8,7 +8,6 @@ using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.quests;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Globals_.Main;

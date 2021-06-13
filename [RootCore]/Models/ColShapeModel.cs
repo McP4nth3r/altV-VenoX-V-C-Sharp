@@ -4,7 +4,7 @@ using AltV.Net;
 using AltV.Net.Elements.Entities;
 using VenoXV.Core;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models
 {
     public class ColShapeModel : ColShape
     {

@@ -7,7 +7,6 @@ using AltV.Net.Data;
 using AltV.Net.Enums;
 using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._Notifications_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;

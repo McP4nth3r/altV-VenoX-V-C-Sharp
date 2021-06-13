@@ -7,7 +7,6 @@ using VenoXV._Gamemodes_.Reallife.Woltlab;
 using VenoXV._Notifications_;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;

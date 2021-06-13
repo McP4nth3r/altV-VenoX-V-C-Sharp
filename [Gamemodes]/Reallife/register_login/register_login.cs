@@ -15,13 +15,12 @@ using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.premium.viplevels;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
 using Allround = VenoXV._Gamemodes_.Reallife.gangwar.Allround;
 using Main = VenoXV._Globals_.Main;
-using VnX = VenoXV._Gamemodes_.Reallife.Settings.VnX;
+using VnX = VenoXV.Settings.VnX;
 using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;
 
 namespace VenoXV._Gamemodes_.Reallife.register_login

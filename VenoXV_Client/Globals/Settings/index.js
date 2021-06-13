@@ -6,7 +6,10 @@
 import * as alt from 'alt-client';
 import * as game from "natives";
 
-import { vnxCreateCEF, ShowCursor } from '../VnX-Lib';
+import {
+    vnxCreateCEF,
+    ShowCursor
+} from '../VnX-Lib';
 
 let SettingsBrowser = vnxCreateCEF("SettingsWindow", "Globals/Settings/main.html");
 let SettingsBrowserOpen = false;
@@ -23,8 +26,7 @@ alt.on('keydown', (key) => {
             SettingsBrowser.emit('Settings:Show', true);
             SettingsBrowser.focus();
             ShowCursor(true);
-        }
-        else {
+        } else {
             SettingsBrowser.emit('Settings:Show', false);
             SettingsBrowser.unfocus();
             ShowCursor(false);
@@ -44,11 +46,11 @@ alt.onServer('Settings:Show', () => {
     }
 });
 //Spawnpoints :
+SettingsBrowser.on('Settings:SelectSpawnpoint', spawn => alt.emitServer('Settings:SelectSpawnpoint', spawn));
 
+// HUD's : 
+SettingsBrowser.on('Settings:SelectHUD', hud => alt.emitServer('Settings:SelectHUD', hud));
 
-SettingsBrowser.on('Settings:SelectSpawnpoint', (spawn) => {
-    alt.emitServer('Settings:SelectSpawnpoint', spawn);
-});
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
     if (!SettingsBrowser) return;

@@ -1,15 +1,14 @@
-﻿using AltV.Net.Elements.Entities;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AltV.Net.Elements.Entities;
+using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_;
 using VenoXV.Core;
-using VenoXV.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class Inventory
     {

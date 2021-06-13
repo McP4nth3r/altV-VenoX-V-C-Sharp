@@ -1,7 +1,6 @@
 ﻿using System.Numerics;
-using VenoXV.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models
 {
     public class MarkerModel
     {

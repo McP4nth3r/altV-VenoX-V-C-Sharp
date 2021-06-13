@@ -7,7 +7,6 @@ using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Race.Globals;
 using VenoXV._Gamemodes_.Race.model;
-using VenoXV._RootCore_.Models;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;

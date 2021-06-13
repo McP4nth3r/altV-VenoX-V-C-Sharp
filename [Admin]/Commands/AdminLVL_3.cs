@@ -8,7 +8,6 @@ using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Preload_;
 using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using EntityData = VenoXV._Globals_.EntityData;

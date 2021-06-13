@@ -6,7 +6,6 @@ using AltV.Net;
 using AltV.Net.Async;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 

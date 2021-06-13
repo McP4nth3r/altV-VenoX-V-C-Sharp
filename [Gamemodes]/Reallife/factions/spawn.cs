@@ -7,7 +7,6 @@
 using System;
 using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Globals_.Main;

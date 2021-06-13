@@ -3,7 +3,7 @@ using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Tactics.Lobby;
 using VenoXV.Core;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class Tactics
     {

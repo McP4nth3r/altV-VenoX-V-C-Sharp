@@ -2,9 +2,8 @@
 using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV.Core;
-using VenoXV.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models.SubClasses.PlayerModel
 {
     public class Settings
     {
@@ -43,6 +42,17 @@ namespace VenoXV._RootCore_.Models
         public int ShowGlobalChat { get => _ShowGlobalChat;
             set { _ShowGlobalChat = value; _client.VnxSetStreamSharedElementData(EntityData.PlayerGlobalchatAnzeigen, value); } }
 
+        private int _ReallifeHud{ get; set; }
+        public int ReallifeHud
+        {
+            get => _ReallifeHud;
+            set
+            {
+                _ReallifeHud = value;
+                VenoX.TriggerClientEvent((VnXPlayer)_client, "Reallife:LoadHUD", value);
+            }
+        }
+        
         public Settings(Player player)
         {
             try

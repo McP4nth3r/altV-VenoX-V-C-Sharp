@@ -4,7 +4,6 @@ using System.Linq;
 using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2

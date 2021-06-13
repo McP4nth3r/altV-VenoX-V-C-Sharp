@@ -1,7 +1,6 @@
 ﻿using System;
 using AltV.Net;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Models;
 
 namespace VenoXV.Core

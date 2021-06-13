@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models
 {
     public class CameraModel
     {

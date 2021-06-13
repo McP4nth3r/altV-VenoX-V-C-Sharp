@@ -4,9 +4,8 @@ using System.Linq;
 using System.Reflection;
 using AltV.Net;
 using VenoXV.Core;
-using VenoXV.Models;
 
-namespace VenoXV._RootCore_.Models
+namespace VenoXV.Models
 {
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class VenoXRemoteEventAttribute : Attribute

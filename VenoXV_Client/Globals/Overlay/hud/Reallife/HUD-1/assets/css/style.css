@@ -1,25 +1,25 @@
-
 * {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
-	user-select: none;  
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    user-select: none;
 }
 
-body, html {
-	height: 100%;
-	width: 100%;
+body,
+html {
+    height: 100%;
+    width: 100%;
 }
 
 input {
-	outline: none;
-	border: none;
+    outline: none;
+    border: none;
 }
 
 button {
-	outline: none !important;
-	border: none;
-	cursor: pointer;
+    outline: none !important;
+    border: none;
+    cursor: pointer;
 }
 
 .form {
@@ -29,21 +29,22 @@ button {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background: black;
+    /*background: black;
     background-image: url(../../assets/images/background.png);
     background-repeat: no-repeat;
     background-size: cover;
+    */
 }
 
 img {
-	position: absolute;
+    position: absolute;
     width: 9vw;
     top: 1vh;
 }
 
 span {
-	position: absolute;
-	font-size: 1.5vh;
+    position: absolute;
+    font-size: 1.5vh;
     color: white;
     font-family: Montserrat-Bold;
 }
@@ -55,13 +56,13 @@ span {
     align-items: center;
     width: 4.556vh;
     border-radius: 5vh;
-    background: rgba(128,128,128, 0.45);
+    background: rgba(128, 128, 128, 0.45);
     height: 4.556vh;
     top: 93vh;
     transition: 0.3s;
 }
 
-.micImg{
+.micImg {
     position: relative;
     width: 1.5vw;
     top: 0vh;
@@ -70,9 +71,9 @@ span {
 }
 
 .micBG-style {
-	background: rgba(0,200,255, 1);
-	box-shadow: 0 0 3vh rgb(0,200,255);
-	transition: 0.3s
+    background: rgba(0, 200, 255, 1);
+    box-shadow: 0 0 3vh rgb(0, 200, 255);
+    transition: 0.3s
 }
 
 .logo {
@@ -233,6 +234,7 @@ span {
     top: 94.3vh;
     left: 19vw;
 }
+
 .money {
     position: absolute;
     width: 2vw;
@@ -241,7 +243,7 @@ span {
     opacity: 1;
 }
 
-.card{
+.card {
     position: absolute;
     width: 2vw;
     top: 1.4vh;

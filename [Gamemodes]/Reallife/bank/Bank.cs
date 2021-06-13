@@ -3,7 +3,6 @@ using AltV.Net;
 using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Notifications_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 

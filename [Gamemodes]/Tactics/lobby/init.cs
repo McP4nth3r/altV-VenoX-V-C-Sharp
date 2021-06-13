@@ -9,7 +9,6 @@ using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Tactics.model;
 using VenoXV._Globals_;
-using VenoXV._RootCore_.Models;
 using VenoXV.Core;
 using VenoXV.Models;
 using EntityData = VenoXV._Gamemodes_.Tactics.Globals.EntityData;
