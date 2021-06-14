@@ -5,11 +5,10 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._Preload_;
-using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Globals_.Main;
 
-namespace VenoXV._Gamemodes_.Reallife.Chat
+namespace VenoXV.Reallife.chat
 {
     public static class ReallifeChat
     {
@@ -44,7 +43,8 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
-        public static void SendMessageToNearbyPlayers(VnXPlayer player, string message, int type, float range, bool excludePlayer = false)
+
+        private static async void SendMessageToNearbyPlayers(VnXPlayer player, string message, int type, float range, bool excludePlayer = false)
         {
             try
             {
@@ -58,43 +58,43 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                     message = message.Remove(Constants.ChatLength, secondMessage.Length);
                 }
 
+                string messageSendDateString = "[" + DateTime.Now.ToString("hh:mm:ss") + "] ";
+
                 foreach (VnXPlayer target in VenoX.GetAllPlayers().ToList())
                 {
-                    if (target.Playing && player.Dimension == target.Dimension)
+                    if (!target.Playing || player.Dimension != target.Dimension) continue;
+                    if (player == target && (player != target || excludePlayer)) continue;
+                    float distance = player.Position.Distance(target.Position);
+                    if (distance <= range)
                     {
-                        if (player != target || (player == target && !excludePlayer))
+                        string chatMessageRgba = GetChatMessageRgba(distance, distanceGap);
+
+                        switch (type)
                         {
-                            float distance = player.Position.Distance(target.Position);
-
-                            if (distance <= range)
-                            {
-                                string chatMessageRgba = GetChatMessageRgba(distance, distanceGap);
-
-                                switch (type)
+                            case Constants.MessageTalk:
+                                string sayingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "sagt :");
+                                target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +  player.Username + " " + sayingString + " " +  message + "..." : chatMessageRgba + messageSendDateString + player.Username + " " + sayingString + " " + message);
+                                if (secondMessage.Length > 0)
                                 {
-                                    case Constants.MessageTalk:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " sagt : " + message + "..." : chatMessageRgba + player.Username + " sagt : " + message);
-                                        if (secondMessage.Length > 0)
-                                        {
-                                            target.SendChatMessage(chatMessageRgba + secondMessage);
-                                        }
-                                        break;
-                                    case Constants.MessageYell:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " schreit : " + message + "..." : chatMessageRgba + player.Username + " schreit : " + message + "!!!");
-                                        if (secondMessage.Length > 0)
-                                        {
-                                            target.SendChatMessage(chatMessageRgba + secondMessage + "!!!");
-                                        }
-                                        break;
-                                    case Constants.MessageWhisper:
-                                        target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " flüstert : " + message + "..." : chatMessageRgba + player.Username + " flüstert : " + message);
-                                        if (secondMessage.Length > 0)
-                                        {
-                                            target.SendChatMessage(chatMessageRgba + secondMessage);
-                                        }
-                                        break;
+                                    target.SendChatMessage(chatMessageRgba + secondMessage);
                                 }
-                            }
+                                break;
+                            case Constants.MessageYell:
+                                string yellingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "schreit :");
+                                target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +  player.Username  + " " + yellingString + " " + message + "..." : chatMessageRgba + messageSendDateString + player.Username  + " " + yellingString + " " + message + "!!!");
+                                if (secondMessage.Length > 0)
+                                {
+                                    target.SendChatMessage(chatMessageRgba + secondMessage + "!!!");
+                                }
+                                break;
+                            case Constants.MessageWhisper:
+                                string whisperString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "flüstert :");
+                                target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " " + whisperString + " " + message + "..." : chatMessageRgba + messageSendDateString + player.Username + " " + whisperString + " " + message);
+                                if (secondMessage.Length > 0)
+                                {
+                                    target.SendChatMessage(chatMessageRgba + secondMessage);
+                                }
+                                break;
                         }
                     }
                 }
@@ -140,10 +140,10 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     //else { Core.Debug.OutputDebugString(message[0].ToString()); }
                     case (int)Preload.Gamemodes.Tactics:
-                        Tactics.chat.Chat.OnChatMessage(player, message);
+                        _Gamemodes_.Tactics.chat.Chat.OnChatMessage(player, message);
                         break;
                     case (int)Preload.Gamemodes.SevenTowers:
-                        SevenTowers.globals.Chat.OnChatMessage(player, message);
+                        _Gamemodes_.SevenTowers.globals.Chat.OnChatMessage(player, message);
                         break;
                     default:
                     {

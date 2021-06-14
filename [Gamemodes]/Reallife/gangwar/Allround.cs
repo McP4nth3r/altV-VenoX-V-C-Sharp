@@ -8,6 +8,7 @@ using VenoXV._Gamemodes_.Reallife.gangwar.v2;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.chat;
 using VenoXV.Reallife.factions;
 using Main = VenoXV._Notifications_.Main;
 

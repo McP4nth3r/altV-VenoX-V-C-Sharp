@@ -1,40 +1,61 @@
+@font-face {
+    font-family: GothamPro-Medium;
+    src: url('../fonts/gothampro/GothamPro-Medium.ttf'); 
+}
+
 * {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 13px;
+    font-family: GothamPro-Medium;
+    font-size: 0.8333333333vw;
+    line-height: 0.7812500000vw;
 }
 
 body {
     background-color: transparent;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    user-select: none; 
 }
 
 *::-webkit-scrollbar {
     visibility: hidden;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    user-select: none; 
+}
+
+.InputBar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 33.3333333333vw;
+    height: 3.1250000000vw;
+	margin-top: 0.9375000000vw;
+}
+
+.PushButton {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.0833333333vw;
+    height: 2.0833333333vw;
+    right: 0.8333333333vw;
+    border-radius: 0.7812500000vw 0.5729166667vw;
+    border: 0.0520833333vw solid rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, rgba(0, 200, 248, 0.87) 0%, rgba(89, 196, 197, 0.87) 83.33%);
+    box-shadow: 0vw 0vw 0.4166666667vw rgba(0, 0, 0, 0.17);
+}
+
+.PushButton img {
+    position: absolute;
+    width: 1.1458333333vw;
+    height: 1.1458333333vw;
 }
 
 .chat-box {
-    margin: 5px 0 0 5px;
-    width: 50vw;
+    width: 33.3333333333vw;
+    left: 1.5625000000vw;
+    top: 1.5625000000vw;
+    position: absolute;
 }
 .chat-box :not(.no-select) {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    user-select: none; 
   }
 .chat-box .chat-messages-list {
     display: flex;
@@ -44,33 +65,31 @@ body {
 
 .chat-box .chat-messages-list .chat-message {
     color: white;
-    padding-left: 2px;
-    line-height: 22px;
+    padding-left: 0.1041666667vw;
+    line-height: 1.1458333333vw;
+    text-shadow: 0vw 0vw 0.2083333333vw rgba(0, 0, 0, 0.85);
 }
 
 .chat-box .chat-input-bar {
-    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    width: 70%;
+    width: 33.3333333333vw;
+    height: 3.1250000000vw;
     outline: none;
     border: none;
-    height: 40px;
-    padding: 0 10px 0 10px;
-    margin-top: 10px;
-	-ms-user-select: auto; 
-    -moz-user-select: auto; 
-    -webkit-user-select: auto; 
+    padding: 0 7.3437500000vw 0 1.3020833333vw;
+    border: 0.0520833333vw solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.7812500000vw 0.3125000000vw;
+    background: linear-gradient(90deg, rgba(0, 200, 248, 0.45) 0%, rgba(89, 196, 197, 0.45) 100%);
+    box-shadow: 0vw 0vw 0.4166666667vw rgba(0, 0, 0, 0.08);
+    user-select: none; 
+    text-shadow: 0vw 0vw 0.2083333333vw rgba(0, 0, 0, 0.85);
 }
 
 .chat-input-bar-length {
+    position: absolute;
     color: white;
-    margin-left: 5px;
-}
-
-.chat-new-messages-warning {
-    background: linear-gradient(90deg,rgba(255, 255, 0, 0.3) 0%, rgba(255,255,255,0) 100%);
-    color: rgb(255, 255, 0);
-    padding-left: 2px;
+    right: 3.6979166667vw;
+    text-shadow: 0vw 0vw 0.2083333333vw rgba(0, 0, 0, 0.25);
 }
 
 .hide {
@@ -84,18 +103,10 @@ body {
 }
 
 .no-select {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    user-select: none; 
 }
 
-.stroke {
-    text-shadow:  1px  1px 1px black,
-    1px -1px 1px black,
-   -1px  1px 1px black,
-   -1px -1px 1px black;
-}
+
+
+input::-webkit-input-placeholder       {opacity: 1; color: #C7C7C7; transition: opacity 0.2s ease;}
+input:focus::-webkit-input-placeholder {opacity: 0; color: #C7C7C7; transition: opacity 0.2s ease;}

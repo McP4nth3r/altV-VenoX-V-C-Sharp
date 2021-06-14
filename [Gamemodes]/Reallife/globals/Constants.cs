@@ -410,7 +410,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         public const int MessageRadio = 12;
 
         // Chat Rgbas
-        public const string RgbaChatClose = "{E6E6E6}";
+        public const string RgbaChatClose = "{FFFFFF}";
         public const string RgbaChatNear = "{C8C8C8}";
         public const string RgbaChatMedium = "{AAAAAA}";
         public const string RgbaChatFar = "{8C8C8C}";
@@ -438,7 +438,6 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             new InteriorModel("Weazel News", new Position(-598.51f, -929.95f, 23.87f), new Position(-1082.433f, -258.7667f, 37.76331f), "facelobby", 459, "Weazel News",  255,255,255,0),
             new InteriorModel("Los Santos Police Department", new Position(434.4719f,-982.0015f,30.71084f), new Position(434.4719f,-982.0015f,30.71084f), string.Empty, 60, "Los Santos Police Department",255,255,255, 0),
             new InteriorModel("Rathaus", Rathaus.RathausMarkerEingang.Position, Rathaus.RathausMarkerImInterior.Position, string.Empty, 1, "Rathaus", 255,255,255, 64),
-
         };
 
 

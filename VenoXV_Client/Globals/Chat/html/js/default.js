@@ -16,6 +16,7 @@ var inputHistoryCache;
 var chatBox = $('.chat-box');
 var chatMessagesList = $('.chat-box .chat-messages-list');
 var chatInputBar = $('.chat-box .chat-input-bar');
+var pushButton = $('.chat-box .PushButton');
 var chatInputBarLength = $('.chat-box .chat-input-bar-length');
 var chatNewMessagesWarning = $('.chat-box .chat-new-messages-warning');
 
@@ -84,7 +85,7 @@ function pushMessage(text, color = 'white', gradient = false, icon = false) {
     if (icon)
         text = `<i class="fi-${icon}" style="padding:0 2px 0 2px"></i> ` + text;
 
-    chatMessagesList.append(`<div class="chat-message stroke no-select" style="${style}">${text}</div>`);
+    chatMessagesList.append(`<div class="chat-message no-select" style="${style}">${text}</div>`);
 
     // Check if player's chat is scrolled all the way to the bottom. If true, then scroll down for new message to appear,
     // if false, inform player about new message(s).
@@ -133,11 +134,13 @@ function activateInput(state) {
             chatInputBar.val('');
             chatInputBarLength.removeClass('hide');
             chatInputBar.removeClass('hide');
+            pushButton.removeClass('hide');
             chatInputBar.focus();
             break;
         case false:
             chatInputBarLength.addClass('hide');
             chatInputBar.addClass('hide');
+            pushButton.addClass('hide');
             chatInputBar.blur();
             break;
     }
@@ -194,7 +197,7 @@ function toggleWarningText(state) {
 }
 
 function setInputBarLengthCounterCurrent(amount) {
-    chatInputBarLength.html(`<i class="fi-pencil" style="padding-right:2px"></i> ${amount}/100`);
+    chatInputBarLength.html(`${amount}/100`);
 }
 
 // Functions - Checks
@@ -203,6 +206,19 @@ function getScrolledUpMessagesAmount() {
     const amount = Math.round((chatMessagesList.prop('scrollHeight') - chatMessagesList.scrollTop() - _MAX_MESSAGES_ON_CHAT * 22) / 22);
     return (amount > 0) ? amount : 0;
 }
+/*
+function Call(){
+    pushMessage('Privet');
+    pushMessage('test');
+    pushMessage('Pridasdadadsvet');
+    pushMessage('dasdsadsadsadf a');
+  
+    activateInput(true);
+    console.log('Call got called');
+  }
+
+  Call();
+  */
 
 // alt:V - Callbacks
 alt.on('chat:clearMessages', clearMessages);
