@@ -14,9 +14,30 @@ namespace VenoXV.Models.SubClasses.PlayerModel
         private int _ShowHouse { get; set; }
         public int ShowHouse { get => _ShowHouse;
             set { _ShowHouse = value; _client.VnxSetStreamSharedElementData(EntityData.PlayerHausAnzeigen, value); } }
-        private int _ShowSpeedometer { get; set; }
-        public int ShowSpeedometer { get => _ShowSpeedometer;
-            set { _ShowSpeedometer = value; _client.VnxSetStreamSharedElementData(EntityData.PlayerTachoAnzeigen, value); } }
+        
+        
+        private int _Speedometer { get; set; }
+        public int Speedometer
+        {
+            get => _Speedometer;
+            set
+            {
+                _Speedometer = value;
+                VenoX.TriggerClientEvent((VnXPlayer) _client, "Speedometer:Create", value);
+            }
+        }
+        
+        private int _ScoreboardBackground { get; set; }
+        public int ScoreboardBackground
+        {
+            get => _ScoreboardBackground;
+            set
+            {
+                _ScoreboardBackground = value;
+                VenoX.TriggerClientEvent((VnXPlayer) _client, "Speedometer:Create", value);
+            }
+        }
+
         private int _ShowQuests { get; set; }
         public int ShowQuests
         {

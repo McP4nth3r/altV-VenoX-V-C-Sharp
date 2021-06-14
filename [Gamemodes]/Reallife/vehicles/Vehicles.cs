@@ -352,34 +352,32 @@ namespace VenoXV.Reallife.vehicles
             {
                 if (player.IsInVehicle)
                 {
-                    if (value > 0)
+                    if (value <= 0) return;
+                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
+                    int kosten = value * 15;
+                    if (kosten == 0)
                     {
-                        VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                        int kosten = value * 15;
-                        if (kosten == 0)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
-                            return;
-                        }
-                        if (player.Reallife.Money < kosten)
-                        {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
-                            return;
-                        }
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
+                        return;
+                    }
+                    if (player.Reallife.Money < kosten)
+                    {
+                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
+                        return;
+                    }
 
 
-                        if (value >= 100)
-                        {
-                            player.Reallife.Money -= 1500;
-                            VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
-                            VenoX.TriggerClientEvent(player, "destroyGasWindow");
-                        }
-                        else
-                        {
-                            player.Reallife.Money -= kosten;
-                            VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", vehicle.Gas + value, 2000);
-                            VenoX.TriggerClientEvent(player, "destroyGasWindow");
-                        }
+                    if (value >= 100)
+                    {
+                        player.Reallife.Money -= 1500;
+                        VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", 100, 2000);
+                        VenoX.TriggerClientEvent(player, "destroyGasWindow");
+                    }
+                    else
+                    {
+                        player.Reallife.Money -= kosten;
+                        VenoX.TriggerClientEvent(player, "Fill_Car_Accepted", vehicle.Gas + value, 2000);
+                        VenoX.TriggerClientEvent(player, "destroyGasWindow");
                     }
                 }
                 else
@@ -409,23 +407,9 @@ namespace VenoXV.Reallife.vehicles
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
+        
 
-
-       
-        public static string FirstCharToUpper(string input)
-        {
-            return input.First().ToString().ToUpper() + input.Substring(1);
-        }
-
-
-        public const float LspdCar3 = 1.0f;
-        public const string GetriebeHandling = "FINITIALDRIVEFORCE";
-        public const string ReifenReibungHandling = "FTRACTIONCURVEMAX"; // Reifenoberflächenreibung
-        public const string Police3Veh = "police3";
-        //  VenoX.TriggerClientEvent(player,"SetIVehicleHandling", IVehicle, GETRIEBE_HANDLING, 30); // FÜRS DRIFT EVENT :D 
-
-
-        [VenoXRemoteEvent("Tacho:CalculateTank")]
+        [VenoXRemoteEvent("Speedo:CalculateTank")]
         public static void CalculateVehicleTank(VnXPlayer player, float speed)
         {
             try
@@ -518,7 +502,6 @@ namespace VenoXV.Reallife.vehicles
                     player.WarpOutOfVehicle();
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Du bist in keiner Fraktion!");
                     return;
-                    return;
                 }
                 if (vehicle.VnxGetElementData<bool>("PRUEFUNGS_AUTO"))
                 {
@@ -584,11 +567,7 @@ namespace VenoXV.Reallife.vehicles
                         _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Warning, "Du hast keinen Führerschein... <br>Pass auf das du nicht erwischt wirst!");
                     }
                 }
-                float kms = vehicle.Kms;
-                float gas = vehicle.Gas;
-                vehicle.Gas = gas;
-                vehicle.Kms = kms;
-                VenoX.TriggerClientEvent(player, "initializeSpeedometer", kms, gas, vehicle.EngineOn);
+                VenoX.TriggerClientEvent(player, "Speedometer:Visible", true);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -611,21 +590,20 @@ namespace VenoXV.Reallife.vehicles
         {
             try
             {
-                if (player.Usefull.LastVehicleLeaveEventCall < DateTime.Now)
+                if (player.Usefull.LastVehicleLeaveEventCall >= DateTime.Now) return;
+                vehicle.Passenger.Remove(player);
+                if (vehicle.Driver == player)
                 {
-                    vehicle.Passenger.Remove(player);
-                    if (vehicle.Driver == player)
+                    if (!vehicle.Godmode)
                     {
-                        if (!vehicle.Godmode)
-                        {
-                            vehicle.Godmode = true;
-                        }
+                        vehicle.Godmode = true;
                     }
-                    _Gamemodes_.Reallife.jobs.Allround.OnPlayerLeaveVehicle(vehicle, player, seat);
-                    _Gamemodes_.SevenTowers.Main.PlayerLeaveVehicle(vehicle, player);
-                    player.Usefull.LastVehicleLeaveEventCall = DateTime.Now.AddSeconds(3);
-                    CarShop.OnPlayerLeaveVehicle(vehicle, player);
                 }
+                _Gamemodes_.Reallife.jobs.Allround.OnPlayerLeaveVehicle(vehicle, player, seat);
+                _Gamemodes_.SevenTowers.Main.PlayerLeaveVehicle(vehicle, player);
+                player.Usefull.LastVehicleLeaveEventCall = DateTime.Now.AddSeconds(3);
+                CarShop.OnPlayerLeaveVehicle(vehicle, player);
+                VenoX.TriggerClientEvent(player, "Speedometer:Visible", false);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -639,20 +617,6 @@ namespace VenoXV.Reallife.vehicles
                 }
                 */
         //[AltV.Net.ClientEvent("stopPlayerCar")]
-        public void StopPlayerCarEvent(VnXPlayer player)
-        {
-            try
-            {
-                if (player.IsInVehicle)
-                {
-                    VehicleModel vehicle = (VehicleModel)player.Vehicle;
-                    // Turn the engine off
-                    vehicle.EngineOn = false;
-                }
-            }
-            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
-        }
-
         [VenoXRemoteEvent("engineOnEventKey")]
         public void EngineOnEventKeyEvent(VnXPlayer player)
         {
@@ -729,38 +693,7 @@ namespace VenoXV.Reallife.vehicles
             }
             catch { return AltV.Net.Enums.VehicleModel.Asea; }
         }
-        public static uint GetModVehicleHashByUint(uint @uint)
-        {
-            try
-            {
-                uint hash = (uint)AltV.Net.Enums.VehicleModel.Asea;
-                uint vehicleUint = Alt.Hash("rmodamgc63");
-                uint vehicleUint2 = Alt.Hash("rmodm4");
-                uint vehicleUint3 = Alt.Hash("polamggtr");
-                uint vehicleUint4 = Alt.Hash("pol718");
-                uint vehicleUint5 = Alt.Hash("s63w222");
-                uint vehicleUint6 = Alt.Hash("rs615");
-                uint vehicleUint7 = Alt.Hash("rs5r");
-                uint vehicleUint8 = Alt.Hash("fxxk");
-                uint vehicleUint9 = Alt.Hash("lumma750");
-
-                if (vehicleUint == @uint) { hash = (uint)GetModVehicleHash("rmodamgc63"); }
-                else if (vehicleUint2 == @uint) { hash = (uint)GetModVehicleHash("rmodm4"); }
-                else if (vehicleUint3 == @uint) { hash = (uint)GetModVehicleHash("polamggtr"); }
-                else if (vehicleUint4 == @uint) { hash = (uint)GetModVehicleHash("pol718"); }
-                else if (vehicleUint5 == @uint) { hash = (uint)GetModVehicleHash("s63w222"); }
-                else if (vehicleUint6 == @uint) { hash = (uint)GetModVehicleHash("rs615"); }
-                else if (vehicleUint7 == @uint) { hash = (uint)GetModVehicleHash("rs5r"); }
-                else if (vehicleUint8 == @uint) { hash = (uint)GetModVehicleHash("fxxk"); }
-                else if (vehicleUint9 == @uint) { hash = (uint)GetModVehicleHash("lumma750"); }
-                else
-                {
-                    return hash;
-                }
-                return hash;
-            }
-            catch { return (uint)AltV.Net.Enums.VehicleModel.Asea; }
-        }
+        
 
     }
 }

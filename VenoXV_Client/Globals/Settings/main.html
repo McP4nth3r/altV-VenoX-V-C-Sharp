@@ -42,9 +42,18 @@
                 <div class="dropdown_t">
                     <button class="dropbtn_t">Scoreboard Bild</button>
                     <div class="dropdown-content_t">
-                        <a href="#">Skyline</a>
-                        <a href="#">LSPD</a>
-                        <a href="#">Hospital</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 0);">Skyline</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 1);">LSPD</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 2);">Hospital</a>
+                    </div>
+                </div>
+                <div class="parting3"></div>
+                <div class="dropdown_speedo">
+                    <button class="dropbtn_speedo">Speedometer</button>
+                    <div class="dropdown-content_speedo">
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 0);">Speedo-0</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 1);">Speedo-1</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 2);">Speedo-2</a>
                     </div>
                 </div>
             </div>

@@ -196,7 +196,7 @@ namespace VenoXV.Settings
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
-
+        
 
         [VenoXRemoteEvent("Settings:SelectHUD")]
         public static void ChangePlayerHUD(VnXPlayer player, int hud)
@@ -258,6 +258,26 @@ namespace VenoXV.Settings
                         player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [Settings] : " + RageApi.GetHexColorcode(255, 255, 255) + "Spawnpoint gesetzt auf Straße!");
                         break;
                 }
+            }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
+        }
+
+        [VenoXRemoteEvent("Settings:SelectScoreboardBackground")]
+        public static void SelectScoreboardBackground(VnXPlayer player, int scoreboardBg)
+        {
+            try
+            {
+                
+            }
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
+        }
+        
+        [VenoXRemoteEvent("Settings:SelectSpeedometer")]
+        public static void SelectSpeedometer(VnXPlayer player, int speedometer)
+        {
+            try
+            {
+                player.Settings.Speedometer = speedometer;
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }

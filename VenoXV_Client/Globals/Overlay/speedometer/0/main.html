@@ -10,7 +10,7 @@
                 if (state) showSpeedo();
                 else hideSpeedo();
             });
-            alt.on('Tacho:Update', (vel, rpm, gas, kmS, lockstate = null, enginestate = null) => {
+            alt.on('Speedo:Update', (vel, rpm, gas, kmS, lockstate = null, enginestate = null) => {
                 document.getElementById("tacho").dataset.value = vel;
                 document.getElementById("tacho").dataset.valueText = kmS.toFixed(1) + " KM";
                 document.getElementById("rpm").dataset.value = rpm;

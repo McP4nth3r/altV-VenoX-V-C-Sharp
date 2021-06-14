@@ -19,7 +19,7 @@ let speedotimer;
 let kmS = 0;
 let gas = 0;
 alt.onServer('Speedometer:Create', Id => {
-	if (speedoId == Id && speedo) return;
+	if (speedoId == Id) return;
 	if (speedo) vnxDestroyCEF("Speedometer");
 	speedo = vnxCreateCEF("Speedometer", "Globals/Overlay/speedometer/" + Id + "/main.html");
 });
@@ -30,7 +30,7 @@ alt.onServer('Speedometer:Visible', state => {
 	if (state) {
 		speedotimer = alt.setInterval(function () {
 			if (alt.Player.local.vehicle)
-				alt.emitServer("Tacho:CalculateFuel", alt.Player.local.vehicle.speed);
+				alt.emitServer("Speedo:CalculateTank", alt.Player.local.vehicle.speed);
 		}, 5000);
 	} else {
 		alt.clearInterval(speedotimer);

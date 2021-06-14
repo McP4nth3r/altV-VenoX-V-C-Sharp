@@ -45,11 +45,18 @@ alt.onServer('Settings:Show', () => {
         }, 500);
     }
 });
+
 //Spawnpoints :
 SettingsBrowser.on('Settings:SelectSpawnpoint', spawn => alt.emitServer('Settings:SelectSpawnpoint', spawn));
 
 // HUD's : 
 SettingsBrowser.on('Settings:SelectHUD', hud => alt.emitServer('Settings:SelectHUD', hud));
+
+// Scoreboard Background : 
+SettingsBrowser.on('Settings:SelectScoreboardBackground', scoreboardBg => alt.emitServer('Settings:SelectScoreboardBackground', scoreboardBg));
+
+// Speedometer :
+SettingsBrowser.on('Settings:SelectSpeedometer', speedo => alt.emitServer('Settings:SelectSpeedometer', speedo));
 
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {

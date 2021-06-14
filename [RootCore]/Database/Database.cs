@@ -493,14 +493,14 @@ namespace VenoXV.Database
                     character.Reallife.Quests = reader.GetInt32("quests");
                     character.Reallife.WantedStars = reader.GetInt32("wanteds");
                     character.Reallife.Bail = reader.GetInt32("kaution");
-                    character.Settings.ReallifeHud = reader.GetInt32("REALLIFE_HUD");
+                    character.Settings.ReallifeHud = reader.GetInt32("reallife_hud");
 
-                    character.Settings.ShowAtm = reader.GetInt32("atm_anzeigen");
-                    character.Settings.ShowHouse = reader.GetInt32("haus_anzeigen");
-                    character.Settings.ShowSpeedometer = reader.GetInt32("tacho_anzeigen");
-                    character.Settings.ShowQuests = reader.GetInt32("quest_anzeigen");
-                    character.Settings.ShowReporter = reader.GetInt32("reporter_anzeigen");
-                    character.Settings.ShowGlobalChat = reader.GetInt32("globalchat_anzeigen");
+                    character.Settings.ShowAtm = reader.GetInt32("atm_show");
+                    character.Settings.ShowHouse = reader.GetInt32("haus_show");
+                    character.Settings.Speedometer = reader.GetInt32("speedometer");
+                    character.Settings.ShowQuests = reader.GetInt32("quest_show");
+                    character.Settings.ShowReporter = reader.GetInt32("reporter_show");
+                    character.Settings.ShowGlobalChat = reader.GetInt32("globalchat_show");
 
                     character.Tactics.Kills = reader.GetInt32("tactic_kills");
                     character.Tactics.Deaths = reader.GetInt32("tactic_tode");
@@ -525,7 +525,7 @@ namespace VenoXV.Database
                 connection.Open();
                 MySqlCommand command = connection.CreateCommand();
                 command.CommandText = "UPDATE users SET posX = @posX, posY = @posY, posZ = @posZ, rotation = @rotation, money = @money, bank = @bank, SocialState = @SocialState, health = @health, armor = @armor, spawn  = @spawn, quests = @quests, wanteds = @wanteds, ";
-                command.CommandText += "knastzeit = @knastzeit, kaution = @kaution, REALLIFE_HUD = @REALLIFE_HUD, atm_anzeigen = @atm_anzeigen, haus_anzeigen = @haus_anzeigen, tacho_anzeigen = @tacho_anzeigen, quest_anzeigen = @quest_anzeigen, reporter_anzeigen = @reporter_anzeigen, globalchat_anzeigen = @globalchat_anzeigen, killed = @killed,";
+                command.CommandText += "knastzeit = @knastzeit, kaution = @kaution, REALLIFE_HUD = @REALLIFE_HUD, atm_show = @atm_show, haus_show = @haus_show, speedometer = @speedometer, quest_show = @quest_show, reporter_show = @reporter_show, globalchat_show = @globalchat_show, killed = @killed,";
                 command.CommandText += "faction = @faction, zivizeit = @zivizeit, job = @job, LIEFERJOB_LEVEL = @LIEFERJOB_LEVEL, AIRPORTJOB_LEVEL = @AIRPORTJOB_LEVEL, BUSJOB_LEVEL = @BUSJOB_LEVEL, rank = @rank, houseRent = @houseRent, ";
                 command.CommandText += "houseEntered = @houseEntered, businessEntered = @businessEntered, Personalausweis = @Personalausweis, Autofuehrerschein = @Autofuehrerschein,";
                 command.CommandText += "Motorradfuehrerschein = @Motorradfuehrerschein, LKWfuehrerschein = @LKWfuehrerschein, Helikopterfuehrerschein = @Helikopterfuehrerschein, FlugscheinKlasseA = @FlugscheinKlasseA, FlugscheinKlasseB = @FlugscheinKlasseB, Motorbootschein = @Motorbootschein, Angelschein = @Angelschein, Waffenschein = @Waffenschein,";
@@ -575,12 +575,12 @@ namespace VenoXV.Database
                 command.Parameters.AddWithValue("@knastzeit", player.Reallife.JailTime);
                 command.Parameters.AddWithValue("@kaution", player.Reallife.Bail);
                 command.Parameters.AddWithValue("@REALLIFE_HUD", player.Settings.ReallifeHud);
-                command.Parameters.AddWithValue("@atm_anzeigen", player.Settings.ShowAtm);
-                command.Parameters.AddWithValue("@haus_anzeigen", player.Settings.ShowHouse);
-                command.Parameters.AddWithValue("@tacho_anzeigen", player.Settings.ShowSpeedometer);
-                command.Parameters.AddWithValue("@quest_anzeigen", player.Settings.ShowQuests);
-                command.Parameters.AddWithValue("@reporter_anzeigen", player.Settings.ShowReporter);
-                command.Parameters.AddWithValue("@globalchat_anzeigen", player.Settings.ShowGlobalChat);
+                command.Parameters.AddWithValue("@atm_show", player.Settings.ShowAtm);
+                command.Parameters.AddWithValue("@haus_show", player.Settings.ShowHouse);
+                command.Parameters.AddWithValue("@speedometer", player.Settings.Speedometer);
+                command.Parameters.AddWithValue("@quest_show", player.Settings.ShowQuests);
+                command.Parameters.AddWithValue("@reporter_show", player.Settings.ShowReporter);
+                command.Parameters.AddWithValue("@globalchat_show", player.Settings.ShowGlobalChat);
                 command.Parameters.AddWithValue("@tactic_kills", player.Tactics.Kills);
                 command.Parameters.AddWithValue("@tactic_tode", player.Tactics.Deaths);
                 command.Parameters.AddWithValue("@Adventskalender", player.Reallife.AdventCalender);
