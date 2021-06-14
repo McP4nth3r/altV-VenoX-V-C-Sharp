@@ -13,104 +13,8 @@
 
 
 <body onload="loadSoundTablesNotify()">
-	<script src="script.js"></script>
 	<div class="all">
 		<img id="blood_in_vnx" src="files/images/bloodscreen.png"></img>
-		<div class="content d-none" id="showinfo">
-			<center>
-				<div class="content_header_text" id="header_value"></div>
-			</center>
-			<div class="content_container_text" id="value_t"></div>
-		</div>
-		<div class="contentMoveAway d-none" id="moveawwayinfo">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd"></div>
-		</div>
-
-		<div class="content_1 d-none" id="showinfo_1">
-			<center>
-				<div class="content_header_text" id="header_value_1"></div>
-			</center>
-			<div class="content_container_text" id="value_t_1"></div>
-		</div>
-		<div class="contentMoveAway_1 d-none" id="moveawwayinfo_1">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_1"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_1"></div>
-		</div>
-
-		<div class="content_2 d-none" id="showinfo_2">
-			<center>
-				<div class="content_header_text" id="header_value_2"></div>
-			</center>
-			<div class="content_container_text" id="value_t_2"></div>
-		</div>
-		<div class="contentMoveAway_2 d-none" id="moveawwayinfo_2">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_2"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_2"></div>
-		</div>
-
-
-		<div class="content_3 d-none" id="showinfo_3">
-			<center>
-				<div class="content_header_text" id="header_value_3"></div>
-			</center>
-			<div class="content_container_text" id="value_t_3"></div>
-		</div>
-		<div class="contentMoveAway_3 d-none" id="moveawwayinfo_3">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_3"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_3"></div>
-		</div>
-
-
-		<div class="content_4 d-none" id="showinfo_4">
-			<center>
-				<div class="content_header_text" id="header_value_4"></div>
-			</center>
-			<div class="content_container_text" id="value_t_4"></div>
-		</div>
-		<div class="contentMoveAway_4 d-none" id="moveawwayinfo_4">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_4"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_4"></div>
-		</div>
-
-
-
-		<div class="content_5 d-none" id="showinfo_5">
-			<center>
-				<div class="content_header_text" id="header_value_5"></div>
-			</center>
-			<div class="content_container_text" id="value_t_5"></div>
-		</div>
-		<div class="contentMoveAway_5 d-none" id="moveawwayinfo_5">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_5"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_5"></div>
-		</div>
-
-
-		<div class="content_6 d-none" id="showinfo_6">
-			<center>
-				<div class="content_header_text" id="header_value_6"></div>
-			</center>
-			<div class="content_container_text" id="value_t_6"></div>
-		</div>
-		<div class="contentMoveAway_6 d-none" id="moveawwayinfo_6">
-			<center>
-				<div class="content_header_text_MoveAway" id="header_value_scnd_6"></div>
-			</center>
-			<div class="content_container_text_MoveAway" id="value_t_scnd_6"></div>
-		</div>
 		<audio id="audio_notify" src="./files/audio/notify.mp3" class="d-none" controls="controls"></audio>
 
 		<audio id="audio_legendary" src="http://www.venox-reallife.com/sounds/venoxv/case/legendary.mp3" class="d-none"
@@ -118,6 +22,10 @@
 
 		<audio id="audio_hitsound" src="./files/audio/hit.wav" class="d-none" controls="controls"></audio>
 	</div>
+
+
+	<div class="Notification_Container"></div>
+	<audio id="SideNotification_Sound" src="files/sounds/notify_1.mp3"></audio>
 
 	<script>
 		let bloodscreen = $("#blood_in_vnx");
@@ -144,40 +52,6 @@
 	</script>
 
 
-
-	<div class="SideNotification_Main">
-		<audio id="SideNotification_Sound" src="files/sounds/notify_1.mp3"></audio>
-		<div class="SideNotification_1 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_2 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_3 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_4 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_5 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_6 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_7 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_8 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_9 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-		<div class="SideNotification_10 d-none no-select">
-			<div class="SideNotification_Container no-select"></div>
-		</div>
-	</div>
 	<div id="quest_showed" class="d-none">
 		<div class="QuestMain no-select"></div>
 		<div class="QuestMain_header no-select">Venox Quest</div>
@@ -200,4 +74,5 @@
 		<img id="QuestMain_13" src="files/images/gta_iv_weapon.png" class="d-none QuestMain_Image"></img>
 		<img id="QuestMain_14" src="files/images/gta_v_ryder_cj.png" class="d-none QuestMain_Image"></img>
 	</div>
+	<script src="script.js"></script>
 </body>

@@ -23,7 +23,7 @@ using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Preload_;
 using VenoXV.Core;
 using VenoXV.Models;
-using Allround = VenoXV._Gamemodes_.Reallife.gangwar.Allround;
+using Allround = VenoXV.Reallife.gangwar.Allround;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 
 namespace VenoXV._Gamemodes_.Reallife.Globals
@@ -116,7 +116,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (Verleih.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (PaynSpray.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Tuning.OnPlayerEnterColShapeModel(shape, player)) return;
-                if (Vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player)) return;
+                if (VenoXV.Reallife.vehicles.Vehicles.OnPlayerEnterColShapeModel(shape, player)) return;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -367,7 +367,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 PaynSpray.OnResourceStart();
                 Tuning.OnResourceStart();
                 Verleih.OnResourceStart();
-                Vehicles.Vehicles.OnResourceStart();
+                VenoXV.Reallife.vehicles.Vehicles.OnResourceStart();
                 Allround.OnResourceStart();
                 RussianClub.OnResourceStart();
                 Bus.OnResourceStart();

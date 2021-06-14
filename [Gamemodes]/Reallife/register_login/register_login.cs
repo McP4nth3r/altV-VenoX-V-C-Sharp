@@ -18,7 +18,7 @@ using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.factions;
-using Allround = VenoXV._Gamemodes_.Reallife.gangwar.Allround;
+using Allround = VenoXV.Reallife.gangwar.Allround;
 using Main = VenoXV._Globals_.Main;
 using VnX = VenoXV.Settings.VnX;
 using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;

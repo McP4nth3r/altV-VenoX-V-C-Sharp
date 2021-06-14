@@ -20,6 +20,7 @@ using VenoXV._Preload_.Model;
 using VenoXV._Preload_.Register;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.gangwar.v2;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using Main = VenoXV._Preload_.Character_Creator.Main;
 using VehicleModel = VenoXV.Models.VehicleModel;
@@ -1218,55 +1219,85 @@ namespace VenoXV.Database
                 using MySqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    float posX = reader.GetFloat("posX");
-                    float posY = reader.GetFloat("posY");
-                    float posZ = reader.GetFloat("posZ");
-                    float rotX = reader.GetFloat("rotX");
-                    float rotY = reader.GetFloat("rotY");
-                    float rotZ = reader.GetFloat("rotZ");
-                    VehicleModel vehClass = (VehicleModel)Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
-                    vehClass.DatabaseId = reader.GetInt32("id");
-                    vehClass.Name = reader.GetString("model");
-                    vehClass.FirstColor = reader.GetString("firstColor");
-                    vehClass.SecondColor = reader.GetString("secondColor");
-                    vehClass.Owner = reader.GetString("owner");
-                    vehClass.Plate = reader.GetString("plate");
-                    vehClass.NumberplateText = reader.GetString("plate");
-                    vehClass.Faction = reader.GetInt32("faction");
-                    if (vehClass.Faction > 0)
+
+                    if (reader.GetInt32("faction") > 0)
                     {
-                        //vehClass.Dimension = reader.GetInt32("dimension");
-                        vehClass.Dimension = _Globals_.Main.ReallifeDimension;
+                        foreach (var reallifeLobby in Preload.ReallifeLobbys)
+                        {
+                            float posX = reader.GetFloat("posX");
+                            float posY = reader.GetFloat("posY");
+                            float posZ = reader.GetFloat("posZ");
+                            float rotX = reader.GetFloat("rotX");
+                            float rotY = reader.GetFloat("rotY");
+                            float rotZ = reader.GetFloat("rotZ");
+                            VehicleModel vehClass = (VehicleModel) Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
+                            vehClass.DatabaseId = reader.GetInt32("id");
+                            vehClass.Name = reader.GetString("model");
+                            vehClass.FirstColor = reader.GetString("firstColor");
+                            vehClass.SecondColor = reader.GetString("secondColor");
+                            vehClass.Owner = reader.GetString("owner");
+                            vehClass.Plate = reader.GetString("plate");
+                            vehClass.NumberplateText = reader.GetString("plate");
+                            vehClass.Faction = reader.GetInt32("faction");
+                            vehClass.Dimension = reallifeLobby.Value;
+                            vehClass.Price = reader.GetInt32("price");
+                            vehClass.Gas = reader.GetFloat("gas");
+                            vehClass.Kms = reader.GetFloat("kms");
+                            vehClass.Position = new Vector3(posX, posY, posZ);
+                            vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
+                            vehClass.SpawnCoord = vehClass.Position;
+                            vehClass.SpawnRot = vehClass.Rotation;
+                            string[] firstRgba = vehClass.FirstColor.Split(',');
+                            string[] secondRgba = vehClass.SecondColor.Split(',');
+                            vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                            vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
+                            vehClass.EngineOn = false;
+                            vehClass.Frozen = true;
+                            vehClass.Godmode = true;
+                            vehClass.Npc = false;
+                            vehClass.LockState = VehicleLockState.Unlocked;
+                            _Globals_.Main.AllVehicles.Add(vehClass);
+                            _Globals_.Main.ReallifeVehicles.Add(vehClass);
+                            Core.Debug.OutputDebugStringColored("Faction - Vehicle now created for [" + reallifeLobby.Key + "] reallife lobby.", ConsoleColor.Cyan);
+                        }
                     }
                     else
                     {
+                        float posX = reader.GetFloat("posX");
+                        float posY = reader.GetFloat("posY");
+                        float posZ = reader.GetFloat("posZ");
+                        float rotX = reader.GetFloat("rotX");
+                        float rotY = reader.GetFloat("rotY");
+                        float rotZ = reader.GetFloat("rotZ");
+                        VehicleModel vehClass = (VehicleModel) Alt.CreateVehicle(Alt.Hash(reader.GetString("model")), new Vector3(posX, posY, posZ), new Vector3(rotX, rotY, rotZ));
+                        vehClass.DatabaseId = reader.GetInt32("id");
+                        vehClass.Name = reader.GetString("model");
+                        vehClass.FirstColor = reader.GetString("firstColor");
+                        vehClass.SecondColor = reader.GetString("secondColor");
+                        vehClass.Owner = reader.GetString("owner");
+                        vehClass.Plate = reader.GetString("plate");
+                        vehClass.NumberplateText = reader.GetString("plate");
+                        vehClass.Faction = reader.GetInt32("faction");
                         vehClass.Dimension = Constants.VehicleOfflineDim;
-                    }
-                    vehClass.Price = reader.GetInt32("price");
-                    vehClass.Gas = reader.GetFloat("gas");
-                    vehClass.Kms = reader.GetFloat("kms");
-                    vehClass.Position = new Vector3(posX, posY, posZ);
-                    vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
-                    vehClass.SpawnCoord = vehClass.Position;
-                    vehClass.SpawnRot = vehClass.Rotation;
-                    string[] firstRgba = vehClass.FirstColor.Split(',');
-                    string[] secondRgba = vehClass.SecondColor.Split(',');
-                    vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
-                    vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
-                    vehClass.EngineOn = false;
-                    vehClass.Frozen = true;
-                    vehClass.Godmode = true;
-                    vehClass.Npc = false;
-                    if (vehClass.Faction > Constants.FactionNone)
-                    {
-                        vehClass.LockState = VehicleLockState.Unlocked;
-                    }
-                    else
-                    {
+                        vehClass.Price = reader.GetInt32("price");
+                        vehClass.Gas = reader.GetFloat("gas");
+                        vehClass.Kms = reader.GetFloat("kms");
+                        vehClass.Position = new Vector3(posX, posY, posZ);
+                        vehClass.Rotation = new Vector3(rotX, rotY, rotZ);
+                        vehClass.SpawnCoord = vehClass.Position;
+                        vehClass.SpawnRot = vehClass.Rotation;
+                        string[] firstRgba = vehClass.FirstColor.Split(',');
+                        string[] secondRgba = vehClass.SecondColor.Split(',');
+                        vehClass.PrimaryColorRgb = new Rgba(Convert.ToByte(int.Parse(firstRgba[0]).ToString()), Convert.ToByte(int.Parse(firstRgba[1])), Convert.ToByte(int.Parse(firstRgba[2])), 255);
+                        vehClass.SecondaryColorRgb = new Rgba(Convert.ToByte(int.Parse(secondRgba[0])), Convert.ToByte(int.Parse(secondRgba[1])), Convert.ToByte(int.Parse(secondRgba[2])), 255);
+                        vehClass.EngineOn = false;
+                        vehClass.Frozen = true;
+                        vehClass.Godmode = true;
+                        vehClass.Npc = false;
                         vehClass.LockState = VehicleLockState.Locked;
+                        _Globals_.Main.AllVehicles.Add(vehClass);
+                        _Globals_.Main.ReallifeVehicles.Add(vehClass);
                     }
-                    _Globals_.Main.AllVehicles.Add(vehClass);
-                    _Globals_.Main.ReallifeVehicles.Add(vehClass);
                 }
 
                 return vehicleList;

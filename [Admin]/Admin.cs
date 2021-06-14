@@ -22,6 +22,7 @@ using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.factions;
+using VenoXV.Reallife.vehicles;
 using Allround = VenoXV.Reallife.Fun.Aktionen.Allround;
 using EntityData = VenoXV._Globals_.EntityData;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
@@ -943,7 +944,7 @@ namespace VenoXV
         {
             if (player.AdminRank >= Constants.AdminlvlAdministrator)
             {
-                foreach (var area in _Gamemodes_.Reallife.gangwar.Allround.GangwarManager.GangwarAreas)
+                foreach (var area in Reallife.gangwar.Allround.GangwarManager.GangwarAreas)
                 {
                     if (area.Name == name)
                     {
@@ -962,7 +963,7 @@ namespace VenoXV
         {
             if (player.AdminRank >= Constants.AdminlvlAdministrator)
             {
-                _Gamemodes_.Reallife.gangwar.Allround.GangwarManager.StopCurrentGangwar();
+                Reallife.gangwar.Allround.GangwarManager.StopCurrentGangwar();
                 RageApi.SendTranslatedChatMessageToAll(RageApi.GetHexColorcode(200, 0, 0) + "Der laufende Gangwar wurde gestoppt!");
             }
         }
@@ -972,7 +973,7 @@ namespace VenoXV
         {
             if (player.AdminRank >= Constants.AdminlvlAdministrator)
             {
-                var area = _Gamemodes_.Reallife.gangwar.Allround.GangwarManager.GetAreaByName(name);
+                var area = Reallife.gangwar.Allround.GangwarManager.GetAreaByName(name);
                 if (area != null)
                 {
                     area.Inform(player);
@@ -985,7 +986,7 @@ namespace VenoXV
         {
             if (player.AdminRank >= Constants.AdminlvlAdministrator)
             {
-                var area = _Gamemodes_.Reallife.gangwar.Allround.GangwarManager.GetAreaByName(name);
+                var area = Reallife.gangwar.Allround.GangwarManager.GetAreaByName(name);
                 if (area != null)
                 {
                     area.SetOwner(factionId);
@@ -1246,8 +1247,8 @@ namespace VenoXV
                 vehClass.Name = model;
                 vehClass.FirstColor = r + "," + g + "," + b;
                 vehClass.SecondColor = r2 + "," + g2 + "," + b2;
-                vehClass.Owner = _Gamemodes_.Reallife.factions.Faction.GetFactionNameById(faction);
-                vehClass.Plate = _Gamemodes_.Reallife.factions.Faction.GetFactionNameById(faction);
+                vehClass.Owner = Faction.GetFactionNameById(faction);
+                vehClass.Plate = Faction.GetFactionNameById(faction);
                 vehClass.Gas = 100;
                 vehClass.Kms = 0;
                 vehClass.Faction = faction;

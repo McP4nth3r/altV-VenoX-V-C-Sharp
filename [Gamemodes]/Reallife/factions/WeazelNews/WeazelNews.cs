@@ -5,6 +5,7 @@ using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.factions;
 using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Factions.WeazelNews

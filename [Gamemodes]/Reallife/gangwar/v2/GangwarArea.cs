@@ -4,11 +4,12 @@ using AltV.Net;
 using AltV.Net.Data;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
+using VenoXV._Gamemodes_.Reallife.gangwar.v2;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.factions;
 
-namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
+namespace VenoXV.Reallife.gangwar.v2
 {
 
     public class GangwarArea
@@ -78,20 +79,15 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (!IsRunning)
-                {
-                    if (factionId > 0 && factionId <= 13)
-                    {
-                        // Change everything
-                        IdOwner = factionId;
-                        BlipRgba = Allround.GetFactionFactionBlipRgba(factionId);
-                        Database.Database.UpdateGw(this);
-                        Update();
+                if (IsRunning) return false;
+                if (factionId <= 0 || factionId > 13) return false;
+                // Change everything
+                IdOwner = factionId;
+                BlipRgba = Allround.GetFactionFactionBlipRgba(factionId);
+                Database.Database.UpdateGw(this);
+                Update();
 
-                        return true;
-                    }
-                }
-                return false;
+                return true;
             }
             catch { return false; }
         }
@@ -203,14 +199,12 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                if (!IsRunning)
-                {
-                    IsRunning = true;
-                    Rounds.Insert(0, new GangwarRound(this, IdOwner, player.Reallife.Faction));
+                if (IsRunning) return;
+                IsRunning = true;
+                Rounds.Insert(0, new GangwarRound(this, IdOwner, player.Reallife.Faction));
 
-                    CreateIVehicles();
-                    AddPlayer(player);
-                }
+                CreateIVehicles();
+                AddPlayer(player);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }

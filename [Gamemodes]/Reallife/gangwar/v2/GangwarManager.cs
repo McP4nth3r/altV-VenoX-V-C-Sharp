@@ -6,7 +6,7 @@ using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_;
 using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
+namespace VenoXV.Reallife.gangwar.v2
 {
     public class GangwarManager : IScript
     {
@@ -53,11 +53,9 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
             {
                 //ToDo: Add function to remove any gangwar area
                 List<GangwarModel> areas = Database.Database.LoadAllGwAreas();
-
-                foreach (var aModel in areas)
+                foreach (var area in areas.Select(aModel => new GangwarArea(aModel.GangAreaName, aModel.GangAreaPosition, (int)aModel.GangAreaRadius, aModel.GangAreaTkPosition,
+                    aModel.GangAreaOwner, aModel.GangAreaRotation, aModel.GangAreaCooldown)))
                 {
-                    var area = new GangwarArea(aModel.GangAreaName, aModel.GangAreaPosition, (int)aModel.GangAreaRadius, aModel.GangAreaTkPosition,
-                        aModel.GangAreaOwner, aModel.GangAreaRotation, aModel.GangAreaCooldown);
                     CreateGangwarArea(area);
                 }
             }
@@ -134,23 +132,16 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
 
         public void StopCurrentGangwar()
         {
-            if (CurrentArea != null)
-            {
-                CurrentArea.Stop();
-                CurrentArea = null;
-            }
+            if (CurrentArea == null) return;
+            CurrentArea.Stop();
+            CurrentArea = null;
         }
 
         public GangwarArea GetAreaByName(string name)
         {
             try
             {
-                foreach (var area in GangwarAreas)
-                {
-                    if (area.Name == name)
-                        return area;
-                }
-                return null;
+                return GangwarAreas.FirstOrDefault(area => area.Name == name);
             }
             catch { return null; }
 
@@ -160,13 +151,7 @@ namespace VenoXV._Gamemodes_.Reallife.gangwar.v2
         {
             try
             {
-                int result = 0;
-                foreach (var player in Main.ReallifePlayers.ToList())
-                {
-                    if (player.Reallife.Faction == facId)
-                        ++result;
-                }
-                return result;
+                return Main.ReallifePlayers.ToList().Count(player => player.Reallife.Faction == facId);
             }
             catch { return 0; }
         }

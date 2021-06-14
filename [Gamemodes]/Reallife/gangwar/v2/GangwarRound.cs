@@ -8,6 +8,8 @@ using VenoXV._Globals_;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.factions;
+using VenoXV.Reallife.gangwar.v2;
+using Allround = VenoXV.Reallife.gangwar.Allround;
 using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
 
 namespace VenoXV._Gamemodes_.Reallife.gangwar.v2

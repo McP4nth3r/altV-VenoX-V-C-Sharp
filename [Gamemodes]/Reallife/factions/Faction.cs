@@ -5,11 +5,10 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
-using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Language_.Main;
 
-namespace VenoXV._Gamemodes_.Reallife.factions
+namespace VenoXV.Reallife.factions
 {
     public class Faction : IScript
     {
@@ -18,12 +17,8 @@ namespace VenoXV._Gamemodes_.Reallife.factions
             try
             {
                 if (fid == Constants.FactionNone) return;
-
-                foreach (VnXPlayer target in _Globals_.Main.ReallifePlayers.ToList())
-                {
-                    if (target.Reallife.Faction == fid && target.Language == (int)language)
-                        target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageApi.GetHexColorcode(255, 255, 255) + text);
-                }
+                foreach (var target in _Globals_.Main.ReallifePlayers.ToList().Where(target => target.Reallife.Faction == fid && target.Language == (int)language))
+                    target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [INFO] : " + RageApi.GetHexColorcode(255, 255, 255) + text);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }

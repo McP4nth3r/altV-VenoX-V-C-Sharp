@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AltV.Net;
 using AltV.Net.Async;
@@ -53,6 +54,15 @@ namespace VenoXV._Preload_
             Shooter = 7
         }
 
+        // Reallife Lobby Dict.
+        public static readonly Dictionary<_Language_.Main.Languages, int> ReallifeLobbys = new Dictionary<_Language_.Main.Languages, int>()
+        {
+            { _Language_.Main.Languages.Russian, Main.ReallifeDimension + (int)_Language_.Main.Languages.Russian },
+            { _Language_.Main.Languages.German, Main.ReallifeDimension + (int)_Language_.Main.Languages.German },
+            { _Language_.Main.Languages.English, Main.ReallifeDimension + (int)_Language_.Main.Languages.English },
+            { _Language_.Main.Languages.Spanish, Main.ReallifeDimension + (int)_Language_.Main.Languages.Spanish },
+        };
+
         public static void ShowPreloadList(VnXPlayer player)
         {
             try { VenoX.TriggerClientEvent(player, "preload_gm_list"); }
@@ -94,7 +104,7 @@ namespace VenoXV._Preload_
             {
                 if (player == null) return;
                 player.Dimension = player.Id;
-                _Language_.Main.Languages language = (_Language_.Main.Languages)player.Language;
+                _Language_.Main.Languages language;
                 if (countrycode != "" && value == (int)Gamemodes.Reallife)
                 {
                     language = _Language_.Main.GetLanguageByPair(countrycode);
