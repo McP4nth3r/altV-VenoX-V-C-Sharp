@@ -276,11 +276,11 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 int playerId = player.UID;
                 int sex = player.Sex;
 
-                List<ClothesModel> clothesList = Globals.Main.GetPlayerClothes(playerId).Where(c => c.Type == type && c.Slot == slot).ToList();
+                List<ClothesModel> clothesList = VenoXV.Reallife.globals.Main.GetPlayerClothes(playerId).Where(c => c.Type == type && c.Slot == slot).ToList();
 
                 if (clothesList.Count > 0)
                 {
-                    List<string> clothesNames = Globals.Main.GetClothesNames(clothesList);
+                    List<string> clothesNames = VenoXV.Reallife.globals.Main.GetClothesNames(clothesList);
 
                     // Show player's clothes
                     VenoX.TriggerClientEvent(player, "showPlayerClothes", JsonConvert.SerializeObject(clothesList), JsonConvert.SerializeObject(clothesNames));
@@ -301,7 +301,7 @@ namespace VenoXV._Gamemodes_.Reallife.house
                 int playerId = player.UID;
 
                 // Replace player clothes for the new ones
-                foreach (ClothesModel clothes in Globals.Main.ClothesList)
+                foreach (ClothesModel clothes in VenoXV.Reallife.globals.Main.ClothesList)
                 {
                     if (clothes.Id == clothesId)
                     {

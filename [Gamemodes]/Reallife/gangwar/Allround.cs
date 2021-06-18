@@ -54,7 +54,7 @@ namespace VenoXV.Reallife.gangwar
                 // Is a current gangwar assigned?
                 if (GangwarManager.CurrentArea == null)
                 {
-                    if (!_Gamemodes_.Reallife.Factions.Allround.IsBadFaction(player)) return;
+                    if (!factions.Allround.IsBadFaction(player)) return;
 
                     if (GangwarManager.AttacksCount >= GangwarManager.MaxAttacksDay) return;
                     foreach (var area in GangwarManager.GangwarAreas.Where(area => area.Tk.Distance(player.Position) < GangwarManager.TkRange))
@@ -95,7 +95,7 @@ namespace VenoXV.Reallife.gangwar
                 else
                 {
                     // Add player to the running Gangwar Round 
-                    if (_Gamemodes_.Reallife.Factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().AttackerId)
+                    if (factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().AttackerId)
                     {
                         if (GangwarManager.CurrentArea.GetCurrentRound().CurrentState != GangwarRound.RoundStates.Preparing) return;
                         var attCount = GangwarManager.CurrentArea.GetCurrentRound().AliveFactionCount(player.Reallife.Faction);
@@ -119,7 +119,7 @@ namespace VenoXV.Reallife.gangwar
             {
                 // Ist ein Gangwar schon am laufen?
                 if (GangwarManager.CurrentArea == null) return;
-                if (_Gamemodes_.Reallife.Factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().DefenderId)
+                if (factions.Allround.IsBadFaction(player) && player.Reallife.Faction == GangwarManager.CurrentArea.GetCurrentRound().DefenderId)
                 {
                     if (GangwarManager.CurrentArea.GetCurrentRound().CurrentState != GangwarRound.RoundStates.Running) return;
                     if (GangwarManager.CurrentArea.Position.Distance(player.Position) > GangwarManager.MinDist)

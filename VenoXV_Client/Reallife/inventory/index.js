@@ -100,7 +100,7 @@ alt.everyTick(() => {
 
 alt.onServer('Inventory:DropObj', (Id, Hash, Text) => {
     if (DroppedObjList[Id]) return;
-    Hash = game.getHashKey(Hash);
+    Hash = parseInt(game.getHashKey(Hash));
     let Position = frontOfPlayer(0.5);
     if (!game.hasModelLoaded(Hash)) game.requestModel(Hash);
     let Obj = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, true);

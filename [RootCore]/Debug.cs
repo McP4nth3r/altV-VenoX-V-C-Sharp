@@ -19,13 +19,10 @@ namespace VenoXV.Core
                 if (!DebugModeEnabled) return;
                 Console.WriteLine("[" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "] " + textt);
                 string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", textt };
-                if (DebugModeLog)
-                {
-
-                    Logfile.WriteLogs("DebugStrings", text[0]);
-                    Logfile.WriteLogs("DebugStrings", text[1]);
-                    Logfile.WriteLogs("DebugStrings", text[0]);
-                }
+                if (!DebugModeLog) return;
+                Logfile.WriteLogs("DebugStrings", text[0]);
+                Logfile.WriteLogs("DebugStrings", text[1]);
+                Logfile.WriteLogs("DebugStrings", text[0]);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
@@ -36,9 +33,9 @@ namespace VenoXV.Core
                 if (!DebugModeEnabled) return;
                 string[] text = { "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", "|" + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "| " + message };
                 var pieces = Regex.Split(text[1], @"(\[[^\]]*\])");
-                for (int i = 0; i < pieces.Length; i++)
+                foreach (var t in pieces)
                 {
-                    string piece = pieces[i];
+                    string piece = t;
                     if (piece.StartsWith("[") && piece.EndsWith("]"))
                     {
                         Console.ForegroundColor = color;
@@ -48,12 +45,10 @@ namespace VenoXV.Core
                     Console.ResetColor();
                 }
                 Console.WriteLine();
-                if (DebugModeLog)
-                {
-                    Logfile.WriteLogs("DebugStrings", text[0]);
-                    Logfile.WriteLogs("DebugStrings", text[1]);
-                    Logfile.WriteLogs("DebugStrings", text[0]);
-                }
+                if (!DebugModeLog) return;
+                Logfile.WriteLogs("DebugStrings", text[0]);
+                Logfile.WriteLogs("DebugStrings", text[1]);
+                Logfile.WriteLogs("DebugStrings", text[0]);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }

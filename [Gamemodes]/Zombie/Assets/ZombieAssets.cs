@@ -4,7 +4,7 @@ using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Preload_.Character_Creator;
 using VenoXV.Core;
 using VenoXV.Models;
-using Main = VenoXV._Gamemodes_.Reallife.Globals.Main;
+using Main = VenoXV.Reallife.globals.Main;
 
 namespace VenoXV._Gamemodes_.Zombie.Assets
 {

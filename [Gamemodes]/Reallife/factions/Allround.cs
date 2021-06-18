@@ -5,18 +5,17 @@ using AltV.Net.Data;
 using AltV.Net.Enums;
 using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.character;
-using VenoXV._Gamemodes_.Reallife.factions;
+using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
-using VenoXV.Reallife.factions;
 using Main = VenoXV._Notifications_.Main;
 using VehicleModel = VenoXV.Models.VehicleModel;
 using VnX = VenoXV._Gamemodes_.Reallife.anzeigen.Usefull.VnX;
 using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;
 
-namespace VenoXV._Gamemodes_.Reallife.Factions
+namespace VenoXV.Reallife.factions
 {
     public class Allround : IScript
     {
@@ -187,7 +186,10 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 WaffenlagerModel fweapon = Fraktionswaffenlager.GetWaffenlagerById(player.Reallife.Faction);
 
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Debug.CatchExceptions(ex);
+            }        
         }
 
         public static bool OnPlayerEnterColShapeModel(ColShapeModel shape, VnXPlayer player)
@@ -234,11 +236,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int playerFraktion = player.Reallife.Faction;
-                if (playerFraktion == Constants.FactionLspd || playerFraktion == Constants.FactionFbi || playerFraktion == Constants.FactionUsarmy)
-                {
-                    return true;
-                }
-                return false;
+                return playerFraktion == Constants.FactionLspd || playerFraktion == Constants.FactionFbi || playerFraktion == Constants.FactionUsarmy;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
@@ -247,11 +245,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int vehicleFraktion = vehicle.Faction;
-                if (vehicleFraktion == Constants.FactionLspd || vehicleFraktion == Constants.FactionFbi || vehicleFraktion == Constants.FactionUsarmy)
-                {
-                    return true;
-                }
-                return false;
+                return vehicleFraktion == Constants.FactionLspd || vehicleFraktion == Constants.FactionFbi || vehicleFraktion == Constants.FactionUsarmy;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
@@ -261,11 +255,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int vehicleFraktion = vehicle.Faction;
-                if (vehicleFraktion == Constants.FactionLcn || vehicleFraktion == Constants.FactionYakuza || vehicleFraktion == Constants.FactionNarcos || vehicleFraktion == Constants.FactionSamcro || vehicleFraktion == Constants.FactionBallas || vehicleFraktion == Constants.FactionCompton)
-                {
-                    return true;
-                }
-                return false;
+                return vehicleFraktion == Constants.FactionLcn || vehicleFraktion == Constants.FactionYakuza || vehicleFraktion == Constants.FactionNarcos || vehicleFraktion == Constants.FactionSamcro || vehicleFraktion == Constants.FactionBallas || vehicleFraktion == Constants.FactionCompton;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
@@ -274,11 +264,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int vehicleFraktion = vehicle.Faction;
-                if (vehicleFraktion == Constants.FactionNews || vehicleFraktion == Constants.FactionEmergency || vehicleFraktion == Constants.FactionMechanik)
-                {
-                    return true;
-                }
-                return false;
+                return vehicleFraktion == Constants.FactionNews || vehicleFraktion == Constants.FactionEmergency || vehicleFraktion == Constants.FactionMechanik;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }
@@ -289,11 +275,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             try
             {
                 int playerFraktion = player.Reallife.Faction;
-                if (playerFraktion == Constants.FactionEmergency || playerFraktion == Constants.FactionNews || playerFraktion == Constants.FactionMechanik)
-                {
-                    return true;
-                }
-                return false;
+                return playerFraktion == Constants.FactionEmergency || playerFraktion == Constants.FactionNews || playerFraktion == Constants.FactionMechanik;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return false; }
         }

@@ -94,7 +94,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
         {
             try
             {
-                foreach (TunningModel tunning in Globals.Main.TunningList)
+                foreach (TunningModel tunning in VenoXV.Reallife.globals.Main.TunningList)
                 {
                     if (vehClass.DatabaseId == tunning.Vehicle)
                         vehClass.SetMod((byte)tunning.Slot, (byte)tunning.Component);
@@ -107,7 +107,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
             try
             {
                 // Get the component on the specified slot
-                TunningModel tunning = Globals.Main.TunningList.Where(tunningModel => tunningModel.Vehicle == vehicleId && tunningModel.Slot == slot).FirstOrDefault();
+                TunningModel tunning = VenoXV.Reallife.globals.Main.TunningList.Where(tunningModel => tunningModel.Vehicle == vehicleId && tunningModel.Slot == slot).FirstOrDefault();
 
                 return tunning == null ? 255 : (int)tunning.Component;
             }
@@ -223,11 +223,11 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                 VehicleModel vehClass = (VehicleModel)player.Vehicle;
                 int vehicleId = vehClass.DatabaseId;
                 int playerId = player.UID;
-                TunningModel tunning = Globals.Main.GetIVehicleTuningBySlot();
+                TunningModel tunning = VenoXV.Reallife.globals.Main.GetIVehicleTuningBySlot();
                 if (tunning != null && tunning.Slot == slot)
                 {
                     Database.Database.RemoveTunning(vehicleId, slot);
-                    Globals.Main.TunningList.Remove(tunning);
+                    VenoXV.Reallife.globals.Main.TunningList.Remove(tunning);
                     player.SendTranslatedChatMessage("Dein Altes Tuning wurde gelöscht!.");
                     TunningModel tunningModel = new TunningModel();
                     {
@@ -236,7 +236,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         tunningModel.Vehicle = vehicleId;
                     }
                     tunningModel.Id = Database.Database.AddTunning(tunningModel);
-                    Globals.Main.TunningList.Add(tunningModel);
+                    VenoXV.Reallife.globals.Main.TunningList.Add(tunningModel);
                     Main.DrawNotification(player, Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
                 else
@@ -248,7 +248,7 @@ namespace VenoXV._Gamemodes_.Reallife.Vehicles
                         tunningModel.Vehicle = vehicleId;
                     }
                     tunningModel.Id = Database.Database.AddTunning(tunningModel);
-                    Globals.Main.TunningList.Add(tunningModel);
+                    VenoXV.Reallife.globals.Main.TunningList.Add(tunningModel);
                     Main.DrawNotification(player, Main.Types.Info, "Tunning Erfolgreich gekauft!");
                 }
             }

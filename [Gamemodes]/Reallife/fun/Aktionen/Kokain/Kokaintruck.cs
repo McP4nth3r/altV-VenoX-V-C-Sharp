@@ -31,7 +31,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
             {
                 if (shape == KokaintruckCol)
                 {
-                    if (Factions.Allround.IsBadFaction(player))
+                    if (VenoXV.Reallife.factions.Allround.IsBadFaction(player))
                     {
                         player.SendTranslatedChatMessage(RageApi.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageApi.GetHexColorcode(255, 255, 255) + "Jo... Willst du dir paar gramm Kokain dazu verdienen?");
                         player.SendTranslatedChatMessage(RageApi.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageApi.GetHexColorcode(255, 255, 255) + "nutze /kokaintruck [Zahl] um einen Kokaintruck zu starten! Maximal 1000 G");
@@ -43,7 +43,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                 }
                 else if (shape.AktionCol == Allround.ActionKokaintruck)
                 {
-                    if (Factions.Allround.IsBadFaction(player))
+                    if (VenoXV.Reallife.factions.Allround.IsBadFaction(player))
                     {
                         if (player.IsInVehicle)
                         {
@@ -81,7 +81,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
         {
             try
             {
-                if (Factions.Allround.IsBadFaction(player))
+                if (VenoXV.Reallife.factions.Allround.IsBadFaction(player))
                 {
                     if (player.Position.Distance(new Position(-1265.874f, -3432.416f, 14)) > 2.5f) { player.SendTranslatedChatMessage("[Kokaintruck] : Du bist hier Falsch..."); return; }
                     if (koks > 1000) { player.SendTranslatedChatMessage(RageApi.GetHexColorcode(125, 0, 0) + "Maximal nur 1000 G möglich!"); return; }

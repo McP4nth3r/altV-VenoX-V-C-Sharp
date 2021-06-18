@@ -94,15 +94,14 @@ alt.onServer('Sync:LoadObjs', (ID, Parent, Hash, Position, Rotation, HashNeeded)
         if (CurrentObjects[ID] != null) return;
         let Entity;
         if (HashNeeded) {
-            let newHash = game.getHashKey(Hash);
+            let newHash = parseInt(game.getHashKey(Hash));
             if (!game.hasModelLoaded(newHash)) {
-                alt.loadModel(newHash);
                 game.requestModel(newHash);
             }
             Entity = game.createObjectNoOffset(newHash, Position.x, Position.y, Position.z, false, false, false);
         } else {
+			Hash = parseInt(Hash);
             if (!game.hasModelLoaded(Hash)) {
-                alt.loadModel(Hash);
                 game.requestModel(Hash);
             }
             Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
@@ -169,12 +168,13 @@ alt.onServer('Sync:LoadMap', (MapName, Hash, Position, RotOrder, Rotation, freez
     let Entity;
     if (Hash == 665940918 || Hash == "v_corp_postbox") alt.log('Hash : ' + Hash);
     if (HashNeeded) {
-        if (!game.hasModelLoaded(game.getHashKey(Hash))) {
+        if (!game.hasModelLoaded(parseInt(game.getHashKey(Hash)))) {
             if (Hash == 665940918 || Hash == "v_corp_postbox") alt.log('Hash neeed for : ' + Hash);
-            game.requestModel(game.getHashKey(Hash))
+            game.requestModel(parseInt(game.getHashKey(Hash)))
         }
-        Entity = game.createObjectNoOffset(game.getHashKey(Hash), Position.x, Position.y, Position.z, false, false, false);
+        Entity = game.createObjectNoOffset(parseInt(game.getHashKey(Hash)), Position.x, Position.y, Position.z, false, false, false);
     } else {
+		Hash = parseInt(Hash);
         if (!game.hasModelLoaded(Hash)) game.requestModel(Hash);
         Entity = game.createObjectNoOffset(Hash, Position.x, Position.y, Position.z, false, false, false);
     }

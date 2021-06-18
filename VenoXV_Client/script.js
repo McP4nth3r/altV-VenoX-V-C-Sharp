@@ -68,8 +68,8 @@ game.pauseClock(true); //Freezes the Current-Ingame Time!
 
 
 
-let Freemode01Skin = game.getHashKey('mp_m_freemode_01');
-let Freemode02Skin = game.getHashKey('mp_f_freemode_01');
+let Freemode01Skin = parseInt(game.getHashKey('mp_m_freemode_01'));
+let Freemode02Skin = parseInt(game.getHashKey('mp_f_freemode_01'));
 if (!game.hasModelLoaded(Freemode01Skin)) game.requestModel(Freemode01Skin);
 if (!game.hasModelLoaded(Freemode02Skin)) game.requestModel(Freemode02Skin);
 

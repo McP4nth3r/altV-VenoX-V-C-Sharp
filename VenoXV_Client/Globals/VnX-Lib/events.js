@@ -181,7 +181,7 @@ alt.onServer("Clothes:Reset", () => {
 
 const torsoDataMale = GetMaleTorsoLists();
 const torsoDataFemale = GetFemaleTorsoLists();
-const freemodeModels = [game.getHashKey("mp_m_freemode_01"), game.getHashKey("mp_f_freemode_01")];
+const freemodeModels = [parseInt(game.getHashKey("mp_m_freemode_01")), parseInt(game.getHashKey("mp_f_freemode_01"))];
 alt.onServer("Clothes:Load", (slot, drawable, texture) => {
     if (slot == 11) {
         drawable = Number(drawable);
@@ -449,7 +449,7 @@ alt.on("disconnect", () => {
 });
 
 alt.onServer('Admin:ShootTest', (Position1, Position2, damage, WeaponHash, Owner, audible, invisible, speed) => {
-    let hash = game.getHashKey(WeaponHash);
+    let hash = parseInt(game.getHashKey(WeaponHash));
     game.shootSingleBulletBetweenCoords(Position1.x, Position1.y, Position1.z, Position2.x, Position2.y, Position2.z, damage, true, hash, Owner.scriptID, audible, invisible, speed);
     alt.log("Called SingleBullet");
 });

@@ -9,12 +9,12 @@ using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.Club;
 using VenoXV._Gamemodes_.Reallife.Environment.ammunation;
-using VenoXV._Gamemodes_.Reallife.Environment.Gzone;
 using VenoXV._Gamemodes_.Reallife.Environment.Rathaus;
 using VenoXV._Gamemodes_.Reallife.events.Christmas.Weihnachtsmarkt;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Factions.LSPD;
 using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob;
+using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.house;
 using VenoXV._Gamemodes_.Reallife.jobs.Bus;
 using VenoXV._Gamemodes_.Reallife.model;
@@ -23,10 +23,11 @@ using VenoXV._Gamemodes_.Reallife.Vehicles;
 using VenoXV._Preload_;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.environment.Greenzone;
 using Allround = VenoXV.Reallife.gangwar.Allround;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 
-namespace VenoXV._Gamemodes_.Reallife.Globals
+namespace VenoXV.Reallife.globals
 {
     public class Main : IScript
     {
@@ -98,10 +99,10 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
         {
             try
             {
-                if (Factions.Allround.OnPlayerEnterColShapeModel(shape, player)) return;
+                if (factions.Allround.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (await VenoXV.Reallife.factions.State.Allround.OnStateColShapeHit(shape, player)) return;
                 if (CarShop.OnPlayerEnterColShapeModel(shape, player)) return;
-                if (Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player)) return;
+                if (_Gamemodes_.Reallife.Clothes.Clothes.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Ammunation.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Rathaus.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Zone.OnPlayerEnterColShapeModel(shape, player)) return;
@@ -112,7 +113,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 if (Fraktionskassen.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (VenoXV.Reallife.Fun.Aktionen.Allround.OnClientEnterColShape(shape, player)) return;
                 if (Allround.OnPlayerEnterColShapeModel(shape, player)) return;
-                if (jobs.Allround.OnColShapeHit(shape, player)) return;
+                if (_Gamemodes_.Reallife.jobs.Allround.OnColShapeHit(shape, player)) return;
                 if (Verleih.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (PaynSpray.OnPlayerEnterColShapeModel(shape, player)) return;
                 if (Tuning.OnPlayerEnterColShapeModel(shape, player)) return;
@@ -142,18 +143,14 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                     if (player.Reallife.Hunger <= 20) player.Health -= 5;
 
                     if (player.Reallife.JailTime == 5) player.SendTranslatedChatMessage("Du bist noch 5 Minuten im Knast");
-                    if (player.Reallife.JailTime > 0)
-                    {
-                        player.Reallife.JailTime -= 1;
-                        if (player.Reallife.JailTime == 0)
-                        {
-                            player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
-                            player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
-                            player.Reallife.Bail = 0;
-                            player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
-                            player.Freeze = false;
-                        }
-                    }
+                    if (player.Reallife.JailTime <= 0) return;
+                    player.Reallife.JailTime -= 1;
+                    if (player.Reallife.JailTime != 0) return;
+                    player.SetPosition = new Position(427.5651f, -981.0995f, 30.71008f);
+                    player.Dimension = _Globals_.Main.ReallifeDimension + player.Language;
+                    player.Reallife.Bail = 0;
+                    player.SendTranslatedChatMessage("{007d00}Du bist nun Frei! Verhalte dich in Zukunft besser!");
+                    player.Freeze = false;
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
@@ -358,9 +355,9 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
                 //*///////////////////////////////////// OTHER STUFF LOADING ///////////////////////////////////////////////////*//
 
                 CarShop.OnResourceStart();
-                Clothes.Clothes.OnResourceStart();
+                _Gamemodes_.Reallife.Clothes.Clothes.OnResourceStart();
                 Ammunation.OnResourceStart();
-                Factions.Allround.OnResourceStart(); // Label - Faction Loading !
+                factions.Allround.OnResourceStart(); // Label - Faction Loading !
                 Fraktionskassen.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 VenoXV.Reallife.Fun.Aktionen.Allround.OnResourceStart(); // GangKassen & ColShapeModels Loading !
                 VenoXCases.OnResourceStart();
@@ -387,8 +384,8 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 Allround.OnPlayerDisconnected(player, type, reason);
                 Shoprob.OnPlayerDisconnected(player, type, reason);
-                anzeigen.Inventar.Main.OnPlayerDisconnect(player, type, reason);
-                jobs.Allround.OnPlayerDisconnect(player);
+                _Gamemodes_.Reallife.anzeigen.Inventar.Main.OnPlayerDisconnect(player, type, reason);
+                _Gamemodes_.Reallife.jobs.Allround.OnPlayerDisconnect(player);
                 if (player.Playing)
                 {
                     foreach (VehicleModel vehicle in _Globals_.Main.ReallifeVehicles.ToList())
@@ -426,7 +423,7 @@ namespace VenoXV._Gamemodes_.Reallife.Globals
             {
                 if (player.Playing && player.Gamemode == (int)Preload.Gamemodes.Reallife)
                 {
-                    if (Factions.Allround.IsNearFactionTeleporter(player)) return;
+                    if (factions.Allround.IsNearFactionTeleporter(player)) return;
                     // Check if the player's in any interior
                     foreach (InteriorModel interior in Constants.InteriorList)
                     {

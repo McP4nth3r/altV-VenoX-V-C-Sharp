@@ -8,6 +8,8 @@ using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.factions;
+using VenoXV.Reallife.globals;
 using EntityData = VenoXV._Globals_.EntityData;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using Weapons = VenoXV._Gamemodes_.Reallife.weapons.Weapons;

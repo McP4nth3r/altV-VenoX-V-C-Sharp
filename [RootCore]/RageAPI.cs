@@ -27,6 +27,7 @@ namespace VenoXV
                 ColShapeModel entity = (ColShapeModel)Alt.CreateColShapeSphere(position, radius);
                 entity.Dimension = dimension;
                 Sync.ColShapeList.Add(entity);
+                if (dimension == Dimension.GlobalDimension) Core.Debug.OutputDebugString("Called Shape with Global Dimension");
                 return entity;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return null; }

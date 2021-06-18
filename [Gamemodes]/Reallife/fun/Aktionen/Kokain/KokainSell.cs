@@ -7,6 +7,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.globals;
 using EntityData = VenoXV._Globals_.EntityData;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;

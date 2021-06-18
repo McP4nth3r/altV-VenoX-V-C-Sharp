@@ -137,7 +137,7 @@ namespace VenoXV._Globals_
                 //*///////////////////////////////////// SQL LOADING ///////////////////////////////////////////////////*//
                 Database.Database.OnResourceStart();
                 //*///////////////////////////////////// SQL LOADING ///////////////////////////////////////////////////*//
-                _Gamemodes_.Reallife.Globals.Main.OnResourceStart();
+                Reallife.globals.Main.OnResourceStart();
                 _Gamemodes_.Tactics.Globals.Main.OnResourceStart();
                 _Gamemodes_.SevenTowers.Main.OnResourceStart();
                 _Language_.Main.OnResourceStart();
@@ -194,7 +194,7 @@ namespace VenoXV._Globals_
                         switch (player.Gamemode)
                         {
                             case (int)Preload.Gamemodes.Reallife:
-                                _Gamemodes_.Reallife.Globals.Main.OnPlayerEnterColShapeModel(shape, player);
+                                Reallife.globals.Main.OnPlayerEnterColShapeModel(shape, player);
                                 return;
                             case (int)Preload.Gamemodes.SevenTowers:
                                 SevenTowers.globals.Main.OnColShapeHit(shape, player);
@@ -204,7 +204,7 @@ namespace VenoXV._Globals_
                                 return;
                         }
                     }
-                    else _Gamemodes_.Reallife.Globals.Main.OnPlayerExitColShapeModel(shape, player);
+                    else Reallife.globals.Main.OnPlayerExitColShapeModel(shape, player);
                     //});
                 });
             }
@@ -297,7 +297,7 @@ namespace VenoXV._Globals_
             try
             {
                 Preload.OnUpdate();
-                _Gamemodes_.Reallife.Globals.Main.OnUpdate();
+                Reallife.globals.Main.OnUpdate();
                 _Gamemodes_.Tactics.Globals.Main.OnUpdate();
                 _Gamemodes_.Race.Globals.Main.OnUpdate();
                 _Gamemodes_.SevenTowers.Main.OnUpdate();
@@ -314,7 +314,7 @@ namespace VenoXV._Globals_
             {
                 RemovePlayerFromGamemodeList(player);
                 string type = string.Empty;
-                _Gamemodes_.Reallife.Globals.Main.OnPlayerDisconnected(player, type, reason);
+                Reallife.globals.Main.OnPlayerDisconnected(player, type, reason);
                 _Gamemodes_.Tactics.Globals.Main.OnPlayerDisconnect(player, type, reason);
                 Events.OnPlayerDisconnect(player);
                 SevenTowers.globals.Main.OnPlayerDisconnect(player);
@@ -530,7 +530,7 @@ namespace VenoXV._Globals_
                     switch (player.Gamemode)
                     {
                         case (int)Preload.Gamemodes.Reallife:
-                            _Gamemodes_.Reallife.Globals.Main.OnMinuteSpentReallifeGM(player);
+                            Reallife.globals.Main.OnMinuteSpentReallifeGM(player);
                             break;
                     }
 
@@ -543,7 +543,7 @@ namespace VenoXV._Globals_
                     Sync.SyncWeather(player);
                     Sync.SyncDateTime(player);
                 }
-                _Gamemodes_.Reallife.Globals.Main.OnMinuteSpend();
+                Reallife.globals.Main.OnMinuteSpend();
                 SaveVehicleDatas();
                 Sync.DeleteVehicleThreadSafe();
                 Sync.DeleteColShapesThreadSafe();

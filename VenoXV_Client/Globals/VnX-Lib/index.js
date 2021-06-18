@@ -59,7 +59,7 @@ export function DrawText(msg, screenPos, scale, fontType, ColorRGB, useOutline =
 
         if (useDropShadow) game.setTextDropShadow();
 
-        game.endTextCommandDisplayText(screenPos[0], screenPos[1]);
+        game.endTextCommandDisplayText(screenPos[0], screenPos[1], 0);
     } catch {}
 }
 export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline = true, useDropShadow = true, CustomScale = 0.4) {
@@ -93,7 +93,7 @@ export function Draw3DText(msg, x, y, z, fontType, color, range = 20, useOutline
             game.addTextComponentSubstringPlayerName(msg);
             if (useOutline) game.setTextOutline();
             if (useDropShadow) game.setTextDropShadow();
-            game.endTextCommandDisplayText(_x, _y);
+            game.endTextCommandDisplayText(_x, _y, 0);
         }
     } catch {}
 }
@@ -115,11 +115,9 @@ export function CreateBlip(name, pos, sprite, color, shortrange) {
 
 export function CreatePed(PedName, Vector3Pos, rot = 0) {
     try {
-        let PedHash = game.getHashKey(PedName);
-        if (!game.hasModelLoaded(PedHash)) {
-            alt.loadModel(PedHash);
+        let PedHash = parseInt(game.getHashKey(PedName));
+        if (!game.hasModelLoaded(PedHash))
             game.requestModel(PedHash);
-        }
         if (game.hasModelLoaded(PedHash)) {
             let Entity = game.createPed(2, PedHash, Vector3Pos.x, Vector3Pos.y, Vector3Pos.z - 1, rot, false, false);
             alt.setTimeout(() => {

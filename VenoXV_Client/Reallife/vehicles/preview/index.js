@@ -7,13 +7,18 @@
 
 import * as alt from 'alt-client';
 import * as game from 'natives';
-import { ShowCursor, vnxCreateCEF, vnxDestroyCEF } from '../../../Globals/VnX-Lib';
+import {
+    ShowCursor,
+    vnxCreateCEF,
+    vnxDestroyCEF
+} from '../../../Globals/VnX-Lib';
 
 let previewVehicle;
 let previewCamera;
 let previewBrowser;
 
 async function loadModel(dict) {
+	dict = parseInt(dict);
     return new Promise(resolve => {
         if (game.hasModelLoaded(dict)) return resolve(true);
         game.requestModel(dict);
@@ -28,7 +33,7 @@ async function loadModel(dict) {
 
 alt.on('VehicleCatalog:PreviewVehicle', async (Model) => {
     if (previewVehicle) previewVehicle.destroy();
-    let vehicleHash = game.getHashKey(Model);
+    let vehicleHash = parseInt(game.getHashKey(Model));
     let res = loadModel(vehicleHash);
     res.then(() => {
         if (!game.hasModelLoaded(vehicleHash)) game.Lo

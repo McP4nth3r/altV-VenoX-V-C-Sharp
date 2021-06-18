@@ -21,8 +21,8 @@ namespace VenoXV._Language_
         {
             German = 0,
             English = 1,
-            France = 2,
-            Poland = 3,
+            French = 2,
+            Polish = 3,
             Spanish = 4,
             Turkish = 5,
             Russian = 6,
@@ -30,7 +30,7 @@ namespace VenoXV._Language_
             Serbian = 8,
             Chinese = 9,
             Farsi = 10,
-            Italien = 11
+            Italian = 11
         }
 
         //string jsonString_EN = File.ReadAllText(Alt.Server.Resource.Path + Alt.Server.Resource.Path + "/Languages/language-en.json");
@@ -103,7 +103,7 @@ namespace VenoXV._Language_
                     frCache.Add(languageClass);
             }
             Debug.OutputDebugString("[Clean-Up | Language-List-FR ] : Before [" + LanguagePackFr.Count + "] - Now [" + frCache.Count + "]");
-            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.France), JsonConvert.SerializeObject(frCache));
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.French), JsonConvert.SerializeObject(frCache));
 
 
             // Poland : 
@@ -114,7 +114,7 @@ namespace VenoXV._Language_
                     plCache.Add(languageClass);
             }
             Debug.OutputDebugString("[Clean-Up | Language-List-PL ] : Before [" + LanguagePackPl.Count + "] - Now [" + plCache.Count + "]");
-            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Poland), JsonConvert.SerializeObject(plCache));
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Polish), JsonConvert.SerializeObject(plCache));
 
             // Spanish : 
             List<LanguageModel> esCache = new List<LanguageModel>();
@@ -196,7 +196,7 @@ namespace VenoXV._Language_
                     itCache.Add(languageClass);
             }
             Debug.OutputDebugString("[Clean-Up | Language-List-IT ] : Before [" + LanguagePackIt.Count + "] - Now [" + itCache.Count + "]");
-            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Italien), JsonConvert.SerializeObject(itCache));
+            Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Italian), JsonConvert.SerializeObject(itCache));
 
             Console.ForegroundColor = ConsoleColor.Green;
             Debug.OutputDebugString("[Clean-Up] : Done!");
@@ -215,8 +215,8 @@ namespace VenoXV._Language_
                 {
                     Languages.German => "de",
                     Languages.English => "en",
-                    Languages.France => "fr",
-                    Languages.Poland => "pl",
+                    Languages.French => "fr",
+                    Languages.Polish => "pl",
                     Languages.Spanish => "es",
                     Languages.Turkish => "tr",
                     Languages.Russian => "ru",
@@ -224,7 +224,7 @@ namespace VenoXV._Language_
                     Languages.Serbian => "sr",
                     Languages.Chinese => "zh-cn",
                     Languages.Farsi => "fa",
-                    Languages.Italien => "it",
+                    Languages.Italian => "it",
                     _ => "de",
                 };
             }
@@ -238,8 +238,8 @@ namespace VenoXV._Language_
                 {
                     "de" => Languages.German,
                     "en" => Languages.English,
-                    "fr" => Languages.France,
-                    "pl" => Languages.Poland,
+                    "fr" => Languages.French,
+                    "pl" => Languages.Polish,
                     "es" => Languages.Spanish,
                     "tr" => Languages.Turkish,
                     "ru" => Languages.Russian,
@@ -247,7 +247,7 @@ namespace VenoXV._Language_
                     "sr" => Languages.Serbian,
                     "zh-cn" => Languages.Chinese,
                     "fa" => Languages.Farsi,
-                    "it" => Languages.Italien,
+                    "it" => Languages.Italian,
                     _ => Languages.German,
                 };
             }
@@ -278,8 +278,8 @@ namespace VenoXV._Language_
                 return language switch
                 {
                     Languages.English => LanguagePackEn,
-                    Languages.France => LanguagePackFr,
-                    Languages.Poland => LanguagePackPl,
+                    Languages.French => LanguagePackFr,
+                    Languages.Polish => LanguagePackPl,
                     Languages.Spanish => LanguagePackEs,
                     Languages.Turkish => LanguagePackTr,
                     Languages.Russian => LanguagePackRu,
@@ -287,7 +287,7 @@ namespace VenoXV._Language_
                     Languages.Serbian => LanguagePackSr,
                     Languages.Chinese => LanguagePackCn,
                     Languages.Farsi => LanguagePackFa,
-                    Languages.Italien => LanguagePackIt,
+                    Languages.Italian => LanguagePackIt,
                     _ => new List<LanguageModel>(),
                 };
             }

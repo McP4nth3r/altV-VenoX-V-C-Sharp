@@ -87,9 +87,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 {
                     string inventory = RageApi.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageApi.GetHexColorcode(255, 255, 255) + "";
 
-                    ItemModel cocaineItem = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashKoks);
-                    ItemModel weedItem = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashWeed);
-                    ItemModel matsItem = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashMats);
+                    ItemModel cocaineItem = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashKoks);
+                    ItemModel weedItem = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashWeed);
+                    ItemModel matsItem = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashMats);
                     int cocaine = 0;
                     int mats = 0;
                     int weed = 0;
@@ -134,9 +134,9 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         {
                             string inventory = RageApi.GetHexColorcode(175, 0, 0) + " Gegenstände von " + target.Username + " : " + RageApi.GetHexColorcode(255, 255, 255) + "";
 
-                            ItemModel koks = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashKoks);
-                            ItemModel weed = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashWeed);
-                            ItemModel mats = Globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashMats);
+                            ItemModel koks = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashKoks);
+                            ItemModel weed = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashWeed);
+                            ItemModel mats = VenoXV.Reallife.globals.Main.GetPlayerItemModelFromHash(target, Constants.ItemHashMats);
                             if (koks != null)
                             {
                                 // Remove the item from the database

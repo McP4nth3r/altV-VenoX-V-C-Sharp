@@ -26,8 +26,8 @@
     <None Remove="VenoXV.sln.DotSettings" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AltV.Net" Version="1.48.3" />
-    <PackageReference Include="AltV.Net.Async" Version="1.48.3" />
+    <PackageReference Include="AltV.Net" Version="2.3.53-dev53" />
+    <PackageReference Include="AltV.Net.Async" Version="2.3.53-dev53" />
     <PackageReference Include="AltV.Net.ColShape" Version="1.7.0-dev-preview" />
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Discord.Net" Version="2.2.0" />
@@ -56,5 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="[Gamemodes]\SevenTowers\admin\" />
+    <Folder Include="[Preload]\GettingStarted" />
   </ItemGroup>
 </Project>

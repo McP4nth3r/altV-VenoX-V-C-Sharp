@@ -100,7 +100,7 @@ function DrawText(msg, player, posx, posy, posz, fontSize, fontType, ColorRGB, u
 	game.setTextColour(ColorRGB[0], ColorRGB[1], ColorRGB[2], ColorRGB[3]);
 	game.setTextOutline();
 	game.addTextComponentSubstringPlayerName(msg);
-	game.endTextCommandDisplayText(0, 0);
+	game.endTextCommandDisplayText(0, 0, 0);
 	let SpriteScale = [2 * lineHeight / 3, 2 * lineHeight / 3];
 
 	//let screenPos = game.getScreenCoordFromWorldCoord(Vector.X, Vector.Y, Vector.Z + 1);

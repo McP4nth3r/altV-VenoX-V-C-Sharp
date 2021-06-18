@@ -121,8 +121,8 @@ function createLoginCam(x, y, z, rot) {
 
 
 function spawnCreatorPed(gender) { //gender (0 - male | 1 - female)
-    if (gender == 0) charcreatorModelHash = game.getHashKey('mp_m_freemode_01');
-    else if (gender == 1) charcreatorModelHash = game.getHashKey('mp_f_freemode_01');
+    if (gender == 0) charcreatorModelHash = parseInt(game.getHashKey('mp_m_freemode_01'));
+    else if (gender == 1) charcreatorModelHash = parseInt(game.getHashKey('mp_f_freemode_01'));
     else return;
     game.requestModel(charcreatorModelHash);
     let interval = alt.setInterval(() => {

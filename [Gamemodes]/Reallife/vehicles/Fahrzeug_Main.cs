@@ -6,6 +6,7 @@ using AltV.Net.Resources.Chat.Api;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.globals;
 using VnX = VenoXV._Gamemodes_.Reallife.dxLibary.VnX;
 
 namespace VenoXV._Gamemodes_.Reallife.Vehicles

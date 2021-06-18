@@ -340,7 +340,7 @@ function SetZombieAttributes(zombie) {
 
     game.setPedCanRagdoll(zombie, false);
     game.setEntityAsMissionEntity(zombie, true, false);
-    game.setPedRelationshipGroupHash(zombie, game.getHashKey('zombeez'));
+    game.setPedRelationshipGroupHash(zombie, parseInt(game.getHashKey('zombeez')));
     game.setPedAccuracy(zombie, 25);
     game.setPedSeeingRange(zombie, 100.0);
     game.setPedHearingRange(zombie, 100.0);
@@ -368,6 +368,7 @@ function SetZombieAttributes(zombie) {
 
 
 async function loadModel(dict) {
+	dict = parseInt(dict)
     return new Promise(resolve => {
         if (game.hasModelLoaded(dict)) return resolve(true);
         game.requestModel(dict);

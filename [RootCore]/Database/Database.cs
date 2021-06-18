@@ -60,7 +60,7 @@ namespace VenoXV.Database
                     House.LoadDatabaseHouses();
 
                     // Tunning loading
-                    _Gamemodes_.Reallife.Globals.Main.TunningList = LoadAllTunning();
+                    Reallife.globals.Main.TunningList = LoadAllTunning();
 
                     // IVehicle loading
                     LoadAllVehicles();
@@ -69,12 +69,12 @@ namespace VenoXV.Database
                     Inventory.DatabaseItems = LoadAllItems();
 
                     // Clothes loading
-                    _Gamemodes_.Reallife.Globals.Main.ClothesList = LoadAllClothes();
+                    Reallife.globals.Main.ClothesList = LoadAllClothes();
 
                     // Tattoos loading
-                    _Gamemodes_.Reallife.Globals.Main.TattooList = LoadAllTattoos();
+                    Reallife.globals.Main.TattooList = LoadAllTattoos();
 
-                    _Gamemodes_.Reallife.Globals.Main.FactionAllroundList = LoadAllFactionDatas();
+                    Reallife.globals.Main.FactionAllroundList = LoadAllFactionDatas();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Database Connection = OK.");
                     Console.ResetColor();

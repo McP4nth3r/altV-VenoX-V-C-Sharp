@@ -145,7 +145,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob
                 {
                     if (player.VnxGetElementData<bool>(ShopId))
                     {
-                        if (Factions.Allround.IsStateFaction(player) == false)
+                        if (Allround.IsStateFaction(player) == false)
                         {
                             int currentId = player.VnxGetElementData<int>(ShopId);
                             if (ShopColShapeModels[currentId].VnxGetElementData<bool>(ShopRobStarted) != false ||

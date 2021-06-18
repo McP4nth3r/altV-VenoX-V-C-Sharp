@@ -4,10 +4,9 @@ using AltV.Net.Async;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using VenoXV._Language_;
-using VenoXV.Core;
 using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Reallife.Environment.Gzone
+namespace VenoXV.Reallife.environment.Greenzone
 {
     public class Zone : IScript
     {

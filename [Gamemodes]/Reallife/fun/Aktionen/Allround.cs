@@ -36,7 +36,7 @@ namespace VenoXV.Reallife.Fun.Aktionen
         {
             try
             {
-                int cops = Main.ReallifePlayers.Count(_Gamemodes_.Reallife.Factions.Allround.IsStateFaction);
+                int cops = Main.ReallifePlayers.Count(factions.Allround.IsStateFaction);
                 if (cops < copCount) { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Nicht genug Cops Online!"); return false; }
 
                 if (ActionRunning)
