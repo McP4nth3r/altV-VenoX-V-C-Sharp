@@ -24,6 +24,7 @@ using VenoXV._Preload_;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.environment.Greenzone;
+using VenoXV.Reallife.model;
 using Allround = VenoXV.Reallife.gangwar.Allround;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 

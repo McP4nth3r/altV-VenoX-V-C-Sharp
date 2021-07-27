@@ -4,7 +4,7 @@ using AltV.Net.Data;
 using VenoXV._Globals_.Inventory;
 using VenoXV.Core;
 
-namespace VenoXV._Gamemodes_.Reallife.model
+namespace VenoXV.Reallife.model
 {
     public enum ItemType
     {

@@ -19,6 +19,7 @@ using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.chat;
 using VenoXV.Reallife.factions;
+using VenoXV.Reallife.model;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using Main = VenoXV._Notifications_.Main;
 

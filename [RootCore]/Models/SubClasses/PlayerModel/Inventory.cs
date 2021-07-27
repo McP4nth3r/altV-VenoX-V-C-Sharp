@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Globals_;
 using VenoXV.Core;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Models.SubClasses.PlayerModel
 {

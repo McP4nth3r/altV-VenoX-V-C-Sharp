@@ -22,6 +22,7 @@ using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.factions;
+using VenoXV.Reallife.model;
 using VenoXV.Reallife.vehicles;
 using Allround = VenoXV.Reallife.Fun.Aktionen.Allround;
 using EntityData = VenoXV._Globals_.EntityData;

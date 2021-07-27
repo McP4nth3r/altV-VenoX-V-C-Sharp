@@ -9,6 +9,7 @@ using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.globals;
+using VenoXV.Reallife.model;
 
 namespace VenoXV._Gamemodes_.Reallife.Environment.ammunation
 {

@@ -21,6 +21,7 @@ using VenoXV._Preload_.Register;
 using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.gangwar.v2;
+using VenoXV.Reallife.model;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using Main = VenoXV._Preload_.Character_Creator.Main;
 using VehicleModel = VenoXV.Models.VehicleModel;

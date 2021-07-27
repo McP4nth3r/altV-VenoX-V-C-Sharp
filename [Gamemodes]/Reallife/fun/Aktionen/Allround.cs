@@ -85,7 +85,7 @@ namespace VenoXV.Reallife.Fun.Aktionen
                 }
                 ActionMarkers.Add(RageApi.CreateMarker(30, position, new Vector3(1.5f, 1.5f, 1.5f), new[] { 255, 0, 0, 255 }));
                 ColShapeModel col = RageApi.CreateColShapeSphere(position, 1.5f, Main.ReallifeDimension);
-                col.AktionCol = action;
+                col.ActionCol = action;
                 ActionColShapes.Add(col);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

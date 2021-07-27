@@ -5,6 +5,7 @@ using AltV.Net.Enums;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.model;
 
 namespace VenoXV._Globals_.Inventory
 {

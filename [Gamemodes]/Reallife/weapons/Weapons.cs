@@ -7,6 +7,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.model;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 
 namespace VenoXV._Gamemodes_.Reallife.weapons

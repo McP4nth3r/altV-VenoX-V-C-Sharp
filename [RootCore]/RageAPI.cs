@@ -104,8 +104,7 @@ namespace VenoXV
             try
             {
                 if (element == null) return default;
-                if (element.GetData(key, out T value)) return value;
-                return default;
+                return element.GetData(key, out T value) ? value : default;
             }
             catch { return default; }
         }
@@ -152,8 +151,7 @@ namespace VenoXV
             try
             {
                 if (element == null) return default;
-                if (element.GetSyncedMetaData(key, out T value)) return value;
-                return default;
+                return element.GetSyncedMetaData(key, out T value) ? value : default;
             }
             catch { return default; }
         }
@@ -392,11 +390,9 @@ namespace VenoXV
         {
             try
             {
-                if (Sync.MarkerList.Contains(markerClass))
-                {
-                    VenoX.TriggerEventForAll("Sync:RemoveMarkerByID", markerClass.Id);
-                    Sync.MarkerList.Remove(markerClass);
-                }
+                if (!Sync.MarkerList.Contains(markerClass)) return;
+                VenoX.TriggerEventForAll("Sync:RemoveMarkerByID", markerClass.Id);
+                Sync.MarkerList.Remove(markerClass);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }

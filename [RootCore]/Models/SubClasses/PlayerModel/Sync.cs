@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AltV.Net.Elements.Entities;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
+using VenoXV.Reallife.model;
 
 namespace VenoXV.Models.SubClasses.PlayerModel
 {

@@ -5,6 +5,7 @@ using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.model;
 using EntityData = VenoXV._Globals_.EntityData;
 using Main = VenoXV._Notifications_.Main;
 

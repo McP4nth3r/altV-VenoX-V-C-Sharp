@@ -83,11 +83,13 @@ namespace VenoXV.Models
         public bool MarkedForDelete { get; set; }
         public VehRace Race { get; }
         public VehReallife Reallife { get; }
-        public VehicleModel(uint model, Position position, Rotation rotation) : base(model, position, rotation)
-        {
 
+        public List<VnXPlayer> Passenger = new List<VnXPlayer>();
+
+        public VehicleModel(IServer server, uint model, Position position, Rotation rotation) : base(server, model, position, rotation)
+        {
         }
-        public VehicleModel(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+        public VehicleModel(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             Plate = "alt-V";
             Locked = true;
@@ -104,16 +106,15 @@ namespace VenoXV.Models
             ManualEngineControl = true;
             Npc = true;
         }
-        public List<VnXPlayer> Passenger = new List<VnXPlayer>();
-
     }
     public class MyVehicleFactory : IEntityFactory<IVehicle>
     {
-        public IVehicle Create(IntPtr playerPointer, ushort id)
+
+        public IVehicle Create(IServer server, IntPtr entityPointer, ushort id)
         {
             try
             {
-                return new VehicleModel(playerPointer, id);
+                return new VehicleModel(server, entityPointer, id);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
         }

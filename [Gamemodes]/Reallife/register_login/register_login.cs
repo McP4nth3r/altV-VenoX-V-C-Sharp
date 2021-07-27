@@ -18,6 +18,7 @@ using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.environment.Greenzone;
 using VenoXV.Reallife.factions;
+using VenoXV.Reallife.model;
 using Allround = VenoXV.Reallife.gangwar.Allround;
 using Main = VenoXV._Globals_.Main;
 using VnX = VenoXV.Settings.VnX;

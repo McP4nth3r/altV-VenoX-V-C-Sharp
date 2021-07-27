@@ -12,6 +12,7 @@ using VenoXV._Language_;
 using VenoXV._Preload_;
 using VenoXV.Core;
 using VenoXV.Models;
+using VenoXV.Reallife.model;
 using Inventory = VenoXV._Globals_.Inventory.Inventory;
 using VehicleModel = VenoXV.Models.VehicleModel;
 

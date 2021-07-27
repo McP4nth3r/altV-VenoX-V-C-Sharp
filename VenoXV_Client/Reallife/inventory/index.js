@@ -40,7 +40,7 @@ export function OnInventoryKeyPressed(key) {
 
 
 
-alt.onServer('Inventory:Update', (InventoryJson) => {
+alt.onServer('Inventory:Update', InventoryJson => {
     if (!InventoryCreated) return;
     let InventoryItems = JSON.parse(InventoryJson);
     for (let i = 0; i < InventoryItems.length; i++) {
@@ -63,14 +63,13 @@ alt.onServer('Inventory:Load', () => {
     InventoryBrowser.on('OnInventoryButtonClicked', (Btn, Hash) => {
         switch (Btn) {
             case 'use':
-                alt.emitServer('Inventory:Use', Hash);
+                return alt.emitServer('Inventory:Use', Hash);
             case 'remove':
-                alt.emitServer('Inventory:Remove', Hash);
+                return alt.emitServer('Inventory:Remove', Hash);
         }
     });
 
-
-    InventoryBrowser.on('Inventory:UseItem', (Id) => {
+    InventoryBrowser.on('Inventory:UseItem', Id => {
         alt.emitServer('Inventory:UseItem', Id);
     });
 
@@ -80,9 +79,7 @@ alt.onServer('Inventory:Load', () => {
 });
 
 alt.onServer('Inventory:Unload', () => {
-    if (!InventoryCreated) {
-        return;
-    }
+    if (!InventoryCreated) return;
     vnxDestroyCEF("Inventory-Reallife");
     InventoryCreated = false;
 });

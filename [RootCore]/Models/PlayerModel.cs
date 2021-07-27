@@ -87,14 +87,43 @@ namespace VenoXV.Models
 
         public string VipPaket { get; set; }
 
-        public void DrawWaypoint(float posX, float posY) { try { VenoX.TriggerClientEvent(this, "Player:SetWaypoint", posX, posY); } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
-        public void SetTeam(int team) { try { Alt.Emit("GlobalSystems:PlayerTeam", this, team); } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
+        public void DrawWaypoint(float posX, float posY)
+        {
+            try
+            {
+                VenoX.TriggerClientEvent(this, "Player:SetWaypoint", posX, posY);
+            } 
+            catch(Exception ex){Core.Debug.CatchExceptions(ex);}
+        }
+        public void SetTeam(int team) {
+            try
+            {
+                Alt.Emit("GlobalSystems:PlayerTeam", this, team);
+            }
+            catch(Exception ex){ Core.Debug.CatchExceptions(ex);}
+        }
 
         private bool _Freeze { get; set; }
+        public bool Freeze { 
+            get => _Freeze;
+            set { 
+                _Freeze = value; 
+                VenoX.TriggerClientEvent(this, "Player:Freeze", value); 
+            } 
+        }
 
-        public bool Freeze { get => _Freeze;
-            set { _Freeze = value; VenoX.TriggerClientEvent(this, "Player:Freeze", value); } }
-        public void FreezeAfterMs(int ms, bool value) { try { VenoX.TriggerClientEvent(this, "Player:FreezeAfterMS", ms, value); _Freeze = value; } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
+        public void FreezeAfterMs(int ms, bool value)
+        {
+            try
+            {
+                VenoX.TriggerClientEvent(this, "Player:FreezeAfterMS", ms, value);
+                _Freeze = value;
+            }
+            catch (Exception ex)
+            {
+                Core.Debug.CatchExceptions(ex);
+            }
+        }
         public void LoadIpl(string ipl) { try { VenoX.TriggerClientEvent(this, "Player:LoadIPL", ipl); } catch(Exception ex){Core.Debug.CatchExceptions(ex);} }
 
         public DateTime VipTill { get; set; }
@@ -116,7 +145,20 @@ namespace VenoXV.Models
 
         public bool LoggedInWithShaPassword { get; set; }
 
-        public VnXPlayer(IntPtr nativePointer, ushort id) : base(nativePointer, id)
+        
+        public sealed override Position Position
+        {
+            get => base.Position;
+            set => base.Position = value;
+        }
+
+        public sealed override int Dimension
+        {
+            get => base.Dimension;
+            set => base.Dimension = value;
+        }
+        
+        public VnXPlayer(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             try
             {
@@ -158,27 +200,9 @@ namespace VenoXV.Models
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
 
-        public sealed override Position Position
-        {
-            get => base.Position;
-            set => base.Position = value;
-        }
-
-        public sealed override int Dimension
-        {
-            get => base.Dimension;
-            set => base.Dimension = value;
-        }
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
     {
-        public IPlayer Create(IntPtr playerPointer, ushort id)
-        {
-            try
-            {
-                return new VnXPlayer(playerPointer, id);
-            }
-            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
-        }
+        public IPlayer Create(IServer server, IntPtr entityPointer, ushort id) => new VnXPlayer(server, entityPointer, id);
     }
 }

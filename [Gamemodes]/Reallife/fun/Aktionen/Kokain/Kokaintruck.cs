@@ -11,6 +11,7 @@ using VenoXV.Core;
 using VenoXV.Models;
 using VenoXV.Reallife.chat;
 using VenoXV.Reallife.Fun.Aktionen;
+using VenoXV.Reallife.model;
 using Main = VenoXV._Globals_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Fun
@@ -41,7 +42,7 @@ namespace VenoXV._Gamemodes_.Reallife.Fun
                         player.SendTranslatedChatMessage(RageApi.GetHexColorcode(150, 0, 200) + "[Kokaintruck] : " + RageApi.GetHexColorcode(255, 255, 255) + "Bist du in einer Gang? Nein? Dann verzieh dich.");
                     }
                 }
-                else if (shape.AktionCol == Allround.ActionKokaintruck)
+                else if (shape.ActionCol == Allround.ActionKokaintruck)
                 {
                     if (VenoXV.Reallife.factions.Allround.IsBadFaction(player))
                     {

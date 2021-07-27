@@ -86,115 +86,82 @@ namespace VenoXV._Language_
 
             // English : 
             List<LanguageModel> enCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackEn)
-            {
-                if (enCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    enCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackEn.Where(languageClass => enCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                enCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-EN ] : Before [" + LanguagePackEn.Count + "] - Now [" + enCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.English), JsonConvert.SerializeObject(enCache));
 
 
-            // France : 
+            // French : 
             List<LanguageModel> frCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackFr)
-            {
-                if (frCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    frCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackFr.Where(languageClass => frCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                frCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-FR ] : Before [" + LanguagePackFr.Count + "] - Now [" + frCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.French), JsonConvert.SerializeObject(frCache));
 
 
-            // Poland : 
+            // Polish : 
             List<LanguageModel> plCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackPl)
-            {
-                if (plCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    plCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackPl.Where(languageClass => plCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                plCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-PL ] : Before [" + LanguagePackPl.Count + "] - Now [" + plCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Polish), JsonConvert.SerializeObject(plCache));
 
             // Spanish : 
             List<LanguageModel> esCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackEs)
-            {
-                if (esCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    esCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackEs.Where(languageClass => esCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                esCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-ES ] : Before [" + LanguagePackEs.Count + "] - Now [" + esCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Spanish), JsonConvert.SerializeObject(esCache));
 
 
             // Turkish : 
             List<LanguageModel> trCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackTr)
-            {
-                if (trCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    trCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackTr.Where(languageClass => trCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                trCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-TR ] : Before [" + LanguagePackTr.Count + "] - Now [" + trCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Turkish), JsonConvert.SerializeObject(trCache));
 
 
             // Russian : 
             List<LanguageModel> ruCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackRu)
-            {
-                if (ruCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    ruCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackRu.Where(languageClass => ruCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                ruCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-RU ] : Before [" + LanguagePackRu.Count + "] - Now [" + ruCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Russian), JsonConvert.SerializeObject(ruCache));
 
             // Swedish : 
             List<LanguageModel> svCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackSv)
-            {
-                if (svCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    svCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackSv.Where(languageClass => svCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                svCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-SV ] : Before [" + LanguagePackSv.Count + "] - Now [" + svCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Swedish), JsonConvert.SerializeObject(svCache));
 
             // Serbian : 
             List<LanguageModel> srCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackSr)
-            {
-                if (srCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    srCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackSr.Where(languageClass => srCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                srCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-SR ] : Before [" + LanguagePackSr.Count + "] - Now [" + srCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Serbian), JsonConvert.SerializeObject(srCache));
 
             // Chinese : 
             List<LanguageModel> cnCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackCn)
-            {
-                if (cnCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    cnCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackCn.Where(languageClass => cnCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                cnCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-CN-ZH ] : Before [" + LanguagePackCn.Count + "] - Now [" + cnCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Chinese), JsonConvert.SerializeObject(cnCache));
 
             // Farsi : 
             List<LanguageModel> faCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackFa)
-            {
-                if (faCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    faCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackFa.Where(languageClass => faCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                faCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-FA ] : Before [" + LanguagePackFa.Count + "] - Now [" + faCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Farsi), JsonConvert.SerializeObject(faCache));
 
             // Italian : 
             List<LanguageModel> itCache = new List<LanguageModel>();
-            foreach (LanguageModel languageClass in LanguagePackIt)
-            {
-                if (itCache.FirstOrDefault(x => x.Text == languageClass.Text) is null)
-                    itCache.Add(languageClass);
-            }
+            foreach (var languageClass in LanguagePackIt.Where(languageClass => itCache.FirstOrDefault(x => x.Text == languageClass.Text) is null))
+                itCache.Add(languageClass);
             Debug.OutputDebugString("[Clean-Up | Language-List-IT ] : Before [" + LanguagePackIt.Count + "] - Now [" + itCache.Count + "]");
             Debug.WriteAllText("language-" + GetClientLanguagePair(Languages.Italian), JsonConvert.SerializeObject(itCache));
 
