@@ -3,13 +3,13 @@
     public class BlipModel
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public float PosX { get; set; }
-        public float PosY { get; set; }
-        public float PosZ { get; set; }
-        public int Sprite { get; set; }
-        public int Color { get; set; }
-        public bool ShortRange { get; set; }
-        public VnXPlayer VisibleOnlyFor { get; set; }
+        public string Name { get; init; }
+        public float PosX { get; init; }
+        public float PosY { get; init; }
+        public float PosZ { get; init; }
+        public int Sprite { get; init; }
+        public int Color { get; init; }
+        public bool ShortRange { get; init; }
+        public VnXPlayer VisibleOnlyFor { get; init; }
     }
 }

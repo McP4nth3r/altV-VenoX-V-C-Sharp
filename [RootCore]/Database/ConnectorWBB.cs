@@ -15,7 +15,7 @@ namespace VenoXV._Gamemodes_.Reallife.Woltlab
     {
 
 
-        private static string _connection = "server=5.180.66.158; database=forum_vnx; uid=forum_vnx; pwd=j_4w06xM#T4i4z5q@1Fgaj57";
+        private static string _connection = "server=185.240.243.105; database=forum_vnx; uid=forum_vnx; pwd=j_4w06xM#T4i4z5q@1Fgaj57";
         //private static string oldDb = $"server=5.180.66.158; database=TestDB; uid=TestDB; pwd=irh4Q*47";
 
 

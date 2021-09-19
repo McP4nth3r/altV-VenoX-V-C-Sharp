@@ -191,6 +191,7 @@ namespace VenoXV
             try
             {
                 Alt.Emit("GlobalSystems:GiveWeapon", player, (uint)weapon, ammo, false);
+                player.SetStreamSyncedMetaData((uint)weapon + "", true);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -199,14 +200,20 @@ namespace VenoXV
             try
             {
                 Alt.Emit("GlobalSystems:RemovePlayerWeapon", player, (uint)weapon);
+                player.SetStreamSyncedMetaData((uint)weapon + "", false);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
+        
         public static void RemoveAllPlayerWeapons(this VnXPlayer player)
         {
             try
             {
                 Alt.Emit("GlobalSystems:RemoveAllPlayerWeapons", player);
+
+                foreach(WeaponModel weaponClass in Enum.GetValues(typeof(WeaponModel)))
+                    player.SetStreamSyncedMetaData((uint)weaponClass + " ", false);
+                
                 //player.GiveWeapon(weapon, ammo, false);
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
