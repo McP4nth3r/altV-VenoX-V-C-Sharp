@@ -1,0 +1,212 @@
+<head>
+    <link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="VnX-Window d-none">
+        <div class="VnX-Header">Settings</div>
+        <div class="VnX-Close" onclick="alt.emit('Settings:Hide');">X</div>
+        <div class="parting"></div>
+        <div class="SettingsSidebar">
+            <div id="Gameplay" class="SettingsButton">Gameplay</div>
+            <div id="Show" class="SettingsButton">Show</div>
+            <div id="Account" class="SettingsButton">Account</div>
+            <div id="Information" class="SettingsButton">Information</div>
+        </div>
+
+
+        <div class="Gameplay_Window d-none">
+            <div class="Area">
+                <div class="dropdown_h">
+                    <button class="dropbtn_h">Reallife HUD</button>
+                    <div class="dropdown-content_h">
+                        <a href="#" onclick="alt.emit('Settings:SelectHUD', 0);">HUD-0</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectHUD', 1);">HUD-1</a>
+                    </div>
+                </div>
+                <div class="parting1"></div>
+                <div class="dropdown_s">
+                    <button class="dropbtn_s">Spawnpunkt</button>
+                    <div class="dropdown-content_s">
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 0);">Noobspawn</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 1);">Rathaus</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 2);">Würfelpark</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 3);">Basis</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 4);">Basis-2</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpawnpoint', 5);">Street</a>
+                    </div>
+                </div>
+                <div class="parting2"></div>
+                <div class="dropdown_t">
+                    <button class="dropbtn_t">Scoreboard Bild</button>
+                    <div class="dropdown-content_t">
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 0);">Skyline</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 1);">LSPD</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectScoreboardBackground', 2);">Hospital</a>
+                    </div>
+                </div>
+                <div class="parting3"></div>
+                <div class="dropdown_speedo">
+                    <button class="dropbtn_speedo">Speedometer</button>
+                    <div class="dropdown-content_speedo">
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 0);">Speedo-0</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 1);">Speedo-1</a>
+                        <a href="#" onclick="alt.emit('Settings:SelectSpeedometer', 2);">Speedo-2</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="Show_Window d-none">
+            <div class="Area">
+                <div class="SettingsBar_Show">
+                    <div class="SettingsBar_Show_text">ATM
+                        <div id="atm" class="atm">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text_grey">Blood-Screen
+                        <div id="bloodscreen" class="bloodscreen">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text">Global-Chat
+                        <div id="global" class="global">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text_grey">Haus
+                        <div id="house" class="house">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text">Quests
+                        <div id="quests" class="quests">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text_grey">Reporter-Chat
+                        <div id="reporter" class="reporter">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text">Tacho
+                        <div id="tacho" class="tacho">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="SettingsBar_Show_text_grey">Tankstellen
+                        <div id="tankstelle" class="tankstelle">
+                            <label>
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--        
+        <div class="Voice_Window d-none">
+            <div class="Area">
+                <div class="SettingsBar_Show_text_grey_voice">
+                    <div class="voice">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="value">
+                        <p id="voice_text">Lautstärke: <span id="voice_volume"></span>%</p>
+                    </div>
+                </div>
+                <div class="SettingsBar_Show_text_mic">Mikrofon
+                    <div class="mic">
+                        <label>
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div> 
+                <div class="SettingsBar_Show_text_grey_talk">Push to Talk
+                    <div class="talk">
+                        <label>
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>   
+-->
+
+        <div class="Account_Window d-none">
+            <div class="Area">
+                <form method="post" id="password_change">
+                    <input type="password" class="password1" id="password1" placeholder="Neues Passwort...">
+                    <div class="row1">
+                        <div class="check1">
+                            <span id="8character" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 8 Zeichen<br>
+                            <span id="upletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Großbuchstabe
+                        </div>
+                        <div class="check2">
+                            <span id="lowletter" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Kleinbuchstabe<br>
+                            <span id="number" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Mindestens 1 Zahl
+                        </div>
+                    </div>
+                    <input type="password" class="password2" id="password2" placeholder="Passwort wiederholen...">
+                    <div class="row2">
+                        <div class="check3">
+                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:rgb(255,0,0);"></span>
+                            Passwörter stimmen überein
+                        </div>
+                    </div>
+                </form>
+                <div class="VnX-Button" id="password_change_button">Passwort ändern</div>
+            </div>
+        </div>
+
+
+        <div class="Information_Window d-none">
+            <div class="Area">
+                <div class="forum" id="forum">Website: venox-reallife.com
+                    <img src="img/Forum.png" class="forum_image">
+                </div>
+                <div class="cp" for="cp" id="cp">CP: cp.venox-reallife.com
+                    <img src="img/Logo.png" class="cp_image">
+                </div>
+                <div class="ts3" for="ts3" id="ts3">TS 3: ts.venox-reallife.com
+                    <img src="img/Teamspeak.png" class="ts3_image">
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="script.js"></script>
+    </div>
+</body>

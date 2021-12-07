@@ -1,0 +1,68 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://venox-reallife.com/Lib/Window/style.css">
+</head>
+
+<body class="d-nne">
+	<script>
+		if ("alt" in window) {
+			alt.on("Inventory:Open", () => {
+				$("body").removeClass("d-none");
+			});
+			alt.on("Inventory:Close", () => {
+				$("body").addClass("d-none");
+			});
+			alt.on("Inventory:RemoveAll", () => {
+				RemoveAllItems();
+			});
+			alt.on("Inventory:Update", (Id, hash, amount, name, iteminfo, IsUsing) => {
+				OnUpdateItems(Id, hash, amount, name, iteminfo, IsUsing);
+			});
+		}
+	</script>
+	<div class="drop_area1"></div>
+	<div class="drop_area2"></div>
+	<div class="drop_area3"></div>
+	<div class="drop_area4"></div>
+	<div class="InventoryContainer">
+		<div class="d-nne VnX-Window" id="back">
+			<div class="VnX-Header" id="header">Inventory
+				<img src="files/images/logo.png" id="icon">
+			</div>
+		</div>
+		<div class="InventoryCharacterContainer">
+			<img class="InventoryCharacterPicture" src="files/images/silhouette.svg">
+			<div class="InventoryCharacterWeaponbar"></div>
+			<div class="InventoryCharacterClothebar"></div>
+		</div>
+		<div class="InventoryColumnContainer">
+			<div class="inventar_column_container" id="columns">
+				<!-- DEBUG :
+					<div class="column">
+						<div class="column_amount"></div>
+						<div class="info d-none"></div>
+						<div class="OptionsMenu d-none">
+							<div class="OptionsButtonsUse" onclick="OnInventoryButtonPressed('use');">Benutzen</div>
+							<div class="OptionsButtonsDelete" onclick="OnInventoryButtonPressed('remove');">Wegwerfen
+							</div>
+						</div>
+					</div>
+				-->
+				<div class="Inventory_Amount_Bar_Background">
+					<div class="Inventory_Amount_Bar"></div>
+				</div>
+				<div class="Inventory_Amount_Amount">0.00 kg / 30.00 kg.</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/item.js"></script>
+
+</body>

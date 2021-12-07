@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>VenoX.Data</AssemblyName>
+        <RootNamespace>VenoX.Data</RootNamespace>
+    </PropertyGroup>
+
+</Project>
