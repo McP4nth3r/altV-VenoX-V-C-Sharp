@@ -54,48 +54,48 @@
         <div class="image_back"></div>
 
         <input type="radio" id="infos" name="radio-group" checked>
-        <label for="infos" onclick="alt.emit('atm_load_money_storage');">Kontoinformationen</label>
+        <label for="infos" onclick="alt.emit('atm_load_money_storage');">Account information</label>
 
         <section id="infos1">
-            <div class="option">Kontoinformationen</div>
-            <div class="info_header">Kontostand</div>
+            <div class="option">Account information</div>
+            <div class="info_header">Account balance</div>
             <div class="info_back" id="info_back">0$</div>
         </section>
 
 
         <input type="radio" id="statements" name="radio-group">
-        <label id="kontoinfo1" for="statements">Kontoauszüge</label>
+        <label id="kontoinfo1" for="statements">Bank statement</label>
 
         <section id="statements1">
-            <div id="kontoinfo2" class="option">Kontoauszüge</div>
-            <div id="kontoinfo3" class="folgt">Kontoauszüge folgen</div>
+            <div id="kontoinfo2" class="option">Bank statement</div>
+            <div id="kontoinfo3" class="folgt">Bank statements<br>are coming soon..</div>
         </section>
 
 
         <input type="radio" id="transfers" name="radio-group">
-        <label id="kontosend1" for="transfers">Überweisen</label>
+        <label id="kontosend1" for="transfers">Transfer</label>
 
         <section id="transfers1">
-            <div id="kontosend2" class="option">Überweisen</div>
-            <input id="to" class="to_box" type="to_box" placeholder="Spieler..." rows="1" maxlength="25">
-            <input id="ammount" class="ammount_box" type="ammount_box" placeholder="Betrag..." rows="1" maxlength="15"
+            <div id="kontosend2" class="option">Transfer</div>
+            <input id="to" class="to_box" type="to_box" placeholder="Name..." rows="1" maxlength="25">
+            <input id="ammount" class="ammount_box" type="ammount_box" placeholder="Amount..." rows="1" maxlength="15"
                 onkeyup="validate_num(this)">
-            <input id="because" class="because_box" type="because_box" placeholder="Grund..." rows="1" maxlength="50">
-            <div id="kontosend3" class="pay" onclick='atm_money_send()'>Überweisen</div>
+            <input id="because" class="because_box" type="because_box" placeholder="Reason..." rows="1" maxlength="50">
+            <div id="kontosend3" class="pay" onclick='atm_money_send()'>Transfer</div>
         </section>
 
 
 
         <input type="radio" id="deposits" name="radio-group">
-        <label for="deposits">Geld einzahlen<br>/ auszahlen</label>
+        <label for="deposits">Deposit money<br>/ withdraw</label>
 
         <section id="deposits1">
             <input type="radio" id="deposit" name="radio-group">
-            <div class="option">Einzahlen / Auszahlen</div>
-            <input id="betrag" class="betrag_box" type="betrag_box" placeholder="Betrag..." rows="1" maxlength="15"
+            <div class="option">Deposit / Withdraw</div>
+            <input id="betrag" class="betrag_box" type="betrag_box" placeholder="Amount..." rows="1" maxlength="15"
                 onkeyup="validate_num(this)">
-            <div class="in" onclick="money_button_pressed('einzahlen')">Einzahlen</div>
-            <div class="out" onclick="money_button_pressed('auszahlen')">Auszahlen</div>
+            <div class="in" onclick="money_button_pressed('einzahlen')">Deposit</div>
+            <div class="out" onclick="money_button_pressed('auszahlen')">Withdraw</div>
         </section>
     </div>
 </body>

@@ -7,7 +7,7 @@
 
 function UpdateHUDStats(Faction, Armor, Health, Hunger, Money) {
     // Update Faction
-    $('.HUD_HEADER_FACTION').css("background-image", "url(files/images/" + Faction + ".png)");
+    $('.HUD_HEADER_FACTION').css("background-image", "url(http://assets/VenoXAssets/images/overlay/hud-0/" + Faction + ".png)");
     // Update Armor
     $('.HUD_HEADER_ARMOR_BACKGROUND').children('.HUD_STATS_TEXT').text(Armor + "%");
     $('.HUD_HEADER_ARMOR_BAR').css("width", Armor + "%");
@@ -27,17 +27,17 @@ function UpdateVoiceState(State) {
     if (State) { State = 1; }
     else { State = 0; }
     // Update Voice
-    $('.HUD_BOTTOM_VOICE').attr("src", "files/images/Voice" + State + ".png");
+    $('.HUD_BOTTOM_VOICE').attr("src", "http://assets/VenoXAssets/images/overlay/hud-0/Voice" + State + ".png");
 }
 UpdateVoiceState(0);
 
 function UpdateHUDWanteds(Wanteds) {
     for (let i = 0; i <= 6; i++) {
         if (Wanteds < i) {
-            $('#Wanteds-' + i).attr("src", "files/images/wanted_inactive.png");
+            $('#Wanteds-' + i).attr("src", "http://assets/VenoXAssets/images/overlay/hud-0/wanted_inactive.png");
         }
         else {
-            $('#Wanteds-' + i).attr("src", "files/images/wanted_active.png");
+            $('#Wanteds-' + i).attr("src", "http://assets/VenoXAssets/images/overlay/hud-0/wanted_active.png");
         }
     }
 }

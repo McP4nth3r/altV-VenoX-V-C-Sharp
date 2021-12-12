@@ -17,25 +17,22 @@ let XTYPES_SELF = "self";
 ///////////////////////////////////////////////////////////////////////////////////////
 
 alt.onServer('XMenu:Load', () => {
-    try {
-        if (XMenuBrowser) { return; }
-        XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
-        XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
-            if (!XMenuBrowser) { return; }
-            if (Button == 9900 || Button == 9901 || Button == 9902) { alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted); }
-            else { alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); }
-        });
-    }
-    catch{ }
+    if (XMenuBrowser) return;
+    XMenuBrowser = new alt.WebView("http://resource/VenoXV_Client/Reallife/xmenu/main.html");
+    XMenuBrowser.on('XMenu:ButtonApplied', (Button) => {
+        if (!XMenuBrowser) return; 
+
+        if (Button == 9900 || Button == 9901 || Button == 9902) 
+            alt.emitServer('XMenu:ApplyServerButtonVehicle', Button, Hitted);
+        else 
+            alt.emitServer('XMenu:ApplyServerButton', Button, Hitted); 
+    });
 });
 
 alt.onServer('XMenu:Unload', () => {
-    try {
-        if (!XMenuBrowser) { return; }
-        XMenuBrowser.destroy();
-        XMenuBrowser = null;
-    }
-    catch{ }
+    if (!XMenuBrowser) return;
+    XMenuBrowser.destroy();
+    XMenuBrowser = null;
 });
 
 
@@ -44,9 +41,9 @@ alt.onServer('XMenu:Unload', () => {
 
 function ToggleXMenu(EntityTypeName, EntityID) {
     try {
-        if (!XMenuBrowser) { return; }
+        if (!XMenuBrowser) return;
         if (!XMenuOpen) {
-            if (!EntityTypeName) { return; }
+            if (!EntityTypeName) return;
             XMenuBrowser.emit('XMenu:Open', EntityTypeName);
             XMenuBrowser.focus();
             ShowCursor(true);
@@ -70,8 +67,8 @@ function ToggleXMenu(EntityTypeName, EntityID) {
 
 export function OnXKeyDown() {
     try {
-        if (!XMenuBrowser) { return; }
-        if (game.isPlayerDead(alt.Player.local.scriptID)) { return; }
+        if (!XMenuBrowser) return;
+        if (game.isPlayerDead(alt.Player.local.scriptID)) return;
         if (!GetCursorStatus()) {
             GetCurrentObject();
             if (alt.Player.local.vehicle) {
@@ -95,7 +92,7 @@ export function OnXKeyDown() {
 }
 export function OnXKeyUp() {
     try {
-        if (!XMenuBrowser) { return; }
+        if (!XMenuBrowser) return;
         ToggleXMenu(null, null);
     }
     catch{ }
@@ -109,7 +106,7 @@ let laststring = "";
 let Hitted = null;
 function GetCurrentObject() {
     try {
-        if (!XMenuBrowser) { return; }
+        if (!XMenuBrowser) return;
         let distance = 5;
         let position = alt.Player.local.pos;
         let farAway = frontOfPlayer(distance);
@@ -117,7 +114,11 @@ function GetCurrentObject() {
         const result = game.getShapeTestResult(hitData, undefined, undefined, undefined, undefined);
         const entityTypes = [null, 'ped', 'vehicle', 'object'];
         if (result) {
-            if (result[1] != true) { EntityType = null; Hitted = null; return; }
+            if (result[1] != true) { 
+                EntityType = null;
+                 Hitted = null; 
+                 return; 
+            }
             const handleType = game.getEntityType(result[4]);
             EntityType = entityTypes[handleType];
             Hitted = result[4];

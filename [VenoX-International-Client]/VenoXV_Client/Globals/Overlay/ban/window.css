@@ -1,8 +1,8 @@
 
 @font-face { font-family: 'drugs';
-             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+             src: url('http://assets/VenoXAssets/fonts/Caviar-Dreams.ttf') format('truetype'); }
 @font-face { font-family: 'robot';
-             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+             src: url('http://assets/VenoXAssets/fonts/Roboto-Thin.ttf') format('truetype'); }
 
 
 .back {

@@ -4,39 +4,44 @@
 ////////www.venox-reallife.com////////
 //----------------------------------*/
 
-@font-face { font-family: 'drugs';
-             src: url("font/Caviar-Dreams.ttf") format('truetype'); }
-@font-face { font-family: 'robot';
-             src: url('font/Roboto-Thin.ttf') format('truetype'); }
- 
+@font-face {
+    font-family: 'drugs';
+    src: url("font/Caviar-Dreams.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'robot';
+    src: url('font/Roboto-Thin.ttf') format('truetype');
+}
+
 .all {
-    -ms-user-select: None; 
-    -moz-user-select: None; 
-    -webkit-user-select: None; 
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
 }
 
 section {
-  display: none;
+    display: none;
 }
 
 input {
-  display: none;
+    display: none;
 }
 
-#infos:checked ~ #infos1,
-#statements:checked ~ #statements1,
-#transfers:checked ~ #transfers1,
-#deposits:checked ~ #deposits1 {
-  display: block;
+#infos:checked~#infos1,
+#statements:checked~#statements1,
+#transfers:checked~#transfers1,
+#deposits:checked~#deposits1 {
+    display: block;
 }
 
 /* Background */
 
 .back {
-	background: rgba(15, 15, 15, 0.8);
-	position: absolute;
-	width: 30vw;
-	height: 30vw;
+    background: rgba(15, 15, 15, 0.8);
+    position: absolute;
+    width: 30vw;
+    height: 30vw;
     border-radius: 0.3vw;
     top: 12vw;
     left: 50%;
@@ -47,12 +52,12 @@ input {
 /* Überschrift */
 
 .text_head {
-	background: rgba(15, 15, 15, 0.8);
-	position: absolute;
-	color: rgba(225,225,225,1);
-	width: 30vw;
-	font-size: 1.6vw;
-	font-family: drugs;
+    background: rgba(15, 15, 15, 0.8);
+    position: absolute;
+    color: rgba(225, 225, 225, 1);
+    width: 30vw;
+    font-size: 1.6vw;
+    font-family: drugs;
     font-weight: bold;
     top: 12.3vw;
     left: 50%;
@@ -109,12 +114,13 @@ input {
 [id="infos"]:checked {
     display: none;
 }
-[id="infos"]:checked + label,
-[id="infos"]:not(:checked) + label {
+
+[id="infos"]:checked+label,
+[id="infos"]:not(:checked)+label {
     position: absolute;
     cursor: pointer;
     font-family: robot;
-    background: rgb(0, 105, 150);
+    background: rgb(0, 0, 0);
     left: 42.6%;
     transform: translate(-50%);
     top: 20.4vw;
@@ -122,25 +128,25 @@ input {
     font-size: 1vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    transition: all ease 0.5s;
     width: 12vw;
     text-align: center;
 }
-[id="infos"]:hover + label,
-[id="infos"]:active + label {
-    background: rgb(0, 150, 200);
+
+[id="infos"]:hover+label,
+[id="infos"]:active+label {
+    background: rgb(0, 200, 255);
     transition: all ease 0.5s;
 }
-[id="infos"]:checked + label:after,
-[id="infos"]:active + label:after {
+
+[id="infos"]:checked+label:after,
+[id="infos"]:active+label:after {
     content: '';
     height: 1.2vw;
     width: 12vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    background: rgb(0, 150, 200);
+    background: rgb(0, 200, 255);
     position: absolute;
-    transition: all ease 0.5s;
     top: 0;
     left: 0;
     z-index: -1;
@@ -151,12 +157,13 @@ input {
 [id="statements"]:checked {
     display: none;
 }
-[id="statements"]:checked + label,
-[id="statements"]:not(:checked) + label {
+
+[id="statements"]:checked+label,
+[id="statements"]:not(:checked)+label {
     position: absolute;
     cursor: pointer;
     font-family: robot;
-    background: rgb(0, 105, 150);
+    background: rgb(0, 0, 0);
     left: 57.4%;
     transform: translate(-50%);
     top: 20.4vw;
@@ -164,25 +171,25 @@ input {
     font-size: 1vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    transition: all ease 0.5s;
     width: 12vw;
     text-align: center;
 }
-[id="statements"]:hover + label,
-[id="statements"]:active + label {
-    background: rgb(0, 150, 200);
+
+[id="statements"]:hover+label,
+[id="statements"]:active+label {
+    background: rgb(0, 200, 255);
     transition: all ease 0.5s;
 }
-[id="statements"]:checked + label:after,
-[id="statements"]:active + label:after {
+
+[id="statements"]:checked+label:after,
+[id="statements"]:active+label:after {
     content: '';
     height: 1.2vw;
     width: 12vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    background: rgb(0, 150, 200);
+    background: rgb(0, 200, 255);
     position: absolute;
-    transition: all ease 0.5s;
     top: 0;
     left: 0;
     z-index: -1;
@@ -193,12 +200,13 @@ input {
 [id="transfers"]:checked {
     display: none;
 }
-[id="transfers"]:checked + label,
-[id="transfers"]:not(:checked) + label {
+
+[id="transfers"]:checked+label,
+[id="transfers"]:not(:checked)+label {
     position: absolute;
     cursor: pointer;
     font-family: robot;
-    background: rgb(0, 105, 150);
+    background: rgb(0, 0, 0);
     left: 42.6%;
     transform: translate(-50%);
     top: 24.2vw;
@@ -206,25 +214,25 @@ input {
     font-size: 1vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    transition: all ease 0.5s;
     width: 12vw;
     text-align: center;
 }
-[id="transfers"]:hover + label,
-[id="transfers"]:active + label {
-    background: rgb(0, 150, 200);
+
+[id="transfers"]:hover+label,
+[id="transfers"]:active+label {
+    background: rgb(0, 200, 255);
     transition: all ease 0.5s;
 }
-[id="transfers"]:checked + label:after,
-[id="transfers"]:active + label:after {
+
+[id="transfers"]:checked+label:after,
+[id="transfers"]:active+label:after {
     content: '';
     height: 1.2vw;
     width: 12vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    background: rgb(0, 150, 200);
+    background: rgb(0, 200, 255);
     position: absolute;
-    transition: all ease 0.5s;
     top: 0;
     left: 0;
     z-index: -1;
@@ -235,12 +243,13 @@ input {
 [id="deposits"]:checked {
     display: none;
 }
-[id="deposits"]:checked + label,
-[id="deposits"]:not(:checked) + label {
+
+[id="deposits"]:checked+label,
+[id="deposits"]:not(:checked)+label {
     position: absolute;
     cursor: pointer;
     font-family: robot;
-    background: rgb(0, 105, 150);
+    background: rgb(0, 0, 0);
     left: 57.4%;
     transform: translate(-50%);
     top: 24.2vw;
@@ -248,25 +257,25 @@ input {
     font-size: 1vw;
     padding: 0.23vw 0.8vw;
     border-radius: 0.2vw;
-    transition: all ease 0.5s;
     width: 12vw;
     text-align: center;
 }
-[id="deposits"]:hover + label,
-[id="deposits"]:active + label {
-    background: rgb(0, 150, 200);
+
+[id="deposits"]:hover+label,
+[id="deposits"]:active+label {
+    background: rgb(0, 200, 255);
     transition: all ease 0.5s;
 }
-[id="deposits"]:checked + label:after,
-[id="deposits"]:active + label:after {
+
+[id="deposits"]:checked+label:after,
+[id="deposits"]:active+label:after {
     content: '';
     height: 1.2vw;
     width: 12vw;
     padding: 0.8vw 0.8vw;
     border-radius: 0.2vw;
-    background: rgb(0, 150, 200);
+    background: rgb(0, 200, 255);
     position: absolute;
-    transition: all ease 0.5s;
     top: 0;
     left: 0;
     z-index: -1;
@@ -287,6 +296,7 @@ input {
     width: 23.6vw;
     padding: 0.2vw 1.4vw;
 }
+
 .info_back {
     position: absolute;
     background: rgba(0, 150, 200, 0.6);
@@ -321,6 +331,7 @@ input {
     background: rgba(150, 150, 150, 0.6);
     color: white
 }
+
 .to_box {
     position: absolute;
     top: 31.2vw;
@@ -334,13 +345,15 @@ input {
     color: white;
     letter-spacing: 0.1vw;
     background-color: rgb(15, 15, 15, 0.8);
-    border: 0.1vw solid rgba(0,105,145);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    border: 0.1vw solid rgba(0, 105, 145);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .to_box::-ms-expand {
     background-color: transparent;
     border: 0
 }
+
 .to_box:focus {
     color: white;
     background-color: rgba(15, 15, 15, 0.7);
@@ -353,6 +366,7 @@ input {
     background: rgba(150, 150, 150, 0.6);
     color: white
 }
+
 .ammount_box {
     position: absolute;
     top: 33.7vw;
@@ -366,13 +380,15 @@ input {
     color: white;
     letter-spacing: 0.1vw;
     background-color: rgb(15, 15, 15, 0.8);
-    border: 0.1vw solid rgba(0,105,145);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    border: 0.1vw solid rgba(0, 105, 145);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .ammount_box::-ms-expand {
     background-color: transparent;
     border: 0
 }
+
 .ammount_box:focus {
     color: white;
     background-color: rgba(15, 15, 15, 0.7);
@@ -385,6 +401,7 @@ input {
     background: rgba(150, 150, 150, 0.6);
     color: white
 }
+
 .because_box {
     position: absolute;
     top: 36.2vw;
@@ -398,13 +415,15 @@ input {
     color: white;
     letter-spacing: 0.1vw;
     background-color: rgb(15, 15, 15, 0.8);
-    border: 0.1vw solid rgba(0,105,145);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    border: 0.1vw solid rgba(0, 105, 145);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .because_box::-ms-expand {
     background-color: transparent;
     border: 0
 }
+
 .because_box:focus {
     color: white;
     background-color: rgba(15, 15, 15, 0.7);
@@ -414,12 +433,12 @@ input {
 
 .pay {
     position: absolute;
-	width: 14vw;
+    width: 14vw;
     padding: 0.4vw 1vw;
-	background: rgba(0, 150, 200, 0.6);
-	color: white;
-	cursor: pointer;
-	transition: all ease 0.2s;
+    background: rgba(0, 150, 200, 0.6);
+    color: white;
+    cursor: pointer;
+    transition: all ease 0.2s;
     top: 39.1vw;
     left: 50%;
     transform: translate(-50%);
@@ -427,9 +446,11 @@ input {
     font-family: robot;
     text-align: center;
 }
-.pay:hover, .pay:active {
+
+.pay:hover,
+.pay:active {
     position: absolute;
-	background: rgba(0, 200, 250, 0.6);
+    background: rgba(0, 200, 250, 0.6);
 }
 
 /* Ein/Auszahlen */
@@ -447,13 +468,15 @@ input {
     color: white;
     letter-spacing: 0.1vw;
     background-color: rgb(15, 15, 15, 0.8);
-    border: 0.1vw solid rgba(0,105,145);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    border: 0.1vw solid rgba(0, 105, 145);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
+
 .betrag_box::-ms-expand {
     background-color: transparent;
     border: 0
 }
+
 .betrag_box:focus {
     color: white;
     background-color: rgba(15, 15, 15, 0.7);
@@ -463,12 +486,12 @@ input {
 
 .in {
     position: absolute;
-	width: 7vw;
+    width: 7vw;
     padding: 0.4vw 1vw;
-	background: rgba(0, 150, 200, 0.6);
-	color: white;
-	cursor: pointer;
-	transition: all ease 0.2s;
+    background: rgba(0, 150, 200, 0.6);
+    color: white;
+    cursor: pointer;
+    transition: all ease 0.2s;
     top: 37.3vw;
     left: 44.6%;
     transform: translate(-50%);
@@ -476,18 +499,21 @@ input {
     font-family: robot;
     text-align: center;
 }
-.in:hover, .in:active {
+
+.in:hover,
+.in:active {
     position: absolute;
-	background: rgba(0, 200, 250, 0.6);
+    background: rgba(0, 200, 250, 0.6);
 }
+
 .out {
     position: absolute;
-	width: 7vw;
+    width: 7vw;
     padding: 0.4vw 1vw;
-	background: rgba(0, 150, 200, 0.6);
-	color: white;
-	cursor: pointer;
-	transition: all ease 0.2s;
+    background: rgba(0, 150, 200, 0.6);
+    color: white;
+    cursor: pointer;
+    transition: all ease 0.2s;
     top: 37.3vw;
     left: 55.4%;
     transform: translate(-50%);
@@ -495,19 +521,21 @@ input {
     font-family: robot;
     text-align: center;
 }
-.out:hover, .out:active {
+
+.out:hover,
+.out:active {
     position: absolute;
-	background: rgba(0, 200, 250, 0.6);
+    background: rgba(0, 200, 250, 0.6);
 }
 
 /* Close Button */
 
 .close {
-	position: absolute;
+    position: absolute;
     height: auto;
-	color: gray;
-	cursor: pointer;
-	transition: all ease 0ss;
+    color: gray;
+    cursor: pointer;
+    transition: all ease 0ss;
     font-family: sans-serif;
     font-weight: normal;
     font-size: 1.4vw;
@@ -515,14 +543,13 @@ input {
     left: 64%;
     transform: translate(-50%);
 }
-.close:hover, .close:active {
+
+.close:hover,
+.close:active {
     position: fixed;
-	outline: none;
-	color: darkred;
+    outline: none;
+    color: darkred;
     font-weight: bold;
 }
 
 /* -------------------------------------------------- */
-
-
-

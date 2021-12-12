@@ -25,32 +25,26 @@ let offset = {
 };
 
 export function Render7TowersLobby() {
-    try {
-        //DrawText("1:34", [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);
-        //game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175);
-        DrawText(CurrentWinner + " " + CurrentWinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], false, true);
-        game.drawRect(0.5, 0.57, 0.25, 0.005, 255, 200, 0, 255);
-    }
-    catch { }
+    //DrawText("1:34", [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);
+    //game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175);
+    DrawText(CurrentWinner + " " + CurrentWinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, 255], false, true);
+    game.drawRect(0.5, 0.57, 0.25, 0.005, 255, 200, 0, 255, false);
 }
 
 alt.onServer('SevenTowers:ShowWinner', (Winner, TranslatedText, DestroyMS) => {
-    try {
-        if (SevenTowersTick != null) return;
-        CurrentWinnerText = TranslatedText;
-        alt.toggleGameControls(false);
-        SevenTowersTick = alt.everyTick(() => {
-            Render7TowersLobby();
-            CurrentWinner = Winner;
-        });
-        alt.setTimeout(() => {
-            if (SevenTowersTick != null) {
-                alt.clearEveryTick(SevenTowersTick); SevenTowersTick = null; alt.toggleGameControls(true);
-                ShowCountdown(5);
-            }
-        }, DestroyMS);
-    }
-    catch { }
+    if (SevenTowersTick != null) return;
+    CurrentWinnerText = TranslatedText;
+    alt.toggleGameControls(false);
+    SevenTowersTick = alt.everyTick(() => {
+        Render7TowersLobby();
+        CurrentWinner = Winner;
+    });
+    alt.setTimeout(() => {
+        if (SevenTowersTick != null) {
+            alt.clearEveryTick(SevenTowersTick); SevenTowersTick = null; alt.toggleGameControls(true);
+            ShowCountdown(5);
+        }
+    }, DestroyMS);
 });
 
 alt.onServer('SevenTowers:AddPlayer', (player) => {

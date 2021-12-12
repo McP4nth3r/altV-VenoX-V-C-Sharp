@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'drugs';
-    src: url('./files/font/Caviar-Dreams.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/Caviar-Dreams.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'robot';
-    src: url('./files/font/Roboto-Thin.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/Roboto-Thin.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'quest_header';
-    src: url('./files/font/quest_header.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/quest_header.ttf') format('truetype');
 }
 
 

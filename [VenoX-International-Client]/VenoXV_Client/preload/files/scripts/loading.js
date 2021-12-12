@@ -8,12 +8,12 @@
 // Loading Screen : 
 
 let Songs = [
-    "http://venox-reallife.com/preload/sounds/gta4-loading.mp3",
-    "http://venox-reallife.com/preload/sounds/Jan Hammer - Crockett's Theme (Miami Vice).mp3",
-    "http://venox-reallife.com/preload/sounds/G-Eazy - No Limit REMIX ft. A$AP Rocky, Cardi B, French Montana, Juicy J, Belly.mp3",
-    "http://venox-reallife.com/preload/sounds/Purple Disco Machine, Sophie and the Giants - Hypnotized (Official Video).mp3",
-    "http://venox-reallife.com/preload/sounds/In Da Hoopty.mp3",
-    "http://venox-reallife.com/preload/sounds/Nuthin' But A _G_ Thang.mp3"
+    "http://venox-international.com/preload/sounds/gta4-loading.mp3",
+    "http://venox-international.com/preload/sounds/Jan Hammer - Crockett's Theme (Miami Vice).mp3",
+    "http://venox-international.com/preload/sounds/G-Eazy - No Limit REMIX ft. A$AP Rocky, Cardi B, French Montana, Juicy J, Belly.mp3",
+    "http://venox-international.com/preload/sounds/Purple Disco Machine, Sophie and the Giants - Hypnotized (Official Video).mp3",
+    "http://venox-international.com/preload/sounds/In Da Hoopty.mp3",
+    "http://venox-international.com/preload/sounds/Nuthin' But A _G_ Thang.mp3"
 ]
 
 function PlayMusic(state) {
@@ -30,11 +30,12 @@ function PlayMusic(state) {
 }
 
 function ShowPrivacyPolicy(state) {
-    if (state) {
+    if (state) 
         setTimeout(() => {
             $('#part-1').removeClass('d-none');
         }, 1000);
-    } else $('#part-1').addClass('d-none');
+    else 
+        $('#part-1').addClass('d-none');
 
 }
 
@@ -84,16 +85,15 @@ function ShowPreload(state) {
 
 
 if ('alt' in window) {
+
     alt.on('LoadingScreen:Show', (state) => {
-        if (state) $('.Loading-Screen-Main').removeClass('d-none');
-        else $('.Loading-Screen-Main').addClass('d-none');
+        if (state) 
+            $('.Loading-Screen-Main').removeClass('d-none');
+        else 
+            $('.Loading-Screen-Main').addClass('d-none');
     });
 
-    alt.on('LoadingScreen:UpdateCurrentState', (text) => {
-        SetLoadingState(text);
-    });
+    alt.on('LoadingScreen:UpdateCurrentState', (text) => SetLoadingState(text));
 
-    alt.on('LoadingScreen:ShowPreload', (state) => {
-        ShowPreload(state);
-    });
+    alt.on('LoadingScreen:ShowPreload', (state) => ShowPreload(state));
 }

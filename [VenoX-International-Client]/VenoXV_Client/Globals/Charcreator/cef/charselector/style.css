@@ -1,26 +1,26 @@
 @font-face {
     font-family: 'PEL';
-    src: url('../utils/fonts/Poppins-ExtraLight.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/Poppins-ExtraLight.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'PM';
-    src: url('../utils/fonts/Poppins-Medium.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/Poppins-Medium.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'PT';
-    src: url('../utils/fonts/Poppins-Thin.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/Poppins-Thin.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'OSR';
-    src: url('../utils/fonts/OpenSans-Regular.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/OpenSans-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'OSL';
-    src: url('../utils/fonts/OpenSans-Light.ttf') format('truetype');
+    src: url('http://assets/VenoXAssets/fonts/OpenSans-Light.ttf') format('truetype');
 }
 
 div#loadingScreen {
@@ -530,8 +530,4 @@ div#charcreatorMainBox>div#charcreatorCategoryBox>ul>li>p {
     margin-top: 5px;
     letter-spacing: 1px;
     font-size: 14px;
-}
-
-body {
-    background-color: rgb(40, 40, 40);
 }

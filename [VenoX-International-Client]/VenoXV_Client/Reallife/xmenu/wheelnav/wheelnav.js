@@ -1805,10 +1805,10 @@ wheelnavTitle.prototype.getTitleSizeTransform = function (titlewidth, titleheigh
 wheelnav.prototype.styleWheel = function () {
     if (!this.cssMode) {
         if (this.spreaderPathInAttr === undefined || this.spreaderPathInAttr === null) {
-            this.spreaderPathInAttr = { fill: "#444", stroke: "#444", "stroke-width": 2, cursor: 'pointer' };
+            this.spreaderPathInAttr = { fill: "#444", stroke: "#444", "stroke-width": 0, cursor: 'pointer' };
         }
         if (this.spreaderPathOutAttr === undefined || this.spreaderPathOutAttr === null) {
-            this.spreaderPathOutAttr = { fill: "#444", stroke: "#444", "stroke-width": 2, cursor: 'pointer' };
+            this.spreaderPathOutAttr = { fill: "#444", stroke: "#444", "stroke-width": 0, cursor: 'pointer' };
         }
         if (this.spreaderTitleInAttr === undefined || this.spreaderTitleInAttr === null) {
             this.spreaderTitleInAttr = { fill: "#eee", stroke: "#444", cursor: 'pointer' };

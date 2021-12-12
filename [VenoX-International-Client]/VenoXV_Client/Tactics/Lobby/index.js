@@ -31,73 +31,66 @@ let Team_B_G = 0;
 let Team_B_B = 0;
 
 alt.onServer('LoadTacticUI', (A_Name, B_Name, r, g, b, r1, g1, b1) => {
-    try {
-        if (alt.Player.local.getStreamSyncedMeta("RAGEAPI:SpawnedPlayer") == true) { game.freezeEntityPosition(alt.Player.local.scriptID, false); }
-        game.displayHud(true);
-        game.displayRadar(true);
-        Team_A_Name = A_Name;
-        Team_A_R = r;
-        Team_A_G = g;
-        Team_A_B = b;
-        ////////////////
-        Team_B_Name = B_Name;
-        Team_B_R = r1;
-        Team_B_G = g1;
-        Team_B_B = b1;
-    }
-    catch{ }
+    if (alt.Player.local.getStreamSyncedMeta("RAGEAPI:SpawnedPlayer")) 
+        game.freezeEntityPosition(alt.Player.local.scriptID, false);
+
+    game.displayHud(true);
+    game.displayRadar(true);
+    Team_A_Name = A_Name;
+    Team_A_R = r;
+    Team_A_G = g;
+    Team_A_B = b;
+    ////////////////
+    Team_B_Name = B_Name;
+    Team_B_R = r1;
+    Team_B_G = g1;
+    Team_B_B = b1;
 });
 
 alt.onServer('Tactics:OnDeath', () => {
-    try {
-        game.setFadeOutAfterDeath(false);
-        game.ignoreNextRestart(true);
-        game.displayHud(true);
-    }
-    catch{ }
+    game.setFadeOutAfterDeath(false);
+    game.ignoreNextRestart(true);
+    game.displayHud(true);
 });
 
 alt.onServer('Tactics:UpdateMemberInfo', (L, LA, B, BA) => {
-    try {
-        CURRENT_LSPD_IN_ROUND = L;
-        CURRENT_LSPD_ALIVE_IN_ROUND = LA;
-        CURRENT_BFAC_IN_ROUND = B;
-        CURRENT_BFAC_ALIVE_IN_ROUND = BA;
-    }
-    catch{ }
+    CURRENT_LSPD_IN_ROUND = L;
+    CURRENT_LSPD_ALIVE_IN_ROUND = LA;
+    CURRENT_BFAC_IN_ROUND = B;
+    CURRENT_BFAC_ALIVE_IN_ROUND = BA;
 });
 
 function startTimer(duration) {
-    try {
-        var timer = duration, minutes, seconds;
-        if (tactictimer != null) { alt.clearInterval(tactictimer); }
-        tactictimer = alt.setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+    var timer = duration, minutes, seconds;
+    if (tactictimer != null) 
+        alt.clearInterval(tactictimer);
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+    tactictimer = alt.setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-            TACTIC_COUNTDOWN = minutes + ":" + seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            if (--timer < 0) {
-                timer = duration;
-            }
-        }, 1000);
-    }
-    catch{ }
+        TACTIC_COUNTDOWN = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
 }
 
 function Tactics_Show_Winner() {
-    try {
-        if (BG_AP < 255) { BG_AP += 1; }
-        if (BG_AP >= 40) { game.freezeEntityPosition(alt.Player.local.scriptID, true); }
-        DrawText(WinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, BG_AP], false, true);
-        DrawText("VenoX Tactics", [0.5, 0.57], [0.9, 0.9], 1, [0, 200, 255, BG_AP], true, true);
-        game.drawRect(0, 0, 10, 10, 0, 0, 0, BG_AP);
-        game.drawRect(0.5, 0.57, 0.25, 0.005, 0, 200, 255, BG_AP);
-    }
-    catch{ }
+    if (BG_AP < 255) 
+        BG_AP += 1;
+
+    if (BG_AP >= 40) 
+        game.freezeEntityPosition(alt.Player.local.scriptID, true);
+
+    DrawText(WinnerText, [0.5, 0.5], [1, 1], 0, [255, 255, 255, BG_AP], false, true);
+    DrawText("VenoX Tactics", [0.5, 0.57], [0.9, 0.9], 1, [0, 200, 255, BG_AP], true, true);
+    game.drawRect(0, 0, 10, 10, 0, 0, 0, BG_AP, false);
+    game.drawRect(0.5, 0.57, 0.25, 0.005, 0, 200, 255, BG_AP, false);
 }
 
 alt.onServer('Tactics:UpdatePlayerStats', (d, k) => {
@@ -130,51 +123,42 @@ alt.onServer('Tactics:SpectatePlayer', (p) => {
 
 let TimerCreated = false;
 function DrawTacticCountdown() {
-    try {
-        ShowCountdown(3);
-    }
-    catch{ }
+    ShowCountdown(3);
 }
 let TacticsTick;
 
 alt.onServer('Tactics:Load', () => {
-    try {
-        if (TacticsTick) { return; }
-        TacticsTick = alt.everyTick(() => {
-            TacticsEveryTick();
-        });
-    }
-    catch{ }
+    if (TacticsTick) return;
+    TacticsTick = alt.everyTick(() => TacticsEveryTick());
 });
 
 alt.onServer('Tactics:Unload', () => {
-    try {
-        if (!TacticsTick) { return; }
-        alt.clearInterval(TacticsTick);
-        TacticsTick = null;
-    }
-    catch{ }
+    if (!TacticsTick) return;
+    alt.clearInterval(TacticsTick);
+    TacticsTick = null;
 });
 function TacticsEveryTick() {
-    try {
-        if (tactictimer == null) { return; }
-        if (ShowWinningWindow) { Tactics_Show_Winner(); return; }
-        if (!TimerCreated) { TimerCreated = true; DrawTacticCountdown(); };
+        if (tactictimer == null) return;
+        if (ShowWinningWindow) return Tactics_Show_Winner();
+        if (!TimerCreated) { 
+            TimerCreated = true; 
+            DrawTacticCountdown(); 
+        };
         DrawText(Team_A_Name, [0.42478, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
         DrawText(CURRENT_LSPD_ALIVE_IN_ROUND + " / " + CURRENT_LSPD_IN_ROUND, [0.42478, 0.028], [0.25, 0.25], 0, [255, 255, 255, 255], true, true);
         DrawText(TACTIC_COUNTDOWN, [0.5, 0.006], [0.5, 0.5], 0, [255, 255, 255, 255], true, true);
         DrawText(Team_B_Name, [0.575, 0.006], [0.4, 0.4], 0, [255, 255, 255, 255], true, true);
         DrawText(CURRENT_BFAC_ALIVE_IN_ROUND + " / " + CURRENT_BFAC_IN_ROUND, [0.575, 0.028], [0.25, 0.25], 0, [255, 255, 255, 255], true, true);
 
-        game.drawRect(0.42478, 0, 0.1, 0.1, Team_A_R, Team_A_G, Team_A_B, 175);
-        game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175);
-        game.drawRect(0.575, 0, 0.1, 0.1, Team_B_R, Team_B_G, Team_B_B, 175);
+        game.drawRect(0.42478, 0, 0.1, 0.1, Team_A_R, Team_A_G, Team_A_B, 175, false);
+        game.drawRect(0.5, 0, 0.05, 0.1, 0, 0, 0, 175, false);
+        game.drawRect(0.575, 0, 0.1, 0.1, Team_B_R, Team_B_G, Team_B_B, 175, false);
 
-        game.drawRect(0.846, 0.30, 0.06, 0.035, 0, 0, 0, 175);
-        game.drawRect(0.9105, 0.30, 0.06, 0.035, 0, 0, 0, 175);
-        game.drawRect(0.975, 0.30, 0.06, 0.035, 0, 0, 0, 175);
+        game.drawRect(0.846, 0.30, 0.06, 0.035, 0, 0, 0, 175, false);
+        game.drawRect(0.9105, 0.30, 0.06, 0.035, 0, 0, 0, 175, false);
+        game.drawRect(0.975, 0.30, 0.06, 0.035, 0, 0, 0, 175, false);
 
-        game.drawRect(0.916, 0.2818, 0.20, 0.003, 0, 150, 200, 175);
+        game.drawRect(0.916, 0.2818, 0.20, 0.003, 0, 150, 200, 175, false);
         if (!game.hasStreamedTextureDictLoaded("mpinventory")) {
             game.requestStreamedTextureDict("mpinventory", true);
         }
@@ -187,9 +171,9 @@ function TacticsEveryTick() {
             game.requestStreamedTextureDict("mpinventory", true);
         }
 
-        game.drawSprite("mpinventory", "deathmatch", 0.826, 0.30, 0.025, 0.025, 0, 255, 255, 255, 255);
+        game.drawSprite("mpinventory", "deathmatch", 0.826, 0.30, 0.025, 0.025, 0, 255, 255, 255, 255, false);
         DrawText(Current_Kills + " KILLS", [0.850, 0.289], [0.35, 0.33], 4, [225, 225, 225, 255], true, true);
-        game.drawSprite("mpinventory", "mp_specitem_weapons", 0.8935, 0.30, 0.0215, 0.0215, 0, 255, 255, 255, 255);
+        game.drawSprite("mpinventory", "mp_specitem_weapons", 0.8935, 0.30, 0.0215, 0.0215, 0, 255, 255, 255, 255, false);
         DrawText(Math.ceil(Current_Damage) + " DMG", [0.92, 0.289], [0.4, 0.33], 4, [225, 225, 225, 255], true, true);
 
         //mp.game.graphics.drawSprite("mpleaderboard", "leaderboard_time_icon", 0.956, 0.30, 0.027, 0.027, 0, 255, 255, 255, 255);
@@ -200,12 +184,7 @@ function TacticsEveryTick() {
 
         //DrawText("German Venox Tactics " + gamemode_version + " dev r1", [0.927, 0.98], [0.6, 0.3], 0, [225, 225, 225, 175], true, true);
         //DrawText("Alt:V " + RageMP_version, 0.927, 0.96, 0.6, 0, 225, 225, 225, 135, true, true);
-    }
-    catch{ }
 }
 
 
-alt.onServer('Tactics:LoadTimer', (v) => {
-    try { startTimer(v); }
-    catch{ }
-});
+alt.onServer('Tactics:LoadTimer', v => startTimer(v));

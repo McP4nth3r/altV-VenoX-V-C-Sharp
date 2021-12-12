@@ -19,7 +19,9 @@ function playAudio(v) {
 function OnWindowLoad() {
     OnHover();
     let rnumber = Math.floor((Math.random() * 6));
-    $('.background').attr("src", "https://venox-reallife.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
+    //$('.background').attr("src", "https://venox-international.com/images_vnx/preload_wallpaper/" + rnumber + ".jpg");
+    $('.background').attr("src", "https://www.venox-international.com/home/images/style-2/background.jpg");
+
     //console.log('called src : ' + rnumber);
     //console.log('called src : ' + $('.background').attr("src"));
 }
