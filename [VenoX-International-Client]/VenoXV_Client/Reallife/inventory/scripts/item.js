@@ -4,8 +4,21 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-//OnUpdateItems("Weed", 12, "Drugs", 0.1);
-// /giveitem Weed 1 1 0.1
+
+
+/*
+let ItemTypes = {}
+ItemTypes[0] = "Drugs";
+ItemTypes[1] = "Useable";
+ItemTypes[2] = "Clothes";
+ItemTypes[3] = "Gun";
+
+
+OnUpdateItems(1, "Weed", 12, 0, 0.1);
+OnUpdateItems(2, "AdvancedRifle", 12, 3, 0.1);
+OnUpdateItems(3, "Shirt", 1, 2, 0.5);
+OnUpdateItems(45, "shoes", 1, 2, 0.5);
+*/
 
 function UpdateInventoryWeight() {
     let ItemArray = GetAllItems();

@@ -98,6 +98,8 @@ box.draggable({
         let patt = /\"|\'|\)/g;
         let text = name.split('/').pop().replace(patt, '');
         if (text == 'style.css') return false;
+        $(ui.helper).css("background-color", 'rgba(0, 0, 0, 0.0)');
+        $(ui.helper).css('box-shadow','inset 0px 0px 0px 2px rgba(0,0,0,0)');
     },
 
     drag: function (event, ui) {
@@ -122,6 +124,7 @@ box.droppable({
         // Remove Hovers
         DragPoint.removeClass('overgreen');
         DropPoint.removeClass('overgreen');
+        
         DragPoint.removeClass('overred');
         DropPoint.removeClass('overred');
 
@@ -400,8 +403,10 @@ function UpdateItem(id, hash, amount, weight) {
 
 // called if a new item got inserted.
 function OnUpdateItems(id, hash, amount, itemtype, weight, isusing) {
-    if (!ItemExists(id)) AddItem(id, hash, amount, itemtype, weight, isusing);
-    else UpdateItem(id, hash, amount, weight);
+    if (!ItemExists(id)) 
+        AddItem(id, hash, amount, itemtype, weight, isusing);
+    else 
+        UpdateItem(id, hash, amount, weight);
 }
 
 
