@@ -88,7 +88,6 @@ setTimeout(() => {
     AddLobbyToGamemode(2, '', 'Beta', 2, '1', '10 / 20');
     AddLobbyToGamemode(2, '', 'Gamma', 2, '2', '10 / 20');
     AddLobbyToGamemode(2, '', 'Delta', 2, '3', '30 / 50');
-
 }, 200);
 
 function AddLobbyToGamemode(RectangleId, imgpath, lobbyname, lobbyId, lobbycountry, lobbycount) {
