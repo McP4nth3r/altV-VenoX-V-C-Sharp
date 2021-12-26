@@ -1,6 +1,6 @@
 //----------------------------------//
 ///// VenoX Gaming & Fun 2020 © ///////
-//////By LargePeach & VnX RL Crew////
+//////By Solid_Snake & VnX RL Crew////
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
@@ -50,7 +50,7 @@ function RefreshStreamLinks() {
         }
     }
     $('.VenoXStream').click(function () {
-        if (_CurrentStream) { _CurrentStream.pause(); }
+        if (_CurrentStream) _CurrentStream.pause();
         let CurrentClickedElement = $(this).attr('id');
         let NewObj = document.getElementById(CurrentClickedElement);
         _CurrentStream = NewObj;
@@ -62,24 +62,29 @@ RefreshStreamLinks();
 
 
 $('.MusicVolumeClick').click(function () {
-    if (!_CurrentStream) { return; }
+    if (!_CurrentStream) return;
+    
     let CurrentClickedElement = $(this).attr('id');
-    if (CurrentClickedElement == 1 && _CurrentVolume < 0.9) { _CurrentStream.volume += 0.1; }
-    else if (CurrentClickedElement == 0 && _CurrentVolume > 0.1) { _CurrentStream.volume -= 0.1; }
+    
+    if (CurrentClickedElement == 1 && _CurrentVolume < 0.9) 
+        _CurrentStream.volume += 0.1;
+    else if (CurrentClickedElement == 0 && _CurrentVolume > 0.1) 
+        _CurrentStream.volume -= 0.1;
+    
     _CurrentVolume = _CurrentStream.volume;
 });
 
 
 $('.MusicStopClick').click(function () {
-    if (!_CurrentStream) { return; }
-    if (_CurrentStream) { _CurrentStream.pause(); }
+    if (!_CurrentStream) return;
+    if (_CurrentStream) 
+        _CurrentStream.pause();
 });
 
 $('.AddMusic').click(function () {
     let Name = $('#NewMusicName').val();
     let Link = $('#NewMusicLink').val();
-    if (Name.length <= 1) { return; }
-    if (Link.length <= 1) { return; }
+    if (Name.length <= 1 || Link.length <= 1) return;
     CreateStreamEntrys(Name, Link);
     RefreshStreamLinks();
 });

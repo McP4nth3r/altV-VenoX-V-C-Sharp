@@ -17,6 +17,11 @@ body{
     height: 100%;
     z-index: 1;
     overflow: hidden;
+    /*background-image: url(files/images/bg.png);
+    background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+    */
 }
 
 /* Handy Allgemein */
@@ -32,7 +37,8 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
-	z-index: 2;
+	
+    z-index: 2;
 }
 
 /* Display Fläche */
@@ -44,6 +50,71 @@ body{
 	height: 25vw;
 	width: 14.3vw;
     z-index: 5;
+}
+
+
+.PhoneClockBar{
+    position: absolute;
+    left: 0;
+    top: 0%;
+    width: 100%;
+    height: 3%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.PhoneClockBar_SimCard_Image{
+    position: absolute;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    z-index: 100;
+
+}
+
+.PhoneClockBar_SimCard_Text{
+    position: relative;
+    left: 10%;
+    color: white;
+    font-family: arial;
+    font-size: 0.5vw;
+    top: 50%;
+    opacity: 75%;
+    transform: translate(0, -50%);
+}
+
+
+.PhoneClockBar_Time_Text{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: arial;
+    font-size: 0.6vw;
+    opacity: 75%;
+
+
+}
+
+.PhoneClockBar_Energy_Image{
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: 100%;
+    width: auto;   
+}
+
+.PhoneClockBar_Energy_Text{
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: auto;
+    color: white;
+    font-size: 0.5vw;
+    opacity: 75%;
+    font-family: arial;
 }
 
 /* Handy Ausgeschaltet Text */
@@ -92,6 +163,7 @@ body{
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
+    animation: ZoomHomeIn 0.2s;
 }
 
 /* Shortcut Leiste */
@@ -102,7 +174,7 @@ body{
 	height: 14%;
 	bottom: 0;
 	background-color: rgba(100,100,100,0.8);
-	
+    animation: ZoomHomeIn 0.2s;
 }
 
 /* Anruf Button */
@@ -119,6 +191,14 @@ body{
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
     transform: translate(-0%, -50%);
+
+}
+
+.AppClass{
+    opacity: 75%;
+}
+.AppClass:hover{
+    opacity: 100%;
 }
 
 /* SMS Button */
@@ -178,18 +258,20 @@ body{
 }
 
 /* Handy Ausschalten */
-
-.Phone_App_TurnOff {
-	position: absolute;
-	left: 2%;
-	width: 20%;
-	height: 12%;
-	top: 2.5%;
-    cursor: pointer;
-	background-image: url("./files/images/off.png");
-	background-size: cover;
+.Phone_App{
+    position: relative;
+    margin-left: 3.5%;
+    top: 5%;
+    margin-top: 3.5%;
+    width: 17.5%;
+	height: 12.5%;
+    padding: 0.1vw 0.1vw;
+    background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
+    cursor: pointer;
+    animation: ZoomHomeIn 0.25s;
+
 }
 
 /* Handy Anruf Hintergrund */
@@ -596,12 +678,28 @@ body{
 
 .PhoneMusicBackground {
     position: absolute;
-    left: 0;
+    left: 0;    
+    bottom: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
     background-image: url(files/images/homescreen_0.png);
     background-size: cover;
     z-index: 5;
+    animation: ZoomWindowMusicIn 0.2s;
+}
+
+@keyframes ZoomWindowMusicIn{
+    0% {
+        transform: scale(0, 0);
+        top: 50%;
+        left: 14%;
+    }
+    100%{
+        transform: scale(100%, 100%);
+        top: 0;
+        left: 0;
+    }
 }
 
 .MusicScreenHeader {
@@ -778,6 +876,16 @@ body{
     z-index: 1;
 }
 
+
+
+.PhonePornhubScreen{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
 /* ____________________________________________________________________ */
 
 
@@ -845,4 +953,45 @@ body{
     cursor: pointer;
     transform: translate(-50%, -50%);
     border-radius: 50%;
+}
+
+
+.RotateToPornView{
+    transform: rotate(90deg);
+    animation: RotateInPornHub 0.2s;
+}
+
+.RotateFromPornView{
+    transform: rotate(0deg);
+    animation: RotateOutPornHub 0.2s;
+}
+
+
+@keyframes RotateInPornHub{
+    0% {
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes RotateOutPornHub{
+    0% {
+        transform: rotate(90deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+
+
+@keyframes ZoomHomeIn{
+    0% {
+        transform: scale(0, 0);
+    }
+    100%{
+        transform: scale(100%, 100%);
+    }
 }

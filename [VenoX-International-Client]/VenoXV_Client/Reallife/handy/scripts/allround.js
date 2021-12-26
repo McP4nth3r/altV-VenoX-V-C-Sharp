@@ -4,7 +4,7 @@
 ////////www.venox-reallife.com////////
 //----------------------------------//
 
-let HomeBackground = 1;
+let HomeBackground = 0;
 let HomeBackgroundUrl = $('.PhoneBackground').css("background-image");
 let PhoneState = true; //Handy Angeschaltet Status
 
@@ -19,7 +19,9 @@ function DestroyAllScreens() {
 	$("#PhoneOffScreen").addClass("d-none");
 	$("#PhoneMusicScreen").addClass("d-none");
 	$("#PhoneWriteSMSScreen").addClass("d-none");
+	$("#PhonePornhubScreen").addClass("d-none");
 	$('.SMS-Chats').addClass("d-none");
+    DestroyPhoneInPornView();
 }
 
 /*-------------------------------------------------------------*/
@@ -30,21 +32,28 @@ function ChangeHomeScreen(Id) {
 ChangeHomeScreen(HomeBackground);
 
 function DrawHomeScreen() {
-	if (IsCallInProcess || !PhoneState) { return; }
+	if (IsCallInProcess || !PhoneState) return;
 	DestroyAllScreens();
 	$("#PhoneHomeScreen").removeClass("d-none");
 }
 
 function OnAppClick(appbtn) {
 	DestroyAllScreens();
+    setTimeout(()=>{
+        $("#PhoneHomeScreen").addClass("d-none");
+    }, 100);
 	$("#" + appbtn).removeClass("d-none");
 }
 
 function TurnPhoneOn(State) {
 	DestroyAllScreens();
 	PhoneState = State;
-	if (!State) { $("#PhoneOffScreen").removeClass("d-none"); }
-	else { DestroyAllScreens(); DrawHomeScreen(); }
+	if (!State) 
+        $("#PhoneOffScreen").removeClass("d-none");
+	else { 
+        DestroyAllScreens(); 
+        DrawHomeScreen(); 
+    }
 }
 
 /*-------------------------------------------------------------*/
@@ -52,11 +61,11 @@ function TurnPhoneOn(State) {
 //alt:V Events.
 if ('alt' in window) {
 	alt.on('Phone:Show', (State) => {
-		if (State) {
+		if (State)
 			$('.all').removeClass('d-none');
-		} else {
+		else
 			$('.all').addClass('d-none');
-		}
+		
 	});
 	alt.on('Phone:AddNewPlayerEntry', (List) => {
 		c = 0;

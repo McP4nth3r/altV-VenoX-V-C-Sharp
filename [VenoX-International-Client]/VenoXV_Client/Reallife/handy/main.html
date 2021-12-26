@@ -3,11 +3,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://venox-international.com/Lib/Window/style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="scripts/kit-fontawesome.js"></script>
 </head>
 
 <body>
-    <div class="all d-none">
+    <div class="all d-nne">
         <div id="PhoneIndex" class="PhoneIndex" src="./files/images/vnxphone.png">
             <div class="HomeButton" onclick="DrawHomeScreen();"></div>
             <div class="PhoneScreen">
@@ -20,15 +20,45 @@
                 <div id="PhoneHomeScreen" class="d-none">
                     <div class="PhoneBackground"></div>
 
+                    <div class="PhoneClockBar">
+                        <img class="PhoneClockBar_SimCard_Image" src="files/images/logo2.png">
+                        <div class="PhoneClockBar_SimCard_Text">
+                            <span style="color: rgb(0, 200, 255);">VenoX</span>    
+                            <span style="color: white;"> Sim</span>    
+                        </div>
+                        <div class="PhoneClockBar_Time_Text" id="PhoneClockBar_Time">21:35</div>
+                        <img class="PhoneClockBar_Energy_Image" src="files/images/VenoX_Energy.png">
+                        <div class="PhoneClockBar_Energy_Text">232%</div>
+                    </div>
+                    
                     <div class="PhoneAppBar">
-                        <div class="Phone_App_Call" onclick="OnAppClick('PhoneCallScreen');"></div>
-                        <div class="Phone_App_SMS" onclick="OnAppClick('PhoneSMSScreen');"></div>
-                        <div class="Phone_App_MUSIC" onclick="OnAppClick('PhoneMusicScreen');"></div>
-                        <div class="Phone_App_Safari" onclick="OnAppClick('PhoneSafariScreen');"></div>
+                        <div class="Phone_App_Call AppClass" onclick="OnAppClick('PhoneCallScreen');"></div>
+                        <div class="Phone_App_SMS AppClass" onclick="OnAppClick('PhoneSMSScreen');"></div>
+                        <div class="Phone_App_MUSIC AppClass" onclick="OnAppClick('PhoneMusicScreen');"></div>
+                        <div class="Phone_App_Safari AppClass" onclick="OnAppClick('PhoneSafariScreen');"></div>
                     </div>
 
                     <div class="PhoneAppHome">
-                        <div class="Phone_App_TurnOff" onclick="TurnPhoneOn(false)"></div>
+                        <img src="files/images/settings.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/pornhub.png" class="Phone_App AppClass" onclick="CreatePhoneInPornView()">
+                        <img src="files/images/safari.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/vnxtube.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/ammunation.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+                        <img src="files/images/off_old.png" class="Phone_App AppClass" onclick="TurnPhoneOn(false)">
+
+
                         <div class="Phone_App_Ammunation"></div>
                         <div class="Phone_App_Website"></div>
                         <div class="Phone_App_Pornhub"></div>
@@ -98,8 +128,8 @@
                     <div class="PhoneMusicBackground">
                         <div class="MusicScreenHeader">Musik Streams</div>
                         <div class="musicscreenGridbg"></div>
-                        <input id="NewMusicName" placeholder="Streaming Name einfügen..." rows="1">
-                        <input id="NewMusicLink" placeholder="Streaming Link einfügen..." rows="1">
+                        <input id="NewMusicName" placeholder="Enter stream name..." rows="1">
+                        <input id="NewMusicLink" placeholder="Enter stream link..." rows="1">
                         <div class="AddMusic" tooltip="Stream hinzufügen">
                             <i id="createmusic" class="fa fa-plus-square"></i>
                         </div>
@@ -116,6 +146,11 @@
                 </div>
 
                 <div id="PhoneSafariScreen" class="d-none">
+                    
+                </div>                
+                
+                <div id="PhonePornhubScreen" class="d-none">
+                    
                 </div>
 
             </div>
@@ -123,5 +158,41 @@
     </div>
     <script src="scripts/allround.js"></script>
     <script src="scripts/call.js"></script>
+    <script src="scripts/music.js"></script>
     <script src="scripts/sms.js"></script>
+    <script src="scripts/porn.js"></script>
+    
+    <script>		
+        
+        $('#PhonePornhubScreen').html('<object id="PhoneCurrentPornContainer" style="position: absolute;left: -40%;top: 20%;height: 56%;width: 180%; transform: rotate(270deg);" data="https://pornboss.me/"/>')
+        //let taginfo = null;
+        function uhr() {
+            var currentDateTime = new Date();
+            var tag = currentDateTime.getDate();
+            var monat = currentDateTime.getMonth() + 1;
+            if(monat <= 9)
+                monat = '0' + monat;
+            var jahr = currentDateTime.getYear();
+            if (jahr < 999)
+                jahr += 1900;
+            var stunden = currentDateTime.getHours();
+            var minuten = currentDateTime.getMinutes();
+			var seconds = currentDateTime.getSeconds();
+            if(stunden < 10)
+				stunden = "0" + stunden;
+			if(seconds < 10)
+				seconds = "0" + seconds;
+			if(minuten < 10)
+				minuten = "0" + minuten;
+
+
+            //var tag = tag + '/' + monat + '/' + jahr;    
+
+            var zeit = stunden + ':' + minuten;    
+            
+            document.getElementById('PhoneClockBar_Time').innerHTML = zeit;
+			setTimeout(uhr, 500);
+        }
+        uhr();
+    </script>
 </body>
