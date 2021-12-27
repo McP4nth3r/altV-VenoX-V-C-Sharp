@@ -42,7 +42,7 @@ namespace VenoXV._Preload_
     }
     public class Preload : IScript
     {
-        public const string CurrentVersion = "2.1.2";
+        public const string CurrentVersion = "2.2.0";
         public enum Gamemodes
         {
             Reallife = 0,

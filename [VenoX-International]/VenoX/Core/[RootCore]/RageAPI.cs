@@ -497,9 +497,7 @@ namespace VenoXV
                 while (!(box[0] < n * (Byte.MaxValue / n)));
                 int k = (box[0] % n);
                 n--;
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                (list[k], list[n]) = (list[n], list[k]);
             }
         }
     }
