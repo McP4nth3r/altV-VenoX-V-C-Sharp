@@ -56,108 +56,74 @@ let CURSOR_KEY = 18;
 
 
 export function GetCurrentLobby() {
-    try {
-        return CurrentLobby;
-    } catch {}
+    return CurrentLobby;
 }
 export function FreezeClient(bool) {
-    try {
-        game.freezeEntityPosition(LocalPlayer.scriptID, bool);
-    } catch {}
+    game.freezeEntityPosition(LocalPlayer.scriptID, bool);
 }
 export function SetEntityAlpha(Entity, alpha) {
-    try {
-        game.setEntityAlpha(Entity.scriptID, alpha, true);
-    } catch {}
+    if(!Entity) return alt.log("SetEntityAlpha - Entity is undefined.");
+    game.setEntityAlpha(Entity.scriptID, alpha, true);
 }
 
-alt.onServer("Player:ChangeCurrentLobby", (Lobby) => {
-    try {
-        CurrentLobby = Lobby;
-    } catch {}
-});
+alt.onServer("Player:ChangeCurrentLobby", Lobby => CurrentLobby = Lobby);
 
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-alt.onServer('Player:Freeze', (bool) => {
-    try {
-        game.freezeEntityPosition(LocalPlayer.scriptID, bool);
-    } catch {}
-});
+alt.onServer('Player:Freeze', bool => game.freezeEntityPosition(LocalPlayer.scriptID, bool));
+
 alt.onServer('Player:FreezeAfterMS', (MS, bool) => {
-    try {
-        alt.setTimeout(() => {
-            game.freezeEntityPosition(LocalPlayer.scriptID, bool);
-        }, MS);
-    } catch {}
+    alt.setTimeout(() => {
+         game.freezeEntityPosition(LocalPlayer.scriptID, bool);
+    }, MS);
 });
 
 
 alt.onServer('Player:Spawn', () => {
-    try {
-        game.displayHud(true);
-        game.clearPedBloodDamage(LocalPlayer.scriptID);
-    } catch {}
+    game.displayHud(true);
+    game.clearPedBloodDamage(LocalPlayer.scriptID);
 });
 
-alt.onServer('Vehicle:Freeze', (veh, bool) => {
-    try {
-        game.freezeEntityPosition(veh.scriptID, bool);
-    } catch {}
-});
-alt.onServer('Vehicle:Godmode', (veh, bool) => {
-    try {
-        game.setEntityInvincible(veh.scriptID, bool);
-    } catch {}
-});
-alt.onServer('Vehicle:Repair', (veh) => {
-    try {
-        game.setVehicleFixed(veh.scriptID);
-    } catch {}
-});
+alt.onServer('Vehicle:Freeze', (veh, bool) => game.freezeEntityPosition(veh.scriptID, bool));
+alt.onServer('Vehicle:Godmode', (veh, bool) => game.setEntityInvincible(veh.scriptID, bool));
+alt.onServer('Vehicle:Repair', veh => game.setVehicleFixed(veh.scriptID));
 
 let CalledToSpawn = false;
 alt.onServer("movecamtocurrentpos_client", () => {
-    try {
-        moveFromToAir(LocalPlayer, 'up', 1, false);
-        FreezeClient(true);
+    moveFromToAir(LocalPlayer, 'up', 1, false);
+    FreezeClient(true);
 
+    alt.setTimeout(() => {
+        if (CalledToSpawn) return;
+        alt.emitServer('load_data_login');
+        CalledToSpawn = true;
+        ShowCursor(false);
         alt.setTimeout(() => {
-            if (CalledToSpawn) {
-                return;
-            }
-            alt.emitServer('load_data_login');
-            CalledToSpawn = true;
-            ShowCursor(false);
-            alt.setTimeout(() => {
-                moveFromToAir(LocalPlayer, 'down');
-                CalledToSpawn = false;
-            }, 8000);
-        }, 6000);
-    } catch {}
+            moveFromToAir(LocalPlayer, 'down');
+            CalledToSpawn = false;
+        }, 8000);
+    }, 6000);
 });
 
 let BlipList = {};
 alt.onServer("BlipClass:CreateBlip", (ID, Name, X, Y, Z, Sprite, Color, ShortRange) => {
-    try {
-        if (BlipList[ID]) return;
-        let cBlip = CreateBlip(Name, [X, Y, Z], Sprite, Color, ShortRange);
-        BlipList[ID] = {
-            ID: ID,
-            Entity: cBlip,
-            Name: Name,
-            X: X,
-            Y: Y,
-            Z: Z,
-            Sprite: Sprite,
-            Color: Color,
-            ShortRange: ShortRange
-        };
-    } catch {}
+    if (BlipList[ID]) return;
+    let cBlip = CreateBlip(Name, [X, Y, Z], Sprite, Color, ShortRange);
+    BlipList[ID] = {
+        ID: ID,
+        Entity: cBlip,
+        Name: Name,
+        X: X,
+        Y: Y,
+        Z: Z,
+        Sprite: Sprite,
+        Color: Color,
+        ShortRange: ShortRange
+    };
 });
 
-alt.onServer('BlipClass:RemoveBlip', (ID) => {
+alt.onServer('BlipClass:RemoveBlip', ID => {
     if (BlipList[ID] != null) {
         game.removeBlip(BlipList[ID].Entity);
         delete BlipList[ID];
@@ -166,17 +132,14 @@ alt.onServer('BlipClass:RemoveBlip', (ID) => {
 
 alt.onServer('BlipClass:RemoveAllBlips', () => {
     for (var _c in BlipList) {
-        if (BlipList[_c].Entity != null) game.removeBlip(BlipList[_c].Entity);
+        if (BlipList[_c].Entity != null) 
+            game.removeBlip(BlipList[_c].Entity);
         delete BlipList[_c];
     }
 });
 
 
-alt.onServer("Clothes:Reset", () => {
-    try {
-        game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
-    } catch {}
-});
+alt.onServer("Clothes:Reset", () => game.setPedDefaultComponentVariation(LocalPlayer.scriptID));
 
 
 const torsoDataMale = GetMaleTorsoLists();
@@ -203,7 +166,8 @@ alt.onServer("Clothes:Load", (slot, drawable, texture) => {
                     alt.log("Invalid top drawable/texture.");
                 } else {
                     game.setPedComponentVariation(LocalPlayer.scriptID, 11, drawable, texture, 2);
-                    if (torsoDataFemale[drawable][texture].BestTorsoDrawable != -1) game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataFemale[drawable][texture].BestTorsoDrawable, torsoDataFemale[drawable][texture].BestTorsoTexture, 2);
+                    if (torsoDataFemale[drawable][texture].BestTorsoDrawable != -1) 
+                        game.setPedComponentVariation(LocalPlayer.scriptID, torsoDataFemale[drawable][texture].BestTorsoDrawable, torsoDataFemale[drawable][texture].BestTorsoTexture, 2, 0);
                 }
             }
         }
@@ -212,47 +176,22 @@ alt.onServer("Clothes:Load", (slot, drawable, texture) => {
     }
 });
 
-alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    try {
-        game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true);
-    } catch {}
-});
+alt.onServer("Prop:Load", (clothesslot, clothesdrawable, clothestexture) => game.setPedPropIndex(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture, true));
 
-alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => {
-    try {
-        game.setPedPreloadVariationData(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture);
-    } catch {}
-});
+alt.onServer("Accessories:Load", (clothesslot, clothesdrawable, clothestexture) => game.setPedPreloadVariationData(LocalPlayer.scriptID, clothesslot, clothesdrawable, clothestexture));
 
-alt.onServer('Sync:CreateNPC', (PedJson) => {
-    try {
-        CreatePed();
-    } catch {}
-});
+alt.onServer('Sync:CreateNPC', (PedJson) => CreatePed());
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-alt.onServer('Player:Visible', (bool) => {
-    try {
-        game.setEntityVisible(LocalPlayer.scriptID, bool, 0);
-    } catch {}
-});
+alt.onServer('Player:Visible', bool => game.setEntityVisible(LocalPlayer.scriptID, bool, 0));
 
-alt.onServer('Player:DefaultComponentVariation', () => {
-    game.setPedDefaultComponentVariation(LocalPlayer.scriptID);
-});
+alt.onServer('Player:DefaultComponentVariation', () => game.setPedDefaultComponentVariation(LocalPlayer.scriptID));
 
-alt.onServer('Player:SetWaypoint', (X, Y) => {
-    try {
-        game.setNewWaypoint(X, Y);
-    } catch {}
-});
-alt.onServer('Player:Alpha', (alpha) => {
-    try {
-        game.setEntityAlpha(LocalPlayer.scriptID, alpha, true);
-    } catch {}
-});
+alt.onServer('Player:SetWaypoint', (x, y) => game.setNewWaypoint(x, y));
+
+alt.onServer('Player:Alpha', alpha => game.setEntityAlpha(LocalPlayer.scriptID, alpha, true));
 
 alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
     if (!veh) return;
@@ -265,30 +204,19 @@ alt.onServer('Player:WarpIntoVehicle', (veh, seat) => {
 });
 
 alt.onServer('Player:WarpOutOfVehicle', () => {
-    try {
-        if (LocalPlayer.vehicle) {
-            game.taskLeaveVehicle(alt.Player.local.scriptID, LocalPlayer.vehicle.scriptID, 16);
-        }
-    } catch {}
+    if (LocalPlayer.vehicle) {
+        game.taskLeaveVehicle(alt.Player.local.scriptID, LocalPlayer.vehicle.scriptID, 16);
+    }
 });
 
 alt.onServer('Player:LoadIPL', (IPL) => {
-    try {
-        if (!game.isIplActive(IPL)) game.requestIpl(IPL);
-    } catch {}
+    if (!game.isIplActive(IPL)) 
+        game.requestIpl(IPL);
 });
 
-alt.onServer('start_screen_fx', (effectName, duration, looped) => {
-    try {
-        game.animpostfxPlay(effectName, duration, looped);
-    } catch {}
-});
+alt.onServer('start_screen_fx', (effectName, duration, looped) => game.animpostfxPlay(effectName, duration, looped));
 
-alt.onServer('Vehicle:DisableEngineToggle', state => {
-    try {
-        game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state);
-    } catch {}
-});
+alt.onServer('Vehicle:DisableEngineToggle', state => game.setVehicleEngineOn(LocalPlayer.vehicle.scriptID, state, true, state));
 
 alt.on('keyup', (key) => {
     try {
@@ -323,36 +251,30 @@ alt.on('keydown', (key) => {
 
 
 alt.onServer('delay_element_data', (e, v, type, ms) => {
-    try {
-        let requesteddata = undefined;
-        if (type == "bool") {
-            requesteddata = "Store_Delayed_Element_Data_BOOL";
-        } else if (type == "int") {
-            requesteddata = "Store_Delayed_Element_Data_INT";
-        } else if (type == "string") {
-            requesteddata = "Store_Delayed_Element_Data_STRING";
-        }
-        if (requesteddata != undefined) {
-            alt.setTimeout(function () {
-                alt.emitServer(requesteddata, e, v);
-            }, ms);
-        }
-    } catch {}
+    let requesteddata = undefined;
+    if (type == "bool") {
+        requesteddata = "Store_Delayed_Element_Data_BOOL";
+    } else if (type == "int") {
+        requesteddata = "Store_Delayed_Element_Data_INT";
+    } else if (type == "string") {
+        requesteddata = "Store_Delayed_Element_Data_STRING";
+    }
+    if (requesteddata != undefined) {
+        alt.setTimeout(function () {
+            alt.emitServer(requesteddata, e, v);
+        }, ms);
+    }
 });
 
 let CameraCreated = false;
 alt.onServer('Player:CreateCameraMovement', (pos1X, pos1Y, pos1Z, rot1, pos2X, pos2Y, pos2Z, rot2, duration) => {
-    try {
-        if (CameraCreated) destroyCamera();
-        interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
-        CameraCreated = true;
-    } catch {}
+    if (CameraCreated) destroyCamera();
+    interpolateCamera(pos1X, pos1Y, pos1Z, rot1, 0, pos2X, pos2Y, pos2Z, rot2, 0, duration);
+    CameraCreated = true;
 });
 
 alt.onServer('Player:DestroyCamera', () => {
-    try {
-        if (CameraCreated) destroyCamera();
-    } catch {}
+    if (CameraCreated) destroyCamera();
 });
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -432,11 +354,7 @@ alt.onServer('AreaBlip:Create', (name, x, y, z, r, c, r2) => {
     } catch {}
 });
 
-alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => {
-    try {
-        CreatePed(PedName, Vector3Pos, rot);
-    } catch {}
-});
+alt.onServer('NPC:Create', (PedName, Vector3Pos, rot) => CreatePed(PedName, Vector3Pos, rot));
 
 alt.onServer('OnPlayerEnterVehicle', (ms) => {
     alt.setTimeout(() => {
@@ -444,9 +362,7 @@ alt.onServer('OnPlayerEnterVehicle', (ms) => {
     }, ms);
 });
 
-alt.on("disconnect", () => {
-    vnxDestroyAllCEF();
-});
+alt.on("disconnect", () => vnxDestroyAllCEF());
 
 alt.onServer('Admin:ShootTest', (Position1, Position2, damage, WeaponHash, Owner, audible, invisible, speed) => {
     let hash = parseInt(game.getHashKey(WeaponHash));

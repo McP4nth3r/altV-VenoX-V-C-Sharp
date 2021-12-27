@@ -60,11 +60,11 @@ alt.onServer('showLoginWindow', (name, changelogs) => {
 	}, 3000);
 });
 
-const statNames = ["SP0_STAMINAï»¿", "SP0_STRENGTH", "SP0_LUNG_CAPACITY", "SP0_WHEELIE_ABILITY", "SP0_FLYING_ABILITY", "SP0_SHOOTING_ABILITY"];
+const statNames = ["SP0_STAMINA", "SP0_STRENGTH", "SP0_LUNG_CAPACITY", "SP0_WHEELIE_ABILITY", "SP0_FLYING_ABILITY", "SP0_SHOOTING_ABILITY"];
 // maybe playerReady can be used instead, haven't tested
 function OnPlayerSpawnLoad() {
 	for (const stat of statNames) 
-		game.statSetInt(stat, 100, false);
+		game.statSetInt(game.getHashKey(stat), 100, false);
 };
 
 

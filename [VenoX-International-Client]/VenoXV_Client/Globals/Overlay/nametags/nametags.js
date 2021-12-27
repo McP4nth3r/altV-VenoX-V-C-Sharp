@@ -53,7 +53,8 @@ function isBadFaction(player) {
 }
 
 function OnStart() {
-	if (!game.hasStreamedTextureDictLoaded("images")) game.requestStreamedTextureDict('images');
+	if (!game.hasStreamedTextureDictLoaded("images")) 
+		game.requestStreamedTextureDict('images', false);
 
 	alt.setTimeout(() => {
 		alt.everyTick(() => {
