@@ -141,7 +141,8 @@ namespace VenoXV._Language_
             catch { return Languages.German; }
         }
         static readonly HttpClient WebClient = new HttpClient();
-        public static async Task<string> TranslateText(string text, string fromPair, string toPair)
+
+        private static async Task<string> TranslateText(string text, string fromPair, string toPair)
         {
             try
             {

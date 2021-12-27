@@ -215,15 +215,15 @@ namespace VenoXV._Globals_
                 Console.WriteLine("Starting VenoX Bot...");
                 //await _Discord_.Startup.RunAsync();
                 Console.ForegroundColor = ConsoleColor.Green;
+                
                 _Discord_.Modules.Notify.SendUpdateLog("BETA apply is now possible! [DEV]! ",
-                    "@everyone VenoX V." + Preload.CURRENT_VERSION + " BETA apply is now possible!\n" +
+                    "@everyone VenoX V." + Preload.CurrentVersion + " BETA apply is now possible!\n" +
                     "Applies are only valid in the #📝beta-apply channel!\n\n" +
                     "```" +
                     "Nickname : YourNickname.\n" +
                     "Registered : Yes or No.\n" +
                     "Already made experience in alt:V : Yes or No.\n```",
                     Discord.Color.Blue, null);
-
                 Console.WriteLine("Started VenoX Bot.");
                 */
 

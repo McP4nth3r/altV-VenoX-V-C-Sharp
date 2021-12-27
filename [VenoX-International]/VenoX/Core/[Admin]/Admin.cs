@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
@@ -790,82 +791,67 @@ namespace VenoXV
 
 
         [Command("makeleader")]
-        public void MakeLeader_AdminFunc(VnXPlayer player, string targetName, int faction)
+        public static void MakeLeader_AdminFunc(VnXPlayer player, string targetName, int faction)
         {
             try
             {
-                if (player.AdminRank >= Constants.AdminlvlAdministrator)
+                if (player.AdminRank < Constants.AdminlvlAdministrator) return;
+                VnXPlayer target = RageApi.GetPlayerFromName(targetName);
+                if (target == null) return;
+                if (faction is < 0 or > 13)
                 {
-                    VnXPlayer target = RageApi.GetPlayerFromName(targetName);
-                    if (target == null) { return; }
-                    switch (faction)
-                    {
-                        case 0:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Bürger gemacht.");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 1:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du wurdest soeben zum Chief of Police ernannt! Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 2:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun Don der La Cosa Nostra von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 3:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Yakuza von Venox City - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 4:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " [GESPERRT ] Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 5:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Chefredakteur der Venox City News - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 6:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Direktor des Federal Investigation Bureau - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 7:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Boss der Venox City Vatos Locos - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 8:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Commander der Venox U.S Army - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 9:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der President der SAMCRO Redwoods Original´s - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 10:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader der Venox Medic's - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 11:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun der Leader von den Venox City Mechaniker - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 12:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + "Du bist nun der Banger der Venox City Ballas - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        case 13:
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 200, 255) + " Du bist nun Leader der Venox City Grove Street - Für mehr Infos öffne das Hilfemenue!");
-                            SendAdminNotification(player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
-                            break;
-                        default:
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Fraktions ID nur zwischen 0-13 möglich!");
-                            break;
-
-
-                    }
-                    target.Reallife.Faction = faction;
-                    target.Reallife.FactionRank = 5;
-                    Logfile.WriteLogs("admin", player.Username + " hat " + target.Username + " zum Leader von Fraktion " + faction + " gemacht!");
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Fraktions ID nur zwischen 0-13 möglich!");
+                    return;
                 }
+
+                
+                Task.Run(async() =>
+                {
+                    string[] completedString = new[]
+                    {
+                        player.Username,
+                        "has made",
+                        target.Username,
+                        "the leader of the faction ID " + faction + "."
+                    };
+                    
+                    /* Custom Notification */
+                    foreach (var admin in VenoX.GetAllPlayers().ToList().Where(admin => admin.AdminRank >= Constants.AdminlvlTsupporter))
+                    {
+                        string translatedString = completedString[0];
+                        translatedString += await Main.GetTranslatedTextAsync((Main.Languages) admin.Language, completedString[1]);
+                        translatedString += completedString[2];
+                        translatedString += await Main.GetTranslatedTextAsync((Main.Languages) admin.Language, completedString[3]);
+                        admin.SendTranslatedChatMessage(RageApi.GetHexColorcode(255, 0, 0) + translatedString);
+                    }
+                    Logfile.WriteLogs("admin", completedString[0] + completedString[1] + completedString[2] + completedString[3]);
+
+                });
+
+                string factionTargetMsg = RageApi.GetHexColorcode(0, 200, 255);
+                factionTargetMsg += faction switch
+                {
+                    0 => "You've just been made a civilian.",
+                    1 => "You have just been appointed Chief of Police! For more information, open the help menu!",
+                    2 => "You are now the Don of the La Cosa Nostra from Venox City - For more information, open the help menu!",
+                    3 => "You are now the leader of the Yakuza of Venox City - For more information, open the help menu!",
+                    4 => "[LOCKED ] For more information, open the help menu!",
+                    5 => "You are now the editor-in-chief of Venox City News - For more information, open the help menu!",
+                    6 => "You are now the director of the Federal Investigation Bureau - For more information, open the help menu!",
+                    7 => "You are now the boss of the Venox City Narcos - For more information, open the help menu!",
+                    8 => "You are now the Commander of the Venox U.S. Army - For more information, open the help menu!",
+                    9 => "You are now the president of SAMCRO Redwoods Originals - For more information, open the help menu!",
+                    10 => "You are now the leader of Venox Medic's - For more information, open the help menu!",
+                    11 => "You are now the leader of the Venox City Mechanics - For more information, open the help menu!",
+                    12 => "You are now the banger of the Venox City Ballas - For more information open the help menu!",
+                    13 => "You are now the leader of Venox City Grove Street - For more information, open the help menu!",
+                    // ReSharper disable once UnreachableSwitchArmDueToIntegerAnalysis - Rider Bug.
+                    _ => "ERROR"
+                };
+
+                target.SendTranslatedChatMessage(factionTargetMsg);
+                target.Reallife.Faction = faction;
+                target.Reallife.FactionRank = 5;
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
@@ -919,23 +905,21 @@ namespace VenoXV
         [Command("changepw")]
         public static void ChangeUserPasswort(VnXPlayer player, string name, string passwort)
         {
-            if (player.AdminRank >= Constants.AdminlvlAdministrator)
+            if (player.AdminRank < Constants.AdminlvlAdministrator) return;
+            bool exestiert = Database.Database.FindCharacterByName(name);
+            if (exestiert)
             {
-                bool exestiert = Database.Database.FindCharacterByName(name);
-                if (exestiert)
+                string salt = Program.GetRandomSalt();
+                string byCryptedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(passwort, salt), salt);
+                string byCryptedPassword = BCrypt.Net.BCrypt.HashPassword(passwort);
+                if (Login.ChangeAccountPw(name, byCryptedPassword))
                 {
-                    string salt = Program.GetRandomSalt();
-                    string byCryptedPasswordWoltlab = BCrypt.Net.BCrypt.HashPassword(BCrypt.Net.BCrypt.HashPassword(passwort, salt), salt);
-                    string byCryptedPassword = BCrypt.Net.BCrypt.HashPassword(passwort);
-                    if (Login.ChangeAccountPw(name, byCryptedPassword))
-                    {
-                        Database.Database.ChangeUserPasswort(name, byCryptedPassword);
-                        Program.ChangeUserPasswort(name, byCryptedPasswordWoltlab);
-                        _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
-                    }
+                    Database.Database.ChangeUserPasswort(name, byCryptedPassword);
+                    Program.ChangeUserPasswort(name, byCryptedPasswordWoltlab);
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Passwort von " + name + " geändert.");
                 }
-                else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
             }
+            else _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Es wurde kein Spieler mit dem Namen " + name + " gefunden!");
         }
 
 
