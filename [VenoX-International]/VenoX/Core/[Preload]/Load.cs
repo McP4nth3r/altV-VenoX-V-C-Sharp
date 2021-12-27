@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AltV.Net;
 using VenoXV._Preload_.Loading;
@@ -56,7 +57,7 @@ namespace VenoXV
         }
         public static void UnloadGamemodeWindows(VnXPlayer player, Gamemodes gamemode)
         {
-            RageApi.SetPlayerVisible(player, true);
+            player.SetPlayerVisible(true);
             VenoX.TriggerClientEvent(player, "BlipClass:RemoveAllBlips");
             switch (gamemode)
             {
@@ -90,6 +91,10 @@ namespace VenoXV
                 case Gamemodes.Derby:
                     _Maps_.Main.UnloadMap(player, _Maps_.Main.Derby1Map);
                     break;
+                case Gamemodes.Shooter:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(gamemode), gamemode, null);
             }
         }
 

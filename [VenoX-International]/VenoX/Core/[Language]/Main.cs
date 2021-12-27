@@ -135,7 +135,7 @@ namespace VenoXV._Language_
                     "zh-cn" => Languages.Chinese,
                     "fa" => Languages.Farsi,
                     "it" => Languages.Italian,
-                    _ => Languages.German,
+                    _ => Languages.English,
                 };
             }
             catch { return Languages.German; }
@@ -146,11 +146,9 @@ namespace VenoXV._Language_
         {
             try
             {
-                Debug.OutputDebugString("Called Translation API");
+                Debug.OutputDebugString("Called Translation API : " + fromPair + " | " + toPair + " | " + text);
                 //return word;
-                string fromLanguage = fromPair;
-                string toLanguage = toPair;
-                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromLanguage}&tl={toLanguage}&dt=t&q={HttpUtility.UrlEncode(text)}";
+                string url = $"https://translate.googleapis.com/translate_a/single?client=gtx&sl={fromPair}&tl={toPair}&dt=t&q={HttpUtility.UrlEncode(text)}";
                 HttpResponseMessage response = await WebClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 string result = await response.Content.ReadAsStringAsync();
