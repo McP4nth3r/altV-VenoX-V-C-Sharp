@@ -22,16 +22,13 @@ namespace VenoXV._Gamemodes_.Reallife.Clothes
         {
             try
             {
-                Debug.OutputDebugString("-- Entered ColShape 2--");
 
                 if (shape != ClothesShape) return false;
-
                 if (player.Reallife.OnDuty == 1 || player.Reallife.OnDutyNeutral == 1)
                 {
-                    Main.DrawTranslatedNotification(player, Main.Types.Error, "Geh zuerst Off-Duty!");
+                    Main.DrawTranslatedNotification(player, Main.Types.Error, "Get off-duty first!");
                     return true;
                 }
-                Debug.OutputDebugString("-- Entered ColShape 3--");
 
                 Random random = new Random();
                 int dim = random.Next(1, 9999);

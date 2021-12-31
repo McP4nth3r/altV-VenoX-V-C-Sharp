@@ -25,14 +25,10 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Usefull
             {
                 player.RemoveAllPlayerWeapons();
                 int playerId = player.UID;
-                foreach (ItemModel waffen in Inventory.DatabaseItems.ToList())
+                foreach (var waffen in Inventory.DatabaseItems.ToList().Where(waffen => waffen.Type == ItemType.Gun && waffen.Uid == playerId))
                 {
-                    if (waffen.Type == ItemType.Gun && waffen.Uid == playerId)
-                    {
-
-                        Inventory.DatabaseItems.Remove(waffen);
-                        player.Inventory.Items.Remove(waffen);
-                    }
+                    Inventory.DatabaseItems.Remove(waffen);
+                    player.Inventory.Items.Remove(waffen);
                 }
                 Database.Database.RemoveAllItemsByType(playerId, ItemType.Gun);
             }

@@ -964,7 +964,7 @@ namespace VenoXV.Database
             }
         }
 
-        public static string GetAccountSpielerName(string socialName)
+        public static string GetAccountPlayerName(string socialName)
         {
             try
             {
@@ -1029,7 +1029,7 @@ namespace VenoXV.Database
             catch { return "ERROR"; }
         }
 
-        public static string GetCharakterSocialName(string spielername)
+        public static string GetCharacterSocialName(string spielername)
         {
             try
             {

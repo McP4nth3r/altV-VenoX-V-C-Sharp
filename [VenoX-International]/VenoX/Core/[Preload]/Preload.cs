@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
@@ -104,21 +105,18 @@ namespace VenoXV._Preload_
             {
                 if (player == null) return;
                 player.Dimension = player.Id;
-                Debug.OutputDebugString("CountryCode is " + countrycode);
-                _Language_.Main.Languages language;
-                if (countrycode != "" && value == (int)Gamemodes.Reallife)
-                {
-                    language = _Language_.Main.GetLanguageByPair(countrycode);
+                if (countrycode != "" && value == (int)Gamemodes.Reallife) {
+                    var language = _Language_.Main.GetLanguageByPair(countrycode);
                     player.Language = (int)language;
                     Debug.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Welcome to VenoX!");
                 }
-                
                 VenoX.TriggerClientEvent(player, "Gameversion:Update", CurrentVersion);
                 player.Gamemode = value;
-                Load.LoadGamemodeWindows(player, (Gamemodes)value);
+                Load.LoadGamemodeSpecificData(player, (Gamemodes)value);
                 if (!Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
                 player.RemoveAllPlayerWeapons();
+                if (player.PreloadEvents.Count > 0) return;
                 switch (value)
                 {
                     case (int)Gamemodes.Reallife:
@@ -126,17 +124,18 @@ namespace VenoXV._Preload_
                         Reallife.register_login.Login.OnSelectedReallifeGM(player);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Reallife");
                         break;
-                    case (int)Gamemodes.Zombies:
+                    case (int) Gamemodes.Zombies:
                         if (!Main.ZombiePlayers.Contains(player)) Main.ZombiePlayers.Add(player);
+                        if (player.PreloadEvents.Count > 0) return;
                         Character_Creator.Main.LoadCharacterSkin(player);
-                        _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player);
+                        _Gamemodes_.Zombie.World.Main.OnSelectedZombieGM(player); 
                         // _Maps_.Main.LoadMap(player, _Maps_.Main.ZOMBIES_MAP);
                         VenoX.TriggerClientEvent(player, "Load_Zombie_GM");
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Zombies");
                         break;
                     case (int)Gamemodes.Tactics:
                         if (!Main.TacticsPlayers.Contains(player)) Main.TacticsPlayers.Add(player);
-                        int lobby = Int32.Parse(countrycode);
+                        int lobby = int.Parse(countrycode);
                         Debug.OutputDebugString("Lobby : " + lobby);
                         Pointer.OnSelectedTacticLobby(player, lobby);
                         VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
@@ -172,8 +171,7 @@ namespace VenoXV._Preload_
         }
 
 
-
-        public static void GetAllPlayersInAllGamemodes(VnXPlayer player)
+        private static void GetAllPlayersInAllGamemodes(VnXPlayer player)
         {
             try
             {
@@ -191,10 +189,10 @@ namespace VenoXV._Preload_
                 player.RemoveAllPlayerWeapons();
                 Loading.Main.ShowLoadingScreen(player);
                 GetAllPlayersInAllGamemodes(player);
-                ZombieAssets.LoadZombieEntityData(player);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.ShooterMap);
                 Sync.SyncDateTime(player);
                 Sync.SyncWeather(player);
+
                 /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
                 _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
@@ -209,6 +207,8 @@ namespace VenoXV._Preload_
         public static void FinishedPrivacyPolicy(VnXPlayer player)
         {
             player.FinishedPrivacyPolicy = true;
+            VenoX.TriggerClientEvent(player, "showLoginWindow", "Willkommen auf VenoX", Reallife.register_login.Login.GetCurrentChangelogs());
+            VenoX.TriggerClientEvent(player, "LoadingScreen:ShowPreload", false);
         }
 
         public static DateTime PreloadCheck = DateTime.Now;
@@ -216,7 +216,7 @@ namespace VenoXV._Preload_
         {
             try
             {
-                var loadingPlayers = Alt.GetAllPlayers().ToList().Where(x => !((VnXPlayer)x).Loading && ((VnXPlayer)x).FinishedPrivacyPolicy);
+                IEnumerable<VnXPlayer> loadingPlayers = VenoX.GetAllPlayers().ToList().Where(x => x.FinishedPrivacyPolicy);
                 foreach (VnXPlayer players in loadingPlayers)
                 {
                     //Core.Debug.OutputDebugString("Event-Count : " + players.PreloadEvents.ToList().Count);
@@ -226,12 +226,8 @@ namespace VenoXV._Preload_
                     VenoX.TriggerClientEvent(players, "Preload:UpdateDownloadState", @event.EventText);
                     VenoX.TriggerClientEvent(players, @event.EventName, @event.EventArgs);
                     players.PreloadEvents.Remove(@event);
-                    if (players.PreloadEvents.ToList().Count <= 0)
-                    {
-                        players.Loading = false;
-                        VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
-                        VenoX.TriggerClientEvent(players, "showLoginWindow", "Willkommen auf VenoX", Reallife.register_login.Login.GetCurrentChangelogs());
-                    }
+                    if (players.PreloadEvents.ToList().Count > 0) continue;
+                    VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

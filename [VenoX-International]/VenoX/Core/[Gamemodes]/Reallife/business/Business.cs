@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AltV.Net;
 using Newtonsoft.Json;
 using VenoXV._Gamemodes_.Reallife.Globals;
@@ -13,24 +14,23 @@ namespace VenoXV._Gamemodes_.Reallife.business
     public class Business : IScript
     {
         public static List<BusinessModel> BusinessList;
-        public static int GetClothesProductsPrice(int id, int sex, int type, int slot)
+
+        private static int GetClothesProductsPrice(int id, int sex, int type, int slot)
         {
             try
             {
                 int productsPrice = 10000;
-                foreach (BusinessClothesModel clothesModel in Constants.BusinessClothesList)
+                foreach (var clothesModel in Constants.BusinessClothesList.Where(clothesModel => clothesModel.Type == type && (clothesModel.Sex == sex || Constants.SexNone == clothesModel.Sex) && clothesModel.BodyPart == slot && clothesModel.ClothesId == id))
                 {
-                    if (clothesModel.Type == type && (clothesModel.Sex == sex || Constants.SexNone == clothesModel.Sex) && clothesModel.BodyPart == slot && clothesModel.ClothesId == id)
-                    {
-                        productsPrice = clothesModel.Products;
-                        break;
-                    }
+                    productsPrice = clothesModel.Products;
+                    break;
                 }
                 return productsPrice;
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); return 10000; }
         }
-        public static List<BusinessClothesModel> GetBusinessClothesFromSlotType(int sex, int type, int slot)
+
+        private static List<BusinessClothesModel> GetBusinessClothesFromSlotType(int sex, int type, int slot)
         {
             try
             {

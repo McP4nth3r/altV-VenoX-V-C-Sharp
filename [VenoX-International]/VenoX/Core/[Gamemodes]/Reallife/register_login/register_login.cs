@@ -6,12 +6,12 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
 using Newtonsoft.Json;
+using VenoX.Core._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.character;
 using VenoXV._Gamemodes_.Reallife.Fun.Aktionen.Shoprob;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Gamemodes_.Reallife.premium.viplevels;
-using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.vnx_stored_files;
 using VenoXV._RootCore_.Sync;
 using VenoXV.Core;
@@ -280,11 +280,10 @@ namespace VenoXV.Reallife.register_login
             try
             {
                 player.SendChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "_____________________________________");
-                player.SendTranslatedChatMessage("Willkommen auf VenoX - Reallife.");
-                player.SendTranslatedChatMessage("Teamspeak 3 : ts3.VenoX-Reallife.com");
-                player.SendTranslatedChatMessage("Forum : www.VenoX-Reallife.com");
-                player.SendTranslatedChatMessage("Controlpanel : cp.venox-reallife.com");
-                player.SendTranslatedChatMessage("Viel Spaß beim Spielen wünscht dir dein VenoX - Reallife Team.");
+                player.SendTranslatedChatMessage("Welcome to VenoX - International | Roleplay Lobby.");
+                player.SendTranslatedChatMessage("Forum : www.venox-international.com");
+                player.SendTranslatedChatMessage("Controlpanel : cp.venox-international.com");
+                player.SendTranslatedChatMessage("Your VenoX - International team wishes you a lot of fun while playing.");
                 player.SendChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "_____________________________________");
                 Viplevels.SendVipNotify(player);
                 Spawn.SpawnPlayerOnSpawnpoint(player);
@@ -299,7 +298,7 @@ namespace VenoXV.Reallife.register_login
         }
 
 
-        public static void LoadDatasAfterLogin(VnXPlayer player)
+        private static void LoadPlayerSpecificDataAfterLogin(VnXPlayer player)
         {
             try
             {
@@ -308,11 +307,9 @@ namespace VenoXV.Reallife.register_login
                 Customization.ApplyPlayerClothes(player);
                 _Gamemodes_.Reallife.anzeigen.Inventar.Main.OnPlayerConnect(player);
                 Sync.LoadBlips(player);
-                foreach (VehicleModel vehicle in Main.ReallifeVehicles.ToList())
+                foreach (var vehicle in from vehicle in Main.ReallifeVehicles.ToList() let owner = vehicle.Owner where owner != null && owner == player.Username select vehicle)
                 {
-                    string owner = vehicle.Owner;
-                    if (owner != null && owner == player.Username)
-                        vehicle.Dimension = (Main.ReallifeDimension + player.Language);
+                    vehicle.Dimension = (Main.ReallifeDimension + player.Language);
                 }
                 // Give the weapons to the player
                 Weapons.GivePlayerWeaponItems(player);
@@ -332,7 +329,7 @@ namespace VenoXV.Reallife.register_login
                 foreach (HouseIplModel obj in Constants.HouseIplList)
                     player.LoadIpl(obj.Ipl);
 
-                LoadDatasAfterLogin(player);
+                LoadPlayerSpecificDataAfterLogin(player);
                 _Gamemodes_.Reallife.handy.Allround.UpdatePhonePlayerlist();
                 player.Settings.ShowQuests = 1;
                 Quests.ShowCurrentQuest(player);

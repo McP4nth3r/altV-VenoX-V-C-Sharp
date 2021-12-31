@@ -138,9 +138,7 @@ namespace VenoXV.Models
             set { this.VnxSetStreamSharedElementData("PLAYER_HEALTH", value); Health = value; } }
 
         public List<LoadingModel> PreloadEvents { get; }
-
-        public bool Loading { get; set; }
-
+        
         public bool FinishedPrivacyPolicy { get; set; }
 
         public bool LoggedInWithShaPassword { get; set; }

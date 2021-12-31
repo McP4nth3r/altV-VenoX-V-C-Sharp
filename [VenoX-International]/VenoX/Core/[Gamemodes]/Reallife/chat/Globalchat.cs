@@ -10,7 +10,7 @@ using Main = VenoXV._Notifications_.Main;
 
 namespace VenoXV._Gamemodes_.Reallife.Chat
 {
-    public class Globalchat : IScript
+    public class GlobalChat : IScript
     {
         public static int GlobalAdminStatus = 1; // 1 = enabled | 0 = disabled.
         [Command("global", true)]
@@ -22,37 +22,34 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (player.Played >= 1800)
                     {
-                        int plAdminlvl = player.AdminRank;
-                        string clantag = Admin.GetRgbaedClantag(plAdminlvl);
+                        int playerAdminRank = player.AdminRank;
+                        string adminClanTag = Admin.GetRgbaedClantag(playerAdminRank);
                         if (player.Settings.ShowGlobalChat == 0)
                         {
-                            Main.DrawTranslatedNotification(player, Main.Types.Error, "Du hast den Globalchat deaktiviert! Drücke F3 um ihn zu Aktivieren!");
+                            Main.DrawTranslatedNotification(player, Main.Types.Error, "You have deactivated the Globalchat! Press F3 to activate it!");
                             return;
                         }
                         string blueColor = RageApi.GetHexColorcode(0, 200, 255);
                         string whiteColor = RageApi.GetHexColorcode(255, 255, 255);
-                        foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
+                        foreach (var vnXPlayer in VenoX.GetAllPlayers().ToList().Where(xPlayer => xPlayer.Settings.ShowGlobalChat == 1))
                         {
-                            if (onlinespieler.Settings.ShowGlobalChat == 1)
+                            if (playerAdminRank > 0)
                             {
-                                if (plAdminlvl > 0)
-                                {
-                                    onlinespieler.SendChatMessage(blueColor + "[GLOBAL]" + clantag + player.Username + " : " + text);
-                                    continue;
-                                }
-                                onlinespieler.SendChatMessage(blueColor + "[GLOBAL]" + whiteColor + player.Username + " : " + text);
+                                vnXPlayer.SendChatMessage(blueColor + "[GLOBAL]" + adminClanTag + player.Username + " : " + text);
+                                continue;
                             }
+                            vnXPlayer.SendChatMessage(blueColor + "[GLOBAL]" + whiteColor + player.Username + " : " + text);
                         }
                         Logfile.WriteLogs("globalchat", player.Username + " : " + text);
                     }
                     else
                     {
-                        Main.DrawTranslatedNotification(player, Main.Types.Error, "Du hast nicht genug Spielstunden ( Mindestens 30h ) !");
+                        Main.DrawTranslatedNotification(player, Main.Types.Error, "You don't have enough game hours (at least 30h) !");
                     }
                 }
                 else
                 {
-                    Main.DrawTranslatedNotification(player, Main.Types.Error, "Der Globalchat ist augeschaltet!");
+                    Main.DrawTranslatedNotification(player, Main.Types.Error, "The Globalchat is switched off!");
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -67,22 +64,22 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 {
                     if (state == 0)
                     {
-                        if (GlobalAdminStatus == state) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
+                        if (GlobalAdminStatus == state) { Main.DrawTranslatedNotification(player, Main.Types.Error, "The Global chat is already turned on!"); return; }
                         GlobalAdminStatus = state;
-                        foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
+                        foreach (VnXPlayer xPlayer in VenoX.GetAllPlayers().ToList())
                         {
-                            string translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)onlinespieler.Language, "hat den Globalchat augeschaltet!");
-                            onlinespieler.SendChatMessage(RageApi.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " " + translatedtext);
+                            string translatedTextAsync = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)xPlayer.Language, "turned off the globalchat!");
+                            xPlayer.SendChatMessage(RageApi.GetHexColorcode(125, 0, 0) + "[VnX]" + player.Username + " " + translatedTextAsync);
                         }
                     }
                     else
                     {
-                        if (GlobalAdminStatus == state) { Main.DrawTranslatedNotification(player, Main.Types.Error, "Der Global chat ist bereits angeschaltet!"); return; }
+                        if (GlobalAdminStatus == state) { Main.DrawTranslatedNotification(player, Main.Types.Error, "The Global chat is already turned on!"); return; }
                         GlobalAdminStatus = state;
-                        foreach (VnXPlayer onlinespieler in VenoX.GetAllPlayers().ToList())
+                        foreach (VnXPlayer xPlayer in VenoX.GetAllPlayers().ToList())
                         {
-                            string translatedtext = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)onlinespieler.Language, "hat den Globalchat angeschaltet!");
-                            onlinespieler.SendChatMessage(RageApi.GetHexColorcode(0, 125, 0) + "[VnX]" + player.Username + " " + translatedtext);
+                            string translatedTextAsync = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)xPlayer.Language, "turned off the globalchat!");
+                            xPlayer.SendChatMessage(RageApi.GetHexColorcode(0, 125, 0) + "[VnX]" + player.Username + " " + translatedTextAsync);
                         }
                     }
                 }
@@ -98,12 +95,12 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
 
                 if (player.Played < 1800)
                 {
-                    Main.DrawTranslatedNotification(player, Main.Types.Error, "Du hast nicht genug Spielstunden ( Mindestens 30h ) !");
+                    Main.DrawTranslatedNotification(player, Main.Types.Error, "You don't have enough game hours (at least 30h) !");
                     return;
                 }
                 if (GlobalAdminStatus == 0)
                 {
-                    Main.DrawTranslatedNotification(player, Main.Types.Error, "Der Globalchat ist augeschaltet!");
+                    Main.DrawTranslatedNotification(player, Main.Types.Error, "The Globalchat is switched off!");
                     return;
                 }
                 int plAdminlvl = player.AdminRank;
@@ -111,17 +108,14 @@ namespace VenoXV._Gamemodes_.Reallife.Chat
                 string redColor = RageApi.GetHexColorcode(175, 0, 0);
                 string whiteColor = RageApi.GetHexColorcode(255, 255, 255);
                 string languagePair = _Language_.Main.GetClientLanguagePair((_Language_.Main.Languages)player.Language);
-                foreach (VnXPlayer otherplayers in VenoX.GetAllPlayers().ToList())
+                foreach (var vnXPlayer in VenoX.GetAllPlayers().ToList().Where(xPlayer => xPlayer.Settings.ShowGlobalChat == 1 && xPlayer.Language == player.Language))
                 {
-                    if (otherplayers.Settings.ShowGlobalChat == 1 && otherplayers.Language == player.Language)
+                    if (plAdminlvl > 0)
                     {
-                        if (plAdminlvl > 0)
-                        {
-                            otherplayers.SendChatMessage(redColor + "[Language-" + languagePair.ToUpper() + "]" + clantag + player.Username + " : " + text);
-                            continue;
-                        }
-                        otherplayers.SendChatMessage(redColor + "[Language-" + languagePair.ToUpper() + "]" + whiteColor + player.Username + " : " + text);
+                        vnXPlayer.SendChatMessage(redColor + "[Language-" + languagePair.ToUpper() + "]" + clantag + player.Username + " : " + text);
+                        continue;
                     }
+                    vnXPlayer.SendChatMessage(redColor + "[Language-" + languagePair.ToUpper() + "]" + whiteColor + player.Username + " : " + text);
                 }
                 Logfile.WriteLogs("language-" + languagePair.ToUpper(), player.Username + " : " + text);
             }

@@ -5,6 +5,7 @@ using System.Numerics;
 using AltV.Net;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
+using VenoX.Core._Gamemodes_.Reallife.jobs.Airport;
 using VenoXV._Gamemodes_.Reallife.Globals;
 using VenoXV.Core;
 using VenoXV.Models;
@@ -108,7 +109,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
 
                         break;
                     case Constants.JobAirport:
-                        Airport.Airport.Airport_job_start(player, stage);
+                        Airport.Airport_job_start(player, stage);
                         break;
 
                     case Constants.JobBus:
@@ -238,7 +239,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
                     switch (player.Reallife.Job)
                     {
                         case Constants.JobAirport:
-                            Airport.Airport.OnJobMarkerHit(player);
+                            Airport.OnJobMarkerHit(player);
                             break;
                         case Constants.JobBus:
                             Bus.Bus.OnJobMarkerHit(player);
@@ -274,7 +275,7 @@ namespace VenoXV._Gamemodes_.Reallife.jobs
         {
             try
             {
-                Airport.Airport.OnPlayerExitVehicle(vehClass, player);
+                Airport.OnPlayerExitVehicle(vehClass, player);
                 Bus.Bus.OnPlayerLeaveVehicle(vehClass, player);
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

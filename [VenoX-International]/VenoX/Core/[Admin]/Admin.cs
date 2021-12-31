@@ -281,8 +281,8 @@ namespace VenoXV
             if (player.AdminRank < Constants.AdminlvlModerator) return;
             bool found = Database.Database.FindCharacterByName(target);
             if (!found) return;
-            string socialClubId = Database.Database.GetCharakterSocialName(target);
-            string spielerName = Database.Database.GetAccountSpielerName(socialClubId);
+            string socialClubId = Database.Database.GetCharacterSocialName(target);
+            string spielerName = Database.Database.GetAccountPlayerName(socialClubId);
             VnXPlayer targetplayer = RageApi.GetPlayerFromName(spielerName);
             int uid = Database.Database.GetCharakterUid(spielerName);
             if (Database.Database.FindCharakterPrison(spielerName))

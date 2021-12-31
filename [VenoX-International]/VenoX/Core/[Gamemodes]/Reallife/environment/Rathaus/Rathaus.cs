@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using VenoX.Core._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.Environment.Rathaus.Führerschein;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV.Core;
 using VenoXV.Models;
 using Main = VenoXV._Globals_.Main;
@@ -104,7 +104,7 @@ namespace VenoXV._Gamemodes_.Reallife.Environment.Rathaus
                             _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast nicht genug Geld!");
                             return;
                         }
-                        Führerschein.Führerschein.Start_Führerschein(player);
+                        Führerschein.Führerschein.Start_CarLicenseExam(player);
                         break;
                     case "Bike":
                         if (player.Reallife.Money < 8750)

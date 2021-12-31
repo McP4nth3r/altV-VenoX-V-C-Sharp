@@ -4,11 +4,11 @@ using System.Numerics;
 using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Resources.Chat.Api;
+using VenoX.Core._Gamemodes_.Reallife.quests;
 using VenoXV._Gamemodes_.Reallife.business;
 using VenoXV._Gamemodes_.Reallife.factions;
 using VenoXV._Gamemodes_.Reallife.Factions;
 using VenoXV._Gamemodes_.Reallife.Globals;
-using VenoXV._Gamemodes_.Reallife.quests;
 using VenoXV._Preload_;
 using VenoXV.Core;
 using VenoXV.Models;
@@ -20,8 +20,8 @@ namespace VenoXV.Reallife.vehicles
 {
     public class Vehicles : IScript
     {
-        public static string InfoVehicleTurnedOn = "Motor Angeschaltet!";
-        public static string InfoVehicleTurnedOff = "Motor Ausgeschaltet!";
+        public static string InfoVehicleTurnedOn = "Engine Switched on!";
+        public static string InfoVehicleTurnedOff = "Engine Turned Off!";
 
         public static void OnResourceStart()
         {
@@ -99,21 +99,17 @@ namespace VenoXV.Reallife.vehicles
                 VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null) { return; }
                 VehicleModel vehicle = GetVehicleById(fahrzeugId);
-                if (vehicle != null)
+                if (vehicle == null) return;
+                if (vehicle.Owner == player.Username)
                 {
-                    if (vehicle.Owner == player.Username)
-                    {
-                        if (preis > 0)
-                        {
-                            // Sell cAr
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + player.Username + " bietet dir ein " + vehicle.Model.ToString().ToLower() + "(" + vehicle.DatabaseId + ") für " + preis + " $ an!");
-                            target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
-                            player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Du hast " + target.Username + " deinen " + vehicle.Model.ToString().ToLower() + " für " + preis + " $ angeboten!");
-                            target.VnxSetStreamSharedElementData(fahrzeugId.ToString(), preis);
-                        }
-                    }
-                    else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug gehört dir nicht!"); }
+                    if (preis <= 0) return;
+                    // Sell cAr
+                    target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + player.Username + " bietet dir ein " + vehicle.Model.ToString().ToLower() + "(" + vehicle.DatabaseId + ") für " + preis + " $ an!");
+                    target.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Nutze /buycar ID um das Fahrzeug zu kaufen!");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(0, 150, 200) + "Du hast " + target.Username + " deinen " + vehicle.Model.ToString().ToLower() + " für " + preis + " $ angeboten!");
+                    target.VnxSetStreamSharedElementData(fahrzeugId.ToString(), preis);
                 }
+                else { _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Das Fahrzeug gehört dir nicht!"); }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
@@ -626,7 +622,7 @@ namespace VenoXV.Reallife.vehicles
                 VehicleModel vehicle = (VehicleModel)player.Vehicle;
                 if (vehicle.Gas <= 0)
                 {
-                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "Das Fahrzeug hat nicht mehr genug Benzin - du kannst an einer Tankstelle einen Reservekannister erwerben!");
+                    player.SendTranslatedChatMessage(RageApi.GetHexColorcode(175, 0, 0) + "The vehicle no longer has enough gasoline - you can buy a reserve cannister at a gas station!");
                     return;
                 }
 
@@ -673,7 +669,7 @@ namespace VenoXV.Reallife.vehicles
 
                 if (vehicle.Owner != player.Username && vehicleFaction != player.Reallife.Faction)
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du hast keine Schlüssel für dieses Fahrzeug!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "You don't have keys for this vehicle!");
                 }
                 else
                 {

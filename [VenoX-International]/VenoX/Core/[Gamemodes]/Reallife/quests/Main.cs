@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using VenoXV._Gamemodes_.Reallife.model;
 using VenoXV._Notifications_;
-using VenoXV.Core;
 using VenoXV.Models;
 
-namespace VenoXV._Gamemodes_.Reallife.quests
+namespace VenoX.Core._Gamemodes_.Reallife.quests
 {
     public class Quests
     {
@@ -23,17 +22,17 @@ namespace VenoXV._Gamemodes_.Reallife.quests
 
         public static Dictionary<int, QuestModel> QuestDict = new Dictionary<int, QuestModel>
         {
-            {   QuestVenoxrentals, new QuestModel{ Id = QuestVenoxrentals, Text = "Willkommen auf VenoX - V,<br>begib dich zu VenoX Rentals um<br>deine Erste Belohnung zu bekommen!", Money = 1350 } },
-            {   QuestStadthalle, new QuestModel{ Id = QuestStadthalle,Text = "Asylant? Kein Problem!<br>Begib dich zur Stadthalle!<br>Drücke E um die Stadthalle zu betreten.", Money = 3500 } },
-            {   QuestPerso, new QuestModel{ Id = QuestPerso,Text = "Kauf dir einen Personalausweis!", Money = 6535 } },
-            {   QuestAutoschein, new QuestModel{ Id = QuestAutoschein,Text = "Nie wieder Bus Fahren!<br>Bestehe die Führerschein Prüfung!", Money = 5000 } },
-            {   QuestAtmEinzahlen, new QuestModel{ Id = QuestAtmEinzahlen,Text = "Sparkasse is on the Way!<br>Zahle 1000$ beim ATM ein!<br>Drücke E um einen Bankautomaten zu nutzen.", Money = 4000 } },
-            {   QuestGasSnack, new QuestModel{ Id = QuestGasSnack,Text = "Du bist hungrig!<br>Kaufe dir einen Snack bei der Tankstelle!", Money = 1000 } },
-            {   QuestAutokaufen, new QuestModel{ Id = QuestAutokaufen,Text = "One Car One Dream!<br>Kaufe dir dein erstes Auto!", Money = 10000 } },
-            {   QuestGet100K, new QuestModel{ Id = QuestGet100K,Text = "Kauf dir einen Benzinkannister.", Money = 5000 } },
-            {   QuestGetweaponlicense, new QuestModel{Id = QuestGetweaponlicense, Text = "Waffen sind wichtig.....!!!<br>Besorge dir einen Waffenschein ( ab 3 H Verfügbar ).", Money = 10000 } },
-            {   QuestGetadvancedrifle, new QuestModel{ Id = QuestGetadvancedrifle,Text = "Ein Kampfgewehr? Not Bad...<br>Besorge dir eine Advanced Rifle.", Money = 15000 } },
-            {   QuestStartShoprob, new QuestModel{ Id = QuestStartShoprob,Text = "Es wird Zeit etwas Geld zu verdienen...<br>Raube einen 24/7 Shop aus!", Money = 10000 } }
+            {   QuestVenoxrentals, new QuestModel{ Id = QuestVenoxrentals, Text = "Welcome to VenoX - V! Go to VenoX Rentals to get your first reward!", Money = 1350 } },
+            {   QuestStadthalle, new QuestModel{ Id = QuestStadthalle,Text = "A refugee? Don't worry! Go to the town hall!", Money = 3500 } },
+            {   QuestPerso, new QuestModel{ Id = QuestPerso,Text = "Apply for an identity card!", Money = 6535 } },
+            {   QuestAutoschein, new QuestModel{ Id = QuestAutoschein,Text = "Never ride a bus again! Pass the driver's license exam!", Money = 5000 } },
+            {   QuestAtmEinzahlen, new QuestModel{ Id = QuestAtmEinzahlen,Text = "Deposit $1000 at the ATM!", Money = 4000 } },
+            {   QuestGasSnack, new QuestModel{ Id = QuestGasSnack,Text = "You're hungry! Buy a snack at the gas station!", Money = 1000 } },
+            {   QuestAutokaufen, new QuestModel{ Id = QuestAutokaufen,Text = "A car is a dream! Buy your first car!", Money = 10000 } },
+            {   QuestGet100K, new QuestModel{ Id = QuestGet100K,Text = "Buy yourself a gasoline cannister.", Money = 5000 } },
+            {   QuestGetweaponlicense, new QuestModel{Id = QuestGetweaponlicense, Text = "Weapons are important! Get a weapon license (available from three hours of play).", Money = 10000 } },
+            {   QuestGetadvancedrifle, new QuestModel{ Id = QuestGetadvancedrifle,Text = "A combat rifle? Not bad... Get an Advanced Rifle.", Money = 15000 } },
+            {   QuestStartShoprob, new QuestModel{ Id = QuestStartShoprob,Text = "It's time to make some money... Rob a 24/7 shop!", Money = 10000 } }
         };
 
         public static void OnQuestDone(VnXPlayer player, QuestModel quest)
@@ -45,27 +44,27 @@ namespace VenoXV._Gamemodes_.Reallife.quests
                 player.Reallife.Money += quest.Money;
                 Main.DrawNotification(player, Main.Types.Info, "Quest Done.");
             }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
+            catch (Exception ex) { VenoXV.Core.Debug.CatchExceptions(ex); }
         }
-        public static QuestModel GetCurrentQuest(VnXPlayer player)
+
+        private static QuestModel GetCurrentQuest(VnXPlayer player)
         {
             try
             {
-                if (QuestDict.ContainsKey(player.Reallife.Quests))
-                    return QuestDict[player.Reallife.Quests];
-                return null;
+                return QuestDict.ContainsKey(player.Reallife.Quests) ? QuestDict[player.Reallife.Quests] : null;
             }
-            catch (Exception ex) { Debug.CatchExceptions(ex); return null; }
+            catch (Exception ex) { VenoXV.Core.Debug.CatchExceptions(ex); return null; }
         }
         public static async void ShowCurrentQuest(VnXPlayer player)
         {
             try
             {
                 QuestModel questClass = GetCurrentQuest(player);
-                if (questClass is null) VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "Momentan sind keine weiteren Quests vorhanden!"), "", 0);
-                else VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, questClass.Text), questClass.Money, player.Reallife.Quests);
+                if (questClass is null) 
+                    VenoXV.VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await VenoXV._Language_.Main.GetTranslatedTextAsync((VenoXV._Language_.Main.Languages)player.Language, "There are no other quests available at the moment!"), "", 0);
+                else VenoXV.VenoX.TriggerClientEvent(player, "Quest:SetCurrentQuest", await VenoXV._Language_.Main.GetTranslatedTextAsync((VenoXV._Language_.Main.Languages)player.Language, questClass.Text), questClass.Money, player.Reallife.Quests);
             }
-            catch (Exception ex) { Debug.CatchExceptions(ex); }
+            catch (Exception ex) { VenoXV.Core.Debug.CatchExceptions(ex); }
         }
     }
 }

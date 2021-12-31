@@ -72,28 +72,22 @@ namespace VenoXV.Reallife.chat
                         switch (type)
                         {
                             case Constants.MessageTalk:
-                                string sayingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "sagt :");
+                                string sayingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "says :");
                                 target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +  player.Username + " " + sayingString + " " +  message + "..." : chatMessageRgba + messageSendDateString + player.Username + " " + sayingString + " " + message);
                                 if (secondMessage.Length > 0)
-                                {
                                     target.SendChatMessage(chatMessageRgba + secondMessage);
-                                }
                                 break;
                             case Constants.MessageYell:
-                                string yellingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "schreit :");
+                                string yellingString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "screams :");
                                 target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba +  player.Username  + " " + yellingString + " " + message + "..." : chatMessageRgba + messageSendDateString + player.Username  + " " + yellingString + " " + message + "!!!");
                                 if (secondMessage.Length > 0)
-                                {
                                     target.SendChatMessage(chatMessageRgba + secondMessage + "!!!");
-                                }
                                 break;
                             case Constants.MessageWhisper:
-                                string whisperString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "flüstert :");
+                                string whisperString = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages) target.Language, "whispers :");
                                 target.SendChatMessage(secondMessage.Length > 0 ? chatMessageRgba + player.Username + " " + whisperString + " " + message + "..." : chatMessageRgba + messageSendDateString + player.Username + " " + whisperString + " " + message);
                                 if (secondMessage.Length > 0)
-                                {
                                     target.SendChatMessage(chatMessageRgba + secondMessage);
-                                }
                                 break;
                         }
                     }
@@ -149,17 +143,15 @@ namespace VenoXV.Reallife.chat
                     {
                         if (player.Playing == false)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "This action is currently not possible!");
                         }
                         else if (player.Dead != 0)
-                        {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                        }
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "This action is currently not possible!");
                         else
                         {
                             SendMessageToNearbyPlayers(player, message, Constants.MessageTalk, player.Dimension > 0 ? 7.5f : 10.0f);
                             //Console.WriteLine("[ID:" + player.Id + "]" + player.Username + "say" + message);
-                            Logfile.WriteLogs("chat", "[ " + player.Username + " ] sagt : " + message);
+                            Logfile.WriteLogs("chat", "[ " + player.Username + " ] says : " + message);
                         }
 
                         break;
@@ -175,13 +167,11 @@ namespace VenoXV.Reallife.chat
             try
             {
                 if (player.VnxGetElementData<int>(EntityData.PlayerKilled) != 0)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                }
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "This action is currently not possible!");
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MessageTalk, player.Dimension > 0 ? 7.5f : 10.0f);
-                    Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] sagt : " + message);
+                    Logfile.WriteLogs("chat", "[ " + player.Username + " ] says : " + message);
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -193,13 +183,12 @@ namespace VenoXV.Reallife.chat
             try
             {
                 if (player.IsDead)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                }
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "This action is currently not possible!");
+                
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MessageYell, 45.0f);
-                    Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] schreit : " + message + " !!!");
+                    Logfile.WriteLogs("chat", "[ " + player.Username + " ] screams : " + message + " !!!");
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
@@ -211,13 +200,11 @@ namespace VenoXV.Reallife.chat
             try
             {
                 if (player.IsDead)
-                {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Diese Aktion ist derzeit nicht Möglich!");
-                }
+                    _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Error, "This action is currently not possible!");
                 else
                 {
                     SendMessageToNearbyPlayers(player, message, Constants.MessageWhisper, 3.0f);
-                    Logfile.WriteLogs("chat", "[ " + player.SocialClubId + " ]" + "[ " + player.Username + " ] flüstert : " + message + " ...");
+                    Logfile.WriteLogs("chat", "[ " + player.Username + " ] whispers : " + message + " ...");
                 }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}

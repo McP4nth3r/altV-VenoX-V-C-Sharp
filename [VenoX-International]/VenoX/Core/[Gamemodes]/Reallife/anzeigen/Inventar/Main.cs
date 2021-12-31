@@ -82,20 +82,20 @@ namespace VenoXV._Gamemodes_.Reallife.anzeigen.Inventar
                 switch (item.Hash)
                 {
                     case Constants.ItemHashTankstellensnack:
-                        if ((player.Reallife.Hunger + 10) > 100) { player.SendTranslatedChatMessage("Du bist satt."); return; }
+                        if ((player.Reallife.Hunger + 10) > 100) { player.SendTranslatedChatMessage("You're full."); return; }
                         player.Reallife.Hunger += 10;
                         item.Amount -= 1;
                         break;
                     case Constants.ItemHashBenzinkannister:
                         if (!player.IsInVehicle)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Du bist in keinem Fahrzeug!");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "You are not in any vehicle!");
                             return;
                         }
                         VehicleModel vehicleClass = (VehicleModel)player.Vehicle;
                         if ((vehicleClass.Gas + 20) > 100)
                         {
-                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Du musst noch nicht Tanken.");
+                            _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "You don't have to refuel yet.");
                             return;
                         }
                         vehicleClass.Gas += 20;

@@ -23,7 +23,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
             {
                 if (medics.Reallife.Faction == Constants.FactionEmergency)
                 {
-                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)medics.Language, "braucht hilfe!");
+                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)medics.Language, "needs help!");
                     if (!CurrentActiveMedicBlips.ContainsKey(player))
                         CurrentActiveMedicBlips.Add(player, RageApi.CreateBlip(player.Username + " " + translatedText, player.Position, 303, 3, false, medics));
                 }
@@ -94,7 +94,7 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                 VnXPlayer target = RageApi.GetPlayerFromName(targetName);
                 if (target == null)
                 {
-                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "konnte nicht gefunden werden!");
+                    string translatedText = await _Language_.Main.GetTranslatedTextAsync((_Language_.Main.Languages)player.Language, "could not be found!");
                     _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, player.Username + " " + translatedText);
                     return;
                 };
@@ -133,13 +133,13 @@ namespace VenoXV._Gamemodes_.Reallife.Factions
                         }
                         else
                         {
-                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist in keinem Medic Fahrzeug!");
+                            _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "You are not in a Medic vehicle!");
                         }
                     }
                 }
                 else
                 {
-                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "Du bist bei keinem Spieler!");
+                    _Notifications_.Main.DrawNotification(player, _Notifications_.Main.Types.Error, "You are not with any player!");
                 }
             }
             catch
