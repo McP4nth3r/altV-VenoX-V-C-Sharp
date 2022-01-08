@@ -78,7 +78,7 @@ namespace VenoXV
             {
                 if (!element.Spawned) return;
                 element.Spawned = false;
-                element.Despawn();
+                //element.Despawn();
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }

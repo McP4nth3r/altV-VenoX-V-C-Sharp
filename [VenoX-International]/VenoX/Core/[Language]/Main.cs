@@ -33,7 +33,7 @@ namespace VenoXV._Language_
             Italian = 11
         }
 
-        public static readonly List<string> LanguagePaths = new()
+        private static readonly List<string> LanguagePaths = new()
         {
             Alt.Server.Resource.Path + "/Languages/language-fr.json",
             Alt.Server.Resource.Path + "/Languages/language-pl.json",
@@ -140,7 +140,8 @@ namespace VenoXV._Language_
             }
             catch { return Languages.German; }
         }
-        static readonly HttpClient WebClient = new HttpClient();
+
+        private static readonly HttpClient WebClient = new();
 
         private static async Task<string> TranslateText(string text, string fromPair, string toPair)
         {

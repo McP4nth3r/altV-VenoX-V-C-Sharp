@@ -10,12 +10,12 @@
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <script>
         if ("alt" in window) {
-            alt.on('Load:ShowPreload', () => {
-                $('#Main').removeClass('d-none');
-            })
-            alt.on('Load:HidePreload', () => {
-                $('#Main').addClass('d-none');
-            })
+            alt.on('Preload:ShowGamemodes', state => {
+                if(state)
+                    $('#Main').removeClass('d-none');
+                else
+                    $('#Main').addClass('d-none');
+            });
         }
     </script>
 </head>
@@ -104,7 +104,6 @@
         <script>
             function TriggerSelectedGM(Gamemode, Lobby = "") {
                 if ("alt" in window) {
-                    $('#Main').addClass('d-none');
                     alt.emit("Preload:SelectGamemode", Gamemode, Lobby);
                 }
             }

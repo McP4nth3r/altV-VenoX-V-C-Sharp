@@ -16,6 +16,8 @@ let Songs = [
     "http://venox-international.com/preload/sounds/Nuthin' But A _G_ Thang.mp3"
 ]
 
+let FinishedPrivacyPolicy = false;
+
 function PlayMusic(state) {
     if (state) {
         let RandomPlay = Math.round(Math.random() * Songs.length);
@@ -62,15 +64,17 @@ function ShowPreload(state) {
     if (state) {
         OnWindowLoad(); // get new wallpaper.
         $('.Loading-Screen-Main').removeClass('d-none');
-        ShowPrivacyPolicy(true);
         ShowLoadingBar(true);
         PlayMusic(true);
+        if(FinishedPrivacyPolicy) return;
+        ShowPrivacyPolicy(true);
         setTimeout(() => {
             ShowPrivacyPolicy(false);
             ShowPoweredBy(true);
             setTimeout(() => {
                 ShowLoadingScreen(true);
                 alt.emit('Preload:FinishedPrivacyPolicy');
+                FinishedPrivacyPolicy = true;
             }, 5000);
         }, 7000);
     } else {

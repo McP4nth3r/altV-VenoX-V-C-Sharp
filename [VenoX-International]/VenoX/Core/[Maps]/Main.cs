@@ -44,31 +44,31 @@ namespace VenoXV._Maps_
                     case LspdMap:
                         foreach (MapModel mapClass in Lspdmap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( LSPD )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
                         }
                         break;
                     case NoobspawnMap:
                         foreach (MapModel mapClass in Noobspawnmap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( Noobspawn )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
                         }
                         break;
                     case StadthalleMap:
                         foreach (MapModel mapClass in Stadthallemap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( CityHall )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false);
                         }
                         break;
                     case SeventowersMap:
                         foreach (MapModel mapClass in Seventowersmap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( SevenTowers )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, 2, mapClass.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                         }
                         break;
                     case WuerfelparkMap:
                         foreach (MapModel mapClass in Wuerfelparkmap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false, true);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( Cube-Park )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false, true);
                         }
                         break;
                     case Derby1Map:
@@ -76,18 +76,18 @@ namespace VenoXV._Maps_
                         {
                             if (mapClass.Model == 665940918)
                             {
-                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
+                                VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( Derby )","Sync:LoadMap", mapName, "v_corp_postbox", mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, true, true, mapClass.Properties.TextureVariation);
                             }
                             else
                             {
-                                VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
+                                VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( Derby )","Sync:LoadMap", mapName, mapClass.Model, mapClass.PositionRotation.Position, 2, mapClass.PositionRotation.Rotation, true, false, true, mapClass.Properties.TextureVariation);
                             }
                         }
                         break;
                     case ShooterMap:
                         foreach (MapModel mapClass in Shootermap)
                         {
-                            VenoX.TriggerClientEvent(playerClass, "Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false, true);
+                            VenoX.TriggerPreloadEvent(playerClass, "Loading Map ( Shooter )","Sync:LoadMap", mapName, mapClass.Hash, mapClass.Position, RotOrderNormal, mapClass.Rotation, true, false, true);
                         }
                         break;
                 }

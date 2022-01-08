@@ -43,7 +43,7 @@ function OnAppClick(appbtn) {
         $("#PhoneHomeScreen").addClass("d-none");
     }, 100);
 	$("#" + appbtn).removeClass("d-none");
-}
+} 
 
 function TurnPhoneOn(State) {
 	DestroyAllScreens();

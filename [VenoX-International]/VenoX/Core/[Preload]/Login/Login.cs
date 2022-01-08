@@ -121,7 +121,7 @@ namespace VenoXV._Preload_.Login
                 }
                 //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
                 VenoX.TriggerClientEvent(player, "DestroyLoginWindow");
-                Preload.ShowPreloadList(player);
+                Preload.ShowPreloadList(player, true);
                 player.AdminRank = 7;
                 // If Method is old-sha256 method : Update!
                 if (player.LoggedInWithShaPassword)

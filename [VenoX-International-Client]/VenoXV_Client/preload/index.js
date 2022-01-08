@@ -14,7 +14,7 @@ from '../Globals/VnX-Lib';
 let preloadbrowser = vnxCreateCEF("Preload", "preload/main.html");
 
 preloadbrowser.on('Preload:SelectGamemode', (Gamemode, Lobby) => {
-    alt.emitServer("Preload:SelectGamemode", Gamemode, Lobby);
+    alt.emitServer("Preload:SelectGamemode", Gamemode, Lobby, true);
     game.setEntityAlpha(alt.Player.local.scriptID, 255, false);
     game.freezeEntityPosition(alt.Player.local.scriptID, false);
     game.displayRadar(true);
@@ -30,13 +30,11 @@ preloadbrowser.on('Preload:SelectLanguage', (Pair) => {
     alt.emitServer('Preload:SelectLanguage', Pair);
 })
 
-alt.onServer('preload_gm_list', () => {
-    try {
-        preloadbrowser.emit('Load:ShowPreload');
-        ShowCursor(true);
+alt.onServer('Preload:ShowGamemodes', state => {
+    preloadbrowser.emit('Preload:ShowGamemodes', state);
+    ShowCursor(state);
+    if(state)
         preloadbrowser.focus();
-
-    } catch {}
 });
 
 

@@ -42,7 +42,7 @@ namespace VenoXV._Preload_.Character_Creator
                 player.Visible = true;
                 player.Reallife.SpawnLocation = "Wuerfelpark";
                 player.SpawnPlayer(player.Position);
-                Preload.ShowPreloadList(player);
+                Preload.ShowPreloadList(player, true);
                 //if (player.AdminRank <= 0) { player.Kick("NOT WHITELISTED"); return; }
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}

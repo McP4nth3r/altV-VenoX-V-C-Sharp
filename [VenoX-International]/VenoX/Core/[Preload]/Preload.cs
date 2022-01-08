@@ -64,9 +64,19 @@ namespace VenoXV._Preload_
             { _Language_.Main.Languages.Spanish, Main.ReallifeDimension + (int)_Language_.Main.Languages.Spanish },
         };
 
-        public static void ShowPreloadList(VnXPlayer player)
+        public static void ShowPreloadList(VnXPlayer player, bool state)
         {
-            try { VenoX.TriggerClientEvent(player, "preload_gm_list"); }
+            try {
+                if (!Main.AllPlayers.Contains(player))
+                {                    
+                    if (player.IsInVehicle) player.WarpOutOfVehicle();
+                    player.RemoveAllPlayerWeapons();
+                    player.Dimension = 9000 + player.Id;
+                    player.Gamemode = -1;
+                    Main.AllPlayers.Add(player);
+                }
+                VenoX.TriggerClientEvent(player, "Preload:ShowGamemodes", state);                
+            }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
@@ -92,31 +102,37 @@ namespace VenoXV._Preload_
                 player.Dimension = 9000 + player.Id;
                 Main.OnPlayerDisconnected(player, "lobby-leave");
                 Load.UnloadGamemodeWindows(player, (Gamemodes)player.Gamemode);
-                ShowPreloadList(player);
+                ShowPreloadList(player, true);
+                player.Gamemode = -1;
             }
             catch(Exception ex){Core.Debug.CatchExceptions(ex);}
         }
 
 
         [VenoXRemoteEvent("Preload:SelectGamemode")]
-        public static void Load_selected_gm_server(VnXPlayer player, int value, string countrycode)
+        public static void PreloadSelectGamemode(VnXPlayer player, int value, string countrycode, bool loadStuff)
         {
             try
             {
                 if (player == null) return;
+                if (player.PreloadEvents.Count > 0) return;
                 player.Dimension = player.Id;
                 if (countrycode != "" && value == (int)Gamemodes.Reallife) {
-                    var language = _Language_.Main.GetLanguageByPair(countrycode);
+                    _Language_.Main.Languages language = _Language_.Main.GetLanguageByPair(countrycode);
                     player.Language = (int)language;
                     Debug.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
                     _Notifications_.Main.DrawTranslatedNotification(player, _Notifications_.Main.Types.Info, "Welcome to VenoX!");
                 }
                 VenoX.TriggerClientEvent(player, "Gameversion:Update", CurrentVersion);
                 player.Gamemode = value;
-                Load.LoadGamemodeSpecificData(player, (Gamemodes)value);
-                if (!Main.AllPlayers.Contains(player)) Main.AllPlayers.Add(player);
+
+                if (loadStuff)
+                {
+                    ShowPreloadList(player, false);
+                    Load.LoadGamemodeSpecificData(player, (Gamemodes)value);
+                    return;
+                }
                 player.RemoveAllPlayerWeapons();
-                if (player.PreloadEvents.Count > 0) return;
                 switch (value)
                 {
                     case (int)Gamemodes.Reallife:
@@ -192,12 +208,6 @@ namespace VenoXV._Preload_
                 _Maps_.Main.LoadMap(player, _Maps_.Main.ShooterMap);
                 Sync.SyncDateTime(player);
                 Sync.SyncWeather(player);
-
-                /*_Maps_.Main.LoadMap(player, _Maps_.Main.NOOBSPAWN_MAP);
-                _Maps_.Main.LoadMap(player, _Maps_.Main.DERBY1_MAP);
-                _Maps_.Main.LoadMap(player, _Maps_.Main.SEVENTOWERS_MAP);
-                _Maps_.Main.LoadMap(player, _Maps_.Main.LSPD_MAP);#
-                */
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }
         }
@@ -219,6 +229,7 @@ namespace VenoXV._Preload_
                 IEnumerable<VnXPlayer> loadingPlayers = VenoX.GetAllPlayers().ToList().Where(x => x.FinishedPrivacyPolicy);
                 foreach (VnXPlayer players in loadingPlayers)
                 {
+                    
                     //Core.Debug.OutputDebugString("Event-Count : " + players.PreloadEvents.ToList().Count);
                     var @event = players.PreloadEvents.ToList().OrderBy(x => x.EventName).FirstOrDefault(x => !x.Send);
                     if (@event is null) continue;
@@ -226,8 +237,12 @@ namespace VenoXV._Preload_
                     VenoX.TriggerClientEvent(players, "Preload:UpdateDownloadState", @event.EventText);
                     VenoX.TriggerClientEvent(players, @event.EventName, @event.EventArgs);
                     players.PreloadEvents.Remove(@event);
+                    //Debug.OutputDebugString(players.Username + " Sending Preload Update : " + players.PreloadEvents.Count + " | " + @event.EventName);
                     if (players.PreloadEvents.ToList().Count > 0) continue;
                     VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
+                    //Debug.OutputDebugString(players.Username + "LoadingScreen:ShowPreload : false ");
+                    if(players.Gamemode == -1) continue;
+                    PreloadSelectGamemode(players, players.Gamemode, _Language_.Main.GetClientLanguagePair((_Language_.Main.Languages)players.Language), false);
                 }
             }
             catch (Exception ex) { Debug.CatchExceptions(ex); }

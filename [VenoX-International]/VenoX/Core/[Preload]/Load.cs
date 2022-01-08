@@ -28,6 +28,7 @@ namespace VenoXV
                     VenoX.TriggerPreloadEvent(player, "Loading Phone...","Phone:Load");
                     VenoX.TriggerPreloadEvent(player, "Loading HUD...","Reallife:LoadHUD", player.Settings.ReallifeHud);
                     VenoX.TriggerPreloadEvent(player, "Loading Quests...","Quests:Show", true);
+
                     Sync.LoadAllNpCs(player);
                     break;
                 case Gamemodes.Tactics:
