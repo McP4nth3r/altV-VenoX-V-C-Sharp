@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <AssemblyName>VenoX.Debug</AssemblyName>
+        <RootNamespace>VenoX.Debug</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AltV.Net" Version="9.0.4" />
+    </ItemGroup>
+
+</Project>
