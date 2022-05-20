@@ -1,0 +1,32 @@
+{
+    "name": "venox_client",
+    "version": "1.0.0",
+    "description": "A Client code based on the plattform alt:V MP",
+    "main": "",
+    "type": "module",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "scripts": {
+        "start": "node ./build/src/index.js",
+        "clean": "rimraf ./build",
+        "compile": "npm run clean && swc ./src -d ./build --copy-files",
+        "prepare": "npm.cmd run compile",
+        "pretest": "npm.cmd run compile",
+        "posttest": "npm.cmd run lint"
+    },
+    "author": "Solid_Snake aka Kuroosh",
+    "license": "MIT",
+    "dependencies": {
+        "@altv/types-client": "^2.1.1",
+        "@altv/types-natives": "^1.4.4",
+        "@swc/cli": "^0.1.57",
+        "@swc/core": "^1.2.164",
+        "gts": "^3.1.0",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.7.0"
+    },
+    "devDependencies": {
+        "@babel/preset-env": "^7.17.10",
+        "@babel/preset-typescript": "^7.16.7"
+    }
+}
