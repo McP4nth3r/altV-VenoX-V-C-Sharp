@@ -136,30 +136,30 @@ setTimeout(() => {
     addGamemode(7, '7 - Towers', 'Lobby', './files/images/Towers.jpg', './files/images/Towers_hover.jpg', './files/sounds/towers.mp3');
 
     /* lobbys */
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Berlin', 0, '0', '0 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-New York', 0, '1', '10 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Moscow', 0, '2', '10 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Tokyo', 0, '3', '30 / 50');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Berlin', 0, 0, '0 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-New York', 0, 1, '10 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Moscow', 0, 2, '10 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Tokyo', 0, 3, '30 / 50');
 
-    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', 0, 'ru', '253 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 0, 'de', '40 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 0, 'en', '54 / 500');
-    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 0, 'es', '84 / 600');
+    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', 1, 6, '253 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 1, 0, '40 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 1, 1, '54 / 500');
+    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 1, 4, '84 / 600');
 
-    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Alpha', 2, '0', '0 / 20');
-    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Beta', 2, '1', '10 / 20');
-    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Gamma', 2, '2', '10 / 20');
-    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Delta', 2, '3', '30 / 50');
+    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Alpha', 2, 0, '0 / 20');
+    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Beta', 2, 1, '10 / 20');
+    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Gamma', 2, 2, '10 / 20');
+    AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Delta', 2, 3, '30 / 50');
 
-    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Alpha', 3, '0', '0 / 20');
-    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Beta', 3, '1', '10 / 20');
-    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Gamma', 3, '2', '10 / 20');
-    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Delta', 3, '3', '30 / 50');
+    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Alpha', 3, 0, '0 / 20');
+    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Beta', 3, 1, '10 / 20');
+    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Gamma', 3, 2, '10 / 20');
+    AddLobbyToGamemode(3, 'files/images/race_icon.png', 'Race-Delta', 3, 3, '30 / 50');
 
-    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Alpha', 7, '0', '0 / 20');
-    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Beta', 7, '1', '10 / 20');
-    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Gamma', 7, '2', '10 / 20');
-    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Delta', 7, '3', '30 / 50');
+    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Alpha', 7, 0, '0 / 20');
+    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Beta', 7, 1, '10 / 20');
+    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Gamma', 7, 2, '10 / 20');
+    AddLobbyToGamemode(7, 'files/images/towers_icon.png', '7Towers-Delta', 7, 3, '30 / 50');
 
     OnHover();
 }, 50);

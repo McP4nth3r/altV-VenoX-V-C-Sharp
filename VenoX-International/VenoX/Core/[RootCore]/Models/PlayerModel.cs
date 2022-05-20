@@ -69,10 +69,14 @@ namespace VenoX.Core._RootCore_.Models
         }
 
         private int _Gamemode { get; set; }
-
         public int Gamemode { get => _Gamemode;
             set { _Gamemode = value; this.VnxSetElementData(EntityData.PlayerCurrentGamemode, value); } }
 
+        private int _Lobby { get; set; }
+        public int Lobby { get => _Lobby;
+            set { _Lobby = value; this.VnxSetElementData(EntityData.PlayerCurrentGamemode, value); } }
+
+        
         public int Dead { get; set; }
 
         private int _Played { get; set; }

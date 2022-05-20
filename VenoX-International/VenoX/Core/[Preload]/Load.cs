@@ -24,13 +24,12 @@ namespace VenoX.Core._Preload_
             {
                 case Gamemodes.Reallife:
                     Main.LoadReallifeMaps(player);
+                    Sync.LoadAllNpCs(player);
                     _RootCore_.VenoX.TriggerPreloadEvent(player, "Loading Inventory...","Inventory:Load");
                     _RootCore_.VenoX.TriggerPreloadEvent(player,"Loading Personal-Menu...", "XMenu:Load");
                     _RootCore_.VenoX.TriggerPreloadEvent(player, "Loading Phone...","Phone:Load");
                     _RootCore_.VenoX.TriggerPreloadEvent(player, "Loading HUD...","Reallife:LoadHUD", player.Settings.ReallifeHud);
                     _RootCore_.VenoX.TriggerPreloadEvent(player, "Loading Quests...","Quests:Show", true);
-
-                    Sync.LoadAllNpCs(player);
                     break;
                 case Gamemodes.Tactics:
                     _RootCore_.VenoX.TriggerPreloadEvent(player, "Loading Basic Tactics...","Tactics:Load");

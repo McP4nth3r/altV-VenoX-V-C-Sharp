@@ -5,13 +5,14 @@ using AltV.Net;
 using AltV.Net.Async;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
-using VenoX.Core._Gamemodes_.Race.lobby;
 using VenoX.Core._Gamemodes_.Tactics.lobby;
 using VenoX.Core._Globals_;
+using VenoX.Core._Language_;
 using VenoX.Core._RootCore_;
 using VenoX.Core._RootCore_.Models;
 using VenoX.Core._RootCore_.Sync;
 using VenoX.Debug;
+using Main = VenoX.Core._Gamemodes_.Race.lobby.Main;
 
 namespace VenoX.Core._Preload_
 {
@@ -109,24 +110,23 @@ namespace VenoX.Core._Preload_
 
 
         [VenoXRemoteEvent("Preload:SelectGamemode")]
-        public static void PreloadSelectGamemode(VnXPlayer player, int value, string countrycode, bool loadStuff)
+        public static void PreloadSelectGamemode(VnXPlayer player, int value, int lobby, bool loadStuff)
         {
             try
             {
                 if (player == null) return;
                 if (player.PreloadEvents.Count > 0) return;
                 player.Dimension = player.Id;
-                ConsoleHandling.OutputDebugString("Your countrycode is : ~ " + countrycode + " | value : " + value + " | loadStuff : " + loadStuff);
+                player.Lobby = lobby;
+                ConsoleHandling.OutputDebugString("Your countrycode is : ~ " + lobby + " | value : " + value + " | loadStuff : " + loadStuff);
 
-                if (countrycode != "" && value == (int)Gamemodes.Reallife) {
-                    global::VenoX.Core._Language_.Constants.Languages language = global::VenoX.Core._Language_.Main.GetLanguageByPair(countrycode);
-                    player.Language = (int)language;
-                    ConsoleHandling.OutputDebugString("You joined lobby ~ " + language + " | " + countrycode);
+                if (value == (int)Gamemodes.Reallife) {
+                    player.Language = lobby;
+                    ConsoleHandling.OutputDebugString("You joined lobby ~ " + (Constants.Languages)lobby + " | " + lobby);
                     Notification.DrawTranslatedNotification(player, _Globals_.Notification.Types.Info, "Welcome to VenoX!");
                 }
                 _RootCore_.VenoX.TriggerClientEvent(player, "Gameversion:Update", CurrentVersion);
                 player.Gamemode = value;
-
                 if (loadStuff)
                 {
                     ShowPreloadList(player, false);
@@ -152,9 +152,6 @@ namespace VenoX.Core._Preload_
                         break;
                     case (int)Gamemodes.Tactics:
                         if (!Initialize.TacticsPlayers.Contains(player)) Initialize.TacticsPlayers.Add(player); 
-                        ConsoleHandling.OutputDebugString("countrycode : " + countrycode);
-                        int lobby = int.Parse(countrycode);
-                        ConsoleHandling.OutputDebugString("Lobby : " + lobby);
                         Pointer.OnSelectedTacticLobby(player, lobby);
                         _RootCore_.VenoX.TriggerClientEvent(player, "Player:ChangeCurrentLobby", "Tactics");
                         break;
@@ -242,9 +239,10 @@ namespace VenoX.Core._Preload_
                     //Debug.OutputDebugString(players.Username + " Sending Preload Update : " + players.PreloadEvents.Count + " | " + @event.EventName);
                     if (players.PreloadEvents.ToList().Count > 0) continue;
                     _RootCore_.VenoX.TriggerClientEvent(players, "LoadingScreen:ShowPreload", false);
+                    global::VenoX.Debug.ConsoleHandling.OutputDebugStringColored("[Removed Preload Screen]", ConsoleColor.Yellow);
                     //Debug.OutputDebugString(players.Username + "LoadingScreen:ShowPreload : false ");
                     if(players.Gamemode == -1) continue;
-                    PreloadSelectGamemode(players, players.Gamemode, global::VenoX.Core._Language_.Main.GetClientLanguagePair((global::VenoX.Core._Language_.Constants.Languages)players.Language), false);
+                    PreloadSelectGamemode(players, players.Gamemode, players.Lobby, false);
                 }
             }
             catch (Exception ex) { ExceptionHandling.CatchExceptions(ex); }

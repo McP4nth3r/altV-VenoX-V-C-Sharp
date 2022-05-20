@@ -29,10 +29,10 @@ namespace VenoX.Core._Gamemodes_.Tactics.lobby
                 val.OnSelectedTacticsGM(player);
                 player.Tactics.CurrentLobby = val;
                 // Debug : 
-                ConsoleHandling.OutputDebugString("Alpha Map-Name : " + Alpha.CurrentMap.MapName);
-                ConsoleHandling.OutputDebugString("Beta Map-Name : " + Beta.CurrentMap.MapName);
-                ConsoleHandling.OutputDebugString("Gamma Map-Name : " + Gamma.CurrentMap.MapName);
-                ConsoleHandling.OutputDebugString("Delta Map-Name : " + Delta.CurrentMap.MapName);
+                ConsoleHandling.OutputDebugString("Alpha Map-Name : " + Alpha?.CurrentMap?.MapName);
+                ConsoleHandling.OutputDebugString("Beta Map-Name : " + Beta?.CurrentMap?.MapName);
+                ConsoleHandling.OutputDebugString("Gamma Map-Name : " + Gamma?.CurrentMap?.MapName);
+                ConsoleHandling.OutputDebugString("Delta Map-Name : " + Delta?.CurrentMap?.MapName);
             }
             catch (Exception ex) { ExceptionHandling.CatchExceptions(ex); }
         }

@@ -586,10 +586,10 @@ namespace VenoX.Core._Globals_
                             break;
                     }
 
-                    DatabaseAccount accClass = global::VenoX.Data.Database.Constants.Accounts.ToList().FirstOrDefault(x => x.UID == player.CharacterId);
-                    string langpair = global::VenoX.Core._Language_.Main.GetClientLanguagePair((global::VenoX.Core._Language_.Constants.Languages)player.Language);
-                    if (accClass is not null && accClass.Language != langpair)
-                        Database.UpdatePlayerLanguage(accClass.UID, langpair);
+                    //DatabaseAccount accClass = global::VenoX.Data.Database.Constants.Accounts.ToList().FirstOrDefault(x => x.UID == player.CharacterId);
+                    //string langpair = global::VenoX.Core._Language_.Main.GetClientLanguagePair((global::VenoX.Core._Language_.Constants.Languages)player.Language);
+                    //if (accClass is not null && accClass.Language != langpair)
+                        //Database.UpdatePlayerLanguage(accClass.UID, langpair);
 
                     SavePlayerDatas(player);
                     Sync.SyncWeather(player);
