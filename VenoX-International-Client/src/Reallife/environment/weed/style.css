@@ -1,0 +1,135 @@
+@font-face { font-family: 'drugs';
+             src: url('./font/Caviar-Dreams.ttf') format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('./font/Roboto-Thin.ttf') format('truetype'); }
+
+
+
+.back {
+	background: rgba(10, 10, 10, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 15.6vw;
+    border-radius: 0.3vw;
+    top: 14vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.blue_header {
+	background: rgba(0, 150, 200, 0.8);
+	position: absolute;
+	width: 35vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 14vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_head {
+	background: rgba(10, 10, 10, 0.4);
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.5vw;
+	font-family: drugs; 
+    top: 14.4vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_info {
+	position: absolute;
+	line-height: 5vw;
+	color: rgba(225,225,225,1);
+	width: 35vw;
+	font-size: 1.2vw;
+	font-family: robot;
+    top: 17.6vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.textarea {
+	position: absolute;
+	width: 15vw;
+	height: 3vw;
+	left: 42%;
+	top: 25vw;
+    text-align: center;
+    transform: translate(-50%);
+    display: block;
+    font-size: 1.2vw;
+    line-height: 2vw;
+    color: white;
+    letter-spacing: 0.1vw;
+    background-color: rgb(15, 15, 15, 0.8);
+    border: 0.1vw solid rgba(0,105,145);
+	transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+
+.textarea::-ms-expand {
+    background-color: transparent;
+    border: 0
+}
+.textarea:focus {
+    color: white;
+    background-color: rgba(15, 15, 15, 0.7);
+    border-color: rgb(0, 200, 255);
+    outline: 0;
+}
+
+.buybutton {
+	position: absolute;
+	width: 15vw;
+	height: 2.8vw;
+	left: 58%;
+	top: 25vw;
+	text-align: center;
+	line-height: 3vw;
+	background: rgb(0, 105, 145);
+	color: white;
+	border: 0.15vw solid rgb(0, 105, 145);
+	border-radius: 0.3vw;
+	cursor: pointer;
+	transition: all ease 1s;
+    font-size: 1.2vw;
+    transform: translate(-50%);
+    font-family: robot;
+}
+.buybutton:hover, .stellen:active {
+    position: absolute;
+	outline: none;
+	background: rgb(0, 150, 200);
+    border: 0.15vw solid rgb(0, 150, 200);
+	color: white;
+}
+
+
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 14.6vw;
+    left: 66.5%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}

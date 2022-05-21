@@ -1,0 +1,65 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://venox-international.com/Lib/Window/style.css">
+</head>
+
+<body>
+    <div class="VnX-Window" id="back">
+        <div class="VnX-Header" id="header">Ammunation</div>
+        <div class="area">
+            <img src="images/Armor-icon.png" id="pic_armor">
+            <div class="VnX-Button" id="btn_armor" onclick="alt.emit(`Ammunation:BuyWeapon`, `Weste`);">Schussweste
+                [100$]</div>
+
+            <img src="images/Switch-blade-icon.png" id="pic_knife">
+            <div class="VnX-Button" id="btn_knife" onclick="alt.emit(`Ammunation:BuyWeapon`, `Messer`);">Messer [200$]
+            </div>
+
+            <img src="images/Parachute-icon.png" id="pic_parachute">
+            <div class="VnX-Button" id="btn_parachute" onclick="alt.emit(`Ammunation:BuyWeapon`, `Fallschirm`);">
+                Fallschirm
+                [925$]</div>
+
+            <img src="images/Pistol-icon.png" id="pic_pistol">
+            <div class="VnX-Button" id="btn_pistol" onclick="alt.emit(`Ammunation:BuyWeapon`, `Pistole`);">Pistole
+                [265$]</div>
+            <div class="VnX-Button" id="btn_pistol_amo" onclick="alt.emit(`Ammunation:BuyAmmo`, `Pistolen Magazin`);">
+                Magazin [90$]</div>
+
+            <img src="images/Pistol.50-icon.png" id="pic_pistol50">
+            <div class="VnX-Button" id="btn_pistol50" onclick="alt.emit(`Ammunation:BuyWeapon`, `Pistole50`);">
+                Pistole.50 [385$]
+            </div>
+            <div class="VnX-Button" id="btn_pistol50_amo"
+                onclick="alt.emit(`Ammunation:BuyAmmo`, `Pistole 50 Magazin`);">
+                Magazin [165$]</div>
+
+            <img src="images/Heavy-revolver-icon.png" id="pic_revolver">
+            <div class="VnX-Button" id="btn_revolver" onclick="alt.emit(`Ammunation:BuyWeapon`, `Revolver`);">Revolver
+                [450$]
+            </div>
+            <div class="VnX-Button" id="btn_revolver_amo" onclick="alt.emit(`Ammunation:BuyAmmo`, `Revolver Magazin`);">
+                Magazin [220$]</div>
+
+            <img src="images/Pump-shotgun-icon.png" id="pic_shotgun">
+            <div class="VnX-Button" id="btn_shotgun" onclick="alt.emit(`Ammunation:BuyWeapon`, `Shotgun`);">Shotgun
+                [600$]</div>
+            <div class="VnX-Button" id="btn_shotgun_amo" onclick="alt.emit(`Ammunation:BuyAmmo`, `Shotgun Magazin`);">
+                Magazin [100$]</div>
+
+            <img src="images/Combat-pdw-icon.png" id="pic_pdw">
+            <div class="VnX-Button" id="btn_pdw" onclick="alt.emit(`Ammunation:BuyWeapon`, `PDW`);">PDW [800$]</div>
+            <div class="VnX-Button" id="btn_pdw_amo" onclick="alt.emit(`Ammunation:BuyAmmo`, `PDW Magazin`);">Magazin
+                [450$]</div>
+
+            <img src="images/Advanced-rifle-icon.png" id="pic_rifle">
+            <div class="VnX-Button" id="btn_rifle" onclick="alt.emit(`Ammunation:BuyWeapon`, `Rifle`);">Rifle [950$]
+            </div>
+            <div class="VnX-Button" id="btn_rifle_amo" onclick="alt.emit(`Ammunation:BuyAmmo`, `Rifle Magazin`);">
+                Magazin
+                [535$]</div>
+        </div>
+        <div class="VnX-Close" id="close" onclick="alt.emit(`Ammunation:Hide`);">X</div>
+    </div>
+</body>

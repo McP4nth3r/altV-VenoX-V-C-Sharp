@@ -1,0 +1,69 @@
+/*//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By LargePeach & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//*/
+
+body {
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+}
+
+#back {
+    width: 30%;
+    height: 30%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 0.5vw;
+}
+
+#header {
+    font-size: 1.5vw;
+    border-top-left-radius: 0.5vw;
+    border-top-right-radius: 0.5vw;
+    padding: 0.3vw 0vw;
+}
+
+.stellen_text {
+    position: relative;
+    color: white;
+    text-align: center;
+    width: 85%;
+    left: 50%;
+    height: 50%;
+    top: 45%;
+    font-size: 1vw;
+    font-family: arial;
+    letter-spacing: 0.025vw;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#button {
+    width: 80%;
+    height: 10%;
+    top: 80%;
+    left: 50%;
+    letter-spacing: 0.05vw;
+    border-width: 0.15vw;
+    cursor: pointer;
+    transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#close {
+    font-family: arial;
+    color: rgba(255,255,255,0.6);
+    right: 3%;
+    top: 2.5%;
+}
+#close:hover {
+    font-weight: bold;
+    color: rgba(255,0,0,0.6);
+}

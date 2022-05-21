@@ -1,0 +1,752 @@
+/*//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By LargePeach & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//*/
+ 
+body {
+    -ms-user-select: none; 
+    -moz-user-select: none; 
+    -webkit-user-select: none; 
+    color: white;
+}
+
+section {
+  display: none;
+}
+input {
+  display: none;
+}
+#perso_btn:checked ~ #perso,
+#car_btn:checked ~ #car,
+#lkw_btn:checked ~ #lkw,
+#bike_btn:checked ~ #bike,
+#plane_a_btn:checked ~ #plane_a,
+#plane_b_btn:checked ~ #plane_b,
+#helicopter_btn:checked ~ #helicopter,
+#boat_btn:checked ~ #boat,
+#fisher_btn:checked ~ #fisher,
+#weapon_btn:checked ~ #weapon,
+#perso_btn:checked ~ #buy,
+#car_btn:checked ~ #buy,
+#lkw_btn:checked ~ #buy,
+#bike_btn:checked ~ #buy,
+#plane_a_btn:checked ~ #buy,
+#plane_b_btn:checked ~ #buy,
+#helicopter_btn:checked ~ #buy,
+#boat_btn:checked ~ #buy,
+#fisher_btn:checked ~ #buy,
+#weapon_btn:checked ~ #buy 
+{
+  display: block;
+}
+
+/* Hintergrund */
+
+#back {
+    width: 35%;
+    height: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Überschrift */
+
+#header {
+    height: 8%;
+    font-size: 1.3vw;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Innenbereich */
+
+.area {
+    position: absolute;
+    top: 8%;
+    height: 92%;
+    left: 0;
+    width: 100%;
+}
+
+/* Trennlinie mitte */
+
+.parting_line {
+    position: absolute;
+    background: rgba(0,0,0,0.8);
+    width: 0.1vw;
+    height: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 1;
+}
+
+/* Perso Button */
+
+[id="PERSO_BTN"]:checked { display: none; }
+[id="PERSO_BTN"]:checked + label,
+[id="PERSO_BTN"]:not(:checked) + label {
+    position: absolute;
+    top: 0%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="PERSO_BTN"]:hover + label,
+[id="PERSO_BTN"]:active + label {
+    background: rgb(0,150,200);
+    outline: none;
+}
+[id="PERSO_BTN"]:checked + label:after,
+[id="PERSO_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#perso_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 5%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Perso Text */
+
+.perso_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Auto Button */
+
+[id="CAR_BTN"]:checked { display: none; }
+[id="CAR_BTN"]:checked + label,
+[id="CAR_BTN"]:not(:checked) + label {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    top: 10%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="CAR_BTN"]:hover + label,
+[id="CAR_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="CAR_BTN"]:checked + label:after,
+[id="CAR_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#car_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 15%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Auto Text */
+
+.car_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LKW Button */
+
+[id="LKW_BTN"]:checked { display: none; }
+[id="LKW_BTN"]:checked + label,
+[id="LKW_BTN"]:not(:checked) + label {
+    position: absolute;
+    top: 20%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="LKW_BTN"]:hover + label,
+[id="LKW_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="LKW_BTN"]:checked + label:after,
+[id="LKW_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#truck_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 25%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* LKW Text */
+
+.lkw_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Motorrad Button */
+
+[id="BIKE_BTN"]:checked { display: none; }
+[id="BIKE_BTN"]:checked + label,
+[id="BIKE_BTN"]:not(:checked) + label {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    top: 30%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="BIKE_BTN"]:hover + label,
+[id="BIKE_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="BIKE_BTN"]:checked + label:after,
+[id="BIKE_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#bike_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 35%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Motorrad Text */
+
+.bike_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flugzeug A Button */
+
+[id="PLANE_A_BTN"]:checked { display: none; }
+[id="PLANE_A_BTN"]:checked + label,
+[id="PLANE_A_BTN"]:not(:checked) + label {
+    position: absolute;
+    top: 40%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="PLANE_A_BTN"]:hover + label,
+[id="PLANE_A_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="PLANE_A_BTN"]:checked + label:after,
+[id="PLANE_A_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#planea_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 45%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Flugzeug A Text */
+
+.plane_a_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flugzeug B Button */
+
+[id="PLANE_B_BTN"]:checked { display: none; }
+[id="PLANE_B_BTN"]:checked + label,
+[id="PLANE_B_BTN"]:not(:checked) + label {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    top: 50%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="PLANE_B_BTN"]:hover + label,
+[id="PLANE_B_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="PLANE_B_BTN"]:checked + label:after,
+[id="PLANE_B_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#planeb_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 55%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Flugzeug B Text */
+
+.plane_b_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Helikopter Button */
+
+[id="HELICOPTER_BTN"]:checked { display: none; }
+[id="HELICOPTER_BTN"]:checked + label,
+[id="HELICOPTER_BTN"]:not(:checked) + label {
+    position: absolute;
+    top: 60%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="HELICOPTER_BTN"]:hover + label,
+[id="HELICOPTER_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="HELICOPTER_BTN"]:checked + label:after,
+[id="HELICOPTER_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#helicopter_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 65%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Helikopter Text */
+
+.helicopter_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Boot Button */
+
+[id="BOAT_BTN"]:checked { display: none; }
+[id="BOAT_BTN"]:checked + label,
+[id="BOAT_BTN"]:not(:checked) + label {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    top: 70%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="BOAT_BTN"]:hover + label,
+[id="BOAT_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="BOAT_BTN"]:checked + label:after,
+[id="BOAT_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#boat_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 75%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Boot Text */
+
+.boat_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Angelschein Button */
+
+[id="FISHER_BTN"]:checked { display: none; }
+[id="FISHER_BTN"]:checked + label,
+[id="FISHER_BTN"]:not(:checked) + label {
+    position: absolute;
+    top: 80%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="FISHER_BTN"]:hover + label,
+[id="FISHER_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="FISHER_BTN"]:checked + label:after,
+[id="FISHER_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#fisher_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 85%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Angelschein Text */
+
+.fisher_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Waffenschein Button */
+
+[id="WEAPON_BTN"]:checked { display: none; }
+[id="WEAPON_BTN"]:checked + label,
+[id="WEAPON_BTN"]:not(:checked) + label {
+    position: absolute;
+    background: rgba(0,0,0,0.3);
+    top: 90%;
+    height: 10%;
+    left: 0;
+    width: 50%;
+    font-family: arial;
+    font-size: 1.2vw;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+[id="WEAPON_BTN"]:hover + label,
+[id="WEAPON_BTN"]:active + label {
+    background: rgb(0, 150, 200);
+    outline: none;
+}
+[id="WEAPON_BTN"]:checked + label:after,
+[id="WEAPON_BTN"]:active + label:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    top: 0;
+    background: rgb(0,105,150);
+    color: white;
+    z-index: -1;
+}
+#weapon_icon {
+    position: absolute;
+    color: white;
+    font-size: 1vw;
+    top: 95%;
+    left: 2%;
+    transform: translate(-0%, -50%);
+}
+
+/* Waffenschein Text */
+
+.weapon_text {
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    top: 0;
+    height: 100%;
+    font-size: 1vw;
+    font-family: arial;
+    color: white;
+    word-break: break-all;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Kaufen Button */
+
+#buy_button {
+	position: absolute;
+    top: 100%;
+    height: 10%;
+    left: 50%;
+	width: 100%;
+    padding: 0;
+    font-size: 1.2vw;
+    cursor: pointer;
+    border-width: 0.15vw;
+    transform: translate(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Close Button */
+
+#close {
+    color: rgba(255,255,255,0.6);
+    font-family: arial;
+    right: 1.5%;
+    top: 1%;
+}
+#close:hover {
+    color: rgb(150,0,0);
+}
+
+/*------------------------------------------------------*/

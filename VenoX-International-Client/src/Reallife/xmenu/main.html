@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="wheelnav/raphael.min.js"></script>
+	<script type="text/javascript" src="wheelnav/raphael.icons.min.js"></script>
+	<script type="text/javascript" src="wheelnav/wheelnav.js"></script>
+	<script src="script.js"></script>
+	<link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<script>
+		if ("alt" in window) {
+			alt.on("XMenu:Open", (EntityTypeName) => { $("#main").removeClass("d-none"); createX(EntityTypeName); });
+			alt.on("XMenu:Close", () => { closeX(); $("#main").addClass("d-none"); });
+		}
+	</script>
+	<div id="main" class="d-nne">
+		<div id="xMenu">
+			<div style="fill: #3299BB; fill-opacity: 1;" id="piemenu" data-wheelnav data-wheelnav-slicepath='DonutSlice'
+				data-wheelnav-cssmode></div>
+			<span id="xTitle" class="MainXClass no-select">Schliessen</span>
+		</div>
+	</div>
+
+	<script>
+		createX('veh')
+	</script>
+</body>
+
+</body>
+
+</html>

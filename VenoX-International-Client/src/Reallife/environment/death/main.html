@@ -1,0 +1,28 @@
+<head>
+	<link rel="stylesheet" href="https://venox-international.com/Lib/Window/style.css" type="text/css" />
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="VnX-Window">
+		<div class="VnX-Header">Krankenhaus</div>
+		<div class="death_text1">Sollte dich kein Sanitäter wiederbeleben,<br>Du Respawnst ansonsten in 60 Sekunden
+		</div>
+		<div class="loading">
+			<span style="width: 100%"></span>
+		</div>
+	</div>
+	<script>
+		alt.on('Timer:Init', (Time) => {
+			$(".loading > span").each(function () {
+				$(this)
+					.data("origWidth", $(this).width())
+					.width(0)
+					.animate({
+						width: $(this).data("origWidth")
+					}, Time);
+			});
+		});
+	</script>
+</body>

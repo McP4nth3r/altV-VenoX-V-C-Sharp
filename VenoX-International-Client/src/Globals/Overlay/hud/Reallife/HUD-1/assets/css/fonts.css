@@ -1,0 +1,34 @@
+@font-face {
+  font-family: Montserrat-Regular;
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-ExtraBold.ttf'); 
+}
+
+@font-face {
+  font-family: Montserrat-Bold; 
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-Bold.ttf'); 
+}
+
+@font-face { 
+  font-family: Montserrat-BoldItalic;
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-BoldItalic.ttf'); 
+}
+
+@font-face {
+  font-family: Montserrat-SemiBold; 
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-SemiBold.ttf'); 
+}
+
+@font-face { 
+  font-family: Montserrat-ExtraBoldItalic;
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-ExtraBoldItalic.ttf'); 
+}
+
+@font-face { 
+  font-family: Montserrat-MediumItalic;
+  src: url('http://assets/VenoXAssets/fonts/montserrat/Montserrat-MediumItalic.ttf'); 
+}

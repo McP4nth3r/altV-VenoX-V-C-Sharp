@@ -1,0 +1,41 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://venox-international.com/Lib/Window/style.css">
+    <script>
+        if ("alt" in window) {
+            alt.on("Duty:Load", (Name, Neutral) => {
+                if (!Neutral) {
+                    $('.VnX-Header').html("Gang Duty");
+                    $('.duty_text').html("Wilkommen Gangler " + Name + "!<br><br><br>Hier kannst du deinen Gang Skin an/ausziehen");
+                }
+                else {
+                    $('.VnX-Header').html("Fraktion´s Skin");
+                    $('.duty_text').html("Hier kannst du deinen Fraktion Skin an/ausziehen");
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="VnX-Window !d-none" id="back">
+        <div class="VnX-Header" id="header"></div>
+        <div class="duty_text"></div>
+        <div class="VnX-Button" id="duty_button" onclick="TriggerSelectedButton('anziehen');">Anziehen</div>
+        <div class="VnX-Button" id="offduty_button" onclick="TriggerSelectedButton('ausziehen');">Ausziehen</div>
+        <div class="VnX-Close" id="close" onclick="CloseBadWindow()">X</div>
+    </div>
+    <script>
+        function TriggerSelectedButton(text) {
+            if ("alt" in window) {
+                alt.emit("duty_window_bad_btn_pressed", text);
+            }
+        }
+        function CloseBadWindow() {
+            if ("alt" in window) {
+                alt.emit("destroy_duty_window_bad");
+            }
+        }
+    </script>
+</body>

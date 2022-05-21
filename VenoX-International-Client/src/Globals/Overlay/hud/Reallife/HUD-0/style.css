@@ -1,0 +1,223 @@
+/*//----------------------------------//
+///// VenoX Gaming & Fun 2020 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------//*/
+
+@font-face { font-family: 'chibi';
+             src: url('./files/font/chibi_sans_serif_next_light.ttf') format('truetype'); }
+body{
+    overflow: hidden;
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+}
+
+.HUD_HEADER{
+    position: absolute;
+    right: -0.5vw;
+    width: 12vw;
+    height: 1.5vw;
+    top: 0.5vw;
+	transform: skew(-20deg);
+    background-color: rgba(0,0,0,0.8);
+    border-top: solid 0.05vw rgb(0,200,255,255);
+}
+
+.HUD_HEADER_TEXT{
+    position: absolute;
+    font-family: arial;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color:white;
+    font-size: 0.9vw;
+}
+
+.HUD_HEADER_ARMOR_BACKGROUND{
+    position: absolute;
+    top: 2.5vw;
+    right: -0.5vw;
+    width: 11vw;
+    height: 1.5vw;
+    background: rgba(0,0,0,0.8);
+    transform: skew(-20deg);
+}
+.HUD_HEADER_ARMOR_BAR{
+    position: absolute;
+    text-align: center;
+    background-color: rgb(0,150,200,0.8);
+    height: 85%;
+    width: 80%;
+    left: 0.1vw;
+    top: 0.1vw;
+    font-family: arial;
+}
+
+.HUD_HEADER_HEALTH_BACKGROUND{
+    position: absolute;
+    top: 4.5vw;
+    right: -0.5vw;
+    width: 11vw;
+    height: 1.5vw;
+    background: rgba(0,0,0,0.8);
+    transform: skew(-20deg);
+}
+.HUD_HEADER_HEALTH_BAR{
+    position: absolute;
+    text-align: center;
+    background-color: rgb(150,0,0,0.8);
+    width: 30%;
+    left: 0.1vw;
+    top: 0.1vw;
+    height: 85%;
+    font-family: arial;
+}
+
+.HUD_HEADER_HUNGER_BACKGROUND{
+    position: absolute;
+    top: 6.5vw;
+    right: -0.5vw;
+    width: 11vw;
+    height: 1.5vw;
+    background: rgba(0,0,0,0.8);
+    transform: skew(-20deg);
+}
+.HUD_HEADER_HUNGER_BAR{
+    position: absolute;
+    text-align: center;
+    background-color: rgb(255,200,0,0.8);
+    height: 85%;
+    width: 100%;
+    left: 0.1vw;
+    top: 0.1vw;
+    font-family: arial;
+}
+
+
+.HUD_STATS_TEXT{
+    position: absolute;
+    color: white;
+    left: 50%;
+    font-family: cursive;
+    font-size: 0.8vw;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.HUD_STATS_IMAGE{
+    position: absolute;
+    right: 0.8vw;
+    top: 0.25vw;
+    width: 1vw;
+    height: 1vw;
+}
+
+
+.HUD_HEADER_FACTION{
+    position: absolute;
+    right: 13vw;
+    top: 0.5vw;
+    background-image: url(files/images/2.png);
+    background-size: contain;
+    width: 3vw;
+    height: 3vw;
+}
+
+
+
+.HUD_BOTTOM_BAR{
+    position: absolute;
+    font-family: arial;
+    font-weight: bold;
+    background-color: rgb(0,0,0,0.8);
+    right: 0.1vw;
+    top: 8.5vw;
+    height: 1.5vw;
+    text-align: right;
+    width: 11.5vw;
+    transform: skew(-20deg);
+}
+
+
+.HUD_BOTTOM_MONEY{
+    position: absolute;
+    font-family: arial;
+    font-weight: bold;
+    color: white;
+    right: 0.2vw;
+    font-size: 1vw;
+    text-align: right;
+    top: 0.2vw;
+}
+
+.HUD_BOTTOM_VOICE{
+    position: absolute;
+    width: 1.8vw;
+    height: 1.4vw;
+    top: 0.05vw;
+    left: 0.5vw;
+}
+
+
+.HUD_WANTEDS{
+    position: absolute;
+    right: -0.5vw;
+    width: 11.5vw;
+    height: 1.4vw;
+    top: 10.5vw;
+    transform: skew(-20deg);
+}
+
+
+
+/* Stripes Code */
+.stripes {
+    background-size: 30px 30px;
+    background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, .15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, .15) 50%,
+        rgba(255, 255, 255, .15) 75%,
+        transparent 75%,
+        transparent
+    );
+}
+
+.stripes.animated {
+  animation: animate-stripes 0.6s linear infinite;
+}
+
+.stripes.animated.slower {
+  animation-duration: 1.25s;
+}
+
+.stripes.reverse {
+  animation-direction: reverse;
+}
+
+
+@keyframes animate-stripes {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 60px 0;
+    }
+}
+
+@keyframes auto-progress {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}

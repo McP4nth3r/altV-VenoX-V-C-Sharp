@@ -1,0 +1,589 @@
+/*----------------------------------//
+///// VenoX Gaming & Fun 2019 © ///////
+//////By Solid_Snake & VnX RL Crew////
+////////www.venox-reallife.com////////
+//----------------------------------*/
+
+@font-face { font-family: 'drugs';
+             src: url("files/font/Caviar-Dreams.ttf") format('truetype'); }
+@font-face { font-family: 'robot';
+             src: url('files/font/Roboto-Thin.ttf') format('truetype'); }
+ 
+.all {
+    -ms-user-select: None; 
+    -moz-user-select: None; 
+    -webkit-user-select: None; 
+}
+
+.back {
+	background: rgba(5, 5, 5, 0.8);
+	position: absolute;
+	width: 38vw;
+	height: 37vw;
+    border-radius: 0.3vw;
+    top: 8vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.blue_header {
+	background: rgba(0, 150, 200, 0.8);
+	position: absolute;
+	width: 38vw;
+	height: 0.3vw;
+    border-radius: 0.8vw;
+    top: 8vw;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+
+.text_head {
+	background: rgba(10, 10, 10, 0.4);
+	position: absolute;
+	color: rgba(225,225,225,1);
+	width: 38vw;
+	font-size: 1.5vw;
+	font-family: sans-serif;
+    top: 8.4vw;
+    left: 50%;
+    transform: translate(-50%);
+    font-family: drugs;
+}
+
+
+
+
+
+/* Nightstick*/
+
+#nightstick{
+    position:absolute;
+    left: 33.15%;
+    width: 9vw;
+    height: 3vw;
+    top: 14vw;
+}
+
+
+.get_nightstick {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 17.75vw;
+    left: 33%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_nightstick:hover, .get_nightstick:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+
+/* Tazer*/ 
+
+
+#stungun{
+    position:absolute;
+    left: 46%;
+    width: 10vw;
+    height: 4vw;
+    top: 13.50vw;
+}
+
+.get_stungun {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 17.75vw;
+    left: 46%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_stungun:hover, .get_stungun:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+/* pistol */
+
+
+
+#pistol{
+    position:absolute;
+    left: 60.50%;
+    width: 8w;
+    height: 4vw;
+    top: 13.50vw;
+}
+
+.get_pistol {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 17.75vw;
+    left: 59%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_pistol:hover, .get_pistol:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+
+/* Pistol 50 */
+#pistol50{
+    position:absolute;
+    left: 34.50%;
+    width: 8w;
+    height: 4vw;
+    top: 24vw;
+}
+.get_pistol50 {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 33%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+.get_pistol50:hover, .get_pistol50:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+/* Locked*/
+#pistol50_locked_background{
+	position:absolute;
+    left: 33%;
+    width: 9vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+#pistol50_locked_lock{
+	position:absolute;
+    left: 35%;
+    width: 5vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+.get_pistol50_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(40, 40,40, 0.0);
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 33%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+
+/* PumpShotgun*/
+
+#pumpshotgun{
+    position:absolute;
+    left: 46%;
+    width: 9vw;
+    height: 3vw;
+    top: 24.5vw;
+}
+
+.get_pumpshotgun {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 46%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_pumpshotgun:hover, .get_pumpshotgun:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+/* Locked*/
+#pumpshotgun_locked_background{
+	position:absolute;
+    left: 46%;
+    width: 9vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+#pumpshotgun_locked_lock{
+	position:absolute;
+    left: 48.25%;
+    width: 5vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+.get_pumpshotgun_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 45.90%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+
+
+
+/* CombatPDW*/
+
+
+#combatpdw{
+    position:absolute;
+    left: 59%;
+    width: 9vw;
+    height: 3vw;
+    top: 24.5vw;
+}
+
+.get_combatpdw {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 59%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_combatpdw:hover, .get_combatpdw:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+/* Locked*/
+#combatpdw_locked_background{
+	position:absolute;
+    left: 59%;
+    width: 9vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+#combatpdw_locked_lock{
+	position:absolute;
+    left: 61.25%;
+    width: 5vw;
+    height: 5vw;
+    top: 23.5vw;
+}
+.get_combatpdw_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 28.75vw;
+    left: 59%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+
+
+
+/*carbiner*/
+
+#carbiner{
+    position:absolute;
+    left: 33.25%;
+    width: 8.5vw;
+    height: 4vw;
+    top: 34vw;
+}
+
+
+.get_carbiner {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 38.75vw;
+    left: 33%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_carbiner:hover, .get_carbiner:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+
+/* Locked*/
+#carbiner_locked_background{
+	position:absolute;
+    left: 33%;
+    width: 9vw;
+    height: 5vw;
+    top: 34vw;
+}
+#carbiner_locked_lock{
+	position:absolute;
+    left: 35%;
+    width: 5vw;
+    height: 5vw;
+    top: 34vw;
+}
+.get_carbiner_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(40, 40,40, 0.0);
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 38.75vw;
+    left: 33%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+
+
+
+
+
+
+
+/*advancedrifle*/
+#advancedrifle{
+    position:absolute;
+    left: 46%;
+    width: 9vw;
+    height: 3vw;
+    top: 34vw;
+}
+
+.get_advancedrifle {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 38.75vw;
+    left: 46%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_advancedrifle:hover, .get_advancedrifle:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+
+/* Locked*/
+#advancedrifle_locked_background{
+	position:absolute;
+    left: 46%;
+    width: 9vw;
+    height: 5vw;
+    top: 34vw;
+}
+#advancedrifle_locked_lock{
+	position:absolute;
+    left: 48.25%;
+    width: 5vw;
+    height: 5vw;
+    top: 34vw;
+}
+.get_advancedrifle_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 38.90vw;
+    left: 45.90%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+
+
+
+
+
+
+
+
+/*sniperrifle*/
+
+#sniperrifle{
+    position:absolute;
+    left: 59%;
+    width: 9vw;
+    height: 3vw;
+    top: 34vw;
+}
+
+.get_sniperrifle {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	background: rgba(0, 105,145, 0.8);
+	color: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: all ease 0.25s;
+    top: 38.75vw;
+    left: 59%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+.get_sniperrifle:hover, .get_sniperrifle:active {
+    position: absolute;
+	background: rgba(0, 150, 200, 1);
+	color: rgba(225,225,225,1);
+}
+/* Locked*/
+#sniperrifle_locked_background{
+	position:absolute;
+    left: 59%;
+    width: 9vw;
+    height: 5vw;
+    top: 34vw;
+}
+#sniperrifle_locked_lock{
+	position:absolute;
+    left: 61.25%;
+    width: 5vw;
+    height: 5vw;
+    top: 34vw;
+}
+.get_sniperrifle_locked {
+	position: absolute;
+	width: 9vw;
+    padding: 0.6vw 0vw;
+	color: rgba(255, 255, 255, 1);
+	transition: all ease 0.25s;
+    top: 38.75vw;
+    left: 59%;
+    transform: matrix(-50%);
+    font-size: 1vw;
+    font-family: robot;
+	text-align:center;
+}
+
+#mag_info{
+	background: rgba(5, 5, 5, 0.8);
+	position: absolute;
+	width: 12vw;
+	height: 15vw;
+    border-radius: 0.3vw;
+    top: 28vw;
+    left: 75.5%;
+	color: white;
+	font-family: robot;
+	font-size: 15;
+    transform: translate(-50%);
+}
+
+
+
+
+.close {
+	position: absolute;
+    height: auto;
+	color: darkgray;
+	cursor: pointer;
+	transition: all ease 0ss;
+    font-family: sans-serif;
+    font-weight: normal;
+    font-size: 1.2vw;
+    top: 8.6vw;
+    left: 67.75%;
+    transform: translate(-50%);
+}
+.close:hover, .close:active {
+    position: absolute;
+	outline: none;
+	color: darkred;
+    font-weight: bold;
+}
+
+.d-none {
+    display: none !important
+}
+ 

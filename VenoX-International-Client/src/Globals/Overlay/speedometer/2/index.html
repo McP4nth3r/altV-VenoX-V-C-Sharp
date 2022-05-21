@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8" />
+	<!-- External CSS libraries -->
+	<link type="text/css" rel="stylesheet" href="assets/css/style.css">
+	<link type="text/css" rel="stylesheet" href="assets/css/fonts.css">
+</head>
+
+<body>
+	<div class="container-box">
+		<div class="box">
+			<svg viewBox="0 0 600 380">
+				<defs>
+					<filter id="blur3">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+					</filter>
+
+					<filter id="blur2">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+					</filter>
+
+					<filter id="blur1">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+					</filter>
+
+					<filter id="ShadowFuel">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+						<feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#808080" />
+					</filter>
+
+					<filter id="shadowRed">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+						<feDropShadow dx="-6" dy="0" stdDeviation="6" flood-color="#ed5446" />
+					</filter>
+
+					<filter id="shadow">
+						<feDropShadow dx="0" dy="0" stdDeviation="1" flood-color="#000000" />
+					</filter>
+
+					<filter id="shadowSpeed">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+					</filter>
+
+				</defs>
+
+
+				<path id="fuel" d="M 225,340 a190,190 0 1,1 317,0" filter="url(#ShadowFuel)" />
+				<path id="fuelProgress" d="M 225,340 a190,190 0 1,1 317,0" filter="url(#blur1)" />
+
+				<path id="redZone1" d="M 300,350 a150,150 0 1,1 195,0" filter="url(#shadowRed)" />
+				<path id="redZone2" d="M 300,350 a150,150 0 1,1 195,0" filter="url(#shadowRed)" />
+
+				<path id="speedProgress" d="M 300,350 a150,150 0 1,1 195,0" filter="url(#blur3)" />
+				<path id="speedProgressShadow" d="M 306.5,342 a140,140 0 1,1 183,0" filter="url(#shadowSpeed)" />
+
+
+				<path id="backgroundKM" d="M 300,350 a150,150 0 1,1 195,0" filter="url(#blur2)" />
+				<path id="sm" d="M 300,350 a150,150 0 1,1 195,0" />
+				<path id="km" d="M 300,350 a150,150 0 1,1 195,0" />
+
+				<path id="arrow" d="M 397,346.5 a110,110 0 1,1 1,0" filter="url(#blur2)" />
+
+				<text id=" speed" x="396" y="250" class="svgText speed shadow">093</text>
+				<text x="377" y="266" class="kmh shadow">KM/H</text>
+				<text id="mileage" x="398" y="315" class="svgText probeg shadow">0.0000km</text>
+				<text id="fuelRate" x="200" y="376" class="svgText fuelSpan">150L</text>
+
+				<text x="379" y="155" class="rpm shadow">RPM</text>
+				<text x="378" y="167" class="x1000 shadow">X1000</text>
+
+				<text x="312" y="338" class="number shadow">0</text>
+				<text x="276" y="287" class="number shadow">1</text>
+				<text x="268" y="226" class="number shadow">2</text>
+				<text x="290" y="171" class="number shadow">3</text>
+				<text x="332" y="131" class="number shadow">4</text>
+				<text x="392" y="117" class="number shadow">5</text>
+				<text x="450" y="131" class="number shadow">6</text>
+				<text x="494" y="171" class="number shadow">7</text>
+				<text x="515" y="226" class="number shadow">8</text>
+				<text x="508" y="287" class="number shadow">9</text>
+				<text x="469" y="338" class="number shadow">10</text>
+
+				<image href="http://assets/VenoXAssets/images/overlay/speedometer/2/oil.png" filter="url(#shadow)" x="232" y="353" height="30px" width="30px" />
+				<image id="engine" href="http://assets/VenoXAssets/images/overlay/speedometer/2/engineOff.png" x="311" y="360" height="30px" width="30px" />
+				<image id="door" href="http://assets/VenoXAssets/images/overlay/speedometer/2/doorClose.png" x="358" y="361" height="30px" width="30px" />
+				<image id="headlight" href="http://assets/VenoXAssets/images/overlay/speedometer/2/headlightOff.png" x="406" y="362" height="30px"
+					width="30px" />
+				<image id="safetybelt" href="http://assets/VenoXAssets/images/overlay/speedometer/2/beltOff.png" x="455" y="363" height="30px" width="30px" />
+
+			</svg>
+		</div>
+	</div>
+	<!-- External JS libraries -->
+	<script type="text/javascript" src="assets/js/speedometer.js"></script>
+</body>
+
+</html>

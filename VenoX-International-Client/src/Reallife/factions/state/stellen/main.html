@@ -1,0 +1,25 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://venox-international.com/Lib/Window/style.css">
+</head>
+
+<body>
+    <div class="VnX-Window" id="back">
+        <div class="VnX-Header" id="header">Los Santos Police Department</div>
+        <div class="stellen_text">Wilkommen im Los Santos Police Department,<br><br>bei uns kannst du dich Stellen falls du gesucht wirst,<br><br>dadurch erhälst du eine geringere Strafe.</div>
+        <div class="VnX-Button" id="button"  onclick="ButtonPressed()">Stellen</div>
+        <div class="VnX-Close" id="close" onclick="CloseStateWindow()">X</div>
+    </div>
+	<script>
+        if ("alt" in window) {
+            function ButtonPressed() {
+                alt.emit("ButtonPressed");
+            }
+            function CloseStateWindow() {
+                alt.emit("destroyStellenWindow");
+            }
+            
+        }
+    </script>
+</body>

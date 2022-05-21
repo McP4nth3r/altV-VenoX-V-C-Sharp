@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "VenoXV": {
-      "commandName": "Executable",
-      "executablePath": "C:\\altv-server_DEBUG\\altv-server.exe",
-      "workingDirectory": "C:\\altv-server_DEBUG"
-    }
-  }
-}
