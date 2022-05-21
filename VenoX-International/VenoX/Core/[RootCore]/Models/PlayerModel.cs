@@ -149,6 +149,7 @@ namespace VenoX.Core._RootCore_.Models
         public bool LoggedInWithShaPassword { get; set; }
 
         
+        /*
         public sealed override Position Position
         {
             get => base.Position;
@@ -160,8 +161,9 @@ namespace VenoX.Core._RootCore_.Models
             get => base.Dimension;
             set => base.Dimension = value;
         }
+        */
         
-        public VnXPlayer(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
+        public VnXPlayer(ICore server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             try
             {
@@ -206,6 +208,6 @@ namespace VenoX.Core._RootCore_.Models
     }
     public class MyPlayerFactory : IEntityFactory<IPlayer>
     {
-        public IPlayer Create(IServer server, IntPtr entityPointer, ushort id) => new VnXPlayer(server, entityPointer, id);
+        public IPlayer Create(ICore server, IntPtr entityPointer, ushort id) => new VnXPlayer(server, entityPointer, id);
     }
 }

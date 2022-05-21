@@ -55,8 +55,8 @@ namespace VenoX.Core._Discord_
         private async Task HandleCommandAsync(SocketMessage arg)
         {
             SocketUserMessage message = arg as SocketUserMessage;
+            if (message != null && message.Author.IsBot) return;
             SocketCommandContext context = new SocketCommandContext(_client, message);
-            if (message.Author.IsBot) return;
 
             int argPos = 0;
             if (message.HasStringPrefix("!", ref argPos))

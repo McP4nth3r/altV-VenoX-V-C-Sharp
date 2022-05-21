@@ -5,12 +5,11 @@
 //----------------------------------//
 
 import * as alt from 'alt-client';
-import * as game from "natives";
 import { vnxCreateCEF, vnxDestroyCEF } from '../../Globals/VnX-Lib';
 
-let ZombieBrowser;
+let ZombieBrowser: alt.WebView;
 
-alt.onServer('Zombies:CreateHUD', (level) => {
+alt.onServer('Zombies:CreateHUD', level => {
     if (ZombieBrowser) return;
     ZombieBrowser = vnxCreateCEF('ZombieHUD', 'Zombies/HUD/index.html');
     alt.setTimeout(() => {
@@ -26,8 +25,5 @@ alt.onServer('Zombies:DestroyHUD', () => {
 
 alt.on('syncedMetaChange', (Entity, key, value, oldValue) => {
     if (!ZombieBrowser) return;
-    if (Entity == alt.Player.local) {
-        if (key == 'ZOMBIE_KILLS')
-            ZombieBrowser.emit('UpdateZombieKills', value);
-    }
+    if (Entity == alt.Player.local) if (key == 'ZOMBIE_KILLS') ZombieBrowser.emit('UpdateZombieKills', value);
 });

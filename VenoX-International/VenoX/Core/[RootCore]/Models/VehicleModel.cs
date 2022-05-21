@@ -86,10 +86,10 @@ namespace VenoX.Core._RootCore_.Models
 
         public List<VnXPlayer> Passenger = new List<VnXPlayer>();
 
-        public VehicleModel(IServer server, uint model, Position position, Rotation rotation) : base(server, model, position, rotation)
+        public VehicleModel(ICore server, uint model, Position position, Rotation rotation) : base(server, model, position, rotation)
         {
         }
-        public VehicleModel(IServer server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
+        public VehicleModel(ICore server, IntPtr nativePointer, ushort id) : base(server, nativePointer, id)
         {
             Plate = "alt-V";
             Locked = true;
@@ -110,7 +110,7 @@ namespace VenoX.Core._RootCore_.Models
     public class MyVehicleFactory : IEntityFactory<IVehicle>
     {
 
-        public IVehicle Create(IServer server, IntPtr entityPointer, ushort id)
+        public IVehicle Create(ICore server, IntPtr entityPointer, ushort id)
         {
             try
             {

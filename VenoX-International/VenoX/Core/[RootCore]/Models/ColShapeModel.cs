@@ -15,7 +15,12 @@ namespace VenoX.Core._RootCore_.Models
         public bool NeutralSkinCol { get; set; }
         public string ActionCol { get; set; }
         public bool MarkedForDelete { get; set; }
-        public ColShapeModel(IServer server, IntPtr nativePointer) : base(server, nativePointer)
+
+        public ColShapeModel(ICore core, IntPtr nativePointer) : base(core, nativePointer)
+        {
+        }
+
+        public ColShapeModel(ICore core, IntPtr nativePointer, BaseObjectType baseObjectType) : base(core, nativePointer, baseObjectType)
         {
             Faction = 0;
             GangSkinCol = false;
@@ -26,7 +31,7 @@ namespace VenoX.Core._RootCore_.Models
     }
     public class MyColShapeFactory : IBaseObjectFactory<IColShape>
     {
-        public IColShape Create(IServer server, IntPtr baseObjectPointer)
+        public IColShape Create(ICore server, IntPtr baseObjectPointer)
         {
             try
             {

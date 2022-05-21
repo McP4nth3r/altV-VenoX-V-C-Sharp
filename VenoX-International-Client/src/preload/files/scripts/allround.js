@@ -136,15 +136,15 @@ setTimeout(() => {
     addGamemode(7, '7 - Towers', 'Lobby', './files/images/Towers.jpg', './files/images/Towers_hover.jpg', './files/sounds/towers.mp3');
 
     /* lobbys */
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Berlin', 0, 0, '0 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-New York', 0, 1, '10 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Moscow', 0, 2, '10 / 20');
-    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Tokyo', 0, 3, '30 / 50');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Berlin', 1, 0, '0 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-New York', 1, 1, '10 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Moscow', 1, 2, '10 / 20');
+    AddLobbyToGamemode(0, 'files/images/zombies_icon.png', 'Zombies-Tokyo', 1, 3, '30 / 50');
 
-    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', 1, 6, '253 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 1, 0, '40 / 700');
-    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 1, 1, '54 / 500');
-    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 1, 4, '84 / 600');
+    AddLobbyToGamemode(1, 'files/images/flag-ru.png', '[RU] Alpha', 0, 6, '253 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-de.png', '[DE] Charlie', 0, 0, '40 / 700');
+    AddLobbyToGamemode(1, 'files/images/flag-us.png', '[EN] Gamma', 0, 1, '54 / 500');
+    AddLobbyToGamemode(1, 'files/images/flag-es.png', '[ES] Delta', 0, 4, '84 / 600');
 
     AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Alpha', 2, 0, '0 / 20');
     AddLobbyToGamemode(2, 'files/images/tactics_icon.png', 'TDM-Beta', 2, 1, '10 / 20');

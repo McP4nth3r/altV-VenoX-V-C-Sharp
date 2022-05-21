@@ -12,7 +12,7 @@
         "module": "ES6",
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "typeRoots": ["node_modules/@types"]
+        "typeRoots": ["./node_modules/@types", "./node_modules/@altv/*"]
     },
     "include": ["src/*"],
     "exclude": ["node_modules", "**/*.spec.ts", "build", "**/*.json"]

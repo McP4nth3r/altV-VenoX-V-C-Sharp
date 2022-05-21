@@ -63,8 +63,6 @@ alt.onServer(
     }
 );
 
-alt.onServer('LoadingScreen:ShowPreload', (state: boolean) => {
-    alt.setTimeout(() => preloadbrowser.emit('LoadingScreen:ShowPreload', state), 500);
-});
+alt.onServer('LoadingScreen:ShowPreload', (state: boolean) => alt.setTimeout(() => preloadbrowser.emit('LoadingScreen:ShowPreload', state), 500));
 
 alt.onServer('Preload:UpdateDownloadState', (EventText: any) => preloadbrowser.emit('LoadingScreen:UpdateCurrentState', EventText));

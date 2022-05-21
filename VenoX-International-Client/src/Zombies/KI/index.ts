@@ -321,7 +321,7 @@ function DrawNametags() {
     }
 }
 
-function SetZombieCorrectSkin(zombieEntity: number | alt.Player, RandomSkinUID: number) {
+function SetZombieCorrectSkin(zombieEntity: number, RandomSkinUID: number) {
     RandomSkinUID = RandomSkinUID;
     if (!ZombieSkins[RandomSkinUID]) return;
     let facefeaturesarray = ZombieSkins[RandomSkinUID].FaceFeatures;
@@ -447,7 +447,7 @@ function SpawnZombie(Id: number, RandomSkinUID: number, Hash: string | number, P
         TargetEntity: Target,
         MoveTime: null,
     };
-    game.freezeEntityPosition(Zombies[Id].Entity, true);
+    game.freezeEntityPosition(Zombies[Id].Entity, false);
     SetZombieCorrectSkin(Zombies[Id].Entity, RandomSkinUID);
     SetZombieAttributes(Zombies[Id].Entity);
     //});

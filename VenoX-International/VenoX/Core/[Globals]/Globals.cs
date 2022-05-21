@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AltV.Net;
 using AltV.Net.Async;
+using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using AltV.Net.Resources.Chat.Api;
 using VenoX.Core._Gamemodes_.Reallife.gangwar;
@@ -208,7 +209,7 @@ namespace VenoX.Core._Globals_
                 //Core._Gamemodes_.Reallife.Woltlab.Program.CreateForumUser(null, "DimaIsABratan", "123321", "123321");
                 Program.OnResourceStart();
 
-                /*Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Starting VenoX Bot...");
                 //await _Discord_.Startup.RunAsync();
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -222,7 +223,7 @@ namespace VenoX.Core._Globals_
                     "Already made experience in alt:V : Yes or No.\n```",
                     Discord.Color.Blue, null);
                 Console.WriteLine("Started VenoX Bot.");
-                */
+                
 
             }
             catch (Exception ex) { ExceptionHandling.CatchExceptions(ex); }
@@ -379,12 +380,21 @@ namespace VenoX.Core._Globals_
         {
             try
             {
-                source.VnxSetStreamSharedElementData("PLAYER_HEALTH", source.Health);
-                source.VnxSetStreamSharedElementData("PLAYER_ARMOR", source.Armor);
+                source?.VnxSetStreamSharedElementData("PLAYER_HEALTH", source.Health);
+                source?.VnxSetStreamSharedElementData("PLAYER_ARMOR", source.Armor);
                 _RootCore_.VenoX.TriggerClientEvent(source, "Globals:ShowBloodScreen");
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
+        [ScriptEvent(ScriptEventType.PlayerBeforeConnect)]
+        public void onPlayerBeforeConnect(PlayerConnectionInfo connectionInfo)
+        {
+            Alt.Log(connectionInfo + "" );
+        }
+        
 
         [VenoXRemoteEvent("Discord:Auth")]
         public static void LoadDiscordInformations(VnXPlayer player, bool isOpen, string id, string name, string avatar, string discriminator)
@@ -606,16 +616,19 @@ namespace VenoX.Core._Globals_
         }
 
 
-        public static void SavePlayerDatas(VnXPlayer player)
+        public static async void SavePlayerDatas(VnXPlayer player)
         {
             try
             {
-                Database.SaveCharacterInformation(player);
+                await Database.SaveCharacterInformation(player);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
-        public static void SaveVehicleDatas()
+        private static void SaveVehicleDatas()
         {
             try
             {
@@ -625,7 +638,7 @@ namespace VenoX.Core._Globals_
                 {
                     if (vehicle.Owner != null)
                     {
-                        if (vehicle.IsTestVehicle != true && vehicle.Faction == 0 && vehicle.NotSave && vehicle.Dimension == 0)
+                        if (!vehicle.IsTestVehicle && vehicle.Faction == 0 && vehicle.NotSave && vehicle.Dimension == 0)
                         {
                             // Add IVehicle into the list
                             vehicleList.Add(vehicle);
