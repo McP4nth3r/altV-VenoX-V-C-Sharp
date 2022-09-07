@@ -8,6 +8,7 @@ Its a total mess.. but we loved this mess.
 ## a big thanks to : 
 
 - Heron, the Person which helped me all these years and teached me more stuff.
+- Bonus, for helping me with WBB Sync and many more stuff.
 - Dzeknjak, the Person which helped by Contributing to SevenTowers Gamemode & Helping on the Loading-screen.
 - Hazard, the Person which helped on VenoX Global Systems Screenshot API & Seventowers code ( Kotlin & C# ). 
 - Dima, which helped me with Designs & Frontend Stuff.
