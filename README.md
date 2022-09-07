@@ -13,6 +13,7 @@ Its a total mess.. but we loved this mess.
 - Dima, which helped me with Designs & Frontend Stuff.
 - Puppie, for creating a VenoX Control Panel.
 - Solutionside, for helping & contributing us, even if sometimes things goes hard, he was there!
+- Folienkleber, for helping & contributing to VenoX Tactics (tastis).
 - And many other great People which helped us - Thank you for more than 7 YEARS of VenoX ♥.
 
 Thank you all ♥
