@@ -1,5 +1,6 @@
 # altV-VenoX-V-C-Sharp
 # NO SUPPORT - NO QUESTIONS PLEASE
+# VenoX Discord : https://discord.gg/EuZnkrf
 
 
 This is our old VenoX-V Project.
