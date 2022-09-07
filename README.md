@@ -4,6 +4,7 @@
 
 This is our old VenoX-V Project.
 Its a total mess.. but we loved this mess.
+Don't forget to give a star⭐... even if its bad code.. just for 900+ commits lmao😂
 
 ## a big thanks to : 
 
